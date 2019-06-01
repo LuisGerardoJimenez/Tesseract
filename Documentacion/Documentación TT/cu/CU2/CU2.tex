@@ -1,0 +1,50 @@
+	\begin{UseCase}{CU2}{Gestionar proyectos de Administrador}{
+			
+		Permite al \hyperlink{admin}{Administrador} realizar las acciones necesarias para controlar los proyectos que han sido previamente registrados en el sistema, como lo son visualizar el listado de los proyectos, registrar un nuevo proyecto, modificarlo o eliminarlo.
+		
+		La gestión está disponible en cualquier estado en el que se encuentre el proyecto con base en el  \hyperlink{edoProy}{Modelo de estados del proyecto}.
+				
+	}
+		\UCitem{Versión}{\color{Gray}0.1}
+		\UCitem{Actor}{\hyperlink{admin}{Administrador}}
+		\UCitem{Propósito}{Proporcionar al actor un mecanismo para llevar el control de los proyectos.}
+		\UCitem{Entradas}{Ninguna}
+		\UCitem{Salidas}{\begin{itemize}
+				\item \hyperlink{proyectoEntidad}{Proyecto}: Tabla que muestra la \cdtRef{proyectoEntidad:claveProyecto}{clave}, \cdtRef{proyectoEntidad:nombreProyecto}{nombre} y el \cdtRef{proyectoEntidad:liderProyecto}{Líder de Proyecto} de todos los proyectos existentes.
+		\end{itemize}}
+		\UCitem{Destino}{Pantalla}
+		\UCitem{Precondiciones}{
+			\begin{itemize}
+				\item Que el usuario haya iniciado sesión como \hyperlink{admin}{Administrador}.
+			\end{itemize}	
+		}
+		\UCitem{Postcondiciones}{Ninguna}
+		\UCitem{Errores}{\begin{itemize}
+		\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} cuando no existen proyectos registrados
+		\end{itemize}
+		}
+		\UCitem{Tipo}{Caso de uso primario}
+	\end{UseCase}
+%--------------------------------------
+	\begin{UCtrayectoria}
+		\UCpaso[\UCactor] Solicita gestionar los proyectos presionando la opción ''Proyectos'' del menú \IUref{MN1}{Menú de Administrador}.
+		\UCpaso[\UCsist] Obtiene la información de los proyectos registrados en cualquier estado. \hyperlink{CU2:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Ordena los proyectos alfabéticamente.
+		\UCpaso[\UCsist] Muestra la información de los proyectos en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador}. \label{P3}
+		\UCpaso[\UCactor] Gestiona los proyectos a través de los botones: \IUbutton{Registrar}, \editar  y \eliminar. 
+	\end{UCtrayectoria}		
+%--------------------------------------
+	\hypertarget{CU2:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} No existen registros de proyectos.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} para indicar que no hay registros de proyectos para mostrar.
+	\UCpaso[\UCactor] Gestiona los proyectos a través del botón: \IUbutton{Registrar}.
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
+%--------------------------------------
+
+\subsubsection{Puntos de extensión}
+
+\UCExtenssionPoint{El actor requiere registrar un proyecto.}{Paso \ref{P3} de la trayectoria principal.}{\UCref{CU2.1}{Registrar Proyecto}}
+\UCExtenssionPoint{El actor requiere modificar un proyecto.}{Paso \ref{P3} de la trayectoria principal.}{\UCref{CU2.2}{Modificar Proyecto}}
+\UCExtenssionPoint{El actor requiere eliminar un proyecto.}{Paso \ref{P3} de la trayectoria principal.}{\UCref{CU2.3}{Eliminar Proyecto}}
