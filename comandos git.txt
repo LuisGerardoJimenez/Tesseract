@@ -1,0 +1,24 @@
+Mostrar el estatus del repo local
+ git status
+
+Descargar desde el repositorio de desarrollo
+ git pull origin dev
+
+Crear Branch
+ git checkout -b Nombre_de_la_branch
+
+Agregar documentos (el punto es todo)
+ git add .
+
+Hacer commit local
+ git commit -am "Mensaje"
+
+Hacer el commit al repositorio
+ git push
+
+
+status 
+commit 
+status 
+pull
+push
