@@ -48,7 +48,7 @@
 		value="tesseract" />
 
 	<!-- Permite visualizar el modo de desarrollo de struts2 -->
-	<constant name="struts.devMode" value="false" />
+	<constant name="struts.devMode" value="true" />
 
 	<!-- Permite definir mas de un ActionMapper, si el primero no obtiene una 
 		respuesta correcta, se utilizará el siguiente mapper -->

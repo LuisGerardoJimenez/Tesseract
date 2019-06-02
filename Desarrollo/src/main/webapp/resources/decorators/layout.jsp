@@ -19,7 +19,7 @@
 	href="${pageContext.request.contextPath}/resources/DataTables-1.10.7/media/css/jquery.dataTables.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/jquery.atwho.css" />
-<s:url id="urlRutaContexto" includeParams="none"
+<s:url var="urlRutaContexto" includeParams="none"
 	value="%{pageContext.request.contextPath}/resources/template/themes"
 	includeContext="true" />
 <sj:head debug="false" jqueryui="true" jquerytheme="smoothness-prisma"
@@ -41,9 +41,9 @@
 		<div class="menuPrincipal">
 			<s:if test="#session != null">
 				<s:if test="#session.login == true">
-					<s:set name="id" value="#session.id"></s:set>
+					<s:set var="id" value="#session.id"> </s:set>
 					<s:set var="perfil">/pages/<s:property
-							value="@mx.tesseract.controller.AccessCtrl@getMenu()" />.jsp</s:set>
+							value="@mx.tesseract.action.AccessAct@getMenu()" />.jsp</s:set>
 					<jsp:include page="${perfil}" />
 				</s:if>
 			</s:if>

@@ -11,11 +11,11 @@ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
 		<!-- Se ocupa este driver para hacer el log de las sentencias completas 
 			enviadas a la BD, esta propiedad solo debe ser usada en entornos de desarrollo -->
-		 <property name="driverClass" value="com.p6spy.engine.spy.P6SpyDriver" 
-			/> 
+		<!-- <property name="driverClass" value="com.p6spy.engine.spy.P6SpyDriver" 
+			/> -->
 		<!-- Propiedad que debe reemplazar la anterior en entornos de producción, 
 			en específico Tomcat -->
-		<!-- <property name="driverClass" value="${jdbc.driverClassName}" /> -->
+		<property name="driverClass" value="${jdbc.driverClassName}" />
 
 		<property name="jdbcUrl" value="${jdbc.url}" />
 

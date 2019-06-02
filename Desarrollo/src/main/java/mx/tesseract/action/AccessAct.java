@@ -28,7 +28,7 @@ import com.opensymphony.xwork2.ActionContext;
 		@Result(name = "colaborador", type = "redirectAction", params = {
 				"actionName", "proyectos" }),
 		@Result(name = "recover", type = "dispatcher", location = "recover.jsp") })
-public class AccessCtrl extends ActionSupportTESSERACT implements SessionAware {
+public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	/** 
 	 * 
 	 */ 
@@ -96,7 +96,7 @@ public class AccessCtrl extends ActionSupportTESSERACT implements SessionAware {
 			System.out.println("tres");
 			ErrorManager.agregaMensajeError(this, e);
 		}
-		return resultado;
+		return "index";
 	}
 
 	public String logout() {
