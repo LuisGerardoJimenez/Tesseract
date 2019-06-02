@@ -237,6 +237,14 @@
 			<artifactId>struts2-sitemesh-plugin</artifactId>
 			<version>${struts.version}</version>
 		</dependency>
+		<!-- ********************** -->
+		<!-- Dependencias de Correo -->
+		<!-- ********************** -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>Tesseract</finalName>

@@ -10,7 +10,7 @@
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 	<welcome-file-list>
-		<welcome-file>/index.jsp</welcome-file>
+		<welcome-file>//pages/login.jsp</welcome-file>
 	</welcome-file-list>
 	<filter>
 		<filter-name>oemInViewFilter</filter-name>

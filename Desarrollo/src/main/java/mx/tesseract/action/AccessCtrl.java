@@ -5,9 +5,9 @@ import java.util.Map;
 
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.ColaboradorProyecto;
-import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.admin.entidad.Proyecto;/*
 import mx.tesseract.bs.AccessBs;
-import mx.tesseract.editor.model.Modulo;
+import mx.tesseract.editor.model.Modulo;*/
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.TESSERACTException;
@@ -42,12 +42,12 @@ public class AccessCtrl extends ActionSupportTESSERACT implements SessionAware {
 		String resultado = INDEX;
 		try {
 			if (SessionManager.isLogged()) {
-				if (SessionManager.consultarColaboradorActivo()
+				/*if (SessionManager.consultarColaboradorActivo()
 						.isAdministrador()) {
 					resultado = "administrador";
 				} else {
 					resultado = "colaborador";
-				}
+				}*/
 			}
 			@SuppressWarnings("unchecked")
 			Collection<String> msjs = (Collection<String>) SessionManager
@@ -72,16 +72,16 @@ public class AccessCtrl extends ActionSupportTESSERACT implements SessionAware {
 			if (userSession != null) {
 				userSession.clear();
 			}
-			colaborador = AccessBs.verificarLogin(userName, password);
+			//colaborador = AccessBs.verificarLogin(userName, password);
 			session = ActionContext.getContext().getSession();
 			session.put("login", true);
-			session.put("colaboradorCURP", colaborador.getCurp());
+			//session.put("colaboradorCURP", colaborador.getCurp());
 			setSession(session);
-			if (SessionManager.consultarColaboradorActivo().isAdministrador()) {
+			/*if (SessionManager.consultarColaboradorActivo().isAdministrador()) {
 				resultado = "administrador";
 			} else {
 				resultado = "colaborador";
-			}
+			}*/
 		} catch (TESSERACTValidacionException pve) {
 			System.out.println("Uno");
 			ErrorManager.agregaMensajeError(this, pve);
@@ -126,7 +126,7 @@ public class AccessCtrl extends ActionSupportTESSERACT implements SessionAware {
 	public String sendPassword() {
 		String resultado = null;
 		try {
-			AccessBs.recuperarContrasenia(userName);
+			//AccessBs.recuperarContrasenia(userName);
 			resultado = INDEX;
 			addActionMessage(getText("MSG32"));
 
@@ -147,8 +147,10 @@ public class AccessCtrl extends ActionSupportTESSERACT implements SessionAware {
 
 	public static String getMenu() throws Exception {
 		String resultado;
-		Proyecto proyecto = SessionManager.consultarProyectoActivo();
-		Colaborador colaborador = SessionManager.consultarColaboradorActivo();
+		/*Proyecto proyecto = SessionManager.consultarProyectoActivo();
+		Colaborador colaborador = SessionManager.consultarColaboradorActivo();*/
+		Proyecto proyecto = null;
+		Colaborador colaborador = null;
 		if (colaborador != null && colaborador.isAdministrador()) {
 			resultado = "administrador/menus/menuAdministrador";
 		} else if (proyecto == null) {
@@ -160,19 +162,19 @@ public class AccessCtrl extends ActionSupportTESSERACT implements SessionAware {
 	}
 	
 	public static String getRol() throws Exception {
-		Proyecto proyecto = SessionManager.consultarProyectoActivo();
+		/*Proyecto proyecto = SessionManager.consultarProyectoActivo();
 		Colaborador colaborador = SessionManager.consultarColaboradorActivo();
 		
 		for (ColaboradorProyecto colaboradorProyecto : proyecto.getProyecto_colaboradores()) {
 			if (colaboradorProyecto.getColaborador().getCurp().equals(colaborador.getCurp())) {
 				return colaboradorProyecto.getRol().getId() + "";
 			}
-		}
+		}*/
 		
 		return "";
 	}
 
-	public static Proyecto getInfoProyecto() throws Exception {
+	/*public static Proyecto getInfoProyecto() throws Exception {
 		Proyecto proyecto = null;
 		proyecto = SessionManager.consultarProyectoActivo();
 		return proyecto;
@@ -182,7 +184,7 @@ public class AccessCtrl extends ActionSupportTESSERACT implements SessionAware {
 		Modulo modulo = null;
 		modulo = SessionManager.consultarModuloActivo();
 		return modulo;
-	}
+	}*/
 	
 	public void setSession(Map<String, Object> session) {
 		this.userSession = session;
