@@ -10,7 +10,7 @@
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 	<welcome-file-list>
-		<welcome-file>pages/index.jsp</welcome-file>
+		<welcome-file>/pages/index.jsp</welcome-file>
 	</welcome-file-list>
 	<context-param>
 		<param-name>org.eclipse.jetty.servlet.SessionIdPathParameterName</param-name>
