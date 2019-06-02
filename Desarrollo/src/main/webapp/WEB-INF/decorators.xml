@@ -14,7 +14,7 @@
 	<!-- <decorator name="login" page="login-templat.jsp">
 		<pattern>/login*</pattern>
 	</decorator>-->
-	<decorator name="session" page="global-template.jsp">
+	<decorator name="session" page="layout.jsp">
 		<pattern>/*</pattern>
 	</decorator>
 </decorators> 
