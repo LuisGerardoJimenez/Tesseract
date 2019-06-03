@@ -48,8 +48,8 @@ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 			de JPA -->
 		<property name="packagesToScan">
 			<list>
-				<value>mx.tesseract.entidad</value>
-				<value>mx.tesseract.entidad.*</value>
+				<value>mx.tesseract.admin.entidad</value>
+				<value>mx.tesseract.admin.entidad.*</value>
 			</list>
 		</property>
 	</bean>

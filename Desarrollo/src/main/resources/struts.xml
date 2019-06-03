@@ -48,7 +48,7 @@
 		value="tesseract" />
 
 	<!-- Permite visualizar el modo de desarrollo de struts2 -->
-	<constant name="struts.devMode" value="false" />
+	<constant name="struts.devMode" value="true" />
 
 	<!-- Permite definir mas de un ActionMapper, si el primero no obtiene una 
 		respuesta correcta, se utilizará el siguiente mapper -->
@@ -85,6 +85,13 @@
 		value="false" />
 	<package name="tesseract" extends="rest-default,json-default">
 		<interceptors>
+			<interceptor class="mx.tesseract.controller.AccessInterceptor" name="loginInterceptor"/>
+			
+			<interceptor name="breadCrumbs" class="org.softwareforge.struts2.breadcrumb.BreadCrumbInterceptor">
+				  <param name="trail.maxCrumbs">6</param>
+				  <param name="trail.rewindMode">AUTO</param>                                                   
+				  <param name="trail.comparator">org.softwareforge.struts2.breadcrumb.NameComparator</param>  
+			</interceptor>
 			<!-- Define la pila de interceptores a ser aplicada a cada acción invocada -->
 			<interceptor-stack name="stack">
 				<!-- <interceptor-ref name="messageStoreInterceptor" /> -->
@@ -177,6 +184,8 @@
 					se activa cuando la constante devMode está habilitada en la configuración 
 					de struts -->
 				<interceptor-ref name="debugging" />
+				
+				<interceptor-ref name="loginInterceptor"/>
 
 			</interceptor-stack>
 		</interceptors>
@@ -185,18 +194,13 @@
 
 		<!-- Resultados accesibles desde toda la aplicacion -->
 		<global-results>
-			<result name="login">/pages/control-acceso/login.jsp</result>
-			<result name="iniciar">/login.jsp</result>
-			<result name="error">/pages/errorPage.jsp</result>
-			<result name="error500">/pages/errorPage.jsp</result>
-			<result name="noAutorizado">/pages/forbiddenAccess.jsp</result>
-			<result name="tokenInvalido">/pages/invalidToken.jsp</result>
-			<result name="actividadInvalida">/pages/invalidActivity.jsp</result>
-			<result name="estadoNoPermitido">/pages/estadoNoPermitido.jsp</result>
-			<result name="session" type="redirectAction">
+			<result name="login">/pages/login.jsp</result>
+			<result name="error">/pages/error.jsp</result>
+			<result name="error500">/pages/error.jsp</result>
+			<!-- <result name="session" type="redirectAction">
 				<param name="namespace">/control-acceso</param>
 				<param name="actionName">login</param>
-			</result>
+			</result> -->
 
 			<result name="next" type="redirectAction">${#session["current"]}</result>
 

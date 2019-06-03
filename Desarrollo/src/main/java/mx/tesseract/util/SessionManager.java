@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
+/*
 import mx.tesseract.admin.dao.ColaboradorDAO;
 import mx.tesseract.admin.dao.ColaboradorProyectoDAO;
 import mx.tesseract.admin.dao.ProyectoDAO;
@@ -19,7 +19,7 @@ import mx.tesseract.editor.dao.TrayectoriaDAO;
 import mx.tesseract.editor.model.CasoUso;
 import mx.tesseract.editor.model.Modulo;
 import mx.tesseract.editor.model.Trayectoria;
-
+*/
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -79,7 +79,7 @@ public class SessionManager {
 		return ActionContext.getContext().getSession().isEmpty();
 	}
 	
-	public static Proyecto consultarProyectoActivo() throws Exception{
+	/*public static Proyecto consultarProyectoActivo() throws Exception{
 		HttpSession session = ServletActionContext.getRequest().getSession(false); 
 		Proyecto proyecto = null;
 		Integer idProyecto = null;
@@ -135,7 +135,7 @@ public class SessionManager {
 			casoUso = new CasoUsoDAO().consultarCasoUso(idCU);
 		}
 		return casoUso;
-	}
+	}*/
 	
 	public static boolean isLogged() {
 		HttpSession session = ServletActionContext.getRequest().getSession(false); 
@@ -181,7 +181,7 @@ public class SessionManager {
 		return urlPrev;
 	}
 
-	public static CasoUso consultarCasoUsoPrevio() {
+	/*public static CasoUso consultarCasoUsoPrevio() {
 		HttpSession session = ServletActionContext.getRequest().getSession(false); 
 		CasoUso casoUso = null;
 		Integer idCU = null;
@@ -203,5 +203,5 @@ public class SessionManager {
 		}
 	
 		return trayectoria;
-	}
+	}*/
 }
