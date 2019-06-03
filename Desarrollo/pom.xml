@@ -232,10 +232,26 @@
 			<artifactId>asm-commons</artifactId>
 			<version>5.1</version>
 		</dependency>
+		<!-- Plugin que permite el uso de etiquetas, similares a las de struts2, 
+			para la renderización de componentes y uso de jquery -->
+		<dependency>
+			<groupId>com.jgeppert.struts2.jquery</groupId>
+			<artifactId>struts2-jquery-plugin</artifactId>
+			<version>3.7.0</version>
+		</dependency>
+		<!-- Permite hacer uso de un decorador para la renderización de las vistas -->
 		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-sitemesh-plugin</artifactId>
 			<version>${struts.version}</version>
+		</dependency>
+		<!-- ********************** -->
+		<!-- Dependencias de Correo -->
+		<!-- ********************** -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
 		</dependency>
 	</dependencies>
 	<build>
