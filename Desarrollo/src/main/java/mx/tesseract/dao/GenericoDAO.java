@@ -9,9 +9,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import mx.tesseract.entidad.User;
-import mx.tesseract.util.Constantes;
-import mx.tesseract.util.TESSERACTValidacionException;
 
 public class GenericoDAO {
 

@@ -6,8 +6,8 @@ import java.util.Map;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.ColaboradorProyecto;
 import mx.tesseract.admin.entidad.Proyecto;/*
-import mx.tesseract.bs.AccessBs;
 import mx.tesseract.editor.model.Modulo;*/
+import mx.tesseract.bs.AccessBs;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.TESSERACTException;
@@ -18,6 +18,7 @@ import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionContext;
 
@@ -27,7 +28,7 @@ import com.opensymphony.xwork2.ActionContext;
 				"actionName", "proyectos-admin" }),
 		@Result(name = "colaborador", type = "redirectAction", params = {
 				"actionName", "proyectos" }),
-		@Result(name = "recover", type = "dispatcher", location = "recover.jsp") })
+		@Result(name = "recover", type = "dispatcher", location = "recover.jsp")})
 public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	/** 
 	 * 
@@ -36,6 +37,9 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	private Map<String, Object> userSession;
 	private String userName;
 	private String password;
+	
+	@Autowired
+	private AccessBs accessBs;
 
 	public String index() {
 		System.out.println("Entramos a index");
@@ -72,7 +76,7 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 			if (userSession != null) {
 				userSession.clear();
 			}
-			//colaborador = AccessBs.verificarLogin(userName, password);
+			colaborador = accessBs.verificarLogin(userName, password);
 			session = ActionContext.getContext().getSession();
 			session.put("login", true);
 			//session.put("colaboradorCURP", colaborador.getCurp());
