@@ -8,6 +8,9 @@ import javax.mail.internet.AddressException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+
+import mx.tesseract.admin.dao.ColaboradorDAO;
+import mx.tesseract.admin.entidad.Colaborador;
 /*
 import mx.tesseract.admin.dao.ColaboradorDAO;
 import mx.tesseract.admin.model.Colaborador;
@@ -17,12 +20,14 @@ import mx.tesseract.util.Constantes;
 import mx.tesseract.util.Correo;
 import mx.tesseract.util.TESSERACTValidacionException;/*
 import mx.tesseract.util.Validador;*/
+import mx.tesseract.util.Validador;
 
 @Service("accessBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class AccessBs {
 
-	/*public Colaborador verificarLogin(String userName, String password) {
+	public Colaborador verificarLogin(String userName, String password) {
+		System.out.println("Entre a Buscar al Colaborador");
 		Colaborador colaborador = null;
 		if (Validador.esNuloOVacio(userName)) {
 			throw new TESSERACTValidacionException(
@@ -46,8 +51,15 @@ public class AccessBs {
 					new String[] { Constantes.NUMERO_VEINTE.toString(), "caracteres"},
 					"password");
 		}
+		/*if (Validador.esInvalidaREGEX(password, Constantes.REGEX_CONTRASENIA)) {
+			throw new TESSERACTValidacionException(
+					"El usuario no ingresó la contraseña.", "MSG6", 
+					new String[] { Constantes.NUMERO_VEINTE.toString(), "caracteres"},
+					"password");
+		}*/
+		
 		try {
-			colaborador = new ColaboradorDAO().consultarColaboradorCorreo(userName);
+			colaborador = new ColaboradorDAO().findColaboradorByCorreo(userName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
