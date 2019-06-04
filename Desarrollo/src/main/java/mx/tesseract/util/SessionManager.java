@@ -24,6 +24,9 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 
+import mx.tesseract.admin.dao.ProyectoDAO;
+import mx.tesseract.admin.entidad.Proyecto;
+
 public class SessionManager {
 	/**
 	 * Método proxy que regresa el objeto que se encuentra en la sesión con la
@@ -79,19 +82,18 @@ public class SessionManager {
 		return ActionContext.getContext().getSession().isEmpty();
 	}
 	
-	/*public static Proyecto consultarProyectoActivo() throws Exception{
+	public static Proyecto consultarProyectoActivo() throws Exception{
 		HttpSession session = ServletActionContext.getRequest().getSession(false); 
 		Proyecto proyecto = null;
 		Integer idProyecto = null;
 		if (session != null && session.getAttribute("idProyecto") != null) {
 			idProyecto = (Integer)  session.getAttribute("idProyecto");	
-			proyecto = new ProyectoDAO().consultarProyecto(idProyecto);
+			proyecto = new ProyectoDAO().findById(idProyecto);
 		}
-
 		return proyecto;
 	}
 
-	public static Modulo consultarModuloActivo() throws Exception{
+	/*public static Modulo consultarModuloActivo() throws Exception{
 		HttpSession session = ServletActionContext.getRequest().getSession(false); 
 		Modulo modulo = null;
 		Integer idModulo = null;
