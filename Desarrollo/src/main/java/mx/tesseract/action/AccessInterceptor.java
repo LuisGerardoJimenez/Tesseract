@@ -3,10 +3,14 @@ package mx.tesseract.action;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+
+import mx.tesseract.admin.dao.ProyectoDAO;
+import mx.tesseract.admin.entidad.Proyecto;
 
 public class AccessInterceptor extends AbstractInterceptor {
 
