@@ -6,6 +6,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
@@ -23,9 +24,11 @@ public class AccessInterceptor extends AbstractInterceptor {
 	public String intercept(ActionInvocation invocation) throws Exception {
 		String resultado = Action.LOGIN;
 		System.out.println("Inicia interceptor");
-		HttpSession session = ServletActionContext.getRequest().getSession(false);
-		System.out.println("Session: "+session);
-		if (session != null) {
+		ActionContext.getContext().getSession().get("login");
+		System.out.println("NameSpace: "+invocation.getProxy().getNamespace());
+		System.out.println("ActionName: "+invocation.getProxy().getActionName());
+		System.out.println("Method: "+invocation.getProxy().getMethod());
+		/*if (session != null) {
 			Object loginObject = session.getAttribute("login");
 			if (loginObject != null) {
 				Boolean login = (Boolean) loginObject;
@@ -33,8 +36,8 @@ public class AccessInterceptor extends AbstractInterceptor {
 					resultado = invocation.invoke();
 				}
 			}
-		}
+		*/
 		System.out.println("Resultado: "+resultado);
-		return resultado;
+		return invocation.invoke();
 	}
 }

@@ -17,7 +17,8 @@
 
 	<p class="instrucciones">Ingrese la información solicitada.</p>
 	<s:form autocomplete="off" theme="simple"
-		action="%{pageContext.request.contextPath}/access!login">
+		method="POST"
+		action="%{pageContext.request.contextPath}/access">
 		<div class="formulario">
 			<div class="tituloFormulario">Iniciar sesión</div>
 			<table class="seccion">

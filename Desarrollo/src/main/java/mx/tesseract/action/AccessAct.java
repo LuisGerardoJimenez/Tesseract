@@ -15,20 +15,25 @@ import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
 import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 
-@InterceptorRef(value = "defaultStack")
+import ch.qos.logback.core.joran.action.Action;
+
 @Results({
 		@Result(name = "administrador", type = "redirectAction", params = {
 				"actionName", "proyectos-admin" }),
 		@Result(name = "colaborador", type = "redirectAction", params = {
 				"actionName", "proyectos" }),
-		@Result(name = "recover", type = "dispatcher", location = "recover.jsp")})
+		@Result(name = "recover", type = "dispatcher", location = "recover.jsp"),
+		@Result(name = "welcome", type = "redirectAction", params = {"actionName", "welcome" })
+		})
 public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	/** 
 	 * 
@@ -40,6 +45,13 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	
 	@Autowired
 	private AccessBs accessBs;
+	
+	/*public String index() {
+		System.out.println("Entramos a index");
+		try {
+			
+		}
+	}*/
 
 	public String index() {
 		System.out.println("Entramos a index");
@@ -58,7 +70,7 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 					.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
-
+			System.out.println("Saliendo del index");
 		} catch (TESSERACTException pe) {
 			ErrorManager.agregaMensajeError(this, pe);
 		} catch (Exception e) {
@@ -67,7 +79,7 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 		return resultado;
 	}
 
-	public String login() throws Exception {
+	public String create() throws Exception {
 		System.out.println("Entramos a login");
 		String resultado = null;
 		Colaborador colaborador;
@@ -76,9 +88,9 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 			if (userSession != null) {
 				userSession.clear();
 			}
-			colaborador = accessBs.verificarLogin(userName, password);
+			//colaborador = accessBs.verificarLogin(userName, password);
 			session = ActionContext.getContext().getSession();
-			session.put("login", true);
+			//session.put("login", true);
 			//session.put("colaboradorCURP", colaborador.getCurp());
 			setSession(session);
 			/*if (SessionManager.consultarColaboradorActivo().isAdministrador()) {
@@ -100,7 +112,7 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 			System.out.println("tres");
 			ErrorManager.agregaMensajeError(this, e);
 		}
-		return "index";
+		return "welcome";
 	}
 
 	public String logout() {
@@ -110,44 +122,7 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 		return index();
 	}
 
-	public String recover() {
-		String resultado = null;
-		try {
-			resultado = "recover";
-		} catch (TESSERACTValidacionException pve) {
-			ErrorManager.agregaMensajeError(this, pve);
-			resultado = recover();
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
-	}
-
-	public String sendPassword() {
-		String resultado = null;
-		try {
-			//AccessBs.recuperarContrasenia(userName);
-			resultado = INDEX;
-			addActionMessage(getText("MSG32"));
-
-			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-
-		} catch (TESSERACTValidacionException pve) {
-			ErrorManager.agregaMensajeError(this, pve);
-			resultado = recover();
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
-	}
+	
 
 	public static String getMenu() throws Exception {
 		String resultado;
@@ -165,30 +140,7 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 		return resultado;
 	}
 	
-	public static String getRol() throws Exception {
-		/*Proyecto proyecto = SessionManager.consultarProyectoActivo();
-		Colaborador colaborador = SessionManager.consultarColaboradorActivo();
-		
-		for (ColaboradorProyecto colaboradorProyecto : proyecto.getProyecto_colaboradores()) {
-			if (colaboradorProyecto.getColaborador().getCurp().equals(colaborador.getCurp())) {
-				return colaboradorProyecto.getRol().getId() + "";
-			}
-		}*/
-		
-		return "";
-	}
-
-	/*public static Proyecto getInfoProyecto() throws Exception {
-		Proyecto proyecto = null;
-		proyecto = SessionManager.consultarProyectoActivo();
-		return proyecto;
-	}
-
-	public static Modulo getInfoModulo() throws Exception {
-		Modulo modulo = null;
-		modulo = SessionManager.consultarModuloActivo();
-		return modulo;
-	}*/
+	
 	
 	public void setSession(Map<String, Object> session) {
 		this.userSession = session;
