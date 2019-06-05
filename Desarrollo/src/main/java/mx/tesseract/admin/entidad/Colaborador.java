@@ -25,7 +25,7 @@ import mx.tesseract.util.Constantes;
 
 
 @Entity
-@Table(name = "Colaborador", catalog = "TESSERACT")
+@Table(name = "colaborador")
 public class Colaborador implements java.io.Serializable {
 
 	/**

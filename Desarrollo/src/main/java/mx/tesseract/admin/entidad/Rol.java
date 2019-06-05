@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Rol", catalog = "TESSERACT")
+@Table(name = "rol")
 public class Rol implements java.io.Serializable {
 
 	/**

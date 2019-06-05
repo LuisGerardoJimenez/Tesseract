@@ -73,28 +73,6 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 		return resultado;
 	}
 	
-	public void validateCreate() {
-		System.out.println("Entramos al ValidateCreate");
-		Colaborador colaborador;
-		try {
-			if (!sessionManager.isEmpty()) {
-				SessionManager.clear();				
-			}
-			colaborador = accessBs.verificarLogin(userName, password);
-			SessionManager.set(true, "login");
-			SessionManager.set(colaborador.getCurp(), "colaboradorCURP");
-		} catch (TESSERACTValidacionException tve) {
-			System.out.println("Error en el ValidateCreate() TESSERACTValidacionException");
-			ErrorManager.agregaMensajeError(this, tve);
-			System.out.println("Tve: "+tve);
-		} catch (Exception e) {
-			System.out.println("Error en el ValidateCreate() Exception");
-			System.out.println("E: "+e);
-			ErrorManager.agregaMensajeError(this, e);
-		}
-		System.out.println("Saliendo del ValidateCreate");
-	}
-
 	public String create() throws Exception {
 		System.out.println("Entramos a login");
 		String resultado = INDEX;
@@ -103,9 +81,6 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 			if (!sessionManager.isEmpty()) {
 				SessionManager.clear();				
 			}
-			/*if (userSession != null) {
-				userSession.clear();
-			}*/
 			colaborador = accessBs.verificarLogin(userName, password);
 			SessionManager.set(true, "login");
 			SessionManager.set(colaborador.getCurp(), "colaboradorCURP");
@@ -115,40 +90,39 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 				resultado = "colaborador";
 			}
 		} catch (TESSERACTValidacionException pve) {
-			System.out.println("Uno");
+			System.out.println("Error en el Create() TESSERACTValidacionException");
 			ErrorManager.agregaMensajeError(this, pve);
 			System.out.println("Pve: "+pve);
-			return index();
 		} catch (TESSERACTException pe) {
-			System.out.println("dos");
+			System.out.println("Error en el Create() TESSERACTException");
 			System.out.println("Pe: "+pe);
 			ErrorManager.agregaMensajeError(this, pe);
 		} catch (Exception e) {
 			System.out.println("E: "+e);
-			System.out.println("tres");
+			System.out.println("Error en el Create() Exception");
 			ErrorManager.agregaMensajeError(this, e);
 		}
-		return "welcome";
+		System.out.println("Resultado Create: "+resultado);
+		return resultado;
+	}
+	
+	public String editNew() {
+		return EDITNEW;
 	}
 
 	public String logout() {
 		if (!sessionManager.isEmpty()) {
 			SessionManager.clear();
 		}
-		/*if (userSession != null) {
-			userSession.clear();
-		}*/
 		return index();
 	}
 
 	
 
-	public static String getMenu() throws Exception {
+	public String getMenu() throws Exception {
 		String resultado;
-		/*Proyecto proyecto = SessionManager.consultarProyectoActivo();
-		Colaborador colaborador = SessionManager.consultarColaboradorActivo();*/
-		Proyecto proyecto = null;
-		Colaborador colaborador = null;
+		Proyecto proyecto = sessionManager.consultarProyectoActivo();
+		Colaborador colaborador = sessionManager.consultarColaboradorActivo();
 		if (colaborador != null && colaborador.isAdministrador()) {
 			resultado = "administrador/menus/menuAdministrador";
 		} else if (proyecto == null) {
@@ -156,6 +130,7 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 		} else {
 			resultado = "editor/menus/menuAnalistaProyecto";
 		}
+		System.out.println("Resultado Menu: "+resultado);
 		return resultado;
 	}
 	
