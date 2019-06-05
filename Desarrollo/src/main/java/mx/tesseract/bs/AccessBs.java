@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ import mx.tesseract.util.Validador;
 @Service("accessBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class AccessBs {
+	
+	@Autowired
+	private ColaboradorDAO colaboradorDAO;
 
 	public Colaborador verificarLogin(String userName, String password) {
 		System.out.println("Entre a Buscar al Colaborador");
@@ -59,7 +63,8 @@ public class AccessBs {
 		}*/
 		
 		try {
-			colaborador = new ColaboradorDAO().findColaboradorByCorreo(userName);
+			System.out.println("Buscando al colaborador");
+			colaborador = colaboradorDAO.findColaboradorByCorreo(userName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
