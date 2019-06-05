@@ -20,6 +20,7 @@ import mx.tesseract.admin.entidad.Colaborador;
 public class ColaboradorDAO {
 	
 	private static final String FIND_COLABORADOR_BY_CORREO = "SELECT c FROM colaborador c WHERE c.correoElectronico = :correoElectronico";
+	private static final String FIND_COLABORADOR_BY_CURP = "SELECT c FROM colaborador c WHERE c.curp = :curp";
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -60,6 +61,19 @@ public class ColaboradorDAO {
 		try {
 			Query query = entityManager.createNativeQuery(FIND_COLABORADOR_BY_CORREO, Colaborador.class);
 			query.setParameter("correoElectronico", correo);
+			colaborador = (Colaborador) query.getSingleResult();
+		} catch (Exception e) {
+			System.err.print(e.getMessage());
+		}
+		return colaborador;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Colaborador findColaboradorByCURP(String curp) {
+		Colaborador colaborador = null;
+		try {
+			Query query = entityManager.createNativeQuery(FIND_COLABORADOR_BY_CURP, Colaborador.class);
+			query.setParameter("curp", curp);
 			colaborador = (Colaborador) query.getSingleResult();
 		} catch (Exception e) {
 			System.err.print(e.getMessage());

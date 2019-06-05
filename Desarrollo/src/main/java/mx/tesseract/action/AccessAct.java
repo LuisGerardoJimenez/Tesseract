@@ -46,28 +46,22 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	@Autowired
 	private AccessBs accessBs;
 	
-	/*public String index() {
-		System.out.println("Entramos a index");
-		try {
-			
-		}
-	}*/
-
+	@Autowired
+	private SessionManager sessionManager;
+	
 	public String index() {
 		System.out.println("Entramos a index");
 		String resultado = INDEX;
 		try {
 			if (SessionManager.isLogged()) {
-				/*if (SessionManager.consultarColaboradorActivo()
-						.isAdministrador()) {
+				if (sessionManager.consultarColaboradorActivo().isAdministrador()) {
 					resultado = "administrador";
 				} else {
 					resultado = "colaborador";
-				}*/
+				}
 			}
 			@SuppressWarnings("unchecked")
-			Collection<String> msjs = (Collection<String>) SessionManager
-					.get("mensajesAccion");
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
 			System.out.println("Saliendo del index");
@@ -78,26 +72,48 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 		}
 		return resultado;
 	}
+	
+	public void validateCreate() {
+		System.out.println("Entramos al ValidateCreate");
+		Colaborador colaborador;
+		try {
+			if (!sessionManager.isEmpty()) {
+				SessionManager.clear();				
+			}
+			colaborador = accessBs.verificarLogin(userName, password);
+			SessionManager.set(true, "login");
+			SessionManager.set(colaborador.getCurp(), "colaboradorCURP");
+		} catch (TESSERACTValidacionException tve) {
+			System.out.println("Error en el ValidateCreate() TESSERACTValidacionException");
+			ErrorManager.agregaMensajeError(this, tve);
+			System.out.println("Tve: "+tve);
+		} catch (Exception e) {
+			System.out.println("Error en el ValidateCreate() Exception");
+			System.out.println("E: "+e);
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		System.out.println("Saliendo del ValidateCreate");
+	}
 
 	public String create() throws Exception {
 		System.out.println("Entramos a login");
-		String resultado = null;
+		String resultado = INDEX;
 		Colaborador colaborador;
-		Map<String, Object> session;
 		try {
-			if (userSession != null) {
-				userSession.clear();
+			if (!sessionManager.isEmpty()) {
+				SessionManager.clear();				
 			}
-			//colaborador = accessBs.verificarLogin(userName, password);
-			session = ActionContext.getContext().getSession();
-			//session.put("login", true);
-			//session.put("colaboradorCURP", colaborador.getCurp());
-			setSession(session);
-			/*if (SessionManager.consultarColaboradorActivo().isAdministrador()) {
+			/*if (userSession != null) {
+				userSession.clear();
+			}*/
+			colaborador = accessBs.verificarLogin(userName, password);
+			SessionManager.set(true, "login");
+			SessionManager.set(colaborador.getCurp(), "colaboradorCURP");
+			if (sessionManager.consultarColaboradorActivo().isAdministrador()) {
 				resultado = "administrador";
 			} else {
 				resultado = "colaborador";
-			}*/
+			}
 		} catch (TESSERACTValidacionException pve) {
 			System.out.println("Uno");
 			ErrorManager.agregaMensajeError(this, pve);
@@ -116,9 +132,12 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	}
 
 	public String logout() {
-		if (userSession != null) {
-			userSession.clear();
+		if (!sessionManager.isEmpty()) {
+			SessionManager.clear();
 		}
+		/*if (userSession != null) {
+			userSession.clear();
+		}*/
 		return index();
 	}
 

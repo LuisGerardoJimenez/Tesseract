@@ -6,28 +6,32 @@ import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-/*
-import mx.tesseract.admin.dao.ColaboradorDAO;
-import mx.tesseract.admin.dao.ColaboradorProyectoDAO;
-import mx.tesseract.admin.dao.ProyectoDAO;
-import mx.tesseract.admin.entidad.Colaborador;
-import mx.tesseract.admin.entidad.ColaboradorProyecto;
-import mx.tesseract.admin.entidad.Proyecto;
-import mx.tesseract.editor.dao.CasoUsoDAO;
-import mx.tesseract.editor.dao.ModuloDAO;
-import mx.tesseract.editor.dao.TrayectoriaDAO;
-import mx.tesseract.editor.model.CasoUso;
-import mx.tesseract.editor.model.Modulo;
-import mx.tesseract.editor.model.Trayectoria;
-*/
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionContext;
 
+import mx.tesseract.admin.dao.ColaboradorDAO;
 import mx.tesseract.admin.dao.ProyectoDAO;
+import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 
 public class SessionManager {
+	
+	@Autowired
+	private ColaboradorDAO colaboradorDAO;
+	
+	@Autowired
+	private ProyectoDAO proyectoDAO;
+	
+	/**
+	 * Método proxy que regresa la sesión
+	 * @return El objeto de sesión
+	 */
+	public static Object getSession() {
+		return ActionContext.getContext().getSession();
+	}
+	
 	/**
 	 * Método proxy que regresa el objeto que se encuentra en la sesión con la
 	 * llave especificada en nombre.
@@ -82,15 +86,27 @@ public class SessionManager {
 		return ActionContext.getContext().getSession().isEmpty();
 	}
 	
-	public static Proyecto consultarProyectoActivo() throws Exception{
+	public Proyecto consultarProyectoActivo() throws Exception{
 		HttpSession session = ServletActionContext.getRequest().getSession(false); 
 		Proyecto proyecto = null;
 		Integer idProyecto = null;
 		if (session != null && session.getAttribute("idProyecto") != null) {
 			idProyecto = (Integer)  session.getAttribute("idProyecto");	
-			proyecto = new ProyectoDAO().findById(idProyecto);
+			proyecto = proyectoDAO.findById(idProyecto);
 		}
 		return proyecto;
+	}
+	
+	public Colaborador consultarColaboradorActivo() throws Exception{
+		HttpSession session = ServletActionContext.getRequest().getSession(false); 
+		Colaborador colaborador = null;
+		String curpColaborador = null;
+		if (session != null && session.getAttribute("colaboradorCURP") != null) {
+			curpColaborador = (String)  session.getAttribute("colaboradorCURP"); //se obtiene el CURP del colaborador
+			colaborador = colaboradorDAO.findColaboradorByCURP(curpColaborador); //Se obtiene la información del colaborador.
+		}
+	
+		return colaborador;
 	}
 
 	/*public static Modulo consultarModuloActivo() throws Exception{
@@ -114,18 +130,6 @@ public class SessionManager {
 			throw new TESSERACTException("No se puede consultar el colaborador", "MSG13");
 		}
 		return colaboradorProyecto;
-	}
-	
-	public static Colaborador consultarColaboradorActivo() throws Exception{
-		HttpSession session = ServletActionContext.getRequest().getSession(false); 
-		Colaborador colaborador = null;
-		String curpColaborador = null;
-		if (session != null && session.getAttribute("colaboradorCURP") != null) {
-			curpColaborador = (String)  session.getAttribute("colaboradorCURP"); //se obtiene el CURP del colaborador
-			colaborador = new ColaboradorDAO().consultarColaborador(curpColaborador); //Se obtiene la información del colaborador.
-		}
-	
-		return colaborador;
 	}
 
 	public static CasoUso consultarCasoUsoActivo() {
