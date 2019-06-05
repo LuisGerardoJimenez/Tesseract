@@ -43,8 +43,8 @@
 				<s:if test="#session.login == true">
 					<s:set var="id" value="#session.id"> </s:set>
 					<s:set var="perfil">/pages/<s:property
-							value="@mx.tesseract.action.AccessAct@getMenu()" />.jsp</s:set>
-					<jsp:include page="${perfil}" />
+							value="#mx.tesseract.action.AccessAct.getMenu()" />.jsp</s:set>
+					<!--<jsp:include page="${perfil}" />-->
 				</s:if>
 			</s:if>
 		</div>

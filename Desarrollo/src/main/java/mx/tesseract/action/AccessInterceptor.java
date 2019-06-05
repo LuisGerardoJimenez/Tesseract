@@ -25,19 +25,22 @@ public class AccessInterceptor extends AbstractInterceptor {
 		String resultado = Action.LOGIN;
 		System.out.println("Inicia interceptor");
 		ActionContext.getContext().getSession().get("login");
-		System.out.println("NameSpace: "+invocation.getProxy().getNamespace());
-		System.out.println("ActionName: "+invocation.getProxy().getActionName());
-		System.out.println("Method: "+invocation.getProxy().getMethod());
-		/*if (session != null) {
-			Object loginObject = session.getAttribute("login");
-			if (loginObject != null) {
-				Boolean login = (Boolean) loginObject;
-				if (login) {
-					resultado = invocation.invoke();
-				}
+		System.out.println("NameSpace: " + invocation.getProxy().getNamespace());
+		System.out.println("ActionName: " + invocation.getProxy().getActionName());
+		System.out.println("Method: " + invocation.getProxy().getMethod());
+		Object loginObject = ActionContext.getContext().getSession().get("login");
+		if (loginObject != null) {
+			System.out.println("login?: "+(Boolean) loginObject);
+		} else {
+			System.out.println("No hay llame login");
+		}
+		/*if (loginObject != null) {
+			Boolean login = (Boolean) loginObject;
+			if (login) {
+				resultado = invocation.invoke();
 			}
-		*/
-		System.out.println("Resultado: "+resultado);
+		}*/
+		System.out.println("Resultado: " + resultado);
 		return invocation.invoke();
 	}
 }

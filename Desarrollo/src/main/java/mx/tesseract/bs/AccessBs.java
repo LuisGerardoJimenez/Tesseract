@@ -74,18 +74,6 @@ public class AccessBs {
 		return colaborador;
 	}
 /*
-	public static boolean isLogged(Map<String, Object> userSession) {
-		boolean logged = false;
-		if (userSession != null) {
-			if (userSession.get("login") != null) {
-				logged = (Boolean) userSession.get("login");
-				System.out.println(logged);
-				return logged;
-			}
-		} 
-		return false;
-	}
-
 	public static void recuperarContrasenia(String userName) throws AddressException, MessagingException {
 		Colaborador colaborador = null;
 		if (Validador.esNuloOVacio(userName)) {
