@@ -5,9 +5,13 @@ import java.util.Map;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+
+import mx.tesseract.admin.dao.ColaboradorDAO;
+import mx.tesseract.admin.entidad.Colaborador;
 /*
 import mx.tesseract.admin.dao.ColaboradorDAO;
 import mx.tesseract.admin.model.Colaborador;
@@ -17,12 +21,17 @@ import mx.tesseract.util.Constantes;
 import mx.tesseract.util.Correo;
 import mx.tesseract.util.TESSERACTValidacionException;/*
 import mx.tesseract.util.Validador;*/
+import mx.tesseract.util.Validador;
 
 @Service("accessBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class AccessBs {
+	
+	@Autowired
+	private ColaboradorDAO colaboradorDAO;
 
-	/*public Colaborador verificarLogin(String userName, String password) {
+	public Colaborador verificarLogin(String userName, String password) {
+		System.out.println("Entre a Buscar al Colaborador");
 		Colaborador colaborador = null;
 		if (Validador.esNuloOVacio(userName)) {
 			throw new TESSERACTValidacionException(
@@ -46,8 +55,16 @@ public class AccessBs {
 					new String[] { Constantes.NUMERO_VEINTE.toString(), "caracteres"},
 					"password");
 		}
+		/*if (Validador.esInvalidaREGEX(password, Constantes.REGEX_CONTRASENIA)) {
+			throw new TESSERACTValidacionException(
+					"El usuario no ingresó la contraseña.", "MSG6", 
+					new String[] { Constantes.NUMERO_VEINTE.toString(), "caracteres"},
+					"password");
+		}*/
+		
 		try {
-			colaborador = new ColaboradorDAO().consultarColaboradorCorreo(userName);
+			System.out.println("Buscando al colaborador");
+			colaborador = colaboradorDAO.findColaboradorByCorreo(userName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -57,18 +74,6 @@ public class AccessBs {
 		return colaborador;
 	}
 /*
-	public static boolean isLogged(Map<String, Object> userSession) {
-		boolean logged = false;
-		if (userSession != null) {
-			if (userSession.get("login") != null) {
-				logged = (Boolean) userSession.get("login");
-				System.out.println(logged);
-				return logged;
-			}
-		} 
-		return false;
-	}
-
 	public static void recuperarContrasenia(String userName) throws AddressException, MessagingException {
 		Colaborador colaborador = null;
 		if (Validador.esNuloOVacio(userName)) {

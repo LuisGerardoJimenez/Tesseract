@@ -6,6 +6,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
@@ -21,20 +22,25 @@ public class AccessInterceptor extends AbstractInterceptor {
 
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
-		HttpSession session = ServletActionContext.getRequest().getSession(
-				false);
-		Object loginObject = session.getAttribute("login");
-		boolean login = false;
+		String resultado = Action.LOGIN;
+		System.out.println("Inicia interceptor");
+		ActionContext.getContext().getSession().get("login");
+		System.out.println("NameSpace: " + invocation.getProxy().getNamespace());
+		System.out.println("ActionName: " + invocation.getProxy().getActionName());
+		System.out.println("Method: " + invocation.getProxy().getMethod());
+		Object loginObject = ActionContext.getContext().getSession().get("login");
 		if (loginObject != null) {
-			login = (Boolean) loginObject;
-			if (!login) {
-				return Action.LOGIN;
-			} else {
-				return invocation.invoke();
-			}
+			System.out.println("login?: "+(Boolean) loginObject);
 		} else {
-			return Action.LOGIN;
+			System.out.println("No hay llame login");
 		}
-
+		/*if (loginObject != null) {
+			Boolean login = (Boolean) loginObject;
+			if (login) {
+				resultado = invocation.invoke();
+			}
+		}*/
+		System.out.println("Resultado: " + resultado);
+		return invocation.invoke();
 	}
 }
