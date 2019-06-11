@@ -17,14 +17,7 @@ import mx.tesseract.admin.dao.ProyectoDAO;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 
-@Component
 public class SessionManager {
-	
-	@Autowired
-	private ColaboradorDAO colaboradorDAO;
-	
-	@Autowired
-	private ProyectoDAO proyectoDAO;
 	
 	/**
 	 * Método proxy que regresa la sesión
@@ -84,31 +77,8 @@ public class SessionManager {
 	 * 
 	 * @return false si la sesión no está limpia
 	 */
-	public boolean isEmpty() {
+	public static boolean isEmpty() {
 		return ActionContext.getContext().getSession().isEmpty();
-	}
-	
-	public Proyecto consultarProyectoActivo() throws Exception{
-		HttpSession session = ServletActionContext.getRequest().getSession(false); 
-		Proyecto proyecto = null;
-		Integer idProyecto = null;
-		if (session != null && session.getAttribute("idProyecto") != null) {
-			idProyecto = (Integer)  session.getAttribute("idProyecto");	
-			proyecto = proyectoDAO.findById(idProyecto);
-		}
-		return proyecto;
-	}
-	
-	public Colaborador consultarColaboradorActivo() throws Exception{
-		HttpSession session = ServletActionContext.getRequest().getSession(false); 
-		Colaborador colaborador = null;
-		String curpColaborador = null;
-		if (session != null && session.getAttribute("colaboradorCURP") != null) {
-			curpColaborador = (String)  session.getAttribute("colaboradorCURP"); //se obtiene el CURP del colaborador
-			colaborador = colaboradorDAO.findColaboradorByCURP(curpColaborador); //Se obtiene la información del colaborador.
-		}
-	
-		return colaborador;
 	}
 
 	/*public static Modulo consultarModuloActivo() throws Exception{
