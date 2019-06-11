@@ -3,6 +3,7 @@ package mx.tesseract.action;
 import java.util.Collection;
 import java.util.Map;
 
+import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.ColaboradorProyecto;
 import mx.tesseract.admin.entidad.Proyecto;/*
@@ -40,21 +41,24 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	 */ 
 	private static final long serialVersionUID = 1L;
 	private Map<String, Object> userSession;
+	private String idSel;
 	private String userName;
 	private String password;
+	private static String menuString;
 	
 	@Autowired
 	private AccessBs accessBs;
 	
 	@Autowired
-	private SessionManager sessionManager;
+	private LoginBs loginBs;
 	
 	public String index() {
 		System.out.println("Entramos a index");
 		String resultado = INDEX;
 		try {
+			menuString = getMenu();
 			if (SessionManager.isLogged()) {
-				if (sessionManager.consultarColaboradorActivo().isAdministrador()) {
+				if (loginBs.consultarColaboradorActivo().isAdministrador()) {
 					resultado = "administrador";
 				} else {
 					resultado = "colaborador";
@@ -78,13 +82,16 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 		String resultado = INDEX;
 		Colaborador colaborador;
 		try {
-			if (!sessionManager.isEmpty()) {
+			if (!SessionManager.isEmpty()) {
 				SessionManager.clear();				
 			}
 			colaborador = accessBs.verificarLogin(userName, password);
 			SessionManager.set(true, "login");
 			SessionManager.set(colaborador.getCurp(), "colaboradorCURP");
-			if (sessionManager.consultarColaboradorActivo().isAdministrador()) {
+			menuString = getMenu();
+			Colaborador n = loginBs.consultarColaboradorActivo();
+			System.out.println("Colaborador: "+n);
+			if (n.isAdministrador()) {
 				resultado = "administrador";
 			} else {
 				resultado = "colaborador";
@@ -106,23 +113,29 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 		return resultado;
 	}
 	
-	public String editNew() {
-		return EDITNEW;
+	public String show() {
+		logout();
+		return INDEX;
 	}
 
-	public String logout() {
-		if (!sessionManager.isEmpty()) {
+	public void logout() {
+		if (!SessionManager.isEmpty()) {
 			SessionManager.clear();
 		}
-		return index();
+		try {
+			menuString = getMenu();			
+		} catch (Exception e) {
+			System.out.println("Error en el Logout() Exception");
+			ErrorManager.agregaMensajeError(this, e);
+		}
 	}
-
-	
 
 	public String getMenu() throws Exception {
 		String resultado;
-		Proyecto proyecto = sessionManager.consultarProyectoActivo();
-		Colaborador colaborador = sessionManager.consultarColaboradorActivo();
+		Proyecto proyecto = loginBs.consultarProyectoActivo();
+		Colaborador colaborador = loginBs.consultarColaboradorActivo();
+		//Proyecto proyecto = null;
+		//Colaborador colaborador = null;
 		if (colaborador != null && colaborador.isAdministrador()) {
 			resultado = "administrador/menus/menuAdministrador";
 		} else if (proyecto == null) {
@@ -162,6 +175,22 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getIdSel() {
+		return idSel;
+	}
+
+	public void setIdSel(String idSel) {
+		this.idSel = idSel;
+	}
+	
+	public String getMenuString() {
+		return menuString;
+	}
+
+	public void setMenuString(String menuString) {
+		this.menuString = menuString;
 	}
 
 }

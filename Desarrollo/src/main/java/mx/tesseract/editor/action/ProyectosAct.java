@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import mx.tesseract.admin.bs.ColaboradorBs;
+import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.ColaboradorProyecto;
@@ -71,7 +72,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements
     private String extension;
     
     @Autowired
-    private SessionManager sessionManager;
+    private LoginBs loginBs;
 
 	public String index() {
 		Map<String, Object> session = null;
@@ -80,7 +81,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements
 			session = ActionContext.getContext().getSession();
 			session.remove("idProyecto");
 			session.remove("idModulo");
-			colaborador = sessionManager.consultarColaboradorActivo();
+			colaborador = loginBs.consultarColaboradorActivo();
 			//listProyectos = ProyectoBs.findByColaborador(colaborador);
 			resultado = INDEX;
 			@SuppressWarnings("unchecked")
@@ -307,7 +308,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements
 
 	public Proyecto getModel() {
 		try {
-			return (model == null) ? model = sessionManager.consultarProyectoActivo(): model;
+			return (model == null) ? model = loginBs.consultarProyectoActivo(): model;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

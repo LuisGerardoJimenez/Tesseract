@@ -42,9 +42,13 @@
 			<s:if test="#session != null">
 				<s:if test="#session.login == true">
 					<s:set var="id" value="#session.id"> </s:set>
-					<s:set var="perfil">/pages/<s:property
-							value="#mx.tesseract.action.AccessAct.getMenu()" />.jsp</s:set>
+					<!--<s:set var="perfil">/pages/<s:property
+							value="@mx.tesseract.action.AccessAct@getMenu()" />.jsp</s:set>-->
 					<!--<jsp:include page="${perfil}" />-->
+					<s:bean name="mx.tesseract.action.AccessAct" var="accessAct" />
+					<s:set var="menu">/pages/<s:property 
+							value="#accessAct.menuString" />.jsp</s:set>
+					<jsp:include page="${menu}" />
 				</s:if>
 			</s:if>
 		</div>
