@@ -85,7 +85,7 @@
 		value="false" />
 	<package name="tesseract" extends="rest-default,json-default">
 		<interceptors>
-			 <interceptor class="mx.tesseract.action.AccessInterceptor" name="loginInterceptor"/> 
+			<interceptor class="mx.tesseract.action.AccessInterceptor" name="loginInterceptor"/> 
 			
 			<interceptor name="breadCrumbs" class="org.softwareforge.struts2.breadcrumb.BreadCrumbInterceptor">
 				  <param name="trail.maxCrumbs">6</param>
@@ -197,7 +197,7 @@
 		<global-results>
 			<result name="error">/pages/error.jsp</result>
 			<result name="error500">/pages/error.jsp</result>
-			<result name="login" type="redirect">/access</result>
+			<result name="login" type="redirect">/pages/index.jsp</result>
 			<!-- <result name="session" type="redirectAction">
 				<param name="namespace">/control-acceso</param>
 				<param name="actionName">login</param>

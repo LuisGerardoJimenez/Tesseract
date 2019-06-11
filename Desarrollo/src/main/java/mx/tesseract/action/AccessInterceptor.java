@@ -32,15 +32,15 @@ public class AccessInterceptor extends AbstractInterceptor {
 		if (loginObject != null) {
 			System.out.println("login?: "+(Boolean) loginObject);
 		} else {
-			System.out.println("No hay llame login");
+			System.out.println("No hay llave login");
 		}
-		/*if (loginObject != null) {
+		if (loginObject != null) {
 			Boolean login = (Boolean) loginObject;
 			if (login) {
 				resultado = invocation.invoke();
 			}
-		}*/
+		}
 		System.out.println("Resultado: " + resultado);
-		return invocation.invoke();
+		return resultado;
 	}
 }
