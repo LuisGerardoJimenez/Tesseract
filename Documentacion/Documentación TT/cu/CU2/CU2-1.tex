@@ -1,5 +1,5 @@
 	\begin{UseCase}{CU2.1}{Registrar proyecto}{
-			Permite al {\hyperlink{admin}{Administrador}} registrar la información general de un proyecto en el sistema, dicha información está comprendida por: una \cdtRef{proyectoEntidad:claveProyecto}{clave}, un \cdtRef{proyectoEntidad:nombreProyecto}{nombre} (como medio de identificación), una breve \cdtRef{proyectoEntidad:descripcionProyecto}{descripción} (para definir objetivos y características generales) , la estimación del tiempo que tomará desarrollar el proyecto estableciendo una \cdtRef{proyectoEntidad:fechaIPProyecto}{fecha de inicio programada} y una  \cdtRef{proyectoEntidad:fechaFinPProyecto}{fecha de término programada}, \cdtRef{proyectoEntidad:contraparteProyecto}{contraparte} (en donde se específican los clientes del proyecto o partes interesadas) , el   \cdtRef{proyectoEntidad:presupuestoProyecto}{presupuesto} (en donde se establece el monto calculado del costo del proyecto), el \cdtRef{proyectoEntidad:estadoProyecto}{estado} del proyecto (al momento de registrarlo solo puede ser: En negociación o Iniciado) y por último el \cdtRef{proyectoEntidad:liderProyecto}{líder} (persona encargada de ejecutar las actividades de asociación de colaboradores al proyecto, así como las de terminar, revisar y liberar casos de uso). 
+				Permite al {\hyperlink{admin}{Administrador}} registrar la información general de un proyecto en el sistema, dichos datos se guardan con el fin de conocer las propiedades referentes a cada proyecto, como caracteristicas, tiempos estimados, presupuestos, etc.
 	}
 		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{admin}{Administrador}}
@@ -31,14 +31,13 @@
 		}
 		\UCitem{Postcondiciones}{
 		\begin{itemize}
-			\item Se registrará un proyecto en el sistema.
+			\item Interna: Se registrará un proyecto en el sistema.
 			\item Interna: Se podrán gestionar los Términos del glosario, Entidades, Reglas de negocio, Mensajes y Actores.
 		\end{itemize}
 		}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU2.1}{Registrar proyecto} cuando no se ha ingresado un dato marcado como obligatorio.
-		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU2.1}{Registrar proyecto} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en
-		el campo.
+		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU2.1}{Registrar proyecto} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU2.1}{Registrar proyecto} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU2.1}{Registrar proyecto} cuando se registre un proyecto con un nombre o clave que ya se encuentra registrado en el sistema.
 		\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} cuando no exista información de los estados de un proyecto.

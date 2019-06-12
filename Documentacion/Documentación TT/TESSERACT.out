@@ -1,0 +1,174 @@
+\BOOKMARK [0][-]{chapter.1}{Modelo del Negocio}{}% 1
+\BOOKMARK [1][-]{section.1.1}{T\351rminos del Negocio}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Diagramas de Estados}{chapter.1}% 3
+\BOOKMARK [2][-]{subsection.1.2.1}{Estados de un proyecto}{section.1.2}% 4
+\BOOKMARK [2][-]{subsection.1.2.2}{Estados de un caso de uso}{section.1.2}% 5
+\BOOKMARK [1][-]{section.1.3}{Modelo conceptual de un Caso de Uso}{chapter.1}% 6
+\BOOKMARK [2][-]{subsection.1.3.1}{Caso de Uso}{section.1.3}% 7
+\BOOKMARK [2][-]{subsection.1.3.2}{Pantalla}{section.1.3}% 8
+\BOOKMARK [2][-]{subsection.1.3.3}{Acci\363n}{section.1.3}% 9
+\BOOKMARK [2][-]{subsection.1.3.4}{Actor}{section.1.3}% 10
+\BOOKMARK [2][-]{subsection.1.3.5}{T\351rmino de glosario}{section.1.3}% 11
+\BOOKMARK [2][-]{subsection.1.3.6}{Regla de Negocio}{section.1.3}% 12
+\BOOKMARK [2][-]{subsection.1.3.7}{Mensaje}{section.1.3}% 13
+\BOOKMARK [2][-]{subsection.1.3.8}{Atributo}{section.1.3}% 14
+\BOOKMARK [2][-]{subsection.1.3.9}{Entidad}{section.1.3}% 15
+\BOOKMARK [2][-]{subsection.1.3.10}{Trayectoria}{section.1.3}% 16
+\BOOKMARK [2][-]{subsection.1.3.11}{Paso}{section.1.3}% 17
+\BOOKMARK [2][-]{subsection.1.3.12}{Valor del Par\341metro en Paso}{section.1.3}% 18
+\BOOKMARK [2][-]{subsection.1.3.13}{Revisi\363n}{section.1.3}% 19
+\BOOKMARK [2][-]{subsection.1.3.14}{Extensi\363n}{section.1.3}% 20
+\BOOKMARK [2][-]{subsection.1.3.15}{Inclusi\363n}{section.1.3}% 21
+\BOOKMARK [2][-]{subsection.1.3.16}{Precondici\363n}{section.1.3}% 22
+\BOOKMARK [2][-]{subsection.1.3.17}{Postcondici\363n}{section.1.3}% 23
+\BOOKMARK [1][-]{section.1.4}{Modelo Conceptual del Proyecto}{chapter.1}% 24
+\BOOKMARK [2][-]{subsection.1.4.1}{Elemento}{section.1.4}% 25
+\BOOKMARK [2][-]{subsection.1.4.2}{Proyecto}{section.1.4}% 26
+\BOOKMARK [2][-]{subsection.1.4.3}{Colaborador}{section.1.4}% 27
+\BOOKMARK [2][-]{subsection.1.4.4}{Colaborador de Proyecto}{section.1.4}% 28
+\BOOKMARK [2][-]{subsection.1.4.5}{M\363dulo}{section.1.4}% 29
+\BOOKMARK [2][-]{subsection.1.4.6}{Actualizaci\363n}{section.1.4}% 30
+\BOOKMARK [2][-]{subsection.1.4.7}{Revisi\363n}{section.1.4}% 31
+\BOOKMARK [1][-]{section.1.5}{Modelado de Reglas de negocio}{chapter.1}% 32
+\BOOKMARK [0][-]{chapter.2}{Modelo de comportamiento}{}% 33
+\BOOKMARK [1][-]{section.2.1}{Modelo de actores}{chapter.2}% 34
+\BOOKMARK [2][-]{subsection.2.1.1}{Administrador}{section.2.1}% 35
+\BOOKMARK [2][-]{subsection.2.1.2}{L\355der de proyecto}{section.2.1}% 36
+\BOOKMARK [2][-]{subsection.2.1.3}{Analista}{section.2.1}% 37
+\BOOKMARK [1][-]{section.2.2}{Casos de uso}{chapter.2}% 38
+\BOOKMARK [2][-]{subsection.2.2.1}{CU1 Iniciar sesi\363n}{section.2.2}% 39
+\BOOKMARK [2][-]{subsection.2.2.2}{CU2 Gestionar proyectos de Administrador}{section.2.2}% 40
+\BOOKMARK [2][-]{subsection.2.2.3}{CU2.1 Registrar proyecto}{section.2.2}% 41
+\BOOKMARK [2][-]{subsection.2.2.4}{CU2.2 Modificar proyecto}{section.2.2}% 42
+\BOOKMARK [2][-]{subsection.2.2.5}{CU2.3 Eliminar proyecto}{section.2.2}% 43
+\BOOKMARK [2][-]{subsection.2.2.6}{CU3 Gestionar Personal}{section.2.2}% 44
+\BOOKMARK [2][-]{subsection.2.2.7}{CU3.1 Registrar persona}{section.2.2}% 45
+\BOOKMARK [2][-]{subsection.2.2.8}{CU3.2 Modificar Persona}{section.2.2}% 46
+\BOOKMARK [2][-]{subsection.2.2.9}{CU3.3 Eliminar Persona}{section.2.2}% 47
+\BOOKMARK [2][-]{subsection.2.2.10}{CU4 Gestionar Proyectos de Colaborador}{section.2.2}% 48
+\BOOKMARK [2][-]{subsection.2.2.11}{CU4.1 Elegir Colaboradores}{section.2.2}% 49
+\BOOKMARK [2][-]{subsection.2.2.12}{CU5 Gestionar M\363dulos}{section.2.2}% 50
+\BOOKMARK [2][-]{subsection.2.2.13}{CU5.1 Registrar M\363dulo}{section.2.2}% 51
+\BOOKMARK [2][-]{subsection.2.2.14}{CU5.2 Modificar M\363dulo}{section.2.2}% 52
+\BOOKMARK [2][-]{subsection.2.2.15}{CU5.3 Eliminar M\363dulo}{section.2.2}% 53
+\BOOKMARK [2][-]{subsection.2.2.16}{CU6 Gestionar T\351rminos}{section.2.2}% 54
+\BOOKMARK [2][-]{subsection.2.2.17}{CU6.1 Registrar T\351rmino}{section.2.2}% 55
+\BOOKMARK [2][-]{subsection.2.2.18}{CU6.2 Modificar T\351rmino}{section.2.2}% 56
+\BOOKMARK [2][-]{subsection.2.2.19}{CU6.3 Eliminar T\351rmino}{section.2.2}% 57
+\BOOKMARK [2][-]{subsection.2.2.20}{CU6.4 Consultar T\351rmino}{section.2.2}% 58
+\BOOKMARK [2][-]{subsection.2.2.21}{CU7 Gestionar entidades}{section.2.2}% 59
+\BOOKMARK [2][-]{subsection.2.2.22}{CU7.1 Registrar Entidad}{section.2.2}% 60
+\BOOKMARK [2][-]{subsection.2.2.23}{CU7.1.1 Registrar Atributo}{section.2.2}% 61
+\BOOKMARK [2][-]{subsection.2.2.24}{CU7.1.2 Modificar Atributo}{section.2.2}% 62
+\BOOKMARK [2][-]{subsection.2.2.25}{CU7.2 Modificar Entidad}{section.2.2}% 63
+\BOOKMARK [2][-]{subsection.2.2.26}{CU7.3 Eliminar Entidad}{section.2.2}% 64
+\BOOKMARK [2][-]{subsection.2.2.27}{CU7.4 Consultar Entidad}{section.2.2}% 65
+\BOOKMARK [2][-]{subsection.2.2.28}{CU8 Gestionar reglas de negocio}{section.2.2}% 66
+\BOOKMARK [2][-]{subsection.2.2.29}{CU8.1 Registrar Regla de negocio}{section.2.2}% 67
+\BOOKMARK [2][-]{subsection.2.2.30}{CU8.2 Modificar Regla de negocio}{section.2.2}% 68
+\BOOKMARK [2][-]{subsection.2.2.31}{CU8.3 Eliminar Regla de negocio}{section.2.2}% 69
+\BOOKMARK [2][-]{subsection.2.2.32}{CU8.4 Consultar Regla de negocio}{section.2.2}% 70
+\BOOKMARK [2][-]{subsection.2.2.33}{CU9 Gestionar Mensajes}{section.2.2}% 71
+\BOOKMARK [2][-]{subsection.2.2.34}{CU9.1 Registrar Mensaje}{section.2.2}% 72
+\BOOKMARK [2][-]{subsection.2.2.35}{CU9.2 Modificar Mensaje}{section.2.2}% 73
+\BOOKMARK [2][-]{subsection.2.2.36}{CU9.3 Eliminar Mensaje}{section.2.2}% 74
+\BOOKMARK [2][-]{subsection.2.2.37}{CU9.4 Consultar Mensaje}{section.2.2}% 75
+\BOOKMARK [2][-]{subsection.2.2.38}{CU10 Gestionar Actores}{section.2.2}% 76
+\BOOKMARK [2][-]{subsection.2.2.39}{CU10.1 Registrar Actor}{section.2.2}% 77
+\BOOKMARK [2][-]{subsection.2.2.40}{CU10.2 Modificar Actor}{section.2.2}% 78
+\BOOKMARK [2][-]{subsection.2.2.41}{CU10.3 Eliminar Actor}{section.2.2}% 79
+\BOOKMARK [2][-]{subsection.2.2.42}{CU10.4 Consultar Actor}{section.2.2}% 80
+\BOOKMARK [2][-]{subsection.2.2.43}{CU11 Gestionar Pantallas}{section.2.2}% 81
+\BOOKMARK [2][-]{subsection.2.2.44}{CU11.1 Registrar Pantalla}{section.2.2}% 82
+\BOOKMARK [2][-]{subsection.2.2.45}{CU11.1.1 Registrar Acci\363n}{section.2.2}% 83
+\BOOKMARK [2][-]{subsection.2.2.46}{CU11.1.2 Modificar Acci\363n}{section.2.2}% 84
+\BOOKMARK [2][-]{subsection.2.2.47}{CU11.1.3 Eliminar Acci\363n}{section.2.2}% 85
+\BOOKMARK [2][-]{subsection.2.2.48}{CU11.2 Modificar Pantalla}{section.2.2}% 86
+\BOOKMARK [2][-]{subsection.2.2.49}{CU11.3 Eliminar Pantalla}{section.2.2}% 87
+\BOOKMARK [2][-]{subsection.2.2.50}{CU11.4 Consultar Pantalla}{section.2.2}% 88
+\BOOKMARK [2][-]{subsection.2.2.51}{CU12 Gestionar Casos de uso}{section.2.2}% 89
+\BOOKMARK [2][-]{subsection.2.2.52}{CU12.1 Registrar Caso de uso}{section.2.2}% 90
+\BOOKMARK [2][-]{subsection.2.2.53}{CU12.1.1 Gestionar Trayectorias}{section.2.2}% 91
+\BOOKMARK [2][-]{subsection.2.2.54}{CU12.1.1.1 Registrar Trayectoria}{section.2.2}% 92
+\BOOKMARK [2][-]{subsection.2.2.55}{CU12.1.1.1.1 Registrar Paso}{section.2.2}% 93
+\BOOKMARK [2][-]{subsection.2.2.56}{CU12.1.1.1.2 Modificar Paso}{section.2.2}% 94
+\BOOKMARK [2][-]{subsection.2.2.57}{CU12.1.1.1.3 Eliminar Paso}{section.2.2}% 95
+\BOOKMARK [2][-]{subsection.2.2.58}{CU12.1.1.2 Modificar Trayectoria}{section.2.2}% 96
+\BOOKMARK [2][-]{subsection.2.2.59}{CU12.1.1.3 Eliminar Trayectoria}{section.2.2}% 97
+\BOOKMARK [2][-]{subsection.2.2.60}{CU12.1.2 Registrar Precondici\363n}{section.2.2}% 98
+\BOOKMARK [2][-]{subsection.2.2.61}{CU12.1.3 Eliminar Precondici\363n}{section.2.2}% 99
+\BOOKMARK [2][-]{subsection.2.2.62}{CU12.1.4 Registrar Postcondici\363n}{section.2.2}% 100
+\BOOKMARK [2][-]{subsection.2.2.63}{CU12.1.5 Eliminar Postcondici\363n}{section.2.2}% 101
+\BOOKMARK [2][-]{subsection.2.2.64}{CU12.1.6 Gestionar Puntos de extensi\363n}{section.2.2}% 102
+\BOOKMARK [2][-]{subsection.2.2.65}{CU12.1.6.1 Registrar Punto de extensi\363n}{section.2.2}% 103
+\BOOKMARK [2][-]{subsection.2.2.66}{CU12.1.6.2 Modificar Punto de extensi\363n}{section.2.2}% 104
+\BOOKMARK [2][-]{subsection.2.2.67}{CU12.1.6.3 Eliminar Punto de extensi\363n}{section.2.2}% 105
+\BOOKMARK [2][-]{subsection.2.2.68}{CU12.2 Modificar Caso de uso}{section.2.2}% 106
+\BOOKMARK [2][-]{subsection.2.2.69}{CU12.3 Eliminar Caso de uso}{section.2.2}% 107
+\BOOKMARK [2][-]{subsection.2.2.70}{CU12.4 Consultar Caso de uso}{section.2.2}% 108
+\BOOKMARK [2][-]{subsection.2.2.71}{CU12.5 Revisar Caso de uso}{section.2.2}% 109
+\BOOKMARK [2][-]{subsection.2.2.72}{CU12.6 Terminar Caso de uso}{section.2.2}% 110
+\BOOKMARK [2][-]{subsection.2.2.73}{CU13 Descargar documento}{section.2.2}% 111
+\BOOKMARK [0][-]{chapter.3}{Modelo de interacci\363n con el usuario}{}% 112
+\BOOKMARK [1][-]{section.3.1}{Interfaces}{chapter.3}% 113
+\BOOKMARK [2][-]{subsection.3.1.1}{IU1 Iniciar sesi\363n}{section.3.1}% 114
+\BOOKMARK [2][-]{subsection.3.1.2}{IU1.1 Elegir rol}{section.3.1}% 115
+\BOOKMARK [2][-]{subsection.3.1.3}{IU 2 Gestionar proyectos de Administrador}{section.3.1}% 116
+\BOOKMARK [2][-]{subsection.3.1.4}{IU 2.1 Registrar Proyecto}{section.3.1}% 117
+\BOOKMARK [2][-]{subsection.3.1.5}{IU 2.2 Modificar Proyecto}{section.3.1}% 118
+\BOOKMARK [2][-]{subsection.3.1.6}{IU 3 Gestionar Personal}{section.3.1}% 119
+\BOOKMARK [2][-]{subsection.3.1.7}{IU 3.1 Registrar Persona}{section.3.1}% 120
+\BOOKMARK [2][-]{subsection.3.1.8}{IU 3.2 Modificar Persona}{section.3.1}% 121
+\BOOKMARK [2][-]{subsection.3.1.9}{IU 4 Gestionar m\363dulos}{section.3.1}% 122
+\BOOKMARK [2][-]{subsection.3.1.10}{IU 4.1 Registrar M\363dulo}{section.3.1}% 123
+\BOOKMARK [2][-]{subsection.3.1.11}{IU 4.2 Modificar M\363dulo}{section.3.1}% 124
+\BOOKMARK [2][-]{subsection.3.1.12}{IU 5 Gestionar proyectos de Colaborador}{section.3.1}% 125
+\BOOKMARK [2][-]{subsection.3.1.13}{IU 5.1 Elegir Colaboradores}{section.3.1}% 126
+\BOOKMARK [2][-]{subsection.3.1.14}{IU 6 Gestionar Casos de Uso}{section.3.1}% 127
+\BOOKMARK [2][-]{subsection.3.1.15}{IU 6.1 Registrar Caso de uso}{section.3.1}% 128
+\BOOKMARK [2][-]{subsection.3.1.16}{IU 6.1.1 Gestionar trayectorias}{section.3.1}% 129
+\BOOKMARK [2][-]{subsection.3.1.17}{IU 6.1.1.1 Registrar trayectoria}{section.3.1}% 130
+\BOOKMARK [2][-]{subsection.3.1.18}{IU 6.1.1.2 Modificar trayectoria}{section.3.1}% 131
+\BOOKMARK [2][-]{subsection.3.1.19}{IU 6.1.1.1.1 Registrar Paso}{section.3.1}% 132
+\BOOKMARK [2][-]{subsection.3.1.20}{IU 6.1.1.1.2 Modificar Paso}{section.3.1}% 133
+\BOOKMARK [2][-]{subsection.3.1.21}{IU 6.1.2 Registrar Precondici\363n}{section.3.1}% 134
+\BOOKMARK [2][-]{subsection.3.1.22}{IU 6.1.3 Registrar Postcondici\363n}{section.3.1}% 135
+\BOOKMARK [2][-]{subsection.3.1.23}{IU 6.1.4 Gestionar puntos de extensi\363n}{section.3.1}% 136
+\BOOKMARK [2][-]{subsection.3.1.24}{IU 6.1.4.1 Registrar Punto de extensi\363n}{section.3.1}% 137
+\BOOKMARK [2][-]{subsection.3.1.25}{IU 6.1.4.2 Modificar Punto de extensi\363n}{section.3.1}% 138
+\BOOKMARK [2][-]{subsection.3.1.26}{IU 6.2 Modificar caso de uso}{section.3.1}% 139
+\BOOKMARK [2][-]{subsection.3.1.27}{IU 6.4 Revisar caso de uso}{section.3.1}% 140
+\BOOKMARK [2][-]{subsection.3.1.28}{IU 7 Gestionar Pantallas}{section.3.1}% 141
+\BOOKMARK [2][-]{subsection.3.1.29}{IU 7.1 Registrar Pantalla}{section.3.1}% 142
+\BOOKMARK [2][-]{subsection.3.1.30}{IU 7.1.1 Registrar Acci\363n}{section.3.1}% 143
+\BOOKMARK [2][-]{subsection.3.1.31}{IU 7.1.2 Modificar Acci\363n}{section.3.1}% 144
+\BOOKMARK [2][-]{subsection.3.1.32}{IU 7.2 Modificar Pantalla}{section.3.1}% 145
+\BOOKMARK [2][-]{subsection.3.1.33}{IU 7.3 Consultar Pantalla}{section.3.1}% 146
+\BOOKMARK [2][-]{subsection.3.1.34}{IU 8 Gestionar Actores}{section.3.1}% 147
+\BOOKMARK [2][-]{subsection.3.1.35}{IU 8.1 Registrar Actor}{section.3.1}% 148
+\BOOKMARK [2][-]{subsection.3.1.36}{IU 8.2 Modificar Actor}{section.3.1}% 149
+\BOOKMARK [2][-]{subsection.3.1.37}{IU 8.3 Consultar Actor}{section.3.1}% 150
+\BOOKMARK [2][-]{subsection.3.1.38}{IU 9 Gestionar Reglas de Negocio}{section.3.1}% 151
+\BOOKMARK [2][-]{subsection.3.1.39}{IU 9.1 Registrar Regla de Negocio}{section.3.1}% 152
+\BOOKMARK [2][-]{subsection.3.1.40}{IU 9.2 Modificar Regla de Negocio}{section.3.1}% 153
+\BOOKMARK [2][-]{subsection.3.1.41}{IU 9.3 Consultar Regla de Negocio}{section.3.1}% 154
+\BOOKMARK [2][-]{subsection.3.1.42}{IU 10 Gestionar Mensajes}{section.3.1}% 155
+\BOOKMARK [2][-]{subsection.3.1.43}{IU 10.1 Registrar Mensaje}{section.3.1}% 156
+\BOOKMARK [2][-]{subsection.3.1.44}{IU 10.2 Modificar Mensaje}{section.3.1}% 157
+\BOOKMARK [2][-]{subsection.3.1.45}{IU 10.3 Consultar Mensaje}{section.3.1}% 158
+\BOOKMARK [2][-]{subsection.3.1.46}{IU 11 Gestionar t\351rminos}{section.3.1}% 159
+\BOOKMARK [2][-]{subsection.3.1.47}{Objetivo}{section.3.1}% 160
+\BOOKMARK [2][-]{subsection.3.1.48}{IU 11.1 Registrar T\351rmino}{section.3.1}% 161
+\BOOKMARK [2][-]{subsection.3.1.49}{IU 11.2 Modificar T\351rmino}{section.3.1}% 162
+\BOOKMARK [2][-]{subsection.3.1.50}{IU 11.3 Consultar T\351rmino}{section.3.1}% 163
+\BOOKMARK [2][-]{subsection.3.1.51}{IU 12 Gestionar Entidades}{section.3.1}% 164
+\BOOKMARK [2][-]{subsection.3.1.52}{IU 12.1 Registrar Entidad}{section.3.1}% 165
+\BOOKMARK [2][-]{subsection.3.1.53}{IU 12.1.1 Registrar Atributo}{section.3.1}% 166
+\BOOKMARK [2][-]{subsection.3.1.54}{IU 12.1.2 Modificar Atributo}{section.3.1}% 167
+\BOOKMARK [2][-]{subsection.3.1.55}{IU 12.2 Modificar Entidad}{section.3.1}% 168
+\BOOKMARK [2][-]{subsection.3.1.56}{IU 12.3 Consultar Entidad}{section.3.1}% 169
+\BOOKMARK [1][-]{section.3.2}{Mensajes del sistema}{chapter.3}% 170
+\BOOKMARK [1][-]{section.3.3}{Men\372s}{chapter.3}% 171
+\BOOKMARK [2][-]{subsection.3.3.1}{Men\372 de Administrador}{section.3.3}% 172
+\BOOKMARK [2][-]{subsection.3.3.2}{Men\372 de Colaborador}{section.3.3}% 173
+\BOOKMARK [2][-]{subsection.3.3.3}{Men\372 de proyecto}{section.3.3}% 174

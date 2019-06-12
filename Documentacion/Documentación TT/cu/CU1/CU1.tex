@@ -1,12 +1,6 @@
 	\begin{UseCase}{CU1}{Iniciar sesión}{
 			
-        En el inicio de sesión se controla el acceso a las distintas funciones del sistema de acuerdo con el rol asignado a un actor y mediante la entrada de datos como lo son el correo electrónico y contraseña. Tesserac define los siguientes roles con las siguientes características:
-			
-		 \begin{enumerate}
-         \item\hyperlink{admin}{Administrador}: Actor único, encargado de  registrar los proyectos y al personal de la organización. 
-         \item\hyperlink{jefe}{Líder de proyecto}: Encargado de dirigir y coordinar el proyecto en desarrollo. Asignado desde el registro del proyecto. 
-         \item\hyperlink{analista}{Analista} Encargado de documentar los elementos que componen el proyecto y validar los requerimientos del software. Asignado desde el registro del proyecto. \\
-         \end{enumerate}
+          En el inicio de sesión se controla el acceso a las distintas funciones del sistema de acuerdo con el rol asignado a un actor y mediante la entrada de sus respectivas credenciales. Tesseract define roles dependiendo de las actividades que realicen los actores, cada actividad es distinta y cada una requiere de accesos especiales a cada módulo del sistema.
 
 	}
 		\UCitem{Versión}{\color{Gray}0.1}
@@ -17,12 +11,12 @@
 				\item \cdtRef{colaboradorEntidad:passColaborador}{Contraseña}: Se escribe desde el teclado
 		\end{itemize}}
 		\UCitem{Salidas}{Ninguna}
-		\UCitem{Destino}{Pantalla}
 		\UCitem{Precondiciones}{Interna: Que el actor se encuentre registrado en el sistema.}
 		\UCitem{Postcondiciones}{El actor podrá hacer uso del sistema dependiendo del rol que tenga.}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato Obligatorio}: Se muestra en la pantalla \IUref{IU1}{Iniciar Sesión} cuando no se ha ingresado un dato marcado como obligatorio.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU1}{Iniciar Sesión} cuando se ha excedido la longitud de alguno de los campos.
+		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU1}{Iniciar Sesión} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG23}{Correo electrónico y/o contraseña incorrectos}: Se muestra en la pantalla \IUref{IU1}{Iniciar Sesión} cuando el correo electrónico y/o la contraseña ingresada son incorrectos.
 		\end{itemize}
 		}
@@ -32,16 +26,19 @@
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Solicita ingresar al sistema a través de la URL correspondiente al proyecto.
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU1}{Iniciar Sesión}.
-		\UCpaso[\UCactor] Ingresa el \cdtRef{colaboradorEntidad:correoColaborador}{Correo} y \cdtRef{colaboradorEntidad:passColaborador}{Contraseña}. \label{P3}
+		\UCpaso[\UCactor] Ingresa los datos solicitados. \label{P3}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}.
 		\UCpaso[\UCsist] Verifica que no se haya omitido ningún campo marcado como obligatorio con base en la regla de negocio \BRref{RN8}{Datos Obligatorios}. \hyperlink{CU1:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU1:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Verifica que los datos cumplan con el formato y el tipo de dato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU1:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que el actor se encuentre registrado en el sistema. \hyperlink{CU1:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que la contraseña ingresada corresponda con la del usuario. \hyperlink{CU1:TAE}{[Trayectoria E]}
-		\UCpaso[\UCsist] Verifica el rol que tiene el usuario con base a la regla de negocio \BRref{RN39}{Roles del sistema}. \hyperlink{CU1:TAF}{[Trayectoria F]} \hyperlink{CU1:TAG}{[Trayectoria G]}\hyperlink{CU1:TAH}{[Trayectoria H]}
-		\UCpaso[\UCsist] Inicia sesión como \hyperlink{admin}{Administrador}.
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU2}{Gestionar proyectos de Administrador}.
+		\UCpaso[\UCsist] Obtiene todos los roles que tiene asociado el usuario con base a la regla de negocio \BRref{RN39}{Roles del sistema}.
+		\UCpaso[\UCsist] Muestra la pantalla emergente \IUref{IU1.1}{Elegir Rol} con los roles asociados al usuario.
+		\UCpaso[\UCactor] Selecciona el rol con el que iniciar sesión.
+		\UCpaso[\UCactor] Presiona el botón aceptar.
+		\UCpaso[\UCsist] Inicia sesión con el rol seleccionado.
+		\UCpaso[\UCsist] Muestra la pantalla del rol correspondiente.
 	\end{UCtrayectoria}		
 %--------------------------------------
 		\hypertarget{CU1:TAA}{\textbf{Trayectoria alternativa A}}\\
@@ -86,30 +83,4 @@
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG23}{Correo electrónico y/o contraseña incorrectos} en la pantalla \IUref{IU1}{Iniciar Sesión} notificando que los datos ingresados son incorrectos.
 	\UCpaso[\UCactor] Regresa al paso \ref{P3} de la Trayectoria Principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
-\end{enumerate}
-	
-	
-%--------------------------------------
-	\hypertarget{CU1:TAF}{\textbf{Trayectoria alternativa F}}\\
-	\noindent \textbf{Condición:} El actor tiene el rol de \hyperlink{jefe}{Líder de proyecto}.
-	\begin{enumerate}
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador}.
-		\item[- -] - - {\em {Fin del caso de uso}}.
-	\end{enumerate}
-
-%--------------------------------------
-\hypertarget{CU1:TAG}{\textbf{Trayectoria alternativa G}}\\
-\noindent \textbf{Condición:} El actor tiene el rol de \hyperlink{analista}{Analista}.
-\begin{enumerate}
-	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador}.
-	\item[- -] - - {\em {Fin del caso de uso}}.
-\end{enumerate}
-
-\hypertarget{CU1:TAH}{\textbf{Trayectoria alternativa H}}\\
-\noindent \textbf{Condición:} El actor tiene mas de un rol.
-\begin{enumerate}
-	\UCpaso[\UCsist] Muestra la pantalla emergente \IUref{IU1.1}{Elegir Rol} en la cual permite elegir al actor con que rol desea iniciar sesión.
-	\UCpaso[\UCactor] Elije el rol con el que desea iniciar sesión.
-	\UCpaso[\UCsist] Muestra la pantalla correspondiente a el rol que el actor eligió. 
-	\item[- -] - - {\em {Fin del caso de uso}}.
 \end{enumerate}
