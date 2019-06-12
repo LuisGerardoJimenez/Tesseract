@@ -87,7 +87,7 @@
 \contentsline {subsection}{\numberline {2.2.1}CU1 Iniciar sesi\IeC {\'o}n}{49}{subsection.2.2.1}% 
 \contentsline {subsubsection}{Resumen}{49}{section*.51}% 
 \contentsline {subsubsection}{Atributos importantes}{49}{section*.52}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{50}{section*.53}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{49}{section*.53}% 
 \contentsline {subsection}{\numberline {2.2.2}CU2 Gestionar proyectos de Administrador}{52}{subsection.2.2.2}% 
 \contentsline {subsubsection}{Resumen}{52}{section*.54}% 
 \contentsline {subsubsection}{Atributos importantes}{52}{section*.55}% 
@@ -97,305 +97,305 @@
 \contentsline {subsubsection}{Resumen}{54}{section*.58}% 
 \contentsline {subsubsection}{Atributos importantes}{54}{section*.59}% 
 \contentsline {subsubsection}{Trayectorias del Caso de Uso}{55}{section*.60}% 
-\contentsline {subsection}{\numberline {2.2.4}CU2.2 Modificar proyecto}{59}{subsection.2.2.4}% 
-\contentsline {subsubsection}{Resumen}{59}{section*.61}% 
-\contentsline {subsubsection}{Atributos importantes}{59}{section*.62}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{61}{section*.63}% 
-\contentsline {subsection}{\numberline {2.2.5}CU2.3 Eliminar proyecto}{64}{subsection.2.2.5}% 
-\contentsline {subsubsection}{Resumen}{64}{section*.64}% 
-\contentsline {subsubsection}{Atributos importantes}{64}{section*.65}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{64}{section*.66}% 
-\contentsline {subsection}{\numberline {2.2.6}CU3 Gestionar Personal}{66}{subsection.2.2.6}% 
-\contentsline {subsubsection}{Resumen}{66}{section*.67}% 
-\contentsline {subsubsection}{Atributos importantes}{66}{section*.68}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{66}{section*.69}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{67}{section*.70}% 
-\contentsline {subsection}{\numberline {2.2.7}CU3.1 Registrar persona}{68}{subsection.2.2.7}% 
-\contentsline {subsubsection}{Resumen}{68}{section*.71}% 
-\contentsline {subsubsection}{Atributos importantes}{68}{section*.72}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{69}{section*.73}% 
-\contentsline {subsection}{\numberline {2.2.8}CU3.2 Modificar Persona}{72}{subsection.2.2.8}% 
-\contentsline {subsubsection}{Resumen}{72}{section*.74}% 
-\contentsline {subsubsection}{Atributos importantes}{72}{section*.75}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{73}{section*.76}% 
-\contentsline {subsection}{\numberline {2.2.9}CU3.3 Eliminar Persona}{75}{subsection.2.2.9}% 
-\contentsline {subsubsection}{Resumen}{75}{section*.77}% 
-\contentsline {subsubsection}{Atributos importantes}{75}{section*.78}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{75}{section*.79}% 
-\contentsline {subsection}{\numberline {2.2.10}CU4 Gestionar Proyectos de Colaborador}{77}{subsection.2.2.10}% 
-\contentsline {subsubsection}{Resumen}{77}{section*.80}% 
-\contentsline {subsubsection}{Atributos importantes}{77}{section*.81}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{77}{section*.82}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{78}{section*.83}% 
-\contentsline {subsection}{\numberline {2.2.11}CU4.1 Elegir Colaboradores}{79}{subsection.2.2.11}% 
-\contentsline {subsubsection}{Resumen}{79}{section*.84}% 
-\contentsline {subsubsection}{Atributos importantes}{79}{section*.85}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{79}{section*.86}% 
-\contentsline {subsection}{\numberline {2.2.12}CU5 Gestionar M\IeC {\'o}dulos}{81}{subsection.2.2.12}% 
-\contentsline {subsubsection}{Resumen}{81}{section*.87}% 
-\contentsline {subsubsection}{Atributos importantes}{81}{section*.88}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{81}{section*.89}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{82}{section*.90}% 
-\contentsline {subsection}{\numberline {2.2.13}CU5.1 Registrar M\IeC {\'o}dulo}{83}{subsection.2.2.13}% 
-\contentsline {subsubsection}{Resumen}{83}{section*.91}% 
-\contentsline {subsubsection}{Atributos importantes}{83}{section*.92}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{84}{section*.93}% 
-\contentsline {subsection}{\numberline {2.2.14}CU5.2 Modificar M\IeC {\'o}dulo}{86}{subsection.2.2.14}% 
-\contentsline {subsubsection}{Resumen}{86}{section*.94}% 
-\contentsline {subsubsection}{Atributos importantes}{86}{section*.95}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{87}{section*.96}% 
-\contentsline {subsection}{\numberline {2.2.15}CU5.3 Eliminar M\IeC {\'o}dulo}{89}{subsection.2.2.15}% 
-\contentsline {subsubsection}{Resumen}{89}{section*.97}% 
-\contentsline {subsubsection}{Atributos importantes}{89}{section*.98}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{89}{section*.99}% 
-\contentsline {subsection}{\numberline {2.2.16}CU6 Gestionar T\IeC {\'e}rminos}{91}{subsection.2.2.16}% 
-\contentsline {subsubsection}{Resumen}{91}{section*.100}% 
-\contentsline {subsubsection}{Atributos importantes}{91}{section*.101}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{91}{section*.102}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{92}{section*.103}% 
-\contentsline {subsection}{\numberline {2.2.17}CU6.1 Registrar T\IeC {\'e}rmino}{93}{subsection.2.2.17}% 
-\contentsline {subsubsection}{Resumen}{93}{section*.104}% 
-\contentsline {subsubsection}{Atributos importantes}{93}{section*.105}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{94}{section*.106}% 
-\contentsline {subsection}{\numberline {2.2.18}CU6.2 Modificar T\IeC {\'e}rmino}{96}{subsection.2.2.18}% 
-\contentsline {subsubsection}{Resumen}{96}{section*.107}% 
-\contentsline {subsubsection}{Atributos importantes}{96}{section*.108}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{97}{section*.109}% 
-\contentsline {subsection}{\numberline {2.2.19}CU6.3 Eliminar T\IeC {\'e}rmino}{99}{subsection.2.2.19}% 
-\contentsline {subsubsection}{Resumen}{99}{section*.110}% 
-\contentsline {subsubsection}{Atributos importantes}{99}{section*.111}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{99}{section*.112}% 
-\contentsline {subsection}{\numberline {2.2.20}CU6.4 Consultar T\IeC {\'e}rmino}{101}{subsection.2.2.20}% 
-\contentsline {subsubsection}{Resumen}{101}{section*.113}% 
-\contentsline {subsubsection}{Atributos importantes}{101}{section*.114}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{101}{section*.115}% 
-\contentsline {subsection}{\numberline {2.2.21}CU7 Gestionar entidades}{103}{subsection.2.2.21}% 
-\contentsline {subsubsection}{Resumen}{103}{section*.116}% 
-\contentsline {subsubsection}{Atributos importantes}{103}{section*.117}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{103}{section*.118}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{104}{section*.119}% 
-\contentsline {subsection}{\numberline {2.2.22}CU7.1 Registrar Entidad}{105}{subsection.2.2.22}% 
-\contentsline {subsubsection}{Resumen}{105}{section*.120}% 
-\contentsline {subsubsection}{Atributos importantes}{105}{section*.121}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{106}{section*.122}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{108}{section*.123}% 
-\contentsline {subsection}{\numberline {2.2.23}CU7.1.1 Registrar Atributo}{109}{subsection.2.2.23}% 
-\contentsline {subsubsection}{Resumen}{109}{section*.124}% 
-\contentsline {subsubsection}{Atributos importantes}{109}{section*.125}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{110}{section*.126}% 
-\contentsline {subsection}{\numberline {2.2.24}CU7.1.2 Modificar Atributo}{112}{subsection.2.2.24}% 
-\contentsline {subsubsection}{Resumen}{112}{section*.127}% 
-\contentsline {subsubsection}{Atributos importantes}{112}{section*.128}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{113}{section*.129}% 
-\contentsline {subsection}{\numberline {2.2.25}CU7.2 Modificar Entidad}{116}{subsection.2.2.25}% 
-\contentsline {subsubsection}{Resumen}{116}{section*.130}% 
-\contentsline {subsubsection}{Atributos importantes}{116}{section*.131}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{117}{section*.132}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{119}{section*.133}% 
-\contentsline {subsection}{\numberline {2.2.26}CU7.3 Eliminar Entidad}{120}{subsection.2.2.26}% 
-\contentsline {subsubsection}{Resumen}{120}{section*.134}% 
-\contentsline {subsubsection}{Atributos importantes}{120}{section*.135}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{120}{section*.136}% 
-\contentsline {subsection}{\numberline {2.2.27}CU7.4 Consultar Entidad}{122}{subsection.2.2.27}% 
-\contentsline {subsubsection}{Resumen}{122}{section*.137}% 
-\contentsline {subsubsection}{Atributos importantes}{122}{section*.138}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{122}{section*.139}% 
-\contentsline {subsection}{\numberline {2.2.28}CU8 Gestionar reglas de negocio}{124}{subsection.2.2.28}% 
-\contentsline {subsubsection}{Resumen}{124}{section*.140}% 
-\contentsline {subsubsection}{Atributos importantes}{124}{section*.141}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{124}{section*.142}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{125}{section*.143}% 
-\contentsline {subsection}{\numberline {2.2.29}CU8.1 Registrar Regla de negocio}{126}{subsection.2.2.29}% 
-\contentsline {subsubsection}{Resumen}{126}{section*.144}% 
-\contentsline {subsubsection}{Atributos importantes}{126}{section*.145}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{127}{section*.146}% 
-\contentsline {subsection}{\numberline {2.2.30}CU8.2 Modificar Regla de negocio}{130}{subsection.2.2.30}% 
-\contentsline {subsubsection}{Resumen}{130}{section*.147}% 
-\contentsline {subsubsection}{Atributos importantes}{130}{section*.148}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{132}{section*.149}% 
-\contentsline {subsection}{\numberline {2.2.31}CU8.3 Eliminar Regla de negocio}{135}{subsection.2.2.31}% 
-\contentsline {subsubsection}{Resumen}{135}{section*.150}% 
-\contentsline {subsubsection}{Atributos importantes}{135}{section*.151}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{135}{section*.152}% 
-\contentsline {subsection}{\numberline {2.2.32}CU8.4 Consultar Regla de negocio}{137}{subsection.2.2.32}% 
-\contentsline {subsubsection}{Resumen}{137}{section*.153}% 
-\contentsline {subsubsection}{Atributos importantes}{137}{section*.154}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{137}{section*.155}% 
-\contentsline {subsection}{\numberline {2.2.33}CU9 Gestionar Mensajes}{139}{subsection.2.2.33}% 
-\contentsline {subsubsection}{Resumen}{139}{section*.156}% 
-\contentsline {subsubsection}{Atributos importantes}{139}{section*.157}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{139}{section*.158}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{140}{section*.159}% 
-\contentsline {subsection}{\numberline {2.2.34}CU9.1 Registrar Mensaje}{141}{subsection.2.2.34}% 
-\contentsline {subsubsection}{Resumen}{141}{section*.160}% 
-\contentsline {subsubsection}{Atributos importantes}{141}{section*.161}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{142}{section*.162}% 
-\contentsline {subsection}{\numberline {2.2.35}CU9.2 Modificar Mensaje}{145}{subsection.2.2.35}% 
-\contentsline {subsubsection}{Resumen}{145}{section*.163}% 
-\contentsline {subsubsection}{Atributos importantes}{145}{section*.164}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{146}{section*.165}% 
-\contentsline {subsection}{\numberline {2.2.36}CU9.3 Eliminar Mensaje}{149}{subsection.2.2.36}% 
-\contentsline {subsubsection}{Resumen}{149}{section*.166}% 
-\contentsline {subsubsection}{Atributos importantes}{149}{section*.167}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{149}{section*.168}% 
-\contentsline {subsection}{\numberline {2.2.37}CU9.4 Consultar Mensaje}{151}{subsection.2.2.37}% 
-\contentsline {subsubsection}{Resumen}{151}{section*.169}% 
-\contentsline {subsubsection}{Atributos importantes}{151}{section*.170}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{151}{section*.171}% 
-\contentsline {subsection}{\numberline {2.2.38}CU10 Gestionar Actores}{153}{subsection.2.2.38}% 
-\contentsline {subsubsection}{Resumen}{153}{section*.172}% 
-\contentsline {subsubsection}{Atributos importantes}{153}{section*.173}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{153}{section*.174}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{154}{section*.175}% 
-\contentsline {subsection}{\numberline {2.2.39}CU10.1 Registrar Actor}{155}{subsection.2.2.39}% 
-\contentsline {subsubsection}{Resumen}{155}{section*.176}% 
-\contentsline {subsubsection}{Atributos importantes}{155}{section*.177}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{156}{section*.178}% 
-\contentsline {subsection}{\numberline {2.2.40}CU10.2 Modificar Actor}{158}{subsection.2.2.40}% 
-\contentsline {subsubsection}{Resumen}{158}{section*.179}% 
-\contentsline {subsubsection}{Atributos importantes}{158}{section*.180}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{159}{section*.181}% 
-\contentsline {subsection}{\numberline {2.2.41}CU10.3 Eliminar Actor}{161}{subsection.2.2.41}% 
-\contentsline {subsubsection}{Resumen}{161}{section*.182}% 
-\contentsline {subsubsection}{Atributos importantes}{161}{section*.183}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{161}{section*.184}% 
-\contentsline {subsection}{\numberline {2.2.42}CU10.4 Consultar Actor}{163}{subsection.2.2.42}% 
-\contentsline {subsubsection}{Resumen}{163}{section*.185}% 
-\contentsline {subsubsection}{Atributos importantes}{163}{section*.186}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{163}{section*.187}% 
-\contentsline {subsection}{\numberline {2.2.43}CU11 Gestionar Pantallas}{165}{subsection.2.2.43}% 
-\contentsline {subsubsection}{Resumen}{165}{section*.188}% 
-\contentsline {subsubsection}{Atributos importantes}{165}{section*.189}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{165}{section*.190}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{166}{section*.191}% 
-\contentsline {subsection}{\numberline {2.2.44}CU11.1 Registrar Pantalla}{167}{subsection.2.2.44}% 
-\contentsline {subsubsection}{Resumen}{167}{section*.192}% 
-\contentsline {subsubsection}{Atributos importantes}{167}{section*.193}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{168}{section*.194}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{170}{section*.195}% 
-\contentsline {subsection}{\numberline {2.2.45}CU11.1.1 Registrar Acci\IeC {\'o}n}{171}{subsection.2.2.45}% 
-\contentsline {subsubsection}{Resumen}{171}{section*.196}% 
-\contentsline {subsubsection}{Atributos importantes}{171}{section*.197}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{172}{section*.198}% 
-\contentsline {subsection}{\numberline {2.2.46}CU11.1.2 Modificar Acci\IeC {\'o}n}{175}{subsection.2.2.46}% 
-\contentsline {subsubsection}{Resumen}{175}{section*.199}% 
-\contentsline {subsubsection}{Atributos importantes}{175}{section*.200}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{176}{section*.201}% 
-\contentsline {subsection}{\numberline {2.2.47}CU11.1.3 Eliminar Acci\IeC {\'o}n}{179}{subsection.2.2.47}% 
-\contentsline {subsubsection}{Resumen}{179}{section*.202}% 
-\contentsline {subsubsection}{Atributos importantes}{179}{section*.203}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{179}{section*.204}% 
-\contentsline {subsection}{\numberline {2.2.48}CU11.2 Modificar Pantalla}{181}{subsection.2.2.48}% 
-\contentsline {subsubsection}{Resumen}{181}{section*.205}% 
-\contentsline {subsubsection}{Atributos importantes}{181}{section*.206}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{182}{section*.207}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{185}{section*.208}% 
-\contentsline {subsection}{\numberline {2.2.49}CU11.3 Eliminar Pantalla}{186}{subsection.2.2.49}% 
-\contentsline {subsubsection}{Resumen}{186}{section*.209}% 
-\contentsline {subsubsection}{Atributos importantes}{186}{section*.210}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{186}{section*.211}% 
-\contentsline {subsection}{\numberline {2.2.50}CU11.4 Consultar Pantalla}{188}{subsection.2.2.50}% 
-\contentsline {subsubsection}{Resumen}{188}{section*.212}% 
-\contentsline {subsubsection}{Atributos importantes}{188}{section*.213}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{188}{section*.214}% 
-\contentsline {subsection}{\numberline {2.2.51}CU12 Gestionar Casos de uso}{190}{subsection.2.2.51}% 
-\contentsline {subsubsection}{Resumen}{190}{section*.215}% 
-\contentsline {subsubsection}{Atributos importantes}{190}{section*.216}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{190}{section*.217}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{191}{section*.218}% 
-\contentsline {subsection}{\numberline {2.2.52}CU12.1 Registrar Caso de uso}{192}{subsection.2.2.52}% 
-\contentsline {subsubsection}{Resumen}{192}{section*.219}% 
-\contentsline {subsubsection}{Atributos importantes}{192}{section*.220}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{194}{section*.221}% 
-\contentsline {subsection}{\numberline {2.2.53}CU12.1.1 Gestionar Trayectorias}{199}{subsection.2.2.53}% 
-\contentsline {subsubsection}{Resumen}{199}{section*.222}% 
-\contentsline {subsubsection}{Atributos importantes}{199}{section*.223}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{200}{section*.224}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{200}{section*.225}% 
-\contentsline {subsection}{\numberline {2.2.54}CU12.1.1.1 Registrar Trayectoria}{201}{subsection.2.2.54}% 
-\contentsline {subsubsection}{Resumen}{201}{section*.226}% 
-\contentsline {subsubsection}{Atributos importantes}{201}{section*.227}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{202}{section*.228}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{205}{section*.229}% 
-\contentsline {subsection}{\numberline {2.2.55}CU12.1.1.1.1 Registrar Paso}{206}{subsection.2.2.55}% 
-\contentsline {subsubsection}{Resumen}{206}{section*.230}% 
-\contentsline {subsubsection}{Atributos importantes}{206}{section*.231}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{206}{section*.232}% 
-\contentsline {subsection}{\numberline {2.2.56}CU12.1.1.1.2 Modificar Paso}{212}{subsection.2.2.56}% 
-\contentsline {subsubsection}{Resumen}{212}{section*.233}% 
-\contentsline {subsubsection}{Atributos importantes}{212}{section*.234}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{213}{section*.235}% 
-\contentsline {subsection}{\numberline {2.2.57}CU12.1.1.1.3 Eliminar Paso}{218}{subsection.2.2.57}% 
-\contentsline {subsubsection}{Resumen}{218}{section*.236}% 
-\contentsline {subsubsection}{Atributos importantes}{218}{section*.237}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{218}{section*.238}% 
-\contentsline {subsection}{\numberline {2.2.58}CU12.1.1.2 Modificar Trayectoria}{220}{subsection.2.2.58}% 
-\contentsline {subsubsection}{Resumen}{220}{section*.239}% 
-\contentsline {subsubsection}{Atributos importantes}{220}{section*.240}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{222}{section*.241}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{225}{section*.242}% 
-\contentsline {subsection}{\numberline {2.2.59}CU12.1.1.3 Eliminar Trayectoria}{226}{subsection.2.2.59}% 
-\contentsline {subsubsection}{Resumen}{226}{section*.243}% 
-\contentsline {subsubsection}{Atributos importantes}{226}{section*.244}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{226}{section*.245}% 
-\contentsline {subsection}{\numberline {2.2.60}CU12.1.2 Registrar Precondici\IeC {\'o}n}{228}{subsection.2.2.60}% 
-\contentsline {subsubsection}{Resumen}{228}{section*.246}% 
-\contentsline {subsubsection}{Atributos importantes}{228}{section*.247}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{228}{section*.248}% 
-\contentsline {subsection}{\numberline {2.2.61}CU12.1.3 Eliminar Precondici\IeC {\'o}n}{234}{subsection.2.2.61}% 
-\contentsline {subsubsection}{Resumen}{234}{section*.249}% 
-\contentsline {subsubsection}{Atributos importantes}{234}{section*.250}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{234}{section*.251}% 
-\contentsline {subsection}{\numberline {2.2.62}CU12.1.4 Registrar Postcondici\IeC {\'o}n}{236}{subsection.2.2.62}% 
-\contentsline {subsubsection}{Resumen}{236}{section*.252}% 
-\contentsline {subsubsection}{Atributos importantes}{236}{section*.253}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{236}{section*.254}% 
-\contentsline {subsection}{\numberline {2.2.63}CU12.1.5 Eliminar Postcondici\IeC {\'o}n}{242}{subsection.2.2.63}% 
-\contentsline {subsubsection}{Resumen}{242}{section*.255}% 
-\contentsline {subsubsection}{Atributos importantes}{242}{section*.256}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{242}{section*.257}% 
-\contentsline {subsection}{\numberline {2.2.64}CU12.1.6 Gestionar Puntos de extensi\IeC {\'o}n}{244}{subsection.2.2.64}% 
-\contentsline {subsubsection}{Resumen}{244}{section*.258}% 
-\contentsline {subsubsection}{Atributos importantes}{244}{section*.259}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{244}{section*.260}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{245}{section*.261}% 
-\contentsline {subsection}{\numberline {2.2.65}CU12.1.6.1 Registrar Punto de extensi\IeC {\'o}n}{246}{subsection.2.2.65}% 
-\contentsline {subsubsection}{Resumen}{246}{section*.262}% 
-\contentsline {subsubsection}{Atributos importantes}{246}{section*.263}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{247}{section*.264}% 
-\contentsline {subsection}{\numberline {2.2.66}CU12.1.6.2 Modificar Punto de extensi\IeC {\'o}n}{250}{subsection.2.2.66}% 
-\contentsline {subsubsection}{Resumen}{250}{section*.265}% 
-\contentsline {subsubsection}{Atributos importantes}{250}{section*.266}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{251}{section*.267}% 
-\contentsline {subsection}{\numberline {2.2.67}CU12.1.6.3 Eliminar Punto de extensi\IeC {\'o}n}{255}{subsection.2.2.67}% 
-\contentsline {subsubsection}{Resumen}{255}{section*.268}% 
-\contentsline {subsubsection}{Atributos importantes}{255}{section*.269}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{255}{section*.270}% 
-\contentsline {subsection}{\numberline {2.2.68}CU12.2 Modificar Caso de uso}{257}{subsection.2.2.68}% 
-\contentsline {subsubsection}{Resumen}{257}{section*.271}% 
-\contentsline {subsubsection}{Atributos importantes}{257}{section*.272}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{259}{section*.273}% 
-\contentsline {subsection}{\numberline {2.2.69}CU12.3 Eliminar Caso de uso}{265}{subsection.2.2.69}% 
-\contentsline {subsubsection}{Resumen}{265}{section*.274}% 
-\contentsline {subsubsection}{Atributos importantes}{265}{section*.275}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{265}{section*.276}% 
-\contentsline {subsection}{\numberline {2.2.70}CU12.4 Consultar Caso de uso}{268}{subsection.2.2.70}% 
-\contentsline {subsubsection}{Resumen}{268}{section*.277}% 
-\contentsline {subsubsection}{Atributos importantes}{268}{section*.278}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{270}{section*.279}% 
-\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{270}{section*.280}% 
-\contentsline {subsection}{\numberline {2.2.71}CU12.5 Revisar Caso de uso}{272}{subsection.2.2.71}% 
-\contentsline {subsubsection}{Resumen}{272}{section*.281}% 
-\contentsline {subsubsection}{Atributos importantes}{272}{section*.282}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{274}{section*.283}% 
-\contentsline {subsection}{\numberline {2.2.72}CU12.6 Terminar Caso de uso}{277}{subsection.2.2.72}% 
-\contentsline {subsubsection}{Resumen}{277}{section*.284}% 
-\contentsline {subsubsection}{Atributos importantes}{277}{section*.285}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{277}{section*.286}% 
-\contentsline {subsection}{\numberline {2.2.73}CU13 Descargar documento}{279}{subsection.2.2.73}% 
-\contentsline {subsubsection}{Resumen}{279}{section*.287}% 
-\contentsline {subsubsection}{Atributos importantes}{279}{section*.288}% 
-\contentsline {subsubsection}{Trayectorias del Caso de Uso}{279}{section*.289}% 
+\contentsline {subsection}{\numberline {2.2.4}CU2.2 Modificar proyecto}{58}{subsection.2.2.4}% 
+\contentsline {subsubsection}{Resumen}{58}{section*.61}% 
+\contentsline {subsubsection}{Atributos importantes}{58}{section*.62}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{60}{section*.63}% 
+\contentsline {subsection}{\numberline {2.2.5}CU2.3 Eliminar proyecto}{63}{subsection.2.2.5}% 
+\contentsline {subsubsection}{Resumen}{63}{section*.64}% 
+\contentsline {subsubsection}{Atributos importantes}{63}{section*.65}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{63}{section*.66}% 
+\contentsline {subsection}{\numberline {2.2.6}CU3 Gestionar Personal}{65}{subsection.2.2.6}% 
+\contentsline {subsubsection}{Resumen}{65}{section*.67}% 
+\contentsline {subsubsection}{Atributos importantes}{65}{section*.68}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{65}{section*.69}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{66}{section*.70}% 
+\contentsline {subsection}{\numberline {2.2.7}CU3.1 Registrar persona}{67}{subsection.2.2.7}% 
+\contentsline {subsubsection}{Resumen}{67}{section*.71}% 
+\contentsline {subsubsection}{Atributos importantes}{67}{section*.72}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{68}{section*.73}% 
+\contentsline {subsection}{\numberline {2.2.8}CU3.2 Modificar Persona}{71}{subsection.2.2.8}% 
+\contentsline {subsubsection}{Resumen}{71}{section*.74}% 
+\contentsline {subsubsection}{Atributos importantes}{71}{section*.75}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{72}{section*.76}% 
+\contentsline {subsection}{\numberline {2.2.9}CU3.3 Eliminar Persona}{74}{subsection.2.2.9}% 
+\contentsline {subsubsection}{Resumen}{74}{section*.77}% 
+\contentsline {subsubsection}{Atributos importantes}{74}{section*.78}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{74}{section*.79}% 
+\contentsline {subsection}{\numberline {2.2.10}CU4 Gestionar Proyectos de Colaborador}{76}{subsection.2.2.10}% 
+\contentsline {subsubsection}{Resumen}{76}{section*.80}% 
+\contentsline {subsubsection}{Atributos importantes}{76}{section*.81}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{76}{section*.82}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{77}{section*.83}% 
+\contentsline {subsection}{\numberline {2.2.11}CU4.1 Elegir Colaboradores}{78}{subsection.2.2.11}% 
+\contentsline {subsubsection}{Resumen}{78}{section*.84}% 
+\contentsline {subsubsection}{Atributos importantes}{78}{section*.85}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{78}{section*.86}% 
+\contentsline {subsection}{\numberline {2.2.12}CU5 Gestionar M\IeC {\'o}dulos}{80}{subsection.2.2.12}% 
+\contentsline {subsubsection}{Resumen}{80}{section*.87}% 
+\contentsline {subsubsection}{Atributos importantes}{80}{section*.88}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{80}{section*.89}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{81}{section*.90}% 
+\contentsline {subsection}{\numberline {2.2.13}CU5.1 Registrar M\IeC {\'o}dulo}{82}{subsection.2.2.13}% 
+\contentsline {subsubsection}{Resumen}{82}{section*.91}% 
+\contentsline {subsubsection}{Atributos importantes}{82}{section*.92}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{83}{section*.93}% 
+\contentsline {subsection}{\numberline {2.2.14}CU5.2 Modificar M\IeC {\'o}dulo}{85}{subsection.2.2.14}% 
+\contentsline {subsubsection}{Resumen}{85}{section*.94}% 
+\contentsline {subsubsection}{Atributos importantes}{85}{section*.95}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{86}{section*.96}% 
+\contentsline {subsection}{\numberline {2.2.15}CU5.3 Eliminar M\IeC {\'o}dulo}{88}{subsection.2.2.15}% 
+\contentsline {subsubsection}{Resumen}{88}{section*.97}% 
+\contentsline {subsubsection}{Atributos importantes}{88}{section*.98}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{88}{section*.99}% 
+\contentsline {subsection}{\numberline {2.2.16}CU6 Gestionar T\IeC {\'e}rminos}{90}{subsection.2.2.16}% 
+\contentsline {subsubsection}{Resumen}{90}{section*.100}% 
+\contentsline {subsubsection}{Atributos importantes}{90}{section*.101}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{90}{section*.102}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{91}{section*.103}% 
+\contentsline {subsection}{\numberline {2.2.17}CU6.1 Registrar T\IeC {\'e}rmino}{92}{subsection.2.2.17}% 
+\contentsline {subsubsection}{Resumen}{92}{section*.104}% 
+\contentsline {subsubsection}{Atributos importantes}{92}{section*.105}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{93}{section*.106}% 
+\contentsline {subsection}{\numberline {2.2.18}CU6.2 Modificar T\IeC {\'e}rmino}{95}{subsection.2.2.18}% 
+\contentsline {subsubsection}{Resumen}{95}{section*.107}% 
+\contentsline {subsubsection}{Atributos importantes}{95}{section*.108}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{96}{section*.109}% 
+\contentsline {subsection}{\numberline {2.2.19}CU6.3 Eliminar T\IeC {\'e}rmino}{98}{subsection.2.2.19}% 
+\contentsline {subsubsection}{Resumen}{98}{section*.110}% 
+\contentsline {subsubsection}{Atributos importantes}{98}{section*.111}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{98}{section*.112}% 
+\contentsline {subsection}{\numberline {2.2.20}CU6.4 Consultar T\IeC {\'e}rmino}{100}{subsection.2.2.20}% 
+\contentsline {subsubsection}{Resumen}{100}{section*.113}% 
+\contentsline {subsubsection}{Atributos importantes}{100}{section*.114}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{100}{section*.115}% 
+\contentsline {subsection}{\numberline {2.2.21}CU7 Gestionar entidades}{102}{subsection.2.2.21}% 
+\contentsline {subsubsection}{Resumen}{102}{section*.116}% 
+\contentsline {subsubsection}{Atributos importantes}{102}{section*.117}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{102}{section*.118}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{103}{section*.119}% 
+\contentsline {subsection}{\numberline {2.2.22}CU7.1 Registrar Entidad}{104}{subsection.2.2.22}% 
+\contentsline {subsubsection}{Resumen}{104}{section*.120}% 
+\contentsline {subsubsection}{Atributos importantes}{104}{section*.121}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{105}{section*.122}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{107}{section*.123}% 
+\contentsline {subsection}{\numberline {2.2.23}CU7.1.1 Registrar Atributo}{108}{subsection.2.2.23}% 
+\contentsline {subsubsection}{Resumen}{108}{section*.124}% 
+\contentsline {subsubsection}{Atributos importantes}{108}{section*.125}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{109}{section*.126}% 
+\contentsline {subsection}{\numberline {2.2.24}CU7.1.2 Modificar Atributo}{111}{subsection.2.2.24}% 
+\contentsline {subsubsection}{Resumen}{111}{section*.127}% 
+\contentsline {subsubsection}{Atributos importantes}{111}{section*.128}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{112}{section*.129}% 
+\contentsline {subsection}{\numberline {2.2.25}CU7.2 Modificar Entidad}{115}{subsection.2.2.25}% 
+\contentsline {subsubsection}{Resumen}{115}{section*.130}% 
+\contentsline {subsubsection}{Atributos importantes}{115}{section*.131}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{116}{section*.132}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{118}{section*.133}% 
+\contentsline {subsection}{\numberline {2.2.26}CU7.3 Eliminar Entidad}{119}{subsection.2.2.26}% 
+\contentsline {subsubsection}{Resumen}{119}{section*.134}% 
+\contentsline {subsubsection}{Atributos importantes}{119}{section*.135}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{119}{section*.136}% 
+\contentsline {subsection}{\numberline {2.2.27}CU7.4 Consultar Entidad}{121}{subsection.2.2.27}% 
+\contentsline {subsubsection}{Resumen}{121}{section*.137}% 
+\contentsline {subsubsection}{Atributos importantes}{121}{section*.138}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{121}{section*.139}% 
+\contentsline {subsection}{\numberline {2.2.28}CU8 Gestionar reglas de negocio}{123}{subsection.2.2.28}% 
+\contentsline {subsubsection}{Resumen}{123}{section*.140}% 
+\contentsline {subsubsection}{Atributos importantes}{123}{section*.141}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{123}{section*.142}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{124}{section*.143}% 
+\contentsline {subsection}{\numberline {2.2.29}CU8.1 Registrar Regla de negocio}{125}{subsection.2.2.29}% 
+\contentsline {subsubsection}{Resumen}{125}{section*.144}% 
+\contentsline {subsubsection}{Atributos importantes}{125}{section*.145}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{126}{section*.146}% 
+\contentsline {subsection}{\numberline {2.2.30}CU8.2 Modificar Regla de negocio}{129}{subsection.2.2.30}% 
+\contentsline {subsubsection}{Resumen}{129}{section*.147}% 
+\contentsline {subsubsection}{Atributos importantes}{129}{section*.148}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{131}{section*.149}% 
+\contentsline {subsection}{\numberline {2.2.31}CU8.3 Eliminar Regla de negocio}{134}{subsection.2.2.31}% 
+\contentsline {subsubsection}{Resumen}{134}{section*.150}% 
+\contentsline {subsubsection}{Atributos importantes}{134}{section*.151}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{134}{section*.152}% 
+\contentsline {subsection}{\numberline {2.2.32}CU8.4 Consultar Regla de negocio}{136}{subsection.2.2.32}% 
+\contentsline {subsubsection}{Resumen}{136}{section*.153}% 
+\contentsline {subsubsection}{Atributos importantes}{136}{section*.154}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{136}{section*.155}% 
+\contentsline {subsection}{\numberline {2.2.33}CU9 Gestionar Mensajes}{138}{subsection.2.2.33}% 
+\contentsline {subsubsection}{Resumen}{138}{section*.156}% 
+\contentsline {subsubsection}{Atributos importantes}{138}{section*.157}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{138}{section*.158}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{139}{section*.159}% 
+\contentsline {subsection}{\numberline {2.2.34}CU9.1 Registrar Mensaje}{140}{subsection.2.2.34}% 
+\contentsline {subsubsection}{Resumen}{140}{section*.160}% 
+\contentsline {subsubsection}{Atributos importantes}{140}{section*.161}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{141}{section*.162}% 
+\contentsline {subsection}{\numberline {2.2.35}CU9.2 Modificar Mensaje}{144}{subsection.2.2.35}% 
+\contentsline {subsubsection}{Resumen}{144}{section*.163}% 
+\contentsline {subsubsection}{Atributos importantes}{144}{section*.164}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{145}{section*.165}% 
+\contentsline {subsection}{\numberline {2.2.36}CU9.3 Eliminar Mensaje}{148}{subsection.2.2.36}% 
+\contentsline {subsubsection}{Resumen}{148}{section*.166}% 
+\contentsline {subsubsection}{Atributos importantes}{148}{section*.167}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{148}{section*.168}% 
+\contentsline {subsection}{\numberline {2.2.37}CU9.4 Consultar Mensaje}{150}{subsection.2.2.37}% 
+\contentsline {subsubsection}{Resumen}{150}{section*.169}% 
+\contentsline {subsubsection}{Atributos importantes}{150}{section*.170}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{150}{section*.171}% 
+\contentsline {subsection}{\numberline {2.2.38}CU10 Gestionar Actores}{152}{subsection.2.2.38}% 
+\contentsline {subsubsection}{Resumen}{152}{section*.172}% 
+\contentsline {subsubsection}{Atributos importantes}{152}{section*.173}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{152}{section*.174}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{153}{section*.175}% 
+\contentsline {subsection}{\numberline {2.2.39}CU10.1 Registrar Actor}{154}{subsection.2.2.39}% 
+\contentsline {subsubsection}{Resumen}{154}{section*.176}% 
+\contentsline {subsubsection}{Atributos importantes}{154}{section*.177}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{155}{section*.178}% 
+\contentsline {subsection}{\numberline {2.2.40}CU10.2 Modificar Actor}{157}{subsection.2.2.40}% 
+\contentsline {subsubsection}{Resumen}{157}{section*.179}% 
+\contentsline {subsubsection}{Atributos importantes}{157}{section*.180}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{158}{section*.181}% 
+\contentsline {subsection}{\numberline {2.2.41}CU10.3 Eliminar Actor}{160}{subsection.2.2.41}% 
+\contentsline {subsubsection}{Resumen}{160}{section*.182}% 
+\contentsline {subsubsection}{Atributos importantes}{160}{section*.183}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{160}{section*.184}% 
+\contentsline {subsection}{\numberline {2.2.42}CU10.4 Consultar Actor}{162}{subsection.2.2.42}% 
+\contentsline {subsubsection}{Resumen}{162}{section*.185}% 
+\contentsline {subsubsection}{Atributos importantes}{162}{section*.186}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{162}{section*.187}% 
+\contentsline {subsection}{\numberline {2.2.43}CU11 Gestionar Pantallas}{164}{subsection.2.2.43}% 
+\contentsline {subsubsection}{Resumen}{164}{section*.188}% 
+\contentsline {subsubsection}{Atributos importantes}{164}{section*.189}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{164}{section*.190}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{165}{section*.191}% 
+\contentsline {subsection}{\numberline {2.2.44}CU11.1 Registrar Pantalla}{166}{subsection.2.2.44}% 
+\contentsline {subsubsection}{Resumen}{166}{section*.192}% 
+\contentsline {subsubsection}{Atributos importantes}{166}{section*.193}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{167}{section*.194}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{169}{section*.195}% 
+\contentsline {subsection}{\numberline {2.2.45}CU11.1.1 Registrar Acci\IeC {\'o}n}{170}{subsection.2.2.45}% 
+\contentsline {subsubsection}{Resumen}{170}{section*.196}% 
+\contentsline {subsubsection}{Atributos importantes}{170}{section*.197}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{171}{section*.198}% 
+\contentsline {subsection}{\numberline {2.2.46}CU11.1.2 Modificar Acci\IeC {\'o}n}{174}{subsection.2.2.46}% 
+\contentsline {subsubsection}{Resumen}{174}{section*.199}% 
+\contentsline {subsubsection}{Atributos importantes}{174}{section*.200}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{175}{section*.201}% 
+\contentsline {subsection}{\numberline {2.2.47}CU11.1.3 Eliminar Acci\IeC {\'o}n}{178}{subsection.2.2.47}% 
+\contentsline {subsubsection}{Resumen}{178}{section*.202}% 
+\contentsline {subsubsection}{Atributos importantes}{178}{section*.203}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{178}{section*.204}% 
+\contentsline {subsection}{\numberline {2.2.48}CU11.2 Modificar Pantalla}{180}{subsection.2.2.48}% 
+\contentsline {subsubsection}{Resumen}{180}{section*.205}% 
+\contentsline {subsubsection}{Atributos importantes}{180}{section*.206}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{181}{section*.207}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{184}{section*.208}% 
+\contentsline {subsection}{\numberline {2.2.49}CU11.3 Eliminar Pantalla}{185}{subsection.2.2.49}% 
+\contentsline {subsubsection}{Resumen}{185}{section*.209}% 
+\contentsline {subsubsection}{Atributos importantes}{185}{section*.210}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{185}{section*.211}% 
+\contentsline {subsection}{\numberline {2.2.50}CU11.4 Consultar Pantalla}{187}{subsection.2.2.50}% 
+\contentsline {subsubsection}{Resumen}{187}{section*.212}% 
+\contentsline {subsubsection}{Atributos importantes}{187}{section*.213}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{187}{section*.214}% 
+\contentsline {subsection}{\numberline {2.2.51}CU12 Gestionar Casos de uso}{189}{subsection.2.2.51}% 
+\contentsline {subsubsection}{Resumen}{189}{section*.215}% 
+\contentsline {subsubsection}{Atributos importantes}{189}{section*.216}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{189}{section*.217}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{190}{section*.218}% 
+\contentsline {subsection}{\numberline {2.2.52}CU12.1 Registrar Caso de uso}{191}{subsection.2.2.52}% 
+\contentsline {subsubsection}{Resumen}{191}{section*.219}% 
+\contentsline {subsubsection}{Atributos importantes}{191}{section*.220}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{193}{section*.221}% 
+\contentsline {subsection}{\numberline {2.2.53}CU12.1.1 Gestionar Trayectorias}{198}{subsection.2.2.53}% 
+\contentsline {subsubsection}{Resumen}{198}{section*.222}% 
+\contentsline {subsubsection}{Atributos importantes}{198}{section*.223}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{199}{section*.224}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{199}{section*.225}% 
+\contentsline {subsection}{\numberline {2.2.54}CU12.1.1.1 Registrar Trayectoria}{200}{subsection.2.2.54}% 
+\contentsline {subsubsection}{Resumen}{200}{section*.226}% 
+\contentsline {subsubsection}{Atributos importantes}{200}{section*.227}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{201}{section*.228}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{204}{section*.229}% 
+\contentsline {subsection}{\numberline {2.2.55}CU12.1.1.1.1 Registrar Paso}{205}{subsection.2.2.55}% 
+\contentsline {subsubsection}{Resumen}{205}{section*.230}% 
+\contentsline {subsubsection}{Atributos importantes}{205}{section*.231}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{205}{section*.232}% 
+\contentsline {subsection}{\numberline {2.2.56}CU12.1.1.1.2 Modificar Paso}{211}{subsection.2.2.56}% 
+\contentsline {subsubsection}{Resumen}{211}{section*.233}% 
+\contentsline {subsubsection}{Atributos importantes}{211}{section*.234}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{212}{section*.235}% 
+\contentsline {subsection}{\numberline {2.2.57}CU12.1.1.1.3 Eliminar Paso}{217}{subsection.2.2.57}% 
+\contentsline {subsubsection}{Resumen}{217}{section*.236}% 
+\contentsline {subsubsection}{Atributos importantes}{217}{section*.237}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{217}{section*.238}% 
+\contentsline {subsection}{\numberline {2.2.58}CU12.1.1.2 Modificar Trayectoria}{219}{subsection.2.2.58}% 
+\contentsline {subsubsection}{Resumen}{219}{section*.239}% 
+\contentsline {subsubsection}{Atributos importantes}{219}{section*.240}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{221}{section*.241}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{224}{section*.242}% 
+\contentsline {subsection}{\numberline {2.2.59}CU12.1.1.3 Eliminar Trayectoria}{225}{subsection.2.2.59}% 
+\contentsline {subsubsection}{Resumen}{225}{section*.243}% 
+\contentsline {subsubsection}{Atributos importantes}{225}{section*.244}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{225}{section*.245}% 
+\contentsline {subsection}{\numberline {2.2.60}CU12.1.2 Registrar Precondici\IeC {\'o}n}{227}{subsection.2.2.60}% 
+\contentsline {subsubsection}{Resumen}{227}{section*.246}% 
+\contentsline {subsubsection}{Atributos importantes}{227}{section*.247}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{227}{section*.248}% 
+\contentsline {subsection}{\numberline {2.2.61}CU12.1.3 Eliminar Precondici\IeC {\'o}n}{233}{subsection.2.2.61}% 
+\contentsline {subsubsection}{Resumen}{233}{section*.249}% 
+\contentsline {subsubsection}{Atributos importantes}{233}{section*.250}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{233}{section*.251}% 
+\contentsline {subsection}{\numberline {2.2.62}CU12.1.4 Registrar Postcondici\IeC {\'o}n}{235}{subsection.2.2.62}% 
+\contentsline {subsubsection}{Resumen}{235}{section*.252}% 
+\contentsline {subsubsection}{Atributos importantes}{235}{section*.253}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{235}{section*.254}% 
+\contentsline {subsection}{\numberline {2.2.63}CU12.1.5 Eliminar Postcondici\IeC {\'o}n}{241}{subsection.2.2.63}% 
+\contentsline {subsubsection}{Resumen}{241}{section*.255}% 
+\contentsline {subsubsection}{Atributos importantes}{241}{section*.256}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{241}{section*.257}% 
+\contentsline {subsection}{\numberline {2.2.64}CU12.1.6 Gestionar Puntos de extensi\IeC {\'o}n}{243}{subsection.2.2.64}% 
+\contentsline {subsubsection}{Resumen}{243}{section*.258}% 
+\contentsline {subsubsection}{Atributos importantes}{243}{section*.259}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{243}{section*.260}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{244}{section*.261}% 
+\contentsline {subsection}{\numberline {2.2.65}CU12.1.6.1 Registrar Punto de extensi\IeC {\'o}n}{245}{subsection.2.2.65}% 
+\contentsline {subsubsection}{Resumen}{245}{section*.262}% 
+\contentsline {subsubsection}{Atributos importantes}{245}{section*.263}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{246}{section*.264}% 
+\contentsline {subsection}{\numberline {2.2.66}CU12.1.6.2 Modificar Punto de extensi\IeC {\'o}n}{249}{subsection.2.2.66}% 
+\contentsline {subsubsection}{Resumen}{249}{section*.265}% 
+\contentsline {subsubsection}{Atributos importantes}{249}{section*.266}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{250}{section*.267}% 
+\contentsline {subsection}{\numberline {2.2.67}CU12.1.6.3 Eliminar Punto de extensi\IeC {\'o}n}{254}{subsection.2.2.67}% 
+\contentsline {subsubsection}{Resumen}{254}{section*.268}% 
+\contentsline {subsubsection}{Atributos importantes}{254}{section*.269}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{254}{section*.270}% 
+\contentsline {subsection}{\numberline {2.2.68}CU12.2 Modificar Caso de uso}{256}{subsection.2.2.68}% 
+\contentsline {subsubsection}{Resumen}{256}{section*.271}% 
+\contentsline {subsubsection}{Atributos importantes}{256}{section*.272}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{258}{section*.273}% 
+\contentsline {subsection}{\numberline {2.2.69}CU12.3 Eliminar Caso de uso}{264}{subsection.2.2.69}% 
+\contentsline {subsubsection}{Resumen}{264}{section*.274}% 
+\contentsline {subsubsection}{Atributos importantes}{264}{section*.275}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{264}{section*.276}% 
+\contentsline {subsection}{\numberline {2.2.70}CU12.4 Consultar Caso de uso}{267}{subsection.2.2.70}% 
+\contentsline {subsubsection}{Resumen}{267}{section*.277}% 
+\contentsline {subsubsection}{Atributos importantes}{267}{section*.278}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{269}{section*.279}% 
+\contentsline {subsubsection}{Puntos de extensi\IeC {\'o}n}{269}{section*.280}% 
+\contentsline {subsection}{\numberline {2.2.71}CU12.5 Revisar Caso de uso}{271}{subsection.2.2.71}% 
+\contentsline {subsubsection}{Resumen}{271}{section*.281}% 
+\contentsline {subsubsection}{Atributos importantes}{271}{section*.282}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{273}{section*.283}% 
+\contentsline {subsection}{\numberline {2.2.72}CU12.6 Terminar Caso de uso}{276}{subsection.2.2.72}% 
+\contentsline {subsubsection}{Resumen}{276}{section*.284}% 
+\contentsline {subsubsection}{Atributos importantes}{276}{section*.285}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{276}{section*.286}% 
+\contentsline {subsection}{\numberline {2.2.73}CU13 Descargar documento}{278}{subsection.2.2.73}% 
+\contentsline {subsubsection}{Resumen}{278}{section*.287}% 
+\contentsline {subsubsection}{Atributos importantes}{278}{section*.288}% 
+\contentsline {subsubsection}{Trayectorias del Caso de Uso}{278}{section*.289}% 
 \contentsline {chapter}{\numberline {3}Modelo de interacci\IeC {\'o}n con el usuario}{281}{chapter.3}% 
 \contentsline {section}{\numberline {3.1}Interfaces}{281}{section.3.1}% 
 \contentsline {subsection}{\numberline {3.1.1}IU1 Iniciar sesi\IeC {\'o}n}{281}{subsection.3.1.1}% 
