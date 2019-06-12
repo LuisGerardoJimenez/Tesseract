@@ -12,10 +12,10 @@
 		\UCitem{Salidas}{\begin{itemize}
 				\item \hyperlink{proyectoEntidad}{Proyecto}: Tabla que muestra la \cdtRef{proyectoEntidad:claveProyecto}{clave}, \cdtRef{proyectoEntidad:nombreProyecto}{nombre} y el \cdtRef{proyectoEntidad:liderProyecto}{Líder de Proyecto} de todos los proyectos existentes.
 		\end{itemize}}
-		\UCitem{Destino}{Pantalla}
 		\UCitem{Precondiciones}{
 			\begin{itemize}
 				\item Que el usuario haya iniciado sesión como \hyperlink{admin}{Administrador}.
+				\item Que exista al menos un proyecto registrado.
 			\end{itemize}	
 		}
 		\UCitem{Postcondiciones}{Ninguna}
@@ -30,14 +30,14 @@
 		\UCpaso[\UCactor] Solicita gestionar los proyectos presionando la opción ''Proyectos'' del menú \IUref{MN1}{Menú de Administrador}.
 		\UCpaso[\UCsist] Obtiene la información de los proyectos registrados en cualquier estado. \hyperlink{CU2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Ordena los proyectos alfabéticamente.
-		\UCpaso[\UCsist] Muestra la información de los proyectos en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador}. \label{P3}
+		\UCpaso[\UCsist] Muestra la información de los proyectos en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador}. \label{GP-P3}
 		\UCpaso[\UCactor] Gestiona los proyectos a través de los botones: \IUbutton{Registrar}, \editar  y \eliminar. 
 	\end{UCtrayectoria}		
 %--------------------------------------
 	\hypertarget{CU2:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} No existen registros de proyectos.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} para indicar que no hay registros de proyectos para mostrar.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} dentro de la tabla de proyectos de la pantalla \IUref{IU2A}{Gestionar proyectos de Administrador} para indicar que no hay registros de proyectos para mostrar. \label{TA-P1}
 	\UCpaso[\UCactor] Gestiona los proyectos a través del botón: \IUbutton{Registrar}.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
@@ -45,6 +45,6 @@
 
 \subsubsection{Puntos de extensión}
 
-\UCExtenssionPoint{El actor requiere registrar un proyecto.}{Paso \ref{P3} de la trayectoria principal.}{\UCref{CU2.1}{Registrar Proyecto}}
-\UCExtenssionPoint{El actor requiere modificar un proyecto.}{Paso \ref{P3} de la trayectoria principal.}{\UCref{CU2.2}{Modificar Proyecto}}
-\UCExtenssionPoint{El actor requiere eliminar un proyecto.}{Paso \ref{P3} de la trayectoria principal.}{\UCref{CU2.3}{Eliminar Proyecto}}
+\UCExtenssionPoint{El actor requiere registrar un proyecto.}{Paso \ref{GP-P3} de la trayectoria principal o del paso \ref{TA-P1} de la trayectoria alternativa A.}{\UCref{CU2.1}{Registrar Proyecto}}
+\UCExtenssionPoint{El actor requiere modificar un proyecto.}{Paso \ref{GP-P3} de la trayectoria principal.}{\UCref{CU2.2}{Modificar Proyecto}}
+\UCExtenssionPoint{El actor requiere eliminar un proyecto.}{Paso \ref{GP-P3} de la trayectoria principal.}{\UCref{CU2.3}{Eliminar Proyecto}}
