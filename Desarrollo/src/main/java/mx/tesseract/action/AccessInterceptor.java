@@ -34,11 +34,19 @@ public class AccessInterceptor extends AbstractInterceptor {
 		} else {
 			System.out.println("No hay llave login");
 		}
+		System.out.println("AntionName obtenido: "+invocation.getProxy().getActionName());
+		if (invocation.getProxy().getActionName() == null) {
+			System.out.println("Nulo");
+		} else {
+			System.out.println("Vacio");
+		}
 		if (loginObject != null) {
 			Boolean login = (Boolean) loginObject;
 			if (login) {
 				resultado = invocation.invoke();
 			}
+		} else if (invocation.getProxy().getActionName().isEmpty() || invocation.getProxy().getActionName().equals("access")) {
+			resultado = invocation.invoke();
 		}
 		System.out.println("Resultado: " + resultado);
 		return resultado;

@@ -197,11 +197,9 @@
 		<global-results>
 			<result name="error">/pages/error.jsp</result>
 			<result name="error500">/pages/error.jsp</result>
-			<result name="login" type="redirect">/pages/index.jsp</result>
-			<!-- <result name="session" type="redirectAction">
-				<param name="namespace">/control-acceso</param>
-				<param name="actionName">login</param>
-			</result> -->
+			<result name="login" type="redirectAction">
+				<param name="actionName">access</param>
+			</result>
 
 			<result name="next" type="redirectAction">${#session["current"]}</result>
 

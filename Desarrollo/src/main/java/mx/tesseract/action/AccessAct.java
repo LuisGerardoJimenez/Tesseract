@@ -53,6 +53,10 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	private LoginBs loginBs;
 	
 	public String index() {
+		return INDEX;
+	}
+	
+	/*public String index() {
 		System.out.println("Entramos a index");
 		String resultado = INDEX;
 		try {
@@ -75,7 +79,7 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 			e.printStackTrace();
 		}
 		return resultado;
-	}
+	}*/
 	
 	public String create() throws Exception {
 		System.out.println("Entramos a login");
