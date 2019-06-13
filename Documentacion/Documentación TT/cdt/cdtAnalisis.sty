@@ -343,7 +343,7 @@
 % use: \IUfig[width]{imagefile}{id}{Nombre de la pantalla}
 \newcommand{\IUfig}[4][0.7]{%
 	\cdtAddElement{#3}{Interfaz de usuario}{#4}{NA}{NA}{NA}%
-	\begin{figure}[htpb!]%
+	\begin{figure}[H]%
 		\begin{center}%
 			\hypertarget{#3}{\includegraphics[width=#1\textwidth]{images/#2}}%
 			\caption{%
