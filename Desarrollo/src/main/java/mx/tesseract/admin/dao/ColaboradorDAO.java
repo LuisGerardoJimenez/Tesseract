@@ -21,6 +21,7 @@ public class ColaboradorDAO {
 	
 	private static final String FIND_COLABORADOR_BY_CORREO = "SELECT c FROM Colaborador c WHERE c.correoElectronico = :correoElectronico";
 	private static final String FIND_COLABORADOR_BY_CURP = "SELECT c FROM Colaborador c WHERE c.curp = :curp";
+	private static final String FIND_ALL_WITHOUT_ADMIN = "SELECT c FROM Colaborador c WHERE c.administrador != :value";
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -53,6 +54,20 @@ public class ColaboradorDAO {
 	public Colaborador update(Colaborador colaborador) {
 		Colaborador updatedColaborador =  entityManager.merge(colaborador);
 		return updatedColaborador;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Colaborador> findAllWithoutAdmin() {
+		List<Colaborador> lista = new ArrayList<Colaborador>();
+		try {
+			Query query = entityManager.createQuery(FIND_ALL_WITHOUT_ADMIN, Colaborador.class);
+			query.setParameter("value", Boolean.TRUE);
+			System.out.println("Query: "+query);
+			lista = (List<Colaborador>) query.getResultList();
+		} catch (Exception e) {
+			System.err.print(e.getMessage());
+		}
+		return lista;
 	}
 	
 	@SuppressWarnings("unchecked")

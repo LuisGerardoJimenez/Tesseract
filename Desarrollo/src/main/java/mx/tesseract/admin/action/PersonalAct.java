@@ -44,17 +44,11 @@ ModelDriven<Colaborador>, SessionAware{
 	@Autowired
 	private ColaboradorBs colaboradorBs;
 	
+	@SuppressWarnings("unchecked")
 	public String index() throws Exception {
 		try {
-			listPersonal = new ArrayList<Colaborador>();
-			for (Colaborador colaborador : colaboradorBs.consultarPersonal()) {
-				if (!colaborador.isAdministrador()) {
-					listPersonal.add(colaborador);
-				}
-			}
-			@SuppressWarnings("unchecked")
-			Collection<String> msjs = (Collection<String>) SessionManager
-					.get("mensajesAccion");
+			listPersonal = colaboradorBs.consultarPersonal();
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
 		} catch (TESSERACTException pe) {

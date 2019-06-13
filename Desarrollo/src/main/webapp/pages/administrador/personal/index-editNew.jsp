@@ -10,7 +10,7 @@
 <![CDATA[
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/constructores.js"></script>
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/validaciones.js"></script>
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/administrador/personal/js/index-editNew.js"></script>	
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/administrador/personal/js/index-editNew.js"></script>	
 ]]>
 
 </head>
