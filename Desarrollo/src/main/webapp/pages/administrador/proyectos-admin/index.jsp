@@ -7,7 +7,7 @@
 <head>
 <title>Proyectos</title>
 <![CDATA[
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/administrador/proyectos-admin/js/index.js"></script>
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/administrador/proyectos-admin/js/index.js"></script>
 ]]>
 </head>
 
