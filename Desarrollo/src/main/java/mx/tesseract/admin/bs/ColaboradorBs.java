@@ -23,7 +23,12 @@ import mx.tesseract.util.Validador;
 import org.hibernate.HibernateException;
 import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
+@Service("colaboradorBS")
+@Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class ColaboradorBs {
 	
 	@Autowired
@@ -39,7 +44,7 @@ public class ColaboradorBs {
 	}*/
 
 	public List<Colaborador> consultarPersonal() {
-		List<Colaborador> colaboradores = colaboradorDAO.findAll();
+		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
 		if(colaboradores == null) {
 			throw new TESSERACTException("No se pueden consultar los colaboradores.",
 					"MSG13");
