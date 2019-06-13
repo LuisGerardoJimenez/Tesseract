@@ -15,6 +15,7 @@ import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
@@ -35,13 +36,13 @@ import ch.qos.logback.core.joran.action.Action;
 		@Result(name = "recover", type = "dispatcher", location = "recover.jsp"),
 		@Result(name = "welcome", type = "redirectAction", params = {"actionName", "welcome" })
 		})
+@AllowedMethods({"logout"})
 public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	/** 
 	 * 
 	 */ 
 	private static final long serialVersionUID = 1L;
 	private Map<String, Object> userSession;
-	private String idSel;
 	private String userName;
 	private String password;
 	private static String menuString;
@@ -53,14 +54,10 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	private LoginBs loginBs;
 	
 	public String index() {
-		return INDEX;
-	}
-	
-	/*public String index() {
-		System.out.println("Entramos a index");
 		String resultado = INDEX;
 		try {
-			menuString = getMenu();
+			System.out.println("Antes check Log");
+			System.out.println("isLogged?: "+SessionManager.isLogged());
 			if (SessionManager.isLogged()) {
 				if (loginBs.consultarColaboradorActivo().isAdministrador()) {
 					resultado = "administrador";
@@ -72,14 +69,13 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
-			System.out.println("Saliendo del index");
 		} catch (TESSERACTException pe) {
 			ErrorManager.agregaMensajeError(this, pe);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return resultado;
-	}*/
+	}
 	
 	public String create() throws Exception {
 		System.out.println("Entramos a login");
@@ -93,9 +89,8 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 			SessionManager.set(true, "login");
 			SessionManager.set(colaborador.getCurp(), "colaboradorCURP");
 			menuString = getMenu();
-			Colaborador n = loginBs.consultarColaboradorActivo();
-			System.out.println("Colaborador: "+n);
-			if (n.isAdministrador()) {
+			System.out.println("Colaborador: "+colaborador);
+			if (colaborador.isAdministrador()) {
 				resultado = "administrador";
 			} else {
 				resultado = "colaborador";
@@ -117,29 +112,17 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 		return resultado;
 	}
 	
-	public String show() {
-		logout();
-		return INDEX;
-	}
-
-	public void logout() {
+	public String logout() {
 		if (!SessionManager.isEmpty()) {
 			SessionManager.clear();
 		}
-		try {
-			menuString = getMenu();			
-		} catch (Exception e) {
-			System.out.println("Error en el Logout() Exception");
-			ErrorManager.agregaMensajeError(this, e);
-		}
+		return INDEX;
 	}
 
 	public String getMenu() throws Exception {
 		String resultado;
 		Proyecto proyecto = loginBs.consultarProyectoActivo();
 		Colaborador colaborador = loginBs.consultarColaboradorActivo();
-		//Proyecto proyecto = null;
-		//Colaborador colaborador = null;
 		if (colaborador != null && colaborador.isAdministrador()) {
 			resultado = "administrador/menus/menuAdministrador";
 		} else if (proyecto == null) {
@@ -150,8 +133,6 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 		System.out.println("Resultado Menu: "+resultado);
 		return resultado;
 	}
-	
-	
 	
 	public void setSession(Map<String, Object> session) {
 		this.userSession = session;
@@ -179,14 +160,6 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	public String getIdSel() {
-		return idSel;
-	}
-
-	public void setIdSel(String idSel) {
-		this.idSel = idSel;
 	}
 	
 	public String getMenuString() {
