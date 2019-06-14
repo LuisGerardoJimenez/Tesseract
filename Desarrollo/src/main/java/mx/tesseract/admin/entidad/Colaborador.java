@@ -22,11 +22,12 @@ import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import mx.tesseract.util.Constantes;
+import mx.tesseract.util.GenericInterface;
 
 
 @Entity
 @Table(name = "colaborador")
-public class Colaborador implements java.io.Serializable {
+public class Colaborador implements java.io.Serializable, GenericInterface {
 
 	/**
 	 * 
