@@ -12,6 +12,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,7 +25,10 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import mx.tesseract.util.Constantes;
 
-
+@NamedQueries({
+	@NamedQuery(name="findColaboradorByCorreo",query="SELECT c FROM Colaborador c WHERE c.correoElectronico = :correoElectronico"),
+	@NamedQuery(name="findColaboradorByCURP",query="SELECT c FROM Colaborador c WHERE c.curp = :curp")
+})
 @Entity
 @Table(name = "colaborador")
 public class Colaborador implements java.io.Serializable {
