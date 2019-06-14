@@ -27,7 +27,8 @@ import mx.tesseract.util.Constantes;
 
 @NamedQueries({
 	@NamedQuery(name="findColaboradorByCorreo",query="SELECT c FROM Colaborador c WHERE c.correoElectronico = :correoElectronico"),
-	@NamedQuery(name="findColaboradorByCURP",query="SELECT c FROM Colaborador c WHERE c.curp = :curp")
+	@NamedQuery(name="findColaboradorByCURP",query="SELECT c FROM Colaborador c WHERE c.curp = :curp"),
+	@NamedQuery(name="findAllWithoutAdmin",query="SELECT c FROM Colaborador c WHERE c.administrador != :value")
 })
 @Entity
 @Table(name = "colaborador")

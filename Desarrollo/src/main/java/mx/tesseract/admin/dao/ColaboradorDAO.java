@@ -54,11 +54,24 @@ public class ColaboradorDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Colaborador> findAllWithoutAdmin() {
+		List<Colaborador> lista = new ArrayList<Colaborador>();
+		try {
+			Query query = entityManager.createNamedQuery("findAllWithoutAdmin",Colaborador.class);
+			query.setParameter("value", Boolean.TRUE);
+			lista = (List<Colaborador>) query.getResultList();
+		} catch (Exception e) {
+			System.err.print(e.getMessage());
+		}
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public Colaborador findColaboradorByCorreo(String correo) {
 		Colaborador colaborador = null;
 		try {
 			System.out.println("Lentro");
-			TypedQuery<Colaborador> query = entityManager.createNamedQuery("findColaboradorByCorreo", Colaborador.class);
+			Query query = entityManager.createNamedQuery("findColaboradorByCorreo", Colaborador.class);
 			//Query query = entityManager.createQuery(FIND_COLABORADOR_BY_CORREO, Colaborador.class);
 			query.setParameter("correoElectronico", correo);
 			colaborador = (Colaborador) query.getSingleResult();
@@ -72,7 +85,7 @@ public class ColaboradorDAO {
 	public Colaborador findColaboradorByCURP(String curp) {
 		Colaborador colaborador = null;
 		try {
-			TypedQuery<Colaborador> query = entityManager.createNamedQuery("findColaboradorByCURP", Colaborador.class);
+			Query query = entityManager.createNamedQuery("findColaboradorByCURP", Colaborador.class);
 			//Query query = entityManager.createQuery(FIND_COLABORADOR_BY_CURP, Colaborador.class);
 			query.setParameter("curp", curp);
 			colaborador = (Colaborador) query.getSingleResult();
