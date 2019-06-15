@@ -24,6 +24,7 @@ import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import mx.tesseract.util.Constantes;
+import mx.tesseract.util.GenericInterface;
 
 @NamedQueries({
 	@NamedQuery(name="findColaboradorByCorreo",query="SELECT c FROM Colaborador c WHERE c.correoElectronico = :correoElectronico"),
@@ -32,7 +33,7 @@ import mx.tesseract.util.Constantes;
 })
 @Entity
 @Table(name = "colaborador")
-public class Colaborador implements java.io.Serializable {
+public class Colaborador implements java.io.Serializable, GenericInterface {
 
 	/**
 	 * 
