@@ -37,6 +37,7 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 
 	/**
 	 * 
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private String curp;
