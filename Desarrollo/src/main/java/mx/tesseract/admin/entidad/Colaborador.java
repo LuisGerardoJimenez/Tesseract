@@ -12,6 +12,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,12 +26,17 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
-
+@NamedQueries({
+	@NamedQuery(name="findColaboradorByCorreo",query="SELECT c FROM Colaborador c WHERE c.correoElectronico = :correoElectronico"),
+	@NamedQuery(name="findColaboradorByCURP",query="SELECT c FROM Colaborador c WHERE c.curp = :curp"),
+	@NamedQuery(name="findAllWithoutAdmin",query="SELECT c FROM Colaborador c WHERE c.administrador != :value")
+})
 @Entity
 @Table(name = "colaborador")
 public class Colaborador implements java.io.Serializable, GenericInterface {
 
 	/**
+	 * 
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;

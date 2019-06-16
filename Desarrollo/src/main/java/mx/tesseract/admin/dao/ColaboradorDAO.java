@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -18,10 +19,6 @@ import mx.tesseract.admin.entidad.Colaborador;
 
 @Repository("colaboradorDAO")
 public class ColaboradorDAO {
-	
-	private static final String FIND_COLABORADOR_BY_CORREO = "SELECT c FROM Colaborador c WHERE c.correoElectronico = :correoElectronico";
-	private static final String FIND_COLABORADOR_BY_CURP = "SELECT c FROM Colaborador c WHERE c.curp = :curp";
-	private static final String FIND_ALL_WITHOUT_ADMIN = "SELECT c FROM Colaborador c WHERE c.administrador != :value";
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -60,9 +57,8 @@ public class ColaboradorDAO {
 	public List<Colaborador> findAllWithoutAdmin() {
 		List<Colaborador> lista = new ArrayList<Colaborador>();
 		try {
-			Query query = entityManager.createQuery(FIND_ALL_WITHOUT_ADMIN, Colaborador.class);
+			Query query = entityManager.createNamedQuery("findAllWithoutAdmin",Colaborador.class);
 			query.setParameter("value", Boolean.TRUE);
-			System.out.println("Query: "+query);
 			lista = (List<Colaborador>) query.getResultList();
 		} catch (Exception e) {
 			System.err.print(e.getMessage());
@@ -74,7 +70,9 @@ public class ColaboradorDAO {
 	public Colaborador findColaboradorByCorreo(String correo) {
 		Colaborador colaborador = null;
 		try {
-			Query query = entityManager.createQuery(FIND_COLABORADOR_BY_CORREO, Colaborador.class);
+			System.out.println("Lentro");
+			Query query = entityManager.createNamedQuery("findColaboradorByCorreo", Colaborador.class);
+			//Query query = entityManager.createQuery(FIND_COLABORADOR_BY_CORREO, Colaborador.class);
 			query.setParameter("correoElectronico", correo);
 			colaborador = (Colaborador) query.getSingleResult();
 		} catch (Exception e) {
@@ -87,7 +85,8 @@ public class ColaboradorDAO {
 	public Colaborador findColaboradorByCURP(String curp) {
 		Colaborador colaborador = null;
 		try {
-			Query query = entityManager.createQuery(FIND_COLABORADOR_BY_CURP, Colaborador.class);
+			Query query = entityManager.createNamedQuery("findColaboradorByCURP", Colaborador.class);
+			//Query query = entityManager.createQuery(FIND_COLABORADOR_BY_CURP, Colaborador.class);
 			query.setParameter("curp", curp);
 			colaborador = (Colaborador) query.getSingleResult();
 		} catch (Exception e) {
