@@ -35,29 +35,29 @@ public class AccessBs {
 		Colaborador colaborador = null;
 		if (Validador.esNuloOVacio(userName)) {
 			throw new TESSERACTValidacionException(
-					"El usuario no ingresÃ³ el correo electrÃ³nico", "MSG4", null,
+					"El usuario no ingresó el correo electrónico", "MSG4", null,
 					"userName");
 		}
 		if (Validador.esNuloOVacio(password)) {
 			throw new TESSERACTValidacionException(
-					"El usuario no ingresÃ³ la contraseÃ±a.", "MSG4", null,
+					"El usuario no ingresó la contraseña.", "MSG4", null,
 					"password");
 		}
 		if (Validador.validaLongitudMaxima(userName, Constantes.NUMERO_TREINTA)) {
 			throw new TESSERACTValidacionException(
-					"El usuario no ingresÃ³ el correo electrÃ³nico", "MSG6", 
+					"El usuario no ingresó el correo electrónico", "MSG6", 
 					new String[] { Constantes.NUMERO_TREINTA.toString(), "caracteres"},
 					"userName");
 		}
 		if (Validador.validaLongitudMaxima(password, Constantes.NUMERO_VEINTE)) {
 			throw new TESSERACTValidacionException(
-					"El usuario no ingresÃ³ la contraseÃ±a.", "MSG6", 
+					"El usuario no ingresó la contraseña.", "MSG6", 
 					new String[] { Constantes.NUMERO_VEINTE.toString(), "caracteres"},
 					"password");
 		}
 		/*if (Validador.esInvalidaREGEX(password, Constantes.REGEX_CONTRASENIA)) {
 			throw new TESSERACTValidacionException(
-					"El usuario no ingresÃ³ la contraseÃ±a.", "MSG6", 
+					"El usuario no ingresó la contraseña.", "MSG6", 
 					new String[] { Constantes.NUMERO_VEINTE.toString(), "caracteres"},
 					"password");
 		}*/
@@ -69,7 +69,7 @@ public class AccessBs {
 			e.printStackTrace();
 		}
 		if (colaborador == null || !colaborador.getContrasenia().equals(password)) {
-			throw new TESSERACTValidacionException("Colaborador no encontrado o contraseÃ±a incorrecta", "MSG31");
+			throw new TESSERACTValidacionException("Colaborador no encontrado o contraseña incorrecta", "MSG31");
 		}
 		return colaborador;
 	}
@@ -78,7 +78,7 @@ public class AccessBs {
 		Colaborador colaborador = null;
 		if (Validador.esNuloOVacio(userName)) {
 			throw new TESSERACTValidacionException(
-					"El usuario no ingresÃ³ el correo electrÃ³nico", "MSG4", null,
+					"El usuario no ingresó el correo electrónico", "MSG4", null,
 					"userName");
 		}
 		if (!Validador.esCorreo(userName)) {

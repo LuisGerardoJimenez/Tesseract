@@ -29,18 +29,15 @@ public class AccessInterceptor extends AbstractInterceptor {
 		System.out.println("ActionName: " + invocation.getProxy().getActionName());
 		System.out.println("Method: " + invocation.getProxy().getMethod());
 		Object loginObject = ActionContext.getContext().getSession().get("login");
-		if (loginObject != null) {
+		/*if (loginObject != null) {
 			System.out.println("login?: "+(Boolean) loginObject);
 		} else {
 			System.out.println("No hay llave login");
-		}
-		System.out.println("AntionName obtenido: "+invocation.getProxy().getActionName());
-		if (invocation.getProxy().getActionName() == null) {
-			System.out.println("Nulo");
-		} else {
-			System.out.println("Vacio");
-		}
+		}*/
 		if (loginObject != null) {
+			/*if (invocation.getProxy().getActionName().isEmpty() || invocation.getProxy().getActionName().equals("access")) {
+				resultado = Action.LOGIN;
+			}*/
 			Boolean login = (Boolean) loginObject;
 			if (login) {
 				resultado = invocation.invoke();
