@@ -10,9 +10,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.springframework.stereotype.Repository;
+
 import mx.tesseract.util.GenericInterface;
 
-
+@Repository("genericoDAO")
 public class GenericoDAO {
 
 	@PersistenceContext
@@ -36,6 +38,31 @@ public class GenericoDAO {
         	System.err.println(e.getMessage());
         }
 		return entidad;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T extends GenericInterface> T guardar(Object entidad) {
+		em.persist(entidad);
+		em.flush();
+		return (T) entidad;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T extends GenericInterface> T actualizar(Object entidad) {
+		em.merge(entidad);
+		em.flush();
+		return (T) entidad;
+	}
+	
+	public void eliminar(Object entidad) {
+		em.remove(entidad);
+		em.flush();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T extends GenericInterface> T refresh(Object entidad) {
+		em.refresh(entidad);
+		return (T) entidad;
 	}
 
 }
