@@ -11,7 +11,6 @@
 			\item \cdtRef{moduloEntidad}{Módulo}: Tabla que muestra \cdtRef{moduloEntidad:claveModulo}{Clave}, y el \cdtRef{moduloEntidad:nombreModulo}{Nombre} de los módulos de un proyecto.
 			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU4}{Gestionar Módulos} cuando no existen módulos registrados.
 	\end{itemize}}
-	\UCitem{Destino}{Pantalla}
 	\UCitem{Precondiciones}{Ninguna}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{Ninguno}
@@ -21,22 +20,23 @@
 \begin{UCtrayectoria}
 	\UCpaso[\UCactor] Solicita gestionar los términos presionando el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/entrar}} de algún proyecto existente de la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador}.
 	\UCpaso[\UCsist] Obtiene la información de los módulos del proyecto seleccionado. \hyperlink{CU5:TAA}{[Trayectoria A]}
-	\UCpaso[\UCsist] Muestra la información de los módulos en la pantalla \IUref{IU4}{Gestionar Módulos}.
-	\UCpaso[\UCactor] Gestiona los proyectos a través de los botones: \IUbutton{Registrar}, \editar, \eliminar, \UCsist  y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/pantalla}}. \label{CU5-P4}
+	\UCpaso[\UCsist] Muestra la información de los módulos en la pantalla \IUref{IU4}{Gestionar Módulos}.\label{CU5-P3}
+	\UCpaso[\UCactor] Gestiona los módulos a través de los botones: \IUbutton{Registrar}, \editar, \eliminar, \UCsist  y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/pantalla}}.
 \end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU5:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} No existen registros de módulos
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU4}{Gestionar Módulos} para indicar que no hay registros de módulos para mostrar.
-	\item[- -] - - {\em {Fin de la trayectoria}}.%
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU4}{Gestionar Módulos} para indicar que no hay registros de módulos para mostrar. \label{CU5-TA1}
+	\UCpaso[\UCactor] Gestiona los módulos a través del botón: \IUbutton{Registrar}. 
+	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
 
 \subsubsection{Puntos de extensión}
 
-\UCExtenssionPoint{El actor requiere registrar un módulo.}{Paso \ref{CU5-P4} de la trayectoria principal.}{\UCref{CU5.1}{Registrar Módulo}}
-\UCExtenssionPoint{El actor requiere modificar un módulo.}{Paso \ref{CU5-P4} de la trayectoria principal.}{\UCref{CU5.2}{Modificar Módulo}}
-\UCExtenssionPoint{El actor requiere eliminar un módulo.}{Paso \ref{CU5-P4} de la trayectoria principal.}{\UCref{CU5.3}{Eliminar Módulo}}
-\UCExtenssionPoint{El actor requiere gestionar los casos de uso de un módulo.}{Paso \ref{CU5-P4} de la trayectoria principal.}{\UCref{CU11}{Gestionar Casos de uso}}
-\UCExtenssionPoint{El actor requiere gestionar las pantallas de un módulo.}{Paso \ref{CU5-P4} de la trayectoria principal.}{\UCref{CU3.3}{Eliminar Persona}}
+\UCExtenssionPoint{El actor requiere registrar un módulo.}{Paso \ref{CU5-P3} de la trayectoria principal o del paso \ref{CU5-TA1} de la trayectoria alternativa A.}{\UCref{CU5.1}{Registrar Módulo}}
+\UCExtenssionPoint{El actor requiere modificar un módulo.}{Paso \ref{CU5-P3} de la trayectoria principal.}{\UCref{CU5.2}{Modificar Módulo}}
+\UCExtenssionPoint{El actor requiere eliminar un módulo.}{Paso \ref{CU5-P3} de la trayectoria principal.}{\UCref{CU5.3}{Eliminar Módulo}}
+\UCExtenssionPoint{El actor requiere gestionar los casos de uso de un módulo.}{Paso \ref{CU5-P3} de la trayectoria principal.}{\UCref{CU11}{Gestionar Casos de uso}}
+\UCExtenssionPoint{El actor requiere gestionar las pantallas de un módulo.}{Paso \ref{CU5-P3} de la trayectoria principal.}{\UCref{CU3.3}{Eliminar Persona}}

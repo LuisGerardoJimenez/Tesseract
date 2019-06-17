@@ -29,7 +29,6 @@
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando se registre una entidad con un nombre que ya se encuentra registrado en el sistema.
 		\item \cdtIdRef{MSG16}{Registro necesario}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando el actor no ingrese ningún atributo.
-		\item \cdtIdRef{MSG18}{Caracteres inválidos}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando el nombre de la entidad contiene un carácter no válido
 		\end{itemize}
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU7}{Gestionar Entidades}.}
@@ -37,7 +36,7 @@
 %--------------------------------------
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Solicita registrar una entidad oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU12}{Gestionar Entidades}.
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1}{Registrar Entidad}.
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1}{Registrar Entidad}. \label{CU7.1-P2}
 		\UCpaso[\UCactor] Ingresa la información solicitada en la pantalla. \label{CU7.1-P3}
 		\UCpaso[\UCactor] Gestiona los atributos a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. \label{CU7.1-P4}
 		\UCpaso[\UCactor] Solicita guardar la información de la entidad oprimiendo el botón \IUbutton{Aceptar} de la pantalla \IUref{IU12.1}{Registrar Entidad}. \hyperlink{CU7-1:TAA}{[Trayectoria A}
@@ -100,6 +99,6 @@
 %--------------------------------------
 \subsubsection{Puntos de extensión}
 
-\UCExtenssionPoint{El actor requiere registrar un atributo.}{Paso \ref{CU7.1-P4} de la trayectoria principal.}{\UCref{CU7.1.1}{Registrar Atributo}}
-\UCExtenssionPoint{El actor requiere modificar un atributo.}{Paso \ref{CU7.1-P4} de la trayectoria principal.}{\UCref{CU7.1.2}{Modificar Atributo}}
-\UCExtenssionPoint{El actor requiere eliminar un atributo.}{Paso \ref{CU7.1-P4} de la trayectoria principal.}{\UCref{CU7.1.3}{Eliminar Atributo}}
+\UCExtenssionPoint{El actor requiere registrar un atributo.}{Paso \ref{CU7.1-P2} de la trayectoria principal.}{\UCref{CU7.1.1}{Registrar Atributo}}
+\UCExtenssionPoint{El actor requiere modificar un atributo.}{Paso \ref{CU7.1-P2} de la trayectoria principal.}{\UCref{CU7.1.2}{Modificar Atributo}}
+\UCExtenssionPoint{El actor requiere eliminar un atributo.}{Paso \ref{CU7.1-P2} de la trayectoria principal.}{\UCref{CU7.1.3}{Eliminar Atributo}}

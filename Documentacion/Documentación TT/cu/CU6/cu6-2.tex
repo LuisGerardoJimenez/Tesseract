@@ -25,14 +25,13 @@
 		el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU11.2}{Modificar Término} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU11.2}{Modificar Término} cuando se registre un término con un nombre que ya se encuentra registrado en el sistema.
-		\item \cdtIdRef{MSG18}{Caracteres inválidos}: Se muestra en la pantalla \IUref{IU11.2}{Modificar Término} cuando el nombre del término contiene un carácter no válido.
 		\end{itemize}
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU6}{Gestionar Términos}.}
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita registrar un módulo oprimiendo el botón \editar de la pantalla \IUref{IU11}{Gestionar Términos del glosario}.
+		\UCpaso[\UCactor] Solicita modificar un término oprimiendo el botón \editar de la pantalla \IUref{IU11}{Gestionar Términos del glosario}.
 		\UCpaso[\UCsist] Obtiene la información del término.
 		\UCpaso[\UCsist] Verifica que el término pueda modificarse con base en la regla de negocio \BRref{RN5}{Modificación de elementos asociados a casos de uso liberados}. \hyperlink{CU6-2:TAF}{[Trayectoria F]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU11.2}{Modificar Término} con la información obtenida.
