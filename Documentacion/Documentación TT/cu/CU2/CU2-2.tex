@@ -1,7 +1,7 @@
-	\begin{UseCase}{CU2.2}{Modificar proyecto}{
-Cuando se ha registrado un nuevo \hyperlink{proyectoEntidad}{Proyecto} y se requiere modificar su información, el sistema monstrará al {\hyperlink{admin}{Administrador}} un formulario mediante el cual podrá actualizar cualquiera de los datos previamente registrados.\\
-Debe considerarse que la \cdtRef{proyectoEntidad:claveProyecto}{Clave} y el \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto} son únicos, por lo que no será posible repetir esta información con la de otros proyectos registrados.\\
-Una vez registrado el \hyperlink{proyectoEntidad}{Proyecto}, es posible que además del \cdtRef{proyectoEntidad:estadoProyecto}{estado}: Iniciado y Negociación también sea posible asignar el estado: Terminado
+	\begin{UseCase}{CU2.2}{Modificar proyecto de Administrador}{
+				Cuando se ha registrado un nuevo \hyperlink{proyectoEntidad}{Proyecto} y se requiere modificar su información, el sistema monstrará al {\hyperlink{admin}{Administrador}} un formulario mediante el cual podrá actualizar cualquiera de los datos previamente registrados.\\
+				Debe considerarse que la \cdtRef{proyectoEntidad:claveProyecto}{Clave} y el \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto} son únicos, por lo que no será posible repetir esta información con la de otros proyectos registrados.\\
+				Una vez registrado el \hyperlink{proyectoEntidad}{Proyecto}, es posible modificar su \cdtRef{proyectoEntidad:estadoProyecto}{estado} a: Iniciado, Negociación y también Terminado.
 	}
 		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{admin}{Administrador}}
