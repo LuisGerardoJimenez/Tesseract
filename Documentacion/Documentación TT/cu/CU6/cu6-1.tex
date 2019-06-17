@@ -27,7 +27,6 @@
 		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU11.1}{Registrar Término} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU11.1}{Registrar Término} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU11.1}{Registrar Término} cuando se registre un término con un nombre que ya se encuentra registrado en el sistema.
-		\item \cdtIdRef{MSG18}{Caracteres inválidos}: Se muestra en la pantalla \IUref{IU11.1}{Registrar Término} cuando el nombre del término contiene un carácter no válido
 		\end{itemize}
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU6}{Gestionar Términos}.}
@@ -71,7 +70,7 @@
 \end{enumerate}
 %--------------------------------------
 \hypertarget{CU6-1:TAD}{\textbf{Trayectoria alternativa D}}\\
-\noindent \textbf{Condición:} El actor ingresó un dato con un formato de dato incorrecto.
+\noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU11.1}{Registrar Término}.
 	\UCpaso Regresa al paso \ref{CU6.1-P3} de la trayectoria principal.

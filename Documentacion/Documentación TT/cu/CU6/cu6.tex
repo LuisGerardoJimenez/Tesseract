@@ -10,7 +10,7 @@
 			\item \cdtRef{terminoGLSEntidad}{Término del glosario}: Tabla que muestra \cdtRef{terminoGLSEntidad:claveTGLS}{Clave}, y el \cdtRef{moduloEntidad:nombreTGLS}{Nombre} de todos los términos registrados de un proyecto.
 			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU11}{Gestionar Términos de Glosario} cuando no existen términos registrados.
 	\end{itemize}}
-	\UCitem{Destino}{Pantalla}
+	
 	\UCitem{Precondiciones}{Ninguna}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{Ninguno}
@@ -20,22 +20,23 @@
 \begin{UCtrayectoria}
 	\UCpaso[\UCactor] Solicita gestionar los términos seleccionando la opción ''Glosario'' del menú \IUref{MN3}{Menú de Proyecto}.
 	\UCpaso[\UCsist] Obtiene la información de los términos registrados del proyecto seleccionado. \hyperlink{CU6:TAA}{[Trayectoria A]}
-	\UCpaso[\UCsist] Muestra la información de los términos en la pantalla \IUref{IU11}{Gestionar Términos de glosario} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}.
-	\UCpaso[\UCactor] Gestiona los términos a través de los botones: \IUbutton{Registrar}, \editar, \eliminar, \UCsist y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/pantalla}}. \label{CU6-P4}
+	\UCpaso[\UCsist] Muestra la información de los términos en la pantalla \IUref{IU11}{Gestionar Términos de glosario} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}.\label{CU6-P4}
+	\UCpaso[\UCactor] Gestiona los términos a través de los botones: \IUbutton{Registrar}, \editar, \eliminar y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}}. 
 \end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU6:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} No existen registros de términos.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU11}{Gestionar Términos de Glosario} para indicar que no hay registros de términos para mostrar.
-	\item[- -] - - {\em {Fin de la trayectoria}}.%
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU11}{Gestionar Términos de Glosario} para indicar que no hay registros de términos para mostrar. \label{CU6-TA1}
+	\UCpaso[\UCactor] Gestiona los términos a través del botón: \IUbutton{Registrar}. 
+	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 
 %--------------------------------------
 
 \subsubsection{Puntos de extensión}
 
-\UCExtenssionPoint{El actor requiere registrar un término.}{Paso \ref{CU6-P4} de la trayectoria principal.}{\UCref{CU6.1}{Registrar Término}}
+\UCExtenssionPoint{El actor requiere registrar un término.}{Paso \ref{CU6-P4} de la trayectoria principal o del paso \ref{CU6-TA1} de la trayectoria alternativa A.}{\UCref{CU6.1}{Registrar Término}}
 \UCExtenssionPoint{El actor requiere modificar un término.}{Paso \ref{CU6-P4} de la trayectoria principal.}{\UCref{CU6.2}{Modificar Término}}
 \UCExtenssionPoint{El actor requiere eliminar un término.}{Paso \ref{CU6-P4} de la trayectoria principal.}{\UCref{CU6.3}{Eliminar Término}}
 \UCExtenssionPoint{El actor requiere consultar un término.}{Paso \ref{CU6-P4} de la trayectoria principal.}{\UCref{CU6.4}{Consultar Término}}
