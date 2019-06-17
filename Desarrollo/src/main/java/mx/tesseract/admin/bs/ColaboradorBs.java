@@ -12,6 +12,7 @@ import mx.tesseract.admin.dao.ColaboradorDAO;
 //import mx.tesseract.admin.dao.ColaboradorProyectoDAO;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.ColaboradorProyecto;
+import mx.tesseract.dao.GenericoDAO;
 //import mx.tesseract.bs.RolBs;
 //import mx.tesseract.bs.RolBs.Rol_Enum;
 import mx.tesseract.util.Constantes;
@@ -32,7 +33,19 @@ import org.springframework.stereotype.Service;
 public class ColaboradorBs {
 	
 	@Autowired
+	private GenericoDAO genericoDAO;
+	
+	@Autowired
 	private ColaboradorDAO colaboradorDAO;
+	
+	public List<Colaborador> consultarPersonal() {
+		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
+		if(colaboradores == null) {
+			throw new TESSERACTException("No se pueden consultar los colaboradores.",
+					"MSG13");
+		}
+		return colaboradores;
+	}
 
 	/*public static Colaborador consultarPersona(String idSel) {
 		Colaborador col = new ColaboradorDAO().consultarColaborador(idSel);
@@ -43,19 +56,10 @@ public class ColaboradorBs {
 		return col;
 	}*/
 
-	public List<Colaborador> consultarPersonal() {
-		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
-		if(colaboradores == null) {
-			throw new TESSERACTException("No se pueden consultar los colaboradores.",
-					"MSG13");
-		}
-		return colaboradores;
-	}
-
-	/*public static void registrarColaborador(Colaborador model) throws Exception {
+	public void registrarColaborador(Colaborador model) throws Exception {
 		try {
 			validar(model, Constantes.VALIDACION_REGISTRAR);
-			new ColaboradorDAO().registrarColaborador(model);
+			genericoDAO.guardar(model);
 		} catch (JDBCException je) {
 			if (je.getErrorCode() == 1062) {
 				throw new TESSERACTValidacionException("La Persona con CURP"
@@ -99,7 +103,7 @@ public class ColaboradorBs {
 		
 	}
 
-	public static void enviarCorreo(Colaborador model,
+	/*public static void enviarCorreo(Colaborador model,
 			String contrasenaAnterior, String correoAnterior) throws AddressException, MessagingException {
 		if(contrasenaAnterior == null || correoAnterior == null) {
 			Correo.enviarCorreo(model, 0);

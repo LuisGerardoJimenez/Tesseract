@@ -1,18 +1,15 @@
 package mx.tesseract.admin.dao;
 
-import java.awt.print.Printable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 
 import mx.tesseract.admin.entidad.Colaborador;
@@ -70,9 +67,7 @@ public class ColaboradorDAO {
 	public Colaborador findColaboradorByCorreo(String correo) {
 		Colaborador colaborador = null;
 		try {
-			System.out.println("Lentro");
 			Query query = entityManager.createNamedQuery("findColaboradorByCorreo", Colaborador.class);
-			//Query query = entityManager.createQuery(FIND_COLABORADOR_BY_CORREO, Colaborador.class);
 			query.setParameter("correoElectronico", correo);
 			colaborador = (Colaborador) query.getSingleResult();
 		} catch (Exception e) {
@@ -86,7 +81,6 @@ public class ColaboradorDAO {
 		Colaborador colaborador = null;
 		try {
 			Query query = entityManager.createNamedQuery("findColaboradorByCURP", Colaborador.class);
-			//Query query = entityManager.createQuery(FIND_COLABORADOR_BY_CURP, Colaborador.class);
 			query.setParameter("curp", curp);
 			colaborador = (Colaborador) query.getSingleResult();
 		} catch (Exception e) {

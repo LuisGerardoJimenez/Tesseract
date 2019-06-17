@@ -60,20 +60,32 @@ ModelDriven<Colaborador>, SessionAware{
 	}
 	
 	public String editNew() throws Exception {
-
 		String resultado;
 		try {
 			resultado = EDITNEW;
 		} catch (TESSERACTException pe) {
 			System.err.println(pe.getMessage());
 			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
+			resultado = INDEX;
 		} catch (Exception e) {
 			e.printStackTrace();
 			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
+			resultado = INDEX;
 		}
 		return resultado;
+	}
+	
+	public void validateCreate() {
+		if (!hasErrors()) {
+			System.out.println("Pasale prro >:v");
+			try {
+				
+			} catch (Exception e) {
+				
+			}
+		} else {
+			System.out.println("Hay errores prro >:v");
+		}
 	}
 	
 	public String create() throws Exception {
