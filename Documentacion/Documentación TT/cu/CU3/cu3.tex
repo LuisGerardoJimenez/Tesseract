@@ -7,7 +7,7 @@
 	\UCitem{Entradas}{Ninguna}
 	\UCitem{Salidas}{\begin{itemize}
 			\item \cdtRef{colaboradorEntidad}{Colaborador}: Tabla que muestra \cdtRef{colaboradorEntidad:curpColaborador}{CURP}, \cdtRef{colaboradorEntidad:nombreColaborador}{Nombre}, \cdtRef{colaboradorEntidad:pApellidoColaborador}{Primer Apellido}, \cdtRef{colaboradorEntidad:sApellidoColaborador}{Segundo Apellido} de todos los registros de las personas.
-			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} cuando no existen Colaboradores registrado.
+			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU3A}{Gestionar Colaboradores} cuando no existen Colaboradores registrado.
 	\end{itemize}}
 	\UCitem{Precondiciones}{Ninguna}
 	\UCitem{Postcondiciones}{Ninguna}
@@ -25,7 +25,7 @@
 \hypertarget{CU3:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} No existen registros de colaboradores.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU3}{Gestionar Colaboradores} para indicar que no hay registros de colaboradores para mostrar. \label{CU3-A2}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU3A}{Gestionar Colaboradores} para indicar que no hay registros de colaboradores para mostrar. \label{CU3-A2}
 	\UCpaso[\UCactor] Gestiona a los colaboradores a través del botón: \IUbutton{Registrar}. 
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
