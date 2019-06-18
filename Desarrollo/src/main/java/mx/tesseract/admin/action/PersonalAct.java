@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import mx.tesseract.admin.bs.ColaboradorBs;
-//import mx.tesseract.admin.bs.ColaboradorBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.ErrorManager;
@@ -24,14 +23,10 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
 @ResultPath("/pages/administrador/")
-@Results({ @Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = {
-		"actionName", "personal" }),
-		@Result(name = "referencias", type = "json", params = {
-				"root",
-				"proyectosLider"})
-})
-public class PersonalAct extends ActionSupportTESSERACT implements
-ModelDriven<Colaborador>, SessionAware{
+@Results({
+		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = { "actionName", "personal" }),
+		@Result(name = "referencias", type = "json", params = { "root", "proyectosLider" }) })
+public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<Colaborador>, SessionAware {
 	private Colaborador model;
 	private static final long serialVersionUID = 1L;
 	private Map<String, Object> userSession;
@@ -40,10 +35,10 @@ ModelDriven<Colaborador>, SessionAware{
 	private String contrasenaAnterior;
 	private String correoAnterior;
 	private List<String> proyectosLider;
-	
+
 	@Autowired
 	private ColaboradorBs colaboradorBs;
-	
+
 	@SuppressWarnings("unchecked")
 	public String index() throws Exception {
 		try {
@@ -58,58 +53,36 @@ ModelDriven<Colaborador>, SessionAware{
 		}
 		return INDEX;
 	}
-	
+
 	public String editNew() throws Exception {
-		String resultado;
-		try {
-			resultado = EDITNEW;
-		} catch (TESSERACTException pe) {
-			System.err.println(pe.getMessage());
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = INDEX;
-		} catch (Exception e) {
-			e.printStackTrace();
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = INDEX;
-		}
-		return resultado;
+		return EDITNEW;
 	}
-	
+
 	public void validateCreate() {
 		if (!hasErrors()) {
 			System.out.println("Pasale prro >:v");
 			try {
-				//TODO Agregar validacion
+				colaboradorBs.registrarColaborador(model);
+			} catch (TESSERACTValidacionException pve) {
+				ErrorManager.agregaMensajeError(this, pve);
+			} catch (TESSERACTException pe) {
+				ErrorManager.agregaMensajeError(this, pe);
 			} catch (Exception e) {
-				
+				ErrorManager.agregaMensajeError(this, e);
 			}
 		} else {
 			System.out.println("Hay errores prro >:v");
+			Map mapa = getFieldErrors();
+			System.out.println("mapa: " + mapa);
 		}
 	}
-	
+
 	public String create() throws Exception {
-		String resultado;
-		try {
-			//ColaboradorBs.registrarColaborador(model);
-			//ColaboradorBs.enviarCorreo(model, null, null);
-			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "La",
-					"Persona", "registrada" }));
-			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-		} catch (TESSERACTValidacionException pve) {
-			ErrorManager.agregaMensajeError(this, pve);
-			resultado = editNew();
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
+		addActionMessage(getText("MSG1", new String[] { "La", "Persona", "registrada" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
 	}
-	
+
 	public String edit() throws Exception {
 
 		String resultado = null;
@@ -128,15 +101,14 @@ ModelDriven<Colaborador>, SessionAware{
 		}
 		return resultado;
 	}
-	
+
 	public String update() throws Exception {
 		String resultado = null;
 		try {
-			//ColaboradorBs.modificarColaborador(model);
-			//ColaboradorBs.enviarCorreo(model, contrasenaAnterior, correoAnterior);
+			// ColaboradorBs.modificarColaborador(model);
+			// ColaboradorBs.enviarCorreo(model, contrasenaAnterior, correoAnterior);
 			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "La",
-					"Persona", "modificada" }));
+			addActionMessage(getText("MSG1", new String[] { "La", "Persona", "modificada" }));
 
 			SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		} catch (TESSERACTValidacionException pve) {
@@ -151,14 +123,13 @@ ModelDriven<Colaborador>, SessionAware{
 		}
 		return resultado;
 	}
-	
+
 	public String destroy() throws Exception {
 		String resultado = null;
 		try {
-			//ColaboradorBs.eliminarColaborador(model);
+			// ColaboradorBs.eliminarColaborador(model);
 			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "La",
-					"Persona", "eliminada" }));
+			addActionMessage(getText("MSG1", new String[] { "La", "Persona", "eliminada" }));
 			SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		} catch (TESSERACTException pe) {
 			ErrorManager.agregaMensajeError(this, pe);
@@ -169,45 +140,51 @@ ModelDriven<Colaborador>, SessionAware{
 		}
 		return resultado;
 	}
-	
-	/*public String verificarProyectosLider() {
-		try {
-			proyectosLider = ColaboradorBs.verificarProyectosLider(model);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return "referencias";
-	}*/
-	
+
+	/*
+	 * public String verificarProyectosLider() { try { proyectosLider =
+	 * ColaboradorBs.verificarProyectosLider(model); } catch (Exception e) {
+	 * e.printStackTrace(); }
+	 * 
+	 * return "referencias"; }
+	 */
+
 	@VisitorFieldValidator
 	public Colaborador getModel() {
 		return (model == null) ? model = new Colaborador() : model;
 	}
+
 	public void setModel(Colaborador model) {
 		this.model = model;
 	}
+
 	public Map<String, Object> getUserSession() {
 		return userSession;
 	}
+
 	public void setUserSession(Map<String, Object> userSession) {
 		this.userSession = userSession;
 	}
+
 	public List<Colaborador> getListPersonal() {
 		return listPersonal;
 	}
+
 	public void setListPersonal(List<Colaborador> listPersonal) {
 		this.listPersonal = listPersonal;
 	}
+
 	public String getIdSel() {
 		return idSel;
 	}
+
 	public void setIdSel(String idSel) {
 		this.idSel = idSel;
-		//model = ColaboradorBs.consultarPersona(idSel);
+		// model = ColaboradorBs.consultarPersona(idSel);
 	}
+
 	public void setSession(Map<String, Object> session) {
-		
+
 	}
 
 	public String getContrasenaAnterior() {
@@ -233,7 +210,5 @@ ModelDriven<Colaborador>, SessionAware{
 	public void setProyectosLider(List<String> proyectosLider) {
 		this.proyectosLider = proyectosLider;
 	}
-	
-	
-}
 
+}

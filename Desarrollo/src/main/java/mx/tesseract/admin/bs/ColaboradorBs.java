@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("colaboradorBS")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
@@ -37,6 +38,9 @@ public class ColaboradorBs {
 	
 	@Autowired
 	private ColaboradorDAO colaboradorDAO;
+	
+	@Autowired
+	private Correo correo;
 	
 	public List<Colaborador> consultarPersonal() {
 		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
@@ -56,10 +60,12 @@ public class ColaboradorBs {
 		return col;
 	}*/
 
+	@Transactional(rollbackFor = Exception.class)
 	public void registrarColaborador(Colaborador model) throws Exception {
 		try {
-			validar(model, Constantes.VALIDACION_REGISTRAR);
+			//validar(model, Constantes.VALIDACION_REGISTRAR);
 			genericoDAO.guardar(model);
+			enviarCorreo(model, null, null);
 		} catch (JDBCException je) {
 			if (je.getErrorCode() == 1062) {
 				throw new TESSERACTValidacionException("La Persona con CURP"
@@ -70,15 +76,10 @@ public class ColaboradorBs {
 			System.out.println("ERROR CODE " + je.getErrorCode());
 			je.printStackTrace();
 			throw new Exception();
-		} catch (HibernateException he) {
-			he.printStackTrace();
-			throw new Exception();
 		}
-		
-		
 	}
 
-	private static void validar(Colaborador model, String bandera) {
+	/*private static void validar(Colaborador model, String bandera) {
 		//Validaciones tipo de dato
 		if (bandera.equals(Constantes.VALIDACION_REGISTRAR) && Validador.esInvalidoCurp(model.getCurp())) {
 			throw new TESSERACTValidacionException(
@@ -101,23 +102,23 @@ public class ColaboradorBs {
 					new String[] { "El", "correo electrónico", model.getCorreoElectronico() }, "model.correoElectronico");
 		}
 		
-	}
+	}*/
 
-	/*public static void enviarCorreo(Colaborador model,
+	public void enviarCorreo(Colaborador model,
 			String contrasenaAnterior, String correoAnterior) throws AddressException, MessagingException {
 		if(contrasenaAnterior == null || correoAnterior == null) {
-			Correo.enviarCorreo(model, 0);
+			correo.enviarCorreo(model, 0);
 			System.out.println("Se envió un correo al usuario que se registró.");
 		} else if(!contrasenaAnterior.equals(model.getContrasenia())) {
-			Correo.enviarCorreo(model, 0);
+			correo.enviarCorreo(model, 0);
 			System.out.println("Se envió un correo porque cambió la contraseña.");
 		} else if(!correoAnterior.equals(model.getCorreoElectronico())) {
-			Correo.enviarCorreo(model, 0);
+			correo.enviarCorreo(model, 0);
 			System.out.println("Se envió un correo porque cambio el correo electrónico.");
 		}
 	}
 
-	public static void modificarColaborador(Colaborador model) throws Exception {
+	/*public static void modificarColaborador(Colaborador model) throws Exception {
 		try {
 			validar(model, Constantes.VALIDACION_EDITAR);
 			new ColaboradorDAO().modificarColaborador(model);
