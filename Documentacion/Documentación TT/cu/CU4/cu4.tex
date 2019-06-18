@@ -11,7 +11,7 @@
 	\UCitem{Entradas}{Ninguna}
 	\UCitem{Salidas}{\begin{itemize}
 			\item : \cdtRef{proyectoEntidad}{Proyecto}: Tabla que muestra \cdtRef{proyectoEntidad:claveProyecto}{Clave}, \cdtRef{proyectoEntidad:nombreProyecto}{Nombre} y el \cdtRef{proyectoEntidad:liderProyecto}{Líder del Proyecto} de todos los registros de los proyectos.
-			\item  \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU5}{Gestionar proyectos de colaborador} cuando el actor no se encuentra asociado a ningún proyecto.
+			\item  \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU5A}{Gestionar proyectos de colaborador} cuando el actor no se encuentra asociado a ningún proyecto.
 	\end{itemize}}
 	\UCitem{Precondiciones}{Ninguna}
 	\UCitem{Postcondiciones}{Ninguna}
@@ -30,14 +30,14 @@
 \hypertarget{CU4:TAA}{\textbf{Trayectoria alternativa B}}\\
 \noindent \textbf{Condición:} El actor no se encuentra colaborando en ningún proyecto.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador} para indicar que no hay registros de proyectos para mostrar.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU5A}{Gestionar Proyectos de Colaborador} para indicar que no hay registros de proyectos para mostrar.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
 
 
 \hypertarget{CU4:TAB}{\textbf{Trayectoria alternativa B}}\\
-\noindent \textbf{Condición:} El actor no es líder.
+\noindent \textbf{Condición:} El actor inicio sesión como analista.
 \begin{enumerate}
 	\UCpaso[\UCactor] Gestiona los proyectos a través de las botones: \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/entrar}}, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/pp}} y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/word}}. \label{CU4-TB1}
 	\item[- -] - - {\em {Fin del caso de uso}}.%
