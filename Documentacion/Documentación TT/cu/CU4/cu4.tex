@@ -1,5 +1,9 @@
 	\begin{UseCase}{CU4}{Gestionar Proyectos de Colaborador}{
-		Permite al actor visualizar los proyectos en los que se encuentra participando, además sirve como punto de acceso para gestionar: módulos, términos del glosario, entidades, reglas de negocio, mensajes y actores, así como para descargar el documento de análisis y en caso de ser líder, elegir a los colaboradores.
+		Una vez que el \hyperlink{admin}{Administrador} ha registrado un proyecto y ha asignado a un \hyperlink{jefe}{Líder}, este último (desde su cuenta), tendrá la facultad de realizar operaciones sobre el proyecto creado como la de asignar a los \hyperlink{analista}{Analistas} con los que trabajará en conjunto durante el desarrollo del proyecto. Al momento de asignar a los analistas, estos también podrán realizar ciertas operaciones sobre el proyecto.\\
+		
+		Este caso de uso permite a los colaboradores del proyecto (Líder o Analistas), visualizar en una tabla el listado de los proyectos en los que se encuentran participando, así como realizar las acciones necesarias para controlar aquellos que han sido previamente registrados por el \hyperlink{admin}{Administrador} (como gestionar: módulos del proyecto, casos de uso, elementos del caso de uso y descargar el documento de análisis).\\
+		
+		Para el caso específico del lider se incluyen las siguientes acciones: revisar y realizar observaciones de los elementos para enviarlos a corrección, así como liberar los casos de uso que considere completos y correctos. Para el caso del analista: corregir la información de los elementos con base en las observaciones realizadas por el líder. \\
 	}
 	\UCitem{Versión}{\color{Gray}0.1}
 	\UCitem{Actor}{\hyperlink{jefe}{Líder de análisis}, \hyperlink{admin}{Administrador}}
