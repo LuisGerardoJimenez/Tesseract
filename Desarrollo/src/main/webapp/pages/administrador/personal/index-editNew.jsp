@@ -70,7 +70,7 @@
 					
 					<tr>
 						<td class="label obligatorio"><s:text name="labelContrasenia" /></td>
-						<td><s:textfield name="model.contrasenia" maxlength="20"
+						<td><s:password name="model.contrasenia" maxlength="20"
 								cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
 							<s:fielderror fieldName ="model.contrasenia" cssClass="error"
 								theme="jquery" />

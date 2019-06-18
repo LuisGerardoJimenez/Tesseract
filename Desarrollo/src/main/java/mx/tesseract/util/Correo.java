@@ -11,11 +11,17 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
 import mx.tesseract.admin.entidad.Colaborador;
 
+@Service("correo")
+@Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class Correo {
 
-    public static void enviarCorreo(Colaborador obj, int sub) throws AddressException, MessagingException {
+    public void enviarCorreo(Colaborador obj, int sub) throws AddressException, MessagingException {
 
             String mailServidor = "tesseractv1escom@gmail.com";
             String passwordServidor = "contrasenaglobal123";
@@ -44,7 +50,7 @@ public class Correo {
                 message.setSubject("TESSERACT: Información de la cuenta");
                 contenido = "<center>"
                 			//+ "<div style=\"color: #084B8A; border: 1px dotted black;\">"
-                			+ "<div style=\"color: #750e35; border: 1px dotted black;\">"
+                			+ "<div style=\"color: #FFFFFF;background-color: #750e35;opacity: .85;\">"
                 				+ "<table>"
 			                		+ "<tr>"
 										+ "<td>"
@@ -54,7 +60,7 @@ public class Correo {
 								+ "</table>"
 							+ "</div>"
 							//+ "<div style=\"color: #FFFFFF;background-color: #084B8A;opacity: .85;\">"
-							+ "<div style=\"color: #FFFFFF;background-color: #750e35;opacity: .85;\">"
+							+ "<div style=\"color: #750e35; border: 1px dotted black; font-weight: bold;\">"
                 				+ "<table>"
                 					+ "<tr>" 
                 						+ "<td>"
