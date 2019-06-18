@@ -1,5 +1,7 @@
 	\begin{UseCase}{CU5.3}{Eliminar Módulo}{
-		Permite al actor eliminar la información de un módulo de un proyecto.
+		Cuando algún \hyperlink{moduloEntidad}{Módulo} está de más o simplemente no tiene una razón de ser dentro del \hyperlink{proyectoEntidad}{Proyecto}, Tesseract permitirá al colaborador (ya sea \hyperlink{jefe}{Líder} o \hyperlink{analista}{Analista}) eliminar en su totalidad su registro. \\
+		
+		Un módulo podrá ser eliminado siempre y cuando no existan referencias al contenido del módulo a eliminar desde elementos de otro módulo. 
 	}
 		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
