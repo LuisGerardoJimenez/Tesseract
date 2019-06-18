@@ -1,7 +1,5 @@
-	\begin{UseCase}{CU2.1}{Registrar proyecto de Administrador}{
-				Permite al {\hyperlink{admin}{Administrador}} registrar la información general de un proyecto en el sistema, dichos datos se guardan con el objetivo de conocer las propiedades referentes a cada proyecto, como lo son sus caracteristicas, tiempos estimados, presupuestos, etc.
-				
-				Una vez registrado el proyecto, el líder asignado (desde su respectiva cuenta) podrá realizar diferentes operaciones como: Asignar a los colaboradores que trabajarán en el proyecto, gestionar módulos, casos de uso, componentes de caso de uso, revisar y realizar observaciones de los elementos para enviarlos a corrección, así como liberar los casos de uso que considere completos y correctos.
+	\begin{UseCase}{CU2.1}{Registrar proyecto}{
+				Permite al {\hyperlink{admin}{Administrador}} registrar la información general de un proyecto en el sistema, dichos datos se guardan con el fin de conocer las propiedades referentes a cada proyecto, como caracteristicas, tiempos estimados, presupuestos, etc.
 	}
 		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{admin}{Administrador}}
@@ -24,7 +22,6 @@
 		\UCitem{Salidas}{\begin{itemize}
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} para indicar que el registro fue exitoso.
 		\end{itemize}}
-		\UCitem{Destino}{Pantalla}
 		\UCitem{Precondiciones}{
 		\begin{itemize}
 			\item Interna: Que exista al menos un colaborador registrado.

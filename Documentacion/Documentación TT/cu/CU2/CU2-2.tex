@@ -1,7 +1,7 @@
-	\begin{UseCase}{CU2.2}{Modificar proyecto de Administrador}{
-				Cuando se ha registrado un nuevo \hyperlink{proyectoEntidad}{Proyecto} y se requiere modificar su información, el sistema monstrará al {\hyperlink{admin}{Administrador}} un formulario mediante el cual podrá actualizar cualquiera de los datos previamente registrados.\\
-				Debe considerarse que la \cdtRef{proyectoEntidad:claveProyecto}{Clave} y el \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto} son únicos, por lo que no será posible repetir esta información con la de otros proyectos registrados.\\
-				Una vez registrado el \hyperlink{proyectoEntidad}{Proyecto}, es posible modificar su \cdtRef{proyectoEntidad:estadoProyecto}{estado} a: Iniciado, Negociación y también Terminado.
+	\begin{UseCase}{CU2.2}{Modificar proyecto}{
+Cuando se ha registrado un nuevo \hyperlink{proyectoEntidad}{Proyecto} y se requiere modificar su información, el sistema monstrará al {\hyperlink{admin}{Administrador}} un formulario mediante el cual podrá actualizar cualquiera de los datos previamente registrados.\\
+Debe considerarse que la \cdtRef{proyectoEntidad:claveProyecto}{Clave} y el \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto} son únicos, por lo que no será posible repetir esta información con la de otros proyectos registrados.\\
+Una vez registrado el \hyperlink{proyectoEntidad}{Proyecto}, es posible que además del \cdtRef{proyectoEntidad:estadoProyecto}{estado}: Iniciado y Negociación también sea posible asignar el estado: Terminado
 	}
 		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{admin}{Administrador}}
@@ -35,7 +35,6 @@
 				\item \hyperlink{tEdoProy}{Estado del Proyecto:} Lo obtiene el sistema.
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} para indicar que el registro fue exitoso.
 		\end{itemize}}
-		\UCitem{Destino}{Pantalla}
 		\UCitem{Precondiciones}{
 		\begin{itemize}
 			\item Que el proyecto se encuentre en estado ''En negociación'' o ''Iniciado''.
@@ -106,7 +105,7 @@
 	\noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
 	\begin{enumerate}
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU2.2}{Modificar Proyecto}.
-		\UCpaso Regresa al paso \ref{CU2.1-P5} de la trayectoria principal.
+		\UCpaso Regresa al paso \ref{CU2.2-P5} de la trayectoria principal.
 		\item[- -] - - {\em {Fin de la trayectoria}}.%
 	\end{enumerate}
 	%--------------------------------------
@@ -114,7 +113,7 @@
 	\noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
 	\begin{enumerate}
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU2.2}{Modificar Proyecto}.
-		\UCpaso Regresa al paso \ref{CU2.1-P5} de la trayectoria principal.
+		\UCpaso Regresa al paso \ref{CU2.2-P5} de la trayectoria principal.
 		\item[- -] - - {\em {Fin de la trayectoria}}.%
 	\end{enumerate}
 	%-------------------------------------
@@ -122,7 +121,7 @@
 	\noindent \textbf{Condición:} El actor ingresó un dato con un formato o tipo de dato incorrecto.
 	\begin{enumerate}
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU2.2}{Modificar Proyecto}.
-		\UCpaso Regresa al paso \ref{CU2.1-P5} de la trayectoria principal.
+		\UCpaso Regresa al paso \ref{CU2.2-P5} de la trayectoria principal.
 		\item[- -] - - {\em {Fin de la trayectoria}}.
 	\end{enumerate}
 	%--------------------------------------
@@ -130,7 +129,7 @@
 	\noindent \textbf{Condición:} El actor ingresó una clave de proyecto que ya existe dentro del sistema.
 	\begin{enumerate}
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU2.2}{Modificar Proyecto}.
-		\UCpaso Regresa al paso \ref{CU2.1-P5} de la trayectoria principal.
+		\UCpaso Regresa al paso \ref{CU2.2-P5} de la trayectoria principal.
 		\item[- -] - - {\em {Fin de la trayectoria}}.
 	\end{enumerate}
 	%--------------------------------------	
@@ -138,7 +137,7 @@
 	\noindent \textbf{Condición:} El actor ingresó un nombre de proyecto que ya existe dentro del sistema.
 	\begin{enumerate}
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU2.2}{Modificar Proyecto}.
-		\UCpaso Regresa al paso \ref{CU2.1-P5} de la trayectoria principal.
+		\UCpaso Regresa al paso \ref{CU2.2-P5} de la trayectoria principal.
 		\item[- -] - - {\em {Fin de la trayectoria}}.
 	\end{enumerate}
 	%--------------------------------------
@@ -146,6 +145,6 @@
 	\noindent \textbf{Condición:} La fecha de termino programada es menor a la fecha de inicio programada.
 	\begin{enumerate}
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG26}{Orden de fechas} en el campo de fecha de término programada en la pantalla \IUref{IU2.2}{Modificar Proyecto}.
-		\UCpaso Regresa al paso \ref{CU2.1-P5} de la trayectoria principal.
+		\UCpaso Regresa al paso \ref{CU2.2-P5} de la trayectoria principal.
 		\item[- -] - - {\em {Fin de la trayectoria}}.
 	\end{enumerate}
