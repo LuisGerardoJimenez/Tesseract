@@ -15,10 +15,10 @@ public class RN033 {
 	@Autowired
 	private ColaboradorDAO colaboradorDAO;
 	
-	public Boolean isValidRN033(String CURP) {
+	public Boolean isValidRN033(Colaborador entidad) {
 		Boolean valido = true;
-		Colaborador colaborador = colaboradorDAO.findColaboradorByCURP(CURP);
-		if (colaborador == null) {
+		Colaborador colaborador = colaboradorDAO.findColaboradorByCURP(entidad.getCurp());
+		if (colaborador != null) {
 			valido = false;
 		}
 		return valido;

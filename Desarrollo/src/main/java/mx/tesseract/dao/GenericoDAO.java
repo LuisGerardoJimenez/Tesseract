@@ -49,9 +49,9 @@ public class GenericoDAO {
 	
 	@SuppressWarnings("unchecked")
 	public <T extends GenericInterface> T actualizar(Object entidad) {
-		em.merge(entidad);
+		T entidadActualizada = (T) em.merge(entidad);
 		em.flush();
-		return (T) entidad;
+		return entidadActualizada;
 	}
 	
 	public void eliminar(Object entidad) {
