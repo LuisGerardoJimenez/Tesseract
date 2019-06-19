@@ -59,14 +59,14 @@ public class ColaboradorBs {
 		return colaboradores;
 	}
 
-	/*public static Colaborador consultarPersona(String idSel) {
-		Colaborador col = new ColaboradorDAO().consultarColaborador(idSel);
-		if(col == null) {
+	public Colaborador consultarPersona(String curp) {
+		Colaborador colaborador = colaboradorDAO.findColaboradorByCURP(curp);
+		if(colaborador == null) {
 			throw new TESSERACTException("No se puede consultar el colaborador.",
 					"MSG13");
 		}
-		return col;
-	}*/
+		return colaborador;
+	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void registrarColaborador(Colaborador model) {

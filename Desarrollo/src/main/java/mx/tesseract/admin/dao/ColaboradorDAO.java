@@ -6,9 +6,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
@@ -33,7 +30,6 @@ public class ColaboradorDAO {
 		return lista;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public Colaborador findColaboradorByCorreo(String correo) {
 		Colaborador colaborador = null;
 		try {
@@ -46,7 +42,6 @@ public class ColaboradorDAO {
 		return colaborador;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public Colaborador findColaboradorByCURP(String curp) {
 		Colaborador colaborador = null;
 		try {
