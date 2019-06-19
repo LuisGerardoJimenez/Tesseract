@@ -18,21 +18,25 @@
 \end{UseCase}
 %--------------------------------------
 \begin{UCtrayectoria}
-	\UCpaso[\UCactor] Solicita gestionar los términos seleccionando la opción ''Mensajes'' del menú \IUref{MN3}{Menú de Proyecto}.
-	\UCpaso[\UCsist] Obtiene la información de los mensajes registrados del proyecto seleccionado. \Trayref{GMSG-A}
+	\UCpaso[\UCactor] Solicita gestionar los mensajes seleccionando la opción ''Mensajes'' del menú \IUref{MN3}{Menú de Proyecto}.
+	\UCpaso[\UCsist] Obtiene la información de los mensajes registrados del proyecto seleccionado. \hyperlink{CU9:TAA}{[Trayectoria A]}
 	\UCpaso[\UCsist] Muestra la información de los mensajes en la pantalla \IUref{IU10}{Gestionar Mensajes} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}.
-	\UCpaso[\UCactor] Gestiona los proyectos a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. \label{CU9-P4}
+	\UCpaso[\UCactor] Gestiona los mensajes a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. \label{CU9-P4}
 \end{UCtrayectoria}		
 %--------------------------------------
-\begin{UCtrayectoriaA}{GMSG-A}{No existen registros de mensajes.}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU10}{Gestionar Mensajes} para indicar que no hay registros de mensajes para mostrar.
-\end{UCtrayectoriaA}
+\hypertarget{CU9:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} No existen registros de Mensajes.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU10A}{Gestionar Mensajes} para indicar que no hay registros de mensajes para mostrar. \label{CU9-TA1}
+	\UCpaso[\UCactor] Gestiona los mensajes a través del botón: \IUbutton{Registrar}. 
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
 
 %--------------------------------------
 
 \subsubsection{Puntos de extensión}
 
-\UCExtenssionPoint{El actor requiere registrar un mensaje.}{Paso \ref{CU9-P4} de la trayectoria principal.}{\UCref{CU9.1}{Registrar Mensaje}}
+\UCExtenssionPoint{El actor requiere registrar un mensaje.}{Paso \ref{CU9-P4} de la trayectoria principal o del paso \ref{CU9-TA1} de la trayectoria alternativa A.}{\UCref{CU9.1}{Registrar Mensaje}}
 \UCExtenssionPoint{El actor requiere modificar un mensaje.}{Paso \ref{CU9-P4} de la trayectoria principal.}{\UCref{CU9.2}{Modificar Mensaje}}
 \UCExtenssionPoint{El actor requiere eliminar un mensae.}{Paso \ref{CU9-P4} de la trayectoria principal.}{\UCref{CU9.3}{Eliminar Mensaje}}
 \UCExtenssionPoint{El actor requiere consultar un mensaje.}{Paso \ref{CU9-P4} de la trayectoria principal.}{\UCref{CU9.4}{Consultar Mensaje}}
