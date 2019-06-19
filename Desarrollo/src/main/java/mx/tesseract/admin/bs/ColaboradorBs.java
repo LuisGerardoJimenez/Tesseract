@@ -12,6 +12,8 @@ import mx.tesseract.admin.dao.ColaboradorDAO;
 //import mx.tesseract.admin.dao.ColaboradorProyectoDAO;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.ColaboradorProyecto;
+import mx.tesseract.br.RN033;
+import mx.tesseract.br.RN036;
 import mx.tesseract.dao.GenericoDAO;
 //import mx.tesseract.bs.RolBs;
 //import mx.tesseract.bs.RolBs.Rol_Enum;
@@ -40,6 +42,12 @@ public class ColaboradorBs {
 	private ColaboradorDAO colaboradorDAO;
 	
 	@Autowired
+	private RN033 rn033;
+	
+	@Autowired
+	private RN036 rn036;
+	
+	@Autowired
 	private Correo correo;
 	
 	public List<Colaborador> consultarPersonal() {
@@ -61,60 +69,36 @@ public class ColaboradorBs {
 	}*/
 
 	@Transactional(rollbackFor = Exception.class)
-	public void registrarColaborador(Colaborador model) throws Exception {
-		try {
-			//validar(model, Constantes.VALIDACION_REGISTRAR);
-			genericoDAO.guardar(model);
-			enviarCorreo(model, null, null);
-		} catch (JDBCException je) {
-			if (je.getErrorCode() == 1062) {
-				throw new TESSERACTValidacionException("La Persona con CURP"
-						+ model.getCurp() + " ya existe.", "MSG7",
-						new String[] { "La", "persona con CURP", model.getCurp() },
-						"model.curp");
+	public void registrarColaborador(Colaborador model) {
+		if (rn033.isValidRN033(model)) {
+			if (rn036.isValidRN036(model)) {
+				genericoDAO.save(model);
+				enviarCorreo(model, null, null);
+			} else {
+				throw new TESSERACTValidacionException("El correo del colaborador ya existe.", "MSG7", 
+						new String[] { "El", "correo electrónico", model.getCorreoElectronico() }, "model.correoElectronico");
 			}
-			System.out.println("ERROR CODE " + je.getErrorCode());
-			je.printStackTrace();
-			throw new Exception();
+		} else {
+			throw new TESSERACTValidacionException("La Persona con CURP" + model.getCurp() + " ya existe.", "MSG7",
+					new String[] { "La", "persona con CURP", model.getCurp() }, "model.curp");
 		}
 	}
 
-	/*private static void validar(Colaborador model, String bandera) {
-		//Validaciones tipo de dato
-		if (bandera.equals(Constantes.VALIDACION_REGISTRAR) && Validador.esInvalidoCurp(model.getCurp())) {
-			throw new TESSERACTValidacionException(
-					"El usuario ingreso una CURP invalida.", "MSG52", null, "model.curp");
-		}
-		//Validaciones Negocio
-		Colaborador colaboradorBD;
-		if (bandera.equals(Constantes.VALIDACION_REGISTRAR)) {
-			colaboradorBD = new ColaboradorDAO().consultarColaboradorCURP(model.getCurp());
-			if(colaboradorBD != null && colaboradorBD.getCurp().equals(model.getCurp())) {
-				throw new TESSERACTValidacionException(
-						"El CURP ya existe.", "MSG7", new String[] { "El", "CURP", model.getCurp() }, "model.curp");
+	public void enviarCorreo(Colaborador model, String contrasenaAnterior, String correoAnterior) {
+		try {
+			if(contrasenaAnterior == null || correoAnterior == null) {
+				correo.enviarCorreo(model, 0);
+				System.out.println("Se envió un correo al usuario que se registró.");
+			} else if(!contrasenaAnterior.equals(model.getContrasenia())) {
+				correo.enviarCorreo(model, 0);
+				System.out.println("Se envió un correo porque cambió la contraseña.");
+			} else if(!correoAnterior.equals(model.getCorreoElectronico())) {
+				correo.enviarCorreo(model, 0);
+				System.out.println("Se envió un correo porque cambio el correo electrónico.");
 			}
-		}
-		
-		colaboradorBD = new ColaboradorDAO().consultarColaboradorCorreo(model.getCorreoElectronico());
-		if(colaboradorBD != null && !colaboradorBD.getCurp().equals(model.getCurp()) && colaboradorBD.getCorreoElectronico().equals(model.getCorreoElectronico())) {
-			throw new TESSERACTValidacionException(
-					"El correo del colaborador ya existe.", "MSG7", 
-					new String[] { "El", "correo electrónico", model.getCorreoElectronico() }, "model.correoElectronico");
-		}
-		
-	}*/
-
-	public void enviarCorreo(Colaborador model,
-			String contrasenaAnterior, String correoAnterior) throws AddressException, MessagingException {
-		if(contrasenaAnterior == null || correoAnterior == null) {
-			correo.enviarCorreo(model, 0);
-			System.out.println("Se envió un correo al usuario que se registró.");
-		} else if(!contrasenaAnterior.equals(model.getContrasenia())) {
-			correo.enviarCorreo(model, 0);
-			System.out.println("Se envió un correo porque cambió la contraseña.");
-		} else if(!correoAnterior.equals(model.getCorreoElectronico())) {
-			correo.enviarCorreo(model, 0);
-			System.out.println("Se envió un correo porque cambio el correo electrónico.");
+		} catch (Exception e) {
+			System.err.println("Error al enviar el Correo");
+			e.printStackTrace();
 		}
 	}
 

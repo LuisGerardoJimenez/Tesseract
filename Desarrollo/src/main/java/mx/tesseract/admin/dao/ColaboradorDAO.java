@@ -21,36 +21,6 @@ public class ColaboradorDAO {
 	private EntityManager entityManager;
 	
 	@SuppressWarnings("unchecked")
-	public List<Colaborador> findAll() {
-		List<Colaborador> lista = new ArrayList<Colaborador>();
-		try {
-			CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-			CriteriaQuery<Colaborador> criteriaQuery = criteriaBuilder.createQuery(Colaborador.class);
-			Root<Colaborador> root = criteriaQuery.from(Colaborador.class);
-			criteriaQuery.select(root);
-			Query query = entityManager.createQuery(criteriaQuery);
-			lista = query.getResultList();
-		} catch (Exception e) {
-			System.err.print(e.getMessage());
-		}
-		return lista;
-	}
-	
-	public Colaborador findById(Integer id) {
-		return entityManager.find(Colaborador.class, id);
-	}
-	
-	public void delete(Colaborador colaborador) {
-		entityManager.remove(colaborador);
-		entityManager.flush();
-	}
-	
-	public Colaborador update(Colaborador colaborador) {
-		Colaborador updatedColaborador =  entityManager.merge(colaborador);
-		return updatedColaborador;
-	}
-	
-	@SuppressWarnings("unchecked")
 	public List<Colaborador> findAllWithoutAdmin() {
 		List<Colaborador> lista = new ArrayList<Colaborador>();
 		try {
