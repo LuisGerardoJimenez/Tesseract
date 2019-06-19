@@ -48,9 +48,10 @@
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU3-2:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU3-2:TAC}{[Trayectoria C]} 
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU3-2:TAD}{[Trayectoria D]} 
-		\UCpaso[\UCsist] Verifica que el correo del Colaborador no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN36}{Unicidad de correos}. \hyperlink{CU3-2:TAE}{[Trayectoria E]}\label{CU3.2-P10}
-		\UCpaso[\UCsist] Actualiza la información del proyecto en el sistema.
-		\UCpaso[\UCsist] Verifica que el correo electrónico y la contraseña del Colaborador no hayan cambiado. \hyperlink{CU3-2:TAF}{[Trayectoria F]}
+		\UCpaso[\UCsist] Verifica que el correo del Colaborador no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN36}{Unicidad de correos}. \hyperlink{CU3-2:TAE}{[Trayectoria E]}
+		\UCpaso[\UCsist] Verifica que el correo electrónico del Colaborador no haya cambiado. \hyperlink{CU3-2:TAF}{[Trayectoria F]}
+		\UCpaso[\UCsist] Verifica que la contraseña del Colaborador no haya cambiado. \hyperlink{CU3-2:TAG}{[Trayectoria G]}
+		\UCpaso[\UCsist] Actualiza la información del proyecto en el sistema.\label{CU3.2-P10}
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU3}{Gestionar Colaboradores} para indicar al actor que la modificación se ha realizado exitosamente. 
 	\end{UCtrayectoria}		
 %--------------------------------------	
@@ -99,6 +100,14 @@
 \noindent \textbf{Condición:} El actor ingresó un nuevo correo electrónico.
 \begin{enumerate}
 	\UCpaso[\UCsist] Envía un correo con el mensaje \cdtIdRef{MSG25}{Datos de sesión} a la nueva cuenta de correo electrónico proporcionada por el actor.
+	\UCpaso Regresa al paso \ref{CU3.2-P10} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU3-2:TAG}{\textbf{Trayectoria alternativa G}}\\
+\noindent \textbf{Condición:} El actor ingresó un nueva contraseña.
+\begin{enumerate}
+	\UCpaso[\UCsist] Envía un correo con el mensaje \cdtIdRef{MSG25}{Datos de sesión} con las nuevas credenciales a la cuenta de correo electrónico proporcionada por el actor.
 	\UCpaso Regresa al paso \ref{CU3.2-P10} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
