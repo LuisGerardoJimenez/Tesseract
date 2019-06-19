@@ -46,8 +46,8 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -63,12 +63,15 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 			System.out.println("Pasale prro >:v");
 			try {
 				colaboradorBs.registrarColaborador(model);
-			} catch (TESSERACTValidacionException pve) {
-				ErrorManager.agregaMensajeError(this, pve);
-			} catch (TESSERACTException pe) {
-				ErrorManager.agregaMensajeError(this, pe);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
 			}
 		} else {
 			System.out.println("Hay errores prro >:v");
