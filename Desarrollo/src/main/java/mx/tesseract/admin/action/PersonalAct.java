@@ -85,13 +85,15 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 	}
 
 	public String edit() {
+		correoAnterior = model.getCorreoElectronico();
+		contrasenaAnterior = model.getContrasenia();
 		return EDIT;
 	}
 	
 	public void validateUpdate() {
 		if (!hasErrors()) {
 			try {
-				colaboradorBs.modificarColaborador(model);
+				colaboradorBs.modificarColaborador(model, correoAnterior, contrasenaAnterior);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
