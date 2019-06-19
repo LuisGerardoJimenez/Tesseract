@@ -124,11 +124,14 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		return resultado;
 	}
 
+	
 	public String destroy() throws Exception {
+	System.out.println("ENTRO");
 		String resultado = null;
 		try {
-			// ColaboradorBs.eliminarColaborador(model);
+			colaboradorBs.eliminarColaborador(model);
 			resultado = SUCCESS;
+			System.out.println("entro a eliminar");
 			addActionMessage(getText("MSG1", new String[] { "La", "Persona", "eliminada" }));
 			SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		} catch (TESSERACTException pe) {

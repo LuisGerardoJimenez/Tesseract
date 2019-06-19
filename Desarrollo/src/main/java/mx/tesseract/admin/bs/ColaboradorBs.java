@@ -117,6 +117,25 @@ public class ColaboradorBs {
 			System.out.println("Se envió un correo porque cambio el correo electrónico.");
 		}
 	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public boolean eliminarColaborador(Colaborador model) {
+		boolean resultado = true;
+		try {
+			System.out.println("Entro a eliminar con try");
+			model.setCurp("DFGR940102KIDFGC14");
+			System.out.println(model.getCurp());
+			genericoDAO.eliminar(model);
+		}catch(Exception e) {
+			resultado = false;
+		}
+		/*if(!esLiderProyecto(model)){*/
+		
+		/*} else {
+			resultado = false;
+		}*/
+		return resultado;
+	}
 
 	/*public static void modificarColaborador(Colaborador model) throws Exception {
 		try {
@@ -171,9 +190,9 @@ public class ColaboradorBs {
 			}
 		}
 		return false;
-	}
+	
 
-	public static List<String> verificarProyectosLider(Colaborador model) {
+	/*public static List<String> verificarProyectosLider(Colaborador model) {
 		int idLider = RolBs.consultarIdRol(Rol_Enum.LIDER);
 		List<String> proyectos = new ArrayList<String>();
 		Set<String> setProyectos = new HashSet<String>(0);
