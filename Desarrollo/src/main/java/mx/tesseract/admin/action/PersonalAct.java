@@ -16,7 +16,6 @@ import mx.tesseract.util.SessionManager;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ModelDriven;
@@ -26,7 +25,7 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 @Results({
 		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = { "actionName", "personal" }),
 		@Result(name = "referencias", type = "json", params = { "root", "proyectosLider" }) })
-public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<Colaborador>, SessionAware {
+public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<Colaborador> {
 	private Colaborador model;
 	private static final long serialVersionUID = 1L;
 	private Map<String, Object> userSession;
@@ -87,11 +86,10 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 	}
 
 	public String edit() throws Exception {
-
 		String resultado = null;
 		try {
-			contrasenaAnterior = model.getContrasenia();
-			correoAnterior = model.getCorreoElectronico();
+			//contrasenaAnterior = model.getContrasenia();
+			//correoAnterior = model.getCorreoElectronico();
 			resultado = EDIT;
 		} catch (TESSERACTException pe) {
 			System.err.println(pe.getMessage());
@@ -183,7 +181,7 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 
 	public void setIdSel(String idSel) {
 		this.idSel = idSel;
-		// model = ColaboradorBs.consultarPersona(idSel);
+		model = colaboradorBs.consultarPersona(idSel);
 	}
 
 	public void setSession(Map<String, Object> session) {
