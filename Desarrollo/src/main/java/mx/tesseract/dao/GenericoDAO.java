@@ -20,7 +20,7 @@ public class GenericoDAO {
 	@PersistenceContext
 	private EntityManager em;
 
-	public <T extends GenericInterface> List<T> buscarTodos(Class<T> clase) {
+	public <T extends GenericInterface> List<T> findAll(Class<T> clase) {
 		List<T> resultados = new ArrayList<T>();
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(clase);
@@ -30,7 +30,7 @@ public class GenericoDAO {
 		return resultados;
 	}
 	
-	public <T extends GenericInterface> T buscarById(Class<T> clase, Serializable id) {
+	public <T extends GenericInterface> T findById(Class<T> clase, Serializable id) {
 		T entidad = null;
 		try {
             entidad = em.find(clase, id);
@@ -41,14 +41,14 @@ public class GenericoDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T extends GenericInterface> T guardar(Object entidad) {
+	public <T extends GenericInterface> T save(Object entidad) {
 		em.persist(entidad);
 		em.flush();
 		return (T) entidad;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T extends GenericInterface> T actualizar(Object entidad) {
+	public <T extends GenericInterface> T update(Object entidad) {
 		T entidadActualizada = (T) em.merge(entidad);
 		em.flush();
 		return entidadActualizada;

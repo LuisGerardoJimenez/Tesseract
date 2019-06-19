@@ -24,17 +24,17 @@
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita consultar una regla de negocio oprimiendo el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} del registro que desea consultar de la pantalla \IUref{IU9}{Gestionar Reglas de negocio} o la liga correspondiente a una regla de negocio en la pantalla \IUref{IU6.3}{Consultar caso de uso}.
-		\UCpaso[\UCsist] Obtiene la información de la regla de negocio seleccionado. \Trayref{CBR-A} 
+		\UCpaso[\UCactor] Solicita consultar una regla de negocio oprimiendo el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} de un registro de la pantalla \IUref{IU9}{Gestionar Reglas de negocio} o la liga correspondiente a una regla de negocio en la pantalla \IUref{IU6.3}{Consultar caso de uso}.
+		\UCpaso[\UCsist] Obtiene la información de la regla de negocio seleccionado. \hyperlink{CU8-4:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU9.3}{Consultar Regla de negocio} con la información de la regla de negocio.
 		\UCpaso[\UCactor] Consulta la información de la regla de negocio.
 		\UCpaso[\UCactor] Solicita finalizar oprimiendo el botón \IUref{Regresar} de la pantalla \IUref{IU9.3}{Consultar Regla de negocio}.
 	\end{UCtrayectoria}		
 %--------------------------------------
-	
-	\begin{UCtrayectoriaA}{CBR-A}{La regla de negocio que se desea consultar no existe.}
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU9}{Gestionar Reglas de negocio} con el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error}.
-	\end{UCtrayectoriaA}
-
-
+\hypertarget{CU8-4:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} La regla de negocio que se desea consultar no existe.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
+	\item[- -] - - {\em {Fin del caso de uso}}.
+\end{enumerate}
 	
