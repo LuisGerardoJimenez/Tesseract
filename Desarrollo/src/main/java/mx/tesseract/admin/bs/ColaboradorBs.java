@@ -84,7 +84,7 @@ public class ColaboradorBs {
 		}
 	}
 
-	public void enviarCorreo(Colaborador model, String contrasenaAnterior, String correoAnterior) {
+	public void enviarCorreo(Colaborador model, String correoAnterior, String contrasenaAnterior) {
 		try {
 			if(contrasenaAnterior == null || correoAnterior == null) {
 				correo.enviarCorreo(model, 0);
@@ -103,10 +103,10 @@ public class ColaboradorBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void modificarColaborador(Colaborador model){
+	public void modificarColaborador(Colaborador model, String correoAnterior, String contraseniaAnterior){
 		if (rn036.isValidRN036(model)) {
 			genericoDAO.update(model);
-			enviarCorreo(model, null, null);
+			enviarCorreo(model, correoAnterior, contraseniaAnterior);
 		} else {
 			throw new TESSERACTValidacionException("El correo del colaborador ya existe.", "MSG7", 
 					new String[] { "El", "correo electrónico", model.getCorreoElectronico() }, "model.correoElectronico");
