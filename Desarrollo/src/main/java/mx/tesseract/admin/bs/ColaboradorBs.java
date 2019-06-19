@@ -100,7 +100,6 @@ public class ColaboradorBs {
 			System.err.println("Error al enviar el Correo");
 			e.printStackTrace();
 		}
-		
 	}
 
 	/*public static void modificarColaborador(Colaborador model) throws Exception {
