@@ -125,7 +125,7 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'20', 'caracteres'})}", trim = true, minLength = "8", maxLength = "20", shortCircuit= true)
+	@StringLengthFieldValidator(message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, maxLength = "30", shortCircuit= true)
 	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CONTRASENIA, shortCircuit = true)
 	@Column(name = "contrasenia", nullable = false, length = 20)
 	public String getContrasenia() {

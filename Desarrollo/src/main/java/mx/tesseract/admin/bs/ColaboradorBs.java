@@ -29,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("colaboradorBS")
@@ -106,12 +107,12 @@ public class ColaboradorBs {
 	public boolean eliminarColaborador(Colaborador model) {
 		boolean resultado = true;
 		try {
-			System.out.println("Entro a eliminar con try");
 			model.setCurp("DFGR940102KIDFGC14");
-			System.out.println(model.getCurp());
-			genericoDAO.eliminar(model);
+			Colaborador colaborador = genericoDAO.findById(Colaborador.class, model.getCurp());
+			genericoDAO.eliminar(colaborador);
 		}catch(Exception e) {
 			resultado = false;
+			e.printStackTrace();
 		}
 		/*if(!esLiderProyecto(model)){*/
 		
