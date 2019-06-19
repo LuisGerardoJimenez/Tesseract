@@ -102,28 +102,18 @@ public class ColaboradorBs {
 		}
 	}
 
-	/*public static void modificarColaborador(Colaborador model) throws Exception {
-		try {
-			validar(model, Constantes.VALIDACION_EDITAR);
-			new ColaboradorDAO().modificarColaborador(model);
-		} catch (JDBCException je) {
-			if (je.getErrorCode() == 1062) {
-				throw new TESSERACTValidacionException("La Persona con CURP"
-						+ model.getCurp() + " ya existe.", "MSG7",
-						new String[] { "La", "persona con CURP", model.getCurp() },
-						"model.curp");
-			}
-			System.out.println("ERROR CODE " + je.getErrorCode());
-			je.printStackTrace();
-			throw new Exception();
-		} catch (HibernateException he) {
-			he.printStackTrace();
-			throw new Exception();
+	@Transactional(rollbackFor = Exception.class)
+	public void modificarColaborador(Colaborador model){
+		if (rn036.isValidRN036(model)) {
+			genericoDAO.update(model);
+			enviarCorreo(model, null, null);
+		} else {
+			throw new TESSERACTValidacionException("El correo del colaborador ya existe.", "MSG7", 
+					new String[] { "El", "correo electrónico", model.getCorreoElectronico() }, "model.correoElectronico");
 		}
-		
 	}
 
-	public static void eliminarColaborador(Colaborador model) throws Exception {
+	/*public static void eliminarColaborador(Colaborador model) throws Exception {
 		try {
 			if(!esLiderProyecto(model)) {
 				new ColaboradorDAO().eliminarColaborador(model);
