@@ -20,7 +20,7 @@ public class RN036 {
 		Colaborador colaborador = colaboradorDAO.findColaboradorByCorreo(entidad.getCorreoElectronico());
 		if (colaborador != null && !colaborador.getCurp().contentEquals(entidad.getCurp())) {
 			valido = false;
-		}
+		}	
 		return valido;
 	}
 

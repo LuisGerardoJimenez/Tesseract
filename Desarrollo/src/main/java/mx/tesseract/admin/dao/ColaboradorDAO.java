@@ -35,6 +35,10 @@ public class ColaboradorDAO {
 		try {
 			Query query = entityManager.createNamedQuery("findColaboradorByCorreo", Colaborador.class);
 			query.setParameter("correoElectronico", correo);
+			System.out.println("Query: "+query.toString());
+			for (Object o : query.getResultList()) {
+				System.out.println("Nombre: "+((Colaborador) o).getNombre());
+			}
 			colaborador = (Colaborador) query.getSingleResult();
 		} catch (Exception e) {
 			System.err.print(e.getMessage());
