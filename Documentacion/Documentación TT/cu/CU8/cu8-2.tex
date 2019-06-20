@@ -1,15 +1,15 @@
 	\begin{UseCase}{CU8.2}{Modificar Regla de negocio}{
 		Este caso de uso permite al analista modificar la información de una regla de negocio.
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
+		
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Modificar la información de una regla de negocio.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{BRSEntidad:numeroBR}{Número:} Se escribe desde el teclado.
-			\item \cdtRef{BREntidad:nombreBR}{Nombre:} Se escribe desde el teclado.
-			\item \cdtRef{BREntidad:descripciónBR}{Descripción:} Se escribe desde el teclado.
-			\item \cdtRef{BREntidad:redaccionBR}{Redacción:} Se escribe desde el teclado.
+			\item \cdtRef{BRSEntidad:numeroBR}{Número de la Regla de Negocio:} Se escribe desde el teclado.
+			\item \cdtRef{BREntidad:nombreBR}{Nombre de la Regla de Negocio:} Se escribe desde el teclado.
+			\item \cdtRef{BREntidad:descripciónBR}{Descripción de la Regla de Negocio:} Se escribe desde el teclado.
+			\item \cdtRef{BREntidad:redaccionBR}{Redacción de la Regla de negocio:} Se escribe desde el teclado.
 			\item \hyperlink{tTipoRN}{Tipo:} Se selecciona de una lista.
 			\item Para el tipo ''Comparación de atributos'':
 				\begin{itemize}
@@ -33,11 +33,13 @@
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
-				\item \cdtRef{BREntidad:claveBR}{Clave:} Lo calcula el sistma mediante la regla de negocio \BRref{RN12}{Idenficador de elemento}.
-				\item \cdtRef{BRSEntidad:numeroBR}{Número:} Lo obtiene el sistema.
-				\item \cdtRef{BREntidad:nombreBR}{Nombre:} Lo obtiene el sistema.
-				\item \cdtRef{BREntidad:descripciónBR}{Descripción:} Lo obtiene el sistema.
-				\item \cdtRef{BREntidad:redaccionBR}{Redacción:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{BREntidad:claveBR}{Clave de la Regla de negocio:} Lo calcula el sistma mediante la regla de negocio \BRref{RN12}{Idenficador de elemento}.
+				\item \cdtRef{BRSEntidad:numeroBR}{Número de la Regla de negocio:} Lo obtiene el sistema.
+				\item \cdtRef{BREntidad:nombreBR}{Nombre de la Regla de negocio:} Lo obtiene el sistema.
+				\item \cdtRef{BREntidad:descripciónBR}{Descripción de la Regla de negocio:} Lo obtiene el sistema.
+				\item \cdtRef{BREntidad:redaccionBR}{Redacción de la Regla de negocio:} Lo obtiene el sistema.
 				\item \hyperlink{tTipoRN}{Tipo:} Lo obtiene el sistema.
 				\item Para el tipo ''Comparación de atributos'':
 				\begin{itemize}
@@ -60,13 +62,13 @@
 				\end{itemize}
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} para indicar que la modificación fue exitosa.
 		\end{itemize}}
-		\UCitem{Destino}{Pantalla}
-		\UCitem{Precondiciones}{
-			\begin{itemize}
+		
+		\UCitem{Precondiciones}{\begin{itemize}
+				\item Que exista al menos un regla de negocio registrada en el proyecto
 				\item Que la regla de negocio no se encuentre asociada a un caso de uso en estado ''Liberado''.
 			\end{itemize}
 		}
-		\UCitem{Postcondiciones}{Ninguna}
+		\UCitem{Postcondiciones}{Se actualizará una regla de negocio de un proyecto.}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU9.2}{Modificar Regla de negocio} cuando no se ha ingresado un dato marcado como obligatorio.
 		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU9.2}{Modificar Regla de negocio} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
@@ -79,23 +81,23 @@
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita modificar una regla de negocio oprimiendo el botón \editar del registro que desea modificar en la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
+		\UCpaso[\UCactor] Da clic en el icono \editar del registro que desea modificar en la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
 		\UCpaso[\UCsist] Obtiene la información de la regla de negocio.
 		\UCpaso[\UCsist] Verifica que la regla de negocio pueda modificarse con base en la regla de negocio \BRref{RN5}{Modificación de elementos asociados a casos de uso liberados}. \Trayref{MBR-I}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU9.2}{Modificar Regla de negocio}.
-		\UCpaso[\UCactor] Modifica la información solicitada en la pantalla. \label{CU8.2-P5}
+		\UCpaso[\UCactor] Modifica la información de la regla de negocio. \label{CU8.2-P5}
 		\UCpaso[\UCactor] Selecciona el tipo de regla de negocio.
 		\UCpaso[\UCsist] Verifica que el tipo de regla de negocio requiera parámetros. \hyperlink{CU8-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU9.2A}{Modificar Regla de negocio: Comparación de atributos}, \IUref{IU9.2B}{Modificar Regla de negocio: Unicidad de parámetros} o \IUref{IU9.2C}{Modificar Regla de negocio: Formato correcto}, según corresponda.
-		\UCpaso[\UCsist] Modifica la información solicitada en la pantalla correspondiente.
-		\UCpaso[\UCsist] Modifica la redacción de la regla de negocio. \label{CU8.2-P11}
-		\UCpaso[\UCactor] Solicita guardar los cambios de la regla de negocio oprimiendo el botón \IUbutton{Aceptar} de la pantalla \IUref{IU9.2A}{Modificar Regla de negocio: Comparación de atributos}, \IUref{IU9.2B}{Modificar Regla de negocio: Unicidad de parámetros} o \IUref{IU9.2C}{Modificar Regla de negocio: Formato correcto}, según corresponda. \hyperlink{CU8-2:TAB}{[Trayectoria B]}
+		\UCpaso[\UCactor] Modifica la información solicitada en la pantalla correspondiente.
+		\UCpaso[\UCactor] Modifica la redacción de la regla de negocio. \label{CU8.2-P11}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU8-2:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU8-2:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU8-2:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU8-2:TAE}{[Trayectoria E]}
 		\UCpaso[\UCsist] Verifica que el número de la regla de negocio no se encuentre registrado con base en la regla de negocio \BRref{RN1}{Unicidad de números}. \hyperlink{CU8-2:TAF}{[Trayectoria F]}
 		\UCpaso[\UCsist] Verifica que el nombre de la regla de negocio no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU8-2:TAG}{[Trayectoria G]}
-		\UCpaso[\UCsist] Actualiza los cambios de la regla de negocio en el sistema.
+		\UCpaso[\UCsist] Actualiza la información de la regla de negocio en el sistema.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} para indicar al actor que la modificación se ha realizado exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------

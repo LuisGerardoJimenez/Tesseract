@@ -3,37 +3,35 @@
 			
 			Una vez registrado el proyecto, el líder asignado (desde su respectiva cuenta) podrá realizar diferentes operaciones como: Asignar a los colaboradores que trabajarán en el proyecto, gestionar módulos, casos de uso, componentes de caso de uso, revisar y realizar observaciones de los elementos para enviarlos a corrección, así como liberar los casos de uso que considere completos y correctos.
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{admin}{Administrador}}
 		\UCitem{Propósito}{Registrar la información de un proyecto.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{proyectoEntidad:claveProyecto}{Clave:} Se escribe desde el teclado.
-			\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre:} Se escribe desde el teclado.
+			\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto:} Se escribe desde el teclado.
+			\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Se escribe desde el teclado.
 			\item \cdtRef{proyectoEntidad:fechaIProyecto}{Fecha de inicio:} Se selecciona de un calendario.
 			\item \cdtRef{proyectoEntidad:fechaFinProyecto}{Fecha de término:} Se selecciona de un calendario.
 			\item \cdtRef{proyectoEntidad:fechaIPProyecto}{Fecha de inicio programada:} Se selecciona de un calendario.
 			\item \cdtRef{proyectoEntidad:fechaFinPProyecto}{Fecha de término programada:} Se selecciona de un calendario.
 			\item \cdtRef{proyectoEntidad:liderProyecto}{Líder del Proyecto:} Se selecciona de una lista.
-			\item \cdtRef{proyectoEntidad:descripcionProyecto}{Descripción:} Se escribe desde el teclado.
+			\item \cdtRef{proyectoEntidad:descripcionProyecto}{Descripción del proyecto:} Se escribe desde el teclado.
 			\item \cdtRef{proyectoEntidad:contraparteProyecto}{Contraparte} Se escribe desde el teclado.
-			\item \cdtRef{proyectoEntidad:presupuestoProyecto}{Presupuesto:} Se escribe desde el teclado.
+			\item \cdtRef{proyectoEntidad:presupuestoProyecto}{Presupuesto del proyecto:} Se escribe desde el teclado.
 			\item \hyperlink{tEdoProy}{Estado del Proyecto:} Se selecciona de un lista.
 		\end{itemize}	
 		}
-		\UCitem{Salidas}{\begin{itemize}
-				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} para indicar que el registro fue exitoso.
-		\end{itemize}}
+		\UCitem{Salidas}{
+				\cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} para indicar que el registro fue exitoso.}
 		\UCitem{Precondiciones}{
 		\begin{itemize}
-			\item Interna: Que exista al menos un colaborador registrado.
-			\item Interna: Que exista información dentro del catálogo "estados un proyecto".
+			\item Que exista al menos un colaborador registrado.
+			\item Que exista información dentro del catálogo ''estados un proyecto''.
 		\end{itemize}
 		}
 		\UCitem{Postcondiciones}{
 		\begin{itemize}
-			\item Interna: Se registrará un proyecto en el sistema.
-			\item Interna: Se podrán gestionar los Términos del glosario, Entidades, Reglas de negocio, Mensajes y Actores.
+			\item Se registrará un proyecto en el sistema.
+			\item Se podrán gestionar los Términos del glosario, Entidades, Reglas de negocio, Mensajes y Actores.
 		\end{itemize}
 		}
 		\UCitem{Errores}{\begin{itemize}
@@ -42,8 +40,7 @@
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU2.1}{Registrar proyecto} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU2.1}{Registrar proyecto} cuando se registre un proyecto con un nombre o clave que ya se encuentra registrado en el sistema.
 		\item \cdtIdRef{MSG17}{Falta información}: Se muestra en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} cuando no existan colaboradores registrados.
-		\item \cdtIdRef{MSG26}{Orden de fechas}: Se muestra en la pantalla \IUref{IU2.1}{Registrar proyecto} cuando el actor ingrese fechas de término que no son posteriores a las fechas
-		de inicio correspondientes.
+		\item \cdtIdRef{MSG26}{Orden de fechas}: Se muestra en la pantalla \IUref{IU2.1}{Registrar proyecto} cuando el actor ingrese fechas de término que no son posteriores a las fechas de inicio correspondientes.
 		\end{itemize}
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU2}{Gestionar proyectos de Administrador}.}
@@ -51,11 +48,11 @@
 %--------------------------------------
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Solicita registrar un proyecto oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU2}{Gestionar proyectos de Administrador}.
-		\UCpaso[\UCsist] Verifica que el catálogo "estados de un proyecto" cuente con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU2-1:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Verifica que el catálogo ''estados de un proyecto'' cuente con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU2-1:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que exista al menos un colaborador, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU2-1:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU2.1}{Registrar proyecto}.
-		\UCpaso[\UCactor] Ingresa la información solicitada en la pantalla. \label{CU2.1-P5}
-		\UCpaso[\UCactor] Solicita guardar el proyecto oprimiendo el botón \IUbutton{Aceptar} de la pantalla \IUref{IU2.1}{Registrar proyecto}. \hyperlink{CU2-1:TAC}{[Trayectoria C]}
+		\UCpaso[\UCactor] Ingresa la información solicitada. \label{CU2.1-P5}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU2-1:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU2-1:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU2-1:TAE}{[Trayectoria E]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU2-1:TAF}{[Trayectoria F]}

@@ -3,35 +3,30 @@
 		
 		Un módulo podrá ser eliminado siempre y cuando no existan referencias al contenido del módulo a eliminar desde elementos de otro módulo. 
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Eliminar la información de un módulo.}
 		\UCitem{Entradas}{Ninguna}
 		\UCitem{Salidas}{\begin{itemize}
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU4}{Gestionar Módulos} para indicar que el módulo fue eliminado correctamente.
-				\item \cdtIdRef{MSG10}{Confirmar eliminación}: Se muestra en la pantalla \IUref{IU4}{Gestionar Módulos} para que el actor confirme la eliminación.
+				\item \cdtIdRef{MSG10}{Confirmar eliminación}: Se muestra en la pantalla \IUref{IU4}{Gestionar Módulos} preguntando al actor si desea continuar con la eliminación del módulo.
 		\end{itemize}}
-		\UCitem{Destino}{Pantalla}
-		\UCitem{Precondiciones}{
-			\begin{itemize}
+		
+		\UCitem{Precondiciones}{\begin{itemize}
+				\item Que no tenga casos de uso asociados
 				\item Que no se existan referencias al contenido del módulo a eliminar desde elementos de otro módulo.
 			\end{itemize}
 		}
 		\UCitem{Postcondiciones}{
-		\begin{itemize}
-			\item Se eliminará un módulo del sistema.
-		\end{itemize}
+			Se eliminará un módulo del sistema.
 		}
-		\UCitem{Errores}{\begin{itemize}
-		\item \cdtIdRef{MSG13}{Eliminación no permitida}: Se muestra en la pantalla \IUref{IU4}{Gestionar Módulos} cuando no sea posible eliminar el módulo, con base en la regla de negocio \BRref{RN28}{Eliminación de módulos}.
-		\end{itemize}
+		\UCitem{Errores}{
+		\cdtIdRef{MSG13}{Eliminación no permitida}: Se muestra en la pantalla \IUref{IU4}{Gestionar Módulos} cuando no sea posible eliminar el módulo, con base en la regla de negocio \BRref{RN28}{Eliminación de módulos}.
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU5}{Gestionar Módulos}.}
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita eliminar un módulo oprimiendo el botón \eliminar del módulo que desea eliminar de la pantalla \IUref{IU4}{Gestionar Módulos}.
-		\UCpaso[\UCsist] Obtiene la información del módulo seleccionado.
+		\UCpaso[\UCactor] Da clic \eliminar del módulo que desea eliminar de la pantalla \IUref{IU4}{Gestionar Módulos}.
 		\UCpaso[\UCsist] Muestra el mensaje emergente \cdtIdRef{MSG10}{Confirmar eliminación} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar} en la pantalla \IUref{IU4}{Gestionar Módulos}.
 		\UCpaso[\UCactor] Confirma la eliminación del módulo oprimiendo el botón \IUbutton{Aceptar}. \hyperlink{CU5-3:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que el módulo pueda eliminarse, con base en la regla de negocio \BRref{RN28}{Eliminación de módulos}. \hyperlink{CU5-3:TAB}{[Trayectoria B]}

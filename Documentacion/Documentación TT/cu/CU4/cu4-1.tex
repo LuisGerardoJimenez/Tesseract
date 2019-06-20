@@ -3,47 +3,45 @@
 	
 		Al momento de seleccionar a los analistas, estos tendrán acceso al proyecto y a sus acciones correspondientes. El administrador no podrá participar como colaborador en ningún proyecto.
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de análisis}}
 		\UCitem{Propósito}{Elegir a los colaboradores que participarán en un proyecto.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{colaboradorEntidad}{Colaborador}: Tabla que muestra \cdtRef{colaboradorEntidad:curpColaborador}{CURP}, \cdtRef{colaboradorEntidad:nombreColaborador}{Nombre}, \cdtRef{colaboradorEntidad:pApellidoColaborador}{Primer Apellido} y \cdtRef{colaboradorEntidad:pApellidoColaborador}{Segundo Apellido} de todos los registros de las personas. Se selecciona de una lista.
+			\item \cdtRef{colaboradorEntidad}{Colaborador}: Se selecciona de un combobox.
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
-				\item \cdtRef{colaboradorEntidad}{Colaborador}: Tabla que muestra \cdtRef{colaboradorEntidad:curpColaborador}{CURP}, \cdtRef{colaboradorEntidad:nombreColaborador}{Nombre}, \cdtRef{colaboradorEntidad:pApellidoColaborador}{Primer Apellido} y \cdtRef{colaboradorEntidad:pApellidoColaborador}{Segundo Apellido} de todos los registros de las personas.
-				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU5}{Gestionar Proyectos de colaborador} para indicar que se han actualizado los participantes exitosamente.
-				\item  \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU5.1}{Elegir Colaboradores} cuando no hay personal registrado.
+				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU5}{Gestionar Proyectos de colaborador} para indicar que se la asociación se realizó exitosamente.
+				\item  \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU5.1A}{Elegir Colaboradores} cuando no hay personal registrado.
 		\end{itemize}}
-		\UCitem{Precondiciones}{Ninguna}
+		\UCitem{Precondiciones}{\begin{itemize}
+				\item Que el actor haya iniciado sesión como \hyperlink{jefe}{Líder de proyecto}.
+				\item Que existan al menos 2 colaboradores en el sistema.
+			\end{itemize}}
 		\UCitem{Postcondiciones}{
-		\begin{itemize}
-			\item Los colaboradores seleccionados podrán entrar al proyecto en cuestión.
-		\end{itemize}
+			Los colaboradores seleccionados podrán entrar al proyecto en cuestión.
 		}
 		\UCitem{Errores}{
-			\begin{itemize}
-				\item  \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU5.1}{Elegir Colaboradores} cuando la asignación del colaborador a un proyecto no se realizó correctamente.
-			\end{itemize}
+				\cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU5}{Gestionar Proyectos de colaborador} cuando la asignación del colaborador a un proyecto no se realizó correctamente.
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU4}{Gestionar Proyectos de Colaborador}.}
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita elegir los colaboradores oprimiendo el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/colaboradores}} del proyecto que desee de la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador}.
-		\UCpaso[\UCsist] Obtiene la información del personal de la organización. \hyperlink{CU4-1:TAA}{[Trayectoria A]}
-		\UCpaso[\UCsist] Muestra el personal encontrado en la pantalla \IUref{IU5.1}{Elegir Colaboradores}
+		\UCpaso[\UCactor] Da clic en el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/colaboradores}} del proyecto que desee de la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador}.
+		\UCpaso[\UCsist] Obtiene la información del personal de la organización con base en la regla de negocio \BRref{RN39}{Roles del sistema}. \hyperlink{CU4-1:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Discrimina al \hyperlink{admin}{Administrador} de la lista de colaboradores con base en la regla de negocio \BRref{RN38}{Funciones de administrador}.
+		\UCpaso[\UCsist] Muestra los colaboradores encontrados en la pantalla \IUref{IU5.1}{Elegir Colaboradores}
 		\UCpaso[\UCactor] Selecciona los colaboradores que participarán en el proyecto, marcando o desmarcando las casillas de la columna ''Elegir''.
-		\UCpaso[\UCactor] Solicita guardar la selección de colaboradores, oprimiendo el botón \IUbutton{Aceptar} de la pantalla \IUref{IU5.1}{Elegir Colaboradores}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}.
 		\UCpaso[\UCsist] Actualiza el personal asociado al proyecto en cuestión. \hyperlink{CU4-1:TAB}{[Trayectoria B]}
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador} para indicar al actor que el personal del proyecto ha sido actualizado exitosamente.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador} para indicar al actor que los colaboradores del proyecto han sido asociados exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------
 	\hypertarget{CU4-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 	\noindent \textbf{Condición:} No existen colaboradores.
 	\begin{enumerate}
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador} para indicar que no hay registros para mostrar.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU5.1A}{Elegir Colaboradores} para indicar que no hay registros para mostrar.
 		\item[- -] - - {\em {Fin del caso de uso}}.%
 	\end{enumerate}
 

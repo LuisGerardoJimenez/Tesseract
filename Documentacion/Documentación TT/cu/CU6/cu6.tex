@@ -13,7 +13,10 @@
 			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU11A}{Gestionar Términos de Glosario} cuando no existen términos registrados.
 	\end{itemize}}
 	
-	\UCitem{Precondiciones}{Ninguna}
+	\UCitem{Precondiciones}{\begin{itemize}
+			\item Que exista al menos un proyecto registrado.
+			\item Que exista al menos un término registrado.
+	\end{itemize}}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{Ninguno}
 	\UCitem{Tipo}{Primario}
@@ -22,6 +25,7 @@
 \begin{UCtrayectoria}
 	\UCpaso[\UCactor] Solicita gestionar los términos seleccionando la opción ''Glosario'' del menú \IUref{MN3}{Menú de Proyecto}.
 	\UCpaso[\UCsist] Obtiene la información de los términos registrados del proyecto seleccionado. \hyperlink{CU6:TAA}{[Trayectoria A]}
+	\UCpaso[\UCsist] Ordena los términos alfabéticamente basándose en nombre de los mismos.
 	\UCpaso[\UCsist] Muestra la información de los términos en la pantalla \IUref{IU11}{Gestionar Términos de glosario} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}.\label{CU6-P4}
 	\UCpaso[\UCactor] Gestiona los términos a través de los botones: \IUbutton{Registrar}, \editar, \eliminar y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}}. 
 \end{UCtrayectoria}		
