@@ -4,24 +4,29 @@
 		    La única condición para modificar un Término de glosario de forma exitosa es que este no se encuentre asociado a algún caso de uso con estado ”Liberado”.
 		
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
+		
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Modificar la información de un término.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{terminoGLSEntidad:nombreTGLS}{Nombre:} Se escribe desde el teclado.
-			\item \cdtRef{terminoGLSEntidad:descripcionTGLS}{Descripción:} Se escribe desde el teclado.
+			\item \cdtRef{terminoGLSEntidad:nombreTGLS}{Nombre del término:} Se escribe desde el teclado.
+			\item \cdtRef{terminoGLSEntidad:descripcionTGLS}{Descripción del término:} Se escribe desde el teclado.
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
-				\item \cdtRef{terminoGLSEntidad:claveTGLS}{Clave:} Lo obtiene el sistema.
-				\item \cdtRef{terminoGLSEntidad:nombreTGLS}{Nombre:} Lo obtiene el sistema.
-				\item \cdtRef{terminoGLSEntidad:descripcionTGLS}{Descripción:} Lo obtiene el sistema
+				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{terminoGLSEntidad:nombreTGLS}{Nombre del término:} Lo obtiene el sistema.
+				\item \cdtRef{terminoGLSEntidad:descripcionTGLS}{Descripción del término:} Lo obtiene el sistema
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU11}{Gestionar Términos de glosario} para indicar que la modificación fue exitosa.
 		\end{itemize}}
-		\UCitem{Destino}{Pantalla}
-		\UCitem{Precondiciones}{Que el término no se encuentre asociado a un caso de uso en estado ''Liberado''.}
-		\UCitem{Postcondiciones}{Ninguna}
+		
+		\UCitem{Precondiciones}{\begin{itemize}
+				\item Que exista al menos un término registrado.
+				\item Que el término no se encuentre asociado a un caso de uso en estado ''Liberado''.
+			\end{itemize}
+		}
+		\UCitem{Postcondiciones}{Se actualizará un término de un proyecto.}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU11.2}{Modificar Término} cuando no se ha ingresado un dato marcado como obligatorio.
 		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU11.2}{Modificar Término} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en
@@ -34,18 +39,18 @@
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita modificar un término oprimiendo el botón \editar de la pantalla \IUref{IU11}{Gestionar Términos del glosario}.
+		\UCpaso[\UCactor] Da clic en el icono \editar de la pantalla \IUref{IU11}{Gestionar Términos del glosario}.
 		\UCpaso[\UCsist] Obtiene la información del término.
 		\UCpaso[\UCsist] Verifica que el término pueda modificarse con base en la regla de negocio \BRref{RN5}{Modificación de elementos asociados a casos de uso liberados}. \hyperlink{CU6-2:TAF}{[Trayectoria F]}
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU11.2}{Modificar Término} con la información obtenida.
-		\UCpaso[\UCactor] Modifica el nombre y la descripción del término. \label{CU6.2-P5}
-		\UCpaso[\UCactor] Solicita modificar del término oprimiendo el botón \IUbutton{Aceptar} de la pantalla \IUref{IU11.2}{Modificar Término}. \hyperlink{CU6-2:TAB}{[Trayectoria A]}
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU11.2}{Modificar Término}.
+		\UCpaso[\UCactor] Modifica la información del término. \label{CU6.2-P5}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU6-2:TAB}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU6-2:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU6-2:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU6-2:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que el nombre del término no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU6-2:TAE}{[Trayectoria E]}
-		\UCpaso[\UCsist] Modifica la información del término en el sistema.
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU11}{Gestionar Términos del glosario} para indicar al actor que el registro se ha modificado exitosamente.
+		\UCpaso[\UCsist] Actualiza la información del término.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU11}{Gestionar Términos del glosario} para indicar al actor que la modificación se ha realizado exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------
 	\hypertarget{CU6-2:TAA}{\textbf{Trayectoria alternativa A}}\\

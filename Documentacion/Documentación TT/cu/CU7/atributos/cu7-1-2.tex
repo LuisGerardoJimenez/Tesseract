@@ -1,37 +1,30 @@
 	\begin{UseCase}{CU7.1.2}{Modificar Atributo}{
 		Este caso de uso permite al analista modificar la información de un atributo.
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
+		
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Modificar la información de atributo.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{atributoEntidad:nombreATR}{Nombre:} Se escribe desde el teclado.
-			\item \cdtRef{atributoEntidad:descripcionATR}{Descripción:} Se escribe desde el teclado.
+			\item \cdtRef{atributoEntidad:nombreATR}{Nombre del atributo:} Se escribe desde el teclado.
+			\item \cdtRef{atributoEntidad:descripcionATR}{Descripción del atributo:} Se escribe desde el teclado.
 			\item \cdtRef{atributoEntidad:obligatorioATR}{Obligatorio:} Se selecciona de una lista.
-			\item \cdtRef{atributoEntidad:longitudATR}{Descripción:} Se escribe desde el teclado.
 			\item \hyperlink{tTipoDatoP}{Tipo de Dato:} Se selecciona de una lista.
-			\item Formato de archivo: Se escribe desde el teclado.
-			\item Tamaño de archivo: Se escribe desde el teclado.
-			\item Unidad: Se selecciona de una lista.
-			\item Otro tipo de dato: Se escribe desde el teclado.
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
-			\item \cdtRef{atributoEntidad:nombreATR}{Nombre:} Lo obtiene el sistema.
-			\item \cdtRef{atributoEntidad:descripcionATR}{Descripción:} Lo obtiene el sistema.
+			\item \cdtRef{atributoEntidad:nombreATR}{Nombre del atributo:} Lo obtiene el sistema.
+			\item \cdtRef{atributoEntidad:descripcionATR}{Descripción del atributo:} Lo obtiene el sistema.
 			\item \cdtRef{atributoEntidad:obligatorioATR}{Obligatorio:} Lo obtiene el sistema.
-			\item \cdtRef{atributoEntidad:longitudATR}{Descripción:} Lo obtiene el sistema.
 			\item \hyperlink{tTipoDatoP}{Tipo de Dato:} Lo obtiene el sistema.
-			\item Formato de archivo: Lo obtiene el sistema.
-			\item Tamaño de archivo: Lo obtiene el sistema.
-			\item Unidad: Lo obtiene el sistema.
-			\item Otro tipo de dato: Lo obtiene el sistema.
 		\end{itemize}
 		}
-		\UCitem{Destino}{Pantalla}
-		\UCitem{Precondiciones}{Ninguna}
-		\UCitem{Postcondiciones}{Ninguna}
+		
+		\UCitem{Precondiciones}{\begin{itemize}
+				\item Que exista al menos una entidad registrada.
+				\item Que exista al menos un atributo registrado.
+		\end{itemize}}
+		\UCitem{Postcondiciones}{Se actualizará la información de un atributo perteneciente a un entidad.}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU12.1.2}{Modificar Atributo} cuando no se ha ingresado un dato marcado como obligatorio.
 		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU12.1.2}{Modificar Atributo} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
@@ -43,16 +36,17 @@
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita modificar un atributo oprimiendo el botón \editar de algún registro existente en la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
+		\UCpaso[\UCactor] Da clic en el icono \editar de algún registro existente en la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
 		\UCpaso[\UCsist] Obtiene la información del atributo.
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1.2}{Modificar Atributo} con la información encontrada.
-		\UCpaso[\UCactor] Ingresa la información solicitada en la pantalla. \label{CU7.1.2-P4}
-		\UCpaso[\UCactor] Solicita guardar la información de atributo oprimiendo el botón \IUbutton{Aceptar} de la pantalla \IUref{IU12.1.2}{Modificar Atributo}. \hyperlink{CU7-1-2:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Verifica que el atributo pueda modificarse con base en la regla de negocio \BRref{RN5}{Modificación de elementos asociados a casos de uso liberados}. \hyperlink{CU7-1-2:TAF}{[Trayectoria F]}
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1.2}{Modificar Atributo}.
+		\UCpaso[\UCactor] Modifica la información del atributo. \label{CU7.1.2-P4}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU7-1-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU7-1-2:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU7-1-2:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU7-1-2:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que el nombre del atributo no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU7-1-2:TAE}{[Trayectoria E]}
-		\UCpaso[\UCsist] Modifica la información del atributo y actualiza la tabla de la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
+		\UCpaso[\UCsist] Actualiza la información del atributo y la tabla \cdtRef{atributoEntidad}{Atributos} de la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
 	\end{UCtrayectoria}		
 %--------------------------------------
 	
@@ -95,4 +89,10 @@
 	\UCpaso Regresa al paso \ref{CU7.1.2-P4} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
-
+%-------------------------------------
+\hypertarget{CU7-1-2:TAF}{\textbf{Trayectoria alternativa F}}\\
+\noindent \textbf{Condición:} El atributo se encuentra asociado a casos de uso liberados.
+\begin{enumerate}
+	\UCpaso[\UCsist] Oculta el botón \editar del atributo que esta asociado a casos de uso liberados.
+	\item[- -] - - {\em {Fin del caso de uso}}.
+\end{enumerate}

@@ -1,26 +1,23 @@
 	\begin{UseCase}{CU7.1.1}{Registrar Atributo}{
 		Este caso de uso permite al analista registrar la información de un atributo.
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
+		
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Registrar la información de atributo.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{atributoEntidad:nombreATR}{Nombre:} Se escribe desde el teclado.
-			\item \cdtRef{atributoEntidad:descripcionATR}{Descripción:} Se escribe desde el teclado.
+			\item \cdtRef{atributoEntidad:nombreATR}{Nombre del atributo:} Se escribe desde el teclado.
+			\item \cdtRef{atributoEntidad:descripcionATR}{Descripción del atributo:} Se escribe desde el teclado.
 			\item \cdtRef{atributoEntidad:obligatorioATR}{Obligatorio:} Se selecciona de una lista.
-			\item \cdtRef{atributoEntidad:longitudATR}{Descripción:} Se escribe desde el teclado.
 			\item \hyperlink{tTipoDatoP}{Tipo de Dato:} Se selecciona de una lista.
-			\item Formato de archivo: Se escribe desde el teclado.
-			\item Tamaño de archivo: Se escribe desde el teclado.
-			\item Unidad: Se selecciona de una lista.
-			\item Otro tipo de dato: Se escribe desde el teclado.
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{Ninguna}
-		\UCitem{Destino}{Pantalla}
 		\UCitem{Precondiciones}{Ninguna}
-		\UCitem{Postcondiciones}{Ninguna}
+		\UCitem{Postcondiciones}{\begin{itemize}
+				\item Se registrará un atributo perteneciente a una entidad de un proyecto.
+				\item El atributo podrá ser referenciado en casos de uso.
+		\end{itemize}}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU12.1.1}{Registrar Atributo} cuando no se ha ingresado un dato marcado como obligatorio.
 		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU12.1.1}{Registrar Atributo} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
@@ -34,13 +31,13 @@
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Solicita registrar un atributo oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1.1}{Registrar Atributo}.
-		\UCpaso[\UCactor] Ingresa la información solicitada en la pantalla. \label{CU7.1.1-P3}
-		\UCpaso[\UCactor] Solicita guardar la información de atributo oprimiendo el botón \IUbutton{Aceptar} de la pantalla \IUref{IU12.1.1}{Registrar Atributo}. \hyperlink{CU7-1-1:TAA}{[Trayectoria A]}
+		\UCpaso[\UCactor] Ingresa la información solicitada. \label{CU7.1.1-P3}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU7-1-1:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU7-1-1:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU7-1-1:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU7-1-1:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que el nombre del atributo no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU7-1-1:TAE}{[Trayectoria E]}
-		\UCpaso[\UCsist] Agrega el atributo a la tabla de la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
+		\UCpaso[\UCsist] Agrega el atributo a la tabla \cdtRef{atributoEntidad}{Atributos} de la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
 	\end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU7-1-1:TAA}{\textbf{Trayectoria alternativa A}}\\
