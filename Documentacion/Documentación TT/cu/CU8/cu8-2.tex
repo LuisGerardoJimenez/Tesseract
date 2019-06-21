@@ -1,5 +1,9 @@
 	\begin{UseCase}{CU8.2}{Modificar Regla de negocio}{
-		Este caso de uso permite al analista modificar la información de una regla de negocio.
+			
+				Después de haber registrado una \hyperlink{BREntidad}{Regla de Negocio} y el colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) requiera modificar su información, el sistema le permitirá editar cualquiera de los datos previamente registrados (a excepción de la clave) mediante un formulario con los datos precargados de la última actualización para modificarlos y posteriormente guardarlos.\\
+				
+			    La única condición para modificar una Regla de negocio exitosamente es que esta no se encuentre asociada a algún caso de uso con estado ”Liberado”.
+		
 	}
 		
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}

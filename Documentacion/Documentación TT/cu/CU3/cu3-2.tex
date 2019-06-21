@@ -1,6 +1,5 @@
 	\begin{UseCase}{CU3.2}{Modificar Colaborador}{
-		Este caso de uso permite al {\hyperlink{admin}{Administrador}} modificar la información de un colaborador previamente registrado en el sistema. La actualización de dicha información se lleva a cabo por medio de un formulario en donde se encuentran precargados los datos %que con anterioridad se guardaron, 
-		previamente guardados, teniendo la posibilidad de editarlos y almacenarlos. 
+		Este caso de uso permite al {\hyperlink{admin}{Administrador}} modificar la información de un colaborador previamente registrado en el sistema. La actualización de dicha información se lleva a cabo por medio de un formulario en donde se encuentran precargados los datos de la última actualización realizada, teniendo la posibilidad de editarlos y almacenarlos. 
 	}
 		\UCitem{Actor}{\hyperlink{admin}{Administrador}}
 		\UCitem{Propósito}{Modificar la información de un Colaborador.}
@@ -12,7 +11,7 @@
 			\item \cdtRef{colaboradorEntidad:correoColaborador}{Correo electrónico}: Se escribe desde el teclado.
 			\item \cdtRef{colaboradorEntidad:passColaborador}{Contraseña}: Se escribe desde el teclado.
 		\end{itemize}	
-		}
+		} 
 		\UCitem{Salidas}{\begin{itemize}
 			\item \cdtRef{colaboradorEntidad:curpColaborador}{CURP}: Lo obtiene el sistema.
 			\item \cdtRef{colaboradorEntidad:nombreColaborador}{Nombre}: Lo obtiene el sistema.
