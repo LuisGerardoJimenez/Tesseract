@@ -3,14 +3,13 @@
 		
 		Una vez registrado el módulo, el colaborador (en función con su rol de líder o analista) podrá empezar a gestionar los casos de uso, así como todas las acciones que le competen dentro del proyecto.
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Registrar la información de un módulo.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{moduloEntidad:claveModulo}{Clave:} Se escribe desde el teclado.
-			\item \cdtRef{moduloEntidad:nombreModulo}{Nombre:} Se escribe desde el teclado.
-			\item \cdtRef{moduloEntidad:descripcionModulo}{Descripción:} Se escribe desde el teclado.
+			\item \cdtRef{moduloEntidad:claveModulo}{Clave del módulo:} Se escribe desde el teclado.
+			\item \cdtRef{moduloEntidad:nombreModulo}{Nombre del módulo:} Se escribe desde el teclado.
+			\item \cdtRef{moduloEntidad:descripcionModulo}{Descripción del módulo:} Se escribe desde el teclado.
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
@@ -40,8 +39,8 @@
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Solicita registrar un módulo oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU4}{Gestionar Módulos}.
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU4.1}{Registrar Módulo}.
-		\UCpaso[\UCactor] Ingresa la información solicitada en la pantalla. \label{CU5.1-P3}
-		\UCpaso[\UCactor] Solicita guardar la información del módulo oprimiendo el botón \IUbutton{Aceptar} de la pantalla \IUref{IU4.1}{Registrar Módulo}. \hyperlink{CU5-1:TAA}{[Trayectoria A]}
+		\UCpaso[\UCactor] Ingresa la información solicitada. \label{CU5.1-P3}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU5-1:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU5-1:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU5-1:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU5-1:TAD}{[Trayectoria D]}

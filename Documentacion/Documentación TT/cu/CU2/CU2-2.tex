@@ -3,47 +3,47 @@
 			Debe considerarse que la \cdtRef{proyectoEntidad:claveProyecto}{Clave} y el \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto} son únicos, por lo que no será posible repetir esta información con la de otros proyectos registrados.\\
 			Una vez registrado el \hyperlink{proyectoEntidad}{Proyecto}, es posible modificar su \cdtRef{proyectoEntidad:estadoProyecto}{estado} a: Iniciado, Negociación y también a Terminado.
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{admin}{Administrador}}
 		\UCitem{Propósito}{Modificar la información de un proyecto.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{proyectoEntidad:claveProyecto}{Clave:} Se escribe desde el teclado.
-			\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre:} Se escribe desde el teclado.
+			\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto:} Se escribe desde el teclado.
+			\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Se escribe desde el teclado.
 			\item \cdtRef{proyectoEntidad:fechaIProyecto}{Fecha de inicio:} Se selecciona de un calendario.
 			\item \cdtRef{proyectoEntidad:fechaFinProyecto}{Fecha de término:} Se selecciona de un calendario.
 			\item \cdtRef{proyectoEntidad:fechaIPProyecto}{Fecha de inicio programada:} Se selecciona de un calendario.
 			\item \cdtRef{proyectoEntidad:fechaFinPProyecto}{Fecha de término programada:} Se selecciona de un calendario.
 			\item \cdtRef{proyectoEntidad:liderProyecto}{Líder del Proyecto:} Se selecciona de una lista.
-			\item \cdtRef{proyectoEntidad:descripcionProyecto}{Descripción:} Se escribe desde el teclado.
+			\item \cdtRef{proyectoEntidad:descripcionProyecto}{Descripción del proyecto:} Se escribe desde el teclado.
 			\item \cdtRef{proyectoEntidad:contraparteProyecto}{Contraparte} Se escribe desde el teclado.
-			\item \cdtRef{proyectoEntidad:presupuestoProyecto}{Presupuesto:} Se escribe desde el teclado.
+			\item \cdtRef{proyectoEntidad:presupuestoProyecto}{Presupuesto del proyecto:} Se escribe desde el teclado.
 			\item \hyperlink{tEdoProy}{Estado del Proyecto:} Se selecciona de un lista.
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
-				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave:} Lo obtiene el sistema.
-				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Lo obtiene el sistema.
 				\item \cdtRef{proyectoEntidad:fechaIProyecto}{Fecha de inicio:} Lo obtiene el sistema.
 				\item \cdtRef{proyectoEntidad:fechaFinProyecto}{Fecha de término:} Lo obtiene el sistema.
 				\item \cdtRef{proyectoEntidad:fechaIPProyecto}{Fecha de inicio programada:} Lo obtiene el sistema.
 				\item \cdtRef{proyectoEntidad:fechaFinPProyecto}{Fecha de término programada:} Lo obtiene el sistema.
 				\item \cdtRef{proyectoEntidad:liderProyecto}{Líder del Proyecto:} Lo obtiene el sistema.
-				\item \cdtRef{proyectoEntidad:descripcionProyecto}{Descripción:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:descripcionProyecto}{Descripción del proyecto:} Lo obtiene el sistema.
 				\item \cdtRef{proyectoEntidad:contraparteProyecto}{Contraparte} Lo obtiene el sistema.
-				\item \cdtRef{proyectoEntidad:presupuestoProyecto}{Presupuesto:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:presupuestoProyecto}{Presupuesto del proyecto:} Lo obtiene el sistema.
 				\item \hyperlink{tEdoProy}{Estado del Proyecto:} Lo obtiene el sistema.
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} para indicar que el registro fue exitoso.
 		\end{itemize}}
 		\UCitem{Precondiciones}{
-		\begin{itemize}
-			\item Que el proyecto se encuentre en estado ''En negociación'' o ''Iniciado''.
-		\end{itemize}
+			\begin{itemize}
+				\item Que el proyecto se encuentre en estado ''En negociación'' o ''Iniciado''.
+				\item Que exista al menos un proyecto registrado en el sistema
+				\item Que exista al menos un colaborador registrado.
+				\item Que exista información dentro del catálogo "estados un proyecto".
+			\end{itemize}
 		}
 		\UCitem{Postcondiciones}{
-		\begin{itemize}
-			\item Se modificará la información del proyecto en el sistema.
-		\end{itemize}
+			Se modificará la información del proyecto en el sistema.
 		}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU2.2}{Modificar proyecto} cuando no se ha ingresado un dato marcado como obligatorio.
@@ -60,20 +60,20 @@
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita registrar un proyecto oprimiendo el botón \editar de la pantalla \IUref{IU2}{Gestionar proyectos de Administrador}.
+		\UCpaso[\UCactor] Da clic en el icono \editar de la pantalla \IUref{IU2}{Gestionar proyectos de Administrador}.
 		\UCpaso[\UCsist] Verifica que exista información referente a los estados de un proyecto, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU2-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que exista al menos un colaborador, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU2-2:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Obtiene la información del proyecto seleccionado.
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU2.2}{Modificar proyecto}.
-		\UCpaso[\UCactor] Actualiza la información solicitada en la pantalla. \label{CU2.2-P5}
-		\UCpaso[\UCactor] Solicita guardar el proyecto oprimiendo el botón \IUbutton{Aceptar}. \hyperlink{CU2-2:TAC}{[Trayectoria C]}
+		\UCpaso[\UCactor] Modifica la información del proyecto. \label{CU2.2-P5}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU2-2:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU2-2:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU2-2:TAE}{[Trayectoria E]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU2-2:TAF}{[Trayectoria F]}
 		\UCpaso[\UCsist] Verifica que la clave del proyecto no se encuentre registrada en el sistema con base en la regla de negocio \BRref{RN22}{Unicidad de la clave del Proyecto}. \hyperlink{CU2-2:TAG}{[Trayectoria G]}
 		\UCpaso[\UCsist] Verifica que el nombre del proyecto no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU2-2:TAH}{[Trayectoria H]}
 		\UCpaso[\UCsist] Verifica que la fecha de término programada sea posterior a la fecha de inicio programada. \hyperlink{CU2-2:TAI}{[Trayectoria I]}
-		\UCpaso[\UCsist] Actualiza la información del proyecto en el sistema
+		\UCpaso[\UCsist] Actualiza la información del proyecto.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} para indicar al actor que la modificación se ha realizado exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------

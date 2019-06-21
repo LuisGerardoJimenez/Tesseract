@@ -1,15 +1,19 @@
 	\begin{UseCase}{CU8.1}{Registrar Regla de negocio}{
-		Este caso de uso permite al analista registrar la información de una regla de negocio.
+			
+			Este caso de uso permite al colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) registrar la información de una \hyperlink{BREntidad}{Regla de Negocio} en el \hyperlink{proyectoEntidad}{Proyecto}, los datos que se almacenan cumplen con el propósito de describir las políticas, normas, operaciones, definiciones y restricciones presentes en el \hyperlink{proyectoEntidad}{Proyecto} y que son de vital importancia para alcanzar los objetivos planteados por la organización.
+			
+			Una vez registrada la regla, el colaborador podrá hacer uso de la misma en el editor.
+		
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
+		
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Registrar la información de una regla de negocio.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{BRSEntidad:numeroBR}{Número:} Se escribe desde el teclado.
-			\item \cdtRef{BREntidad:nombreBR}{Nombre:} Se escribe desde el teclado.
-			\item \cdtRef{BREntidad:descripciónBR}{Descripción:} Se escribe desde el teclado.
-			\item \cdtRef{BREntidad:redaccionBR}{Redacción:} Se escribe desde el teclado.
+			\item \cdtRef{BRSEntidad:numeroBR}{Número de la Regla de Negocio:} Se escribe desde el teclado.
+			\item \cdtRef{BREntidad:nombreBR}{Nombre de la Regla de Negocio:} Se escribe desde el teclado.
+			\item \cdtRef{BREntidad:descripciónBR}{Descripción de la Regla de negocio:} Se escribe desde el teclado.
+			\item \cdtRef{BREntidad:redaccionBR}{Redacción de la Regla de negocio:} Se escribe desde el teclado.
 			\item \hyperlink{tTipoRN}{Tipo:} Se selecciona de una lista.
 			\item Para el tipo ''Comparación de atributos'':
 				\begin{itemize}
@@ -33,10 +37,12 @@
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
-				\item \cdtRef{BREntidad:claveBR}{Clave:} Lo calcula el sistma mediante la regla de negocio \BRref{RN12}{Idenficador de elemento}.
+				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{BREntidad:claveBR}{Clave de la regla de negocio:} Lo calcula el sistma mediante la regla de negocio \BRref{RN12}{Idenficador de elemento}.
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} para indicar que el registro fue exitoso.
 		\end{itemize}}
-		\UCitem{Destino}{Pantalla}
+		
 		\UCitem{Precondiciones}{Ninguna}
 		\UCitem{Postcondiciones}{
 		\begin{itemize}
@@ -56,15 +62,15 @@
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita registrar un término oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
+		\UCpaso[\UCactor] Solicita registrar una regla de negocio oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU9.1}{Registrar Regla de negocio}.
 		\UCpaso[\UCactor] Ingresa la información solicitada en la pantalla. \label{CU8.1-P3}
 		\UCpaso[\UCactor] Selecciona el tipo de regla de negocio.
 		\UCpaso[\UCsist] Verifica que el tipo de regla de negocio requiera parámetros. \hyperlink{CU8-1:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU9.1A}{Registrar Regla de negocio: Comparación de atributos}, \IUref{IU9.1B}{Registrar Regla de negocio: Unicidad de parámetros} o \IUref{IU9.1C}{Registrar Regla de negocio: Formato correcto}, según corresponda.
-		\UCpaso[\UCsist] Ingresa la información solicitada en la pantalla correspondiente.
-		\UCpaso[\UCsist] Ingresa la redacción de la regla de negocio. \label{CU8.1-P9}
-		\UCpaso[\UCactor] Solicita guardar la información de la regla de negocio oprimiendo el botón \IUbutton{Aceptar} de la pantalla \IUref{IU9.1A}{Registrar Regla de negocio: Comparación de atributos}, \IUref{IU9.1B}{Registrar Regla de negocio: Unicidad de parámetros} o \IUref{IU9.1C}{Registrar Regla de negocio: Formato correcto}, según corresponda. \hyperlink{CU8-1:TAB}{[Trayectoria B]}
+		\UCpaso[\UCactor] Ingresa la información solicitada en la pantalla correspondiente.
+		\UCpaso[\UCactor] Ingresa la redacción de la regla de negocio. \label{CU8.1-P9}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU8-1:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU8-1:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU8-1:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU8-1:TAE}{[Trayectoria E]}
