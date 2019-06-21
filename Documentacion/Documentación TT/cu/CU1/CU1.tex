@@ -3,7 +3,7 @@
           En el inicio de sesión se controla el acceso a las distintas funciones del sistema de acuerdo con el rol asignado a un actor y mediante la entrada de sus respectivas credenciales. Tesseract define roles dependiendo de las actividades que realicen los actores, cada actividad es distinta y cada una requiere de accesos especiales a cada módulo del sistema.
 
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
+		
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de proyecto}, \hyperlink{analista}{Analista}, \hyperlink{admin}{Administrador}}
 		\UCitem{Propósito}{Iniciar sesión en el sistema.}
 		\UCitem{Entradas}{\begin{itemize}
@@ -11,7 +11,7 @@
 				\item \cdtRef{colaboradorEntidad:passColaborador}{Contraseña}: Se escribe desde el teclado
 		\end{itemize}}
 		\UCitem{Salidas}{Ninguna}
-		\UCitem{Precondiciones}{Interna: Que el actor se encuentre registrado en el sistema.}
+		\UCitem{Precondiciones}{Que el actor se encuentre registrado en el sistema.}
 		\UCitem{Postcondiciones}{El actor podrá hacer uso del sistema dependiendo del rol que tenga.}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato Obligatorio}: Se muestra en la pantalla \IUref{IU1}{Iniciar Sesión} cuando no se ha ingresado un dato marcado como obligatorio.

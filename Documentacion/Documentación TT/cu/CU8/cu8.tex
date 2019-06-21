@@ -1,6 +1,8 @@
 	\begin{UseCase}{CU8}{Gestionar reglas de negocio}{
-	Este caso de uso permite al analista visualizar los registros de las reglas de negocio del sistema.
-	También permite al actor acceder a las operaciones de registro, consulta, modificación y eliminación de una regla de negocio.
+			
+			Este caso de uso permite al colaborador (\hyperlink{jefe}{Líder de análisis} o \hyperlink{analista}{Analista}) visualizar en una tabla, el registro de las Reglas de negocio que forman parte del proyecto, así como solicitar el registro de una regla nueva, modificar alguna existente (teniendo la posibilidad de actualizar algún dato de registro), eliminarla (en caso de que la regla por algún motivo ya no forme parte del proyecto) o simplemente consultar su información  (nombre y redacción de la regla) \\
+			Las acciones disponibles para cada \hyperlink{BREntidad}{Regla de Negocio} dependerán del estado en el que se encuentre el caso de uso donde son referenciadas. 
+			
 	}
 	\UCitem{Actor}{\hyperlink{jefe}{Líder de análisis}, \hyperlink{analista}{Analista}}
 	\UCitem{Propósito}{Proporcionar al actor un mecanismo para llevar el control de las reglas de negocio de un proyecto.}
@@ -12,7 +14,10 @@
 			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU9A}{Gestionar Reglas de Negocio} cuando no existen reglas de negocio registradas.
 	\end{itemize}}
 	
-	\UCitem{Precondiciones}{Ninguna}
+	\UCitem{Precondiciones}{\begin{itemize}
+			\item Que exista al menos un proyecto registrado.
+			\item Que exista al menos una regla de negocio registrada.
+	\end{itemize}}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{Ninguno}
 	\UCitem{Tipo}{Primario}
@@ -20,7 +25,8 @@
 %--------------------------------------
 \begin{UCtrayectoria}
 	\UCpaso[\UCactor] Solicita gestionar las reglas de negocio seleccionando la opción ''Reglas de negocio'' del menú \IUref{MN3}{Menú de Proyecto}.
-	\UCpaso[\UCsist] Obtiene la información de las reglas de negocio del proyecto seleccionado. \Trayref{GBR-A}
+	\UCpaso[\UCsist] Obtiene la información de las reglas de negocio del proyecto seleccionado. \hyperlink{CU8:TAA}{[Trayectoria A]}
+	\UCpaso[\UCsist] Ordena las reglas de negocio alfabéticamente basándose en las claves de los mismos.
 	\UCpaso[\UCsist] Muestra la información de las reglas de negocio en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}.\label{CU8-P4}
 	\UCpaso[\UCactor] Gestiona las reglas de negocio a través de los botones: \IUbutton{Registrar}, \editar , \eliminar y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}}. 
 \end{UCtrayectoria}		

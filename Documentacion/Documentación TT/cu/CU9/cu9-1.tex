@@ -6,19 +6,20 @@
 		\UCitem{Propósito}{Registrar la información de mensaje.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{MSGEntidad:numeroMSG}{Número:} Se escribe desde el teclado.
-			\item \cdtRef{MSGEntidad:nombreMSG}{Nombre:} Se escribe desde el teclado.
-			\item \cdtRef{MSGEntidad:descripcionMSG}{Nombre:} Se escribe desde el teclado.
-			\item \cdtRef{MSGEntidad:redaccionMSG}{Redacción:} Se escribe desde el teclado.
+			\item \cdtRef{MSGEntidad:numeroMSG}{Número del mensaje:} Se escribe desde el teclado.
+			\item \cdtRef{MSGEntidad:nombreMSG}{Nombre del mensaje:} Se escribe desde el teclado.
+			\item \cdtRef{MSGEntidad:descripcionMSG}{Descripción del mensaje:} Se escribe desde el teclado.
+			\item \cdtRef{MSGEntidad:redaccionMSG}{Redacción del mensaje:} Se escribe desde el teclado.
 			\item \cdtRef{MSGEntidad:paramtrizadoMSG}{Parametrizado:} Se escribe desde el teclado.
 			\item Parámetros: Se escribe desde el teclado.
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
+				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Lo obtiene el sistema.
 				\item \cdtRef{MSGEntidad:claveMSG}{Clave:} Lo calcula el sistema mediante la regla de negocio \BRref{RN12}{Identifcador de elemento}.
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU10}{Gestionar Mensajes} para indicar que el registro fue exitoso.
 		\end{itemize}}
-		\UCitem{Destino}{Pantalla}
 		\UCitem{Precondiciones}{Ninguna}
 		\UCitem{Postcondiciones}{
 		\begin{itemize}
@@ -32,7 +33,6 @@
 		\item \cdtIdRef{MSG5}{Formato de campo incorrecto}: Se muestra en la pantalla \IUref{IU10.1}{Registrar Mensaje} cuando el número de mensaje contiene un carácter no válido.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU10.1}{Registrar Mensaje} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU10.1}{Registrar Mensaje} cuando se registre un mensaje con un nombre o número que ya se encuentre registrado en el sistema.
-		\item \cdtIdRef{MSG18}{Caracteres inválidos}: Se muestra en la pantalla \IUref{IU10.1}{Registrar Mensaje} cuando el nombre demensaje contiene un carácter no válido
 		\end{itemize}.
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU9}{Gestionar Mensajes}.}
@@ -41,56 +41,71 @@
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Solicita registrar una mensaje oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU10}{Gestionar Mensajes}.
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10.1}{Registrar Mensaje: No parametrizado}.
-		\UCpaso[\UCactor] Ingresa la información solicitada en la pantalla. \label{CU9.1-P3} \Trayref{RMSG-A}
-		\UCpaso[\UCactor] Solicita guardar la información del mensaje oprimiendo el botón \IUbutton{Aceptar} de la pantalla \IUref{IU10.1}{Registrar Mensaje}. \label{CU9.1-P4} \Trayref{RMSG-B} 
-		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \Trayref{RMSG-C}
-		\UCpaso[\UCsist] Verifica que los datos requeridos sean proporcionados correctamente con base en la regla de negocio \BRref{RN7}{Información correcta}. \Trayref{RMSG-D} \Trayref{E} \Trayref{RMSG-F}
-		\UCpaso[\UCsist] Verifica que el número del mensaje no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN1}{Unicidad de números}. \Trayref{RMSG-G}
-		\UCpaso[\UCsist] Verifica que el nombre de la mensaje no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \Trayref{RMSG-H} 
+		\UCpaso[\UCactor] Ingresa la información solicitada. \label{CU9.1-P3} \hyperlink{CU9-1:TAA}{[Trayectoria A]}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar} . \label{CU9.1-P4} \hyperlink{CU9-1:TAB}{[Trayectoria B]} 
+		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU9-1:TAC}{[Trayectoria C]}
+		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU9-1:TAD}{[Trayectoria D]}
+		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU9-1:TAE}{[Trayectoria E]}
+		\UCpaso[\UCsist] Verifica que el número del mensaje no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN1}{Unicidad de números}. \hyperlink{CU9-1:TAF}{[Trayectoria F]}
+		\UCpaso[\UCsist] Verifica que el nombre de la mensaje no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU9-1:TAG}{[Trayectoria G]} 
 		\UCpaso[\UCsist] Registra la información del mensaje en el sistema.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU10}{Gestionar Mensajes} para indicar al actor que el registro se ha realizado exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------
-	
-	\begin{UCtrayectoriaA}{RMSG-A}{El actor desea ingresar un parámetro.}
-		\UCpaso[\UCactor] Ingresa el token ''PARAM·''.
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10.1A}{Registrar Mensaje: Parametrizado}.
-		\UCpaso[\UCactor] Ingresa la descripción de cada parámetro.
-		\UCpaso[\UCsist] Continúa en el paso \ref{CU9.1-P4} de la trayectoria principal.
-	\end{UCtrayectoriaA}
-
-
-	\begin{UCtrayectoriaA}{RMSG-B}{El actor desea cancelar la operación.}
-		\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la pantalla \IUref{IU10.1}{Registrar mensaje}.
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10}{Gestionar Mensajes}.
-	\end{UCtrayectoriaA}
-
-	\begin{UCtrayectoriaA}{RMSG-C}{El actor no ingresó algún dato marcado como obligatorio.}
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} y señala el campo que presenta el error en la pantalla \IUref{IU10.1}{Registrar Mensaje}, indicando al actor que el dato es obligatorio.
-		\UCpaso Regresa al paso \ref{CU9.1-P3} de la trayectoria principal.
-	\end{UCtrayectoriaA}
-
-	\begin{UCtrayectoriaA}{RMSG-D}{El actor proporciona un dato que excede la longitud máxima.}
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} y señala el campo que excede la longitud en la pantalla \IUref{IU10.1}{Registrar Mensaje}, para indicar que el dato excede el tamaño máximo permitido.
-		\UCpaso Regresa al paso \ref{CU9.1-P3} de la trayectoria principal.
-	\end{UCtrayectoriaA}
-
-	\begin{UCtrayectoriaA}{RMSG-E}{El actor ingresó un tipo de dato incorrecto.}
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Formato incorrecto} y señala el campo que presenta el dato inválido en la pantalla \IUref{IU10.1}{Registrar Mensaje}, para indicar que se ha ingresado un tipo de dato inválido.
-		\UCpaso Regresa al paso \ref{CU9.1-P3} de la trayectoria principal.
-	\end{UCtrayectoriaA}
-
-	\begin{UCtrayectoriaA}{RMSG-F}{El actor ingresó un número de mensaje con un tipo de dato incorrecto.}
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato de campo incorrecto} y señala el campo que presenta el dato inválido en la pantalla \IUref{IU10.1}{Registrar Mensaje}, para indicar que se ha ingresado un tipo de dato inválido.
-		\UCpaso Regresa al paso \ref{CU9.1-P3} de la trayectoria principal.
-	\end{UCtrayectoriaA}
-
-	\begin{UCtrayectoriaA}{RMSG-G}{El actor ingresó un número de mensaje repetido.}
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señala el campo que presenta la duplicidad en la pantalla \IUref{IU10.1}{Registrar Mensaje}, indicando al actor que existe un mensaje con el mismo número.
-		\UCpaso Regresa al paso \ref{CU9.1-P3} de la trayectoria principal.
-	\end{UCtrayectoriaA}
-	
-	\begin{UCtrayectoriaA}{RMSG-H}{El actor ingresó un nombre de un mensaje repetido.}
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} y señala el campo que presenta la duplicidad en la pantalla \IUref{IU10.1}{Registrar Mensaje}, indicando al actor que existe un mensaje con el mismo nombre.
-		\UCpaso Regresa al paso \ref{CU9.1-P3} de la trayectoria principal.
-	\end{UCtrayectoriaA}
+\hypertarget{CU9-1:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} El actor desea ingresar un parámetro.
+\begin{enumerate}
+	\UCpaso[\UCactor] Ingresa el token ''PARAM·''.
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10.1A}{Registrar Mensaje: Parametrizado}.
+	\UCpaso[\UCactor] Ingresa la descripción de cada parámetro. \label{CU9.1-TA2}
+	\UCpaso[\UCsist] Continúa en el paso \ref{CU9.1-P4} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU9-1:TAB}{\textbf{Trayectoria alternativa B}}\\
+\noindent \textbf{Condición:} El actor desea cancelar la operación.
+\begin{enumerate}
+	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la pantalla \IUref{IU10.1}{Registrar mensaje}.
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10}{Gestionar Mensajes}.
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU9-1:TAC}{\textbf{Trayectoria alternativa C}}\\
+\noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU10.1}{Registrar Mensaje}.
+	\UCpaso Regresa al paso \ref{CU9.1-P3} de la trayectoria principal o al paso \ref{CU9.1-TA2} de la trayectoria Alternativa A.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU9-1:TAD}{\textbf{Trayectoria alternativa D}}\\
+\noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU10.1}{Registrar Mensaje}.
+	\UCpaso Regresa al paso \ref{CU9.1-P3} de la trayectoria principal al paso \ref{CU9.1-TA2} de la trayectoria Alternativa A.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU9-1:TAE}{\textbf{Trayectoria alternativa E}}\\
+\noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU10.1}{Registrar Mensaje}.
+	\UCpaso Regresa al paso \ref{CU9.1-P3} de la trayectoria principal o al paso \ref{CU9.1-TA2} de la trayectoria Alternativa A.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU9-1:TAF}{\textbf{Trayectoria alternativa F}}\\
+\noindent \textbf{Condición:} El actor ingresó un número de mensaje repetido.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU10.1}{Registrar Mensaje}.
+	\UCpaso Regresa al paso \ref{CU9.1-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU9-1:TAG}{\textbf{Trayectoria alternativa G}}\\
+\noindent \textbf{Condición:} El actor ingresó un nombre de un mensaje repetido.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU10.1}{Registrar Mensaje}.
+	\UCpaso Regresa al paso \ref{CU9.1-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}

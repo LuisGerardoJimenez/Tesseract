@@ -18,9 +18,9 @@ public class RN036 {
 	public Boolean isValidRN036(Colaborador entidad) {
 		Boolean valido = true;
 		Colaborador colaborador = colaboradorDAO.findColaboradorByCorreo(entidad.getCorreoElectronico());
-		if (colaborador != null) {
+		if (colaborador != null && !colaborador.getCurp().contentEquals(entidad.getCurp())) {
 			valido = false;
-		}
+		}	
 		return valido;
 	}
 

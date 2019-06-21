@@ -1,29 +1,34 @@
 	\begin{UseCase}{CU7.2}{Modificar Entidad}{
-		Este caso de uso permite al analista modificar la información de una entidad, así como gestionar sus atributos.
+			
+		Este caso de uso permite al colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) modificar la información de una \hyperlink{entidadEntidad}{Entidad} previamente registrada en el sistema. La actualización de dicha información se lleva a cabo por medio de un formulario en donde se encuentran precargados los datos de la última actualización realizada, con la posibilidad de editarlos y almacenarlos. Dentro de este caso de uso se le permitirá también al colaborador gestionar los atributos que componen la entidad (de tal forma que podrá registrar, modificar y eliminar un atributo).
+		Una entidad podrá ser modificada siempre y cuando no se encuentre asociada a algún caso de uso con estado ”Liberado”.
+
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
+		
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Modificar la información de una entidad y gestionar sus atributos.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{entidadEntidad:nombreEntidad}{Nombre:} Se escribe desde el teclado.
-			\item \cdtRef{entidadEntidad:descripcionEntidad}{Descripción:} Se escribe desde el teclado.
+			\item \cdtRef{entidadEntidad:nombreEntidad}{Nombre de la entidad:} Se escribe desde el teclado.
+			\item \cdtRef{entidadEntidad:descripcionEntidad}{Descripción de la entidad:} Se escribe desde el teclado.
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
-				\item \cdtRef{entidadEntidad:nombreEntidad}{Nombre:} Lo obtiene el sistema.
-				\item \cdtRef{entidadEntidad:descripcionEntidad}{Descripción:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{entidadEntidad:nombreEntidad}{Nombre de la entidad:} Lo obtiene el sistema.
+				\item \cdtRef{entidadEntidad:descripcionEntidad}{Descripción de la entidad:} Lo obtiene el sistema.
 				\item \cdtRef{atributoEntidad}{Atributos:} Tabla que muestra \cdtRef{atributoEntidad:nombreATR}{Nombre}, \cdtRef{atributoEntidad:obligatorioATR}{Obligatorio (si o no)} y \hyperlink{tTipoDatoP}{Tipo de Dato} de todos los los registros de los atributos.
-				\item \cdtRef{claveATR}{Clave:} Lo calcula el sistema mediante la regla de negocio \BRref{RN12}{Identifcador de elemento}.
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU12}{Gestionar Entidades} para indicar que la modificación fue exitosa.
 		\end{itemize}}
-		\UCitem{Destino}{Pantalla}
+		
 		\UCitem{Precondiciones}{
 			\begin{itemize}
-			\item Que la entidad no se encuentre asociada a un caso de uso en estado ''Liberado''.
+				\item Que exista al menos una entidad registrada
+				\item Que la entidad no se encuentre asociada a un caso de uso en estado ''Liberado''.
 			\end{itemize}
 		}
-		\UCitem{Postcondiciones}{Ninguna}
+		\UCitem{Postcondiciones}{Se actualizará la información de una entidad de un proyecto}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU12.2}{Modificar Entidad} cuando no se ha ingresado un dato marcado como obligatorio.
 		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU12.2}{Modificar Entidad} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
@@ -36,19 +41,19 @@
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita modificar una entidad oprimiendo el botón \editar de algún registro existente en la pantalla \IUref{IU12}{Gestionar Entidades}.
+		\UCpaso[\UCactor] Da clic en el icono \editar de algún registro existente en la pantalla \IUref{IU12}{Gestionar Entidades}.
 		\UCpaso[\UCsist] Obtiene la información de la entidad.
 		\UCpaso[\UCsist] Verifica que la entidad pueda modificarse con base en la regla de negocio \BRref{RN5}{Modificación de elementos asociados a casos de uso liberados}.\hyperlink{CU7-2:TAG}{[Trayectoria G]}
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.2}{Modificar Entidad} con la información encontrada. \label{CU7.2-P4}
-		\UCpaso[\UCactor] Ingresa la información solicitada en la pantalla. \label{CU7.2-P5}
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.2}{Modificar Entidad}. \label{CU7.2-P4}
+		\UCpaso[\UCactor] Modifica la información de la entidad. \label{CU7.2-P5}
 		\UCpaso[\UCactor] Gestiona los atributos a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. \label{CU7.2-P6}
-		\UCpaso[\UCactor] Solicita guardar la información de la entidad oprimiendo el botón \IUbutton{Aceptar} de la pantalla \IUref{IU12.2}{Modificar Entidad}. \hyperlink{CU7-2:TAA}{[Trayectoria A]}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU7-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU7-2:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU7-2:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU7-2:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que el nombre de la entidad no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU7-2:TAE}{[Trayectoria E]} 
 		\UCpaso[\UCsist] Verifica que el actor haya ingresado al menos un atributo. \hyperlink{CU7-2:TAF}{[Trayectoria F]}
-		\UCpaso[\UCsist] Modifica la información de la entidad en el sistema.
+		\UCpaso[\UCsist] Actualiza la información de la entidad en el sistema.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12}{Gestionar Entidades} para indicar al actor que la modificación se ha realizado exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------

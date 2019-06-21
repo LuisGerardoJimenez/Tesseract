@@ -1,9 +1,8 @@
 	\begin{UseCase}{CU3.2}{Modificar Colaborador}{
-		Este caso de uso permite al {\hyperlink{admin}{Administrador}} modificar la información de un colaborador previamente registrado en el sistema. La actualización de dicha información se lleva a cabo por medio de un formulario en donde se encuentran precargados los datos que con anterioridad se guardaron, teniendo la posibilidad de editarlos y almacenarlos. 
+		Este caso de uso permite al {\hyperlink{admin}{Administrador}} modificar la información de un colaborador previamente registrado en el sistema. La actualización de dicha información se lleva a cabo por medio de un formulario en donde se encuentran precargados los datos de la última actualización realizada, teniendo la posibilidad de editarlos y almacenarlos. 
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{admin}{Administrador}}
-		\UCitem{Propósito}{Modificar la información de una Colaborador.}
+		\UCitem{Propósito}{Modificar la información de un Colaborador.}
 		\UCitem{Entradas}{
 		\begin{itemize}
 			\item \cdtRef{colaboradorEntidad:nombreColaborador}{Nombre}: Se escribe desde el teclado.
@@ -12,7 +11,7 @@
 			\item \cdtRef{colaboradorEntidad:correoColaborador}{Correo electrónico}: Se escribe desde el teclado.
 			\item \cdtRef{colaboradorEntidad:passColaborador}{Contraseña}: Se escribe desde el teclado.
 		\end{itemize}	
-		}
+		} 
 		\UCitem{Salidas}{\begin{itemize}
 			\item \cdtRef{colaboradorEntidad:curpColaborador}{CURP}: Lo obtiene el sistema.
 			\item \cdtRef{colaboradorEntidad:nombreColaborador}{Nombre}: Lo obtiene el sistema.
@@ -22,11 +21,9 @@
 			\item \cdtRef{colaboradorEntidad:passColaborador}{Contraseña}: Lo obtiene el sistema.
 			\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU3}{Gestionar Colaboradores} para indicar que la modificación fue exitosa.
 		\end{itemize}}
-		\UCitem{Precondiciones}{Ninguna}
+		\UCitem{Precondiciones}{Que exista al menos un colaborador registrado en el sistema}
 		\UCitem{Postcondiciones}{
-		\begin{itemize}
-			\item Se actualizará la información de un Colaborador en el sistema.
-		\end{itemize}
+			Se actualizará la información de un colaborador en el sistema.
 		}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU3.2}{Modificar Colaborador} cuando no se ha ingresado un dato marcado como obligatorio.
@@ -39,18 +36,18 @@
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita registrar un proyecto oprimiendo el botón \editar de la pantalla \IUref{IU3}{Gestionar Colaboradores}.
-		\UCpaso[\UCsist] Obtiene la información del Colaborador seleccionado.
-		\UCpaso[\UCsist] Deshabilita el campo de la \cdtRef{colaboradorEntidad:curpColaborador}{CURP}.
+		\UCpaso[\UCactor] Da clic en el icono \editar de la pantalla \IUref{IU3}{Gestionar Colaboradores}.
+		\UCpaso[\UCsist] Obtiene la información del colaborador seleccionado.
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU3.2}{Modificar Colaborador}.
-		\UCpaso[\UCactor] Modifica la información solicitada en la pantalla. \label{CU3.2-P5}
-		\UCpaso[\UCactor] Solicita guardar el proyecto oprimiendo el botón \IUbutton{Aceptar} de la pantalla \IUref{IU3.2}{Modificar Colaborador}. \hyperlink{CU3-2:TAA}{[Trayectoria A]}
+		\UCpaso[\UCactor] Modifica la información del colaborador. \label{CU3.2-P5}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU3-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU3-2:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU3-2:TAC}{[Trayectoria C]} 
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU3-2:TAD}{[Trayectoria D]} 
-		\UCpaso[\UCsist] Verifica que el correo del Colaborador no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN36}{Unicidad de correos}. \hyperlink{CU3-2:TAE}{[Trayectoria E]}\label{CU3.2-P10}
-		\UCpaso[\UCsist] Actualiza la información del proyecto en el sistema.
-		\UCpaso[\UCsist] Verifica que el correo electrónico y la contraseña del Colaborador no hayan cambiado. \hyperlink{CU3-2:TAF}{[Trayectoria F]}
+		\UCpaso[\UCsist] Verifica que el correo del colaborador no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN36}{Unicidad de correos}. \hyperlink{CU3-2:TAE}{[Trayectoria E]}
+		\UCpaso[\UCsist] Verifica que el correo electrónico del colaborador no haya cambiado. \hyperlink{CU3-2:TAF}{[Trayectoria F]}
+		\UCpaso[\UCsist] Verifica que la contraseña del colaborador no haya cambiado. \hyperlink{CU3-2:TAG}{[Trayectoria G]}
+		\UCpaso[\UCsist] Actualiza la información del colaborador.\label{CU3.2-P10}
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU3}{Gestionar Colaboradores} para indicar al actor que la modificación se ha realizado exitosamente. 
 	\end{UCtrayectoria}		
 %--------------------------------------	
@@ -99,6 +96,14 @@
 \noindent \textbf{Condición:} El actor ingresó un nuevo correo electrónico.
 \begin{enumerate}
 	\UCpaso[\UCsist] Envía un correo con el mensaje \cdtIdRef{MSG25}{Datos de sesión} a la nueva cuenta de correo electrónico proporcionada por el actor.
+	\UCpaso Regresa al paso \ref{CU3.2-P10} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU3-2:TAG}{\textbf{Trayectoria alternativa G}}\\
+\noindent \textbf{Condición:} El actor ingresó un nueva contraseña.
+\begin{enumerate}
+	\UCpaso[\UCsist] Envía un correo con el mensaje \cdtIdRef{MSG25}{Datos de sesión} con las nuevas credenciales a la cuenta de correo electrónico proporcionada por el actor.
 	\UCpaso Regresa al paso \ref{CU3.2-P10} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}

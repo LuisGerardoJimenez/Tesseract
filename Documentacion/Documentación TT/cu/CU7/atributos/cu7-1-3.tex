@@ -4,12 +4,13 @@
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Eliminar la información de un atributo de la tabla de atributos.}
 		\UCitem{Entradas}{Ninguna}
-		\UCitem{Salidas}{\begin{itemize}
-				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU11}{Gestionar Términos de glosario} para indicar que el término fue eliminado correctamente.
+		\UCitem{Salidas}{Niguna}
+		
+		\UCitem{Precondiciones}{\begin{itemize}
+				\item Que el atributo no se encuentre asociado a un caso de uso.
+				\item Que el atributo no se encuentre asociado a un caso de uso liberado.
 		\end{itemize}}
-		\UCitem{Destino}{Pantalla}
-		\UCitem{Precondiciones}{Ninguna}
-		\UCitem{Postcondiciones}{Ninguna}
+		\UCitem{Postcondiciones}{Se eliminará un atributo de una entidad perteneciente a un proyecto}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG13}{Eliminación no permitida}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad} cuando no se pueda eliminar el atributo debido a que está siendo utilizado por otro elemento.
 		\end{itemize}
@@ -18,17 +19,22 @@
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita eliminar un atributo oprimiendo el botón \eliminar del registro que desea eliminar de la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
-		\UCpaso[\UCsist] Verifica que ningún elemento esté referenciando al atributo. \hyperlink{CU7-1-3:TAA}{[Trayectoria A]}
-		\UCpaso[\UCsist] Elimina el atributo del sistema y actualiza la tabla de atributos de la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
+		\UCpaso[\UCactor] Da clic en el icono \eliminar del registro que desea eliminar de la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
+		\UCpaso[\UCsist] Verifica que el atributo pueda eliminarse de acuerdo a la regla de negocio \BRref{RN18}{Eliminación de elementos}. \hyperlink{CU7-1-3:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Verifica que ningún elemento esté referenciando al atributo. \hyperlink{CU7-1-3:TAB}{[Trayectoria B]}
+		\UCpaso[\UCsist] Elimina el atributo del sistema y actualiza la tabla \cdtRef{atributoEntidad}{Atributos} de la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
 	\end{UCtrayectoria}	
 %--------------------------------------
-	\hypertarget{CU7-1-3:TAA}{\textbf{Trayectoria alternativa A}}\\
+\hypertarget{CU7-1-3:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} El Atributo se encuentra asociado a casos de uso liberados.
+\begin{enumerate}
+	\UCpaso[\UCsist] Oculta el botón \eliminar del atributo que esta asociado a casos de uso liberados.
+	\item[- -] - - {\em {Fin del caso de uso}}.
+\end{enumerate}
+%--------------------------------------
+	\hypertarget{CU7-1-3:TAB}{\textbf{Trayectoria alternativa B}}\\
 	\noindent \textbf{Condición:} El atributo está siendo referenciado en un elemento.
 	\begin{enumerate}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad} con el mensaje \cdtIdRef{MSG13}{Eliminación no permitida} mostrando una lista de elementos que están referenciando al atributo.
-		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar} del mensaje.
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
 		\item[- -] - - {\em {Fin del caso de uso}}.%
 	\end{enumerate}
-

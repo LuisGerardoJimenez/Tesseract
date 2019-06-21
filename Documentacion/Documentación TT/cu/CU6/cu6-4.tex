@@ -1,30 +1,32 @@
 	\begin{UseCase}{CU6.4}{Consultar Término de Glosario}{
-		Este caso de uso permite al colaborador consultar la descripción de un término del glosario.
+		Este caso de uso permite al colaborador (\hyperlink{jefe}{Líder} o \hyperlink{analista}{Analista}) consultar la descripción de un \hyperlink{terminoGLSEntidad}{Término de glosario}.
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
+		
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Consultar la información de un término del glosario.}
 		\UCitem{Entradas}{Ninguna}
 		\UCitem{Salidas}{\begin{itemize}
-				\item \cdtRef{terminoGLSEntidad:nombreTGLS}{Nombre:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{terminoGLSEntidad:nombreTGLS}{Nombre del término:} Lo obtiene el sistema.
 				\item \cdtRef{terminoGLSEntidad:descripcionTGLS}{Descripción:} Lo obtiene el sistema.
 		\end{itemize}}
-		\UCitem{Destino}{Pantalla}
+		
 		\UCitem{Precondiciones}{Ninguna}
 		\UCitem{Postcondiciones}{Ninguna}
-		\UCitem{Errores}{\begin{itemize}
-		\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU11}{Gestionar Términos del glosario} cuando el término que se desea consultar no existe.
-		\end{itemize}
+		\UCitem{Errores}{
+			\cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU11}{Gestionar Términos del glosario} cuando el término que se desea consultar no existe.
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU6}{Gestionar Términos del glosario}.}
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita consultar un término del glosario oprimiendo el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} de un registro de la pantalla \IUref{IU11}{Gestionar Términos de glosario} o la liga correspondiente a un término en la pantalla \IUref{IU6.3}{Consultar caso de uso}.
+		\UCpaso[\UCactor] Da clic en el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} de un registro de la pantalla \IUref{IU11}{Gestionar Términos de glosario} o la liga correspondiente a un término en la pantalla \IUref{IU6.3}{Consultar caso de uso}.
 		\UCpaso[\UCsist] Obtiene la información del término seleccionado. \hyperlink{CU6-4:TAA}{[Trayectoria A]}
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU11.3}{Consultar Término} con la información del término.
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU11.3}{Consultar Término}.
 		\UCpaso[\UCactor] Consulta la información del Término.
-		\UCpaso[\UCactor] Solicita finalizar oprimiendo el botón \IUref{Regresar} de la pantalla \IUref{IU11.3}{Consultar Término}.
+		\UCpaso[\UCactor] Finaliza la consulta oprimiendo el botón \IUbutton{Regresar}.
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU11}{Gestionar Términos del glosario}.
 	\end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU6-4:TAA}{\textbf{Trayectoria alternativa A}}\\

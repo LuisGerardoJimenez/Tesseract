@@ -1,6 +1,5 @@
 package mx.tesseract.admin.action;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,6 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<Colaborador> {
 	private Colaborador model;
 	private static final long serialVersionUID = 1L;
-	private Map<String, Object> userSession;
 	private List<Colaborador> listPersonal;
 	private String idSel;
 	private String contrasenaAnterior;
@@ -39,7 +37,7 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 	private ColaboradorBs colaboradorBs;
 
 	@SuppressWarnings("unchecked")
-	public String index() throws Exception {
+	public String index() {
 		try {
 			listPersonal = colaboradorBs.consultarPersonal();
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
@@ -53,7 +51,7 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		return INDEX;
 	}
 
-	public String editNew() throws Exception {
+	public String editNew() {
 		return EDITNEW;
 	}
 
@@ -85,44 +83,33 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		return SUCCESS;
 	}
 
-	public String edit() throws Exception {
-		String resultado = null;
-		try {
-			//contrasenaAnterior = model.getContrasenia();
-			//correoAnterior = model.getCorreoElectronico();
-			resultado = EDIT;
-		} catch (TESSERACTException pe) {
-			System.err.println(pe.getMessage());
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			e.printStackTrace();
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
+	public String edit() {
+		correoAnterior = model.getCorreoElectronico();
+		contrasenaAnterior = model.getContrasenia();
+		return EDIT;
 	}
 
-	public String update() throws Exception {
-		String resultado = null;
-		try {
-			// ColaboradorBs.modificarColaborador(model);
-			// ColaboradorBs.enviarCorreo(model, contrasenaAnterior, correoAnterior);
-			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "La", "Persona", "modificada" }));
-
-			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-		} catch (TESSERACTValidacionException pve) {
-			ErrorManager.agregaMensajeError(this, pve);
-			resultado = edit();
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
+	public void validateUpdate() {
+		if (!hasErrors()) {
+			try {
+				colaboradorBs.modificarColaborador(model, correoAnterior, contrasenaAnterior);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+			}
 		}
-		return resultado;
+	}
+
+	public String update() {
+		addActionMessage(getText("MSG1", new String[] { "La", "Persona", "modificada" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
 	}
 
 	
@@ -145,13 +132,14 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		return resultado;
 	}
 
-	/*
-	 * public String verificarProyectosLider() { try { proyectosLider =
-	 * ColaboradorBs.verificarProyectosLider(model); } catch (Exception e) {
-	 * e.printStackTrace(); }
-	 * 
-	 * return "referencias"; }
-	 */
+//	public String verificarProyectosLider() {
+//		try {
+//			proyectosLider = ColaboradorBs.verificarProyectosLider(model);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return "referencias";
+//	}
 
 	@VisitorFieldValidator
 	public Colaborador getModel() {
@@ -160,14 +148,6 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 
 	public void setModel(Colaborador model) {
 		this.model = model;
-	}
-
-	public Map<String, Object> getUserSession() {
-		return userSession;
-	}
-
-	public void setUserSession(Map<String, Object> userSession) {
-		this.userSession = userSession;
 	}
 
 	public List<Colaborador> getListPersonal() {

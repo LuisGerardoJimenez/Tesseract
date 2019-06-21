@@ -7,10 +7,12 @@
 		\UCitem{Entradas}{Ninguna}
 		\UCitem{Salidas}{
 			\begin{itemize}
-				\item \cdtRef{MSGEntidad:numeroMSG}{Número:} Lo obtiene el sistema.
-				\item \cdtRef{MSGEntidad:nombreMSG}{Nombre:} Lo obtiene el sistema.
-				\item \cdtRef{MSGEntidad:descripcionMSG}{Nombre:} Lo obtiene el sistema.
-				\item \cdtRef{MSGEntidad:redaccionMSG}{Redacción:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{MSGEntidad:numeroMSG}{Número del mensaje:} Lo obtiene el sistema.
+				\item \cdtRef{MSGEntidad:nombreMSG}{Nombre del mensaje:} Lo obtiene el sistema.
+				\item \cdtRef{MSGEntidad:descripcionMSG}{Descripción del mensaje:} Lo obtiene el sistema.
+				\item \cdtRef{MSGEntidad:redaccionMSG}{Redacción del mensaje:} Lo obtiene el sistema.
 				\item \cdtRef{MSGEntidad:paramtrizadoMSG}{Parametrizado:} Lo obtiene el sistema.
 				\item Parámetros: Lo obtiene el sistema.
 		\end{itemize}}
@@ -25,17 +27,19 @@
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita consultar un mensaje oprimiendo el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} del registro que desea consultar de la pantalla \IUref{IU10}{Gestionar Mensajes} o la liga correspondiente a un mensaje en la pantalla \IUref{IU6.3}{Consultar caso de uso}.
-		\UCpaso[\UCsist] Obtiene la información del mensaje seleccionado. \Trayref{CMSG-A}
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10.3}{Consultar Mensaje} con la información del mensaje.
+		\UCpaso[\UCactor] Da clic en el icono  \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} del registro que desea consultar de la pantalla \IUref{IU10}{Gestionar Mensajes} o la liga correspondiente a un mensaje en la pantalla \IUref{IU6.3}{Consultar caso de uso}.
+		\UCpaso[\UCsist] Obtiene la información del mensaje seleccionado. \hyperlink{CU9-4:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10.3}{Consultar Mensaje}.
 		\UCpaso[\UCactor] Consulta la información del mensaje.
-		\UCpaso[\UCactor] Solicita finalizar oprimiendo el botón \IUref{Regresar} de la pantalla \IUref{IU10.3}{Consultar mensaje}.
+		\UCpaso[\UCactor] Finaliza la consulta oprimiendo el botón \IUbutton{Regresar}.
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10}{Gestionar Mensajes}.
 	\end{UCtrayectoria}		
 %--------------------------------------
-	
-	\begin{UCtrayectoriaA}{CMSG-A}{El mensaje que se desea consultar no existe.}
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10}{Gestionar Mensajes} con el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error}.
-	\end{UCtrayectoriaA}
-
+\hypertarget{CU9-4:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} El mensaje que se desea consultar no existe.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU10}{Gestionar Mensajes}.
+	\item[- -] - - {\em {Fin del caso de uso}}.
+\end{enumerate}
 
 	
