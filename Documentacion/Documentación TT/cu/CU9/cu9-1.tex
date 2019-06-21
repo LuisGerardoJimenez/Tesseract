@@ -6,19 +6,20 @@
 		\UCitem{Propósito}{Registrar la información de mensaje.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{MSGEntidad:numeroMSG}{Número:} Se escribe desde el teclado.
-			\item \cdtRef{MSGEntidad:nombreMSG}{Nombre:} Se escribe desde el teclado.
-			\item \cdtRef{MSGEntidad:descripcionMSG}{Nombre:} Se escribe desde el teclado.
-			\item \cdtRef{MSGEntidad:redaccionMSG}{Redacción:} Se escribe desde el teclado.
+			\item \cdtRef{MSGEntidad:numeroMSG}{Número del mensaje:} Se escribe desde el teclado.
+			\item \cdtRef{MSGEntidad:nombreMSG}{Nombre del mensaje:} Se escribe desde el teclado.
+			\item \cdtRef{MSGEntidad:descripcionMSG}{Descripción del mensaje:} Se escribe desde el teclado.
+			\item \cdtRef{MSGEntidad:redaccionMSG}{Redacción del mensaje:} Se escribe desde el teclado.
 			\item \cdtRef{MSGEntidad:paramtrizadoMSG}{Parametrizado:} Se escribe desde el teclado.
 			\item Parámetros: Se escribe desde el teclado.
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
+				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Lo obtiene el sistema.
 				\item \cdtRef{MSGEntidad:claveMSG}{Clave:} Lo calcula el sistema mediante la regla de negocio \BRref{RN12}{Identifcador de elemento}.
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU10}{Gestionar Mensajes} para indicar que el registro fue exitoso.
 		\end{itemize}}
-		\UCitem{Destino}{Pantalla}
 		\UCitem{Precondiciones}{Ninguna}
 		\UCitem{Postcondiciones}{
 		\begin{itemize}
@@ -40,8 +41,8 @@
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Solicita registrar una mensaje oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU10}{Gestionar Mensajes}.
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10.1}{Registrar Mensaje: No parametrizado}.
-		\UCpaso[\UCactor] Ingresa la información solicitada en la pantalla. \label{CU9.1-P3} \hyperlink{CU9-1:TAA}{[Trayectoria A]}
-		\UCpaso[\UCactor] Solicita guardar la información del mensaje oprimiendo el botón \IUbutton{Aceptar} de la pantalla \IUref{IU10.1}{Registrar Mensaje}. \label{CU9.1-P4} \hyperlink{CU9-1:TAB}{[Trayectoria B]} 
+		\UCpaso[\UCactor] Ingresa la información solicitada. \label{CU9.1-P3} \hyperlink{CU9-1:TAA}{[Trayectoria A]}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar} . \label{CU9.1-P4} \hyperlink{CU9-1:TAB}{[Trayectoria B]} 
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU9-1:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU9-1:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU9-1:TAE}{[Trayectoria E]}
