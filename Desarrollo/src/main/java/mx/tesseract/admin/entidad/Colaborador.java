@@ -12,8 +12,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,10 +27,10 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
-@NamedQueries({
-	@NamedQuery(name="findColaboradorByCorreo",query="SELECT c FROM Colaborador c WHERE c.correoElectronico = :correoElectronico"),
-	@NamedQuery(name="findColaboradorByCURP",query="SELECT c FROM Colaborador c WHERE c.curp = :curp"),
-	@NamedQuery(name="findAllWithoutAdmin",query="SELECT c FROM Colaborador c WHERE c.administrador != :value")
+@NamedNativeQueries({
+	@NamedNativeQuery(name="Colaborador.findAllWithoutAdmin",query="SELECT c.* FROM colaborador c WHERE c.administrador != ?", resultClass=Colaborador.class),
+	@NamedNativeQuery(name="Colaborador.findColaboradorByCorreo",query="SELECT c.* FROM colaborador c WHERE c.correoelectronico = ?", resultClass=Colaborador.class),
+	@NamedNativeQuery(name="Colaborador.findColaboradorByCURP",query="SELECT c.* FROM colaborador c WHERE c.curp = ?", resultClass=Colaborador.class)
 })
 @Entity
 @Table(name = "colaborador")
@@ -40,14 +41,32 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name = "CURP", unique = true, nullable = false, length = 18)
 	private String curp;
+	
+	@Column(name = "nombre", nullable = false, length = 45)
 	private String nombre;
+	
+	@Column(name = "apellidoPaterno", nullable = false, length = 45)
 	private String apellidoPaterno;
+	
+	@Column(name = "apellidoMaterno", nullable = false, length = 45)
 	private String apellidoMaterno;
+	
+	@Column(name = "correoElectronico", nullable = false, length = 45)
 	private String correoElectronico;
+	
+	@Column(name = "contrasenia", nullable = false, length = 20)
 	private String contrasenia;
+	
+	@Column(name = "administrador", nullable = false, length = 20)
 	private boolean administrador;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "colaborador")
 	private Set<ColaboradorProyecto> colaborador_proyectos = new HashSet<ColaboradorProyecto>(0);
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "colaborador")
 	private Set<Telefono> telefonos = new HashSet<Telefono>(0);
 	
 	public Colaborador() {
@@ -67,8 +86,6 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
 	@StringLengthFieldValidator(message = "%{getText('MSG51')}", trim = true, minLength = "18", maxLength = "18", shortCircuit= true)
 	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG52')}", regex= Constantes.REGEX_CURP, shortCircuit = true)
-	@Id
-	@Column(name = "CURP", unique = true, nullable = false, length = 18)
 	public String getCurp() {
 		return this.curp;
 	}
@@ -80,7 +97,6 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, maxLength = "30", shortCircuit= true)
 	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFABETICO, shortCircuit = true)
-	@Column(name = "nombre", nullable = false, length = 45)
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -92,7 +108,6 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, maxLength = "30", shortCircuit= true)
 	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFABETICO_SIN_ESPACIOS, shortCircuit = true)
-	@Column(name = "apellidoPaterno", nullable = false, length = 45)
 	public String getApellidoPaterno() {
 		return this.apellidoPaterno;
 	}
@@ -103,7 +118,6 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, maxLength = "30", shortCircuit= true)
 	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFABETICO_SIN_ESPACIOS, shortCircuit = true)
-	@Column(name = "apellidoMaterno", nullable = false, length = 45)
 	public String getApellidoMaterno() {
 		return this.apellidoMaterno;
 	}
@@ -115,7 +129,6 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, maxLength = "30", shortCircuit= true)
 	@EmailValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", shortCircuit = true)
-	@Column(name = "correoElectronico", nullable = false, length = 45)
 	public String getCorreoElectronico() {
 		return this.correoElectronico;
 	}
@@ -127,7 +140,6 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'20', 'caracteres'})}", trim = true, minLength = "8", maxLength = "20", shortCircuit= true)
 	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CONTRASENIA, shortCircuit = true)
-	@Column(name = "contrasenia", nullable = false, length = 20)
 	public String getContrasenia() {
 		return this.contrasenia;
 	}
@@ -136,7 +148,6 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 		this.contrasenia = contrasenia;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "colaborador", cascade = CascadeType.ALL)
 	public Set<ColaboradorProyecto> getColaborador_proyectos() {
 		return colaborador_proyectos;
 	}
@@ -146,7 +157,6 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 		this.colaborador_proyectos = colaborador_proyectos;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "colaborador", cascade = CascadeType.ALL)
 	public Set<Telefono> getTelefonos() {
 		return telefonos;
 	}
@@ -155,7 +165,6 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 		this.telefonos = telefonos;
 	}
 	
-	@Column(name = "administrador", nullable = false, length = 20)
 	public boolean isAdministrador() {
 		return administrador;
 	}

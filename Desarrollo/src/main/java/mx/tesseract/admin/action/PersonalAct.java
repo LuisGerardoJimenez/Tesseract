@@ -1,6 +1,5 @@
 package mx.tesseract.admin.action;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -89,7 +88,7 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		contrasenaAnterior = model.getContrasenia();
 		return EDIT;
 	}
-	
+
 	public void validateUpdate() {
 		if (!hasErrors()) {
 			try {
@@ -130,13 +129,14 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		return resultado;
 	}
 
-	/*
-	 * public String verificarProyectosLider() { try { proyectosLider =
-	 * ColaboradorBs.verificarProyectosLider(model); } catch (Exception e) {
-	 * e.printStackTrace(); }
-	 * 
-	 * return "referencias"; }
-	 */
+//	public String verificarProyectosLider() {
+//		try {
+//			proyectosLider = ColaboradorBs.verificarProyectosLider(model);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return "referencias";
+//	}
 
 	@VisitorFieldValidator
 	public Colaborador getModel() {
