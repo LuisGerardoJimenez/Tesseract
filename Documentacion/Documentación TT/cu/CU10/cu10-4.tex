@@ -7,8 +7,10 @@
 		\UCitem{Entradas}{Ninguna}
 		\UCitem{Salidas}{
 			\begin{itemize}
-				\item \cdtRef{actorEntidad:nombreACT}{Nombre:} Se escribe desde el teclado.
-				\item \cdtRef{actorEntidad:descripcionACT}{Descripción:} Se escribe desde el teclado.
+				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{actorEntidad:nombreACT}{Nombre del actor:} Se escribe desde el teclado.
+				\item \cdtRef{actorEntidad:descripcionACT}{Descripción del actor:} Se escribe desde el teclado.
 		\end{itemize}}
 		\UCitem{Destino}{Pantalla}
 		\UCitem{Precondiciones}{Ninguna}
@@ -21,17 +23,19 @@
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita consultar un actor oprimiendo el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} del registro que desea consultar de la pantalla \IUref{IU8}{Gestionar Actores} o la liga correspondiente a un actor en la pantalla \IUref{IU6.3}{Consultar caso de uso}.
-		\UCpaso[\UCsist] Obtiene la información del actor seleccionado. \Trayref{CACT-A}
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU8.3}{Consultar Actor} con la información del actor.
+		\UCpaso[\UCactor] Da clic en el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} del registro que desea consultar de la pantalla \IUref{IU8}{Gestionar Actores} o la liga correspondiente a un actor en la pantalla \IUref{IU6.3}{Consultar caso de uso}.
+		\UCpaso[\UCsist] Obtiene la información del actor seleccionado. \hyperlink{CU10-4:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU8.3}{Consultar Actor}.
 		\UCpaso[\UCactor] Consulta la información del actor.
-		\UCpaso[\UCactor] Solicita finalizar oprimiendo el botón \IUref{Regresar} de la pantalla \IUref{IU8.3}{Consultar Actor}.
+		\UCpaso[\UCactor] Finaliza la consulta oprimiendo el botón \IUbutton{Regresar}.
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU8}{Gestionar Actores}.
 	\end{UCtrayectoria}		
 %--------------------------------------
-	
-	\begin{UCtrayectoriaA}{CACT-A}{El actor que se desea consultar no existe.}
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU8}{Gestionar Actores} con el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error}.
-	\end{UCtrayectoriaA}
-
+\hypertarget{CU10-4:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} El actor que se desea consultar no existe.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU8}{Gestionar Actores}.
+	\item[- -] - - {\em {Fin del caso de uso}}.
+\end{enumerate}
 
 	
