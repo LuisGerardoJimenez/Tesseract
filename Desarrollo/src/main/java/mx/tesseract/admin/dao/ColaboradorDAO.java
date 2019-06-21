@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import mx.tesseract.admin.entidad.Colaborador;
+import mx.tesseract.util.Constantes;
 
 @Repository("colaboradorDAO")
 public class ColaboradorDAO {
@@ -21,8 +22,8 @@ public class ColaboradorDAO {
 	public List<Colaborador> findAllWithoutAdmin() {
 		List<Colaborador> lista = new ArrayList<Colaborador>();
 		try {
-			Query query = entityManager.createNamedQuery("findAllWithoutAdmin",Colaborador.class);
-			query.setParameter("value", Boolean.TRUE);
+			Query query = entityManager.createNamedQuery("Colaborador.findAllWithoutAdmin",Colaborador.class);
+			query.setParameter(Constantes.NUMERO_UNO, Boolean.TRUE);
 			lista = (List<Colaborador>) query.getResultList();
 		} catch (Exception e) {
 			System.err.print(e.getMessage());
@@ -33,12 +34,12 @@ public class ColaboradorDAO {
 	public Colaborador findColaboradorByCorreo(String correo) {
 		Colaborador colaborador = null;
 		try {
-			Query query = entityManager.createNamedQuery("findColaboradorByCorreo", Colaborador.class);
-			query.setParameter("correoElectronico", correo);
-			System.out.println("Query: "+query.toString());
+			Query query = entityManager.createNamedQuery("Colaborador.findColaboradorByCorreo", Colaborador.class);
+			query.setParameter(Constantes.NUMERO_UNO, correo);
 			for (Object o : query.getResultList()) {
-				System.out.println("Nombre: "+((Colaborador) o).getNombre());
+				System.out.println("Colaborador: "+((Colaborador)o).getNombre());
 			}
+			System.out.println("Query: "+query.toString());
 			colaborador = (Colaborador) query.getSingleResult();
 		} catch (Exception e) {
 			System.err.print(e.getMessage());
@@ -49,8 +50,8 @@ public class ColaboradorDAO {
 	public Colaborador findColaboradorByCURP(String curp) {
 		Colaborador colaborador = null;
 		try {
-			Query query = entityManager.createNamedQuery("findColaboradorByCURP", Colaborador.class);
-			query.setParameter("curp", curp);
+			Query query = entityManager.createNamedQuery("Colaborador.findColaboradorByCURP", Colaborador.class);
+			query.setParameter(Constantes.NUMERO_UNO, curp);
 			colaborador = (Colaborador) query.getSingleResult();
 		} catch (Exception e) {
 			System.err.print(e.getMessage());

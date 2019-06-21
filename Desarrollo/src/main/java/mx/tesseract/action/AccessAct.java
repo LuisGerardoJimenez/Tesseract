@@ -56,8 +56,6 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	public String index() {
 		String resultado = INDEX;
 		try {
-			System.out.println("Antes check Log");
-			System.out.println("isLogged?: "+SessionManager.isLogged());
 			if (SessionManager.isLogged()) {
 				if (loginBs.consultarColaboradorActivo().isAdministrador()) {
 					resultado = "administrador";
@@ -78,7 +76,6 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	}
 	
 	public String create() throws Exception {
-		System.out.println("Entramos a login");
 		String resultado = INDEX;
 		Colaborador colaborador;
 		try {
@@ -89,26 +86,24 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 			SessionManager.set(true, "login");
 			SessionManager.set(colaborador.getCurp(), "colaboradorCURP");
 			menuString = getMenu();
-			System.out.println("Colaborador: "+colaborador);
 			if (colaborador.isAdministrador()) {
 				resultado = "administrador";
 			} else {
 				resultado = "colaborador";
 			}
-		} catch (TESSERACTValidacionException pve) {
+		} catch (TESSERACTValidacionException tve) {
 			System.out.println("Error en el Create() TESSERACTValidacionException");
-			ErrorManager.agregaMensajeError(this, pve);
-			System.out.println("Pve: "+pve);
-		} catch (TESSERACTException pe) {
+			System.err.println("Tve: "+tve);
+			ErrorManager.agregaMensajeError(this, tve);
+		} catch (TESSERACTException te) {
 			System.out.println("Error en el Create() TESSERACTException");
-			System.out.println("Pe: "+pe);
-			ErrorManager.agregaMensajeError(this, pe);
+			System.err.println("Te: "+te);
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
 			System.out.println("E: "+e);
-			System.out.println("Error en el Create() Exception");
+			System.err.println("Error en el Create() Exception");
 			ErrorManager.agregaMensajeError(this, e);
 		}
-		System.out.println("Resultado Create: "+resultado);
 		return resultado;
 	}
 	
@@ -130,7 +125,6 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 		} else {
 			resultado = "editor/menus/menuAnalistaProyecto";
 		}
-		System.out.println("Resultado Menu: "+resultado);
 		return resultado;
 	}
 	

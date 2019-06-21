@@ -12,8 +12,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,10 +27,10 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
-@NamedQueries({
-	@NamedQuery(name="findColaboradorByCorreo",query="SELECT c FROM Colaborador c WHERE c.correoElectronico = :correoElectronico"),
-	@NamedQuery(name="findColaboradorByCURP",query="SELECT c FROM Colaborador c WHERE c.curp = :curp"),
-	@NamedQuery(name="findAllWithoutAdmin",query="SELECT c FROM Colaborador c WHERE c.administrador != :value")
+@NamedNativeQueries({
+	@NamedNativeQuery(name="Colaborador.findAllWithoutAdmin",query="SELECT c.* FROM colaborador c WHERE c.administrador != ?", resultClass=Colaborador.class),
+	@NamedNativeQuery(name="Colaborador.findColaboradorByCorreo",query="SELECT c.* FROM colaborador c WHERE c.correoelectronico = ?", resultClass=Colaborador.class),
+	@NamedNativeQuery(name="Colaborador.findColaboradorByCURP",query="SELECT c.* FROM colaborador c WHERE c.curp = ?", resultClass=Colaborador.class)
 })
 @Entity
 @Table(name = "colaborador")
@@ -62,10 +63,10 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 	@Column(name = "administrador", nullable = false, length = 20)
 	private boolean administrador;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "colaborador", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "colaborador")
 	private Set<ColaboradorProyecto> colaborador_proyectos = new HashSet<ColaboradorProyecto>(0);
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "colaborador", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "colaborador")
 	private Set<Telefono> telefonos = new HashSet<Telefono>(0);
 	
 	public Colaborador() {
