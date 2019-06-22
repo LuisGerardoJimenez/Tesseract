@@ -15,7 +15,7 @@ function confirmarEliminacion(curp) {
 			idSel : curp
 		},
 		success : function(data) {
-			alert("");//mostrarMensajeEliminacion(data, curp);
+			location.reload();
 		},
 		error : function(err) {
 			alert("Ha ocurrido un error.");

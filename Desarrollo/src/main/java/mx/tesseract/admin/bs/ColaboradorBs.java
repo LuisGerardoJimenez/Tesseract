@@ -91,7 +91,6 @@ public class ColaboradorBs {
 	public boolean eliminarColaborador(Colaborador model) {
 		boolean resultado = true;
 		try {
-			model.setCurp("DFGR940102KIDFGC14");
 			Colaborador colaborador = genericoDAO.findById(Colaborador.class, model.getCurp());
 			genericoDAO.eliminar(colaborador);
 		}catch(Exception e) {

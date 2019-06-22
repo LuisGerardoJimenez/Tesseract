@@ -92,16 +92,10 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 				resultado = "colaborador";
 			}
 		} catch (TESSERACTValidacionException tve) {
-			System.out.println("Error en el Create() TESSERACTValidacionException");
-			System.err.println("Tve: "+tve);
 			ErrorManager.agregaMensajeError(this, tve);
 		} catch (TESSERACTException te) {
-			System.out.println("Error en el Create() TESSERACTException");
-			System.err.println("Te: "+te);
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			System.out.println("E: "+e);
-			System.err.println("Error en el Create() Exception");
 			ErrorManager.agregaMensajeError(this, e);
 		}
 		return resultado;

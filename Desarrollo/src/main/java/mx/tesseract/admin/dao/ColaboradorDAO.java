@@ -53,6 +53,7 @@ public class ColaboradorDAO {
 			Query query = entityManager.createNamedQuery("Colaborador.findColaboradorByCURP", Colaborador.class);
 			query.setParameter(Constantes.NUMERO_UNO, curp);
 			colaborador = (Colaborador) query.getSingleResult();
+			entityManager.detach(colaborador);
 		} catch (Exception e) {
 			System.err.print(e.getMessage());
 		}
