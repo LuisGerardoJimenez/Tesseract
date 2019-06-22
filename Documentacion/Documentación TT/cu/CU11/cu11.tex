@@ -12,8 +12,10 @@
 			\item \cdtRef{pantalla}{Pantalla}: Tabla que muestra \cdtRef{pantalla:claveIU}{Clave}, \cdtRef{pantalla:numeroIU}{Número} y el \cdtRef{pantalla:nombreIU}{Nombre} de todas las pantallas registradas en un módulo de un proyecto.
 			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU7}{Gestionar Pantallas} cuando no existen pantallas registradas.
 	\end{itemize}}
-	\UCitem{Destino}{Pantalla}
-	\UCitem{Precondiciones}{Ninguna}
+	\UCitem{Precondiciones}{\begin{itemize}
+			\item Que exista al menos un proyecto registrado.
+			\item Que exista al menos un pantalla registrada.
+	\end{itemize}}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{Ninguno}
 	\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU5}{Gestionar Módulos}.}
@@ -21,20 +23,26 @@
 %--------------------------------------
 \begin{UCtrayectoria}
 	\UCpaso[\UCactor] Solicita gestionar las pantallas presionando el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/pantalla}} de un módulo de la pantalla \IUref{IU4}{Gestionar Módulos}.
-	\UCpaso[\UCsist] Obtiene la información de las pantallas registradas en el módulo seleccionado. \Trayref{GIU-A}
-	\UCpaso[\UCsist] Muestra la información de las pantallas en la pantalla \IUref{IU7}{Gestionar Pantallas} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}.
-	\UCpaso[\UCactor] Gestiona los proyectos a través de los botones: \IUbutton{Registrar}, \editar, \eliminar y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}}. \label{CU11-P4}
+	\UCpaso[\UCsist] Obtiene la información de las pantallas registradas en el módulo seleccionado. \hyperlink{CU11:TAA}{[Trayectoria A]}
+	\UCpaso[\UCsist] Ordena las pantallas alfabéticamente basándose en la clave de los mismos.
+	\UCpaso[\UCsist] Muestra la información de las pantallas en la pantalla \IUref{IU7}{Gestionar Pantallas} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}.\label{CU11-P4}
+	\UCpaso[\UCactor] Gestiona los proyectos a través de los botones: \IUbutton{Registrar}, \editar, \eliminar y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}}. 
 \end{UCtrayectoria}		
 %--------------------------------------
-\begin{UCtrayectoriaA}{GIU-A}{No existen registros de pantallas.}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU7}{Gestionar Pantallas} para indicar que no hay registros de pantallas para mostrar.
-\end{UCtrayectoriaA}
+\hypertarget{CU11:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} No existen registros de pantallas.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU7}{Gestionar Pantallas} para indicar que no hay registros de pantallas para mostrar. \label{CU11-TA1}
+	\UCpaso[\UCactor] Gestiona las pantallas a través del botón: \IUbutton{Registrar}. 
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
+
 
 %--------------------------------------
 
 \subsubsection{Puntos de extensión}
 
-\UCExtenssionPoint{El actor requiere registrar una pantalla}{Paso \ref{CU11-P4} de la trayectoria principal.}{\UCref{CU11.1}{Registrar Pantalla}}
+\UCExtenssionPoint{El actor requiere registrar una pantalla}{Paso \ref{CU11-P4} de la trayectoria principal o del paso \ref{CU11-TA1} de la trayectoria alternativa A..}{\UCref{CU11.1}{Registrar Pantalla}}
 \UCExtenssionPoint{El actor requiere modificar una pantalla}{Paso \ref{CU11-P4} de la trayectoria principal.}{\UCref{CU11.2}{Modificar Pantalla}}
 \UCExtenssionPoint{El actor requiere eliminar una pantalla}{Paso \ref{CU11-P4} de la trayectoria principal.}{\UCref{CU11.3}{Eliminar Pantalla}}
 \UCExtenssionPoint{El actor requiere consultar una pantalla}{Paso \ref{CU11-P4} de la trayectoria principal.}{\UCref{CU11.4}{Consultar Pantalla}}
