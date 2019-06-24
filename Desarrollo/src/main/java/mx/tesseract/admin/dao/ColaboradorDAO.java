@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.util.Constantes;
 
+
 @Repository("colaboradorDAO")
 public class ColaboradorDAO {
 	
@@ -31,16 +32,26 @@ public class ColaboradorDAO {
 		return lista;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Colaborador findColaboradorByCorreo(String correo) {
 		Colaborador colaborador = null;
 		try {
+			System.out.println("-------------------------> Voy a buscar prro >:v");
 			Query query = entityManager.createNamedQuery("Colaborador.findColaboradorByCorreo", Colaborador.class);
 			query.setParameter(Constantes.NUMERO_UNO, correo);
-			for (Object o : query.getResultList()) {
-				System.out.println("Colaborador: "+((Colaborador)o).getNombre());
+			System.out.println("-------------------------> Query creado");
+			List<Colaborador> lista = (List<Colaborador>) query.getResultList();
+			System.out.println("-------------------------> Resultados encontrados");
+			for (Colaborador c : lista) {
+				System.out.println("Colaborador: "+c.getNombre());
+				System.out.println("CURP: "+c.getCurp());
+				System.out.println("Correo: "+c.getCorreoElectronico());
 			}
-			System.out.println("Query: "+query.toString());
-			colaborador = (Colaborador) query.getSingleResult();
+			if (lista.isEmpty()) {
+				colaborador = null;
+			} else {
+				colaborador = lista.get(Constantes.NUMERO_CERO);
+			}
 		} catch (Exception e) {
 			System.err.print(e.getMessage());
 		}

@@ -25,8 +25,8 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = { "actionName", "personal" }),
 		@Result(name = "referencias", type = "json", params = { "root", "proyectosLider" }) })
 public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<Colaborador> {
-	private Colaborador model;
 	private static final long serialVersionUID = 1L;
+	private Colaborador model;
 	private List<Colaborador> listPersonal;
 	private String idSel;
 	private String contrasenaAnterior;
