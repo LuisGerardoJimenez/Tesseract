@@ -7,6 +7,7 @@ import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.br.RN033;
 import mx.tesseract.br.RN036;
 import mx.tesseract.dao.GenericoDAO;
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.Correo;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
@@ -38,7 +39,7 @@ public class ColaboradorBs {
 
 	public List<Colaborador> consultarPersonal() {
 		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
-		if (colaboradores == null) {
+		if (colaboradores.size() == Constantes.NUMERO_CERO) {
 			throw new TESSERACTException("No se pueden consultar los colaboradores.", "MSG13");
 		}
 		return colaboradores;

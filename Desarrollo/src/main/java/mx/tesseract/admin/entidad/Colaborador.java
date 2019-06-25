@@ -62,13 +62,13 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 	
 	@Column(name = "administrador", nullable = false, length = 20)
 	private boolean administrador;
-	
+	/*
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "colaborador")
 	private Set<ColaboradorProyecto> colaborador_proyectos = new HashSet<ColaboradorProyecto>(0);
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "colaborador")
 	private Set<Telefono> telefonos = new HashSet<Telefono>(0);
-	
+	*/
 	public Colaborador() {
 	}
 
@@ -147,7 +147,7 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 	public void setContrasenia(String contrasenia) {
 		this.contrasenia = contrasenia;
 	}
-	
+	/*
 	public Set<ColaboradorProyecto> getColaborador_proyectos() {
 		return colaborador_proyectos;
 	}
@@ -164,7 +164,7 @@ public class Colaborador implements java.io.Serializable, GenericInterface {
 	public void setTelefonos(Set<Telefono> telefonos) {
 		this.telefonos = telefonos;
 	}
-	
+	*/
 	public boolean isAdministrador() {
 		return administrador;
 	}

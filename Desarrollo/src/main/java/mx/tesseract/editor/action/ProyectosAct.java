@@ -28,6 +28,7 @@ import mx.tesseract.util.TESSERACTException;
 //import mx.tesseract.util.ReportUtil;
 import mx.tesseract.util.SessionManager;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -39,10 +40,8 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @ResultPath("/pages/editor/")
 @Results({
-		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = {
-				"actionName", "proyectos" }),
-		@Result(name = "modulos", type = "redirectAction", params = {
-				"actionName", "modulos" }),
+		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = {"actionName", "proyectos" }),
+		@Result(name = "modulos", type = "redirectAction", params = {"actionName", "modulos" }),
 		@Result(name = "colaboradores", type = "dispatcher", location = "proyectos/colaboradores.jsp"), 
 		@Result(name = "documento", type = "stream", params = { 
 		        "contentType", "${type}", 
@@ -50,22 +49,16 @@ import com.opensymphony.xwork2.ModelDriven;
 		        "bufferSize", "1024", 
 		        "contentDisposition", "attachment;filename=\"${filename}\""})
 		})
-public class ProyectosAct extends ActionSupportTESSERACT implements
-		ModelDriven<Proyecto>, SessionAware {
-	/** 
-	 * 
-	 */
+@AllowedMethods({ "entrar" })
+public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<Proyecto> {
 	private static final long serialVersionUID = 1L;
-	private Map<String, Object> userSession;
 	private Colaborador colaborador;
 	private Proyecto model;
 	private Proyecto proyecto;
-
 	private List<Proyecto> listProyectos;
 	private List<Colaborador> listColaboradores;
 	private String jsonColaboradoresTabla;
 	private Integer idSel;
-	
 	private InputStream fileInputStream;
 	private String type;
     private String filename; 
@@ -73,20 +66,19 @@ public class ProyectosAct extends ActionSupportTESSERACT implements
     
     @Autowired
     private LoginBs loginBs;
+    
+    @Autowired
+    private ProyectoBs proyectoBs;
 
+    @SuppressWarnings("unchecked")
 	public String index() {
-		Map<String, Object> session = null;
-		String resultado = null;
+		String resultado = INDEX;
 		try {
-			session = ActionContext.getContext().getSession();
-			session.remove("idProyecto");
-			session.remove("idModulo");
+			SessionManager.delete("idProyecto");
+			SessionManager.delete("idModulo");
 			colaborador = loginBs.consultarColaboradorActivo();
-			//listProyectos = ProyectoBs.findByColaborador(colaborador);
-			resultado = INDEX;
-			@SuppressWarnings("unchecked")
-			Collection<String> msjs = (Collection<String>) SessionManager
-					.get("mensajesAccion");
+			listProyectos = proyectoBs.consultarProyectos();
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
 		} catch (TESSERACTException pe) {
@@ -94,28 +86,23 @@ public class ProyectosAct extends ActionSupportTESSERACT implements
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 		}
-		System.out.println("Saliendo Index Proyecto Editor");
-		System.out.println("Resultado Editor: "+resultado);
 		return resultado;
 	}
 
-	/*public String entrar() throws Exception {
-		Map<String, Object> session = null;
-		String resultado = null;
+    @SuppressWarnings("unchecked")
+	public String entrar() {
+    	System.out.println("Entrando al proyecto");
+		String resultado = LOGIN;
 		try {
-			colaborador = SessionManager.consultarColaboradorActivo();
+			/*colaborador = SessionManager.consultarColaboradorActivo();
 			if (idSel == null || colaborador == null
 					|| !AccessBs.verificarPermisos(model, colaborador)) {
 				resultado = LOGIN;
 				return resultado;
-			}
-			resultado = "modulos";
-			session = ActionContext.getContext().getSession();
-			session.put("idProyecto", idSel);
-
-			@SuppressWarnings("unchecked")
-			Collection<String> msjs = (Collection<String>) SessionManager
-					.get("mensajesAccion");
+			}*/
+			//resultado = "modulos";
+			SessionManager.set(idSel, "idProyecto");
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
 		} catch (TESSERACTException pe) {
@@ -126,7 +113,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements
 		return resultado;
 	}
 
-	public String elegirColaboradores() throws Exception {
+	/*public String elegirColaboradores() throws Exception {
 		Map<String, Object> session = null;
 		String resultado = null;
 		try {
@@ -319,18 +306,6 @@ public class ProyectosAct extends ActionSupportTESSERACT implements
 		this.model = model;
 	}
 
-	public Map<String, Object> getUserSession() {
-		return userSession;
-	}
-
-	public void setUserSession(Map<String, Object> userSession) {
-		this.userSession = userSession;
-	}
-
-	public void setSession(Map<String, Object> arg0) {
-		// TODO Auto-generated method stub
-	}
-
 	public List<Proyecto> getListProyectos() {
 		return listProyectos;
 	}
@@ -345,7 +320,9 @@ public class ProyectosAct extends ActionSupportTESSERACT implements
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
-		//model = ProyectoBs.consultarProyecto(idSel);
+		System.out.println("IdProyecto: "+idSel);
+		model = proyectoBs.consultarProyecto(idSel);
+		System.out.println("modelo: "+model.getNombre());
 		this.proyecto = model;
 	}
 
