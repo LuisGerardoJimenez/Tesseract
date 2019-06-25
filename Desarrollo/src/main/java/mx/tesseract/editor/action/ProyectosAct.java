@@ -28,6 +28,7 @@ import mx.tesseract.util.TESSERACTException;
 //import mx.tesseract.util.ReportUtil;
 import mx.tesseract.util.SessionManager;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -48,6 +49,7 @@ import com.opensymphony.xwork2.ModelDriven;
 		        "bufferSize", "1024", 
 		        "contentDisposition", "attachment;filename=\"${filename}\""})
 		})
+@AllowedMethods({ "entrar" })
 public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<Proyecto> {
 	private static final long serialVersionUID = 1L;
 	private Colaborador colaborador;
@@ -98,7 +100,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 				resultado = LOGIN;
 				return resultado;
 			}*/
-			resultado = "modulos";
+			//resultado = "modulos";
 			SessionManager.set(idSel, "idProyecto");
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
@@ -318,7 +320,9 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
-		//model = ProyectoBs.consultarProyecto(idSel);
+		System.out.println("IdProyecto: "+idSel);
+		model = proyectoBs.consultarProyecto(idSel);
+		System.out.println("modelo: "+model.getNombre());
 		this.proyecto = model;
 	}
 

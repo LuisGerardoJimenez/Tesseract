@@ -37,7 +37,7 @@ public class ColaboradorDAO {
 		Colaborador colaborador = null;
 		try {
 			System.out.println("-------------------------> Voy a buscar prro >:v");
-			Query query = entityManager.createNamedQuery("Colaborador.findColaboradorByCorreo", Colaborador.class);
+			Query query = entityManager.createNativeQuery("SELECT c.* FROM colaborador c WHERE c.correoelectronico = ?", Colaborador.class);
 			query.setParameter(Constantes.NUMERO_UNO, correo);
 			System.out.println("-------------------------> Query creado");
 			List<Colaborador> lista = (List<Colaborador>) query.getResultList();
