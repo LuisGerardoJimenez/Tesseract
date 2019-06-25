@@ -1,6 +1,12 @@
 	\begin{UseCase}{CU9}{Gestionar Mensajes}{
-	Este caso de uso permite al analista visualizar los registros de los mensajes del sistema. También permite al actor acceder a las operaciones de registro, modificación y eliminación de un mensaje.
+		Cuando un colaborador (\hyperlink{jefe}{Líder de análisis} o \hyperlink{analista}{Analista}) está operando sobre un \hyperlink{proyectoEntidad}{Proyecto}, tiene la posibilidad de gestionar los elementos que serán referenciados al \hyperlink{casoUso}{Caso de Uso}. Uno de estos elementos son los Mensajes.\\
+		
+		Un \hyperlink{MSGEntidad}{Mensaje} es un texto que comprende la mínima unidad de comunicación entre el usuario y el sistema, estos se encargan a través del sistema de informar a los actores sobre errores, avisos, informes y notificaciones.\\
+		
+		Este caso de uso permite al colaborador visualizar en una tabla, el registro de los mensajes que forman parte del proyecto, así como solicitar el registro de un mensaje nuevo, modificar alguno existente (teniendo la posibilidad de actualizar algún dato de registro), eliminarlo (en caso de que el mensaje por algún motivo ya no forme parte del proyecto) o simplemente consultar su información (nombre, descripción y redacción del mensaje) \\
+		Las acciones disponibles para cada \hyperlink{MSGEntidad}{Mensaje} dependerán del estado en el que se encuentre el caso de uso donde es referenciado. 
 	}
+
 	\UCitem{Actor}{\hyperlink{jefe}{Líder de análisis}, \hyperlink{analista}{Analista}}
 	\UCitem{Propósito}{Proporcionar al actor un mecanismo para llevar el control de los mensajes de un proyecto.}
 	\UCitem{Entradas}{Ninguna}
@@ -19,7 +25,7 @@
 	\UCitem{Errores}{Ninguno}
 	\UCitem{Tipo}{Primario}
 \end{UseCase}
-%--------------------------------------
+%--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 \begin{UCtrayectoria}
 	\UCpaso[\UCactor] Solicita gestionar los mensajes seleccionando la opción ''Mensajes'' del menú \IUref{MN3}{Menú de Proyecto}.
 	\UCpaso[\UCsist] Obtiene la información de los mensajes registrados del proyecto seleccionado. \hyperlink{CU9:TAA}{[Trayectoria A]}
@@ -27,7 +33,7 @@
 	\UCpaso[\UCsist] Muestra la información de los mensajes en la pantalla \IUref{IU10}{Gestionar Mensajes} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}.
 	\UCpaso[\UCactor] Gestiona los mensajes a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. \label{CU9-P4}
 \end{UCtrayectoria}		
-%--------------------------------------
+%--------------------------------------------------------------------------------------------------------------------------------
 \hypertarget{CU9:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} No existen registros de Mensajes.
 \begin{enumerate}

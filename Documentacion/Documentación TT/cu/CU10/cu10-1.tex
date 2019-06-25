@@ -1,5 +1,10 @@
 	\begin{UseCase}{CU10.1}{Registrar Actor}{
-		Un actor es un rol que va a interactuar con el sistema. Este caso de uso permite al analista registrar un actor.
+		Este caso de uso permite al colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) registrar la información de un \hyperlink{actorEntidad}{Actor} en el \hyperlink{proyectoEntidad}{Proyecto}.\\
+		
+		Los datos de un actor están determinados por su nombre, descripción y su cardinalidad. La cardinalidad define el número de entidades con la cual otra entidad se puede asociar mediante una relación binaria.\\
+		
+		Los datos que se almacenan cumplen con el propósito de conocer cuales serán las entidades que puedrán interactuar con el sistema. Esta puede ser una persona o un grupo de personas homogéneas, otro sistema, o una máquina. 
+		Una vez registrado el actor, el colaborador podrá hacer uso del mismo en el editor del \hyperlink{casoUso}{Caso de Uso} .
 	}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Registrar la información de actor.}

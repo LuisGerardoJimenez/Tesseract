@@ -1,5 +1,11 @@
 	\begin{UseCase}{CU9.1}{Registrar Mensaje}{
-		Este caso de uso permite al analista registrar la información de un mensaje.
+			
+			Este caso de uso permite al colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) registrar la información de un \hyperlink{MSGEntidad}{Mensaje} en el \hyperlink{proyectoEntidad}{Proyecto}.\\
+			
+			Los datos de un mensaje están comprendidos por un identificador, una descripción y su redacción. Al definir el contenido de su redacción, el sistema posibilita la utilización de parámetros a través de un tokens. Estos parámetros pueden ser creados al momento o utilizados en caso de que hayan sido creados para mensajes previamente registrados.\\
+			
+			El propósito de almacenar su datos es definir la comunicación actor-sistema a través de textos que informan errores, avisos, o notificaciones.
+			Una vez registrado el mensaje, el colaborador podrá hacer uso de la mismo en el editor.\\
 	}
 		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}

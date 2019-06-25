@@ -1,5 +1,11 @@
 	\begin{UseCase}{CU10}{Gestionar Actores}{
-	Este caso de uso permite al analista visualizar los registros de los actores registrados en el sistema. También permite al actor acceder a las operaciones de registro, consulta, modificación, y eliminación de un actor.
+			Cuando un colaborador (\hyperlink{jefe}{Líder de análisis} o \hyperlink{analista}{Analista}) está operando en un \hyperlink{proyectoEntidad}{Proyecto}, tiene la posibilidad de gestionar los elementos que serán referenciados al \hyperlink{casoUso}{Caso de Uso}. Uno de estos elementos es el \hyperlink{actorEntidad}{Actor}.\\
+			
+			Un Actor es una entidad que interactua con el sistema y que le demanda una funcionalidad. Esto incluye a los humanos pero también  a todos los sistemas externos y entidades abstractas como el tiempo. En el caso de los seres humanos se pueden ver a los actores como definiciones de rol por lo que un mismo individuo puede corresponder a uno o más Actores.\\
+			
+			Este caso de uso permite al colaborador visualizar en una tabla, el registro de los actores que componen el proyecto (con su respectiva información), así como solicitar el registro de un actor nuevo, modificar alguno existente (teniendo la posibilidad de actualizar algún dato de registro), eliminarlo (en caso de que el actor por algún motivo ya no forme parte del proyecto) o simplemente consultar su información (nombre, descripción y cardinalidad) \\
+			
+			Las acciones disponibles para cada actor dependerán del estado en el que se encuentre el \hyperlink{casoUso}{Caso de Uso} donde es referenciado.
 	}
 	\UCitem{Actor}{\hyperlink{jefe}{Líder de análisis}, \hyperlink{analista}{Analista}}
 	\UCitem{Propósito}{Proporcionar al actor un mecanismo para llevar el control de los actores de un proyecto.}
