@@ -56,6 +56,7 @@
 		\item \cdtIdRef{MSG5}{Formato de campo incorrecto}: Se muestra en la pantalla \IUref{IU9.1}{Registrar Regla de negocio} cuando el número de la regla de negocio contiene un carácter no válido.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU9.1}{Registrar Regla de negocio} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU9.1}{Registrar Regla de negocio} cuando se registre un regla de negocio con un nombre o número que ya se encuentre registrado en el sistema.
+		\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} cuando no exista información en el catálogo ''tipo de regla de negocio''.
 		\end{itemize}
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU8}{Gestionar Reglas de negocio}.}
@@ -63,24 +64,32 @@
 %--------------------------------------
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Solicita registrar una regla de negocio oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
+		\UCpaso[\UCsist] Verifica que el catálogo ''tipo de regla de negocio'' cuente con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU8-1:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU9.1}{Registrar Regla de negocio}.
 		\UCpaso[\UCactor] Ingresa la información solicitada en la pantalla. \label{CU8.1-P3}
 		\UCpaso[\UCactor] Selecciona el tipo de regla de negocio.
-		\UCpaso[\UCsist] Verifica que el tipo de regla de negocio requiera parámetros. \hyperlink{CU8-1:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Verifica que el tipo de regla de negocio requiera parámetros. \hyperlink{CU8-1:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU9.1A}{Registrar Regla de negocio: Comparación de atributos}, \IUref{IU9.1B}{Registrar Regla de negocio: Unicidad de parámetros} o \IUref{IU9.1C}{Registrar Regla de negocio: Formato correcto}, según corresponda.
 		\UCpaso[\UCactor] Ingresa la información solicitada en la pantalla correspondiente.
 		\UCpaso[\UCactor] Ingresa la redacción de la regla de negocio. \label{CU8.1-P9}
-		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU8-1:TAB}{[Trayectoria B]}
-		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU8-1:TAC}{[Trayectoria C]}
-		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU8-1:TAD}{[Trayectoria D]}
-		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU8-1:TAE}{[Trayectoria E]}
-		\UCpaso[\UCsist] Verifica que el número de la regla de negocio no se encuentre registrado con base en la regla de negocio \BRref{RN1}{Unicidad de números}. \hyperlink{CU8-1:TAF}{[Trayectoria F]}
-		\UCpaso[\UCsist] Verifica que el nombre de la regla de negocio no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU8-1:TAG}{[Trayectoria G]}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU8-1:TAC}{[Trayectoria C]}
+		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU8-1:TAD}{[Trayectoria D]}
+		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU8-1:TAE}{[Trayectoria E]}
+		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU8-1:TAF}{[Trayectoria F]}
+		\UCpaso[\UCsist] Verifica que el número de la regla de negocio no se encuentre registrado con base en la regla de negocio \BRref{RN1}{Unicidad de números}. \hyperlink{CU8-1:TAG}{[Trayectoria G]}
+		\UCpaso[\UCsist] Verifica que el nombre de la regla de negocio no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU8-1:TAH}{[Trayectoria H]}
 		\UCpaso[\UCsist] Registra la información de la regla de negocio en el sistema.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} para indicar al actor que el registro se ha realizado exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU8-1:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} El catálogo tipo de regla de negocio no tiene información.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU8-1:TAB}{\textbf{Trayectoria alternativa B}}\\
 \noindent \textbf{Condición:} La regla de negocio no requiere parámetros.
 \begin{enumerate}
 	\UCpaso[\UCactor] Continúa con el paso \ref{CU8.1-P9} de la trayectoria principal.
@@ -88,7 +97,7 @@
 \end{enumerate}
 	
 %--------------------------------------	
-\hypertarget{CU8-1:TAB}{\textbf{Trayectoria alternativa B}}\\
+\hypertarget{CU8-1:TAC}{\textbf{Trayectoria alternativa C}}\\
 \noindent \textbf{Condición:} El actor desea cancelar la operación.
 \begin{enumerate}
 	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la pantalla \IUref{IU9.1}{Registrar Regla de negocio}
@@ -96,7 +105,7 @@
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU8-1:TAC}{\textbf{Trayectoria alternativa C}}\\
+\hypertarget{CU8-1:TAD}{\textbf{Trayectoria alternativa D}}\\
 \noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU9.1}{Registrar Regla de negocio}.
@@ -104,7 +113,7 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU8-1:TAD}{\textbf{Trayectoria alternativa D}}\\
+\hypertarget{CU8-1:TAE}{\textbf{Trayectoria alternativa E}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU9.1}{Registrar Regla de negocio}.
@@ -112,7 +121,7 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------	
-\hypertarget{CU8-1:TAE}{\textbf{Trayectoria alternativa E}}\\
+\hypertarget{CU8-1:TAF}{\textbf{Trayectoria alternativa F}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU9.1}{Registrar Regla de negocio}.
@@ -120,7 +129,7 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU8-1:TAF}{\textbf{Trayectoria alternativa F}}\\
+\hypertarget{CU8-1:TAG}{\textbf{Trayectoria alternativa G}}\\
 \noindent \textbf{Condición:} El actor ingresó un número de regla de negocio repetido.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU9.1}{Registrar Regla de negocio}.
@@ -129,7 +138,7 @@
 \end{enumerate}
 
 %--------------------------------------	
-\hypertarget{CU8-1:TAG}{\textbf{Trayectoria alternativa G}}\\
+\hypertarget{CU8-1:TAH}{\textbf{Trayectoria alternativa H}}\\
 \noindent \textbf{Condición:} El actor ingresó un nombre de regla de negocio repetido.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU9.1}{Registrar Regla de negocio}.
