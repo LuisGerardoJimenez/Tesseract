@@ -13,6 +13,7 @@ import mx.tesseract.admin.entidad.ColaboradorProyecto;
 import mx.tesseract.admin.entidad.EstadoProyecto;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.admin.entidad.Rol;
+import mx.tesseract.dao.GenericoDAO;
 /*import mx.tesseract.bs.EstadoProyectoEnum;
 import mx.tesseract.bs.RolBs;
 import mx.tesseract.bs.RolBs.Rol_Enum;*/
@@ -34,24 +35,33 @@ import org.springframework.stereotype.Service;
 public class ProyectoBs {
 	
 	@Autowired
+	private GenericoDAO genericoDAO;
+	
+	@Autowired
 	private ProyectoDAO proyectoDAO;
 
-	/*public static Proyecto consultarProyecto(Integer idSel) {
-		Proyecto proyecto = new ProyectoDAO().consultarProyecto(idSel);
-		if(proyecto == null) {
-			throw new TESSERACTException("No se puede consultar el proyecto.",
-					"MSG13");
-		}
-		return proyecto;
-	}*/
-
 	public List<Proyecto> consultarProyectos() {
-		List<Proyecto> proyectos = proyectoDAO.findAll();
-		if(proyectos == null) {
-			throw new TESSERACTException("No se pueden consultar los proyectos.",
-					"MSG13");
+		List<Proyecto> proyectos = genericoDAO.findAll(Proyecto.class);
+		if(proyectos.size() == Constantes.NUMERO_CERO) {
+			throw new TESSERACTException("No se pueden consultar los proyectos.", "MSG13");
 		}
 		return proyectos;
+	}
+	
+	public List<Proyecto> consultarProyectosByColaborador(String curp) {
+		List<Proyecto> proyectos = proyectoDAO.findByCURPColaborador(curp);
+		if (proyectos.size() == Constantes.NUMERO_CERO) {
+			throw new TESSERACTException("No se pueden consultar los proyectos.", "MSG13");
+		}
+		return proyectos;
+	}
+	
+	public Proyecto consultarProyecto(Integer idSel) {
+		Proyecto proyecto = genericoDAO.findById(Proyecto.class, idSel);
+		if(proyecto == null) {
+			throw new TESSERACTException("No se puede consultar el proyecto.", "MSG13");
+		}
+		return proyecto;
 	}
 
 	/*public static void registrarProyecto(Proyecto model, String curpLider, int idEstadoProyecto, String presupuesto) throws Exception {
@@ -329,17 +339,6 @@ public class ProyectoBs {
 		}
 		
 		return estados;
-	}
-
-	public static List<Proyecto> findByColaborador(Colaborador colaborador) throws Exception {
-		List<Proyecto> proyectos = new ArrayList<Proyecto>();
-		try {
-			proyectos = new ProyectoDAO().findByColaborador(colaborador.getCurp());
-		} catch (HibernateException he) {
-			he.printStackTrace();
-			throw new Exception();
-		}
-
-		return proyectos;
 	}*/
+	
 }
