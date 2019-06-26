@@ -12,8 +12,10 @@
 			\item \cdtRef{casoUso}{Casos de uso}: Tabla que muestra \cdtRef{casoUso:claveCU}{clave} y \cdtRef{casoUso:nombreCU}{nombre} de todos los casos de uso registrados de un proyecto.
 			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} cuando no existen casos de uso registradas.
 	\end{itemize}}
-	\UCitem{Destino}{Pantalla}
-	\UCitem{Precondiciones}{Ninguna}
+	\UCitem{Precondiciones}{\begin{itemize}
+			\item Que existe al menos un proyecto registrado.
+			\item Que exista al menos un caso de uso registrado.
+	\end{itemize}}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{Ninguno}
 	\UCitem{Tipo}{Primario}
@@ -21,20 +23,24 @@
 %--------------------------------------
 \begin{UCtrayectoria}
 	\UCpaso[\UCactor] Solicita gestionar los casos de uso presionando el botón \UCsist de algún módulo de la pantalla \IUref{IU4}{Gestionar Módulos}
-	\UCpaso[\UCsist] Obtiene la información de todos los casos de uso registrados en cualquier estado del módulo seleccionado. \Trayref{GCU-A}
-	\UCpaso[\UCsist] Muestra la información de los casos de uso en la pantalla \IUref{IU6}{Gestionar Casos de uso} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}.
-	\UCpaso[\UCactor] Gestiona los casos de uso a través de los botones: \IUbutton{Registrar}, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}}, \editar, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/tray}}, \item \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/talt}}, \item \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/terminar}}, \eliminar . \label{CU12-P4}
+	\UCpaso[\UCsist] Obtiene la información de todos los casos de uso registrados en cualquier estado del módulo seleccionado. \hyperlink{CU12:TAA}{[Trayectoria A]}
+	\UCpaso[\UCsist] Ordena los casos de uso alfabéticamente con base en la clave de los mismos.
+	\UCpaso[\UCsist] Muestra la información de los casos de uso en la pantalla \IUref{IU6}{Gestionar Casos de uso} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}.\label{CU12-P4}
+	\UCpaso[\UCactor] Gestiona los casos de uso a través de los botones: \IUbutton{Registrar}, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}}, \editar, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/tray}}, \item \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/talt}}, \item \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/terminar}}, \eliminar . 
 \end{UCtrayectoria}		
 %--------------------------------------
-\begin{UCtrayectoriaA}{GCU-A}{No existen registros de casos de uso.}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU6}{Gestionar Casos de uso} para indicar que no hay registros de casos de uso para mostrar.
-\end{UCtrayectoriaA}
-
+\hypertarget{CU12:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} No existen registros de casos de uso
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU6A}{Gestionar Casos de uso} para indicar que no hay registros de casos de uso para mostrar. \label{CU12-TA1}
+	\UCpaso[\UCactor] Gestiona los casos de uso a través del botón: \IUbutton{Registrar}. 
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
 %--------------------------------------
 
 \subsubsection{Puntos de extensión}
 
-\UCExtenssionPoint{El actor requiere registrar un caso de uso.}{Paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.1}{Registrar Caso de uso}}
+\UCExtenssionPoint{El actor requiere registrar un caso de uso.}{Paso \ref{CU12-P4} de la trayectoria principal o del paso \ref{CU12-TA1} de la trayectoria alternativa A.}{\UCref{CU12.1}{Registrar Caso de uso}}
 \UCExtenssionPoint{El actor requiere modificar un casos de uso.}{Paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.2}{Modificar Caso de uso}}
 \UCExtenssionPoint{El actor requiere gestionar las trayectorias de un caso de uso.}{Paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.1.1}{Gestionar Trayectorias}}
 \UCExtenssionPoint{El actor requiere gestionar los puntos de extensión de un caso de uso.}{Paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.1.6}{Gestionar Puntos de extensión}}
