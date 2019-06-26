@@ -48,17 +48,50 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
+	
+	@Column(name = "clave", unique = true, nullable = false, length = 10)
 	private String clave;
+	
+	@Column(name = "nombre", unique = true, nullable = false, length = 50)
 	private String nombre;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "fechaInicioProgramada", nullable = false, length = 10)
 	private Date fechaInicioProgramada;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "fechaTerminoProgramada", nullable = false, length = 10)
 	private Date fechaTerminoProgramada;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "fechaInicio", length = 10)
 	private Date fechaInicio;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "fechaTermino", length = 10)
 	private Date fechaTermino;
+	
+	@Column(name = "descripcion", nullable = false, length = 1000)
 	private String descripcion;
+	
+	@Column(name = "presupuesto", precision = 22, scale = 0)
 	private Double presupuesto;
+	
+	@Column(name = "contraparte", nullable = false, length = 100)
 	private String contraparte;
+
+	@Column(name = "EstadoProyectoid")
+	private Integer idEstadoProyecto;
+	
+	@JoinColumn(name = "EstadoProyectoid", referencedColumnName = "id", insertable = false, updatable = false)
 	private EstadoProyecto estadoProyecto;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ColaboradorProyecto> proyecto_colaboradores = new HashSet<ColaboradorProyecto>(0);
 
 	public Proyecto() {
@@ -95,9 +128,6 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 	//@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
 	//@IntRangeFieldValidator(message = "%{getText('MSG14',{'El', 'identificador', '0', '2147483647'})}", shortCircuit = true, min = "0", max = "2147483647")
 	//@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5',{'un', 'número'})}", regex = Constantes.REGEX_CAMPO_NUMERICO_ENTERO, shortCircuit = true)
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
 	}
@@ -109,7 +139,6 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 	//@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	//@StringLengthFieldValidator(message = "%{getText('MSG6',{'10', 'caracteres'})}", trim = true, maxLength = "10", shortCircuit= true)
 	//@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFANUMERICO_MAYUSCULAS_SIN_ESPACIOS, shortCircuit = true)
-	@Column(name = "clave", unique = true, nullable = false, length = 10)
 	public String getClave() {
 		return this.clave;
 	}
@@ -121,7 +150,6 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 	//@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	//@StringLengthFieldValidator(message = "%{getText('MSG6',{'50', 'caracteres'})}", trim = true, maxLength = "50", shortCircuit= true)
 	//@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFANUMERICO, shortCircuit = true)
-	@Column(name = "nombre", unique = true, nullable = false, length = 50)
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -131,8 +159,6 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 	}
 
 	//@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-	@Temporal(TemporalType.DATE)
-	@Column(name = "fechaInicioProgramada", nullable = false, length = 10)
 	public Date getFechaInicioProgramada() {
 		return this.fechaInicioProgramada;
 	}
@@ -142,8 +168,6 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 	}
 
 	//@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-	@Temporal(TemporalType.DATE)
-	@Column(name = "fechaTerminoProgramada", nullable = false, length = 10)
 	public Date getFechaTerminoProgramada() {
 		return this.fechaTerminoProgramada;
 	}
@@ -152,8 +176,6 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 		this.fechaTerminoProgramada = fechaTerminoProgramada;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "fechaInicio", length = 10)
 	public Date getFechaInicio() {
 		return this.fechaInicio;
 	}
@@ -162,8 +184,6 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 		this.fechaInicio = fechaInicio;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "fechaTermino", length = 10)
 	public Date getFechaTermino() {
 		return this.fechaTermino;
 	}
@@ -175,7 +195,6 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 	//@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	//@StringLengthFieldValidator(message = "%{getText('MSG6',{'999', 'caracteres'})}", trim = true, maxLength = "999", shortCircuit= true)
 	//@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES, shortCircuit = true)
-	@Column(name = "descripcion", nullable = false, length = 1000)
 	public String getDescripcion() {
 		return this.descripcion;
 	}
@@ -184,7 +203,6 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 		this.descripcion = descripcion;
 	}
 
-	@Column(name = "presupuesto", precision = 22, scale = 0)
 	public Double getPresupuesto() {
 		return this.presupuesto;
 	}
@@ -196,7 +214,6 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 	//@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	//@StringLengthFieldValidator(message = "%{getText('MSG6',{'45', 'caracteres'})}", trim = true, maxLength = "45", shortCircuit= true)
 	//@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES, shortCircuit = true)
-	@Column(name = "contraparte", nullable = false, length = 100)
 	public String getContraparte() {
 		return this.contraparte;
 	}
@@ -205,9 +222,15 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 		this.contraparte = contraparte;
 	}
 	
+	public Integer getIdEstadoProyecto() {
+		return idEstadoProyecto;
+	}
+
+	public void setIdEstadoProyecto(Integer idEstadoProyecto) {
+		this.idEstadoProyecto = idEstadoProyecto;
+	}
+	
 	//@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "EstadoProyectoid", nullable = false)
 	public EstadoProyecto getEstadoProyecto() {
 		return estadoProyecto;
 	}
@@ -216,7 +239,6 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 		this.estadoProyecto = estadoProyecto;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true)
 	public Set<ColaboradorProyecto> getProyecto_colaboradores() {
 		return proyecto_colaboradores;
 	}
