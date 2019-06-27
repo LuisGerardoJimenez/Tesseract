@@ -8,18 +8,24 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.io.Serializable;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "rol")
-public class Rol implements java.io.Serializable {
+public class Rol implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id")
 	private Integer id;
+
+	@Column(name = "nombre")
 	private String nombre;
 
 	public Rol() {
@@ -29,9 +35,6 @@ public class Rol implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
 	}
@@ -40,7 +43,6 @@ public class Rol implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "nombre", nullable = false, length = 45)
 	public String getNombre() {
 		return this.nombre;
 	}
