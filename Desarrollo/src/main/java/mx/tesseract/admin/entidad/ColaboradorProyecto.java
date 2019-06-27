@@ -20,14 +20,24 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "colaborador_proyecto", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"ColaboradorCURP", "Proyectoid" }))
 public class ColaboradorProyecto implements java.io.Serializable {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	private int id;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ColaboradorCURP", nullable = false)
 	private Colaborador colaborador;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "Rolid", nullable = false)
 	private Rol rol;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "Proyectoid")
 	private Proyecto proyecto;
 
 	public ColaboradorProyecto() {
@@ -41,9 +51,6 @@ public class ColaboradorProyecto implements java.io.Serializable {
 
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -52,8 +59,6 @@ public class ColaboradorProyecto implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ColaboradorCURP", nullable = false)
 	public Colaborador getColaborador() {
 		return colaborador;
 	}
@@ -62,8 +67,6 @@ public class ColaboradorProyecto implements java.io.Serializable {
 		this.colaborador = colaborador;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Rolid", nullable = false)
 	public Rol getRol() {
 		return rol;
 	}
@@ -72,8 +75,6 @@ public class ColaboradorProyecto implements java.io.Serializable {
 		this.rol = rol;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Proyectoid")
 	public Proyecto getProyecto() {
 		return proyecto;
 	}
