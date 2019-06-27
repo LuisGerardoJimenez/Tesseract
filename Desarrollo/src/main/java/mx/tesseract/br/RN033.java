@@ -11,10 +11,10 @@ import mx.tesseract.admin.entidad.Colaborador;
 @Service("rN033")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class RN033 {
-	
+
 	@Autowired
 	private ColaboradorDAO colaboradorDAO;
-	
+
 	public Boolean isValidRN033(Colaborador entidad) {
 		Boolean valido = true;
 		Colaborador colaborador = colaboradorDAO.findColaboradorByCURP(entidad.getCurp());
@@ -23,5 +23,5 @@ public class RN033 {
 		}
 		return valido;
 	}
-	
+
 }
