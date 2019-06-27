@@ -51,43 +51,41 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
+	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "clave", unique = true, nullable = false, length = 10)
+	@Column(name = "clave")
 	private String clave;
 	
-	@Column(name = "nombre", unique = true, nullable = false, length = 50)
+	@Column(name = "nombre")
 	private String nombre;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "fechaInicioProgramada", nullable = false, length = 10)
+	@Column(name = "fechaInicioProgramada")
 	private Date fechaInicioProgramada;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "fechaTerminoProgramada", nullable = false, length = 10)
+	@Column(name = "fechaTerminoProgramada")
 	private Date fechaTerminoProgramada;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "fechaInicio", length = 10)
+	@Column(name = "fechaInicio")
 	private Date fechaInicio;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "fechaTermino", length = 10)
+	@Column(name = "fechaTermino")
 	private Date fechaTermino;
 	
-	@Column(name = "descripcion", nullable = false, length = 1000)
+	@Column(name = "descripcion")
 	private String descripcion;
 	
-	@Column(name = "presupuesto", precision = 22, scale = 0)
+	@Column(name = "presupuesto")
 	private Double presupuesto;
 	
-	@Column(name = "contraparte", nullable = false, length = 100)
+	@Column(name = "contraparte")
 	private String contraparte;
 
-	@Column(name = "EstadoProyectoid")
-	private Integer idEstadoProyecto;
-	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "EstadoProyectoid", referencedColumnName = "id", insertable = false, updatable = false)
 	private EstadoProyecto estadoProyecto;
 	
@@ -220,14 +218,6 @@ public class Proyecto implements java.io.Serializable, GenericInterface {
 
 	public void setContraparte(String contraparte) {
 		this.contraparte = contraparte;
-	}
-	
-	public Integer getIdEstadoProyecto() {
-		return idEstadoProyecto;
-	}
-
-	public void setIdEstadoProyecto(Integer idEstadoProyecto) {
-		this.idEstadoProyecto = idEstadoProyecto;
 	}
 	
 	//@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)

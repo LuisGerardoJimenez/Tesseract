@@ -57,7 +57,6 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 
 	public void validateCreate() {
 		if (!hasErrors()) {
-			System.out.println("Pasale prro >:v");
 			try {
 				colaboradorBs.registrarColaborador(model);
 			} catch (TESSERACTValidacionException tve) {
@@ -70,10 +69,6 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
 			}
-		} else {
-			System.out.println("Hay errores prro >:v");
-			Map mapa = getFieldErrors();
-			System.out.println("mapa: " + mapa);
 		}
 	}
 
