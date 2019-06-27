@@ -33,25 +33,32 @@ public class ColaboradorDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Colaborador findColaboradorByCorreo(String correo) {
+	public Colaborador findColaboradorByCorreoAndCurp(String curp, String correo) {
 		Colaborador colaborador = null;
 		try {
-			System.out.println("-------------------------> Voy a buscar prro >:v");
-			Query query = entityManager.createNativeQuery("SELECT c.* FROM colaborador c WHERE c.correoelectronico = ?", Colaborador.class);
+			System.out.println("-------------------------> Voy a buscar");
+			Query query = entityManager.createNativeQuery("SELECT c.* FROM colaborador c WHERE c.correoelectronico = ? AND c.curp != ?", Colaborador.class);
 			query.setParameter(Constantes.NUMERO_UNO, correo);
-			System.out.println("-------------------------> Query creado");
+			query.setParameter(Constantes.NUMERO_DOS, curp);
 			List<Colaborador> lista = (List<Colaborador>) query.getResultList();
-			System.out.println("-------------------------> Resultados encontrados");
-			for (Colaborador c : lista) {
-				System.out.println("Colaborador: "+c.getNombre());
-				System.out.println("CURP: "+c.getCurp());
-				System.out.println("Correo: "+c.getCorreoElectronico());
-			}
 			if (lista.isEmpty()) {
 				colaborador = null;
 			} else {
 				colaborador = lista.get(Constantes.NUMERO_CERO);
 			}
+		} catch (Exception e) {
+			System.err.print(e.getMessage());
+		}
+		return colaborador;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Colaborador findColaboradorByCorreo(String correo) {
+		Colaborador colaborador = null;
+		try {
+			Query query = entityManager.createNamedQuery("Colaborador.findColaboradorByCorreo", Colaborador.class);
+			query.setParameter(Constantes.NUMERO_UNO, correo);
+			colaborador = (Colaborador) query.getSingleResult();
 		} catch (Exception e) {
 			System.err.print(e.getMessage());
 		}

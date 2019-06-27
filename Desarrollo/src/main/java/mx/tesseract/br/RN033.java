@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import mx.tesseract.admin.dao.ColaboradorDAO;
 import mx.tesseract.admin.entidad.Colaborador;
 
-@Service("RN033")
+@Service("rN033")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class RN033 {
 	
