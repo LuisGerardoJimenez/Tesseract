@@ -11,7 +11,7 @@
   	<script src="${pageContext.request.contextPath}/resources/template/themes/smoothness-prisma/jquery-ui.js"></script>
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/constructores.js"></script>
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/validaciones.js"></script>
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/administrador/proyectos-admin/js/index-editNew.js"></script>	
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/administrador/proyectos-admin/js/index-editNew.js"></script>	
 ]]>
 
 </head>
@@ -91,14 +91,14 @@
 								theme="jquery" /></td>
 					</tr>
 					
-					<tr>
+					<!--<tr>
 						<td class="label obligatorio"><s:text name="labelLider" /></td>
 						<td><s:select name="curpLider" list="listPersonas" headerValue="Seleccione" headerKey="-1"
 								listKey="curp" listValue="nombre + ' ' + apellidoPaterno + ' ' + apellidoMaterno" value="curpLider"
 								cssErrorClass="select-error" cssClass="inputFormulario ui-widget" />
 							<s:fielderror fieldName ="curpLider" cssClass="error"
 								theme="jquery" /></td>
-					</tr>
+					</tr> -->
 					
 					<tr>
 						<td class="label obligatorio"><s:text name="labelDescripcion" /></td>
@@ -118,18 +118,19 @@
 					
 					<tr>
 						<td class="label"><s:text name="labelPresupuesto" /></td>
-						<td><s:textfield name="presupuestoString" maxlength="12"
-								cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
-							<s:fielderror fieldName ="presupuestoString" cssClass="error"
+						<td><s:textfield name="model.presupuesto" maxlength="12"
+								cssErrorClass="input-error" cssClass="inputFormulario ui-widget"
+								type="number" step="0.01"/>
+							<s:fielderror fieldName ="model.presupuesto" cssClass="error"
 								theme="jquery" /></td>
 					</tr>
 					
 					<tr>
 						<td class="label obligatorio"><s:text name="labelEstado" /></td>
-						<td><s:select name="idEstadoProyecto" list="listEstadosProyecto" headerValue="Seleccione" headerKey="-1"
-								listKey="id" listValue="nombre" value="idEstadoProyecto"
+						<td><s:select name="model.estadoProyecto.id" list="listEstadosProyecto" headerValue="Seleccione" headerKey="-1"
+								listKey="id" listValue="nombre" value="model.estadoProyecto.id"
 								cssErrorClass="select-error" cssClass="inputFormulario ui-widget" />
-							<s:fielderror fieldName ="idEstadoProyecto" cssClass="error"
+							<s:fielderror fieldName ="model.estadoProyecto.id" cssClass="error"
 								theme="jquery" /></td>
 					</tr>
 					

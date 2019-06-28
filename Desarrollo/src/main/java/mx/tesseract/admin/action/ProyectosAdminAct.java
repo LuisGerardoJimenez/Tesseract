@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import mx.tesseract.admin.bs.ColaboradorBs;
+import mx.tesseract.admin.bs.EstadoProyectoBs;
 import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.EstadoProyecto;
@@ -41,28 +42,31 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 	         @TypeConversion(key = "model.fechaTerminoProgramada", converter = "mx.tesseract.util.StrutsDateConverter")
 	    }
 	)
-public class ProyectosAdminAct extends ActionSupportTESSERACT implements
-ModelDriven<Proyecto>, SessionAware{
-	private Proyecto model;
+public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDriven<Proyecto>{
+	
 	private static final long serialVersionUID = 1L;
-	private Map<String, Object> userSession;
+	private Proyecto model;
 	private List<Proyecto> listProyectos;
 	private List<EstadoProyecto> listEstadosProyecto;
 	private List<Colaborador> listPersonas;
 	private Integer idSel;
-	private int idEstadoProyecto;
 	private String curpLider;
 	private String presupuestoString;
 	
 	@Autowired
 	private ProyectoBs proyectoBs;
 	
-	public String index() throws Exception {
+	@Autowired
+	private ColaboradorBs colaboradorBs;
+	
+	@Autowired
+	private EstadoProyectoBs estadoProyectoBs;
+	
+	@SuppressWarnings("unchecked")
+	public String index() {
 		try {
 			listProyectos = proyectoBs.consultarProyectos();
-			@SuppressWarnings("unchecked")
-			Collection<String> msjs = (Collection<String>) SessionManager
-					.get("mensajesAccion");
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
 		} catch (TESSERACTException pe) {
@@ -73,31 +77,37 @@ ModelDriven<Proyecto>, SessionAware{
 		return INDEX;
 	}
 	
-	/*public String editNew() throws Exception {
-		String resultado;
+	public String editNew() {
+		String resultado = INDEX;
 		try {
 			buscarCatalogos();
 			resultado = EDITNEW;
 		} catch (TESSERACTException pe) {
 			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
 		}
 		return resultado;
 	}
 	
 	private void buscarCatalogos() {
-		listEstadosProyecto = ProyectoBs.consultarEstadosProyectoRegistro();
-		listPersonas = ColaboradorBs.consultarPersonal();
+		listPersonas = colaboradorBs.consultarPersonal();
+		listEstadosProyecto = estadoProyectoBs.consultarEstados();
 	}
 	
-	private void buscarCatalogosModificacion() {
-		listEstadosProyecto = ProyectoBs.consultarEstadosProyecto();
-		listPersonas = ColaboradorBs.consultarPersonal();
-	}*/
+//	private void buscarCatalogosModificacion() {
+//		listEstadosProyecto = ProyectoBs.consultarEstadosProyecto();
+//		listPersonas = ColaboradorBs.consultarPersonal();
+//	}
 
+	public void validateCreate() {
+		if(!hasErrors()) {
+			
+		} else {
+			editNew();
+		}
+	}
+	
 	public String create() throws Exception {
 		String resultado = "";
 		try {
@@ -137,14 +147,14 @@ ModelDriven<Proyecto>, SessionAware{
 		return resultado;
 	}
 
-	/*private void prepararVista() {
-		idEstadoProyecto = model.getEstadoProyecto().getId();
-		curpLider = ProyectoBs.consultarColaboradorProyectoLider(model).getColaborador().getCurp();
-		if (!Validador.esNulo(model.getPresupuesto())) {
-			DecimalFormat df2 = new DecimalFormat(".##");
-			presupuestoString = df2.format(model.getPresupuesto()).toString();
-		}
-	}*/
+//	private void prepararVista() {
+//		idEstadoProyecto = model.getEstadoProyecto().getId();
+//		curpLider = ProyectoBs.consultarColaboradorProyectoLider(model).getColaborador().getCurp();
+//		if (!Validador.esNulo(model.getPresupuesto())) {
+//			DecimalFormat df2 = new DecimalFormat(".##");
+//			presupuestoString = df2.format(model.getPresupuesto()).toString();
+//		}
+//	}
 
 	public String update() throws Exception {
 		String resultado;
@@ -185,32 +195,32 @@ ModelDriven<Proyecto>, SessionAware{
 		return resultado;
 	}
 	
-	//@VisitorFieldValidator
+	@VisitorFieldValidator
 	public Proyecto getModel() {
 		return (model == null) ? model = new Proyecto() : model;
 	}
+	
 	public void setModel(Proyecto model) {
 		this.model = model;
 	}
-	public Map<String, Object> getUserSession() {
-		return userSession;
-	}
-	public void setUserSession(Map<String, Object> userSession) {
-		this.userSession = userSession;
-	}
+	
 	public List<Proyecto> getListProyectos() {
 		return listProyectos;
 	}
+	
 	public void setListProyectos(List<Proyecto> listProyectos) {
 		this.listProyectos = listProyectos;
 	}
+	
 	public Integer getIdSel() {
 		return idSel;
 	}
+	
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
-		//model = ProyectoBs.consultarProyecto(idSel);
+		model = proyectoBs.consultarProyecto(idSel);
 	}
+	
 	public void setSession(Map<String, Object> session) {
 		
 	}
@@ -221,14 +231,6 @@ ModelDriven<Proyecto>, SessionAware{
 
 	public void setListEstadosProyecto(List<EstadoProyecto> listEstadosProyecto) {
 		this.listEstadosProyecto = listEstadosProyecto;
-	}
-
-	public int getIdEstadoProyecto() {
-		return idEstadoProyecto;
-	}
-
-	public void setIdEstadoProyecto(int idEstadoProyecto) {
-		this.idEstadoProyecto = idEstadoProyecto;
 	}
 
 	public String getCurpLider() {
@@ -254,7 +256,5 @@ ModelDriven<Proyecto>, SessionAware{
 	public void setPresupuestoString(String presupuesto) {
 		this.presupuestoString = presupuesto;
 	}
-	
-	
 
 }

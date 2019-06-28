@@ -6,6 +6,8 @@ package mx.tesseract.admin.entidad;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,25 +19,25 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "colaborador_proyecto", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"ColaboradorCURP", "Proyectoid" }))
-public class ColaboradorProyecto implements java.io.Serializable {
-	
+@Table(name = "colaborador_proyecto", uniqueConstraints = @UniqueConstraint(columnNames = { "ColaboradorCURP",
+		"Proyectoid" }))
+public class ColaboradorProyecto implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private int id;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ColaboradorCURP", nullable = false)
 	private Colaborador colaborador;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Rolid", nullable = false)
 	private Rol rol;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Proyectoid")
 	private Proyecto proyecto;
@@ -43,8 +45,7 @@ public class ColaboradorProyecto implements java.io.Serializable {
 	public ColaboradorProyecto() {
 	}
 
-	public ColaboradorProyecto(Colaborador colaborador, Rol rol,
-			Proyecto proyecto) {
+	public ColaboradorProyecto(Colaborador colaborador, Rol rol, Proyecto proyecto) {
 		this.colaborador = colaborador;
 		this.rol = rol;
 		this.proyecto = proyecto;
