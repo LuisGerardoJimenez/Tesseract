@@ -91,7 +91,14 @@
 								theme="jquery" /></td>
 					</tr>
 					
-					
+					<!--<tr>
+						<td class="label obligatorio"><s:text name="labelLider" /></td>
+						<td><s:select name="curpLider" list="listPersonas" headerValue="Seleccione" headerKey="-1"
+								listKey="curp" listValue="nombre + ' ' + apellidoPaterno + ' ' + apellidoMaterno" value="curpLider"
+								cssErrorClass="select-error" cssClass="inputFormulario ui-widget" />
+							<s:fielderror fieldName ="curpLider" cssClass="error"
+								theme="jquery" /></td>
+					</tr> -->
 					
 					<tr>
 						<td class="label obligatorio"><s:text name="labelDescripcion" /></td>
@@ -111,9 +118,10 @@
 					
 					<tr>
 						<td class="label"><s:text name="labelPresupuesto" /></td>
-						<td><s:textfield name="presupuestoString" maxlength="12"
-								cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
-							<s:fielderror fieldName ="presupuestoString" cssClass="error"
+						<td><s:textfield name="model.presupuesto" maxlength="12"
+								cssErrorClass="input-error" cssClass="inputFormulario ui-widget"
+								type="number" step="0.01"/>
+							<s:fielderror fieldName ="model.presupuesto" cssClass="error"
 								theme="jquery" /></td>
 					</tr>
 					

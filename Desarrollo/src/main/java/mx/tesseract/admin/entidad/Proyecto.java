@@ -27,6 +27,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import com.opensymphony.xwork2.validator.annotations.DoubleRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
@@ -195,7 +196,8 @@ public class Proyecto implements Serializable, GenericInterface {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
+	
+	@DoubleRangeFieldValidator(message = "%{getText('MSG6',{'12', 'digitos'})}", minInclusive = "0.00", maxInclusive = "999999999.99", shortCircuit= true)
 	public Double getPresupuesto() {
 		return this.presupuesto;
 	}

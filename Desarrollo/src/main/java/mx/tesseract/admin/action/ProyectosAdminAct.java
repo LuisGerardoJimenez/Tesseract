@@ -50,7 +50,6 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 	private List<EstadoProyecto> listEstadosProyecto;
 	private List<Colaborador> listPersonas;
 	private Integer idSel;
-	private int idEstadoProyecto;
 	private String curpLider;
 	private String presupuestoString;
 	
@@ -102,15 +101,9 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 //	}
 
 	public void validateCreate() {
-		if(hasErrors()) {
-			System.out.println("Putos pinches errores prro >:v");
-			if(hasActionErrors()) {
-				System.out.println("Putos pinches Action errors prro >:v");
-				System.out.println(getActionErrors());
-			} else {
-				System.out.println("Putos pinches Field errors prro >:v");
-				System.out.println(getFieldErrors());
-			}
+		if(!hasErrors()) {
+			
+		} else {
 			editNew();
 		}
 	}
@@ -238,14 +231,6 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 
 	public void setListEstadosProyecto(List<EstadoProyecto> listEstadosProyecto) {
 		this.listEstadosProyecto = listEstadosProyecto;
-	}
-
-	public int getIdEstadoProyecto() {
-		return idEstadoProyecto;
-	}
-
-	public void setIdEstadoProyecto(int idEstadoProyecto) {
-		this.idEstadoProyecto = idEstadoProyecto;
 	}
 
 	public String getCurpLider() {
