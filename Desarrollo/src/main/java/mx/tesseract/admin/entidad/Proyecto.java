@@ -88,7 +88,7 @@ public class Proyecto implements Serializable, GenericInterface {
 	@JoinColumn(name = "EstadoProyectoid", referencedColumnName = "id", insertable = false, updatable = false)
 	private EstadoProyecto estadoProyecto;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "proyecto")
 	private Set<ColaboradorProyecto> proyecto_colaboradores = new HashSet<ColaboradorProyecto>(0);
 
 	public Proyecto() {

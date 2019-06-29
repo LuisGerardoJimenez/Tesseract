@@ -64,26 +64,26 @@ public class ProyectoBs {
 		return proyecto;
 	}
 
-	public void registrarProyecto(Proyecto model, String curpLider, int idEstadoProyecto, String presupuesto){
-		try {
-			validar(model, curpLider, idEstadoProyecto, presupuesto);
-			//ProyectoBs.agregarEstado(model, idEstadoProyecto);
-			//ProyectoBs.agregarLider(model, curpLider);
-			new ProyectoDAO().registrarProyecto(model);
-		} catch (JDBCException je) {
-			if (je.getErrorCode() == 1062) {
-				throw new TESSERACTValidacionException("El Proyecto"
-						+ model.getClave() + " " + model.getNombre() + " ya existe.", "MSG7");
-			}
-			System.out.println("ERROR CODE " + je.getErrorCode());
-			je.printStackTrace();
-			throw new Exception();
-		} catch (HibernateException he) {
-			he.printStackTrace();
-			throw new Exception();
-		}
-		
-	}
+//	public void registrarProyecto(Proyecto model, String curpLider, int idEstadoProyecto, String presupuesto){
+//		try {
+//			validar(model, curpLider, idEstadoProyecto, presupuesto);
+//			//ProyectoBs.agregarEstado(model, idEstadoProyecto);
+//			//ProyectoBs.agregarLider(model, curpLider);
+//			new ProyectoDAO().registrarProyecto(model);
+//		} catch (JDBCException je) {
+//			if (je.getErrorCode() == 1062) {
+//				throw new TESSERACTValidacionException("El Proyecto"
+//						+ model.getClave() + " " + model.getNombre() + " ya existe.", "MSG7");
+//			}
+//			System.out.println("ERROR CODE " + je.getErrorCode());
+//			je.printStackTrace();
+//			throw new Exception();
+//		} catch (HibernateException he) {
+//			he.printStackTrace();
+//			throw new Exception();
+//		}
+//		
+//	}
 	
 //	public static void modificarProyecto(Proyecto model, String curpLider, int idEstadoProyecto, String presupuestoString) throws Exception {
 //		try {
