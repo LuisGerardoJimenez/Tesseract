@@ -1,7 +1,6 @@
 	\begin{UseCase}{CU12.4}{Consultar Caso de uso}{
 		Este caso de uso permite al analista consultar toda la información de un caso de uso, así mismo brindará la posibilidad de acceder a la consulta de cualquier elemento utilizado.
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Consultar la información de un caso de uso de un proyecto.}
 		\UCitem{Entradas}{Ninguna}
@@ -50,28 +49,30 @@
 							\end{itemize}
 					\end{itemize}
 		\end{itemize}}
-		\UCitem{Destino}{Pantalla}
 		\UCitem{Precondiciones}{Ninguna}
 		\UCitem{Postcondiciones}{Ninguna}
 		\UCitem{Errores}{\begin{itemize}
-		\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} cuando el actor que se desea consultar no existe.
+		\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} cuando el caso de uso que se desea consultar no existe.
 		\end{itemize}
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12}{Gestionar Casos de uso}.}
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita consultar un caso de uso oprimiendo el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} del registro que desea consultar del caso de uso \IUref{IU6}{Gestionar Casos de uso}.
-		\UCpaso[\UCsist] Obtiene la información del caso de uso seleccionado. \Trayref{CCU-A}
-		\UCpaso[\UCsist] Muestra la información encontrada en la pantalla \IUref{IU6.3}{Consultar Caso de uso}.
-		\UCpaso[\UCactor] Consulta la información del caso de uso. \label{CU12.4-P4}
-		\UCpaso[\UCactor] Solicita finalizar oprimiendo el botón \IUref{Regresar} de la pantalla \IUref{IU6.3}{Consultar Caso de uso}.
+		\UCpaso[\UCactor] Da clic en el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} de un registro de la pantalla \IUref{IU6}{Gestionar Casos de uso}.
+		\UCpaso[\UCsist] Obtiene la información del caso de uso seleccionado. \hyperlink{CU12-4:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.3}{Consultar Caso de uso}. \label{CU12.4-P4}
+		\UCpaso[\UCactor] Consulta la información del caso de uso.
+		\UCpaso[\UCactor] Finaliza la consulta oprimiendo el botón \IUref{Regresar}.
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6}{Gestionar Casos de uso}.
 	\end{UCtrayectoria}		
 %--------------------------------------
-	
-	\begin{UCtrayectoriaA}{CCU-A}{El caso de uso que se desea consultar no existe.}
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6}{Gestionar Casos de uso} con el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error}.
-	\end{UCtrayectoriaA}
+\hypertarget{CU12-4:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} El caso de uso que se desea consultar no existe.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU6}{Gestionar Casos de uso}.
+	\item[- -] - - {\em {Fin del caso de uso}}.
+\end{enumerate}
 
 
 \subsubsection{Puntos de extensión}
