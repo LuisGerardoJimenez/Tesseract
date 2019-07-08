@@ -6,7 +6,7 @@
 		\UCitem{Entradas}{Ninguna}
 		\UCitem{Salidas}{\begin{itemize}
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} para indicar que la pantalla fue eliminada correctamente.
-				\item \cdtIdRef{MSG10}{Confirmar eliminación}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} para que el actor confirme la eliminación.
+				\item \cdtIdRef{MSG10}{Confirmar eliminación}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} preguntando al actor si desea continuar con la eliminación del caso de uso.
 		\end{itemize}}
 		\UCitem{Precondiciones}{
 				Que el caso de uso se encuentre en estado ''Edición'' o ''Pendiente de corrección''.
@@ -14,9 +14,8 @@
 		\UCitem{Postcondiciones}{
 			Se eliminará una pantalla un caso de uso del sistema.
 		}
-		\UCitem{Errores}{\begin{itemize}
-		\item \cdtIdRef{MSG13}{Eliminación no permitida}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} cuando no se pueda eliminar el caso de uso debido a que está siendo referenciado en algún caso de uso.
-		\end{itemize}
+		\UCitem{Errores}{
+		\cdtIdRef{MSG13}{Eliminación no permitida}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} cuando no se pueda eliminar el caso de uso debido a que está siendo referenciado en algún caso de uso.
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12}{Gestionar Casos de uso}.}
 	\end{UseCase}
