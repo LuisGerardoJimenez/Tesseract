@@ -11,6 +11,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.io.Serializable;
 
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
@@ -20,6 +22,10 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
+
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "EstadoProyecto.findAllWithoutFinished", query = "SELECT ep.* FROM estadoproyecto ep WHERE ep.id != ?", resultClass = EstadoProyecto.class),
+	})
 @Entity
 @Table(name = "estadoproyecto")
 public class EstadoProyecto implements Serializable, GenericInterface {

@@ -50,8 +50,6 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 	private List<EstadoProyecto> listEstadosProyecto;
 	private List<Colaborador> listPersonas;
 	private Integer idSel;
-	private String curpLider;
-	private String presupuestoString;
 	
 	@Autowired
 	private ProyectoBs proyectoBs;
@@ -92,7 +90,7 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 	
 	private void buscarCatalogos() {
 		listPersonas = colaboradorBs.consultarPersonal();
-		listEstadosProyecto = estadoProyectoBs.consultarEstados();
+		listEstadosProyecto = estadoProyectoBs.consultarEstadosNoTerminado();
 	}
 	
 //	private void buscarCatalogosModificacion() {
@@ -102,7 +100,7 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 
 	public void validateCreate() {
 		if(!hasErrors()) {
-			
+			System.out.println("Vamos a agregar proyecto");
 		} else {
 			editNew();
 		}
@@ -233,28 +231,12 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 		this.listEstadosProyecto = listEstadosProyecto;
 	}
 
-	public String getCurpLider() {
-		return curpLider;
-	}
-
-	public void setCurpLider(String curpLider) {
-		this.curpLider = curpLider;
-	}
-
 	public List<Colaborador> getListPersonas() {
 		return listPersonas;
 	}
 
 	public void setListPersonas(List<Colaborador> listPersonas) {
 		this.listPersonas = listPersonas;
-	}
-
-	public String getPresupuestoString() {
-		return presupuestoString;
-	}
-
-	public void setPresupuestoString(String presupuesto) {
-		this.presupuestoString = presupuesto;
 	}
 
 }

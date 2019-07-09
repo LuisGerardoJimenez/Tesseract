@@ -25,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import com.opensymphony.xwork2.validator.annotations.DoubleRangeFieldValidator;
@@ -88,8 +89,11 @@ public class Proyecto implements Serializable, GenericInterface {
 	@JoinColumn(name = "EstadoProyectoid", referencedColumnName = "id", insertable = false, updatable = false)
 	private EstadoProyecto estadoProyecto;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "proyecto")
 	private Set<ColaboradorProyecto> proyecto_colaboradores = new HashSet<ColaboradorProyecto>(0);
+	
+	@Transient
+	private String colaboradorCurp;
 
 	public Proyecto() {
 	}
@@ -197,7 +201,7 @@ public class Proyecto implements Serializable, GenericInterface {
 		this.descripcion = descripcion;
 	}
 	
-	@DoubleRangeFieldValidator(message = "%{getText('MSG6',{'12', 'digitos'})}", minInclusive = "0.00", maxInclusive = "999999999.99", shortCircuit= true)
+	@DoubleRangeFieldValidator(message = "%{getText('MSG6',{'12', 'digitos positivos'})}", minInclusive = "0.00", maxInclusive = "999999999.99", shortCircuit= true)
 	public Double getPresupuesto() {
 		return this.presupuesto;
 	}
@@ -234,6 +238,15 @@ public class Proyecto implements Serializable, GenericInterface {
 			Set<ColaboradorProyecto> proyecto_colaboradores) {
 		this.proyecto_colaboradores = proyecto_colaboradores;
 	}
-
+	
+	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_COMBO_BOX_STRING, shortCircuit = true)
+	public String getColaboradorCurp() {
+		return colaboradorCurp;
+	}
+	
+	public void setColaboradorCurp(String colaboradorCurp) {
+		this.colaboradorCurp = colaboradorCurp;
+	}
 
 }

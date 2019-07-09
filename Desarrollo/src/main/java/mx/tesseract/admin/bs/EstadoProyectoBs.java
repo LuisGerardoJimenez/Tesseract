@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mx.tesseract.admin.dao.EstadoProyectoDAO;
 import mx.tesseract.admin.entidad.EstadoProyecto;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.util.Constantes;
@@ -16,12 +17,23 @@ public class EstadoProyectoBs {
 	@Autowired
 	private GenericoDAO genericoDAO;
 	
+	@Autowired
+	private EstadoProyectoDAO estadoProyectoDAO;
+	
 	public List<EstadoProyecto> consultarEstados() {
-		List<EstadoProyecto> estadoProyecto = genericoDAO.findAll(EstadoProyecto.class);
-		if(estadoProyecto.size() == Constantes.NUMERO_CERO) {
+		List<EstadoProyecto> estadosProyecto = genericoDAO.findAll(EstadoProyecto.class);
+		if(estadosProyecto.size() == Constantes.NUMERO_CERO) {
 			throw new TESSERACTException("No se pueden consultar los estados.", "MSG13");
 		}
-		return estadoProyecto;
+		return estadosProyecto;
+	}
+	
+	public List<EstadoProyecto> consultarEstadosNoTerminado() {
+		List<EstadoProyecto> estadosProyectos = estadoProyectoDAO.findAllWithoutFinished();
+		if(estadosProyectos.size() == Constantes.NUMERO_CERO) {
+			throw new TESSERACTException("No se pueden consultar los estados.", "MSG13");
+		}
+		return estadosProyectos;
 	}
 
 }
