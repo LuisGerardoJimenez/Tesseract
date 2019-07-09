@@ -93,10 +93,10 @@
 					
 					<tr>
 						<td class="label obligatorio"><s:text name="labelLider" /></td>
-						<td><s:select name="curpLider" list="listPersonas" headerValue="Seleccione" headerKey="-1"
-								listKey="curp" listValue="nombre + ' ' + apellidoPaterno + ' ' + apellidoMaterno" value="curpLider"
+						<td><s:select name="model.colaboradorCurp" list="listPersonas" headerValue="Seleccione" headerKey="-1"
+								listKey="curp" listValue="nombre + ' ' + apellidoPaterno + ' ' + apellidoMaterno" value="model.colaboradorCurp"
 								cssErrorClass="select-error" cssClass="inputFormulario ui-widget" />
-							<s:fielderror fieldName ="curpLider" cssClass="error"
+							<s:fielderror fieldName ="model.colaboradorCurp" cssClass="error"
 								theme="jquery" /></td>
 					</tr> 
 					
