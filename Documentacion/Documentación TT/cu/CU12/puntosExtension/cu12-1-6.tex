@@ -15,8 +15,10 @@
 			\item \cdtRef{entidadExtension}{Punto de extensión}: Tabla que muestra la \cdtRef{entidadExtension:observacionRevision}{causa}, la región de la trayectoria y el caso de uso que extiende de todos los registros.
 			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión} cuando no existen puntos de extensión registrados.
 	\end{itemize}}
-	\UCitem{Destino}{Pantalla}
-	\UCitem{Precondiciones}{Ninguna}
+	\UCitem{Precondiciones}{\begin{itemize}
+			\item Que exista al menos un caso de uso registrado.
+			\item Que existe al menos un punto de extensión registrado.
+	\end{itemize}}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{Ninguno}
 	\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12}{Gestionar Casos de uso}.}
@@ -24,24 +26,23 @@
 %--------------------------------------
 \begin{UCtrayectoria}
 	\UCpaso[\UCactor] Solicita gestionar los puntos de extensión presionando el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/talt}} del caso de uso que desee de la pantalla \IUref{IU6}{Gestionar Casos de uso}
-	\UCpaso[\UCsist] Obtiene la información de los puntos de extensión del caso de uso. \Trayref{GPEXT-A}
-	\UCpaso[\UCsist] Muestra la información de los puntos de extensión en la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión}. 
-	\UCpaso[\UCactor] Gestiona los puntos de extensión a través de los botones: \IUbutton{Registrar}, \editar, y \eliminar \Trayref{GPEXT-B} \label{CU12.1.6-P4}
+	\UCpaso[\UCsist] Obtiene la información de los puntos de extensión del caso de uso. \hyperlink{CU12-1-6:TAA}{[Trayectoria A]}
+	\UCpaso[\UCsist] Ordena los puntos de extensión alfabéticamente con base en la causa de los mismos.
+	\UCpaso[\UCsist] Muestra la información de los puntos de extensión en la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión}. \label{CU12.1.6-P4}
+	\UCpaso[\UCactor] Gestiona los puntos de extensión a través de los botones: \IUbutton{Registrar}, \editar, y \eliminar.
 \end{UCtrayectoria}		
 %--------------------------------------
-\begin{UCtrayectoriaA}{GPEXT-A}{No existen registros de puntos de extensión.}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión} para indicar que no hay registros de puntos de extensión para mostrar.
-\end{UCtrayectoriaA}
-
-\begin{UCtrayectoriaA}{GPEXT-B}{El actor desea regresar a la gestión de casos de uso.}
-	\UCpaso[\UCactor] Presiona el botón \IUbutton{Regresar}.
-	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6}{Gestionar Casos de uso}.
-\end{UCtrayectoriaA}
-
+\hypertarget{CU12-1-6:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} No existen registros de puntos de extensión.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión} para indicar que no hay registros de puntos de extensión para mostrar. \label{CU12.1.6-TA1}
+	\UCpaso[\UCactor] Gestiona los casos de uso a través del botón: \IUbutton{Registrar}. 
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
 %--------------------------------------
 
 \subsubsection{Puntos de extensión}
 
-\UCExtenssionPoint{El actor requiere registrar un punto de extensión.}{Paso \ref{CU12.1.6-P4} de la trayectoria principal.}{\UCref{CU12.1.6.1}{Registrar Punto de extensión}}
+\UCExtenssionPoint{El actor requiere registrar un punto de extensión.}{Paso \ref{CU12.1.6-P4} de la trayectoria principal o del paso \ref{CU12.1.6-TA1} de la Trayectoria alternativa A .}{\UCref{CU12.1.6.1}{Registrar Punto de extensión}}
 \UCExtenssionPoint{El actor requiere modificar un punto de extensión.}{Paso \ref{CU12.1.6-P4} de la trayectoria principal.}{\UCref{CU12.1.6.2}{Modificar Punto de extensión}}
 \UCExtenssionPoint{El actor requiere eliminar un punto de extensión.}{Paso \ref{CU12.1.6-P4} de la trayectoria principal.}{\UCref{CU12.1.6.3}{Eliminar Punto de extensión}}
