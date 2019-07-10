@@ -1,5 +1,10 @@
 	\begin{UseCase}{CU12.6}{Terminar Caso de uso}{
-		Este caso de uso permite al actor terminar la edición de un caso de uso en el sistema, para que pueda ser revisado y en su caso liberado.
+			
+			Cuando el colaborador (\hyperlink{jefe}{Líder} o \hyperlink{analista}{Analista}) considere que ha terminado por completo el registro de un \hyperlink{casoUso}{Caso de Uso}, podrá concluir la edición del mismo en el sistema para que pueda ser revisado y finalmente liberado.
+			Una vez que el colaborador termine el caso de uso ya no se encontrarán disponibles las acciones que involucren su edición ni la de sus elementos, tampoco podrá eliminarlo, únicamente estarán disponibles las acciones para consultarlo y revisarlo \\
+		
+			Un Caso de uso podrá ser terminado siempre y cuando su estado sea Edición o Pendiente de corrección con base en el \hyperlink{edoCU}{Modelo de estados del Caso de Uso}. 
+			
 	}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Terminar la edición de un caso de uso para solicitar su revisión.}
