@@ -1,6 +1,13 @@
 	\begin{UseCase}{CU12.2}{Modificar Caso de uso}{
-		Este caso de uso permite al actor modificar un caso de uso. Al ingresar los datos, el actor podrá utilizar un token que le mostrará una lista de elementos disponibles para su utilización.
-	}
+			
+		Después de haber registrado un \hyperlink{casoUso}{Caso de Uso} en un \hyperlink{moduloEntidad}{Módulo} del \hyperlink{proyectoEntidad}{Proyecto} y el colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) requiera modificar su contenido, el sistema le permitirá editar cualquiera de los datos previamente registrados mediante un formulario, este formulario contendrá los datos precargados de la última actualización para poder corregirlos y posteriormente guardarlos.\\
+		Dentro de este caso de uso se le permitirá también al colaborador gestionar las precondiciones y postcondiciones propios del Caso de uso (de tal forma que podrá registrarlas y eliminarlas).\\
+	    Al igual que en el registro, el colaborador podrá hacer uso de tokens que le mostrará una lista de elementos disponibles para su utilización.
+		
+		Para que esta acción se pueda llevar a cabo es necesario que el caso de uso se encuentre en estado de Edición o Pendiente de corrección con base en el \hyperlink{edoCU}{Modelo de estados del Caso de Uso}.
+
+}
+
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Modificar la información de un caso de uso.}
 		\UCitem{Entradas}{
