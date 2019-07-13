@@ -13,15 +13,13 @@
 			\item \cdtRef{MSGEntidad}{Mensajes}
 			\item \cdtRef{actorEntidad}{Actores}
 			\item \cdtRef{moduloEntidad}{Módulos}
+			\item \cdtRef{casoUso}{Casos de uso}
 			\item \cdtRef{pantalla}{Pantallas}
 	\end{itemize}}
-	\UCitem{Destino}{Pantalla}
 	\UCitem{Precondiciones}{Ninguna}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{
-		\begin{itemize}
-			\item  \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador} cuando el documento no se creó correctamente.
-		\end{itemize}
+			\cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador} cuando el documento no se creó correctamente.
 	}
 	\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU4}{Gestionar Proyectos de Colaborador}.}
 \end{UseCase}
@@ -37,11 +35,13 @@
 	\UCpaso[\UCsist] Obtiene los módulos del proyecto seleccionado.
 	\UCpaso[\UCsist] Obtiene los casos de uso de los módulos.
 	\UCpaso[\UCsist] Obtiene las pantallas de los módulos.
-	\UCpaso[\UCsist] Crea el documento con base a la información encontrada. \Trayref{DD-A}
+	\UCpaso[\UCsist] Crea el documento con la información encontrada. \hyperlink{CU13:TAA}{[Trayectoria A]}
 	\UCpaso[\UCsist] Descarga el documento con extensión {\em PDF} o {\em DOCX}, según corresponda.
 \end{UCtrayectoria}		
 %--------------------------------------
-\begin{UCtrayectoriaA}{DD-A}{Ocurrió un error al crear el documento}
+\hypertarget{CU13:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} Ocurrió un error al crear el documento
+\begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador}.
-\end{UCtrayectoriaA}
-
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
