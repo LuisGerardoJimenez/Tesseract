@@ -18,10 +18,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import mx.tesseract.util.GenericInterface;
+
 @Entity
-@Table(name = "colaborador_proyecto", uniqueConstraints = @UniqueConstraint(columnNames = { "ColaboradorCURP",
-		"Proyectoid" }))
-public class ColaboradorProyecto implements Serializable {
+@Table(name = "colaborador_proyecto")
+public class ColaboradorProyecto implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
 

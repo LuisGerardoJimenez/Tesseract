@@ -16,12 +16,10 @@ import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
-import mx.tesseract.util.Validador;
 
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ModelDriven;
@@ -100,31 +98,31 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 
 	public void validateCreate() {
 		if(!hasErrors()) {
-			System.out.println("Vamos a agregar proyecto");
+			try {
+				System.out.println("Vamos a agregar proyecto");
+				proyectoBs.registrarProyecto(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				editNew();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				editNew();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				editNew();
+				e.printStackTrace();
+			}
 		} else {
 			editNew();
 		}
 	}
 	
-	public String create() throws Exception {
-		String resultado = "";
-		try {
-			//ProyectoBs.registrarProyecto(model, curpLider, idEstadoProyecto, presupuestoString);
-			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "El",
-					"Proyecto", "registrado" }));
-			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-		} catch (TESSERACTValidacionException pve) {
-			ErrorManager.agregaMensajeError(this, pve);
-			//resultado = editNew();
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
+	public String create() {
+		addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "registrado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
 	}
 	
 	public String edit() throws Exception {

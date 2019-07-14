@@ -72,7 +72,7 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		}
 	}
 
-	public String create() throws Exception {
+	public String create(){
 		addActionMessage(getText("MSG1", new String[] { "La", "Persona", "registrada" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;

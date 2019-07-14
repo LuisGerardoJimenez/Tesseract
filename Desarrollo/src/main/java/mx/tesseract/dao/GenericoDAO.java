@@ -41,15 +41,24 @@ public class GenericoDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T extends GenericInterface> T save(Object entidad) {
+	public <T extends GenericInterface> T save(T entidad) {
 		em.persist(entidad);
 		em.flush();
-		return (T) entidad;
+		return entidad;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T extends GenericInterface> T update(Object entidad) {
-		T entidadActualizada = (T) em.merge(entidad);
+	public <T extends GenericInterface> List<T> saveList(List<T> lista) {
+		for (Object o : lista) {
+			em.persist(o);
+			em.flush();
+		}
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T extends GenericInterface> T update(T entidad) {
+		T entidadActualizada = em.merge(entidad);
 		em.flush();
 		return entidadActualizada;
 	}
@@ -60,9 +69,9 @@ public class GenericoDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T extends GenericInterface> T refresh(Object entidad) {
+	public <T extends GenericInterface> T refresh(T entidad) {
 		em.refresh(entidad);
-		return (T) entidad;
+		return entidad;
 	}
 
 }

@@ -22,7 +22,6 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
-
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "EstadoProyecto.findAllWithoutFinished", query = "SELECT ep.* FROM estadoproyecto ep WHERE ep.id != ?", resultClass = EstadoProyecto.class),
 	})
