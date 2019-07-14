@@ -21,8 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Results({ @Result(name = "administrador", type = "redirectAction", params = { "actionName", "proyectos-admin" }),
 		@Result(name = "colaborador", type = "redirectAction", params = { "actionName", "proyectos" }),
-		@Result(name = "recover", type = "dispatcher", location = "recover.jsp"),
-		@Result(name = "welcome", type = "redirectAction", params = { "actionName", "welcome" }) })
+		@Result(name = "recover", type = "dispatcher", location = "recover.jsp") })
 @AllowedMethods({ "logout" })
 public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	/** 
