@@ -73,13 +73,13 @@ public class ColaboradorBs {
 	public void enviarCorreo(Colaborador model, String correoAnterior, String contrasenaAnterior) {
 		try {
 			if (contrasenaAnterior == null || correoAnterior == null) {
-				correo.enviarCorreo(model, 0);
+				correo.enviarCorreo(model, Constantes.NUMERO_CERO);
 				System.out.println("Se envió un correo al usuario que se registró.");
 			} else if (!contrasenaAnterior.equals(model.getContrasenia())) {
-				correo.enviarCorreo(model, 0);
+				correo.enviarCorreo(model, Constantes.NUMERO_CERO);
 				System.out.println("Se envió un correo porque cambió la contraseña.");
 			} else if (!correoAnterior.equals(model.getCorreoElectronico())) {
-				correo.enviarCorreo(model, 0);
+				correo.enviarCorreo(model, Constantes.NUMERO_CERO);
 				System.out.println("Se envió un correo porque cambio el correo electrónico.");
 			}
 		} catch (Exception e) {

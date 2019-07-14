@@ -1,6 +1,5 @@
 package mx.tesseract.admin.action;
 
-import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
