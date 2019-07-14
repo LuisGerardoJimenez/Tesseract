@@ -14,9 +14,11 @@ import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import mx.tesseract.util.GenericInterface;
+
 @Entity
 @Table(name = "rol")
-public class Rol implements Serializable {
+public class Rol implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
 

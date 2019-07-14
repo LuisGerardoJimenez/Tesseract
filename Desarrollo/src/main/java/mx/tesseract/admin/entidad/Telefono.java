@@ -4,7 +4,6 @@ package mx.tesseract.admin.entidad;
  * Luis Gerardo Jiménez
  */
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,11 +17,12 @@ import java.io.Serializable;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+
+import mx.tesseract.util.GenericInterface;
 
 @Entity
-@Table(name = "telefono", uniqueConstraints = @UniqueConstraint(columnNames = { "ColaboradorCURP", "lada", "numero" }))
-public class Telefono implements Serializable {
+@Table(name = "telefono")
+public class Telefono implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -31,7 +31,7 @@ public class Telefono implements Serializable {
 	@Column(name = "id")
 	private Integer id;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ColaboradorCURP")
 	private Colaborador colaborador;
 	

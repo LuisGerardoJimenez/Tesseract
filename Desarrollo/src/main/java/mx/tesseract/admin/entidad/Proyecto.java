@@ -1,14 +1,14 @@
 package mx.tesseract.admin.entidad;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /*
  * Luis Gerardo Jiménez
  */
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,11 +16,12 @@ import javax.persistence.GeneratedValue;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,7 +30,6 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import com.opensymphony.xwork2.validator.annotations.DoubleRangeFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -40,7 +40,10 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
-
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "Proyecto.findByClave", query = "SELECT p.* FROM proyecto p WHERE p.clave = ?", resultClass = Proyecto.class),
+	@NamedNativeQuery(name = "Proyecto.findByNombre", query = "SELECT p.* FROM proyecto p WHERE p.nombre = ?", resultClass = Proyecto.class)
+	})
 @Entity
 @Table(name = "proyecto", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "clave"),
@@ -86,11 +89,11 @@ public class Proyecto implements Serializable, GenericInterface {
 	private String contraparte;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "EstadoProyectoid", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "EstadoProyectoid", referencedColumnName = "id")
 	private EstadoProyecto estadoProyecto;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "proyecto")
-	private Set<ColaboradorProyecto> proyecto_colaboradores = new HashSet<ColaboradorProyecto>(0);
+	private List<ColaboradorProyecto> proyecto_colaboradores = new ArrayList<ColaboradorProyecto>(0);
 	
 	@Transient
 	private String colaboradorCurp;
@@ -230,12 +233,11 @@ public class Proyecto implements Serializable, GenericInterface {
 		this.estadoProyecto = estadoProyecto;
 	}
 	
-	public Set<ColaboradorProyecto> getProyecto_colaboradores() {
+	public List<ColaboradorProyecto> getProyecto_colaboradores() {
 		return proyecto_colaboradores;
 	}
 
-	public void setProyecto_colaboradores(
-			Set<ColaboradorProyecto> proyecto_colaboradores) {
+	public void setProyecto_colaboradores(List<ColaboradorProyecto> proyecto_colaboradores) {
 		this.proyecto_colaboradores = proyecto_colaboradores;
 	}
 	

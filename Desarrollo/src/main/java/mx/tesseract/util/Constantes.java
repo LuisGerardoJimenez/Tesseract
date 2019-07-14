@@ -2,6 +2,11 @@ package mx.tesseract.util;
 
 public final class Constantes {
 	
+	//ROLES
+	public static final Integer ROL_LIDER = 1;
+	public static final Integer ROL_ANALISTA = 2;
+	
+	
 	//NUMEROS CONSTANTES ENTEROS
 	public static final Integer NUMERO_CERO = 0;
 	public static final Integer NUMERO_UNO_NEGATIVO = -1;
