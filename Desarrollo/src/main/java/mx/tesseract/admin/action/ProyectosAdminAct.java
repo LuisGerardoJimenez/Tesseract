@@ -114,7 +114,7 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 				e.printStackTrace();
 			}
 		} else {
-			//editNew();
+			editNew();
 		}
 	}
 	
