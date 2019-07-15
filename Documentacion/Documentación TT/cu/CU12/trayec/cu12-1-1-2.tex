@@ -1,5 +1,11 @@
 	\begin{UseCase}{CU12.1.1.2}{Modificar Trayectoria}{
-		Las trayectorias describen los escenarios ideales y alternos de un sistema mediante una serie de pasos. Este caso de uso permite al analista modificar la trayectoria principal o una trayectoria alternativa de un caso de uso.
+	
+		Después de haber registrado una \hyperlink{entidadTray}{Trayectoria} en un \hyperlink{casoUso}{Caso de Uso} del \hyperlink{moduloEntidad}{Módulo} sobre el cual se está operando y el colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) requiera modificar su contenido, el sistema le permitirá editar cualquiera de los datos previamente registrados mediante un formulario (tanto para la trayectoria principal como las alternativas), este formulario contendrá los datos precargados de la última actualización para poder corregirlos y posteriormente guardarlos.\\
+		
+		Dentro de este caso de uso se le permitirá también al colaborador gestionar los pasos propios de la Trayectoria (de tal forma que podrá registrar, modificar, cambiar la posición de los pasos o en su defecto eliminarlos).\\
+		
+		Para que esta acción se pueda llevar a cabo es necesario que el caso de uso al que pertenece la trayectoria se encuentre en estado de Edición o Pendiente de corrección con base en el \hyperlink{edoCU}{Modelo de estados del Caso de Uso} y que exista al menos una trayectoria previamente registrada.
+		
 	}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Registrar la información de una trayectoria principal o alternativa.}

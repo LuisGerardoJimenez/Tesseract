@@ -1,5 +1,9 @@
 	\begin{UseCase}{CU12.1.1.1.3}{Eliminar Paso}{
-		Este caso de uso permite al actor eliminar un registro de la tabla de pasos perteneciente a un trayectoria de un caso de uso.
+			
+		Cuando el registro de algún \hyperlink{entidadPaso}{Paso} ya no tiene una razón de ser dentro del \hyperlink{casoUso}{Caso de Uso}, Tesseract permitirá al colaborador (\hyperlink{jefe}{Líder} o \hyperlink{analista}{Analista}) eliminar en su totalidad su registro. \\
+			
+		Un Paso podrá ser eliminado del sistema siempre y cuando el paso no se encuentre referenciado en otro caso de uso o el paso no se encuentre referenciado en otro paso del mismo caso de uso.
+
 	}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Eliminar un paso perteneciente a una trayectoria.}
