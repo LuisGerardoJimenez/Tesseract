@@ -1,5 +1,12 @@
 	\begin{UseCase}{CU12.1.6.1}{Registrar Punto de extensión}{
-		Los puntos de extensión describen una región de la trayectoria en la que se puede extender el funcionamiento a través de otro caso de uso. Este caso de uso permite al analista registrar un punto de extensión.
+			
+			Este caso de uso permite al colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) registrar la información de un \hyperlink{entidadExtension}{Punto de Extensión} correspondiente a algún \hyperlink{casoUso}{Caso de Uso} del \hyperlink{moduloEntidad}{Módulo} sobre el cual se está operando.\\
+			
+			A través de un formulario el sistema solicita la información del Punto de Extensión que se desea registrar, a que Caso de Uso extiende, cual es la causa y por último la región de la Trayectoria.\\
+			
+			Los puntos de extensión describen una región de la trayectoria en la que se puede extender el funcionamiento a través de otro caso de uso. Esta relación significa que un caso de uso puede estar basado en otro caso de uso más básico. El término basado-en es usado para indicar que un caso de uso es una especialización de un caso de uso más general. De esta manera solamente la diferencia tendrá que ser especificada en el caso de uso especializado. Esta relación es una forma extendida de la relación de herencia.\\
+			
+			Una vez registrado el Punto de Extensión, el colaborador podrá acceder a las acciones correspondientes.
 	}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Registrar los puntos de extensión de un caso de uso.}
