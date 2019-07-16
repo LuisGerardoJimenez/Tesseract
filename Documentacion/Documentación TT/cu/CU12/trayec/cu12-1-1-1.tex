@@ -1,6 +1,14 @@
 	\begin{UseCase}{CU12.1.1.1}{Registrar Trayectoria}{
-		Las trayectorias describen los escenarios ideales y alternos de un sistema mediante una serie de pasos. Este caso de uso permite al analista registrar la trayectoria principal o una trayectoria alternativa de un caso de uso.
-	}
+			
+		Este caso de uso permite al colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) registrar la información de una \hyperlink{entidadTray}{Trayectoria} (Principal o Alternativa) correspondiente al \hyperlink{casoUso}{Caso de Uso} del \hyperlink{moduloEntidad}{Módulo} sobre el cual se está operando.\\
+		
+		A través de un formulario el sistema solicita la información de la Trayectoria que se desea registrar (como su clave, tipo y condición). Por caso de uso solo se puede registrar una trayectoria principal y una o varias alternativas.
+		
+		Las trayectorias están compuestas por una serie de pasos, mismos que podrán ser gestionados al momento de registrar las trayectorias. Los pasos son cada una de las actividades que realizan ya sea el sistema o el actor en su interacción y se podrán registrar, modificar, cambiar su posición o en su defecto ser eliminados. \\
+		
+		Para que esta acción se pueda llevar a cabo es necesario que el caso de uso al que pertenece la trayectoria se encuentre en estado de Edición o Pendiente de corrección con base en el \hyperlink{edoCU}{Modelo de estados del Caso de Uso} y que exista al menos un Caso de Uso previamente registrado.
+	
+}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Registrar la información de una trayectoria principal o alternativa.}
 		\UCitem{Entradas}{
@@ -24,7 +32,7 @@
 		\UCitem{Precondiciones}{
 			\begin{itemize}
 				\item Que el caso de uso al que pertenece la trayectoria se encuentre en estado ''Edición'' o ''Pendiente de corrección''.
-				\item Que exista al menos una trayectoria registrada.
+				\item Que exista al menos un caso de uso registrado.
 			\end{itemize}
 		}
 		\UCitem{Postcondiciones}{
