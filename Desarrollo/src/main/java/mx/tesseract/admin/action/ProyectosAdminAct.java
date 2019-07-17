@@ -118,9 +118,59 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 		}
 	}
 	
+	public void validateDestroy() {
+		if(!hasActionErrors()) {
+			try {
+				model.setId(idSel);
+				proyectoBs.eliminarProyecto(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				index();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				index();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				index();
+				e.printStackTrace();
+			}
+		} else {
+			index();
+		}
+	}
+	
 	public String create() {
 		addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "registrado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
+	public String destroy(){
+		if(!hasActionErrors()) {
+			try {
+				model.setId(idSel);
+				proyectoBs.eliminarProyecto(model);
+				addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "eliminado" }));
+				SessionManager.set(this.getActionMessages(), "mensajesAccion");
+			} catch (TESSERACTValidacionException tve) {
+				System.out.println("Entro");
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				index();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				index();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				index();
+				e.printStackTrace();
+			}
+		} else {
+			index();
+		}
 		return SUCCESS;
 	}
 	
@@ -162,24 +212,6 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 		} catch (TESSERACTValidacionException pve) {
 			ErrorManager.agregaMensajeError(this, pve);
 			resultado = edit();
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
-	}
-	
-	public String destroy() throws Exception {
-		String resultado;
-		try {
-			//ProyectoBs.eliminarProyecto(model);
-			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "El",
-					"Proyecto", "eliminado" }));
-			SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		} catch (TESSERACTException pe) {
 			ErrorManager.agregaMensajeError(this, pe);
 			resultado = index();

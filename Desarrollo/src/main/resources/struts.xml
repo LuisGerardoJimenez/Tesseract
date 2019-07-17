@@ -171,7 +171,7 @@
 					un correspondiente validate, siempre y cuando los primeros estén anotados -->
 				<interceptor-ref name="validation">
 					<!-- Se excluyen los métodos -->
-					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,index,execute,deleteConfirm</param>
+					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,index,execute,deleteConfirm,destroy</param>
 					<!--<param name="validateAnnotatedMethodOnly">true</param> -->
 				</interceptor-ref>
 

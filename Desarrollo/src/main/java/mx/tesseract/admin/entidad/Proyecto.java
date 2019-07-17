@@ -42,7 +42,8 @@ import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "Proyecto.findByClave", query = "SELECT p.* FROM proyecto p WHERE p.clave = ?", resultClass = Proyecto.class),
-	@NamedNativeQuery(name = "Proyecto.findByNombre", query = "SELECT p.* FROM proyecto p WHERE p.nombre = ?", resultClass = Proyecto.class)
+	@NamedNativeQuery(name = "Proyecto.findByNombre", query = "SELECT p.* FROM proyecto p WHERE p.nombre = ?", resultClass = Proyecto.class),
+	@NamedNativeQuery(name = "Proyecto.findElementosByIdProyecto", query = "SELECT p.* FROM proyecto p INNER JOIN elemento e ON e.proyectoid = p.id WHERE p.id = ? LIMIT 1", resultClass = Proyecto.class)
 	})
 @Entity
 @Table(name = "proyecto", uniqueConstraints = {
