@@ -61,8 +61,8 @@ public class GenericoDAO {
 	}
 	
 	public void eliminar(Object entidad) {
+		System.out.println("Eliminado2");
 		em.remove(entidad);
-		em.flush();
 	}
 	
 	public <T extends GenericInterface> T refresh(T entidad) {
