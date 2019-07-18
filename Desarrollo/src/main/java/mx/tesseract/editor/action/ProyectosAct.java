@@ -52,6 +52,7 @@ import com.opensymphony.xwork2.ModelDriven;
 @AllowedMethods({ "entrar" })
 public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<Proyecto> {
 	private static final long serialVersionUID = 1L;
+	private static final String MODULOS = "modulos";
 	private Colaborador colaborador;
 	private Proyecto model;
 	private Proyecto proyecto;
@@ -77,7 +78,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 			SessionManager.delete("idProyecto");
 			SessionManager.delete("idModulo");
 			colaborador = loginBs.consultarColaboradorActivo();
-			listProyectos = proyectoBs.consultarProyectos();
+			listProyectos = proyectoBs.consultarProyectosByColaborador(colaborador.getCurp());
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
@@ -100,7 +101,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 				resultado = LOGIN;
 				return resultado;
 			}*/
-			//resultado = "modulos";
+			//resultado = MODULOS;
 			SessionManager.set(idSel, "idProyecto");
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
