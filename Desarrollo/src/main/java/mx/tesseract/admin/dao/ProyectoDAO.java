@@ -21,10 +21,9 @@ public class ProyectoDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Proyecto> findByCURPColaborador(String curp) {
-		//TODO: Agregar el Named query al mapeo
 		List<Proyecto> proyectos = new ArrayList<Proyecto>();
 		try {
-			Query query = entityManager.createNamedQuery("Query", Proyecto.class);
+			Query query = entityManager.createNamedQuery("Proyecto.findByColaboradorCurp", Proyecto.class);
 			query.setParameter(Constantes.NUMERO_UNO, curp);
 			proyectos = (List<Proyecto>) query.getResultList();
 		} catch (Exception e) {

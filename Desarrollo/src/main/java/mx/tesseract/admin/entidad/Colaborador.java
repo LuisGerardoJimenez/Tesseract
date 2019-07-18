@@ -1,13 +1,12 @@
 package mx.tesseract.admin.entidad;
 
-import java.io.Serializable;
-
 /*
  * Luis Gerardo Jiménez
  */
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -62,10 +61,10 @@ public class Colaborador implements Serializable, GenericInterface {
 	private boolean administrador;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "colaborador")
-	private Set<ColaboradorProyecto> colaborador_proyectos = new HashSet<ColaboradorProyecto>(0);
+	private List<ColaboradorProyecto> colaborador_proyectos = new ArrayList<ColaboradorProyecto>();
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "colaborador")
-	private Set<Telefono> telefonos = new HashSet<Telefono>(0);
+	private List<Telefono> telefonos = new ArrayList<Telefono>();
 
 	public Colaborador() {
 	}
@@ -146,19 +145,19 @@ public class Colaborador implements Serializable, GenericInterface {
 		this.contrasenia = contrasenia;
 	}
 
-	public Set<ColaboradorProyecto> getColaborador_proyectos() {
+	public List<ColaboradorProyecto> getColaborador_proyectos() {
 		return colaborador_proyectos;
 	}
 
-	public void setColaborador_proyectos(Set<ColaboradorProyecto> colaborador_proyectos) {
+	public void setColaborador_proyectos(List<ColaboradorProyecto> colaborador_proyectos) {
 		this.colaborador_proyectos = colaborador_proyectos;
 	}
 
-	public Set<Telefono> getTelefonos() {
+	public List<Telefono> getTelefonos() {
 		return telefonos;
 	}
 
-	public void setTelefonos(Set<Telefono> telefonos) {
+	public void setTelefonos(List<Telefono> telefonos) {
 		this.telefonos = telefonos;
 	}
 
