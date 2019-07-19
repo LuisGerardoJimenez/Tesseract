@@ -32,7 +32,6 @@ import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -95,12 +94,11 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
     	System.out.println("Entrando al proyecto");
 		String resultado = LOGIN;
 		try {
-			/*colaborador = SessionManager.consultarColaboradorActivo();
-			if (idSel == null || colaborador == null
-					|| !AccessBs.verificarPermisos(model, colaborador)) {
-				resultado = LOGIN;
-				return resultado;
-			}*/
+//			if (idSel == null || colaborador == null
+//					|| !AccessBs.verificarPermisos(model, colaborador)) {
+//				resultado = LOGIN;
+//				return resultado;
+//			}
 			//resultado = MODULOS;
 			SessionManager.set(idSel, "idProyecto");
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");

@@ -8,8 +8,8 @@ import java.util.Map;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.bs.AccessBs;
-import mx.tesseract.editor.bs.ActorBs;
-import mx.tesseract.editor.bs.ModuloBs;
+//import mx.tesseract.editor.bs.ActorBs;
+//import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.ErrorManager;
@@ -57,19 +57,19 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 	public String index(){
 		String resultado = null;
 		try {			
-			colaborador = SessionManager.consultarColaboradorActivo();
-			proyecto = SessionManager.consultarProyectoActivo();
-			if (proyecto == null) {
-				resultado = "proyectos";
-				return resultado;
-			}
-			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-				resultado = Action.LOGIN;
-				return resultado;
-			}
+//			colaborador = SessionManager.consultarColaboradorActivo();
+//			proyecto = SessionManager.consultarProyectoActivo();
+//			if (proyecto == null) {
+//				resultado = "proyectos";
+//				return resultado;
+//			}
+//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
+//				resultado = Action.LOGIN;
+//				return resultado;
+//			}
 			model.setProyecto(proyecto);
 			SessionManager.delete("idModulo");
-			listModulos = ModuloBs.consultarModulosProyecto(proyecto);
+//			listModulos = ModuloBs.consultarModulosProyecto(proyecto);
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
@@ -85,16 +85,16 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 	public String editNew() throws Exception {
 		String resultado = null;
 		try {
-			colaborador = SessionManager.consultarColaboradorActivo();
-			proyecto = SessionManager.consultarProyectoActivo();
-			if (proyecto == null) {
-				resultado = "proyectos";
-				return resultado;
-			}
-			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-				resultado = Action.LOGIN;
-				return resultado;
-			}
+//			colaborador = SessionManager.consultarColaboradorActivo();
+//			proyecto = SessionManager.consultarProyectoActivo();
+//			if (proyecto == null) {
+//				resultado = "proyectos";
+//				return resultado;
+//			}
+//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
+//				resultado = Action.LOGIN;
+//				return resultado;
+//			}
 			model.setProyecto(proyecto);
 			resultado = EDITNEW;
 		} catch (TESSERACTException pe) {
@@ -112,18 +112,18 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 	public String create() throws Exception {
 		String resultado = null;
 		try {
-			colaborador = SessionManager.consultarColaboradorActivo();
-			proyecto = SessionManager.consultarProyectoActivo();
-			if (proyecto == null) {
-				resultado = "proyectos";
-				return resultado;
-			}
-			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-				resultado = Action.LOGIN;
-				return resultado;
-			}
-			model.setProyecto(proyecto);
-			ModuloBs.registrarModulo(model);
+//			colaborador = SessionManager.consultarColaboradorActivo();
+//			proyecto = SessionManager.consultarProyectoActivo();
+//			if (proyecto == null) {
+//				resultado = "proyectos";
+//				return resultado;
+//			}
+//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
+//				resultado = Action.LOGIN;
+//				return resultado;
+//			}
+//			model.setProyecto(proyecto);
+//			ModuloBs.registrarModulo(model);
 
 			resultado = SUCCESS;
 			addActionMessage(getText("MSG1", new String[] { "El", "Módulo",
@@ -147,17 +147,17 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 	public String destroy() throws Exception {
 		String resultado = null;
 		try {
-			colaborador = SessionManager.consultarColaboradorActivo();
-			proyecto = SessionManager.consultarProyectoActivo();
-			if (proyecto == null) {
-				resultado = "proyectos";
-				return resultado;
-			}
-			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-				resultado = Action.LOGIN;
-				return resultado;
-			}
-			ModuloBs.eliminarModulo(model);
+//			colaborador = SessionManager.consultarColaboradorActivo();
+//			proyecto = SessionManager.consultarProyectoActivo();
+//			if (proyecto == null) {
+//				resultado = "proyectos";
+//				return resultado;
+//			}
+//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
+//				resultado = Action.LOGIN;
+//				return resultado;
+//			}
+//			ModuloBs.eliminarModulo(model);
 			resultado = SUCCESS;
 			addActionMessage(getText("MSG1", new String[] { "El", "Módulo",
 					"eliminado" }));
@@ -175,16 +175,16 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 	public String edit() throws Exception {
 		String resultado = null;
 		try {
-			colaborador = SessionManager.consultarColaboradorActivo();
-			proyecto = SessionManager.consultarProyectoActivo();
-			if (proyecto == null) {
-				resultado = "proyectos";
-				return resultado;
-			}
-			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-				resultado = Action.LOGIN;
-				return resultado;
-			}
+//			colaborador = SessionManager.consultarColaboradorActivo();
+//			proyecto = SessionManager.consultarProyectoActivo();
+//			if (proyecto == null) {
+//				resultado = "proyectos";
+//				return resultado;
+//			}
+//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
+//				resultado = Action.LOGIN;
+//				return resultado;
+//			}
 			resultado = EDIT;
 		} catch (TESSERACTException pe) {
 			ErrorManager.agregaMensajeError(this, pe);
@@ -201,17 +201,17 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 	public String update() throws Exception {
 		String resultado = null;
 		try {
-			colaborador = SessionManager.consultarColaboradorActivo();
-			proyecto = SessionManager.consultarProyectoActivo();
-			if (proyecto == null) {
-				resultado = "proyectos";
-				return resultado;
-			}
-			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-				resultado = Action.LOGIN;
-				return resultado;
-			}
-			ModuloBs.modificarModulo(model);
+//			colaborador = SessionManager.consultarColaboradorActivo();
+//			proyecto = SessionManager.consultarProyectoActivo();
+//			if (proyecto == null) {
+//				resultado = "proyectos";
+//				return resultado;
+//			}
+//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
+//				resultado = Action.LOGIN;
+//				return resultado;
+//			}
+//			ModuloBs.modificarModulo(model);
 			resultado = SUCCESS;
 			addActionMessage(getText("MSG1", new String[] { "El", "Módulo",
 					"modificado" }));
@@ -233,14 +233,14 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 		Map<String, Object> session = null;
 		String resultado = null;
 		try {
-			colaborador = SessionManager.consultarColaboradorActivo();
-			if (idSel == null
-					|| colaborador == null
-					|| !AccessBs.verificarPermisos(model.getProyecto(),
-							colaborador)) {
-				resultado = LOGIN;
-				return resultado;
-			}
+//			colaborador = SessionManager.consultarColaboradorActivo();
+//			if (idSel == null
+//					|| colaborador == null
+//					|| !AccessBs.verificarPermisos(model.getProyecto(),
+//							colaborador)) {
+//				resultado = LOGIN;
+//				return resultado;
+//			}
 
 			resultado = "cu";
 			session = ActionContext.getContext().getSession();
@@ -263,14 +263,14 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 		Map<String, Object> session = null;
 		String resultado = null;
 		try {
-			colaborador = SessionManager.consultarColaboradorActivo();
-			if (idSel == null
-					|| colaborador == null
-					|| !AccessBs.verificarPermisos(model.getProyecto(),
-							colaborador)) {
-				resultado = LOGIN;
-				return resultado;
-			}
+//			colaborador = SessionManager.consultarColaboradorActivo();
+//			if (idSel == null
+//					|| colaborador == null
+//					|| !AccessBs.verificarPermisos(model.getProyecto(),
+//							colaborador)) {
+//				resultado = LOGIN;
+//				return resultado;
+//			}
 
 			resultado = "pantallas";
 			session = ActionContext.getContext().getSession();
@@ -294,7 +294,7 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 		elementosReferencias = new ArrayList<String>();
 		try {
 			System.out.println("Entre a buscar referencias");
-			elementosReferencias = ModuloBs.verificarReferencias(model);
+//			elementosReferencias = ModuloBs.verificarReferencias(model);
 			System.out.println("elementosReferenciasSize: "+elementosReferencias.size());
 			System.out.println("elementosReferencias: "+elementosReferencias);
 		} catch (Exception e) {
@@ -339,7 +339,7 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
-		model = ModuloBs.consultarModulo(idSel);
+//		model = ModuloBs.consultarModulo(idSel);
 	}
 
 	public List<Modulo> getListModulos() {
