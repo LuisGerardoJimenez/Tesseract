@@ -5,9 +5,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.bs.AccessBs;
+import mx.tesseract.editor.bs.ModuloBs;
 //import mx.tesseract.editor.bs.ActorBs;
 //import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.entidad.Modulo;
@@ -22,13 +24,14 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
-@ResultPath("/content/editor/")
+@ResultPath("/pages/editor/")
 @Results({
 		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = {
 				"actionName", "modulos" }),
@@ -42,44 +45,42 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 				"pantallas" })
 
 })
-public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Modulo>, GenericInterface {
+public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Modulo> {
 
 	private static final long serialVersionUID = 1L;
-	private Map<String, Object> userSession;
+	private static final String PROYECTOS = "proyectos";
 	private Proyecto proyecto;
 	private Modulo model;
 	private Colaborador colaborador;
 	private List<Modulo> listModulos;
 	private Integer idSel;
 	private List<String> elementosReferencias;
+	
+	@Autowired
+	private ModuloBs moduloBs;
+	
+	@Autowired
+	private ProyectoBs proyectoBs;
 
 	@SuppressWarnings("unchecked")
 	public String index(){
-		String resultado = null;
-		try {			
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-			model.setProyecto(proyecto);
+		String resultado = PROYECTOS;
+		try {
 			SessionManager.delete("idModulo");
-//			listModulos = ModuloBs.consultarModulosProyecto(proyecto);
+			Integer idProyecto = (Integer) SessionManager.get("idProyecto");
+			proyecto = proyectoBs.consultarProyecto(idProyecto);
+			model.setProyecto(proyecto);
+			listModulos = moduloBs.consultarModulosProyecto(proyecto.getId());
+			resultado = INDEX;
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
-
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return INDEX;
+		return resultado;
 	}
 
 	public String editNew() throws Exception {
@@ -310,19 +311,6 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 
 	public void setModel(Modulo model) {
 		this.model = model;
-	}
-
-	public Map<String, Object> getUserSession() {
-		return userSession;
-	}
-
-	public void setUserSession(Map<String, Object> userSession) {
-		this.userSession = userSession;
-	}
-
-	public void setSession(Map<String, Object> arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	public Proyecto getProyecto() {

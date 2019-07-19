@@ -39,7 +39,7 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 	@SuppressWarnings("unchecked")
 	public String index() {
 		try {
-			listPersonal = colaboradorBs.consultarPersonal();
+			listPersonal = colaboradorBs.consultarColaboradores();
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");

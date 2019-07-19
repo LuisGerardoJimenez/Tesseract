@@ -36,10 +36,15 @@ public class ColaboradorBs {
 
 	@Autowired
 	private Correo correo;
+	
+	public List<Colaborador> consultarColaboradores() {
+		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
+		return colaboradores;
+	}
 
 	public List<Colaborador> consultarPersonal() {
 		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
-		if (colaboradores.size() == Constantes.NUMERO_CERO) {
+		if (colaboradores.isEmpty()) {
 			throw new TESSERACTException("No se pueden consultar los colaboradores.", "MSG13");
 		}
 		return colaboradores;
