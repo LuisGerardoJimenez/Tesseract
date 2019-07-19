@@ -14,6 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
 
 import javax.persistence.Id;
@@ -29,17 +31,20 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.Constantes;
+import mx.tesseract.util.GenericInterface;
 
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "Modulo.findByIdProyecto", query = "SELECT m.* FROM modulo m WHERE m.Proyectoid = ?", resultClass = Modulo.class)
+	})
 @Entity
-@Table(name = "Modulo", catalog = "TESSERACT", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "clave", "Proyectoid" }) })
-public class Modulo implements Serializable {
+@Table(name = "Modulo")
+public class Modulo implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
+	@Column(name = "id")
 	private Integer id;
 	
 	@Column(name = "clave")

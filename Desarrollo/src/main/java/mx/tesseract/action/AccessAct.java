@@ -24,10 +24,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 		@Result(name = "recover", type = "dispatcher", location = "recover.jsp") })
 @AllowedMethods({ "logout" })
 public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
-	/** 
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
+	private static final String ADMINISTRADOR = "administrador";
+	private static final String COLABORADOR = "colaborador";
+	private static final String RECOVER = "recover";
 	private Map<String, Object> userSession;
 	private String userName;
 	private String password;
@@ -45,9 +46,9 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 		try {
 			if (SessionManager.isLogged()) {
 				if (loginBs.consultarColaboradorActivo().isAdministrador()) {
-					resultado = "administrador";
+					resultado = ADMINISTRADOR;
 				} else {
-					resultado = "colaborador";
+					resultado = COLABORADOR;
 				}
 			}
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
@@ -73,9 +74,9 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 			SessionManager.set(colaborador.getCurp(), "colaboradorCURP");
 			menuString = getMenu();
 			if (colaborador.isAdministrador()) {
-				resultado = "administrador";
+				resultado = ADMINISTRADOR;
 			} else {
-				resultado = "colaborador";
+				resultado = COLABORADOR;
 			}
 		} catch (TESSERACTValidacionException tve) {
 			System.out.println("Error en el Create() TESSERACTValidacionException");

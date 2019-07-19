@@ -50,6 +50,7 @@ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 			<list>
 				<value>mx.tesseract.admin.entidad</value>
 				<value>mx.tesseract.admin.entidad.*</value>
+				<value>mx.tesseract.editor.entidad</value>
 			</list>
 		</property>
 	</bean>

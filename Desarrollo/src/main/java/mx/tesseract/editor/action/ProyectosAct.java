@@ -54,7 +54,6 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	private static final String MODULOS = "modulos";
 	private Colaborador colaborador;
 	private Proyecto model;
-	private Proyecto proyecto;
 	private List<Proyecto> listProyectos;
 	private List<Colaborador> listColaboradores;
 	private String jsonColaboradoresTabla;
@@ -92,14 +91,9 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
     @SuppressWarnings("unchecked")
 	public String entrar() {
     	System.out.println("Entrando al proyecto");
-		String resultado = LOGIN;
+		String resultado = INDEX;
 		try {
-//			if (idSel == null || colaborador == null
-//					|| !AccessBs.verificarPermisos(model, colaborador)) {
-//				resultado = LOGIN;
-//				return resultado;
-//			}
-			//resultado = MODULOS;
+			resultado = MODULOS;
 			SessionManager.set(idSel, "idProyecto");
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
@@ -293,12 +287,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	
 
 	public Proyecto getModel() {
-		try {
-			return (model == null) ? model = loginBs.consultarProyectoActivo(): model;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return model;
+		return (model == null) ? model = loginBs.consultarProyectoActivo(): model;
 	}
 
 	public void setModel(Proyecto model) {
@@ -322,15 +311,6 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 		System.out.println("IdProyecto: "+idSel);
 		model = proyectoBs.consultarProyecto(idSel);
 		System.out.println("modelo: "+model.getNombre());
-		this.proyecto = model;
-	}
-
-	public Proyecto getProyecto() {
-		return proyecto;
-	}
-
-	public void setProyecto(Proyecto proyecto) {
-		this.proyecto = proyecto;
 	}
 
 	public List<Colaborador> getListColaboradores() {
