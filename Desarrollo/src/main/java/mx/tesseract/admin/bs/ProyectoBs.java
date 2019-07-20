@@ -93,7 +93,6 @@ public class ProyectoBs {
 	public void eliminarProyecto(Proyecto model) {
 		if (rn034.isValidRN034(model)) {
 			System.out.println(model.getId());
-			model = genericoDAO.findById(Proyecto.class, model.getId());
 			genericoDAO.eliminar(model);
 		}else {
 			throw new TESSERACTValidacionException("Este elemento no se puede eliminar debido a que esta siendo referenciado.", "MSG14");

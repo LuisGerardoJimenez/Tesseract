@@ -113,9 +113,16 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 		}
 	}
 	
+	public String create() {
+		addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "registrado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
 	public void validateDestroy() {
+		System.out.println("Entro al validate Destroy");
+		if(hasActionErrors()) {			
 			try {
-				System.out.println("Ya entro maldita sea");
 				System.out.println("El id a eliminar es: "+model.getId());
 				proyectoBs.eliminarProyecto(model);
 			} catch (TESSERACTValidacionException tve) {
@@ -131,12 +138,7 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 				index();
 				e.printStackTrace();
 			}
-	}
-	
-	public String create() {
-		addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "registrado" }));
-		SessionManager.set(this.getActionMessages(), "mensajesAccion");
-		return SUCCESS;
+		}
 	}
 	
 	public String destroy(){
