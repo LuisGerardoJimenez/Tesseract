@@ -180,7 +180,6 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 			resultado = SUCCESS;
 			addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "modificado" }));
 			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-			SessionManager.set(this.getActionErrors(), "mensajesAccion");
 		} catch (TESSERACTValidacionException pve) {
 			ErrorManager.agregaMensajeError(this, pve);
 			resultado = edit();
