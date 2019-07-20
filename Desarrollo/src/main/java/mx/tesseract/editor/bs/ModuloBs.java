@@ -43,32 +43,32 @@ import org.springframework.transaction.annotation.Transactional;
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class ModuloBs {
 	private Proyecto proyecto;
-	
+
 	@Autowired
 	private RN006 rn006;
-	
+
 	@Autowired
 	private RN023 rn023;
-	
+
 	@Autowired
 	private ModuloDAO moduloDAO;
-	
+
 	@Autowired
 	private GenericoDAO genericoDAO;
-	
+
 	@Autowired
 	private ProyectoBs proyectoBs;
-	
+
 	public List<Modulo> consultarModulosProyecto(Integer idProyecto) {
 		List<Modulo> modulos = moduloDAO.findByIdProyecto(idProyecto);
 		return modulos;
 	}
-	
+
 	public Modulo consultarModuloById(Integer id) {
 		Modulo modulo = genericoDAO.findById(Modulo.class, id);
 		return modulo;
 	}
-	
+
 //	public static Modulo consultarModulo(int idActor) {
 //		Modulo modulo = null;
 //		modulo = new ModuloDAO()
@@ -89,16 +89,14 @@ public class ModuloBs {
 				genericoDAO.save(model);
 			} else {
 				throw new TESSERACTValidacionException("EL nombre del módulo ya existe.", "MSG7",
-						new String[] { "El", "Módulo", model.getNombre() },
-						"model.nombre");
+						new String[] { "El", "Módulo", model.getNombre() }, "model.nombre");
 			}
 		} else {
 			throw new TESSERACTValidacionException("La clave del módulo ya existe.", "MSG7",
-					new String[] { "La", "clave", model.getClave()}, "model.clave");
+					new String[] { "La", "clave", model.getClave() }, "model.clave");
 		}
 	}
 
-	
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarModulo(Modulo model, Integer idProyecto) {
 		if (rn006.isValidRN006(model)) {
@@ -107,11 +105,10 @@ public class ModuloBs {
 			genericoDAO.update(model);
 		} else {
 			throw new TESSERACTValidacionException("EL nombre del módulo ya existe.", "MSG7",
-					new String[] { "El", "Módulo", model.getNombre()},
-					"model.nombre");
+					new String[] { "El", "Módulo", model.getNombre() }, "model.nombre");
 		}
 	}
-	
+
 //
 //	private static void validar(Modulo model) {
 //		//Validaciones Negocio

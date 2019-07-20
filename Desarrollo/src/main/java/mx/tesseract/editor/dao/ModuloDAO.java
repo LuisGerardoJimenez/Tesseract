@@ -57,7 +57,6 @@ public class ModuloDAO {
 		return lista;
 	}
 	
-	
 	@SuppressWarnings("unchecked")
 	public Modulo findModuloByName(String name) {
 		Modulo modulo = null;
@@ -77,7 +76,6 @@ public class ModuloDAO {
 		return modulo;
 	}
 	
-	
 	@SuppressWarnings("unchecked")
 	public Modulo findModuloByClave(String clave) {
 		Modulo modulo = null;
@@ -96,9 +94,6 @@ public class ModuloDAO {
 		}
 		return modulo;
 	}
-	
-	
-	
 	
 	@SuppressWarnings("unchecked")
 	public Modulo findModuloByNombreAndId(String nombre, Integer idModulo) {

@@ -111,10 +111,6 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 		return SUCCESS;
 	}
 	
-	
-	
-	
-	
 	public String edit() {
 		return EDIT;
 	}
@@ -302,6 +298,4 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 		this.idProyecto = idProyecto;
 	}
 	
-	
-
 }
