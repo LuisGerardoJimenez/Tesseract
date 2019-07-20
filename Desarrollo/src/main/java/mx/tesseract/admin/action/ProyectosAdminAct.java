@@ -119,7 +119,6 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 	}
 	
 	public void validateDestroy() {
-		if(!hasActionErrors()) {
 			try {
 				System.out.println("Ya entro maldita sea");
 				model.setId(idSel);
@@ -137,9 +136,6 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 				index();
 				e.printStackTrace();
 			}
-		} else {
-			index();
-		}
 	}
 	
 	public String create() {
@@ -149,7 +145,10 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 	}
 	
 	public String destroy(){
-		addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "eliminado" }));
+		System.out.println("entro al destroy");
+		//addActionError("Este es un error");
+		System.out.println(this.getActionErrors());
+		System.out.println(this.getActionMessages());
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
