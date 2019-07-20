@@ -61,7 +61,6 @@ public class GenericoDAO {
 	}
 	
 	public void eliminar(Object entidad) {
-		System.out.println("Eliminado2");
 		em.remove(entidad);
 	}
 	
