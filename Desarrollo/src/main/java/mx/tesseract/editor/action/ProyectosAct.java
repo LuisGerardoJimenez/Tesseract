@@ -32,7 +32,6 @@ import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -52,9 +51,9 @@ import com.opensymphony.xwork2.ModelDriven;
 @AllowedMethods({ "entrar" })
 public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<Proyecto> {
 	private static final long serialVersionUID = 1L;
+	private static final String MODULOS = "modulos";
 	private Colaborador colaborador;
 	private Proyecto model;
-	private Proyecto proyecto;
 	private List<Proyecto> listProyectos;
 	private List<Colaborador> listColaboradores;
 	private String jsonColaboradoresTabla;
@@ -77,7 +76,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 			SessionManager.delete("idProyecto");
 			SessionManager.delete("idModulo");
 			colaborador = loginBs.consultarColaboradorActivo();
-			listProyectos = proyectoBs.consultarProyectos();
+			listProyectos = proyectoBs.consultarProyectosByColaborador(colaborador.getCurp());
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
@@ -92,15 +91,9 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
     @SuppressWarnings("unchecked")
 	public String entrar() {
     	System.out.println("Entrando al proyecto");
-		String resultado = LOGIN;
+		String resultado = INDEX;
 		try {
-			/*colaborador = SessionManager.consultarColaboradorActivo();
-			if (idSel == null || colaborador == null
-					|| !AccessBs.verificarPermisos(model, colaborador)) {
-				resultado = LOGIN;
-				return resultado;
-			}*/
-			//resultado = "modulos";
+			resultado = MODULOS;
 			SessionManager.set(idSel, "idProyecto");
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
@@ -294,12 +287,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	
 
 	public Proyecto getModel() {
-		try {
-			return (model == null) ? model = loginBs.consultarProyectoActivo(): model;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return model;
+		return (model == null) ? model = loginBs.consultarProyectoActivo(): model;
 	}
 
 	public void setModel(Proyecto model) {
@@ -323,15 +311,6 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 		System.out.println("IdProyecto: "+idSel);
 		model = proyectoBs.consultarProyecto(idSel);
 		System.out.println("modelo: "+model.getNombre());
-		this.proyecto = model;
-	}
-
-	public Proyecto getProyecto() {
-		return proyecto;
-	}
-
-	public void setProyecto(Proyecto proyecto) {
-		this.proyecto = proyecto;
 	}
 
 	public List<Colaborador> getListColaboradores() {

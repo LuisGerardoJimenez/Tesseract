@@ -1,12 +1,11 @@
 package mx.tesseract.admin.entidad;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 /*
  * Luis Gerardo Jiménez
  */
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,7 +42,8 @@ import mx.tesseract.util.GenericInterface;
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "Proyecto.findByClave", query = "SELECT p.* FROM proyecto p WHERE p.clave = ?", resultClass = Proyecto.class),
 	@NamedNativeQuery(name = "Proyecto.findByNombre", query = "SELECT p.* FROM proyecto p WHERE p.nombre = ?", resultClass = Proyecto.class),
-	@NamedNativeQuery(name = "Proyecto.findElementosByIdProyecto", query = "SELECT p.* FROM proyecto p INNER JOIN elemento e ON e.proyectoid = p.id WHERE p.id = ? LIMIT 1", resultClass = Proyecto.class)
+	@NamedNativeQuery(name = "Proyecto.findElementosByIdProyecto", query = "SELECT p.* FROM proyecto p INNER JOIN elemento e ON e.proyectoid = p.id WHERE p.id = ? LIMIT 1", resultClass = Proyecto.class),
+	@NamedNativeQuery(name = "Proyecto.findByColaboradorCurp", query = "SELECT p.* FROM proyecto p INNER JOIN colaborador_proyecto cp ON cp.proyectoid = p.id WHERE cp.ColaboradorCURP = ?", resultClass = Proyecto.class)
 	})
 @Entity
 @Table(name = "proyecto", uniqueConstraints = {
@@ -93,7 +93,7 @@ public class Proyecto implements Serializable, GenericInterface {
 	@JoinColumn(name = "EstadoProyectoid", referencedColumnName = "id")
 	private EstadoProyecto estadoProyecto;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "proyecto")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto")
 	private List<ColaboradorProyecto> proyecto_colaboradores = new ArrayList<ColaboradorProyecto>(0);
 	
 	@Transient

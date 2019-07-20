@@ -2,7 +2,6 @@ package mx.tesseract.admin.action;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import mx.tesseract.admin.bs.ColaboradorBs;
 import mx.tesseract.admin.bs.EstadoProyectoBs;
@@ -27,36 +26,32 @@ import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
 @ResultPath("/pages/administrador/")
-@Results({ @Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = {
-		"actionName", "proyectos-admin" })
-})
-@Conversion(
-	    conversions = {
-	         // key must be the name of a property for which converter should be used
-	         @TypeConversion(key = "model.fechaInicio", converter = "mx.tesseract.util.StrutsDateConverter"),
-	         @TypeConversion(key = "model.fechaTermino", converter = "mx.tesseract.util.StrutsDateConverter"),
-	         @TypeConversion(key = "model.fechaInicioProgramada", converter = "mx.tesseract.util.StrutsDateConverter"),
-	         @TypeConversion(key = "model.fechaTerminoProgramada", converter = "mx.tesseract.util.StrutsDateConverter")
-	    }
-	)
-public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDriven<Proyecto>{
-	
+@Results({ @Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = { "actionName",
+		"proyectos-admin" }) })
+@Conversion(conversions = {
+		// key must be the name of a property for which converter should be used
+		@TypeConversion(key = "model.fechaInicio", converter = "mx.tesseract.util.StrutsDateConverter"),
+		@TypeConversion(key = "model.fechaTermino", converter = "mx.tesseract.util.StrutsDateConverter"),
+		@TypeConversion(key = "model.fechaInicioProgramada", converter = "mx.tesseract.util.StrutsDateConverter"),
+		@TypeConversion(key = "model.fechaTerminoProgramada", converter = "mx.tesseract.util.StrutsDateConverter") })
+public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDriven<Proyecto> {
+
 	private static final long serialVersionUID = 1L;
 	private Proyecto model;
 	private List<Proyecto> listProyectos;
 	private List<EstadoProyecto> listEstadosProyecto;
 	private List<Colaborador> listPersonas;
 	private Integer idSel;
-	
+
 	@Autowired
 	private ProyectoBs proyectoBs;
-	
+
 	@Autowired
 	private ColaboradorBs colaboradorBs;
-	
+
 	@Autowired
 	private EstadoProyectoBs estadoProyectoBs;
-	
+
 	@SuppressWarnings("unchecked")
 	public String index() {
 		try {
@@ -71,7 +66,7 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 		}
 		return INDEX;
 	}
-	
+
 	public String editNew() {
 		String resultado = INDEX;
 		try {
@@ -84,19 +79,19 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 		}
 		return resultado;
 	}
-	
+
 	private void buscarCatalogos() {
 		listPersonas = colaboradorBs.consultarPersonal();
 		listEstadosProyecto = estadoProyectoBs.consultarEstadosNoTerminado();
 	}
-	
+
 //	private void buscarCatalogosModificacion() {
 //		listEstadosProyecto = ProyectoBs.consultarEstadosProyecto();
 //		listPersonas = ColaboradorBs.consultarPersonal();
 //	}
 
 	public void validateCreate() {
-		if(!hasErrors()) {
+		if (!hasErrors()) {
 			try {
 				System.out.println("Vamos a agregar proyecto");
 				proyectoBs.registrarProyecto(model);
@@ -121,7 +116,7 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 	public void validateDestroy() {
 			try {
 				System.out.println("Ya entro maldita sea");
-				model.setId(idSel);
+				System.out.println("El id a eliminar es: "+model.getId());
 				proyectoBs.eliminarProyecto(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
@@ -157,8 +152,8 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 
 		String resultado;
 		try {
-			//buscarCatalogosModificacion();
-			//prepararVista();
+			// buscarCatalogosModificacion();
+			// prepararVista();
 			resultado = EDIT;
 		} catch (TESSERACTException pe) {
 			ErrorManager.agregaMensajeError(this, pe);
@@ -183,10 +178,10 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 	public String update() throws Exception {
 		String resultado;
 		try {
-			//ProyectoBs.modificarProyecto(model, curpLider, idEstadoProyecto, presupuestoString);
+			// ProyectoBs.modificarProyecto(model, curpLider, idEstadoProyecto,
+			// presupuestoString);
 			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "El",
-					"Proyecto", "modificado" }));
+			addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "modificado" }));
 			SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		} catch (TESSERACTValidacionException pve) {
 			ErrorManager.agregaMensajeError(this, pve);
@@ -200,35 +195,31 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 		}
 		return resultado;
 	}
-	
+
 	@VisitorFieldValidator
 	public Proyecto getModel() {
 		return (model == null) ? model = new Proyecto() : model;
 	}
-	
+
 	public void setModel(Proyecto model) {
 		this.model = model;
 	}
-	
+
 	public List<Proyecto> getListProyectos() {
 		return listProyectos;
 	}
-	
+
 	public void setListProyectos(List<Proyecto> listProyectos) {
 		this.listProyectos = listProyectos;
 	}
-	
+
 	public Integer getIdSel() {
 		return idSel;
 	}
-	
+
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
 		model = proyectoBs.consultarProyecto(idSel);
-	}
-	
-	public void setSession(Map<String, Object> session) {
-		
 	}
 
 	public List<EstadoProyecto> getListEstadosProyecto() {

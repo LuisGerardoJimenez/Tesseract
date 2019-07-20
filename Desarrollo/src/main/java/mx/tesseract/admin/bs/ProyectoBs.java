@@ -50,22 +50,16 @@ public class ProyectoBs {
 
 	public List<Proyecto> consultarProyectos() {
 		List<Proyecto> proyectos = genericoDAO.findAll(Proyecto.class);
-		if (proyectos.size() == Constantes.NUMERO_CERO) {
-			throw new TESSERACTException("No se pueden consultar los proyectos.", "MSG13");
-		}
 		return proyectos;
 	}
 
 	public List<Proyecto> consultarProyectosByColaborador(String curp) {
 		List<Proyecto> proyectos = proyectoDAO.findByCURPColaborador(curp);
-		if (proyectos.size() == Constantes.NUMERO_CERO) {
-			throw new TESSERACTException("No se pueden consultar los proyectos.", "MSG13");
-		}
 		return proyectos;
 	}
 
-	public Proyecto consultarProyecto(Integer idSel) {
-		Proyecto proyecto = genericoDAO.findById(Proyecto.class, idSel);
+	public Proyecto consultarProyecto(Integer idProyecto) {
+		Proyecto proyecto = genericoDAO.findById(Proyecto.class, idProyecto);
 		if (proyecto == null) {
 			throw new TESSERACTException("No se puede consultar el proyecto.", "MSG13");
 		}
