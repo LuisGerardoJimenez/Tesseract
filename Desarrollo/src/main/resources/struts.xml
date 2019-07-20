@@ -171,16 +171,16 @@
 					un correspondiente validate, siempre y cuando los primeros estén anotados -->
 				<interceptor-ref name="validation">
 					<!-- Se excluyen los métodos -->
-					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,index,execute,deleteConfirm</param>
+					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,index,execute</param>
 					<!--<param name="validateAnnotatedMethodOnly">true</param> -->
 				</interceptor-ref>
 
 				<interceptor-ref name="restWorkflow">
-					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,deleteConfirm</param>
+					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,destroy</param>
 				</interceptor-ref>
 
 				<interceptor-ref name="workflow">
-					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,deleteConfirm</param>
+					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,destroy</param>
 				</interceptor-ref>
 				<!-- Provee de diferentes pantallas de depuración. Este interceptor solo 
 					se activa cuando la constante devMode está habilitada en la configuración 
