@@ -68,4 +68,21 @@ public class ProyectoDAO {
 		return proyecto;
 	}
 
+	@SuppressWarnings("unchecked")
+	public Proyecto findElementosByIdProyecto(Proyecto entidad) {
+		Proyecto proyecto = null;
+		try {
+			Query query = entityManager.createNamedQuery("Proyecto.findElementosByIdProyecto", Proyecto.class);
+			query.setParameter(Constantes.NUMERO_UNO, entidad.getId());
+			List<Proyecto> lista = (List<Proyecto>) query.getResultList();
+			if (lista.isEmpty()) {
+				proyecto = null;
+			} else {
+				proyecto = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			System.err.print(e.getMessage());
+		}
+		return proyecto;
+	}
 }

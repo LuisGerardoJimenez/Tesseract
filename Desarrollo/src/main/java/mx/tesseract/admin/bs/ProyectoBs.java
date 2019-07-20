@@ -1,6 +1,5 @@
 package mx.tesseract.admin.bs;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import mx.tesseract.admin.dao.ColaboradorDAO;
@@ -11,6 +10,7 @@ import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.admin.entidad.Rol;
 import mx.tesseract.br.RN006;
 import mx.tesseract.br.RN022;
+import mx.tesseract.br.RN034;
 import mx.tesseract.br.RN035;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.util.Constantes;
@@ -44,6 +44,9 @@ public class ProyectoBs {
 
 	@Autowired
 	private RN035 rn035;
+	
+	@Autowired
+	private RN034 rn034;
 
 	public List<Proyecto> consultarProyectos() {
 		List<Proyecto> proyectos = genericoDAO.findAll(Proyecto.class);
@@ -83,6 +86,15 @@ public class ProyectoBs {
 		} else {
 			throw new TESSERACTValidacionException("La clave del proyecto ya existe.", "MSG7",
 					new String[] { "El", "Proyecto", model.getClave() }, "model.clave");
+		}
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarProyecto(Proyecto model) {
+		if (rn034.isValidRN034(model)) {
+			genericoDAO.eliminar(model);
+		}else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.", "MSG14");
 		}
 	}
 
@@ -176,5 +188,6 @@ public class ProyectoBs {
 //		}
 //		return null;
 //	}
+
 
 }

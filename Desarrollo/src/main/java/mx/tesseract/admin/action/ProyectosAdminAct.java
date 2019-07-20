@@ -2,7 +2,6 @@ package mx.tesseract.admin.action;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import mx.tesseract.admin.bs.ColaboradorBs;
 import mx.tesseract.admin.bs.EstadoProyectoBs;
@@ -113,13 +112,39 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 			editNew();
 		}
 	}
-
+	
 	public String create() {
 		addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "registrado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-
+	
+	public void validateDestroy() {
+		if(hasActionErrors()) {
+			try {
+				proyectoBs.eliminarProyecto(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				index();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				index();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				index();
+				e.printStackTrace();
+			}	
+		}
+	}
+	
+	public String destroy(){
+		addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "eliminado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
 	public String edit() throws Exception {
 
 		String resultado;
@@ -158,23 +183,6 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 		} catch (TESSERACTValidacionException pve) {
 			ErrorManager.agregaMensajeError(this, pve);
 			resultado = edit();
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
-	}
-
-	public String destroy() throws Exception {
-		String resultado;
-		try {
-			// ProyectoBs.eliminarProyecto(model);
-			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "eliminado" }));
-			SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		} catch (TESSERACTException pe) {
 			ErrorManager.agregaMensajeError(this, pe);
 			resultado = index();
