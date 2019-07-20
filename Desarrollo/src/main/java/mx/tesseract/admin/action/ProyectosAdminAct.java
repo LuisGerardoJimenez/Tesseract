@@ -120,10 +120,8 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 	}
 	
 	public void validateDestroy() {
-		System.out.println("Entro al validate Destroy");
-		if(hasActionErrors()) {			
+		if(hasActionErrors()) {
 			try {
-				System.out.println("El id a eliminar es: "+model.getId());
 				proyectoBs.eliminarProyecto(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
@@ -137,15 +135,12 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 				ErrorManager.agregaMensajeError(this, e);
 				index();
 				e.printStackTrace();
-			}
+			}	
 		}
 	}
 	
 	public String destroy(){
-		System.out.println("entro al destroy");
-		//addActionError("Este es un error");
-		System.out.println(this.getActionErrors());
-		System.out.println(this.getActionMessages());
+		addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "eliminado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -185,6 +180,7 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 			resultado = SUCCESS;
 			addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "modificado" }));
 			SessionManager.set(this.getActionMessages(), "mensajesAccion");
+			SessionManager.set(this.getActionErrors(), "mensajesAccion");
 		} catch (TESSERACTValidacionException pve) {
 			ErrorManager.agregaMensajeError(this, pve);
 			resultado = edit();

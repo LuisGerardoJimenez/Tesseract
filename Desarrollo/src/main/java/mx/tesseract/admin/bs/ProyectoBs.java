@@ -92,10 +92,9 @@ public class ProyectoBs {
 	@Transactional(rollbackFor = Exception.class)
 	public void eliminarProyecto(Proyecto model) {
 		if (rn034.isValidRN034(model)) {
-			System.out.println(model.getId());
 			genericoDAO.eliminar(model);
 		}else {
-			throw new TESSERACTValidacionException("Este elemento no se puede eliminar debido a que esta siendo referenciado.", "MSG14");
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.", "MSG14");
 		}
 	}
 
