@@ -95,12 +95,14 @@
 
 					<tr>
 						<td class="label obligatorio"><s:text name="labelLider" /></td>
-						<td><s:select name="curpLider" list="listPersonas"
-								headerValue="Seleccione" headerKey="-1" listKey="curp"
+						<td><s:select name="model.colaboradorCurp"
+								list="listPersonas" headerValue="Seleccione" headerKey="-1"
+								listKey="curp"
 								listValue="nombre + ' ' + apellidoPaterno + ' ' + apellidoMaterno"
-								value="curpLider" cssErrorClass="select-error"
+								value="model.colaboradorCurp" cssErrorClass="select-error"
 								cssClass="inputFormulario ui-widget" /> <s:fielderror
-								fieldName="curpLider" cssClass="error" theme="jquery" /></td>
+								fieldName="model.colaboradorCurp" cssClass="error"
+								theme="jquery" /></td>
 					</tr>
 
 					<tr>
@@ -121,20 +123,21 @@
 
 					<tr>
 						<td class="label"><s:text name="labelPresupuesto" /></td>
-						<td><s:textfield name="presupuestoString" maxlength="12"
-								cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
-							<s:fielderror fieldName="presupuestoString" cssClass="error"
-								theme="jquery" /></td>
+						<td><s:textfield name="model.presupuesto" maxlength="12"
+								cssErrorClass="input-error" cssClass="inputFormulario ui-widget"
+								type="number" step="0.01" /> <s:fielderror
+								fieldName="model.presupuesto" cssClass="error" theme="jquery" /></td>
 					</tr>
 
 					<tr>
 						<td class="label obligatorio"><s:text name="labelEstado" /></td>
-						<td><s:select name="idEstadoProyecto"
+						<td><s:select name="model.estadoProyecto.id"
 								list="listEstadosProyecto" headerValue="Seleccione"
 								headerKey="-1" listKey="id" listValue="nombre"
-								value="idEstadoProyecto" cssErrorClass="select-error"
+								value="model.estadoProyecto.id" cssErrorClass="select-error"
 								cssClass="inputFormulario ui-widget" /> <s:fielderror
-								fieldName="idEstadoProyecto" cssClass="error" theme="jquery" /></td>
+								fieldName="model.estadoProyecto.id" cssClass="error"
+								theme="jquery" /></td>
 					</tr>
 
 				</table>

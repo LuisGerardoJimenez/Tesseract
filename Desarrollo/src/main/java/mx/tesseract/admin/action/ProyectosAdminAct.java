@@ -7,9 +7,11 @@ import mx.tesseract.admin.bs.ColaboradorBs;
 import mx.tesseract.admin.bs.EstadoProyectoBs;
 import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Colaborador;
+import mx.tesseract.admin.entidad.ColaboradorProyecto;
 import mx.tesseract.admin.entidad.EstadoProyecto;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.ActionSupportTESSERACT;
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
@@ -85,42 +87,84 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 		listEstadosProyecto = estadoProyectoBs.consultarEstadosNoTerminado();
 	}
 
-//	private void buscarCatalogosModificacion() {
-//		listEstadosProyecto = ProyectoBs.consultarEstadosProyecto();
-//		listPersonas = ColaboradorBs.consultarPersonal();
-//	}
-
 	public void validateCreate() {
 		if (!hasErrors()) {
 			try {
-				System.out.println("Vamos a agregar proyecto");
 				proyectoBs.registrarProyecto(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
-				editNew();
+//				editNew();
 			} catch (TESSERACTException te) {
 				ErrorManager.agregaMensajeError(this, te);
 				System.err.println(te.getMessage());
-				editNew();
+//				editNew();
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
-				editNew();
 				e.printStackTrace();
+//				editNew();
 			}
 		} else {
-			editNew();
+//			editNew();
 		}
 	}
-	
+
 	public String create() {
 		addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "registrado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-	
+
+	public String edit() {
+		String resultado = INDEX;
+		try {
+			buscarCatalogos();
+			for (ColaboradorProyecto cp : model.getProyecto_colaboradores()) {
+				if (cp.getRol().getId() == Constantes.ROL_LIDER) {
+					model.setColaboradorCurp(cp.getColaborador().getCurp());
+					break;
+				}
+			}
+			resultado = EDIT;
+		} catch (TESSERACTException pe) {
+			ErrorManager.agregaMensajeError(this, pe);
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		return resultado;
+	}
+
+	public void validateUpdate() {
+		if (!hasErrors()) {
+			try {
+				System.out.println("Vamos a editar proyecto");
+				proyectoBs.modificarProyecto(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				edit();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				edit();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				edit();
+			}
+		} else {
+			edit();
+		}
+	}
+
+	public String update() {
+		addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "modificado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+
 	public void validateDestroy() {
-		if(hasActionErrors()) {
+		if (hasActionErrors()) {
 			try {
 				proyectoBs.eliminarProyecto(model);
 			} catch (TESSERACTValidacionException tve) {
@@ -135,62 +179,14 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 				ErrorManager.agregaMensajeError(this, e);
 				index();
 				e.printStackTrace();
-			}	
+			}
 		}
 	}
-	
-	public String destroy(){
+
+	public String destroy() {
 		addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "eliminado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
-	}
-	
-	public String edit() throws Exception {
-
-		String resultado;
-		try {
-			// buscarCatalogosModificacion();
-			// prepararVista();
-			resultado = EDIT;
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			e.printStackTrace();
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
-	}
-
-//	private void prepararVista() {
-//		idEstadoProyecto = model.getEstadoProyecto().getId();
-//		curpLider = ProyectoBs.consultarColaboradorProyectoLider(model).getColaborador().getCurp();
-//		if (!Validador.esNulo(model.getPresupuesto())) {
-//			DecimalFormat df2 = new DecimalFormat(".##");
-//			presupuestoString = df2.format(model.getPresupuesto()).toString();
-//		}
-//	}
-
-	public String update() throws Exception {
-		String resultado;
-		try {
-			// ProyectoBs.modificarProyecto(model, curpLider, idEstadoProyecto,
-			// presupuestoString);
-			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "El", "Proyecto", "modificado" }));
-			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-		} catch (TESSERACTValidacionException pve) {
-			ErrorManager.agregaMensajeError(this, pve);
-			resultado = edit();
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
 	}
 
 	@VisitorFieldValidator
