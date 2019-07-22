@@ -44,7 +44,7 @@ public class ProyectoBs {
 
 	@Autowired
 	private RN035 rn035;
-	
+
 	@Autowired
 	private RN034 rn034;
 
@@ -88,66 +88,47 @@ public class ProyectoBs {
 					new String[] { "El", "Proyecto", model.getClave() }, "model.clave");
 		}
 	}
-	
+
+	@Transactional(rollbackFor = Exception.class)
+	public void modificarProyecto(Proyecto model) {
+		if (rn022.isValidRN022(model)) {
+			if (rn006.isValidRN006(model)) {
+				if (rn035.isValidRN035(model.getFechaInicioProgramada(), model.getFechaTerminoProgramada())) {
+					agregarLider(model);
+					System.out.println("--------------------------------------");
+					System.out.println("Ya se va a modificar");
+					for (ColaboradorProyecto cp : model.getProyecto_colaboradores()) {
+						System.out.println("Nombre: "+cp.getColaborador().getNombre());
+						System.out.println("Rol: "+cp.getRol().getNombre());
+					}
+					System.out.println("--------------------------------------");
+					genericoDAO.update(model);
+					genericoDAO.updateList(model.getProyecto_colaboradores());
+				} else {
+					throw new TESSERACTValidacionException("El usuario ingresó en desorden las fechas.", "MSG35",
+							new String[] { "fecha de término programada", "fecha de inicio programada" },
+							"model.fechaTerminoProgramada");
+				}
+			} else {
+				throw new TESSERACTValidacionException("El nombre del proyecto ya existe.", "MSG7",
+						new String[] { "El", "Proyecto", model.getNombre() }, "model.nombre");
+			}
+		} else {
+			throw new TESSERACTValidacionException("La clave del proyecto ya existe.", "MSG7",
+					new String[] { "El", "Proyecto", model.getClave() }, "model.clave");
+		}
+	}
+
 	@Transactional(rollbackFor = Exception.class)
 	public void eliminarProyecto(Proyecto model) {
 		if (rn034.isValidRN034(model)) {
 			genericoDAO.eliminar(model);
-		}else {
-			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.", "MSG14");
+		} else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
+					"MSG14");
 		}
 	}
 
-//	public static void modificarProyecto(Proyecto model, String curpLider, int idEstadoProyecto, String presupuestoString) throws Exception {
-//		try {
-//			validar(model, curpLider, idEstadoProyecto, presupuestoString);
-//			ProyectoBs.agregarEstado(model, idEstadoProyecto);
-//			ProyectoBs.agregarLider(model, curpLider);
-//			new ProyectoDAO().modificarProyecto(model);
-//		} catch (JDBCException je) {
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//
-//	}
-//	
-//	public static void modificarColaboradoresProyecto(Proyecto model) throws Exception {
-//		try {
-//			new ProyectoDAO().modificarProyecto(model);
-//		} catch (JDBCException je) {
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//		
-//	}
-
-//	public static void eliminarProyecto(Proyecto model) throws Exception {
-//		try {
-//			new ProyectoDAO().eliminarProyecto(model);
-//			
-//		} catch (JDBCException je) {
-//			if(je.getErrorCode() == 1451)
-//			{
-//				throw new TESSERACTException("No se puede eliminar el proyecto.", "MSG14");
-//			}
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch(HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//		
-//	}
-//
 	private void agregarLider(Proyecto model) {
 		ColaboradorProyecto lider = null;
 		ColaboradorProyecto colaboradorproyecto = null;
@@ -188,6 +169,5 @@ public class ProyectoBs {
 //		}
 //		return null;
 //	}
-
 
 }

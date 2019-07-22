@@ -27,15 +27,15 @@ public class ColaboradorProyecto implements Serializable, GenericInterface {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
+	@Column(name = "id")
 	private int id;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ColaboradorCURP", nullable = false)
+	@JoinColumn(name = "ColaboradorCURP")
 	private Colaborador colaborador;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Rolid", nullable = false)
+	@JoinColumn(name = "Rolid")
 	private Rol rol;
 
 	@ManyToOne(fetch = FetchType.EAGER)

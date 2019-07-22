@@ -41,7 +41,9 @@ import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "Proyecto.findByClave", query = "SELECT p.* FROM proyecto p WHERE p.clave = ?", resultClass = Proyecto.class),
+	@NamedNativeQuery(name = "Proyecto.findByClaveAndId", query = "SELECT p.* FROM proyecto p WHERE p.clave = ? AND p.id != ?", resultClass = Proyecto.class),
 	@NamedNativeQuery(name = "Proyecto.findByNombre", query = "SELECT p.* FROM proyecto p WHERE p.nombre = ?", resultClass = Proyecto.class),
+	@NamedNativeQuery(name = "Proyecto.findByNombreAndId", query = "SELECT p.* FROM proyecto p WHERE p.nombre = ? AND p.id != ?", resultClass = Proyecto.class),
 	@NamedNativeQuery(name = "Proyecto.findElementosByIdProyecto", query = "SELECT p.* FROM proyecto p INNER JOIN elemento e ON e.proyectoid = p.id WHERE p.id = ? LIMIT 1", resultClass = Proyecto.class),
 	@NamedNativeQuery(name = "Proyecto.findByColaboradorCurp", query = "SELECT p.* FROM proyecto p INNER JOIN colaborador_proyecto cp ON cp.proyectoid = p.id WHERE cp.ColaboradorCURP = ?", resultClass = Proyecto.class)
 	})
@@ -93,7 +95,7 @@ public class Proyecto implements Serializable, GenericInterface {
 	@JoinColumn(name = "EstadoProyectoid", referencedColumnName = "id")
 	private EstadoProyecto estadoProyecto;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto", orphanRemoval = true)
 	private List<ColaboradorProyecto> proyecto_colaboradores = new ArrayList<ColaboradorProyecto>(0);
 	
 	@Transient

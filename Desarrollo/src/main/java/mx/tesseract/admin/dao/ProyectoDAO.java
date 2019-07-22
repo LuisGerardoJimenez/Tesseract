@@ -51,11 +51,49 @@ public class ProyectoDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public Proyecto findByClaveAndId(String clave, Integer id) {
+		Proyecto proyecto = null;
+		try {
+			Query query = entityManager.createNamedQuery("Proyecto.findByClaveAndId", Proyecto.class);
+			query.setParameter(Constantes.NUMERO_UNO, clave);
+			query.setParameter(Constantes.NUMERO_DOS, id);
+			List<Proyecto> lista = (List<Proyecto>) query.getResultList();
+			if (lista.isEmpty()) {
+				proyecto = null;
+			} else {
+				proyecto = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return proyecto;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public Proyecto findByNombre(String nombre) {
 		Proyecto proyecto = null;
 		try {
 			Query query = entityManager.createNamedQuery("Proyecto.findByNombre", Proyecto.class);
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
+			List<Proyecto> lista = (List<Proyecto>) query.getResultList();
+			if (lista.isEmpty()) {
+				proyecto = null;
+			} else {
+				proyecto = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return proyecto;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Proyecto findByNombreAndId(String nombre, Integer id) {
+		Proyecto proyecto = null;
+		try {
+			Query query = entityManager.createNamedQuery("Proyecto.findByNombreAndId", Proyecto.class);
+			query.setParameter(Constantes.NUMERO_UNO, nombre);
+			query.setParameter(Constantes.NUMERO_DOS, id);
 			List<Proyecto> lista = (List<Proyecto>) query.getResultList();
 			if (lista.isEmpty()) {
 				proyecto = null;

@@ -17,7 +17,12 @@ public class RN022 {
 	
 	public Boolean isValidRN022(Proyecto entidad) {
 		Boolean valido = true;
-		Proyecto proyecto = proyectoDAO.findByClave(entidad.getClave());
+		Proyecto proyecto;
+		if (entidad.getId() == null) {
+			proyecto = proyectoDAO.findByClave(entidad.getClave());
+		} else {
+			proyecto = proyectoDAO.findByClaveAndId(entidad.getClave(), entidad.getId());
+		}
 		if (proyecto != null) {
 			valido = false;
 		}

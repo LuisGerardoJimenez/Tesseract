@@ -60,7 +60,7 @@ public class Colaborador implements Serializable, GenericInterface {
 	@Column(name = "administrador")
 	private boolean administrador;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "colaborador")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "colaborador", orphanRemoval = true)
 	private List<ColaboradorProyecto> colaborador_proyectos = new ArrayList<ColaboradorProyecto>();
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "colaborador")

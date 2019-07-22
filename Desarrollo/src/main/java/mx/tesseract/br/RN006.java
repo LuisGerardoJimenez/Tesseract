@@ -22,13 +22,17 @@ public class RN006 {
 	
 	public Boolean isValidRN006(Proyecto entidad) {
 		Boolean valido = true;
-		Proyecto proyecto = proyectoDAO.findByNombre(entidad.getNombre());
+		Proyecto proyecto;
+		if (entidad.getId() == null) {
+			proyecto = proyectoDAO.findByNombre(entidad.getNombre());
+		} else {
+			proyecto = proyectoDAO.findByNombreAndId(entidad.getNombre(), entidad.getId());
+		}
 		if (proyecto != null) {
 			valido = false;
 		}
 		return valido;
 	}
-	
 	
 	public Boolean isValidRN006(Modulo entidad) {
 		Boolean valido = true;

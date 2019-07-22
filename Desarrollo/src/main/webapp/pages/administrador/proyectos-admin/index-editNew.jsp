@@ -25,7 +25,8 @@
 
 	<p class="instrucciones">Ingrese la información solicitada.</p>
 	<s:form autocomplete="off" id="frmProyecto" theme="simple"
-		action="%{#pageContext.request.contextPath}/proyectos-admin" method="post">
+		action="%{#pageContext.request.contextPath}/proyectos-admin"
+		method="post">
 		<div class="formulario">
 			<div class="tituloFormulario">Información general del Proyecto</div>
 			<div class="seccion">
@@ -34,17 +35,17 @@
 						<td class="label obligatorio"><s:text name="labelClave" /></td>
 						<td><s:textfield name="model.clave" maxlength="10"
 								cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
-							<s:fielderror fieldName ="model.clave" cssClass="error"
+							<s:fielderror fieldName="model.clave" cssClass="error"
 								theme="jquery" /></td>
 					</tr>
 					<tr>
 						<td class="label obligatorio"><s:text name="labelNombre" /></td>
 						<td><s:textfield name="model.nombre" maxlength="50"
 								cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
-							<s:fielderror fieldName ="model.nombre" cssClass="error"
+							<s:fielderror fieldName="model.nombre" cssClass="error"
 								theme="jquery" /></td>
 					</tr>
-					
+
 					<tr>
 
 						<td class="label"><s:text name="labelFechaInicio" /></td>
@@ -69,11 +70,10 @@
 						<td class="label obligatorio"><s:text
 								name="labelFechaInicioProg" /></td>
 						<td><s:date name="model.fechaInicioProgramada"
-								var="fechaInicioProgramadaFormato" />
-							<s:textfield name="model.fechaInicioProgramada"
-								id="fechaInicioProgramada" cssErrorClass="input-error"
-								cssClass="inputFormulario ui-widget" readonly="true"
-								value="%{#fechaInicioProgramadaFormato}" /> <s:fielderror
+								var="fechaInicioProgramadaFormato" /> <s:textfield
+								name="model.fechaInicioProgramada" id="fechaInicioProgramada"
+								cssErrorClass="input-error" cssClass="inputFormulario ui-widget"
+								readonly="true" value="%{#fechaInicioProgramadaFormato}" /> <s:fielderror
 								fieldName="model.fechaInicioProgramada" cssClass="error"
 								theme="jquery" /></td>
 					</tr>
@@ -82,62 +82,65 @@
 						<td class="label obligatorio"><s:text
 								name="labelFechaTerminoProg" /></td>
 						<td><s:date name="model.fechaTerminoProgramada"
-								var="fechaTerminoProgramadaFormato" />
-							<s:textfield name="model.fechaTerminoProgramada"
-								id="fechaTerminoProgramada" cssErrorClass="input-error"
-								cssClass="inputFormulario ui-widget" readonly="true"
-								value="%{#fechaTerminoProgramadaFormato}" /> <s:fielderror
+								var="fechaTerminoProgramadaFormato" /> <s:textfield
+								name="model.fechaTerminoProgramada" id="fechaTerminoProgramada"
+								cssErrorClass="input-error" cssClass="inputFormulario ui-widget"
+								readonly="true" value="%{#fechaTerminoProgramadaFormato}" /> <s:fielderror
 								fieldName="model.fechaTerminoProgramada" cssClass="error"
 								theme="jquery" /></td>
 					</tr>
-					
+
 					<tr>
 						<td class="label obligatorio"><s:text name="labelLider" /></td>
-						<td><s:select name="model.colaboradorCurp" list="listPersonas" headerValue="Seleccione" headerKey="-1"
-								listKey="curp" listValue="nombre + ' ' + apellidoPaterno + ' ' + apellidoMaterno" value="model.colaboradorCurp"
-								cssErrorClass="select-error" cssClass="inputFormulario ui-widget" />
-							<s:fielderror fieldName ="model.colaboradorCurp" cssClass="error"
+						<td><s:select name="model.colaboradorCurp"
+								list="listPersonas" headerValue="Seleccione" headerKey="-1"
+								listKey="curp"
+								listValue="nombre + ' ' + apellidoPaterno + ' ' + apellidoMaterno"
+								value="model.colaboradorCurp" cssErrorClass="select-error"
+								cssClass="inputFormulario ui-widget" /> <s:fielderror
+								fieldName="model.colaboradorCurp" cssClass="error"
 								theme="jquery" /></td>
-					</tr> 
-					
+					</tr>
+
 					<tr>
 						<td class="label obligatorio"><s:text name="labelDescripcion" /></td>
 						<td><s:textarea name="model.descripcion" maxlength="999"
 								cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
-							<s:fielderror fieldName ="model.descripcion" cssClass="error"
+							<s:fielderror fieldName="model.descripcion" cssClass="error"
 								theme="jquery" /></td>
 					</tr>
-					
+
 					<tr>
 						<td class="label obligatorio"><s:text name="labelContraparte" /></td>
 						<td><s:textfield name="model.contraparte" maxlength="45"
 								cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
-							<s:fielderror fieldName ="model.contraparte" cssClass="error"
+							<s:fielderror fieldName="model.contraparte" cssClass="error"
 								theme="jquery" /></td>
 					</tr>
-					
+
 					<tr>
 						<td class="label"><s:text name="labelPresupuesto" /></td>
 						<td><s:textfield name="model.presupuesto" maxlength="12"
 								cssErrorClass="input-error" cssClass="inputFormulario ui-widget"
-								type="number" step="0.01"/>
-							<s:fielderror fieldName ="model.presupuesto" cssClass="error"
-								theme="jquery" /></td>
+								type="number" step="0.01" /> <s:fielderror
+								fieldName="model.presupuesto" cssClass="error" theme="jquery" /></td>
 					</tr>
-					
+
 					<tr>
 						<td class="label obligatorio"><s:text name="labelEstado" /></td>
-						<td><s:select name="model.estadoProyecto.id" list="listEstadosProyecto" headerValue="Seleccione" headerKey="-1"
-								listKey="id" listValue="nombre" value="model.estadoProyecto.id"
-								cssErrorClass="select-error" cssClass="inputFormulario ui-widget" />
-							<s:fielderror fieldName ="model.estadoProyecto.id" cssClass="error"
+						<td><s:select name="model.estadoProyecto.id"
+								list="listEstadosProyecto" headerValue="Seleccione"
+								headerKey="-1" listKey="id" listValue="nombre"
+								value="model.estadoProyecto.id" cssErrorClass="select-error"
+								cssClass="inputFormulario ui-widget" /> <s:fielderror
+								fieldName="model.estadoProyecto.id" cssClass="error"
 								theme="jquery" /></td>
 					</tr>
-					
+
 				</table>
 			</div>
 		</div>
-		
+
 		<br />
 		<div align="center">
 			<s:submit class="boton" value="Aceptar" />
@@ -146,8 +149,7 @@
 				value="%{#pageContext.request.contextPath}/proyectos-admin">
 			</s:url>
 			<input class="boton" type="button"
-				onclick="location.href='${urlGestionarProyectos}'"
-				value="Cancelar" />
+				onclick="location.href='${urlGestionarProyectos}'" value="Cancelar" />
 		</div>
 	</s:form>
 </body>
