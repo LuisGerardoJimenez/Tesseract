@@ -244,8 +244,8 @@ public class Proyecto implements Serializable, GenericInterface {
 		this.proyecto_colaboradores = proyecto_colaboradores;
 	}
 	
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_COMBO_BOX_STRING, shortCircuit = true)
+	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG54')}", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG54')}", regex = Constantes.REGEX_COMBO_BOX_STRING, shortCircuit = true)
 	public String getColaboradorCurp() {
 		return colaboradorCurp;
 	}
