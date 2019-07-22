@@ -1,9 +1,11 @@
 package mx.tesseract.admin.bs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mx.tesseract.admin.dao.ColaboradorDAO;
 import mx.tesseract.admin.entidad.Colaborador;
+import mx.tesseract.br.RN020;
 import mx.tesseract.br.RN033;
 import mx.tesseract.br.RN036;
 import mx.tesseract.dao.GenericoDAO;
@@ -29,6 +31,9 @@ public class ColaboradorBs {
 	private ColaboradorDAO colaboradorDAO;
 
 	@Autowired
+	private RN020 rn020;
+
+	@Autowired
 	private RN033 rn033;
 
 	@Autowired
@@ -36,16 +41,19 @@ public class ColaboradorBs {
 
 	@Autowired
 	private Correo correo;
-	
+
 	public List<Colaborador> consultarColaboradores() {
 		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
 		return colaboradores;
 	}
 
 	public List<Colaborador> consultarPersonal() {
-		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
-		if (colaboradores.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar los colaboradores.", "MSG13");
+		List<Colaborador> colaboradores = new ArrayList<Colaborador>();
+		if (rn020.isValidRN020Colaborador()) {
+			colaboradores = colaboradorDAO.findAllWithoutAdmin();
+		} else {
+			throw new TESSERACTException("No se pueden consultar los colaboradores.", "MSG22",
+					new String[] { "colaboradores" });
 		}
 		return colaboradores;
 	}
@@ -92,22 +100,22 @@ public class ColaboradorBs {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Transactional(rollbackFor = Exception.class)
 	public boolean eliminarColaborador(Colaborador model) {
 		boolean resultado = true;
 		try {
 			Colaborador colaborador = genericoDAO.findById(Colaborador.class, model.getCurp());
 			genericoDAO.delete(colaborador);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			resultado = false;
 			e.printStackTrace();
 		}
-		/*if(!esLiderProyecto(model)){*/
-		
-		/*} else {
-			resultado = false;
-		}*/
+		/* if(!esLiderProyecto(model)){ */
+
+		/*
+		 * } else { resultado = false; }
+		 */
 		return resultado;
 	}
 
@@ -122,50 +130,28 @@ public class ColaboradorBs {
 					"model.correoElectronico");
 		}
 	}
-	
-	/*public static List<String> verificarProyectosLider(Colaborador model) {
-	int idLider = RolBs.consultarIdRol(Rol_Enum.LIDER);
-	List<String> proyectos = new ArrayList<String>();
-	Set<String> setProyectos = new HashSet<String>(0);
-	
-	List<ColaboradorProyecto> colaboradoresProyecto = null;
-	colaboradoresProyecto = new ColaboradorProyectoDAO().consultarLiderColaboradoresProyecto(model);
-	
-	for(ColaboradorProyecto cp : colaboradoresProyecto) {
-		if(cp.getRol().getId() == idLider) {
-			String linea = "";
-			String proyecto = cp.getProyecto().getClave() + " " + cp.getProyecto().getNombre();
-			linea = "Esta persona es líder del Proyecto " + proyecto + ".";
-			setProyectos.add(linea);
-		}
-	}
-	
-	proyectos.addAll(setProyectos);
-	return proyectos;
-}*/
-	
-//	public static void eliminarColaborador(Colaborador model) throws Exception {
-//	try {
-//		if(!esLiderProyecto(model)) {
-//			new ColaboradorDAO().eliminarColaborador(model);
-//		} else {
-//			throw new TESSERACTException("No se puede eliminar la persona.", "MSG13");
+
+//	public static List<String> verificarProyectosLider(Colaborador model) {
+//		int idLider = RolBs.consultarIdRol(Rol_Enum.LIDER);
+//		List<String> proyectos = new ArrayList<String>();
+//		Set<String> setProyectos = new HashSet<String>(0);
+//
+//		List<ColaboradorProyecto> colaboradoresProyecto = null;
+//		colaboradoresProyecto = new ColaboradorProyectoDAO().consultarLiderColaboradoresProyecto(model);
+//
+//		for (ColaboradorProyecto cp : colaboradoresProyecto) {
+//			if (cp.getRol().getId() == idLider) {
+//				String linea = "";
+//				String proyecto = cp.getProyecto().getClave() + " " + cp.getProyecto().getNombre();
+//				linea = "Esta persona es líder del Proyecto " + proyecto + ".";
+//				setProyectos.add(linea);
+//			}
 //		}
-//		
-//	} catch (JDBCException je) {
-//		if(je.getErrorCode() == 1451)
-//		{
-//			throw new TESSERACTException("No se puede eliminar la persona.", "MSG14");
-//		}
-//		System.out.println("ERROR CODE " + je.getErrorCode());
-//		je.printStackTrace();
-//		throw new Exception();
-//	} catch(HibernateException he) {
-//		he.printStackTrace();
-//		throw new Exception();
+//
+//		proyectos.addAll(setProyectos);
+//		return proyectos;
 //	}
-//	
-//}
+
 //
 //public static boolean esLiderProyecto(Colaborador model) {
 //	Set<ColaboradorProyecto> colaboradoresProyecto = model.getColaborador_proyectos();

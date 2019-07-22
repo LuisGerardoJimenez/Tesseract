@@ -72,7 +72,7 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		}
 	}
 
-	public String create(){
+	public String create() {
 		addActionMessage(getText("MSG1", new String[] { "La", "Persona", "registrada" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
@@ -107,7 +107,6 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		return SUCCESS;
 	}
 
-	
 	public String destroy() throws Exception {
 		String resultado = null;
 		try {

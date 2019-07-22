@@ -137,7 +137,6 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 	public void validateUpdate() {
 		if (!hasErrors()) {
 			try {
-				System.out.println("Vamos a editar proyecto");
 				proyectoBs.modificarProyecto(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
