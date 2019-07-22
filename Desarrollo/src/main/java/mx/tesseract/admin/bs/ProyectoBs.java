@@ -1,6 +1,5 @@
 package mx.tesseract.admin.bs;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import mx.tesseract.admin.dao.ColaboradorDAO;
