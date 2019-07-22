@@ -94,18 +94,18 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
-//				editNew();
+				editNew();
 			} catch (TESSERACTException te) {
 				ErrorManager.agregaMensajeError(this, te);
 				System.err.println(te.getMessage());
-//				editNew();
+				editNew();
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
-//				editNew();
+				editNew();
 			}
 		} else {
-//			editNew();
+			editNew();
 		}
 	}
 
