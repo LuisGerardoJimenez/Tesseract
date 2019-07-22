@@ -69,9 +69,17 @@ public class GenericoDAO {
 		return lista;
 	}
 	
-	public void eliminar(Object entidad) {
+	public void delete(Object entidad) {
 		em.remove(entidad);
 		em.flush();
+	}
+	
+	public <T extends GenericInterface> List<T> deleteList(List<T> lista) {
+		for (Object o : lista) {
+			em.remove(o);
+			em.flush();
+		}
+		return lista;
 	}
 	
 	public <T extends GenericInterface> T refresh(T entidad) {

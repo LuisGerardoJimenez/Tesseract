@@ -98,7 +98,7 @@ public class ColaboradorBs {
 		boolean resultado = true;
 		try {
 			Colaborador colaborador = genericoDAO.findById(Colaborador.class, model.getCurp());
-			genericoDAO.eliminar(colaborador);
+			genericoDAO.delete(colaborador);
 		}catch(Exception e) {
 			resultado = false;
 			e.printStackTrace();

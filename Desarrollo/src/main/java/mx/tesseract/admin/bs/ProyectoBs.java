@@ -1,5 +1,6 @@
 package mx.tesseract.admin.bs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mx.tesseract.admin.dao.ColaboradorDAO;
@@ -71,7 +72,7 @@ public class ProyectoBs {
 		if (rn022.isValidRN022(model)) {
 			if (rn006.isValidRN006(model)) {
 				if (rn035.isValidRN035(model.getFechaInicioProgramada(), model.getFechaTerminoProgramada())) {
-					agregarLider(model);
+					agregarLiderProyecto(model);
 					genericoDAO.save(model);
 					genericoDAO.saveList(model.getProyecto_colaboradores());
 				} else {
@@ -94,16 +95,8 @@ public class ProyectoBs {
 		if (rn022.isValidRN022(model)) {
 			if (rn006.isValidRN006(model)) {
 				if (rn035.isValidRN035(model.getFechaInicioProgramada(), model.getFechaTerminoProgramada())) {
-					agregarLider(model);
-					System.out.println("--------------------------------------");
-					System.out.println("Ya se va a modificar");
-					for (ColaboradorProyecto cp : model.getProyecto_colaboradores()) {
-						System.out.println("Nombre: "+cp.getColaborador().getNombre());
-						System.out.println("Rol: "+cp.getRol().getNombre());
-					}
-					System.out.println("--------------------------------------");
 					genericoDAO.update(model);
-					genericoDAO.updateList(model.getProyecto_colaboradores());
+					editarLiderProyecto(model);
 				} else {
 					throw new TESSERACTValidacionException("El usuario ingresó en desorden las fechas.", "MSG35",
 							new String[] { "fecha de término programada", "fecha de inicio programada" },
@@ -122,22 +115,30 @@ public class ProyectoBs {
 	@Transactional(rollbackFor = Exception.class)
 	public void eliminarProyecto(Proyecto model) {
 		if (rn034.isValidRN034(model)) {
-			genericoDAO.eliminar(model);
+			genericoDAO.delete(model);
 		} else {
 			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
 					"MSG14");
 		}
 	}
 
-	private void agregarLider(Proyecto model) {
-		ColaboradorProyecto lider = null;
-		ColaboradorProyecto colaboradorproyecto = null;
-		Colaborador seleccionado = colaboradorDAO.findColaboradorByCURP(model.getColaboradorCurp());
-		Rol rol = genericoDAO.findById(Rol.class, Constantes.ROL_LIDER);
-		if (model.getProyecto_colaboradores().size() < Constantes.NUMERO_UNO) {
-			colaboradorproyecto = new ColaboradorProyecto(seleccionado, rol, model);
+	private void agregarLiderProyecto(Proyecto model) {
+		try {
+			Colaborador seleccionado = colaboradorDAO.findColaboradorByCURP(model.getColaboradorCurp());
+			Rol rol = genericoDAO.findById(Rol.class, Constantes.ROL_LIDER);
+			ColaboradorProyecto colaboradorproyecto = new ColaboradorProyecto(seleccionado, rol, model);
 			model.getProyecto_colaboradores().add(colaboradorproyecto);
-		} else {
+		} catch (Exception e) {
+			throw new TESSERACTException("No se puede agregar lider de proyecto.", "MSG13");
+		}
+	}
+
+	private void editarLiderProyecto(Proyecto model) {
+		try {
+			ColaboradorProyecto lider = null;
+			ColaboradorProyecto colaboradorproyecto = null;
+			Colaborador seleccionado = colaboradorDAO.findColaboradorByCURP(model.getColaboradorCurp());
+			Rol rol = genericoDAO.findById(Rol.class, Constantes.ROL_LIDER);
 			for (ColaboradorProyecto colaborador : model.getProyecto_colaboradores()) {
 				if (colaborador.getRol().getId() == Constantes.ROL_LIDER) {
 					lider = colaborador;
@@ -150,14 +151,21 @@ public class ProyectoBs {
 				colaboradorproyecto = new ColaboradorProyecto(seleccionado, rol, model);
 				model.getProyecto_colaboradores().add(colaboradorproyecto);
 				model.getProyecto_colaboradores().remove(lider);
+				genericoDAO.update(colaboradorproyecto);
+				genericoDAO.delete(lider);
 			} else {
 				if (lider.getId() != colaboradorproyecto.getId()) {
 					colaboradorproyecto.setRol(rol);
 					model.getProyecto_colaboradores().remove(lider);
+					genericoDAO.update(colaboradorproyecto);
+					genericoDAO.delete(lider);
 				}
 			}
+		} catch (Exception e) {
+			throw new TESSERACTException("No se puede editar lider de proyecto.", "MSG13");
 		}
 	}
+
 //
 //	public static ColaboradorProyecto consultarColaboradorProyectoLider(Proyecto model) {
 //		Set<ColaboradorProyecto> colaboradores_proyecto = model.getProyecto_colaboradores();
