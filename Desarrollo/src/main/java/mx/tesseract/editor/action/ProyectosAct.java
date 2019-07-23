@@ -21,6 +21,7 @@ import mx.tesseract.bs.AccessBs;
 /*import mx.tesseract.bs.RolBs;
 import mx.tesseract.bs.RolBs.Rol_Enum;*/
 import mx.tesseract.util.ActionSupportTESSERACT;
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
 //import mx.tesseract.util.FileUtil;
 import mx.tesseract.util.JsonUtil;
@@ -45,13 +46,14 @@ import com.opensymphony.xwork2.ModelDriven;
 		@Result(name = "documento", type = "stream", params = { "contentType", "${type}", "inputName",
 				"fileInputStream", "bufferSize", "1024", "contentDisposition",
 				"attachment;filename=\"${filename}\"" }) })
-@AllowedMethods({ "entrar" })
+@AllowedMethods({ "entrar", "elegirColaboradores" })
 public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<Proyecto> {
 	private static final long serialVersionUID = 1L;
 	private static final String MODULOS = "modulos";
 	private static final String COLABORADORES = "colaboradores";
 	private Colaborador colaborador;
 	private Proyecto model;
+	private Proyecto proyecto;
 	private List<Proyecto> listProyectos;
 	private List<Colaborador> listColaboradores;
 	private String jsonColaboradoresTabla;
@@ -91,7 +93,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	@SuppressWarnings("unchecked")
 	public String entrar() {
-		System.out.println("Entrando al proyecto");
+		System.out.println("Entrando al model");
 		String resultado = INDEX;
 		try {
 			resultado = MODULOS;
@@ -108,21 +110,21 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	}
 
 	@SuppressWarnings("unchecked")
-	public String elegirColaboradores() throws Exception {
-		String resultado = COLABORADORES;
+	public String elegirColaboradores() {
+		String resultado = INDEX;
 		try {
-			Colaborador lider = null;
-			listColaboradores = colaboradorBs.consultarPersonal();
-			for (Colaborador colaboradorSel : listColaboradores) {
-				if (colaboradorSel.isAdministrador()) {
-					lider = colaboradorSel;
-					break;
+			listColaboradores = new ArrayList<Colaborador>();
+			this.colaborador = loginBs.consultarColaboradorActivo();
+			for (Colaborador colaborador : colaboradorBs.consultarColaboradoresCatalogo()) {
+				if (!colaborador.getCurp().equals(this.colaborador.getCurp())) {
+					System.out.println("Nombre: "+colaborador.getNombre());
+					listColaboradores.add(colaborador);
 				}
 			}
-			listColaboradores.remove(lider);
 			SessionManager.set(idSel, "idProyecto");
-//			proyecto = SessionManager.consultarProyectoActivo();
+			model = loginBs.consultarProyectoActivo();
 			prepararVista();
+			resultado = COLABORADORES;
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
@@ -139,7 +141,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 		List<Colaborador> colaboradoresSeleccionados = new ArrayList<Colaborador>();
 		Colaborador colaboradorJSON = null;
 		for (ColaboradorProyecto colaboradorProyecto : model.getProyecto_colaboradores()) {
-			if (!colaboradorProyecto.getColaborador().isAdministrador()) {
+			if (colaboradorProyecto.getRol().getId() != Constantes.ROL_LIDER) {
 				colaboradorJSON = colaboradorProyecto.getColaborador();
 				colaboradorJSON.setColaborador_proyectos(null);
 				colaboradoresSeleccionados.add(colaboradorProyecto.getColaborador());
@@ -152,9 +154,9 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 //		String resultado = null;
 //		try {
 //			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null || colaborador == null
-//					|| !AccessBs.verificarPermisos(proyecto, colaborador)) {
+//			model = SessionManager.consultarProyectoActivo();
+//			if (model == null || colaborador == null
+//					|| !AccessBs.verificarPermisos(model, colaborador)) {
 //				resultado = LOGIN;
 //				return resultado;
 //			}
@@ -277,6 +279,14 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	public void setModel(Proyecto model) {
 		this.model = model;
 	}
+	
+	public Proyecto getProyecto() {
+		return (proyecto == null) ? proyecto = loginBs.consultarProyectoActivo() : proyecto;
+	}
+
+	public void setProyecto(Proyecto proyecto) {
+		this.proyecto = proyecto;
+	}
 
 	public List<Proyecto> getListProyectos() {
 		return listProyectos;
@@ -294,6 +304,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 		this.idSel = idSel;
 		System.out.println("IdProyecto: " + idSel);
 		model = proyectoBs.consultarProyecto(idSel);
+		proyecto = model;
 		System.out.println("modelo: " + model.getNombre());
 	}
 

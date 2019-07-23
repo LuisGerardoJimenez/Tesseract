@@ -5,7 +5,6 @@ import java.util.List;
 
 import mx.tesseract.admin.dao.ColaboradorDAO;
 import mx.tesseract.admin.entidad.Colaborador;
-import mx.tesseract.br.RN020;
 import mx.tesseract.br.RN033;
 import mx.tesseract.br.RN036;
 import mx.tesseract.dao.GenericoDAO;
@@ -31,9 +30,6 @@ public class ColaboradorBs {
 	private ColaboradorDAO colaboradorDAO;
 
 	@Autowired
-	private RN020 rn020;
-
-	@Autowired
 	private RN033 rn033;
 
 	@Autowired
@@ -47,11 +43,9 @@ public class ColaboradorBs {
 		return colaboradores;
 	}
 
-	public List<Colaborador> consultarPersonal() {
-		List<Colaborador> colaboradores = new ArrayList<Colaborador>();
-		if (rn020.isValidRN020Colaborador()) {
-			colaboradores = colaboradorDAO.findAllWithoutAdmin();
-		} else {
+	public List<Colaborador> consultarColaboradoresCatalogo() {
+		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
+		if (colaboradores.isEmpty()) {
 			throw new TESSERACTException("No se pueden consultar los colaboradores.", "MSG22",
 					new String[] { "colaboradores" });
 		}

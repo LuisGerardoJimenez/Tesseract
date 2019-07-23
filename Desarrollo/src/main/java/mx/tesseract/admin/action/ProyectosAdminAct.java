@@ -83,7 +83,7 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 	}
 
 	private void buscarCatalogos() {
-		listPersonas = colaboradorBs.consultarPersonal();
+		listPersonas = colaboradorBs.consultarColaboradoresCatalogo();
 		listEstadosProyecto = estadoProyectoBs.consultarEstadosNoTerminado();
 	}
 
