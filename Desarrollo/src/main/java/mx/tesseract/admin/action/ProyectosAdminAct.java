@@ -61,8 +61,8 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 		}
@@ -74,8 +74,8 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 		try {
 			buscarCatalogos();
 			resultado = EDITNEW;
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 		}
@@ -126,8 +126,8 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 				}
 			}
 			resultado = EDIT;
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 		}

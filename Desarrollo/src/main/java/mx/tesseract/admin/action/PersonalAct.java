@@ -115,8 +115,8 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 			resultado = SUCCESS;
 			addActionMessage(getText("MSG1", new String[] { "La", "Persona", "eliminada" }));
 			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
 			resultado = index();
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
