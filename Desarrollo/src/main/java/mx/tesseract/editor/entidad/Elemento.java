@@ -5,9 +5,7 @@ package mx.tesseract.editor.entidad;
  */
 
 import static javax.persistence.GenerationType.IDENTITY;
-
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +15,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -31,6 +31,11 @@ import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.util.GenericInterface;
+
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "Elemento.consultarElementos", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ?", resultClass = Elemento.class),
+	})
 
 @Entity
 @Table(name = "Elemento", catalog = "TESSERACT")
@@ -45,12 +50,13 @@ import mx.tesseract.admin.entidad.Proyecto;
 //		  @Type(value = Pantalla.class, name = "pantalla"),
 //		  @Type(value = Pantalla.class, name = "reglaNegocio")
 //		})
-public class Elemento implements Serializable {
+public class Elemento implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	
 	@Column(name = "id", unique = true)
 	private int id;
 	
