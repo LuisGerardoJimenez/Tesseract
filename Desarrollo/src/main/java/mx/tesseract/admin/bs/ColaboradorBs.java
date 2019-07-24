@@ -99,15 +99,6 @@ public class ColaboradorBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarColaborador(Colaborador model) {
-		if (rn027.isValidRN027(model)) {
-			genericoDAO.delete(model);
-		}else {
-			throw new TESSERACTException("No se puede eliminar el colaborador porque ya esta asoaciado a un proyecto", "MSG55");
-		}
-	}
-
-	@Transactional(rollbackFor = Exception.class)
 	public void modificarColaborador(Colaborador model, String correoAnterior, String contraseniaAnterior) {
 		if (rn036.isValidRN036(model)) {
 			genericoDAO.update(model);
@@ -116,6 +107,16 @@ public class ColaboradorBs {
 			throw new TESSERACTValidacionException("El correo del colaborador ya existe.", "MSG7",
 					new String[] { "El", "correo electrónico", model.getCorreoElectronico() },
 					"model.correoElectronico");
+		}
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarColaborador(Colaborador model) {
+		if (rn027.isValidRN027(model)) {
+			genericoDAO.delete(model);
+		} else {
+			System.out.println("Error en regla de negocio");
+			throw new TESSERACTException("No se puede eliminar el colaborador porque ya esta asoaciado a un proyecto", "MSG55");
 		}
 	}
 

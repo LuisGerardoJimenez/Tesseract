@@ -133,7 +133,6 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 		}
-
 		return resultado;
 	}
 
