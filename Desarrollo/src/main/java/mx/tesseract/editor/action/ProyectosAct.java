@@ -93,7 +93,6 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	@SuppressWarnings("unchecked")
 	public String entrar() {
-		System.out.println("Entrando al model");
 		String resultado = INDEX;
 		try {
 			resultado = MODULOS;
@@ -117,7 +116,6 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 			this.colaborador = loginBs.consultarColaboradorActivo();
 			for (Colaborador colaborador : colaboradorBs.consultarColaboradoresCatalogo()) {
 				if (!colaborador.getCurp().equals(this.colaborador.getCurp())) {
-					System.out.println("Nombre: "+colaborador.getNombre());
 					listColaboradores.add(colaborador);
 				}
 			}
