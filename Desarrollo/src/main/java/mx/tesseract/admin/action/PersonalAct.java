@@ -106,8 +106,9 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
+
 	public void validateDestroy() {
-		if(!hasActionErrors()) {
+		if (!hasErrors()) {
 			try {
 				colaboradorBs.eliminarColaborador(model);
 			} catch (TESSERACTValidacionException tve) {
@@ -120,13 +121,13 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 				index();
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
-				index();
 				e.printStackTrace();
-			}	
+				index();
+			}
 		}
 	}
-	
-	public String destroy() throws Exception {
+
+	public String destroy() {
 		addActionMessage(getText("MSG1", new String[] { "La", "Persona", "eliminada" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;

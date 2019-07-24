@@ -176,11 +176,11 @@
 				</interceptor-ref>
 
 				<interceptor-ref name="restWorkflow">
-					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,destroy</param>
+					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew</param>
 				</interceptor-ref>
 
 				<interceptor-ref name="workflow">
-					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,destroy</param>
+					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew</param>
 				</interceptor-ref>
 				<!-- Provee de diferentes pantallas de depuración. Este interceptor solo 
 					se activa cuando la constante devMode está habilitada en la configuración 
