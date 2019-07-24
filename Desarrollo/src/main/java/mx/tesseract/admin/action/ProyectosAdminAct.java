@@ -163,7 +163,7 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 	}
 
 	public void validateDestroy() {
-		if (hasActionErrors()) {
+		if (!hasActionErrors()) {
 			try {
 				proyectoBs.eliminarProyecto(model);
 			} catch (TESSERACTValidacionException tve) {

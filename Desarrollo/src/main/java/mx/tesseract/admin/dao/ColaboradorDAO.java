@@ -86,4 +86,22 @@ public class ColaboradorDAO {
 		return colaborador;
 	}
 
+	@SuppressWarnings("unchecked")
+	public Colaborador hasProyectos(Colaborador entidad) {
+		Colaborador colaborador = null;
+		try {
+			Query query = entityManager.createNamedQuery("Colaborador.hasProyectos", Colaborador.class);
+			query.setParameter(Constantes.NUMERO_UNO, entidad.getCurp());
+			List<Colaborador> lista = (List<Colaborador>) query.getResultList();
+			if (lista.isEmpty()) {
+				colaborador = null;
+			} else {
+				colaborador = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			System.err.print(e.getMessage());
+		}
+		return colaborador;
+	}
+
 }

@@ -106,33 +106,31 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-
-	public String destroy() throws Exception {
-		String resultado = null;
-		try {
-			model.setCurp(idSel);
-			colaboradorBs.eliminarColaborador(model);
-			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "La", "Persona", "eliminada" }));
-			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-		} catch (TESSERACTException te) {
-			ErrorManager.agregaMensajeError(this, te);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
+	public void validateDestroy() {
+		if(!hasActionErrors()) {
+			try {
+				colaboradorBs.eliminarColaborador(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				index();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				index();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				index();
+				e.printStackTrace();
+			}	
 		}
-		return resultado;
 	}
-
-//	public String verificarProyectosLider() {
-//		try {
-//			proyectosLider = ColaboradorBs.verificarProyectosLider(model);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "referencias";
-//	}
+	
+	public String destroy() throws Exception {
+		addActionMessage(getText("MSG1", new String[] { "La", "Persona", "eliminada" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
 
 	@VisitorFieldValidator
 	public Colaborador getModel() {
