@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import mx.tesseract.admin.entidad.ColaboradorProyecto;
 import mx.tesseract.util.GenericInterface;
 
 @Repository("genericoDAO")
@@ -60,9 +61,25 @@ public class GenericoDAO {
 		return entidadActualizada;
 	}
 	
-	public void eliminar(Object entidad) {
+	public <T extends GenericInterface> List<T> updateList(List<T> lista) {
+		for (Object o : lista) {
+			em.merge(o);
+			em.flush();
+		}
+		return lista;
+	}
+	
+	public void delete(Object entidad) {
 		em.remove(entidad);
 		em.flush();
+	}
+	
+	public <T extends GenericInterface> List<T> deleteList(List<T> lista) {
+		for (Object o : lista) {
+			em.remove(o);
+			em.flush();
+		}
+		return lista;
 	}
 	
 	public <T extends GenericInterface> T refresh(T entidad) {

@@ -1,5 +1,6 @@
 package mx.tesseract.admin.bs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,24 +14,24 @@ import mx.tesseract.util.TESSERACTException;
 
 @Service("estadoProyectoBs")
 public class EstadoProyectoBs {
-	
+
 	@Autowired
 	private GenericoDAO genericoDAO;
-	
+
 	@Autowired
 	private EstadoProyectoDAO estadoProyectoDAO;
-	
+
 	public List<EstadoProyecto> consultarEstados() {
 		List<EstadoProyecto> estadosProyecto = genericoDAO.findAll(EstadoProyecto.class);
-		if(estadosProyecto.isEmpty()) {
+		if (estadosProyecto.isEmpty()) {
 			throw new TESSERACTException("No se pueden consultar los estados.", "MSG13");
 		}
 		return estadosProyecto;
 	}
-	
+
 	public List<EstadoProyecto> consultarEstadosNoTerminado() {
 		List<EstadoProyecto> estadosProyectos = estadoProyectoDAO.findAllWithoutFinished();
-		if(estadosProyectos.isEmpty()) {
+		if (estadosProyectos.isEmpty()) {
 			throw new TESSERACTException("No se pueden consultar los estados.", "MSG13");
 		}
 		return estadosProyectos;

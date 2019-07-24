@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import mx.tesseract.admin.dao.ColaboradorDAO;
 import mx.tesseract.admin.entidad.Colaborador;
+import mx.tesseract.editor.dao.ModuloDAO;
+import mx.tesseract.editor.entidad.Modulo;
 
 @Service("rN036")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
@@ -22,6 +24,6 @@ public class RN036 {
 			valido = false;
 		}
 		return valido;
-	}
+	}	
 
 }

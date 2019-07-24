@@ -34,7 +34,10 @@ import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
-	@NamedNativeQuery(name = "Modulo.findByIdProyecto", query = "SELECT m.* FROM modulo m WHERE m.Proyectoid = ?", resultClass = Modulo.class)
+	@NamedNativeQuery(name = "Modulo.findByIdProyecto", query = "SELECT m.* FROM modulo m WHERE m.Proyectoid = ?", resultClass = Modulo.class),
+	@NamedNativeQuery(name = "Modulo.findByName", query = "SELECT m.* FROM modulo m WHERE m.nombre = ?", resultClass = Modulo.class),
+	@NamedNativeQuery(name = "Modulo.findByClave", query = "SELECT m.* FROM modulo m WHERE m.clave = ?", resultClass = Modulo.class),
+	@NamedNativeQuery(name = "Modulo.findByNameAndId", query = "SELECT m.* FROM modulo m WHERE m.nombre = ? and m.id != ?", resultClass = Modulo.class)
 	})
 @Entity
 @Table(name = "Modulo")

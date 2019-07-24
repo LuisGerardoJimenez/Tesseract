@@ -46,9 +46,8 @@ public class EstadoProyecto implements Serializable, GenericInterface {
 		this.nombre = nombre;
 	}
 
-	//TODO: Cambiar mensaje al select
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
+	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG54')}", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG54')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
 	public Integer getId() {
 		return this.id;
 	}

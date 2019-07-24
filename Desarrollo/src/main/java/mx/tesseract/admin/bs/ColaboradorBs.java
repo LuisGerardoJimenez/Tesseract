@@ -40,16 +40,17 @@ public class ColaboradorBs {
 
 	@Autowired
 	private Correo correo;
-	
+
 	public List<Colaborador> consultarColaboradores() {
 		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
 		return colaboradores;
 	}
 
-	public List<Colaborador> consultarPersonal() {
+	public List<Colaborador> consultarColaboradoresCatalogo() {
 		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
 		if (colaboradores.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar los colaboradores.", "MSG13");
+			throw new TESSERACTException("No se pueden consultar los colaboradores.", "MSG22",
+					new String[] { "colaboradores" });
 		}
 		return colaboradores;
 	}
@@ -96,13 +97,13 @@ public class ColaboradorBs {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarProyecto(Colaborador model) {
+	public void eliminarColaborador(Colaborador model) {
 		if (rn027.isValidRN027(model)) {
-			genericoDAO.eliminar(model);
+			genericoDAO.delete(model);
 		}else {
-			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.", "MSG14");
+			throw new TESSERACTException("No se puede eliminar el colaborador porque ya esta asoaciado a un proyecto", "MSG55");
 		}
 	}
 
@@ -117,50 +118,28 @@ public class ColaboradorBs {
 					"model.correoElectronico");
 		}
 	}
-	
-	/*public static List<String> verificarProyectosLider(Colaborador model) {
-	int idLider = RolBs.consultarIdRol(Rol_Enum.LIDER);
-	List<String> proyectos = new ArrayList<String>();
-	Set<String> setProyectos = new HashSet<String>(0);
-	
-	List<ColaboradorProyecto> colaboradoresProyecto = null;
-	colaboradoresProyecto = new ColaboradorProyectoDAO().consultarLiderColaboradoresProyecto(model);
-	
-	for(ColaboradorProyecto cp : colaboradoresProyecto) {
-		if(cp.getRol().getId() == idLider) {
-			String linea = "";
-			String proyecto = cp.getProyecto().getClave() + " " + cp.getProyecto().getNombre();
-			linea = "Esta persona es líder del Proyecto " + proyecto + ".";
-			setProyectos.add(linea);
-		}
-	}
-	
-	proyectos.addAll(setProyectos);
-	return proyectos;
-}*/
-	
-//	public static void eliminarColaborador(Colaborador model) throws Exception {
-//	try {
-//		if(!esLiderProyecto(model)) {
-//			new ColaboradorDAO().eliminarColaborador(model);
-//		} else {
-//			throw new TESSERACTException("No se puede eliminar la persona.", "MSG13");
+
+//	public static List<String> verificarProyectosLider(Colaborador model) {
+//		int idLider = RolBs.consultarIdRol(Rol_Enum.LIDER);
+//		List<String> proyectos = new ArrayList<String>();
+//		Set<String> setProyectos = new HashSet<String>(0);
+//
+//		List<ColaboradorProyecto> colaboradoresProyecto = null;
+//		colaboradoresProyecto = new ColaboradorProyectoDAO().consultarLiderColaboradoresProyecto(model);
+//
+//		for (ColaboradorProyecto cp : colaboradoresProyecto) {
+//			if (cp.getRol().getId() == idLider) {
+//				String linea = "";
+//				String proyecto = cp.getProyecto().getClave() + " " + cp.getProyecto().getNombre();
+//				linea = "Esta persona es líder del Proyecto " + proyecto + ".";
+//				setProyectos.add(linea);
+//			}
 //		}
-//		
-//	} catch (JDBCException je) {
-//		if(je.getErrorCode() == 1451)
-//		{
-//			throw new TESSERACTException("No se puede eliminar la persona.", "MSG14");
-//		}
-//		System.out.println("ERROR CODE " + je.getErrorCode());
-//		je.printStackTrace();
-//		throw new Exception();
-//	} catch(HibernateException he) {
-//		he.printStackTrace();
-//		throw new Exception();
+//
+//		proyectos.addAll(setProyectos);
+//		return proyectos;
 //	}
-//	
-//}
+
 //
 //public static boolean esLiderProyecto(Colaborador model) {
 //	Set<ColaboradorProyecto> colaboradoresProyecto = model.getColaborador_proyectos();

@@ -8,7 +8,7 @@
 <title>Elegir Colaboradores</title>
 <![CDATA[
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/constructores.js"></script>
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/editor/proyectos/js/colaboradores.js"></script>
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/proyectos/js/colaboradores.js"></script>
 ]]>
 </head>
 

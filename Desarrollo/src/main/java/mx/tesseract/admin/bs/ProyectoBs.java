@@ -44,7 +44,7 @@ public class ProyectoBs {
 
 	@Autowired
 	private RN035 rn035;
-	
+
 	@Autowired
 	private RN034 rn034;
 
@@ -71,7 +71,7 @@ public class ProyectoBs {
 		if (rn022.isValidRN022(model)) {
 			if (rn006.isValidRN006(model)) {
 				if (rn035.isValidRN035(model.getFechaInicioProgramada(), model.getFechaTerminoProgramada())) {
-					agregarLider(model);
+					agregarLiderProyecto(model);
 					genericoDAO.save(model);
 					genericoDAO.saveList(model.getProyecto_colaboradores());
 				} else {
@@ -88,75 +88,56 @@ public class ProyectoBs {
 					new String[] { "El", "Proyecto", model.getClave() }, "model.clave");
 		}
 	}
-	
+
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarProyecto(Proyecto model) {
-		if (rn034.isValidRN034(model)) {
-			genericoDAO.eliminar(model);
-		}else {
-			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.", "MSG14");
+	public void modificarProyecto(Proyecto model) {
+		if (rn022.isValidRN022(model)) {
+			if (rn006.isValidRN006(model)) {
+				if (rn035.isValidRN035(model.getFechaInicioProgramada(), model.getFechaTerminoProgramada())) {
+					genericoDAO.update(model);
+					editarLiderProyecto(model);
+				} else {
+					throw new TESSERACTValidacionException("El usuario ingresó en desorden las fechas.", "MSG35",
+							new String[] { "fecha de término programada", "fecha de inicio programada" },
+							"model.fechaTerminoProgramada");
+				}
+			} else {
+				throw new TESSERACTValidacionException("El nombre del proyecto ya existe.", "MSG7",
+						new String[] { "El", "Proyecto", model.getNombre() }, "model.nombre");
+			}
+		} else {
+			throw new TESSERACTValidacionException("La clave del proyecto ya existe.", "MSG7",
+					new String[] { "El", "Proyecto", model.getClave() }, "model.clave");
 		}
 	}
 
-//	public static void modificarProyecto(Proyecto model, String curpLider, int idEstadoProyecto, String presupuestoString) throws Exception {
-//		try {
-//			validar(model, curpLider, idEstadoProyecto, presupuestoString);
-//			ProyectoBs.agregarEstado(model, idEstadoProyecto);
-//			ProyectoBs.agregarLider(model, curpLider);
-//			new ProyectoDAO().modificarProyecto(model);
-//		} catch (JDBCException je) {
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//
-//	}
-//	
-//	public static void modificarColaboradoresProyecto(Proyecto model) throws Exception {
-//		try {
-//			new ProyectoDAO().modificarProyecto(model);
-//		} catch (JDBCException je) {
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//		
-//	}
-
-//	public static void eliminarProyecto(Proyecto model) throws Exception {
-//		try {
-//			new ProyectoDAO().eliminarProyecto(model);
-//			
-//		} catch (JDBCException je) {
-//			if(je.getErrorCode() == 1451)
-//			{
-//				throw new TESSERACTException("No se puede eliminar el proyecto.", "MSG14");
-//			}
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch(HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//		
-//	}
-//
-	private void agregarLider(Proyecto model) {
-		ColaboradorProyecto lider = null;
-		ColaboradorProyecto colaboradorproyecto = null;
-		Colaborador seleccionado = colaboradorDAO.findColaboradorByCURP(model.getColaboradorCurp());
-		Rol rol = genericoDAO.findById(Rol.class, Constantes.ROL_LIDER);
-		if (model.getProyecto_colaboradores().size() < Constantes.NUMERO_UNO) {
-			colaboradorproyecto = new ColaboradorProyecto(seleccionado, rol, model);
-			model.getProyecto_colaboradores().add(colaboradorproyecto);
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarProyecto(Proyecto model) {
+		if (rn034.isValidRN034(model)) {
+			genericoDAO.delete(model);
 		} else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
+					"MSG14");
+		}
+	}
+
+	private void agregarLiderProyecto(Proyecto model) {
+		try {
+			Colaborador seleccionado = colaboradorDAO.findColaboradorByCURP(model.getColaboradorCurp());
+			Rol rol = genericoDAO.findById(Rol.class, Constantes.ROL_LIDER);
+			ColaboradorProyecto colaboradorproyecto = new ColaboradorProyecto(seleccionado, rol, model);
+			model.getProyecto_colaboradores().add(colaboradorproyecto);
+		} catch (Exception e) {
+			throw new TESSERACTException("No se puede agregar lider de proyecto.", "MSG13");
+		}
+	}
+
+	private void editarLiderProyecto(Proyecto model) {
+		try {
+			ColaboradorProyecto lider = null;
+			ColaboradorProyecto colaboradorproyecto = null;
+			Colaborador seleccionado = colaboradorDAO.findColaboradorByCURP(model.getColaboradorCurp());
+			Rol rol = genericoDAO.findById(Rol.class, Constantes.ROL_LIDER);
 			for (ColaboradorProyecto colaborador : model.getProyecto_colaboradores()) {
 				if (colaborador.getRol().getId() == Constantes.ROL_LIDER) {
 					lider = colaborador;
@@ -169,14 +150,21 @@ public class ProyectoBs {
 				colaboradorproyecto = new ColaboradorProyecto(seleccionado, rol, model);
 				model.getProyecto_colaboradores().add(colaboradorproyecto);
 				model.getProyecto_colaboradores().remove(lider);
+				genericoDAO.update(colaboradorproyecto);
+				genericoDAO.delete(lider);
 			} else {
 				if (lider.getId() != colaboradorproyecto.getId()) {
 					colaboradorproyecto.setRol(rol);
 					model.getProyecto_colaboradores().remove(lider);
+					genericoDAO.update(colaboradorproyecto);
+					genericoDAO.delete(lider);
 				}
 			}
+		} catch (Exception e) {
+			throw new TESSERACTException("No se puede editar lider de proyecto.", "MSG13");
 		}
 	}
+
 //
 //	public static ColaboradorProyecto consultarColaboradorProyectoLider(Proyecto model) {
 //		Set<ColaboradorProyecto> colaboradores_proyecto = model.getProyecto_colaboradores();
@@ -188,6 +176,5 @@ public class ProyectoBs {
 //		}
 //		return null;
 //	}
-
 
 }

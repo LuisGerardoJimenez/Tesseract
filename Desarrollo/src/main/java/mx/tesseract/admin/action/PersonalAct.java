@@ -72,7 +72,7 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		}
 	}
 
-	public String create(){
+	public String create() {
 		addActionMessage(getText("MSG1", new String[] { "La", "Persona", "registrada" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
@@ -106,7 +106,6 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-
 	public void validateDestroy() {
 		if(hasActionErrors()) {
 			try {
@@ -132,15 +131,6 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-
-//	public String verificarProyectosLider() {
-//		try {
-//			proyectosLider = ColaboradorBs.verificarProyectosLider(model);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "referencias";
-//	}
 
 	@VisitorFieldValidator
 	public Colaborador getModel() {

@@ -5,9 +5,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.dao.ProyectoDAO;
+import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.br.RN006;
+import mx.tesseract.br.RN023;
+import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
+import mx.tesseract.editor.entidad.Modulo;
 //import mx.tesseract.editor.dao.CasoUsoActorDAO;
 //import mx.tesseract.editor.dao.ModuloDAO;
 //import mx.tesseract.editor.dao.ReferenciaParametroDAO;
@@ -20,6 +26,7 @@ import mx.tesseract.editor.entidad.Modulo;
 //import mx.tesseract.editor.model.PostPrecondicion;
 //import mx.tesseract.editor.model.ReferenciaParametro;
 import mx.tesseract.util.Constantes;
+import mx.tesseract.util.SessionManager;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.Validador;
@@ -30,19 +37,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("moduloBS")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class ModuloBs {
-	
+	private Proyecto proyecto;
+
+	@Autowired
+	private RN006 rn006;
+
+	@Autowired
+	private RN023 rn023;
+
 	@Autowired
 	private ModuloDAO moduloDAO;
-	
+
+	@Autowired
+	private GenericoDAO genericoDAO;
+
+	@Autowired
+	private ProyectoBs proyectoBs;
+
 	public List<Modulo> consultarModulosProyecto(Integer idProyecto) {
 		List<Modulo> modulos = moduloDAO.findByIdProyecto(idProyecto);
 		return modulos;
 	}
-	
+
+	public Modulo consultarModuloById(Integer id) {
+		Modulo modulo = genericoDAO.findById(Modulo.class, id);
+		return modulo;
+	}
+
 //	public static Modulo consultarModulo(int idActor) {
 //		Modulo modulo = null;
 //		modulo = new ModuloDAO()
@@ -54,21 +80,35 @@ public class ModuloBs {
 //		}
 //		return modulo;
 //	}
-	
-//	public static void registrarModulo(Modulo model)
-//			throws Exception {
-//		try {
-//			validar(model);
-//			new ModuloDAO().registrarModulo(model);
-//		} catch (JDBCException je) {
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//	}
+	@Transactional(rollbackFor = Exception.class)
+	public void registrarModulo(Modulo model, Integer idProyecto) {
+		if (rn023.isValidRN023(model)) {
+			if (rn006.isValidRN006(model)) {
+				proyecto = proyectoBs.consultarProyecto(idProyecto);
+				model.setProyecto(proyecto);
+				genericoDAO.save(model);
+			} else {
+				throw new TESSERACTValidacionException("EL nombre del módulo ya existe.", "MSG7",
+						new String[] { "El", "Módulo", model.getNombre() }, "model.nombre");
+			}
+		} else {
+			throw new TESSERACTValidacionException("La clave del módulo ya existe.", "MSG7",
+					new String[] { "La", "clave", model.getClave() }, "model.clave");
+		}
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void modificarModulo(Modulo model, Integer idProyecto) {
+		if (rn006.isValidRN006(model)) {
+			proyecto = proyectoBs.consultarProyecto(idProyecto);
+			model.setProyecto(proyecto);
+			genericoDAO.update(model);
+		} else {
+			throw new TESSERACTValidacionException("EL nombre del módulo ya existe.", "MSG7",
+					new String[] { "El", "Módulo", model.getNombre() }, "model.nombre");
+		}
+	}
+
 //
 //	private static void validar(Modulo model) {
 //		//Validaciones Negocio

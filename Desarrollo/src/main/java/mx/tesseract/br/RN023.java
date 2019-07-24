@@ -7,26 +7,23 @@ import org.springframework.stereotype.Service;
 
 import mx.tesseract.admin.dao.ProyectoDAO;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.editor.dao.ModuloDAO;
+import mx.tesseract.editor.entidad.Modulo;
 
-@Service("rN022")
+@Service("rN023")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
-public class RN022 {
+public class RN023 {
 	
 	@Autowired
-	private ProyectoDAO proyectoDAO;
+	private ModuloDAO moduloDAO;
 	
-	public Boolean isValidRN022(Proyecto entidad) {
+	public Boolean isValidRN023(Modulo entidad) {
 		Boolean valido = true;
-		Proyecto proyecto;
-		if (entidad.getId() == null) {
-			proyecto = proyectoDAO.findByClave(entidad.getClave());
-		} else {
-			proyecto = proyectoDAO.findByClaveAndId(entidad.getClave(), entidad.getId());
-		}
-		if (proyecto != null) {
+		Modulo modulo = moduloDAO.findModuloByClave(entidad.getClave());
+		if (modulo != null) {
 			valido = false;
 		}
 		return valido;
 	}
-
+	
 }
