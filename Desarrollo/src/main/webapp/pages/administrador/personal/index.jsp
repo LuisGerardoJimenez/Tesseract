@@ -37,7 +37,7 @@
 									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
 						</s:a>
 						${blanks}
-						<s:a href="#" onclick="return verificarEliminacion('%{#persona.curp}');">
+						<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#persona.curp}');">
 						<img id="" class="button" title="Eliminar Persona"
 								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>		
 					</td>

@@ -107,7 +107,7 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		return SUCCESS;
 	}
 	public void validateDestroy() {
-		if(hasActionErrors()) {
+		if(!hasActionErrors()) {
 			try {
 				colaboradorBs.eliminarColaborador(model);
 			} catch (TESSERACTValidacionException tve) {
