@@ -107,23 +107,30 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		return SUCCESS;
 	}
 
+	public void validateDestroy() {
+		if(hasActionErrors()) {
+			try {
+				colaboradorBs.eliminarColaborador(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				index();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				index();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				index();
+				e.printStackTrace();
+			}	
+		}
+	}
 	
 	public String destroy() throws Exception {
-		String resultado = null;
-		try {
-			model.setCurp(idSel);
-			colaboradorBs.eliminarColaborador(model);
-			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "La", "Persona", "eliminada" }));
-			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
+		addActionMessage(getText("MSG1", new String[] { "La", "Persona", "eliminada" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
 	}
 
 //	public String verificarProyectosLider() {

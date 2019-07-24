@@ -4,6 +4,7 @@ import java.util.List;
 
 import mx.tesseract.admin.dao.ColaboradorDAO;
 import mx.tesseract.admin.entidad.Colaborador;
+import mx.tesseract.br.RN027;
 import mx.tesseract.br.RN033;
 import mx.tesseract.br.RN036;
 import mx.tesseract.dao.GenericoDAO;
@@ -27,6 +28,9 @@ public class ColaboradorBs {
 
 	@Autowired
 	private ColaboradorDAO colaboradorDAO;
+	
+	@Autowired
+	private RN027 rn027;
 
 	@Autowired
 	private RN033 rn033;
@@ -94,21 +98,12 @@ public class ColaboradorBs {
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
-	public boolean eliminarColaborador(Colaborador model) {
-		boolean resultado = true;
-		try {
-			Colaborador colaborador = genericoDAO.findById(Colaborador.class, model.getCurp());
-			genericoDAO.eliminar(colaborador);
-		}catch(Exception e) {
-			resultado = false;
-			e.printStackTrace();
+	public void eliminarProyecto(Colaborador model) {
+		if (rn027.isValidRN027(model)) {
+			genericoDAO.eliminar(model);
+		}else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.", "MSG14");
 		}
-		/*if(!esLiderProyecto(model)){*/
-		
-		/*} else {
-			resultado = false;
-		}*/
-		return resultado;
 	}
 
 	@Transactional(rollbackFor = Exception.class)

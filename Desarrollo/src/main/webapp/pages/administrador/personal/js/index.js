@@ -4,38 +4,18 @@ $(document).ready(function() {
 
 } );
 
-function confirmarEliminacion(curp) {
+function confirmarEliminacion(urlEliminar) {
 	$('#confirmarEliminacionDialog').dialog('close');
-	rutaVerificarReferencias = contextPath + '/personal!destroy';
-	$.ajax({
-		dataType : 'json',
-		url : rutaVerificarReferencias,
-		type: "POST",
-		data : {
-			idSel : curp
-		},
-		success : function(data) {
-			location.reload();
-		},
-		error : function(err) {
-			alert("Ha ocurrido un error.");
-			console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
-		}
-	});
+	window.location.href = urlEliminar;
 }
 
 function cancelarConfirmarEliminacion() {
 	$('#confirmarEliminacionDialog').dialog('close');
 }
 
-function verificarEliminacion(curp) {
-	
-	document.getElementById("btnConfirmarEliminacion").onclick = function(){ confirmarEliminacion(curp);};
+function mostrarMensajeEliminacion(id) {
+	var urlEliminar = contextPath + "/personal/" + id + "!destroy";	
+	document.getElementById("btnConfirmarEliminacion").onclick = function(){ confirmarEliminacion(urlEliminar);};
 	$('#confirmarEliminacionDialog').dialog('open');
-	
-	
-}
-
-function cerrarMensajeReferencias() {
-	$('#mensajeReferenciasDialog').dialog('close');
+	return false;
 }
