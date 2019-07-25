@@ -19,20 +19,23 @@ import org.springframework.stereotype.Repository;
 
 @Repository("elementoDAO")
 public class ElementoDAO {
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Elemento>consultarElementos(TipoReferencia tipoReferencia,
-			int idProyecto) {
-		System.out.println("ya estamos en elementodao");
+	public List<Elemento> consultarElementos(TipoReferencia tipoReferencia, int idProyecto) {
 		List<Elemento> elementos = new ArrayList<Elemento>();
 		try {
-			System.out.println("ya entramos al query elementodao");
-			Query query = entityManager.createNamedQuery("Elemento.consultarElementos", Elemento.class);
+			Query query =  null;
+			switch (tipoReferencia) {
+				case TERMINOGLS:
+					query = entityManager.createNamedQuery("Elemento.consultarElementosGlosario", Elemento.class);
+					break;
+				default:
+					break;
+			}
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
-			System.out.println("idproyecto"+idProyecto);
 			elementos = (List<Elemento>) query.getResultList();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
@@ -40,34 +43,55 @@ public class ElementoDAO {
 		return elementos;
 	}
 	
-//	@SuppressWarnings("unchecked")
-//	public List<Elemento> consultarElementoss(TipoReferencia tipoReferencia,
-//			int idProyecto) {
-//		List<Elemento> elementos = null;
-//		try {
-//			session.beginTransaction();
-//			SQLQuery query = session
-//					.createSQLQuery(
-//							"SELECT * FROM Elemento INNER JOIN "
-//									+ ReferenciaEnum.getTabla(tipoReferencia)
-//									+ " ON Elemento.id = "
-//									+ ReferenciaEnum.getTabla(tipoReferencia)
-//									+ ".Elementoid WHERE Elemento.Proyectoid = :proyecto")
-//					.addEntity(ReferenciaEnum.getClase(tipoReferencia));
-//			query.setParameter("proyecto", idProyecto);
-//			elementos = query.list();
-//			session.getTransaction().commit();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			session.getTransaction().rollback();
-//			throw he;
-//		}
-//		if (elementos == null) {
-//			return null;
-//		} else
-//			return elementos;
-//	}
+	@SuppressWarnings("unchecked")
+	public Elemento findByNombre(TipoReferencia tipoReferencia, String nombre, Integer idProyecto) {
+		Elemento elemento = null;
+		try {
+			Query query =  null;
+			switch (tipoReferencia) {
+				case TERMINOGLS:
+					query = entityManager.createNamedQuery("Elemento.consultarElementosGlosarioByNombre", Elemento.class);
+					break;
+				default:
+					break;
+			}
+			query.setParameter(Constantes.NUMERO_UNO, nombre);
+			query.setParameter(Constantes.NUMERO_DOS, idProyecto);
+			List<Elemento> lista = (List<Elemento>) query.getResultList();
+			if (!lista.isEmpty()) {
+				elemento = (Elemento) lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			 System.err.println(e.getMessage());
+		}
+		return elemento;
+	}
 	
+	@SuppressWarnings("unchecked")
+	public Elemento findByNombreAndId(TipoReferencia tipoReferencia, Integer id, String nombre, Integer idProyecto) {
+		Elemento elemento = null;
+		try {
+			Query query =  null;
+			switch (tipoReferencia) {
+				case TERMINOGLS:
+					query = entityManager.createNamedQuery("Elemento.consultarElementosGlosarioByNombreAndId", Elemento.class);
+					break;
+				default:
+					break;
+			}
+			query.setParameter(Constantes.NUMERO_UNO, nombre);
+			query.setParameter(Constantes.NUMERO_DOS, idProyecto);
+			query.setParameter(Constantes.NUMERO_TRES, id);
+			List<Elemento> lista = (List<Elemento>) query.getResultList();
+			if (!lista.isEmpty()) {
+				elemento = (Elemento) lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			 System.err.println(e.getMessage());
+		}
+		return elemento;
+	}
+
 //	public void registrarElemento(Elemento elemento) {
 //		try {
 //			session.beginTransaction();
@@ -93,33 +117,6 @@ public class ElementoDAO {
 //			throw he;
 //		}
 //	}
-//	
-//	public void modificarElemento(Elemento elemento) {
-//
-//		try {
-//			session.beginTransaction();
-//			session.update(elemento);
-//			session.getTransaction().commit();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			session.getTransaction().rollback();
-//			throw he;
-//		}
-//	}
-//	
-//	public void eliminarElemento(Elemento elemento) {
-//
-//		try {
-//			session.beginTransaction();
-//			//Elemento elementoPersistido = (Elemento) session.get(Elemento.class, elemento.getId());
-//			session.delete(elemento);
-//			session.getTransaction().commit();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			session.getTransaction().rollback();
-//			throw he;
-//		}
-//	}
 //
 //	public Elemento consultarElemento(int id) {
 //		Elemento elemento = null;
@@ -137,6 +134,32 @@ public class ElementoDAO {
 //
 //	}
 //
+	
+	@SuppressWarnings("unchecked")
+	public String siguienteNumero(TipoReferencia referencia, Integer idProyecto) {
+		String numero = "";
+		try {
+			Query query =  null;
+			switch (referencia) {
+				case TERMINOGLS:
+					query = entityManager.createNamedQuery("Elemento.findNextNumberTerminoGlosario", Elemento.class);
+					break;
+				default:
+					break;
+			}
+			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
+			List<Elemento> lista = (List<Elemento>) query.getResultList();
+			if (lista == null || lista.isEmpty()) {
+				numero = "" +Constantes.NUMERO_UNO;
+			} else {
+				numero = "" + lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			 System.err.println(e.getMessage());
+		}
+		return numero;
+	}
+	
 //	@SuppressWarnings("unchecked")
 //	public String siguienteNumero(TipoReferencia referencia,
 //			int idProyecto) {

@@ -18,17 +18,27 @@ import org.springframework.stereotype.Repository;
 public class TerminoGlosarioDAO extends ElementoDAO {
 
 	public List<TerminoGlosario>consultarTerminosGlosario(int idProyecto) {
-		System.out.println("ya estamos en el daodeglosario");
 		List<TerminoGlosario> lista = new ArrayList<TerminoGlosario>();
 		List<Elemento> elementos = super.consultarElementos(TipoReferencia.TERMINOGLS, idProyecto);
-		if (elementos != null)
+		if (!elementos.isEmpty())
 			for (Elemento elemento : elementos) {
 				lista.add((TerminoGlosario) elemento);
 			}
 		return lista;
 	}
-
-	/* public String siguienteNumeroTerminoGlosario(int idProyecto) { return
-	 * super.siguienteNumero(TipoReferencia.TERMINOGLS, idProyecto); }
-	 */
+	
+	public TerminoGlosario findTerminoGlosarioByNombre(String nombre, Integer idProyecto) {
+		TerminoGlosario terminoGlosario = (TerminoGlosario) findByNombre(TipoReferencia.TERMINOGLS, nombre, idProyecto);
+		return terminoGlosario;
+	}
+	
+	public TerminoGlosario findTerminoGlosarioByNombreAndId(Integer id, String nombre, Integer idProyecto) {
+		TerminoGlosario terminoGlosario = (TerminoGlosario) findByNombreAndId(TipoReferencia.TERMINOGLS, id, nombre, idProyecto);
+		return terminoGlosario;
+	}
+	
+	public String siguienteNumeroTerminoGlosario(Integer idProyecto) {
+		return siguienteNumero(TipoReferencia.TERMINOGLS, idProyecto);
+	}
+	
 }
