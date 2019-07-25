@@ -65,9 +65,7 @@ public class ModuloDAO {
 			Query query = entityManager.createNamedQuery("Modulo.findByName", Modulo.class);
 			query.setParameter(Constantes.NUMERO_UNO, name);
 			lista = (List<Modulo>) query.getResultList();
-			if (lista.isEmpty()) {
-				modulo = null;
-			} else {
+			if (!lista.isEmpty()) {
 				modulo = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
@@ -84,9 +82,7 @@ public class ModuloDAO {
 			Query query = entityManager.createNamedQuery("Modulo.findByClave", Modulo.class);
 			query.setParameter(Constantes.NUMERO_UNO, clave);
 			lista = (List<Modulo>) query.getResultList();
-			if (lista.isEmpty()) {
-				modulo = null;
-			} else {
+			if (!lista.isEmpty()) {
 				modulo = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
@@ -104,9 +100,7 @@ public class ModuloDAO {
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
 			query.setParameter(Constantes.NUMERO_DOS, idModulo);
 			lista = (List<Modulo>) query.getResultList();
-			if (lista.isEmpty()) {
-				modulo = null;
-			} else {
+			if (!lista.isEmpty()) {
 				modulo = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {

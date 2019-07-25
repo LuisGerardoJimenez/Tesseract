@@ -34,7 +34,10 @@ import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
-	@NamedNativeQuery(name = "Elemento.consultarElementos", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ?", resultClass = Elemento.class),
+	@NamedNativeQuery(name = "Elemento.consultarElementosGlosario", query = "SELECT e.* FROM elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.Proyectoid = ?", resultClass = Elemento.class),
+	@NamedNativeQuery(name = "Elemento.consultarElementosGlosarioByNombre", query = "SELECT e.* FROM elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.nombre = ? AND e.Proyectoid = ?", resultClass = Elemento.class),
+	@NamedNativeQuery(name = "Elemento.consultarElementosGlosarioByNombreAndId", query = "SELECT e.* FROM elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.nombre = ? AND e.Proyectoid = ? AND e.id != ?", resultClass = Elemento.class),
+	@NamedNativeQuery(name = "Elemento.findNextNumberTerminoGlosario", query = "SELECT MAX(CAST(e.numero AS SIGNED)) FROM Elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.Proyectoid = ?", resultClass = Elemento.class),
 	})
 
 @Entity
@@ -57,8 +60,8 @@ public class Elemento implements Serializable, GenericInterface {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	
-	@Column(name = "id", unique = true)
-	private int id;
+	@Column(name = "id")
+	private Integer id;
 	
 	@Column(name = "clave")
 	private String clave;
@@ -96,19 +99,19 @@ public class Elemento implements Serializable, GenericInterface {
 		this.estadoElemento = estadoElemento;
 	}
 
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5',{'un', 'número'})}", regex = "[0-9]*", shortCircuit = true)
-	@IntRangeFieldValidator(message = "%{getText('MSG14',{'El', 'identificador', '0', '2147483647'})}", shortCircuit = true, min = "0", max = "2147483647")
-	public int getId() {
+//	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
+//	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5',{'un', 'número'})}", regex = "[0-9]*", shortCircuit = true)
+//	@IntRangeFieldValidator(message = "%{getText('MSG14',{'El', 'identificador', '0', '2147483647'})}", shortCircuit = true, min = "0", max = "2147483647")
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	//@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'10', 'caracteres'})}", trim = true, maxLength = "10", shortCircuit= true)
+//	@StringLengthFieldValidator(message = "%{getText('MSG6',{'10', 'caracteres'})}", trim = true, maxLength = "10", shortCircuit= true)
 	public String getClave() {
 		return this.clave;
 	}
@@ -118,7 +121,7 @@ public class Elemento implements Serializable, GenericInterface {
 	}
 
 	//@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'20', 'números'})}", trim = true, maxLength = "20", shortCircuit= true)
+//	@StringLengthFieldValidator(message = "%{getText('MSG6',{'20', 'números'})}", trim = true, maxLength = "20", shortCircuit= true)
 	public String getNumero() {
 		return this.numero;
 	}
@@ -127,8 +130,8 @@ public class Elemento implements Serializable, GenericInterface {
 		this.numero = numero;
 	}
 
-	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'200', 'caracteres'})}", trim = true, maxLength = "200", shortCircuit= true)
+//	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
+//	@StringLengthFieldValidator(message = "%{getText('MSG6',{'200', 'caracteres'})}", trim = true, maxLength = "200", shortCircuit= true)
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -145,7 +148,7 @@ public class Elemento implements Serializable, GenericInterface {
 		this.proyecto = proyecto;
 	}
 
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'999', 'caracteres'})}", trim = true, maxLength = "999", shortCircuit= true)
+//	@StringLengthFieldValidator(message = "%{getText('MSG6',{'999', 'caracteres'})}", trim = true, maxLength = "999", shortCircuit= true)
 	public String getDescripcion() {
 		return this.descripcion;
 	}
