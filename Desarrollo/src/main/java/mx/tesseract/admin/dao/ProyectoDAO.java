@@ -39,9 +39,7 @@ public class ProyectoDAO {
 			Query query = entityManager.createNamedQuery("Proyecto.findByClave", Proyecto.class);
 			query.setParameter(Constantes.NUMERO_UNO, clave);
 			List<Proyecto> lista = (List<Proyecto>) query.getResultList();
-			if (lista.isEmpty()) {
-				proyecto = null;
-			} else {
+			if (!lista.isEmpty()) {
 				proyecto = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
@@ -58,9 +56,7 @@ public class ProyectoDAO {
 			query.setParameter(Constantes.NUMERO_UNO, clave);
 			query.setParameter(Constantes.NUMERO_DOS, id);
 			List<Proyecto> lista = (List<Proyecto>) query.getResultList();
-			if (lista.isEmpty()) {
-				proyecto = null;
-			} else {
+			if (!lista.isEmpty()) {
 				proyecto = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
@@ -76,9 +72,7 @@ public class ProyectoDAO {
 			Query query = entityManager.createNamedQuery("Proyecto.findByNombre", Proyecto.class);
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
 			List<Proyecto> lista = (List<Proyecto>) query.getResultList();
-			if (lista.isEmpty()) {
-				proyecto = null;
-			} else {
+			if (!lista.isEmpty()) {
 				proyecto = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
@@ -95,9 +89,7 @@ public class ProyectoDAO {
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
 			query.setParameter(Constantes.NUMERO_DOS, id);
 			List<Proyecto> lista = (List<Proyecto>) query.getResultList();
-			if (lista.isEmpty()) {
-				proyecto = null;
-			} else {
+			if (!lista.isEmpty()) {
 				proyecto = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
@@ -113,9 +105,7 @@ public class ProyectoDAO {
 			Query query = entityManager.createNamedQuery("Proyecto.findElementosByIdProyecto", Proyecto.class);
 			query.setParameter(Constantes.NUMERO_UNO, entidad.getId());
 			List<Proyecto> lista = (List<Proyecto>) query.getResultList();
-			if (lista.isEmpty()) {
-				proyecto = null;
-			} else {
+			if (!lista.isEmpty()) {
 				proyecto = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {

@@ -38,9 +38,7 @@ public class ColaboradorDAO {
 			Query query = entityManager.createNamedQuery("Colaborador.findColaboradorByCorreo", Colaborador.class);
 			query.setParameter(Constantes.NUMERO_UNO, correo);
 			List<Colaborador> lista = (List<Colaborador>) query.getResultList();
-			if (lista.isEmpty()) {
-				colaborador = null;
-			} else {
+			if (!lista.isEmpty()) {
 				colaborador = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
@@ -56,9 +54,7 @@ public class ColaboradorDAO {
 			Query query = entityManager.createNamedQuery("Colaborador.findColaboradorByCURP", Colaborador.class);
 			query.setParameter(Constantes.NUMERO_UNO, curp);
 			List<Colaborador> lista = (List<Colaborador>) query.getResultList();
-			if (lista.isEmpty()) {
-				colaborador = null;
-			} else {
+			if (!lista.isEmpty()) {
 				colaborador = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
@@ -75,9 +71,7 @@ public class ColaboradorDAO {
 			query.setParameter(Constantes.NUMERO_UNO, correo);
 			query.setParameter(Constantes.NUMERO_DOS, curp);
 			List<Colaborador> lista = (List<Colaborador>) query.getResultList();
-			if (lista.isEmpty()) {
-				colaborador = null;
-			} else {
+			if (!lista.isEmpty()) {
 				colaborador = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
@@ -93,9 +87,7 @@ public class ColaboradorDAO {
 			Query query = entityManager.createNamedQuery("Colaborador.hasProyectos", Colaborador.class);
 			query.setParameter(Constantes.NUMERO_UNO, entidad.getCurp());
 			List<Colaborador> lista = (List<Colaborador>) query.getResultList();
-			if (lista.isEmpty()) {
-				colaborador = null;
-			} else {
+			if (!lista.isEmpty()) {
 				colaborador = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {

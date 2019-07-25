@@ -1,37 +1,35 @@
 package mx.tesseract.util;
 
 public class ErrorManager {
-	public static void agregaMensajeError(ActionSupportTESSERACT ap, Exception ex) {
-		if(ex instanceof TESSERACTException) {
-		TESSERACTException pe = (TESSERACTException) ex;
-			if(pe instanceof TESSERACTValidacionException) {
-				TESSERACTValidacionException pve = (TESSERACTValidacionException) pe;
-				if(pve.getCampo() != null) {
-					if(pe.getParametros() != null){
-						ap.addFieldError(pve.getCampo(), ap.getText(pve.getIdMensaje(), pe.getParametros()));
+	public static void agregaMensajeError(ActionSupportTESSERACT at, Exception ex) {
+		if (ex instanceof TESSERACTException) {
+			TESSERACTException te = (TESSERACTException) ex;
+			if (te instanceof TESSERACTValidacionException) {
+				TESSERACTValidacionException pve = (TESSERACTValidacionException) te;
+				if (pve.getCampo() != null) {
+					if (te.getParametros() != null) {
+						at.addFieldError(pve.getCampo(), at.getText(pve.getIdMensaje(), te.getParametros()));
 					} else {
-						ap.addFieldError(pve.getCampo(), ap.getText(pve.getIdMensaje()));
+						at.addFieldError(pve.getCampo(), at.getText(pve.getIdMensaje()));
 					}
 				} else {
-					if(pe.getParametros() != null){
-						ap.addActionError(ap.getText(pe.getIdMensaje(), pe.getParametros()));
+					if (te.getParametros() != null) {
+						at.addActionError(at.getText(te.getIdMensaje(), te.getParametros()));
 					} else {
-						ap.addActionError(ap.getText(pe.getIdMensaje()));
+						at.addActionError(at.getText(te.getIdMensaje()));
 					}
 				}
-			} else { 
-				if(pe.getParametros() != null){
-					ap.addActionError(ap.getText(pe.getIdMensaje(), pe.getParametros()));
+			} else {
+				if (te.getParametros() != null) {
+					at.addActionError(at.getText(te.getIdMensaje(), te.getParametros()));
 				} else {
-					ap.addActionError(ap.getText(pe.getIdMensaje()));
+					at.addActionError(at.getText(te.getIdMensaje()));
 				}
 			}
 		} else {
-			ap.addActionError(ap.getText("MSG13"));
+			at.addActionError(at.getText("MSG13"));
 		}
-		
 		System.err.println(ex.getMessage());
 		ex.printStackTrace();
 	}
 }
-
