@@ -1,38 +1,22 @@
 package mx.tesseract.editor.bs;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import mx.tesseract.admin.bs.ProyectoBs;
-import mx.tesseract.admin.dao.ProyectoDAO;
-import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.br.RN006;
 import mx.tesseract.br.RN023;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
 import mx.tesseract.editor.entidad.Modulo;
+import mx.tesseract.util.TESSERACTException;
 //import mx.tesseract.editor.dao.CasoUsoActorDAO;
-//import mx.tesseract.editor.dao.ModuloDAO;
-//import mx.tesseract.editor.dao.ReferenciaParametroDAO;
-//import mx.tesseract.editor.model.Actor;
-//import mx.tesseract.editor.model.CasoUso;
-//import mx.tesseract.editor.model.CasoUsoActor;
-import mx.tesseract.editor.entidad.Modulo;
 //import mx.tesseract.editor.model.Pantalla;
 //import mx.tesseract.editor.model.Paso;
 //import mx.tesseract.editor.model.PostPrecondicion;
 //import mx.tesseract.editor.model.ReferenciaParametro;
-import mx.tesseract.util.Constantes;
-import mx.tesseract.util.SessionManager;
-import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
-import mx.tesseract.util.Validador;
 
-import org.hibernate.HibernateException;
-import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -50,6 +34,8 @@ public class ModuloBs {
 	@Autowired
 	private RN023 rn023;
 
+	@Autowired
+	private RN028 rn028;
 	@Autowired
 	private ModuloDAO moduloDAO;
 
@@ -106,6 +92,16 @@ public class ModuloBs {
 		} else {
 			throw new TESSERACTValidacionException("EL nombre del módulo ya existe.", "MSG7",
 					new String[] { "El", "Módulo", model.getNombre() }, "model.nombre");
+		}
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarModulo(Modulo model) {
+		if (rn028.isValidRN034(model)) {
+			genericoDAO.delete(model);
+		} else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
+					"MSG14");
 		}
 	}
 

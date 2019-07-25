@@ -137,35 +137,7 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-
-	public String destroy() throws Exception {
-		String resultado = null;
-		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			ModuloBs.eliminarModulo(model);
-			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "El", "Módulo",
-					"eliminado" }));
-			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
-	}
-
+	
 	public String entrarCU() throws Exception {
 		Map<String, Object> session = null;
 		String resultado = null;
@@ -240,6 +212,32 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 		return "referencias";
 	}
 
+	public void validateDestroy() {
+		if (!hasActionErrors()) {
+			try {
+				moduloBs.eliminarModulo(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				index();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				index();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				index();
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public String destroy() {
+		addActionMessage(getText("MSG1", new String[] { "El", "Módulo", "eliminado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
 	@VisitorFieldValidator
 	public Modulo getModel() {
 		return (model == null) ? model = new Modulo() : model;
