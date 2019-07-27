@@ -6,6 +6,7 @@ import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.br.RN006;
 import mx.tesseract.br.RN023;
+import mx.tesseract.br.RN028;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
 import mx.tesseract.editor.entidad.Modulo;
@@ -97,7 +98,7 @@ public class ModuloBs {
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void eliminarModulo(Modulo model) {
-		if (rn028.isValidRN034(model)) {
+		if (rn028.isValidRN028(model)) {
 			genericoDAO.delete(model);
 		} else {
 			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
