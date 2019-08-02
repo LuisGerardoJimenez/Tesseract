@@ -25,6 +25,7 @@ public class ElementoDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Elemento> consultarElementos(TipoReferencia tipoReferencia, int idProyecto) {
+		System.out.println("Estoy en el DAO");
 		List<Elemento> elementos = new ArrayList<Elemento>();
 		try {
 			Query query =  null;
@@ -36,7 +37,11 @@ public class ElementoDAO {
 					break;
 			}
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
+			query.setParameter(Constantes.NUMERO_DOS, "GLS");
+			
+//			System.out.println("Result List: "+query.getResultList());
 			elementos = (List<Elemento>) query.getResultList();
+			System.out.println("Elementos: "+elementos.size());
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -148,6 +153,7 @@ public class ElementoDAO {
 					break;
 			}
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
+			query.setParameter(Constantes.NUMERO_DOS, "GLS");
 			List<Elemento> lista = (List<Elemento>) query.getResultList();
 			if (lista == null || lista.isEmpty()) {
 				numero = "" +Constantes.NUMERO_UNO;

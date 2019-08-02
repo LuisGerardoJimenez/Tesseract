@@ -12,6 +12,7 @@ public class TerminoGlosarioDTO {
 	private Integer id; 
 	private String nombre;
 	private String descripcion;
+	private Integer idProyecto;
 	
 	public TerminoGlosarioDTO() {
 		
@@ -45,6 +46,14 @@ public class TerminoGlosarioDTO {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Integer getIdProyecto() {
+		return idProyecto;
+	}
+
+	public void setIdProyecto(Integer idProyecto) {
+		this.idProyecto = idProyecto;
 	}
 
 }

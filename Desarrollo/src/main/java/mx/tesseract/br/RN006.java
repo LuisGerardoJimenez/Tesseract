@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import mx.tesseract.admin.dao.ProyectoDAO;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.ModuloDAO;
 import mx.tesseract.editor.dao.TerminoGlosarioDAO;
 import mx.tesseract.editor.entidad.Modulo;
@@ -53,13 +54,13 @@ public class RN006 {
 		return valido;
 	}
 	
-	public Boolean isValidRN006(TerminoGlosario entidad) {
+	public Boolean isValidRN006(TerminoGlosarioDTO entidad) {
 		Boolean valido = true;
 		TerminoGlosario terminoGlosario;
 		if (entidad.getId() == null) {
-			terminoGlosario = terminoGlosarioDAO.findTerminoGlosarioByNombre(entidad.getNombre(), entidad.getProyecto().getId());
+			terminoGlosario = terminoGlosarioDAO.findTerminoGlosarioByNombre(entidad.getNombre(), entidad.getIdProyecto());
 		} else {
-			terminoGlosario = terminoGlosarioDAO.findTerminoGlosarioByNombreAndId(entidad.getId(), entidad.getNombre(), entidad.getId());
+			terminoGlosario = terminoGlosarioDAO.findTerminoGlosarioByNombreAndId(entidad.getId(), entidad.getNombre(), entidad.getIdProyecto());
 		}
 		if (terminoGlosario != null) {
 			valido = false;
