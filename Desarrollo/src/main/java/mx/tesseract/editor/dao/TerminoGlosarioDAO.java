@@ -17,9 +17,9 @@ import org.springframework.stereotype.Repository;
 @Repository("glosarioDAO")
 public class TerminoGlosarioDAO extends ElementoDAO {
 
-	public List<TerminoGlosario>consultarTerminosGlosario(int idProyecto) {
+	public List<TerminoGlosario>consultarTerminosGlosario(Integer idProyecto) {
 		List<TerminoGlosario> lista = new ArrayList<TerminoGlosario>();
-		List<Elemento> elementos = super.consultarElementos(TipoReferencia.TERMINOGLS, idProyecto);
+		List<Elemento> elementos = consultarElementos(TipoReferencia.TERMINOGLS, idProyecto);
 		if (!elementos.isEmpty())
 			for (Elemento elemento : elementos) {
 				lista.add((TerminoGlosario) elemento);

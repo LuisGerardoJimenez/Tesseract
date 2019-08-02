@@ -13,12 +13,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
-
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
@@ -33,57 +35,24 @@ import mx.tesseract.util.GenericInterface;
 
 @Entity
 @Table(name = "terminoglosario")
-
+@PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
+@JsonTypeName("terminoGlosario")
 public class TerminoGlosario extends Elemento implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Elementoid")
-	private Elemento elemento;
 		
 	public TerminoGlosario(){
 		
 	}
+	
 	public TerminoGlosario(String clave, String numero, String nombre,
 			Proyecto proyecto, String descripcion, EstadoElemento estadoElemento) {
 		super(clave, numero, nombre, proyecto, descripcion, estadoElemento);
 	}
 	
-	@Override
+	@JsonIgnore
 	@Transient
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'100', 'caracteres'})}", trim = true, maxLength = "100", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFABETICO_CARACTERES_ESPECIALES, shortCircuit = true)
-	public String getNombre() {
-		return super.getNombre();
-	}
-	
-	@Override
-	@Transient
-	public void setNombre(String nombre) {
-		super.setNombre(nombre);
-	}
-	
-	@Override
-	@Transient
-	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES, shortCircuit = true)
-	public String getDescripcion() {
-		return super.getDescripcion();
-	}
-	
-	@Override
-	@Transient
-	public void setDescripcion(String descripcion) {
-		super.setDescripcion(descripcion);
-	}
-	private Proyecto proyecto;
-
-	public Proyecto getProyecto() {
-		return proyecto;
-	}
-
-	public void setProyecto(Proyecto proyecto) {
-		this.proyecto = proyecto;
+	public String getType() {
+		return "terminoGlosario";
 	}
 
 }

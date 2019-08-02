@@ -34,10 +34,10 @@ import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
-	@NamedNativeQuery(name = "Elemento.consultarElementosGlosario", query = "SELECT e.* FROM elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.Proyectoid = ?", resultClass = Elemento.class),
+	@NamedNativeQuery(name = "Elemento.consultarElementosGlosario", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?", resultClass = Elemento.class),
 	@NamedNativeQuery(name = "Elemento.consultarElementosGlosarioByNombre", query = "SELECT e.* FROM elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.nombre = ? AND e.Proyectoid = ?", resultClass = Elemento.class),
 	@NamedNativeQuery(name = "Elemento.consultarElementosGlosarioByNombreAndId", query = "SELECT e.* FROM elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.nombre = ? AND e.Proyectoid = ? AND e.id != ?", resultClass = Elemento.class),
-	@NamedNativeQuery(name = "Elemento.findNextNumberTerminoGlosario", query = "SELECT MAX(CAST(e.numero AS SIGNED)) FROM Elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.Proyectoid = ?", resultClass = Elemento.class),
+	@NamedNativeQuery(name = "Elemento.findNextNumberTerminoGlosario", query = "SELECT MAX(CAST(e.numero AS SIGNED)) FROM elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.Proyectoid = ?", resultClass = Elemento.class),
 	})
 
 @Entity
@@ -48,18 +48,18 @@ import mx.tesseract.util.GenericInterface;
 		  use = JsonTypeInfo.Id.NAME,
 		  include = JsonTypeInfo.As.PROPERTY,
 		  property = "type")
-//		@JsonSubTypes({
-//		  @Type(value = Mensaje.class, name = "mensaje"),
-//		  @Type(value = Pantalla.class, name = "pantalla"),
-//		  @Type(value = Pantalla.class, name = "reglaNegocio")
-//		})
+		@JsonSubTypes({
+		  @Type(value = Mensaje.class, name = "mensaje"),
+		  @Type(value = Pantalla.class, name = "pantalla"),
+		  @Type(value = Pantalla.class, name = "reglaNegocio"),
+		  @Type(value = TerminoGlosario.class, name = "terminoGlosario")
+		})
 public class Elemento implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	
 	@Column(name = "id")
 	private Integer id;
 	
