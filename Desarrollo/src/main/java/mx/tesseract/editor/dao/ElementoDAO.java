@@ -32,22 +32,29 @@ public class ElementoDAO {
 	public List<Elemento> findall(TipoReferencia tipoReferencia, Integer idProyecto) {
 		List<Elemento> elementos = new ArrayList<Elemento>();
 		try {
+			
 			 CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 			 CriteriaQuery<Elemento> criterio = builder.createQuery(Elemento.class);
+			 
 			 Root<Elemento> e = criterio.from(Elemento.class);
 			 
 			 ParameterExpression<Integer> uno = builder.parameter(Integer.class);
-
-			 criterio.multiselect(e.get("nombre"), e.get("descripcion"));
+			 ParameterExpression<String> dos = builder.parameter(String.class);
+			 
+			 //criterio.multiselect(e.get("nombre"), e.get("descripcion"));
 			 TypedQuery<Elemento> query = entityManager.createQuery(criterio);
-			
+			 
 			 query.setParameter(uno, idProyecto);
+			 query.setParameter(dos, "GLS");
 
 //			 query.setParameter(Constantes.NUMERO_UNO, idProyecto);
 			  
-			 elementos = (List<Elemento>) query.getResultList();
+			 //List<Elemento> lista = (List<Elemento>) query.getResultList();
+			 System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+			 System.out.println("Tamanio: "+query.getResultList());
+			 System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 		} catch (Exception e) {
-			 System.err.println(e.getMessage());
+			 e.printStackTrace();
 		}
 		return elementos;
 	}

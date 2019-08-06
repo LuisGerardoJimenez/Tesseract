@@ -19,6 +19,7 @@ public class TerminoGlosarioDAO extends ElementoDAO {
 
 	public List<TerminoGlosario>consultarTerminosGlosario(Integer idProyecto) {
 		List<TerminoGlosario> lista = new ArrayList<TerminoGlosario>();
+		System.out.println("GlosarioDAO");
 		List<Elemento> elementos = findall (TipoReferencia.TERMINOGLS, idProyecto);
 		if (!elementos.isEmpty())
 			for (Elemento elemento : elementos) {
