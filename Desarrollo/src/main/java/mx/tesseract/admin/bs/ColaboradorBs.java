@@ -28,7 +28,7 @@ public class ColaboradorBs {
 
 	@Autowired
 	private ColaboradorDAO colaboradorDAO;
-	
+
 	@Autowired
 	private RN027 rn027;
 
@@ -49,7 +49,7 @@ public class ColaboradorBs {
 	public List<Colaborador> consultarColaboradoresCatalogo() {
 		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
 		if (colaboradores.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar los colaboradores.", "MSG22",
+			throw new TESSERACTException("No se pueden consultar los colaboradores.", "MSG15",
 					new String[] { "colaboradores" });
 		}
 		return colaboradores;
@@ -58,7 +58,7 @@ public class ColaboradorBs {
 	public Colaborador consultarPersona(String curp) {
 		Colaborador colaborador = colaboradorDAO.findColaboradorByCURP(curp);
 		if (colaborador == null) {
-			throw new TESSERACTException("No se puede consultar el colaborador.", "MSG13");
+			throw new TESSERACTException("No se puede consultar el colaborador.", "MSG12");
 		}
 		return colaborador;
 	}
@@ -109,14 +109,15 @@ public class ColaboradorBs {
 					"model.correoElectronico");
 		}
 	}
-	
+
 	@Transactional(rollbackFor = Exception.class)
 	public void eliminarColaborador(Colaborador model) {
 		if (rn027.isValidRN027(model)) {
 			genericoDAO.delete(model);
 		} else {
 			System.out.println("Error en regla de negocio");
-			throw new TESSERACTException("No se puede eliminar el colaborador porque ya esta asoaciado a un proyecto", "MSG55");
+			throw new TESSERACTException("No se puede eliminar el colaborador porque ya esta asociado a un proyecto",
+					"MSG28");
 		}
 	}
 

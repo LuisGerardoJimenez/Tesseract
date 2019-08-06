@@ -24,7 +24,7 @@ public class EstadoProyectoBs {
 	public List<EstadoProyecto> consultarEstados() {
 		List<EstadoProyecto> estadosProyecto = genericoDAO.findAll(EstadoProyecto.class);
 		if (estadosProyecto.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar los estados.", "MSG13");
+			throw new TESSERACTException("No se pueden consultar los estados.", "MSG12");
 		}
 		return estadosProyecto;
 	}
@@ -32,7 +32,7 @@ public class EstadoProyectoBs {
 	public List<EstadoProyecto> consultarEstadosNoTerminado() {
 		List<EstadoProyecto> estadosProyectos = estadoProyectoDAO.findAllWithoutFinished();
 		if (estadosProyectos.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar los estados.", "MSG13");
+			throw new TESSERACTException("No se pueden consultar los estados.", "MSG12");
 		}
 		return estadosProyectos;
 	}

@@ -61,7 +61,7 @@ public class ProyectoBs {
 	public Proyecto consultarProyecto(Integer idProyecto) {
 		Proyecto proyecto = genericoDAO.findById(Proyecto.class, idProyecto);
 		if (proyecto == null) {
-			throw new TESSERACTException("No se puede consultar el proyecto.", "MSG13");
+			throw new TESSERACTException("No se puede consultar el proyecto.", "MSG12");
 		}
 		return proyecto;
 	}
@@ -75,7 +75,7 @@ public class ProyectoBs {
 					genericoDAO.save(model);
 					genericoDAO.saveList(model.getProyecto_colaboradores());
 				} else {
-					throw new TESSERACTValidacionException("El usuario ingresó en desorden las fechas.", "MSG35",
+					throw new TESSERACTValidacionException("El usuario ingresó en desorden las fechas.", "MSG22",
 							new String[] { "fecha de término programada", "fecha de inicio programada" },
 							"model.fechaTerminoProgramada");
 				}
@@ -97,7 +97,7 @@ public class ProyectoBs {
 					genericoDAO.update(model);
 					editarLiderProyecto(model);
 				} else {
-					throw new TESSERACTValidacionException("El usuario ingresó en desorden las fechas.", "MSG35",
+					throw new TESSERACTValidacionException("El usuario ingresó en desorden las fechas.", "MSG22",
 							new String[] { "fecha de término programada", "fecha de inicio programada" },
 							"model.fechaTerminoProgramada");
 				}
@@ -117,7 +117,7 @@ public class ProyectoBs {
 			genericoDAO.delete(model);
 		} else {
 			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
-					"MSG14");
+					"MSG13");
 		}
 	}
 
@@ -128,7 +128,7 @@ public class ProyectoBs {
 			ColaboradorProyecto colaboradorproyecto = new ColaboradorProyecto(seleccionado, rol, model);
 			model.getProyecto_colaboradores().add(colaboradorproyecto);
 		} catch (Exception e) {
-			throw new TESSERACTException("No se puede agregar lider de proyecto.", "MSG13");
+			throw new TESSERACTException("No se puede agregar lider de proyecto.", "MSG12");
 		}
 	}
 
@@ -161,7 +161,7 @@ public class ProyectoBs {
 				}
 			}
 		} catch (Exception e) {
-			throw new TESSERACTException("No se puede editar lider de proyecto.", "MSG13");
+			throw new TESSERACTException("No se puede editar lider de proyecto.", "MSG12");
 		}
 	}
 
