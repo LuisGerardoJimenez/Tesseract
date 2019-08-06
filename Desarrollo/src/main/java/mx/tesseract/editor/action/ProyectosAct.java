@@ -1,14 +1,9 @@
 package mx.tesseract.editor.action;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import mx.tesseract.admin.bs.ColaboradorBs;
 import mx.tesseract.admin.bs.LoginBs;
@@ -16,8 +11,6 @@ import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.ColaboradorProyecto;
 import mx.tesseract.admin.entidad.Proyecto;
-import mx.tesseract.admin.entidad.Rol;
-import mx.tesseract.bs.AccessBs;
 /*import mx.tesseract.bs.RolBs;
 import mx.tesseract.bs.RolBs.Rol_Enum;*/
 import mx.tesseract.util.ActionSupportTESSERACT;
@@ -35,7 +28,6 @@ import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 
 @ResultPath("/pages/editor/")
@@ -299,10 +291,8 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
-		System.out.println("IdProyecto: " + idSel);
 		model = proyectoBs.consultarProyecto(idSel);
 		proyecto = model;
-		System.out.println("modelo: " + model.getNombre());
 	}
 
 	public List<Colaborador> getListColaboradores() {

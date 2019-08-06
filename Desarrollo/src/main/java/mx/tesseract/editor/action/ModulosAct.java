@@ -8,14 +8,12 @@ import java.util.Map;
 import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
-import mx.tesseract.bs.AccessBs;
 import mx.tesseract.editor.bs.ModuloBs;
 //import mx.tesseract.editor.bs.ActorBs;
 //import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.ErrorManager;
-import mx.tesseract.util.GenericInterface;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
@@ -23,10 +21,8 @@ import mx.tesseract.util.SessionManager;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
@@ -53,9 +49,9 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 	private Modulo model;
 	private Colaborador colaborador;
 	private List<Modulo> listModulos;
-	private Integer idSel;
 	private Integer idProyecto;
 	private List<String> elementosReferencias;
+	private int idSel;
 	
 	@Autowired
 	private ModuloBs moduloBs;
@@ -137,35 +133,7 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-
-	public String destroy() throws Exception {
-		String resultado = null;
-		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			ModuloBs.eliminarModulo(model);
-			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "El", "Módulo",
-					"eliminado" }));
-			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
-	}
-
+	
 	public String entrarCU() throws Exception {
 		Map<String, Object> session = null;
 		String resultado = null;
@@ -227,19 +195,41 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 	}
 	
 	public String verificarElementosReferencias() {
-		System.out.println("Entre a buscar referencias");
 		elementosReferencias = new ArrayList<String>();
-		try {
-			System.out.println("Entre a buscar referencias");
+//		try {
 //			elementosReferencias = ModuloBs.verificarReferencias(model);
-			System.out.println("elementosReferenciasSize: "+elementosReferencias.size());
-			System.out.println("elementosReferencias: "+elementosReferencias);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		return "referencias";
 	}
 
+	public void validateDestroy() {
+		if (!hasActionErrors()) {
+			try {
+				moduloBs.eliminarModulo(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				index();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				index();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				index();
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public String destroy() {
+		addActionMessage(getText("MSG1", new String[] { "El", "Módulo", "eliminado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
 	@VisitorFieldValidator
 	public Modulo getModel() {
 		return (model == null) ? model = new Modulo() : model;

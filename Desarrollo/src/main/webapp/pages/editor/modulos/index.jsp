@@ -46,7 +46,7 @@
 							<img id="" class="button" title="Modificar Módulo"
 									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
 						</s:a>
-						<s:a onclick="return verificarEliminacionElemento('%{#modulo.id}');">
+						<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#modulo.id}');">
 						<img id="" class="button" title="Eliminar Módulo"
 								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
 						

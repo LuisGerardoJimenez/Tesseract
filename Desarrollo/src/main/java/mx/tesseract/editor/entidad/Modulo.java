@@ -16,15 +16,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
-import javax.persistence.OneToMany;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
-import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
@@ -37,7 +33,8 @@ import mx.tesseract.util.GenericInterface;
 	@NamedNativeQuery(name = "Modulo.findByIdProyecto", query = "SELECT m.* FROM modulo m WHERE m.Proyectoid = ?", resultClass = Modulo.class),
 	@NamedNativeQuery(name = "Modulo.findByName", query = "SELECT m.* FROM modulo m WHERE m.nombre = ?", resultClass = Modulo.class),
 	@NamedNativeQuery(name = "Modulo.findByClave", query = "SELECT m.* FROM modulo m WHERE m.clave = ?", resultClass = Modulo.class),
-	@NamedNativeQuery(name = "Modulo.findByNameAndId", query = "SELECT m.* FROM modulo m WHERE m.nombre = ? and m.id != ?", resultClass = Modulo.class)
+	@NamedNativeQuery(name = "Modulo.findByNameAndId", query = "SELECT m.* FROM modulo m WHERE m.nombre = ? and m.id != ?", resultClass = Modulo.class),
+	@NamedNativeQuery(name = "Modulo.hasReferenciaElementos", query = "SELECT m.* FROM modulo m INNER JOIN casouso c ON c.moduloid = m.id WHERE m.id = ?", resultClass = Modulo.class)
 	})
 @Entity
 @Table(name = "Modulo")
