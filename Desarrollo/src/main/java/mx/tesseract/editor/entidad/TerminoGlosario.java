@@ -35,6 +35,7 @@ import mx.tesseract.util.GenericInterface;
 
 @Entity
 @Table(name = "terminoglosario")
+
 @PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
 @JsonTypeName("terminoGlosario")
 public class TerminoGlosario extends Elemento implements Serializable {

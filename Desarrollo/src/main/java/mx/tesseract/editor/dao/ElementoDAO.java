@@ -6,6 +6,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Root;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.bs.ReferenciaEnum;
@@ -22,32 +27,31 @@ public class ElementoDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-
+	
 	@SuppressWarnings("unchecked")
-	public List<Elemento> consultarElementos(TipoReferencia tipoReferencia, int idProyecto) {
-		System.out.println("Estoy en el DAO");
+	public List<Elemento> findall(TipoReferencia tipoReferencia, Integer idProyecto) {
 		List<Elemento> elementos = new ArrayList<Elemento>();
 		try {
-			Query query =  null;
-			switch (tipoReferencia) {
-				case TERMINOGLS:
-					query = entityManager.createNamedQuery("Elemento.consultarElementosGlosario", Elemento.class);
-					break;
-				default:
-					break;
-			}
-			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
-			query.setParameter(Constantes.NUMERO_DOS, "GLS");
+			 CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+			 CriteriaQuery<Elemento> criterio = builder.createQuery(Elemento.class);
+			 Root<Elemento> e = criterio.from(Elemento.class);
+			 
+			 ParameterExpression<Integer> uno = builder.parameter(Integer.class);
+
+			 criterio.multiselect(e.get("nombre"), e.get("descripcion"));
+			 TypedQuery<Elemento> query = entityManager.createQuery(criterio);
 			
-//			System.out.println("Result List: "+query.getResultList());
-			elementos = (List<Elemento>) query.getResultList();
-			System.out.println("Elementos: "+elementos.size());
+			 query.setParameter(uno, idProyecto);
+
+//			 query.setParameter(Constantes.NUMERO_UNO, idProyecto);
+			  
+			 elementos = (List<Elemento>) query.getResultList();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			 System.err.println(e.getMessage());
 		}
 		return elementos;
 	}
-	
+		
 	@SuppressWarnings("unchecked")
 	public Elemento findByNombre(TipoReferencia tipoReferencia, String nombre, Integer idProyecto) {
 		Elemento elemento = null;
