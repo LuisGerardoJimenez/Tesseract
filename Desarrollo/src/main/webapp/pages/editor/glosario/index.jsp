@@ -25,7 +25,7 @@
 				<th style="width: 20%;"><s:text name="colAcciones"/></th>
 			</thead>
 			<tbody>
-			<s:iterator value="listTerminosGlosario" var="termino">
+			<s:iterator value="listGlosario" var="termino">
 				<tr>
 					<td><s:property value="%{#termino.nombre}"/></td>		
 					<td align="center">
