@@ -28,10 +28,10 @@
 		}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando no se ha ingresado un dato marcado como obligatorio.
-		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando se registre una entidad con un nombre que ya se encuentra registrado en el sistema.
-		\item \cdtIdRef{MSG16}{Registro necesario}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando el actor no ingrese ningún atributo.
+		\item \cdtIdRef{MSG14}{Registro necesario}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando el actor no ingrese ningún atributo.
 		\end{itemize}
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU7}{Gestionar Entidades}.}
@@ -79,7 +79,7 @@
 \hypertarget{CU7-1:TAD}{\textbf{Trayectoria alternativa D}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato de dato incorrecto.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU12.1}{Registrar Entidad}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU12.1}{Registrar Entidad}.
 	\UCpaso Regresa al paso \ref{CU7.1-P3} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
@@ -95,7 +95,7 @@
 \hypertarget{CU7-1:TAF}{\textbf{Trayectoria alternativa F}}\\
 \noindent \textbf{Condición:} El actor no registró ningún atributo.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG16}{Registro necesario} en la sección de atributos de la pantalla \IUref{IU12.1}{Registrar Entidad}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG14}{Registro necesario} en la sección de atributos de la pantalla \IUref{IU12.1}{Registrar Entidad}.
 	\UCpaso Regresa al paso \ref{CU7.1-P3} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}

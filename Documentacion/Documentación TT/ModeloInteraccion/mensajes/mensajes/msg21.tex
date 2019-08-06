@@ -1,13 +1,10 @@
-\begin{mensaje}{MSG21}{Se ha excedido el tamaño del archivo}{Error}
-	\item [Objetivo:] Informar al actor que el archivo seleccionado excede el tamaño máximo especificado en el modelo conceptual.
-	\item[Redacción:] El archivo no puede exceder TAMAÑO UNIDAD.
+\begin{mensaje}{MSG21}{Datos de Sesión}{Notificación}
+	\item [Objetivo:] Proporcionar al usuario sus datos para iniciar sesión.
+	\item[Redacción:] Bienvenido(a) a TESSERACT, los datos con los que deberá iniciar sesión son: Nombre de usuario: CORREO, Contraseña: CONTRASEÑA.
 	\item[Parámetros:] El mensaje se muestra con base en los siguientes parámetros:
 	\begin{itemize}
-		\item TAMAÑO: Es el tamaño máximo permitido especificado en el modelo conceptual.
-		\item UNIDAD: Es la unidad en que se especificó el tamaño máximo del archivo.
+		\item CORREO: Correo electrónico con el que se registro el colaborador.
+		\item CONTRASEÑA: Clave que sirve para autenticarse asociada al CORREO.
 	\end{itemize}
-	\item[Ejemplo:] \begin{itemize}
-		\item El archivo no puede exceder {\em 2 MB}.
-	\end{itemize}
-	\item [Ubicación:] Debajo del campo donde se presenta el error.
+	\item [Ubicación:] Correo electrónico.
 \end{mensaje}
