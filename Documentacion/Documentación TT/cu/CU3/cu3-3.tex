@@ -18,7 +18,7 @@
 			Se eliminará un colaborador del sistema.
 		}
 		\UCitem{Errores}{
-			 \cdtIdRef{MSG13}{Eliminación no permitida}: Se muestra en la pantalla \IUref{IU3}{Gestionar Colaboradores} cuando no se pueda eliminar un colaborador.
+			 \cdtIdRef{MSG28}{Eliminar colaborador}: Se muestra en la pantalla \IUref{IU3}{Gestionar Colaboradores} cuando no se pueda eliminar un colaborador debido a que se encuentra asociado a uno o mas proyectos.
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU3}{Gestionar Colaboradores}}
 	\end{UseCase}
@@ -42,9 +42,9 @@
 \end{enumerate}		
 %--------------------------------------	
 	\hypertarget{CU3-3:TAB}{\textbf{Trayectoria alternativa B}}\\
-	\noindent \textbf{Condición:} El Colaborador tiene elementos asociados.
+	\noindent \textbf{Condición:} El Colaborador tiene proyectos asociados.
 	\begin{enumerate}
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG13}{Eliminación no permitida} en la pantalla \IUref{IU3}{Gestionar Colaboradores}.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG28}{Eliminar colaborador} en la pantalla \IUref{IU3}{Gestionar Colaboradores}.
 		\item[- -] - - {\em {Fin del caso de uso}}.%
 	\end{enumerate}
 

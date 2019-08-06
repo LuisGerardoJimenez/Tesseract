@@ -36,9 +36,9 @@
 		}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU6.1.4.1}{Registrar Punto de extensión} cuando no se ha ingresado un dato marcado como obligatorio.
-		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.4.1}{Registrar Punto de extensión} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.4.1}{Registrar Punto de extensión} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.1.4.1}{Registrar Punto de extensión} cuando se ha excedido la longitud de alguno de los campos.
-		\item \cdtIdRef{MSG17}{Falta información}: Se muestra en la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión} cuando no existan casos de uso registrados.
+		\item \cdtIdRef{MSG15}{Falta información}: Se muestra en la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión} cuando no existan casos de uso registrados.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU6.1.4.1}{Registrar Punto de extensión} cuando se registre un punto de extensión con un caso de uso que ya se encuentre registrado en el sistema.
 		\end{itemize}.
 		}
@@ -64,7 +64,7 @@
 \hypertarget{CU12-1-6-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} El catálogo de ''Extiende a'' no tiene información.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG17}{Falta información} en la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión} para indicar que no existen casos de uso registrados.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG15}{Falta información} en la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión} para indicar que no existen casos de uso registrados.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
@@ -112,7 +112,7 @@
 \hypertarget{CU12-1-6-1:TAF}{\textbf{Trayectoria alternativa F}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.4.1}{Registrar Punto de extensión}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.4.1}{Registrar Punto de extensión}.
 	\UCpaso Regresa al paso \ref{CU12.1.6.1-P4} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
