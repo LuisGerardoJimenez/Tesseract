@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: Tesseract Maven Webapp
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: T450S
+Built-By: LuisGerardo
 Implementation-Vendor-Id: mx.ipn.escom.tesseract
 Build-Jdk: 1.8.0_201
 Implementation-URL: http://maven.apache.org

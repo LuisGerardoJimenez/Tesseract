@@ -27,49 +27,32 @@ public class ElementoDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Elemento> findall(TipoReferencia tipoReferencia, Integer idProyecto) {
+	public List<Elemento> findAllByIdProyectoAndClave(TipoReferencia tipoReferencia, Integer idProyecto) {
 		List<Elemento> elementos = new ArrayList<Elemento>();
 		try {
-			
-			 CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-			 CriteriaQuery<Elemento> criterio = builder.createQuery(Elemento.class);
-			 
-			 Root<Elemento> e = criterio.from(Elemento.class);
-			 
-			 ParameterExpression<Integer> uno = builder.parameter(Integer.class);
-			 ParameterExpression<String> dos = builder.parameter(String.class);
-			 
-			 //criterio.multiselect(e.get("nombre"), e.get("descripcion"));
-			 TypedQuery<Elemento> query = entityManager.createQuery(criterio);
-			 
-			 query.setParameter(uno, idProyecto);
-			 query.setParameter(dos, "GLS");
-
-//			 query.setParameter(Constantes.NUMERO_UNO, idProyecto);
-			  
-			 //List<Elemento> lista = (List<Elemento>) query.getResultList();
-			 System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-			 System.out.println("Tamanio: "+query.getResultList());
-			 System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndClave", Elemento.class);
+			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
+			query.setParameter(Constantes.NUMERO_DOS, "GLS");
+			elementos = query.getResultList();
 		} catch (Exception e) {
-			 e.printStackTrace();
+			e.printStackTrace();
 		}
 		return elementos;
 	}
-		
+
 	@SuppressWarnings("unchecked")
 	public Elemento findByNombre(TipoReferencia tipoReferencia, String nombre, Integer idProyecto) {
 		Elemento elemento = null;
 		try {
-			Query query =  null;
+			Query query = null;
 			switch (tipoReferencia) {
-				case TERMINOGLS:
-					query = entityManager.createNamedQuery("Elemento.consultarElementosGlosarioByNombre", Elemento.class);
-					break;
-				default:
-					break;
+			case TERMINOGLS:
+				query = entityManager.createNamedQuery("Elemento.consultarElementosGlosarioByNombre", Elemento.class);
+				break;
+			default:
+				break;
 			}
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
 			query.setParameter(Constantes.NUMERO_DOS, idProyecto);
@@ -78,22 +61,23 @@ public class ElementoDAO {
 				elemento = (Elemento) lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			 System.err.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		return elemento;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Elemento findByNombreAndId(TipoReferencia tipoReferencia, Integer id, String nombre, Integer idProyecto) {
 		Elemento elemento = null;
 		try {
-			Query query =  null;
+			Query query = null;
 			switch (tipoReferencia) {
-				case TERMINOGLS:
-					query = entityManager.createNamedQuery("Elemento.consultarElementosGlosarioByNombreAndId", Elemento.class);
-					break;
-				default:
-					break;
+			case TERMINOGLS:
+				query = entityManager.createNamedQuery("Elemento.consultarElementosGlosarioByNombreAndId",
+						Elemento.class);
+				break;
+			default:
+				break;
 			}
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
 			query.setParameter(Constantes.NUMERO_DOS, idProyecto);
@@ -103,7 +87,7 @@ public class ElementoDAO {
 				elemento = (Elemento) lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			 System.err.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		return elemento;
 	}
@@ -150,33 +134,33 @@ public class ElementoDAO {
 //
 //	}
 //
-	
+
 	@SuppressWarnings("unchecked")
 	public String siguienteNumero(TipoReferencia referencia, Integer idProyecto) {
 		String numero = "";
 		try {
-			Query query =  null;
+			Query query = null;
 			switch (referencia) {
-				case TERMINOGLS:
-					query = entityManager.createNamedQuery("Elemento.findNextNumberTerminoGlosario", Elemento.class);
-					break;
-				default:
-					break;
+			case TERMINOGLS:
+				query = entityManager.createNamedQuery("Elemento.findNextNumberTerminoGlosario", Elemento.class);
+				break;
+			default:
+				break;
 			}
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
 			query.setParameter(Constantes.NUMERO_DOS, "GLS");
 			List<Elemento> lista = (List<Elemento>) query.getResultList();
 			if (lista == null || lista.isEmpty()) {
-				numero = "" +Constantes.NUMERO_UNO;
+				numero = "" + Constantes.NUMERO_UNO;
 			} else {
 				numero = "" + lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			 System.err.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		return numero;
 	}
-	
+
 //	@SuppressWarnings("unchecked")
 //	public String siguienteNumero(TipoReferencia referencia,
 //			int idProyecto) {

@@ -5,6 +5,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,8 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -35,9 +38,10 @@ import mx.tesseract.util.GenericInterface;
 
 @Entity
 @Table(name = "terminoglosario")
-
+@Inheritance(strategy=InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
 @JsonTypeName("terminoGlosario")
+@DiscriminatorValue("GLS")
 public class TerminoGlosario extends Elemento implements Serializable {
 	private static final long serialVersionUID = 1L;
 		

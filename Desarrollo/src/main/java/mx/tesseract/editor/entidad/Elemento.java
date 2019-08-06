@@ -7,6 +7,8 @@ package mx.tesseract.editor.entidad;
 import static javax.persistence.GenerationType.IDENTITY;
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,7 +36,7 @@ import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
-	//@NamedNativeQuery(name = "Elemento.consultarElementosGlosario", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?", resultClass = Elemento.class),
+	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndClave", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?", resultClass = Elemento.class),
 	@NamedNativeQuery(name = "Elemento.consultarElementosGlosarioByNombre", query = "SELECT e.* FROM elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.nombre = ? AND e.Proyectoid = ?", resultClass = Elemento.class),
 	@NamedNativeQuery(name = "Elemento.consultarElementosGlosarioByNombreAndId", query = "SELECT e.* FROM elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.nombre = ? AND e.Proyectoid = ? AND e.id != ?", resultClass = Elemento.class),
 	@NamedNativeQuery(name = "Elemento.findNextNumberTerminoGlosario", query = "SELECT MAX(CAST(e.numero AS SIGNED)) FROM elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.Proyectoid = ?", resultClass = Elemento.class),
@@ -43,7 +45,7 @@ import mx.tesseract.util.GenericInterface;
 @Entity
 @Table(name = "elemento", catalog = "TESSERACT")
 @Inheritance(strategy=InheritanceType.JOINED)
-
+@DiscriminatorColumn(name="clave", discriminatorType = DiscriminatorType.STRING, length=10)
 @JsonTypeInfo(
 		  use = JsonTypeInfo.Id.NAME,
 		  include = JsonTypeInfo.As.PROPERTY,
