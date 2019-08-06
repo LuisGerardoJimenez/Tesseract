@@ -38,7 +38,7 @@
 		\UCitem{Postcondiciones}{Se actualizará un mensaje de un proyecto}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU10.2}{Modificar Mensaje} cuando no se ha ingresado un dato marcado como obligatorio.
-		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU10.2}{Modificar Mensaje} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU10.2}{Modificar Mensaje} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG5}{Formato de campo incorrecto}: Se muestra en la pantalla \IUref{IU10.2}{Modificar Mensaje} cuando el número de mensaje contiene un carácter no válido.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU10.2}{Modificar Mensaje} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU10.2}{Modificar Mensaje} cuando se registre un mensaje con un nombre o número que ya se encuentre registrado en el sistema.
@@ -101,7 +101,7 @@
 \hypertarget{CU9-2:TAE}{\textbf{Trayectoria alternativa E}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU10.2}{Modificar mensaje}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU10.2}{Modificar mensaje}.
 	\UCpaso Regresa al paso \ref{CU9.2-P6} de la trayectoria principal o al paso \ref{CU9.2-AP-2} de la trayectoria Alternativa A.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}

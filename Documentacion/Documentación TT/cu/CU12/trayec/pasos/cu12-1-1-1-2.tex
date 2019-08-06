@@ -24,7 +24,7 @@
 		\UCitem{Errores}{\begin{itemize}
 				\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso} cuando no se ha ingresado un dato marcado como obligatorio.
 				\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso} cuando se ha excedido la longitud de alguno de los campos.
-				\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+				\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 				\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} o \IUref{IU6.1.1.2}{Modificar Trayectoria} cuando no exista información en los catálogos  ''Realiza'' y ''Verbo''.
 		\end{itemize}}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12.1.1.1}{Registrar Trayectoria} y \UCref{CU12.1.1.2}{Modificar Trayectoria}.}
@@ -90,7 +90,7 @@
 \hypertarget{CU12-1-1-1-2:TAF}{\textbf{Trayectoria alternativa F}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso}.
 	\UCpaso Regresa al paso \ref{CU12.1.1.1.2-P5} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}

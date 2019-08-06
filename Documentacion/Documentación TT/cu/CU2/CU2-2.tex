@@ -47,13 +47,13 @@
 		}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU2.2}{Modificar proyecto} cuando no se ha ingresado un dato marcado como obligatorio.
-		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU2.2}{Modificar proyecto} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en
+		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU2.2}{Modificar proyecto} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en
 		el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU2.2}{Modificar proyecto} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU2.2}{Modificar proyecto} cuando se registre un proyecto con un nombre o clave que ya exista.
 		\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} cuando no exista información en el catálogo ''estados de un proeycto''.
-		\item \cdtIdRef{MSG17}{Falta información}: Se muestra en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} cuando no existan colaboradores registrados.
-		\item \cdtIdRef{MSG26}{Orden de fechas}: Se muestra en la pantalla \IUref{IU2.2}{Modificar proyecto} cuando el actor ingrese fechas de término que no son posteriores a las fechas
+		\item \cdtIdRef{MSG15}{Falta información}: Se muestra en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} cuando no existan colaboradores registrados.
+		\item \cdtIdRef{MSG22}{Orden de fechas}: Se muestra en la pantalla \IUref{IU2.2}{Modificar proyecto} cuando el actor ingrese fechas de término que no son posteriores a las fechas
 		de inicio correspondientes.
 		\end{itemize}
 		}
@@ -89,7 +89,7 @@
 	\hypertarget{CU2-2:TAB}{\textbf{Trayectoria alternativa B}}\\
 	\noindent \textbf{Condición:} No hay ningún colaborador registrado.
 	\begin{enumerate}
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG17}{Falta información} en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} para indicar que no existen colaboradores registrados.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG15}{Falta información} en la pantalla \IUref{IU2}{Gestionar proyectos de Administrador} para indicar que no existen colaboradores registrados.
 		\item[- -] - - {\em {Fin del caso de uso}}.%
 	\end{enumerate}
 	
@@ -121,7 +121,7 @@
 	\hypertarget{CU2-2:TAF}{\textbf{Trayectoria alternativa F}}\\
 	\noindent \textbf{Condición:} El actor ingresó un dato con un formato o tipo de dato incorrecto.
 	\begin{enumerate}
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU2.2}{Modificar Proyecto}.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU2.2}{Modificar Proyecto}.
 		\UCpaso Regresa al paso \ref{CU2.2-P5} de la trayectoria principal.
 		\item[- -] - - {\em {Fin de la trayectoria}}.
 	\end{enumerate}
@@ -145,7 +145,7 @@
 	\hypertarget{CU2-2:TAI}{\textbf{Trayectoria alternativa I}}\\
 	\noindent \textbf{Condición:} La fecha de termino programada es menor a la fecha de inicio programada.
 	\begin{enumerate}
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG26}{Orden de fechas} en el campo de fecha de término programada en la pantalla \IUref{IU2.2}{Modificar Proyecto}.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG22}{Orden de fechas} en el campo de fecha de término programada en la pantalla \IUref{IU2.2}{Modificar Proyecto}.
 		\UCpaso Regresa al paso \ref{CU2.2-P5} de la trayectoria principal.
 		\item[- -] - - {\em {Fin de la trayectoria}}.
 	\end{enumerate}

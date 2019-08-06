@@ -27,7 +27,7 @@
 		}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU3.2}{Modificar Colaborador} cuando no se ha ingresado un dato marcado como obligatorio.
-		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU3.2}{Modificar Colaborador} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU3.2}{Modificar Colaborador} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU3.2}{Modificar Colaborador} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU3.2}{Modificar Colaborador} cuando se registre un Colaborador con un correo que ya se encuentra registrado en el sistema.
 		\end{itemize}
@@ -42,11 +42,11 @@
 		\UCpaso[\UCactor] Modifica la información del colaborador. \label{CU3.2-P5}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU3-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU3-2:TAB}{[Trayectoria B]}
-		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU3-2:TAC}{[Trayectoria C]} 
-		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU3-2:TAD}{[Trayectoria D]} 
-		\UCpaso[\UCsist] Verifica que el correo del colaborador no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN36}{Unicidad de correos}. \hyperlink{CU3-2:TAE}{[Trayectoria E]}
-		\UCpaso[\UCsist] Verifica que el correo electrónico del colaborador no haya cambiado. \hyperlink{CU3-2:TAF}{[Trayectoria F]}
-		\UCpaso[\UCsist] Verifica que la contraseña del colaborador no haya cambiado. \hyperlink{CU3-2:TAG}{[Trayectoria G]}
+		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU3-2:TAC}{[Trayectoria C]} \hyperlink{CU3-2:TAD}{[Trayectoria D]}
+		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU3-2:TAE}{[Trayectoria E]} 
+		\UCpaso[\UCsist] Verifica que el correo del colaborador no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN36}{Unicidad de correos}. \hyperlink{CU3-2:TAF}{[Trayectoria F]}
+		\UCpaso[\UCsist] Verifica que el correo electrónico del colaborador no haya cambiado. \hyperlink{CU3-2:TAG}{[Trayectoria G]}
+		\UCpaso[\UCsist] Verifica que la contraseña del colaborador no haya cambiado. \hyperlink{CU3-2:TAH}{[Trayectoria H]}
 		\UCpaso[\UCsist] Actualiza la información del colaborador.\label{CU3.2-P10}
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU3}{Gestionar Colaboradores} para indicar al actor que la modificación se ha realizado exitosamente. 
 	\end{UCtrayectoria}		
@@ -76,14 +76,22 @@
 \end{enumerate}
 %--------------------------------------	
 \hypertarget{CU3-2:TAD}{\textbf{Trayectoria alternativa D}}\\
+\noindent \textbf{Condición:} El actor ingresó una contraseña con un número de caracteres fuera del rango permitido.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG25}{Longitud contraseña} señalando el campo que presenta el error en la pantalla \IUref{IU3.2}{Modificar Colaborador}.
+	\UCpaso Regresa al paso \ref{CU3.2-P5} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------	
+\hypertarget{CU3-2:TAE}{\textbf{Trayectoria alternativa E}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU3.2}{Modificar Colaborador}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU3.2}{Modificar Colaborador}.
 	\UCpaso Regresa al paso \ref{CU3.2-P5} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
 %--------------------------------------	
-\hypertarget{CU3-2:TAE}{\textbf{Trayectoria alternativa E}}\\
+\hypertarget{CU3-2:TAF}{\textbf{Trayectoria alternativa F}}\\
 \noindent \textbf{Condición:} El actor ingresó una correo electrónico repetido.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla\IUref{IU3.2}{Modificar Colaborador}.
@@ -92,18 +100,18 @@
 \end{enumerate}
 
 %--------------------------------------	
-\hypertarget{CU3-2:TAF}{\textbf{Trayectoria alternativa F}}\\
+\hypertarget{CU3-2:TAG}{\textbf{Trayectoria alternativa G}}\\
 \noindent \textbf{Condición:} El actor ingresó un nuevo correo electrónico.
 \begin{enumerate}
-	\UCpaso[\UCsist] Envía un correo con el mensaje \cdtIdRef{MSG25}{Datos de sesión} a la nueva cuenta de correo electrónico proporcionada por el actor.
+	\UCpaso[\UCsist] Envía un correo con el mensaje \cdtIdRef{MSG21}{Datos de sesión} a la nueva cuenta de correo electrónico proporcionada por el actor.
 	\UCpaso Regresa al paso \ref{CU3.2-P10} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU3-2:TAG}{\textbf{Trayectoria alternativa G}}\\
+\hypertarget{CU3-2:TAH}{\textbf{Trayectoria alternativa H}}\\
 \noindent \textbf{Condición:} El actor ingresó un nueva contraseña.
 \begin{enumerate}
-	\UCpaso[\UCsist] Envía un correo con el mensaje \cdtIdRef{MSG25}{Datos de sesión} con las nuevas credenciales a la cuenta de correo electrónico proporcionada por el actor.
+	\UCpaso[\UCsist] Envía un correo con el mensaje \cdtIdRef{MSG21}{Datos de sesión} con las nuevas credenciales a la cuenta de correo electrónico proporcionada por el actor.
 	\UCpaso Regresa al paso \ref{CU3.2-P10} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
