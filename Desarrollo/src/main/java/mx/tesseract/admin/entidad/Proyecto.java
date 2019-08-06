@@ -142,7 +142,7 @@ public class Proyecto implements Serializable, GenericInterface {
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'10', 'caracteres'})}", trim = true, maxLength = "10", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFANUMERICO_MAYUSCULAS_SIN_ESPACIOS, shortCircuit = true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFANUMERICO_MAYUSCULAS_SIN_ESPACIOS, shortCircuit = true)
 	public String getClave() {
 		return this.clave;
 	}
@@ -153,7 +153,7 @@ public class Proyecto implements Serializable, GenericInterface {
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'50', 'caracteres'})}", trim = true, maxLength = "50", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFANUMERICO, shortCircuit = true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFANUMERICO, shortCircuit = true)
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -198,7 +198,7 @@ public class Proyecto implements Serializable, GenericInterface {
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'999', 'caracteres'})}", trim = true, maxLength = "999", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES, shortCircuit = true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES, shortCircuit = true)
 	public String getDescripcion() {
 		return this.descripcion;
 	}
@@ -218,7 +218,7 @@ public class Proyecto implements Serializable, GenericInterface {
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'45', 'caracteres'})}", trim = true, maxLength = "45", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES, shortCircuit = true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES, shortCircuit = true)
 	public String getContraparte() {
 		return this.contraparte;
 	}
@@ -244,8 +244,8 @@ public class Proyecto implements Serializable, GenericInterface {
 		this.proyecto_colaboradores = proyecto_colaboradores;
 	}
 	
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG54')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG54')}", regex = Constantes.REGEX_COMBO_BOX_STRING, shortCircuit = true)
+	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX_STRING, shortCircuit = true)
 	public String getColaboradorCurp() {
 		return colaboradorCurp;
 	}

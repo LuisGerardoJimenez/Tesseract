@@ -72,7 +72,7 @@
 		minHeight="100" minWidth="400" modal="true" draggable="true">
 		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
 				<div class="seccion">
-				<s:text name="MSG11"></s:text>
+				<s:text name="MSG10"></s:text>
 				</div>
 			<br />
 			<div align="center">

@@ -47,7 +47,7 @@ public class AccessBs {
 			e.printStackTrace();
 		}
 		if (colaborador == null || !colaborador.getContrasenia().equals(password)) {
-			throw new TESSERACTValidacionException("Colaborador no encontrado o contraseña incorrecta", "MSG31");
+			throw new TESSERACTValidacionException("Colaborador no encontrado o contraseña incorrecta", "MSG19");
 		}
 		return colaborador;
 	}
