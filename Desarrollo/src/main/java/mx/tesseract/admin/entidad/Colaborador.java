@@ -82,8 +82,8 @@ public class Colaborador implements Serializable, GenericInterface {
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
-	@StringLengthFieldValidator(message = "%{getText('MSG51')}", trim = true, minLength = "18", maxLength = "18", shortCircuit = true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG52')}", regex = Constantes.REGEX_CURP, shortCircuit = true)
+	@StringLengthFieldValidator(message = "%{getText('MSG23')}", trim = true, minLength = "18", maxLength = "18", shortCircuit = true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG24')}", regex = Constantes.REGEX_CURP, shortCircuit = true)
 	public String getCurp() {
 		return this.curp;
 	}
@@ -94,7 +94,7 @@ public class Colaborador implements Serializable, GenericInterface {
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, maxLength = "30", shortCircuit = true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFABETICO, shortCircuit = true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO, shortCircuit = true)
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -105,7 +105,7 @@ public class Colaborador implements Serializable, GenericInterface {
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, maxLength = "30", shortCircuit = true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFABETICO_SIN_ESPACIOS, shortCircuit = true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO_SIN_ESPACIOS, shortCircuit = true)
 	public String getApellidoPaterno() {
 		return this.apellidoPaterno;
 	}
@@ -115,7 +115,7 @@ public class Colaborador implements Serializable, GenericInterface {
 	}
 
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, maxLength = "30", shortCircuit = true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CAMPO_ALFABETICO_SIN_ESPACIOS, shortCircuit = true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO_SIN_ESPACIOS, shortCircuit = true)
 	public String getApellidoMaterno() {
 		return this.apellidoMaterno;
 	}
@@ -126,7 +126,7 @@ public class Colaborador implements Serializable, GenericInterface {
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, maxLength = "30", shortCircuit = true)
-	@EmailValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", shortCircuit = true)
+	@EmailValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", shortCircuit = true)
 	public String getCorreoElectronico() {
 		return this.correoElectronico;
 	}
@@ -136,8 +136,8 @@ public class Colaborador implements Serializable, GenericInterface {
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'20', 'caracteres'})}", trim = true, minLength = "8", maxLength = "20", shortCircuit = true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG50')}", regex = Constantes.REGEX_CONTRASENIA, shortCircuit = true)
+	@StringLengthFieldValidator(message = "%{getText('MSG25',{'8', '20', 'caracteres'})}", trim = true, minLength = "8", maxLength = "20", shortCircuit = true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CONTRASENIA, shortCircuit = true)
 	public String getContrasenia() {
 		return this.contrasenia;
 	}

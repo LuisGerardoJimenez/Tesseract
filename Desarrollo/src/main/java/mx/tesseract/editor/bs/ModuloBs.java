@@ -63,7 +63,7 @@ public class ModuloBs {
 //		if (modulo == null) {
 //			throw new TESSERACTException(
 //					"No se pueden consultar los módulos.",
-//					"MSG13");
+//					"MSG12");
 //		}
 //		return modulo;
 //	}

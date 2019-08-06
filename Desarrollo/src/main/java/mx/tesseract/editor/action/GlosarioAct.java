@@ -95,6 +95,7 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 		String resultado = MODULOS;
 		try {
 			proyecto = loginBs.consultarProyectoActivo();
+			model.setIdProyecto(proyecto.getId());
 			resultado = EDITNEW;
 		} catch (TESSERACTException pe) {
 			System.err.println(pe.getMessage());
@@ -109,7 +110,8 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 	public void validateCreate() {
 		if (!hasErrors()) {
 			try {
-				terminoGlosarioBs.registrarTerminoGlosario(model, (Integer) SessionManager.get("idProyecto"));
+				model.setIdProyecto((Integer) SessionManager.get("idProyecto"));
+				terminoGlosarioBs.registrarTerminoGlosario(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());

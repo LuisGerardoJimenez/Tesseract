@@ -18,6 +18,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 @Service("terminoGlosarioBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
@@ -49,15 +50,23 @@ public class TerminoGlosarioBs {
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
-	public void registrarTerminoGlosario(TerminoGlosarioDTO terminoGlosarioDTO, Integer idProyecto) {
-		TerminoGlosario terminoGlosario = new TerminoGlosario();
-		terminoGlosario.setNombre(terminoGlosarioDTO.getNombre());
-		terminoGlosario.setDescripcion(terminoGlosarioDTO.getDescripcion());
-		Proyecto proyecto = genericoDAO.findById(Proyecto.class, idProyecto);
-		terminoGlosario.setProyecto(proyecto);
-		if (rn006.isValidRN006(terminoGlosario)) {
+	public void registrarTerminoGlosario(TerminoGlosarioDTO terminoGlosarioDTO) {
+		if (rn006.isValidRN006(terminoGlosarioDTO)) {
+			TerminoGlosario terminoGlosario = new TerminoGlosario();
+			Proyecto proyecto = genericoDAO.findById(Proyecto.class, terminoGlosarioDTO.getIdProyecto());
+			String numero = terminoGlosarioDAO.siguienteNumeroTerminoGlosario(proyecto.getId());
 			terminoGlosario.setClave(CLAVE);
-			terminoGlosario.setNumero(terminoGlosarioDAO.siguienteNumeroTerminoGlosario(proyecto.getId()));
+			terminoGlosario.setNumero(numero);
+			terminoGlosario.setNombre(terminoGlosarioDTO.getNombre());
+			terminoGlosario.setDescripcion(terminoGlosarioDTO.getDescripcion());
+			terminoGlosario.setProyecto(proyecto);
+			System.out.println("-------------------------------->");
+			System.out.println("Nombre: "+terminoGlosario.getNombre());
+			System.out.println("Clave: "+terminoGlosario.getClave());
+			System.out.println("Numero: "+terminoGlosario.getNumero());
+			System.out.println("Descripcion: "+terminoGlosario.getDescripcion());
+			System.out.println("NombreProyecto: "+terminoGlosario.getProyecto().getNombre());
+			System.out.println("-------------------------------->");
 			//model.setEstadoElemento(ElementoBs.consultarEstadoElemento(Estado.EDICION));
 		} else { 
 			throw new TESSERACTValidacionException("EL nombre del término ya existe.", "MSG7",
