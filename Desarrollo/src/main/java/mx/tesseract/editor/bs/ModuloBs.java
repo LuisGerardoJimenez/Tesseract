@@ -102,7 +102,7 @@ public class ModuloBs {
 			genericoDAO.delete(model);
 		} else {
 			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
-					"MSG14");
+					"MSG13");
 		}
 	}
 

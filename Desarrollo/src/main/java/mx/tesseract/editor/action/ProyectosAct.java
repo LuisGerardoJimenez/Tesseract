@@ -291,10 +291,8 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
-		System.out.println("IdProyecto: " + idSel);
 		model = proyectoBs.consultarProyecto(idSel);
 		proyecto = model;
-		System.out.println("modelo: " + model.getNombre());
 	}
 
 	public List<Colaborador> getListColaboradores() {
