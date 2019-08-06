@@ -27,7 +27,7 @@ public class ErrorManager {
 				}
 			}
 		} else {
-			at.addActionError(at.getText("MSG13"));
+			at.addActionError(at.getText("MSG12"));
 		}
 		System.err.println(ex.getMessage());
 		ex.printStackTrace();
