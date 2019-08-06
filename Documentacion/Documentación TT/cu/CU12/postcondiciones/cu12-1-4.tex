@@ -12,7 +12,7 @@
 		\UCitem{Postcondiciones}{Ninguna}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU6.1.3}{Registrar Postcondición} cuando no se ha ingresado un dato marcado como obligatorio.
-		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.3}{Registrar Postcondición} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.3}{Registrar Postcondición} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.1.3}{Registrar Postcondición} cuando se ha excedido la longitud de alguno de los campos.
 		\end{itemize}.}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12.1}{Registrar Caso de uso} y \UCref{CU12.2}{Modificar Caso de uso}.}
@@ -70,7 +70,7 @@
 \hypertarget{CU12-1-4:TAE}{\textbf{Trayectoria alternativa E}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.3}{Registrar Postcondición}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.3}{Registrar Postcondición}.
 	\UCpaso Regresa al paso \ref{CU12.1.4-P3} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}

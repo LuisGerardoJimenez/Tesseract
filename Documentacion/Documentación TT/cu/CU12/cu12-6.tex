@@ -12,7 +12,7 @@
 		\UCitem{Salidas}{
 			\begin{itemize}
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} para indicar que la operación fue exitosa.
-				\item \cdtIdRef{MSG27}{Confirmación de termino}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} para que el actor confirme el término del caso de uso.
+				\item \cdtIdRef{MSG8}{Confirmación de termino}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} para que el actor confirme el término del caso de uso.
 		\end{itemize}}
 		\UCitem{Precondiciones}{
 				Que el caso de uso se encuentre en estado ''Edición'' o ''Pendiente de corrección''.
@@ -27,7 +27,7 @@
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Da clic en el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/terminar}} del registro que desea realizar la operación de la pantalla \IUref{IU6}{Gestionar Casos de uso}.
 		\UCpaso[\UCsist] Verifica que el estado del caso de uso sea ''Edición'' o ''Pendiente de corrección''. \hyperlink{CU12-5:TAA}{[Trayectoria A]}
-		\UCpaso[\UCsist] Muestra el mensaje emergente \cdtIdRef{MSG27}{Confirmación de termino} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar} en la pantalla \IUref{IU6}{Gestionar Casos de uso}.
+		\UCpaso[\UCsist] Muestra el mensaje emergente \cdtIdRef{MSG8}{Confirmación de termino} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar} en la pantalla \IUref{IU6}{Gestionar Casos de uso}.
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-5:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Cambia el estado del caso de uso a ''Revisión''.
 		\UCpaso[\UCactor] Se muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU6}{Gestionar Casos de uso}.

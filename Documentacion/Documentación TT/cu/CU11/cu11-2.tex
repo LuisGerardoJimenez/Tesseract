@@ -38,12 +38,12 @@
 		\UCitem{Postcondiciones}{Se actualizará la información de una pantalla de un proyecto}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando no se ha ingresado un dato marcado como obligatorio.
-		\item \cdtIdRef{MSG29}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG5}{Formato de campo incorrecto}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando el número de la pantalla contiene un carácter no válido.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando se registre un actor con un nombre que ya se encuentre registrado en el sistema.
-		\item \cdtIdRef{MSG20}{Formato de archivo incorrecto}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando la imagen de la pantalla no cumpla con el formato especificado.
-		\item \cdtIdRef{MSG21}{Se ha excedido el tamaño del archivo}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando la imagen de la pantalla exceda el tamaño especificado.
+		\item \cdtIdRef{MSG16}{Formato de archivo incorrecto}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando la imagen de la pantalla no cumpla con el formato especificado.
+		\item \cdtIdRef{MSG17}{Se ha excedido el tamaño del archivo}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando la imagen de la pantalla exceda el tamaño especificado.
 		\end{itemize}.
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU11}{Gestionar Pantallas}.}
@@ -95,7 +95,7 @@
 \hypertarget{CU11-2:TAD}{\textbf{Trayectoria alternativa D}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU7.2}{Modificar Pantalla}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU7.2}{Modificar Pantalla}.
 	\UCpaso Regresa al paso \ref{CU11.2-P5} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
@@ -103,7 +103,7 @@
 \hypertarget{CU11-2:TAE}{\textbf{Trayectoria alternativa E}}\\
 \noindent \textbf{Condición:} El actor proporciona una imagen de formato incorrecto.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG20}{Formato de archivo incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU7.2}{Modificar Pantalla}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG16}{Formato de archivo incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU7.2}{Modificar Pantalla}.
 	\UCpaso Regresa al paso \ref{CU11.2-P6} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
@@ -111,7 +111,7 @@
 \hypertarget{CU11-2:TAF}{\textbf{Trayectoria alternativa F}}\\
 \noindent \textbf{Condición:} El actor proporciona una imagen que excede el tamaño máximo.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG21}{Se ha excedido el tamaño del archivo} señalando el campo que presenta el error en la pantalla \IUref{IU7.2}{Modificar Pantalla}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG17}{Se ha excedido el tamaño del archivo} señalando el campo que presenta el error en la pantalla \IUref{IU7.2}{Modificar Pantalla}.
 	\UCpaso Regresa al paso \ref{CU11.2-P6} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
