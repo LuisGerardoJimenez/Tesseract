@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 		@Result(name = "colaborador", type = "redirectAction", params = { "actionName", "proyectos" }),
 		@Result(name = "recover", type = "dispatcher", location = "recover.jsp") })
 @AllowedMethods({ "logout" })
-public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
+public class AccessAct extends ActionSupportTESSERACT {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String ADMINISTRADOR = "administrador";
@@ -32,7 +32,6 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 	private Map<String, Object> userSession;
 	private String userName;
 	private String password;
-	private static String menuString;
 
 	@Autowired
 	private AccessBs accessBs;
@@ -72,8 +71,8 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 			colaborador = accessBs.verificarLogin(userName, password);
 			SessionManager.set(true, "login");
 			SessionManager.set(colaborador.getCurp(), "colaboradorCURP");
-			menuString = getMenu();
 			if (colaborador.isAdministrador()) {
+				SessionManager.set(true, "admin");
 				resultado = ADMINISTRADOR;
 			} else {
 				resultado = COLABORADOR;
@@ -99,20 +98,6 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 			SessionManager.clear();
 		}
 		return INDEX;
-	}
-
-	public String getMenu() {
-		String resultado;
-		Proyecto proyecto = loginBs.consultarProyectoActivo();
-		Colaborador colaborador = loginBs.consultarColaboradorActivo();
-		if (colaborador != null && colaborador.isAdministrador()) {
-			resultado = "administrador/menus/menuAdministrador";
-		} else if (proyecto == null) {
-			resultado = "editor/menus/menuAnalista";
-		} else {
-			resultado = "editor/menus/menuAnalistaProyecto";
-		}
-		return resultado;
 	}
 
 	public void setSession(Map<String, Object> session) {
@@ -141,14 +126,6 @@ public class AccessAct extends ActionSupportTESSERACT implements SessionAware {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getMenuString() {
-		return menuString;
-	}
-
-	public void setMenuString(String menuString) {
-		this.menuString = menuString;
 	}
 
 }
