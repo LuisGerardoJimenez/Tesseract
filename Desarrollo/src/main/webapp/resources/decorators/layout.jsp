@@ -45,10 +45,21 @@
 					<!--<s:set var="perfil">/pages/<s:property
 							value="@mx.tesseract.action.AccessAct@getMenu()" />.jsp</s:set>-->
 					<!--<jsp:include page="${perfil}" />-->
-					<s:bean name="mx.tesseract.action.AccessAct" var="accessAct" />
+					<!--<s:bean name="mx.tesseract.action.AccessAct" var="accessAct" />
 					<s:set var="menu">/pages/<s:property 
 							value="#accessAct.menuString" />.jsp</s:set>
-					<jsp:include page="${menu}" />
+					<jsp:include page="${menu}" />-->
+					<s:if test="#session.admin != null">
+						<jsp:include page="/pages/administrador/menus/menuAdministrador.jsp" />
+					</s:if>
+					<s:else>
+						<s:if test="#session.idProyecto != null">
+							<jsp:include page="/pages/editor/menus/menuAnalistaProyecto.jsp" />
+						</s:if>
+						<s:else>
+							<jsp:include page="/pages/editor/menus/menuAnalista.jsp" />
+						</s:else>
+					</s:else>
 				</s:if>
 			</s:if>
 		</div>
