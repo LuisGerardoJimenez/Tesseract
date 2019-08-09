@@ -31,7 +31,7 @@
 	\UCpaso[\UCsist] Obtiene la información de todos los casos de uso registrados en cualquier estado del módulo seleccionado. \hyperlink{CU12:TAA}{[Trayectoria A]}
 	\UCpaso[\UCsist] Ordena los casos de uso alfabéticamente con base en la clave de los mismos.
 	\UCpaso[\UCsist] Muestra la información de los casos de uso en la pantalla \IUref{IU6}{Gestionar Casos de uso} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}.\label{CU12-P4}
-	\UCpaso[\UCactor] Gestiona los casos de uso a través de los botones: \IUbutton{Registrar}, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}}, \editar, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/tray}}, \item \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/talt}}, \item \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/terminar}}, \eliminar . 
+	\UCpaso[\UCactor] Gestiona los casos de uso a través de los botones: \IUbutton{Registrar}, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}}, \editar, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/tray}}, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/talt}}, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/revisar}} \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/terminar}}, \eliminar . 
 \end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU12:TAA}{\textbf{Trayectoria alternativa A}}\\
@@ -45,11 +45,11 @@
 
 \subsubsection{Puntos de extensión}
 
-\UCExtenssionPoint{El actor requiere registrar un caso de uso.}{Paso \ref{CU12-P4} de la trayectoria principal o del paso \ref{CU12-TA1} de la trayectoria alternativa A.}{\UCref{CU12.1}{Registrar Caso de uso}}
-\UCExtenssionPoint{El actor requiere modificar un casos de uso.}{Paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.2}{Modificar Caso de uso}}
-\UCExtenssionPoint{El actor requiere gestionar las trayectorias de un caso de uso.}{Paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.1.1}{Gestionar Trayectorias}}
-\UCExtenssionPoint{El actor requiere gestionar los puntos de extensión de un caso de uso.}{Paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.1.6}{Gestionar Puntos de extensión}}
-\UCExtenssionPoint{El actor requiere eliminar un caso de uso.}{Paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.3}{Eliminar Caso de uso}}
-\UCExtenssionPoint{El actor requiere consultar un actor.}{Paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.4}{Consultar Caso de uso}}
-\UCExtenssionPoint{El actor requiere revisar un caso de uso.}{Paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.5}{Revisar Caso de uso}}
-\UCExtenssionPoint{El actor requiere terminar un caso de uso.}{Paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.6}{Teminar Caso de uso}}
+\UCExtenssionPoint{El actor requiere registrar un caso de uso.}{Presionando el botón \IUbutton{Registrar} del paso \ref{CU12-P4} de la trayectoria principal o del paso \ref{CU12-TA1} de la trayectoria alternativa A.}{\UCref{CU12.1}{Registrar Caso de uso}}
+\UCExtenssionPoint{El actor requiere modificar un casos de uso.}{Presionando el icono \editar del paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.2}{Modificar Caso de uso}}
+\UCExtenssionPoint{El actor requiere gestionar las trayectorias de un caso de uso.}{Presionando el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/tray}} del paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.1.1}{Gestionar Trayectorias}}
+\UCExtenssionPoint{El actor requiere gestionar los puntos de extensión de un caso de uso.}{Presionando el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/talt}} del paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.1.6}{Gestionar Puntos de extensión}}
+\UCExtenssionPoint{El actor requiere eliminar un caso de uso.}{Presionando el icono \eliminar del paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.3}{Eliminar Caso de uso}}
+\UCExtenssionPoint{El actor requiere consultar un actor.}{Presionando el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} del paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.4}{Consultar Caso de uso}}
+\UCExtenssionPoint{El actor requiere revisar un caso de uso.}{Presionando el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/revisar}} del paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.5}{Revisar Caso de uso}}
+\UCExtenssionPoint{El actor requiere terminar un caso de uso.}{Presionando el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/terminar}} del paso \ref{CU12-P4} de la trayectoria principal.}{\UCref{CU12.6}{Teminar Caso de uso}}

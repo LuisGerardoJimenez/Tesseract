@@ -58,7 +58,7 @@
 		\UCpaso[\UCsist] Verifica que el archivo ingresado cumpla con el peso correcto, con base en la regla de negocio \BRref{RN40}{Peso de archivos de imagen}. \hyperlink{CU11-1:TAF}{[Trayectoria F]}
 		\UCpaso[\UCsist] Verifica que el número de la pantalla no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN1}{Unicidad de números}. \hyperlink{CU11-1:TAG}{[Trayectoria G]}
 		\UCpaso[\UCsist] Verifica que el nombre de la pantalla no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU11-1:TAH}{[Trayectoria H]}
-		\UCpaso[\UCsist] Registra la información de la pantalla en el sistema.
+		\UCpaso[\UCsist] Persiste la información de la pantalla en el sistema.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU7}{Gestionar Pantallas} para indicar al actor que el registro se ha realizado exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------
@@ -130,6 +130,6 @@
 
 \subsubsection{Puntos de extensión}
 
-\UCExtenssionPoint{El actor requiere registrar una acción}{Paso \ref{CU11.1-P5} de la trayectoria principal.}{\UCref{CU11.1.1}{Registrar Acción}}
-\UCExtenssionPoint{El actor requiere modificar una acción}{Paso \ref{CU11.1-P5} de la trayectoria principal.}{\UCref{CU11.1.2}{Modificar Acción}}
-\UCExtenssionPoint{El actor requiere eliminar una acción}{Paso \ref{CU11.1-P5} de la trayectoria principal.}{\UCref{CU11.1.3}{Eliminar Acción}}
+\UCExtenssionPoint{El actor requiere registrar una acción}{Presionando el botón \IUbutton{Registrar} del paso \ref{CU11.1-P5} de la trayectoria principal.}{\UCref{CU11.1.1}{Registrar Acción}}
+\UCExtenssionPoint{El actor requiere modificar una acción}{Presionando el icono \editar del paso \ref{CU11.1-P5} de la trayectoria principal.}{\UCref{CU11.1.2}{Modificar Acción}}
+\UCExtenssionPoint{El actor requiere eliminar una acción}{Presionando el icono \eliminar del paso \ref{CU11.1-P5} de la trayectoria principal.}{\UCref{CU11.1.3}{Eliminar Acción}}
