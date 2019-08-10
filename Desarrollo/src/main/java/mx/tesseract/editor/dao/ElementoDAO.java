@@ -6,20 +6,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
-import javax.persistence.criteria.Root;
 
-import mx.tesseract.admin.entidad.Proyecto;
-import mx.tesseract.bs.ReferenciaEnum;
 import mx.tesseract.bs.ReferenciaEnum.TipoReferencia;
-import mx.tesseract.dao.GenericoDAO;
 //import mx.tesseract.editor.entidad.Actualizacion;
 import mx.tesseract.editor.entidad.Elemento;
-import mx.tesseract.editor.entidad.Modulo;
+import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.util.Constantes;
+import mx.tesseract.util.ElementoInterface;
+
 import org.springframework.stereotype.Repository;
 
 @Repository("elementoDAO")
@@ -29,10 +23,11 @@ public class ElementoDAO {
 	private EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
-	public List<Elemento> findAllByIdProyectoAndClave(TipoReferencia tipoReferencia, Integer idProyecto) {
-		List<Elemento> elementos = new ArrayList<Elemento>();
+	public <T extends ElementoInterface> List<T> findAllByIdProyectoAndClave(Class<T> clase,TipoReferencia tipoReferencia, Integer idProyecto) {
+		List<T> elementos = new ArrayList<T>();
 		try {
 			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndClave", Elemento.class);
+			System.out.println(idProyecto + " " + tipoReferencia);
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
 			query.setParameter(Constantes.NUMERO_DOS, "GLS");
 			elementos = query.getResultList();
