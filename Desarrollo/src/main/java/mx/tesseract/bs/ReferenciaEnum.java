@@ -330,7 +330,7 @@ public class ReferenciaEnum {
 		case REGLANEGOCIO:
 			return "ReglaNegocio";
 		case TERMINOGLS:
-			return "TerminoGlosario";
+			return "GLS";
 		case TRAYECTORIA:
 			return "Trayectoria";
 		default:

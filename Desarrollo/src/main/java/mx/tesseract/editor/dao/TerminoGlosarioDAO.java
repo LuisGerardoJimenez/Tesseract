@@ -18,14 +18,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository("glosarioDAO")
 public class TerminoGlosarioDAO extends ElementoDAO {
-	
-	@Autowired
-	private GenericoDAO genericoDAO;
 
 	public List<TerminoGlosario>consultarTerminosGlosario(Integer idProyecto) {
 		List<TerminoGlosario> lista = new ArrayList<TerminoGlosario>();
 		System.out.println("GlosarioDAO");
-		List<Elemento> elementos = findAllByIdProyectoAndClave (TipoReferencia.TERMINOGLS, idProyecto);
+		List<TerminoGlosario> elementos = findAllByIdProyectoAndClave (TerminoGlosario.class, TipoReferencia.TERMINOGLS, idProyecto);
 		if (!elementos.isEmpty())
 			for (Elemento elemento : elementos) {
 				System.out.println(elemento.getNombre());
