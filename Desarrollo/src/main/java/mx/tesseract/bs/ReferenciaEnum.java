@@ -29,7 +29,7 @@ import mx.tesseract.editor.entidad.EstadoElemento;
 
 public class ReferenciaEnum {
 	
-	private static String ACCION = "Acción";
+	private static String ACCION = "Accion";
 	private static String ACTOR = "Actor";
 	private static String ATRIBUTO = "Atributo";
 	private static String CASOUSO = "Caso de uso";
@@ -38,9 +38,8 @@ public class ReferenciaEnum {
 	private static String PANTALLA = "Pantalla";
 	private static String PASO = "Paso";
 	private static String REGLANEGOCIO = "Regla de negocio";
-	private static String TERMINO = "Término del glosario";
+	private static String TERMINO = "Termino del glosario";
 	private static String TRAYECTORIA = "Trayectoria";
-
 	
 	public enum TipoReferencia {
 	    ACTOR, ENTIDAD, CASOUSO, PANTALLA, PASO, ATRIBUTO,
@@ -49,6 +48,10 @@ public class ReferenciaEnum {
 	
 	public enum TipoSeccion {
 		ACTORES, ENTRADAS, SALIDAS, REGLAS, POSTPRECONDICIONES, REGLASNEGOCIOS, PASOS, EXTENSIONES, PARAMETROS
+	}
+	
+	public enum Clave {
+		ACT, ENT, GLS, RN, MSG, IUE, CUE, IUSPR1, CUSPR1, CUAD, IUAD
 	}
 	
 	public enum TipoRelacion {
@@ -93,8 +96,6 @@ public class ReferenciaEnum {
 		
 		PARAMETRO, ESTADOELEMENTO, ESTADOPROYECTO, ROL
 	}
-
-	
 	
 	public static TipoReferencia getTipoReferencia(String tokenReferencia){
 		if (tokenReferencia.equals("ACT")){
@@ -309,36 +310,6 @@ public class ReferenciaEnum {
 //		return null;
 //	}
 //
-	public static String getTabla(TipoReferencia referencia) {
-		switch (referencia) {
-		case ACCION:
-			return "Acción";
-		case ACTOR:
-			return "Actor";
-		case ATRIBUTO:
-			return "Atributo";
-		case CASOUSO:
-			return "CasoUso";
-		case ENTIDAD:
-			return "Entidad";
-		case MENSAJE:
-			return "Mensaje";
-		case PANTALLA:
-			return "Pantalla";
-		case PASO:
-			return "Paso";
-		case REGLANEGOCIO:
-			return "ReglaNegocio";
-		case TERMINOGLS:
-			return "TerminoGlosario";
-		case TRAYECTORIA:
-			return "Trayectoria";
-		default:
-			break;
-
-		}
-		return null;
-	}
 
 	@SuppressWarnings("rawtypes")
 	public static Class getClase(TipoReferencia referencia) {

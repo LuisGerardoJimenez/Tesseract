@@ -1,7 +1,7 @@
 \begin{BusinessEntity}{proyectoEntidad}{Proyecto}
-	\Battr{claveProyecto}{Clave: }{Palabra que permitirá distinguir al proyecto, regularmente es la sigla del nombre. Es una palabra corta y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como máximo 10 caracteres. Caracteres admitidos: [A-Z] $|$ [0-9]}
+	\Battr{claveProyecto}{Clave: }{Palabra que permitirá distinguir al proyecto, regularmente es la sigla del nombre. Es una palabra corta y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como mínimo 1 y máximo 10 caracteres. Caracteres admitidos: [A-Z] $|$ [0-9] $|$ [Ñ-Á-É-Í-Ó-Ú]}
 		
-	\Battr{nombreProyecto}{Nombre: }{Nombre que identificará al proyecto. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como máximo 50 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [á-é-í-ó-ú] $|$ []}
+	\Battr{nombreProyecto}{Nombre: }{Nombre que identificará al proyecto. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como mínimo 1 y máximo 50 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú] $|$ [0-9] $|$ [ ]}
 	
 	\Battr{fechaIProyecto}{Fecha de Inicio: }{Fecha en que se arranca el proyecto. Especifica una \hyperlink{tFechaCorta}{Fecha Corta} y este dato es \hyperlink{tOpcional}{opcional} {\em (se puede omitir)}.}
 	
@@ -11,13 +11,13 @@
 	
 	\Battr{fechaFinPProyecto}{Fecha de termino programada: }{Fecha en que se desea finalizar el proyecto. Especifica una \hyperlink{tFechaCorta}{Fecha Corta:} y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
 	
-	\Battr{descripcionProyecto}{Descripción: }{Párrafo que contiene las características generales del proyecto que se comenzará. Descrita en uno o más párrafos y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como máximo 1000 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [0-9] $|$ [  ] $|$ [-] $|$ [,] $|$ [á-é-í-ó-ú]}
+	\Battr{descripcionProyecto}{Descripción: }{Párrafo que contiene las características generales del proyecto que se comenzará. Descrita en uno o más párrafos y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como mínimo 1 y máximo 999 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú] $|$ [0-9] $|$ [  ] $|$ [-] $|$ [,] $|$ [.] $|$ [:]}
 	
 	\Battr{liderProyecto}{Líder: }{Nombre y apellidos del líder del proyecto. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
 	
-	\Battr{contraparteProyecto}{Contraparte: }{Es el cliente del proyecto. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.Este atributo debe de contener como máximo 100 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [0-9] $|$ [  ] $|$ [-] $|$ [,] $|$ [á-ú]}
+	\Battr{contraparteProyecto}{Contraparte: }{Es el cliente del proyecto. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.Este atributo debe de contener como mínimo 1 y máximo 45 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú] $|$ [0-9] $|$ [  ] $|$ [-] $|$ [,] $|$ [.] $|$ [:]}
 	
-	\Battr{presupuestoProyecto}{Presupuesto: }{Es el monto calculado del costo del proyecto. Es un valor numérico flotante y este dato es \hyperlink{tOpcional}{opcional} {\em (se puede omitir)}.}
+	\Battr{presupuestoProyecto}{Presupuesto: }{Es el monto calculado del costo del proyecto. Es un valor numérico flotante y este dato es \hyperlink{tOpcional}{opcional} {\em (se puede omitir)}. Este atributo debe contener como valor máximo 999999999.99. Caracteres admitidos: [0-9] $|$ [.]}
 	
 		\Battr{estadoProyecto}{Estado: }{Es la situación actual en la que se encuentra el proyecto y se define bajo condiciones específicas. Los valores que puede tomar un proyecto son: Iniciado, En negociación y Terminado, este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
 \end{BusinessEntity}
