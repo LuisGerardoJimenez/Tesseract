@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import mx.tesseract.admin.entidad.Colaborador;
+import mx.tesseract.bs.ReferenciaEnum.Clave;
 import mx.tesseract.bs.ReferenciaEnum.TipoReferencia;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.editor.entidad.Elemento;
@@ -19,30 +20,30 @@ import org.springframework.stereotype.Repository;
 @Repository("glosarioDAO")
 public class TerminoGlosarioDAO extends ElementoDAO {
 
-	public List<TerminoGlosario>consultarTerminosGlosario(Integer idProyecto) {
-		List<TerminoGlosario> lista = new ArrayList<TerminoGlosario>();
-		System.out.println("GlosarioDAO");
-		List<TerminoGlosario> elementos = findAllByIdProyectoAndClave (TerminoGlosario.class, TipoReferencia.TERMINOGLS, idProyecto);
-		if (!elementos.isEmpty())
-			for (Elemento elemento : elementos) {
-				System.out.println(elemento.getNombre());
-				lista.add((TerminoGlosario) elemento);
-			}
-		return lista;
-	}
-	
-	public TerminoGlosario findTerminoGlosarioByNombre(String nombre, Integer idProyecto) {
-		TerminoGlosario terminoGlosario = (TerminoGlosario) findByNombre(TipoReferencia.TERMINOGLS, nombre, idProyecto);
-		return terminoGlosario;
-	}
-	
-	public TerminoGlosario findTerminoGlosarioByNombreAndId(Integer id, String nombre, Integer idProyecto) {
-		TerminoGlosario terminoGlosario = (TerminoGlosario) findByNombreAndId(TipoReferencia.TERMINOGLS, id, nombre, idProyecto);
-		return terminoGlosario;
-	}
-	
-	public String siguienteNumeroTerminoGlosario(Integer idProyecto) {
-		return siguienteNumero(TipoReferencia.TERMINOGLS, idProyecto);
-	}
+//	public List<TerminoGlosario>consultarTerminosGlosario(Integer idProyecto) {
+//		List<TerminoGlosario> lista = new ArrayList<TerminoGlosario>();
+//		System.out.println("GlosarioDAO");
+//		List<TerminoGlosario> elementos = findAllByIdProyectoAndClave (TerminoGlosario.class, Clave.GLS, idProyecto);
+//		if (!elementos.isEmpty())
+//			for (Elemento elemento : elementos) {
+//				System.out.println(elemento.getNombre());
+//				lista.add((TerminoGlosario) elemento);
+//			}
+//		return lista;
+//	}
+//	
+//	public TerminoGlosario findTerminoGlosarioByNombre(String nombre, Integer idProyecto) {
+//		TerminoGlosario terminoGlosario = (TerminoGlosario) findByNombre(TipoReferencia.TERMINOGLS, nombre, idProyecto);
+//		return terminoGlosario;
+//	}
+//	
+//	public TerminoGlosario findTerminoGlosarioByNombreAndId(Integer id, String nombre, Integer idProyecto) {
+//		TerminoGlosario terminoGlosario = (TerminoGlosario) findByNombreAndId(TipoReferencia.TERMINOGLS, id, nombre, idProyecto);
+//		return terminoGlosario;
+//	}
+//	
+//	public String siguienteNumeroTerminoGlosario(Integer idProyecto) {
+//		return siguienteNumero(TipoReferencia.TERMINOGLS, idProyecto);
+//	}
 	
 }

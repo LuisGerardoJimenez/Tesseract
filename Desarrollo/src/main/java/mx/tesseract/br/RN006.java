@@ -58,13 +58,13 @@ public class RN006 {
 		Boolean valido = true;
 		TerminoGlosario terminoGlosario;
 		if (entidad.getId() == null) {
-			terminoGlosario = terminoGlosarioDAO.findTerminoGlosarioByNombre(entidad.getNombre(), entidad.getIdProyecto());
+			//terminoGlosario = terminoGlosarioDAO.findTerminoGlosarioByNombre(entidad.getNombre(), entidad.getIdProyecto());
 		} else {
-			terminoGlosario = terminoGlosarioDAO.findTerminoGlosarioByNombreAndId(entidad.getId(), entidad.getNombre(), entidad.getIdProyecto());
+			//terminoGlosario = terminoGlosarioDAO.findTerminoGlosarioByNombreAndId(entidad.getId(), entidad.getNombre(), entidad.getIdProyecto());
 		}
-		if (terminoGlosario != null) {
-			valido = false;
-		}
+//		if (terminoGlosario != null) {
+//			valido = false;
+//		}
 		return valido;
 	}
 	

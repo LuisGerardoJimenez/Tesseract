@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import mx.tesseract.bs.ReferenciaEnum.Clave;
 import mx.tesseract.bs.ReferenciaEnum.TipoReferencia;
 //import mx.tesseract.editor.entidad.Actualizacion;
 import mx.tesseract.editor.entidad.Elemento;
@@ -23,13 +24,12 @@ public class ElementoDAO {
 	private EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
-	public <T extends ElementoInterface> List<T> findAllByIdProyectoAndClave(Class<T> clase,TipoReferencia tipoReferencia, Integer idProyecto) {
+	public <T extends ElementoInterface> List<T> findAllByIdProyectoAndClave(Clave clave, Integer idProyecto) {
 		List<T> elementos = new ArrayList<T>();
 		try {
 			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndClave", Elemento.class);
-			System.out.println(idProyecto + " " + tipoReferencia);
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
-			query.setParameter(Constantes.NUMERO_DOS, "GLS");
+			query.setParameter(Constantes.NUMERO_DOS, clave.toString());
 			elementos = query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -38,19 +38,12 @@ public class ElementoDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Elemento findByNombre(TipoReferencia tipoReferencia, String nombre, Integer idProyecto) {
+	public <T extends ElementoInterface> Elemento findByNombre(String nombre, Integer idProyecto) {
 		Elemento elemento = null;
 		try {
-			Query query = null;
-			switch (tipoReferencia) {
-			case TERMINOGLS:
-				query = entityManager.createNamedQuery("Elemento.consultarElementosGlosarioByNombre", Elemento.class);
-				break;
-			default:
-				break;
-			}
-			query.setParameter(Constantes.NUMERO_UNO, nombre);
-			query.setParameter(Constantes.NUMERO_DOS, idProyecto);
+			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndNombre", Elemento.class);
+			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
+			query.setParameter(Constantes.NUMERO_DOS, nombre);
 			List<Elemento> lista = (List<Elemento>) query.getResultList();
 			if (!lista.isEmpty()) {
 				elemento = (Elemento) lista.get(Constantes.NUMERO_CERO);
