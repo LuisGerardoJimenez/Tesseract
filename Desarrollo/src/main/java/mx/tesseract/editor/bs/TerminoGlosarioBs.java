@@ -9,7 +9,6 @@ import mx.tesseract.bs.ReferenciaEnum.Clave;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
-import mx.tesseract.editor.dao.TerminoGlosarioDAO;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.util.TESSERACTValidacionException;
 
@@ -25,8 +24,6 @@ import org.springframework.ui.Model;
 @Service("terminoGlosarioBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class TerminoGlosarioBs {
-
-	private static final String CLAVE = "GLS";
 
 	private Proyecto proyecto;
 
@@ -47,19 +44,18 @@ public class TerminoGlosarioBs {
 
 	public List<TerminoGlosario> consultarGlosarioProyecto(Integer idProyecto) {
 		System.out.println("ya estamos en el bsGlosario");
-		List<TerminoGlosario> listGlosario = elementoDAO.findAllByIdProyectoAndClave(Clave.GLS, idProyecto);
+		List<TerminoGlosario> listGlosario = elementoDAO.findAllByIdProyectoAndClave(idProyecto, Clave.GLS);
 		return listGlosario;
 	}
 
-	@Transactional(rollbackFor = Exception.class)
+//	@Transactional(rollbackFor = Exception.class)
 	public void registrarTerminoGlosario(TerminoGlosarioDTO terminoGlosarioDTO) {
 		if (rn006.isValidRN006(terminoGlosarioDTO)) {
 			TerminoGlosario terminoGlosario = new TerminoGlosario();
 			Proyecto proyecto = genericoDAO.findById(Proyecto.class, terminoGlosarioDTO.getIdProyecto());
-			// String numero =
-			// terminoGlosarioDAO.siguienteNumeroTerminoGlosario(proyecto.getId());
-			terminoGlosario.setClave(CLAVE);
-			// terminoGlosario.setNumero(numero);
+			String numero = elementoDAO.siguienteNumero(proyecto.getId(), Clave.GLS);
+			terminoGlosario.setClave(Clave.GLS.toString());
+			terminoGlosario.setNumero(numero);
 			terminoGlosario.setNombre(terminoGlosarioDTO.getNombre());
 			terminoGlosario.setDescripcion(terminoGlosarioDTO.getDescripcion());
 			terminoGlosario.setProyecto(proyecto);
