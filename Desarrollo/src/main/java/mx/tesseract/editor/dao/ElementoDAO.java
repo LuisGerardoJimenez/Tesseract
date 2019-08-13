@@ -24,7 +24,7 @@ public class ElementoDAO {
 	private EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
-	public <T extends ElementoInterface> List<T> findAllByIdProyectoAndClave(Clave clave, Integer idProyecto) {
+	public <T extends ElementoInterface> List<T> findAllByIdProyectoAndClave(Integer idProyecto, Clave clave) {
 		List<T> elementos = new ArrayList<T>();
 		try {
 			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndClave", Elemento.class);
@@ -32,21 +32,22 @@ public class ElementoDAO {
 			query.setParameter(Constantes.NUMERO_DOS, clave.toString());
 			elementos = query.getResultList();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		return elementos;
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends ElementoInterface> Elemento findByNombre(String nombre, Integer idProyecto) {
-		Elemento elemento = null;
+	public <T extends ElementoInterface> T findAllByIdProyectoAndNombreAndClave(Integer idProyecto, String nombre, Clave clave) {
+		T elemento = null;
 		try {
-			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndNombre", Elemento.class);
+			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndNombreAndClave", Elemento.class);
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
 			query.setParameter(Constantes.NUMERO_DOS, nombre);
-			List<Elemento> lista = (List<Elemento>) query.getResultList();
+			query.setParameter(Constantes.NUMERO_TRES, clave.toString());
+			List<T> lista = (List<T>) query.getResultList();
 			if (!lista.isEmpty()) {
-				elemento = (Elemento) lista.get(Constantes.NUMERO_CERO);
+				elemento = (T) lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
@@ -55,29 +56,47 @@ public class ElementoDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Elemento findByNombreAndId(TipoReferencia tipoReferencia, Integer id, String nombre, Integer idProyecto) {
-		Elemento elemento = null;
+	public <T extends ElementoInterface> T findAllByIdProyectoAndIdAndNombreAndClave(Integer idProyecto, Integer id, String nombre, Clave clave) {
+		T elemento = null;
 		try {
-			Query query = null;
-			switch (tipoReferencia) {
-			case TERMINOGLS:
-				query = entityManager.createNamedQuery("Elemento.consultarElementosGlosarioByNombreAndId",
-						Elemento.class);
-				break;
-			default:
-				break;
-			}
-			query.setParameter(Constantes.NUMERO_UNO, nombre);
-			query.setParameter(Constantes.NUMERO_DOS, idProyecto);
-			query.setParameter(Constantes.NUMERO_TRES, id);
-			List<Elemento> lista = (List<Elemento>) query.getResultList();
+			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndIdAndNombreAndClave", Elemento.class);
+			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
+			query.setParameter(Constantes.NUMERO_DOS, id);
+			query.setParameter(Constantes.NUMERO_TRES, nombre);
+			query.setParameter(Constantes.NUMERO_CUATRO, clave.toString());
+			List<T> lista = (List<T>) query.getResultList();
 			if (!lista.isEmpty()) {
-				elemento = (Elemento) lista.get(Constantes.NUMERO_CERO);
+				elemento = (T) lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 		return elemento;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String siguienteNumero(Integer idProyecto, Clave clave) {
+		String numero = "";
+		try {
+			System.out.println("------------------------------> Numero: "+numero);
+			Query query = entityManager.createNamedQuery("Elemento.findNextNumber", String.class);
+			System.out.println("------------------------------> Numero2: "+numero);
+			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
+			query.setParameter(Constantes.NUMERO_DOS, clave.toString());
+			System.out.println("------------------------------> Numero2: "+numero);
+			List<Object> lista = query.getResultList();
+			System.out.println("Lista: "+lista.get(0));
+//			List<Elemento> lista = (List<Elemento>) query.getResultList();
+//			if (lista == null || lista.isEmpty()) {
+//				numero = "" + Constantes.NUMERO_UNO;
+//			} else {
+//				numero = "" + lista.get(Constantes.NUMERO_CERO);
+//			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("Numero Despues: "+numero);
+		return numero;
 	}
 
 //	public void registrarElemento(Elemento elemento) {
@@ -122,32 +141,6 @@ public class ElementoDAO {
 //
 //	}
 //
-
-	@SuppressWarnings("unchecked")
-	public String siguienteNumero(TipoReferencia referencia, Integer idProyecto) {
-		String numero = "";
-		try {
-			Query query = null;
-			switch (referencia) {
-			case TERMINOGLS:
-				query = entityManager.createNamedQuery("Elemento.findNextNumberTerminoGlosario", Elemento.class);
-				break;
-			default:
-				break;
-			}
-			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
-			query.setParameter(Constantes.NUMERO_DOS, "GLS");
-			List<Elemento> lista = (List<Elemento>) query.getResultList();
-			if (lista == null || lista.isEmpty()) {
-				numero = "" + Constantes.NUMERO_UNO;
-			} else {
-				numero = "" + lista.get(Constantes.NUMERO_CERO);
-			}
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-		}
-		return numero;
-	}
 
 //	@SuppressWarnings("unchecked")
 //	public String siguienteNumero(TipoReferencia referencia,

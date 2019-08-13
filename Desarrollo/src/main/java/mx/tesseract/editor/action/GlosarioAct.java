@@ -78,9 +78,6 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 			if (idProyecto != null) {
 				proyecto = proyectoBs.consultarProyecto(idProyecto);
 				listGlosario = terminoGlosarioBs.consultarGlosarioProyecto(proyecto.getId());
-				for(TerminoGlosario t : listGlosario) {
-					System.out.println("Termino: "+t.getNombre());
-				}
 				resultado = INDEX;
 				Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 				this.setActionMessages(msjs);
