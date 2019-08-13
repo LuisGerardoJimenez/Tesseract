@@ -11,7 +11,7 @@ import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.bs.AccessBs;
 //import mx.tesseract.bs.AnalisisEnum.CU_Glosario;
-import mx.tesseract.bs.ReferenciaEnum.TipoReferencia;
+import mx.tesseract.enums.ReferenciaEnum.TipoReferencia;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.bs.TerminoGlosarioBs;
 //import mx.tesseract.editor.bs.ElementoBs;

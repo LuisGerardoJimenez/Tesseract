@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import mx.tesseract.admin.dao.ProyectoDAO;
 import mx.tesseract.admin.entidad.Proyecto;
-import mx.tesseract.bs.ReferenciaEnum.Clave;
+import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;

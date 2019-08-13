@@ -2,11 +2,6 @@ package mx.tesseract.util;
 
 public final class Constantes {
 	
-	//ROLES
-	public static final Integer ROL_LIDER = 1;
-	public static final Integer ROL_ANALISTA = 2;
-	
-	
 	//NUMEROS CONSTANTES ENTEROS
 	public static final Integer NUMERO_CERO = 0;
 	public static final Integer NUMERO_UNO_NEGATIVO = -1;
@@ -39,6 +34,19 @@ public final class Constantes {
 	
 	//NUMEROS CONSTANTES DOUBLES
 	public static final Double NUMERO_MIL_MILLONES = 1000000000.00;
+	
+	//ROLES
+	public static final Integer ROL_LIDER = 1;
+	public static final Integer ROL_ANALISTA = 2;
+	
+	//ESTADOS ELEMENTO
+	public final static Integer ESTADO_ELEMENTO_EDICION = Constantes.NUMERO_UNO;
+	public final static Integer ESTADO_ELEMENTO_REVISION = Constantes.NUMERO_DOS;
+	public final static Integer ESTADO_ELEMENTO_PENDIENTECORRECCION = Constantes.NUMERO_TRES;
+	public final static Integer ESTADO_ELEMENTO_PORLIBERAR = Constantes.NUMERO_CUATRO;
+	public final static Integer ESTADO_ELEMENTO_LIBERADO = Constantes.NUMERO_CINCO;
+	public final static Integer ESTADO_ELEMENTO_PRECONFIGURADO = Constantes.NUMERO_SEIS;
+	public final static Integer ESTADO_ELEMENTO_CONFIGURADO = Constantes.NUMERO_SIETE;
 	
 	//ERRORES
 	public static final String NUMERO_UNO_NEGATIVO_STRING = "-1";

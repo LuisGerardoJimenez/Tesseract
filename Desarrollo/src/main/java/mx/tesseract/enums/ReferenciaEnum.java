@@ -1,4 +1,4 @@
-package mx.tesseract.bs;
+package mx.tesseract.enums;
 
 import mx.tesseract.admin.entidad.EstadoProyecto;
 import mx.tesseract.admin.entidad.Rol;
