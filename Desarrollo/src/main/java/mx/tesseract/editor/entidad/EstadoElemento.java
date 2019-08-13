@@ -15,9 +15,11 @@ import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import mx.tesseract.util.GenericInterface;
+
 @Entity
-@Table(name = "EstadoElemento", catalog = "TESSERACT")
-public class EstadoElemento implements Serializable {
+@Table(name = "estadoelemento")
+public class EstadoElemento implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;

@@ -39,7 +39,7 @@ import mx.tesseract.util.GenericInterface;
 	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndClave", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?", resultClass = Elemento.class),
 	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndNombreAndClave", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.nombre = ? AND e.clave = ?", resultClass = Elemento.class),
 	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndIdAndNombreAndClave", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.id != ? AND e.nombre = ? AND e.clave = ?", resultClass = Elemento.class),
-	@NamedNativeQuery(name = "Elemento.findNextNumber", query = "SELECT COALESCE(MAX(e.numero), 0) FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?"),
+	@NamedNativeQuery(name = "Elemento.findNextNumber", query = "SELECT COALESCE(MAX(e.numero), 1) FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?"),
 	})
 
 @Entity

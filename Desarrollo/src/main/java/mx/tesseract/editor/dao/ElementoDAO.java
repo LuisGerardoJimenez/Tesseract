@@ -7,11 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import mx.tesseract.bs.ReferenciaEnum.Clave;
-import mx.tesseract.bs.ReferenciaEnum.TipoReferencia;
+import mx.tesseract.enums.ReferenciaEnum.Clave;
 //import mx.tesseract.editor.entidad.Actualizacion;
 import mx.tesseract.editor.entidad.Elemento;
-import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ElementoInterface;
 
@@ -78,24 +76,14 @@ public class ElementoDAO {
 	public String siguienteNumero(Integer idProyecto, Clave clave) {
 		String numero = "";
 		try {
-			System.out.println("------------------------------> Numero: "+numero);
-			Query query = entityManager.createNamedQuery("Elemento.findNextNumber", String.class);
-			System.out.println("------------------------------> Numero2: "+numero);
+			Query query = entityManager.createNamedQuery("Elemento.findNextNumber");
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
 			query.setParameter(Constantes.NUMERO_DOS, clave.toString());
-			System.out.println("------------------------------> Numero2: "+numero);
-			List<Object> lista = query.getResultList();
-			System.out.println("Lista: "+lista.get(0));
-//			List<Elemento> lista = (List<Elemento>) query.getResultList();
-//			if (lista == null || lista.isEmpty()) {
-//				numero = "" + Constantes.NUMERO_UNO;
-//			} else {
-//				numero = "" + lista.get(Constantes.NUMERO_CERO);
-//			}
+			List<Integer> lista = query.getResultList();
+			numero = "" + lista.get(Constantes.NUMERO_CERO);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
-		System.out.println("Numero Despues: "+numero);
 		return numero;
 	}
 
