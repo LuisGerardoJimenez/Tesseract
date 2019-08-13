@@ -37,9 +37,9 @@ import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndClave", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?", resultClass = Elemento.class),
-	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndNombre", query = "SELECT e.* FROM elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.Proyectoid = ? AND e.nombre = ?", resultClass = Elemento.class),
-	@NamedNativeQuery(name = "Elemento.consultarElementosGlosarioByNombreAndId", query = "SELECT e.* FROM elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.nombre = ? AND e.Proyectoid = ? AND e.id != ?", resultClass = Elemento.class),
-	@NamedNativeQuery(name = "Elemento.findNextNumberTerminoGlosario", query = "SELECT MAX(CAST(e.numero AS SIGNED)) FROM elemento e INNER JOIN terminoglosario tg ON e.id = tg.Elementoid WHERE e.Proyectoid = ?", resultClass = Elemento.class),
+	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndNombreAndClave", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.nombre = ? AND e.clave = ?", resultClass = Elemento.class),
+	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndIdAndNombreAndClave", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.id != ? AND e.nombre = ? AND e.clave = ?", resultClass = Elemento.class),
+	@NamedNativeQuery(name = "Elemento.findNextNumber", query = "SELECT COALESCE(MAX(e.numero), 0) FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?"),
 	})
 
 @Entity

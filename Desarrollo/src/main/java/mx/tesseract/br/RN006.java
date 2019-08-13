@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 
 import mx.tesseract.admin.dao.ProyectoDAO;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.bs.ReferenciaEnum.Clave;
 import mx.tesseract.dto.TerminoGlosarioDTO;
+import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
-import mx.tesseract.editor.dao.TerminoGlosarioDAO;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 
@@ -24,7 +25,7 @@ public class RN006 {
 	private ModuloDAO moduloDAO;
 	
 	@Autowired
-	private TerminoGlosarioDAO terminoGlosarioDAO;
+	private ElementoDAO elementoDAO;
 	
 	public Boolean isValidRN006(Proyecto entidad) {
 		Boolean valido = true;
@@ -58,13 +59,13 @@ public class RN006 {
 		Boolean valido = true;
 		TerminoGlosario terminoGlosario;
 		if (entidad.getId() == null) {
-			//terminoGlosario = terminoGlosarioDAO.findTerminoGlosarioByNombre(entidad.getNombre(), entidad.getIdProyecto());
+			terminoGlosario = elementoDAO.findAllByIdProyectoAndNombreAndClave(entidad.getIdProyecto(), entidad.getNombre(), Clave.GLS);
 		} else {
-			//terminoGlosario = terminoGlosarioDAO.findTerminoGlosarioByNombreAndId(entidad.getId(), entidad.getNombre(), entidad.getIdProyecto());
+			terminoGlosario = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.GLS);
 		}
-//		if (terminoGlosario != null) {
-//			valido = false;
-//		}
+		if (terminoGlosario != null) {
+			valido = false;
+		}
 		return valido;
 	}
 	
