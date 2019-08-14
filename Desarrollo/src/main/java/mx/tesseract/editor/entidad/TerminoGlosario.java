@@ -15,14 +15,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.ElementoInterface;
+import mx.tesseract.util.GenericInterface;
 
 @Entity
 @Table(name = "terminoglosario")
 @Inheritance(strategy=InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
-@JsonTypeName("terminoGlosario")
 @DiscriminatorValue("GLS")
-public class TerminoGlosario extends Elemento implements Serializable, ElementoInterface {
+public class TerminoGlosario extends Elemento implements Serializable, GenericInterface, ElementoInterface {
 	private static final long serialVersionUID = 1L;
 		
 	public TerminoGlosario(){
@@ -32,12 +32,6 @@ public class TerminoGlosario extends Elemento implements Serializable, ElementoI
 	public TerminoGlosario(String clave, String numero, String nombre,
 			Proyecto proyecto, String descripcion, EstadoElemento estadoElemento) {
 		super(clave, numero, nombre, proyecto, descripcion, estadoElemento);
-	}
-	
-	@JsonIgnore
-	@Transient
-	public String getType() {
-		return "terminoGlosario";
 	}
 
 }

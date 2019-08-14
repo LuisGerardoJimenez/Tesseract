@@ -41,7 +41,6 @@ public class TerminoGlosarioBs {
 	private ElementoBs elementoBs;
 
 	public List<TerminoGlosario> consultarGlosarioProyecto(Integer idProyecto) {
-		System.out.println("ya estamos en el bsGlosario");
 		List<TerminoGlosario> listGlosario = elementoDAO.findAllByIdProyectoAndClave(idProyecto, Clave.GLS);
 		return listGlosario;
 	}

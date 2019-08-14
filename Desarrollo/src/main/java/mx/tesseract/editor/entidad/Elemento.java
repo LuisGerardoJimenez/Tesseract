@@ -65,7 +65,7 @@ public class Elemento implements Serializable, GenericInterface {
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "clave")
+	@Column(name = "clave", insertable = false)
 	private String clave;
 	
 	@Column(name = "numero")
