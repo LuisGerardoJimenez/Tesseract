@@ -1,5 +1,7 @@
 package mx.tesseract.action;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
@@ -12,6 +14,8 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
 import mx.tesseract.admin.dao.ProyectoDAO;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.util.Constantes;
+import mx.tesseract.util.SessionManager;
 
 public class AccessInterceptor extends AbstractInterceptor {
 
@@ -24,28 +28,40 @@ public class AccessInterceptor extends AbstractInterceptor {
 	public String intercept(ActionInvocation invocation) throws Exception {
 		String resultado = Action.LOGIN;
 		System.out.println("Inicia interceptor");
-		ActionContext.getContext().getSession().get("login");
 		System.out.println("NameSpace: " + invocation.getProxy().getNamespace());
 		System.out.println("ActionName: " + invocation.getProxy().getActionName());
 		System.out.println("Method: " + invocation.getProxy().getMethod());
-		Object loginObject = ActionContext.getContext().getSession().get("login");
+		Object loginObject = SessionManager.get("login");
 		/*if (loginObject != null) {
 			System.out.println("login?: "+(Boolean) loginObject);
 		} else {
 			System.out.println("No hay llave login");
 		}*/
-		if (loginObject != null) {
-			/*if (invocation.getProxy().getActionName().isEmpty() || invocation.getProxy().getActionName().equals("access")) {
-				resultado = Action.LOGIN;
-			}*/
-			Boolean login = (Boolean) loginObject;
-			if (login) {
-				resultado = invocation.invoke();
-			}
+		if (loginObject != null && (Boolean) loginObject) {
+//			Object idProyectoObject = SessionManager.get("idProyecto");
+//			if(idProyectoObject != null) {
+//				
+//			} else {
+//				if (puedeEntrar(invocation.getProxy().getActionName(), Constantes.ACTION_NAMES_ADMIN)) {
+//					
+//				}
+//			}
+			resultado = invocation.invoke();
 		} else if (invocation.getProxy().getActionName().isEmpty() || invocation.getProxy().getActionName().equals("access")) {
 			resultado = invocation.invoke();
 		}
 		System.out.println("Resultado: " + resultado);
 		return resultado;
 	}
+	
+//	private Boolean puedeEntrar(String actionName, List<String> lista) {
+//		Boolean puedeEntrar = false;
+//		for (String an : lista) {
+//			if (an.equals(actionName)) {
+//				puedeEntrar = true;
+//				break;
+//			}
+//		}
+//		return puedeEntrar;
+//	}
 }

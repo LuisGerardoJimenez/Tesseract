@@ -32,8 +32,8 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @ResultPath("/pages/editor/")
 @Results({
-		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = { "actionName", "proyectos" }),
-		@Result(name = "modulos", type = "redirectAction", params = { "actionName", "modulos" }),
+		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_PROYECTOS }),
+		@Result(name = "modulos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_MODULOS }),
 		@Result(name = "colaboradores", type = "dispatcher", location = "proyectos/colaboradores.jsp"),
 		@Result(name = "documento", type = "stream", params = { "contentType", "${type}", "inputName",
 				"fileInputStream", "bufferSize", "1024", "contentDisposition",

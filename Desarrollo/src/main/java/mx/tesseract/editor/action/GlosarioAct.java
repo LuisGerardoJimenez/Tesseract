@@ -20,6 +20,7 @@ import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.editor.entidad.Modulo;
 //import mx.tesseract.editor.bs.ActorBs;
 import mx.tesseract.util.ActionSupportTESSERACT;
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.GenericInterface;
 import mx.tesseract.util.TESSERACTException;
@@ -40,11 +41,11 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 @ResultPath("/pages/editor/")
 @Results({
 		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = {
-				"actionName", "glosario" }),
+				"actionName", Constantes.ACTION_NAME_GLOSARIO }),
 		@Result(name = "proyectos", type = "redirectAction", params = {
-				"actionName", "proyectos" }),
+				"actionName", Constantes.ACTION_NAME_PROYECTOS }),
 		@Result(name = "modulos", type = "redirectAction", params = {
-				"actionName", "modulos" }),
+				"actionName", Constantes.ACTION_NAME_MODULOS }),
 		@Result(name = "referencias", type = "json", params = { "root",
 				"elementosReferencias" }),
 })
@@ -126,54 +127,34 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 	}
 	
 	public String create() {
-		String resultado = null;
+		addActionMessage(getText("MSG1", new String[] { "El", "Término", "registrado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+
+	public String show() {
+		String resultado = PROYECTOS;
 		try {
-			colaborador = loginBs.consultarColaboradorActivo();
-			proyecto = loginBs.consultarProyectoActivo();
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				proyecto = proyectoBs.consultarProyecto(idProyecto);
+				resultado = INDEX;
+				Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+				this.setActionMessages(msjs);
+				SessionManager.delete("mensajesAccion");
+			}
 //			model.setProyecto(proyecto);
-//			TerminoGlosarioBs.registrarTerminoGlosario(model);
-
-			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "El", "Término",
-					"registrado" }));
-
-			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-		} catch (TESSERACTValidacionException pve) {
-			ErrorManager.agregaMensajeError(this, pve);
+			resultado = SHOW;
 		} catch (TESSERACTException pe) {
+			pe.setIdMensaje("MSG26");
 			ErrorManager.agregaMensajeError(this, pe);
+			return index();
 		} catch (Exception e) {
-			e.printStackTrace();
 			ErrorManager.agregaMensajeError(this, e);
+			return index();
 		}
 		return resultado;
 	}
-//
-//	public String show() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			resultado = SHOW;
-//		} catch (TESSERACTException pe) {
-//			pe.setIdMensaje("MSG26");
-//			ErrorManager.agregaMensajeError(this, pe);
-//			return index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			return index();
-//		}
-//		return resultado;
-//	}
 //
 //	public String destroy() throws Exception {
 //		String resultado = null;

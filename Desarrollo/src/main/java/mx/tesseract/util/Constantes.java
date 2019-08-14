@@ -1,5 +1,8 @@
 package mx.tesseract.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class Constantes {
 	
 	//NUMEROS CONSTANTES ENTEROS
@@ -58,10 +61,31 @@ public final class Constantes {
 	public static final Integer MYSQL_ERROR_1451 = 1451;
 	public static final Integer MYSQL_ERROR_1062 = 1062;
 	
-	//BANDERAS DE VALIDACIONES
-	public static final String VALIDACION_REGISTRAR = "Registrar";
-	public static final String VALIDACION_EDITAR = "Editar";
+	//URLS GESTIONES
 	
+	public static final String ACTION_NAME_PROYECTOS_ADMIN = "proyectos-admin";
+	public static final String ACTION_NAME_PERSONAL = "personal";
+	public static final String ACTION_NAME_PROYECTOS = "proyectos";
+	public static final String ACTION_NAME_MODULOS = "modulos";
+	public static final String ACTION_NAME_GLOSARIO = "glosario";
+	
+	@SuppressWarnings("serial")
+	public static final List<String> ACTION_NAMES_ADMIN = new ArrayList<String>() {
+			{
+				add(ACTION_NAME_PROYECTOS_ADMIN);
+				add(ACTION_NAME_PERSONAL);
+			}
+		};
+	
+	@SuppressWarnings("serial")
+	public static final List<String> ACTION_NAMES_EDITOR_PROYECTO = new ArrayList<String>() {
+			{
+				add(ACTION_NAME_MODULOS);
+				add(ACTION_NAME_GLOSARIO);
+			}
+		};
+	
+		
 	//DICCIONARIO
 	public static final String DICCIONARIO = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
 	
