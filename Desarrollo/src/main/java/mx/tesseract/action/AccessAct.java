@@ -8,6 +8,7 @@ import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.bs.AccessBs;
 import mx.tesseract.util.ActionSupportTESSERACT;
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
@@ -19,8 +20,8 @@ import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Results({ @Result(name = "administrador", type = "redirectAction", params = { "actionName", "proyectos-admin" }),
-		@Result(name = "colaborador", type = "redirectAction", params = { "actionName", "proyectos" }),
+@Results({ @Result(name = "administrador", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_PROYECTOS_ADMIN }),
+		@Result(name = "colaborador", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_PROYECTOS }),
 		@Result(name = "recover", type = "dispatcher", location = "recover.jsp") })
 @AllowedMethods({ "logout" })
 public class AccessAct extends ActionSupportTESSERACT {

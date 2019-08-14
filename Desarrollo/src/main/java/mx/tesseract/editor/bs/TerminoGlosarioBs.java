@@ -23,8 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class TerminoGlosarioBs {
 
-	private Proyecto proyecto;
-
 	@Autowired
 	private RN006 rn006;
 

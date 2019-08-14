@@ -29,7 +29,7 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
 @ResultPath("/pages/administrador/")
 @Results({ @Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = { "actionName",
-		"proyectos-admin" }) })
+		Constantes.ACTION_NAME_PROYECTOS_ADMIN }) })
 @Conversion(conversions = {
 		// key must be the name of a property for which converter should be used
 		@TypeConversion(key = "model.fechaInicio", converter = "mx.tesseract.util.StrutsDateConverter"),

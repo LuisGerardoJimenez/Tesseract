@@ -13,6 +13,7 @@ import mx.tesseract.editor.bs.ModuloBs;
 //import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.util.ActionSupportTESSERACT;
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
@@ -30,9 +31,9 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 @ResultPath("/pages/editor/")
 @Results({
 		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = {
-				"actionName", "modulos" }),
+				"actionName", Constantes.ACTION_NAME_MODULOS }),
 		@Result(name = "proyectos", type = "redirectAction", params = {
-				"actionName", "proyectos" }),
+				"actionName", Constantes.ACTION_NAME_PROYECTOS }),
 		@Result(name = "cu", type = "redirectAction", params = { "actionName",
 				"cu" }),
 		@Result(name = "referencias", type = "json", params = { "root",

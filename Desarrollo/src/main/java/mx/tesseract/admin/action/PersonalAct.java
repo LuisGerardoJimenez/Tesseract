@@ -7,6 +7,7 @@ import java.util.Map;
 import mx.tesseract.admin.bs.ColaboradorBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.util.ActionSupportTESSERACT;
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
@@ -22,7 +23,7 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
 @ResultPath("/pages/administrador/")
 @Results({
-		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = { "actionName", "personal" }),
+		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_PERSONAL }),
 		@Result(name = "referencias", type = "json", params = { "root", "proyectosLider" }) })
 public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<Colaborador> {
 	private static final long serialVersionUID = 1L;
