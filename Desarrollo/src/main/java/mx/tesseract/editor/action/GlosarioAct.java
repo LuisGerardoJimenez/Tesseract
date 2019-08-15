@@ -132,29 +132,50 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 		return SUCCESS;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String show() {
 		String resultado = PROYECTOS;
 		try {
 			idProyecto = (Integer) SessionManager.get("idProyecto");
 			if (idProyecto != null) {
 				proyecto = proyectoBs.consultarProyecto(idProyecto);
-				resultado = INDEX;
-				Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
-				this.setActionMessages(msjs);
-				SessionManager.delete("mensajesAccion");
+				resultado = SHOW;
 			}
-//			model.setProyecto(proyecto);
-			resultado = SHOW;
-		} catch (TESSERACTException pe) {
-			pe.setIdMensaje("MSG26");
-			ErrorManager.agregaMensajeError(this, pe);
-			return index();
+		} catch (TESSERACTException te) {
+			te.setIdMensaje("MSG26");
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
-			return index();
 		}
 		return resultado;
 	}
+	
+//	public String edit() throws Exception {
+//		String resultado = null;
+//		try {
+//			colaborador = SessionManager.consultarColaboradorActivo();
+//			proyecto = SessionManager.consultarProyectoActivo();
+//			if (proyecto == null) {
+//				resultado = "proyectos";
+//				return resultado;
+//			}
+//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
+//				resultado = Action.LOGIN;
+//				return resultado;
+//			}
+//			model.setProyecto(proyecto);
+//			ElementoBs.verificarEstado(model, CU_Glosario.MODIFICARTERMINO10_2);
+//
+//			resultado = EDIT;
+//		} catch (TESSERACTException pe) {
+//			ErrorManager.agregaMensajeError(this, pe);
+//			resultado = index();
+//		} catch (Exception e) {
+//			ErrorManager.agregaMensajeError(this, e);
+//			resultado = index();
+//		}
+//		return resultado;
+//	}
 //
 //	public String destroy() throws Exception {
 //		String resultado = null;
@@ -175,33 +196,6 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 //			addActionMessage(getText("MSG1", new String[] { "El", "Término",
 //					"eliminado" }));
 //			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
-//
-//	public String edit() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			ElementoBs.verificarEstado(model, CU_Glosario.MODIFICARTERMINO10_2);
-//
-//			resultado = EDIT;
 //		} catch (TESSERACTException pe) {
 //			ErrorManager.agregaMensajeError(this, pe);
 //			resultado = index();
@@ -283,6 +277,15 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 
 	public void setListGlosario(List<TerminoGlosario> listGlosario) {
 		this.listGlosario = listGlosario;
+	}
+	
+	public Integer getIdSel() {
+		return idSel;
+	}
+
+	public void setIdSel(Integer idSel) {
+		this.idSel = idSel;
+		model = terminoGlosarioBs.consultarTerminoGlosarioById(idSel);
 	}
 	
 }

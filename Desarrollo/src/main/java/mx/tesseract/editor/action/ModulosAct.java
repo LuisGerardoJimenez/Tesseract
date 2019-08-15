@@ -82,6 +82,9 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 	}
 
 	public String editNew() {
+		idProyecto = (Integer) SessionManager.get("idProyecto");
+		proyecto = proyectoBs.consultarProyecto(idProyecto);
+		model.setProyecto(proyecto);
 		return EDITNEW;
 	}
 
@@ -135,10 +138,10 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 		return SUCCESS;
 	}
 	
-	public String entrarCU() throws Exception {
-		Map<String, Object> session = null;
-		String resultado = null;
-		try {
+//	public String entrarCU() throws Exception {
+//		Map<String, Object> session = null;
+//		String resultado = null;
+//		try {
 //			colaborador = SessionManager.consultarColaboradorActivo();
 //			if (idSel == null
 //					|| colaborador == null
@@ -147,28 +150,28 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 //				resultado = LOGIN;
 //				return resultado;
 //			}
+//
+//			resultado = "cu";
+//			session = ActionContext.getContext().getSession();
+//			session.put("idModulo", idSel);
+//
+//			@SuppressWarnings("unchecked")
+//			Collection<String> msjs = (Collection<String>) SessionManager
+//					.get("mensajesAccion");
+//			this.setActionMessages(msjs);
+//			SessionManager.delete("mensajesAccion");
+//		} catch (TESSERACTException pe) {
+//			ErrorManager.agregaMensajeError(this, pe);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return resultado;
+//	}
 
-			resultado = "cu";
-			session = ActionContext.getContext().getSession();
-			session.put("idModulo", idSel);
-
-			@SuppressWarnings("unchecked")
-			Collection<String> msjs = (Collection<String>) SessionManager
-					.get("mensajesAccion");
-			this.setActionMessages(msjs);
-			SessionManager.delete("mensajesAccion");
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return resultado;
-	}
-
-	public String entrarIU() throws Exception {
-		Map<String, Object> session = null;
-		String resultado = null;
-		try {
+//	public String entrarIU() throws Exception {
+//		Map<String, Object> session = null;
+//		String resultado = null;
+//		try {
 //			colaborador = SessionManager.consultarColaboradorActivo();
 //			if (idSel == null
 //					|| colaborador == null
@@ -177,33 +180,33 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 //				resultado = LOGIN;
 //				return resultado;
 //			}
-
-			resultado = "pantallas";
-			session = ActionContext.getContext().getSession();
-			session.put("idModulo", idSel);
-
-			@SuppressWarnings("unchecked")
-			Collection<String> msjs = (Collection<String>) SessionManager
-					.get("mensajesAccion");
-			this.setActionMessages(msjs);
-			SessionManager.delete("mensajesAccion");
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return resultado;
-	}
+//
+//			resultado = "pantallas";
+//			session = ActionContext.getContext().getSession();
+//			session.put("idModulo", idSel);
+//
+//			@SuppressWarnings("unchecked")
+//			Collection<String> msjs = (Collection<String>) SessionManager
+//					.get("mensajesAccion");
+//			this.setActionMessages(msjs);
+//			SessionManager.delete("mensajesAccion");
+//		} catch (TESSERACTException pe) {
+//			ErrorManager.agregaMensajeError(this, pe);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return resultado;
+//	}
 	
-	public String verificarElementosReferencias() {
-		elementosReferencias = new ArrayList<String>();
+//	public String verificarElementosReferencias() {
+//		elementosReferencias = new ArrayList<String>();
 //		try {
 //			elementosReferencias = ModuloBs.verificarReferencias(model);
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
-		return "referencias";
-	}
+//		return "referencias";
+//	}
 
 	public void validateDestroy() {
 		if (!hasActionErrors()) {

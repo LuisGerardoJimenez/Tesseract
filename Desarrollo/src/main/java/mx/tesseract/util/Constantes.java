@@ -69,23 +69,6 @@ public final class Constantes {
 	public static final String ACTION_NAME_MODULOS = "modulos";
 	public static final String ACTION_NAME_GLOSARIO = "glosario";
 	
-	@SuppressWarnings("serial")
-	public static final List<String> ACTION_NAMES_ADMIN = new ArrayList<String>() {
-			{
-				add(ACTION_NAME_PROYECTOS_ADMIN);
-				add(ACTION_NAME_PERSONAL);
-			}
-		};
-	
-	@SuppressWarnings("serial")
-	public static final List<String> ACTION_NAMES_EDITOR_PROYECTO = new ArrayList<String>() {
-			{
-				add(ACTION_NAME_MODULOS);
-				add(ACTION_NAME_GLOSARIO);
-			}
-		};
-	
-		
 	//DICCIONARIO
 	public static final String DICCIONARIO = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
 	

@@ -37,7 +37,7 @@ import mx.tesseract.util.GenericInterface;
 	@NamedNativeQuery(name = "Modulo.hasReferenciaElementos", query = "SELECT m.* FROM modulo m INNER JOIN casouso c ON c.moduloid = m.id WHERE m.id = ?", resultClass = Modulo.class)
 	})
 @Entity
-@Table(name = "Modulo")
+@Table(name = "modulo")
 public class Modulo implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
