@@ -112,7 +112,22 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 	}
 	
 	public String edit() {
-		return EDIT;
+		String resultado = PROYECTOS;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				proyecto = proyectoBs.consultarProyecto(idProyecto);
+				model.setProyecto(proyecto);
+				resultado = EDIT;
+			}
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
+			resultado = index();
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+			resultado = index();
+		}
+		return resultado;
 	}
 
 	public void validateUpdate() {
@@ -122,12 +137,15 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
+				edit();
 			} catch (TESSERACTException te) {
 				ErrorManager.agregaMensajeError(this, te);
 				System.err.println(te.getMessage());
+				edit();
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
+				edit();
 			}
 		}
 	}
