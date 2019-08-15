@@ -28,9 +28,6 @@ public class TerminoGlosarioBs {
 	private RN006 rn006;
 
 	@Autowired
-	private RN023 rn023;
-
-	@Autowired
 	private ElementoDAO elementoDAO;
 
 	@Autowired
@@ -43,7 +40,7 @@ public class TerminoGlosarioBs {
 		List<TerminoGlosario> listGlosario = elementoDAO.findAllByIdProyectoAndClave(idProyecto, Clave.GLS);
 		return listGlosario;
 	}
-	
+
 	public TerminoGlosarioDTO consultarTerminoGlosarioById(Integer id) {
 		TerminoGlosario terminoGlosario = genericoDAO.findById(TerminoGlosario.class, id);
 		TerminoGlosarioDTO terminoGlosarioDTO = new TerminoGlosarioDTO();
@@ -71,6 +68,19 @@ public class TerminoGlosarioBs {
 			terminoGlosario.setProyecto(proyecto);
 			terminoGlosario.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
 			genericoDAO.save(terminoGlosario);
+		} else {
+			throw new TESSERACTValidacionException("EL nombre del término ya existe.", "MSG7",
+					new String[] { "El", "Módulo", terminoGlosarioDTO.getNombre() }, "model.nombre");
+		}
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void modificarTerminoGlosario(TerminoGlosarioDTO terminoGlosarioDTO) {
+		if (rn006.isValidRN006(terminoGlosarioDTO)) {
+			TerminoGlosario terminoGlosario = genericoDAO.findById(TerminoGlosario.class, terminoGlosarioDTO.getId());
+			terminoGlosario.setNombre(terminoGlosarioDTO.getNombre());
+			terminoGlosario.setDescripcion(terminoGlosarioDTO.getDescripcion());
+			genericoDAO.update(terminoGlosario);
 		} else {
 			throw new TESSERACTValidacionException("EL nombre del término ya existe.", "MSG7",
 					new String[] { "El", "Módulo", terminoGlosarioDTO.getNombre() }, "model.nombre");
