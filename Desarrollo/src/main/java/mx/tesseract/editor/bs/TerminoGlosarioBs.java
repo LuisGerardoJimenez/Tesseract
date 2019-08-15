@@ -9,6 +9,7 @@ import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.entidad.TerminoGlosario;
+import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
 import java.util.List;
@@ -41,6 +42,20 @@ public class TerminoGlosarioBs {
 	public List<TerminoGlosario> consultarGlosarioProyecto(Integer idProyecto) {
 		List<TerminoGlosario> listGlosario = elementoDAO.findAllByIdProyectoAndClave(idProyecto, Clave.GLS);
 		return listGlosario;
+	}
+	
+	public TerminoGlosarioDTO consultarTerminoGlosarioById(Integer id) {
+		TerminoGlosario terminoGlosario = genericoDAO.findById(TerminoGlosario.class, id);
+		TerminoGlosarioDTO terminoGlosarioDTO = new TerminoGlosarioDTO();
+		if (terminoGlosario != null) {
+			terminoGlosarioDTO.setId(terminoGlosario.getId());
+			terminoGlosarioDTO.setNombre(terminoGlosario.getNombre());
+			terminoGlosarioDTO.setDescripcion(terminoGlosario.getDescripcion());
+			terminoGlosarioDTO.setIdProyecto(terminoGlosario.getProyecto().getId());
+		} else {
+			throw new TESSERACTException("No se puede consultar el termino.", "MSG12");
+		}
+		return terminoGlosarioDTO;
 	}
 
 	@Transactional(rollbackFor = Exception.class)

@@ -43,7 +43,7 @@ import mx.tesseract.util.GenericInterface;
 	})
 
 @Entity
-@Table(name = "elemento", catalog = "TESSERACT")
+@Table(name = "elemento")
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="clave", discriminatorType = DiscriminatorType.STRING, length=10)
 @JsonTypeInfo(

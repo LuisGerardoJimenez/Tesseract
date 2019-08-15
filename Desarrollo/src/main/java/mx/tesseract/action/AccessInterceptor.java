@@ -38,14 +38,6 @@ public class AccessInterceptor extends AbstractInterceptor {
 			System.out.println("No hay llave login");
 		}*/
 		if (loginObject != null && (Boolean) loginObject) {
-//			Object idProyectoObject = SessionManager.get("idProyecto");
-//			if(idProyectoObject != null) {
-//				
-//			} else {
-//				if (puedeEntrar(invocation.getProxy().getActionName(), Constantes.ACTION_NAMES_ADMIN)) {
-//					
-//				}
-//			}
 			resultado = invocation.invoke();
 		} else if (invocation.getProxy().getActionName().isEmpty() || invocation.getProxy().getActionName().equals("access")) {
 			resultado = invocation.invoke();
@@ -53,15 +45,4 @@ public class AccessInterceptor extends AbstractInterceptor {
 		System.out.println("Resultado: " + resultado);
 		return resultado;
 	}
-	
-//	private Boolean puedeEntrar(String actionName, List<String> lista) {
-//		Boolean puedeEntrar = false;
-//		for (String an : lista) {
-//			if (an.equals(actionName)) {
-//				puedeEntrar = true;
-//				break;
-//			}
-//		}
-//		return puedeEntrar;
-//	}
 }

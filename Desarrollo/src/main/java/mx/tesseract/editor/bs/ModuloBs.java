@@ -53,20 +53,12 @@ public class ModuloBs {
 
 	public Modulo consultarModuloById(Integer id) {
 		Modulo modulo = genericoDAO.findById(Modulo.class, id);
+		if (modulo == null) {
+			throw new TESSERACTException("No se puede consultar el proyecto.", "MSG12");
+		}
 		return modulo;
 	}
 
-//	public static Modulo consultarModulo(int idActor) {
-//		Modulo modulo = null;
-//		modulo = new ModuloDAO()
-//				.consultarModulo(idActor);
-//		if (modulo == null) {
-//			throw new TESSERACTException(
-//					"No se pueden consultar los módulos.",
-//					"MSG12");
-//		}
-//		return modulo;
-//	}
 	@Transactional(rollbackFor = Exception.class)
 	public void registrarModulo(Modulo model, Integer idProyecto) {
 		if (rn023.isValidRN023(model)) {
@@ -143,27 +135,6 @@ public class ModuloBs {
 //			throw new Exception();
 //		}
 //
-//	}
-//
-//
-//	public static void modificarModulo(Modulo model) throws Exception {
-//		try {
-//			validar(model);
-//			new ModuloDAO().modificarModulo(model);
-//		} catch (JDBCException je) {
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//		
-//	}
-//
-//	public static void eliminarModulo(Modulo model) {
-//		new ModuloDAO().eliminarModulo(model);
-//		
 //	}
 //
 //	public static List<String> verificarReferencias(Modulo model) {
