@@ -139,96 +139,21 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 		jsonColaboradoresTabla = JsonUtil.mapListToJSON(colaboradoresSeleccionados);
 	}
 
-//	public String guardarColaboradores() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			model = SessionManager.consultarProyectoActivo();
-//			if (model == null || colaborador == null
-//					|| !AccessBs.verificarPermisos(model, colaborador)) {
-//				resultado = LOGIN;
-//				return resultado;
-//			}
-//			resultado = SUCCESS;
-//			agregarColaboradores();
-//
-//			addActionMessage(getText("MSG1", new String[] { "Los", "Colaboradores",
-//			"registrados" }));
-//			ProyectoBs.modificarColaboradoresProyecto(model);
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//		}
-//		return resultado;
-//	}
-//
-//	private void agregarColaboradores() throws Exception {
-//		Set<Colaborador> colaboradoresSeleccionados = new HashSet<Colaborador>(
-//				0);
-//		Set<ColaboradorProyecto> colaboradoresProyectoAdd = new HashSet<ColaboradorProyecto>(
-//				0);
-//		Set<ColaboradorProyecto> colaboradoresProyectoRemove = new HashSet<ColaboradorProyecto>(
-//				0);
-//		Rol rol;
-//		Colaborador colaborador;
-//
-//		if (jsonColaboradoresTabla != null
-//				&& !jsonColaboradoresTabla.equals("")) {
-//			colaboradoresSeleccionados = JsonUtil.mapJSONToSet(
-//					jsonColaboradoresTabla, Colaborador.class);
-//		}
-//
-//		for (ColaboradorProyecto colaboradorProyectoOld : model
-//				.getProyecto_colaboradores()) {
-//			if (!isContained(colaboradorProyectoOld, colaboradoresSeleccionados) && colaboradorProyectoOld.getRol().getId() != RolBs.consultarIdRol(Rol_Enum.LIDER)){
-//				colaboradoresProyectoRemove.add(colaboradorProyectoOld);
-//			}
-//		}
-//
-//		for (Colaborador colaboradorSeleccionado : colaboradoresSeleccionados) {
-//			if (!isContained(colaboradorSeleccionado,
-//					model.getProyecto_colaboradores())) {
-//				rol = RolBs.findById(RolBs.consultarIdRol(Rol_Enum.ANALISTA));
-//				colaborador = ColaboradorBs
-//						.consultarPersona(colaboradorSeleccionado.getCurp());
-//				colaboradoresProyectoAdd.add(new ColaboradorProyecto(
-//						colaborador, rol, model));
-//			}
-//		}
-//
-//		for (ColaboradorProyecto colaboradorToRemove : colaboradoresProyectoRemove) {
-//			model.getProyecto_colaboradores().remove(colaboradorToRemove);
-//		}
-//
-//		for (ColaboradorProyecto colaboradorToAdd : colaboradoresProyectoAdd) {
-//			model.getProyecto_colaboradores().add(colaboradorToAdd);
-//		}
-//
-//	}
-//
-//	private boolean isContained(Colaborador colaborador,
-//			Set<ColaboradorProyecto> colaboradores) {
-//		for (ColaboradorProyecto colaboradorProyecto : colaboradores) {
-//			if (colaboradorProyecto.getColaborador().getCurp()
-//					.equals(colaborador.getCurp())) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-//
-//	private boolean isContained(ColaboradorProyecto colaboradorProyecto,
-//			Set<Colaborador> colaboradores) {
-//		for (Colaborador colaborador : colaboradores) {
-//			if (colaborador.getCurp().equals(
-//					colaboradorProyecto.getColaborador().getCurp())) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+	public String guardarColaboradores() {
+		String resultado = null;
+		try {
+			model = loginBs.consultarProyectoActivo();
+			proyectoBs.modificarColaboradoresProyecto(model, jsonColaboradoresTabla);
+			addActionMessage(getText("MSG1", new String[] { "Los", "Colaboradores", "registrados" }));
+			SessionManager.set(this.getActionMessages(), "mensajesAccion");
+			resultado = SUCCESS;
+		} catch (TESSERACTException pe) {
+			ErrorManager.agregaMensajeError(this, pe);
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		return resultado;
+	}
 //	
 //	public String descargarDocumento() {
 //		//String extension = "docx";

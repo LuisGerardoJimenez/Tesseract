@@ -1,5 +1,6 @@
 package mx.tesseract.admin.bs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mx.tesseract.admin.dao.ColaboradorDAO;
@@ -14,6 +15,7 @@ import mx.tesseract.br.RN034;
 import mx.tesseract.br.RN035;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.util.Constantes;
+import mx.tesseract.util.JsonUtil;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
@@ -164,17 +166,68 @@ public class ProyectoBs {
 			throw new TESSERACTException("No se puede editar lider de proyecto.", "MSG12");
 		}
 	}
+	
+	public void modificarColaboradoresProyecto(Proyecto model, String jsonColaboradoresTabla) {
+		agregarColaboradores(model, jsonColaboradoresTabla);
+	}
+	
+	private void agregarColaboradores(Proyecto model, String jsonColaboradoresTabla) {
+		List<Colaborador> colaboradoresSeleccionados = new ArrayList<Colaborador>();
+		List<ColaboradorProyecto> colaboradoresProyectoAdd = new ArrayList<ColaboradorProyecto>();
+		List<ColaboradorProyecto> colaboradoresProyectoRemove = new ArrayList<ColaboradorProyecto>();
+		Rol rol;
+		Colaborador colaborador;
 
-//
-//	public static ColaboradorProyecto consultarColaboradorProyectoLider(Proyecto model) {
-//		Set<ColaboradorProyecto> colaboradores_proyecto = model.getProyecto_colaboradores();
-//		int idLider = RolBs.consultarIdRol(Rol_Enum.LIDER);
-//		for(ColaboradorProyecto cp : colaboradores_proyecto) {
-//			if(cp.getRol().getId() == idLider) {
-//				return cp;
+		if (jsonColaboradoresTabla != null && !jsonColaboradoresTabla.equals("")) {
+			colaboradoresSeleccionados = JsonUtil.mapJSONToArrayList(jsonColaboradoresTabla, Colaborador.class);
+		}
+
+//		for (ColaboradorProyecto colaboradorProyectoOld : model.getProyecto_colaboradores()) {
+//			if (!isContained(colaboradorProyectoOld, colaboradoresSeleccionados) && colaboradorProyectoOld.getRol().getId() != RolBs.consultarIdRol(Rol_Enum.LIDER)){
+//				colaboradoresProyectoRemove.add(colaboradorProyectoOld);
 //			}
 //		}
-//		return null;
-//	}
+//
+//		for (Colaborador colaboradorSeleccionado : colaboradoresSeleccionados) {
+//			if (!isContained(colaboradorSeleccionado,
+//					model.getProyecto_colaboradores())) {
+//				rol = RolBs.findById(RolBs.consultarIdRol(Rol_Enum.ANALISTA));
+//				colaborador = ColaboradorBs
+//						.consultarPersona(colaboradorSeleccionado.getCurp());
+//				colaboradoresProyectoAdd.add(new ColaboradorProyecto(
+//						colaborador, rol, model));
+//			}
+//		}
+
+		for (ColaboradorProyecto colaboradorToRemove : colaboradoresProyectoRemove) {
+			model.getProyecto_colaboradores().remove(colaboradorToRemove);
+		}
+
+		for (ColaboradorProyecto colaboradorToAdd : colaboradoresProyectoAdd) {
+			model.getProyecto_colaboradores().add(colaboradorToAdd);
+		}
+
+	}
+	
+	private boolean isContained(ColaboradorProyecto colaboradorProyecto, List<Colaborador> colaboradores) {
+		Boolean isValid = false;
+		for (Colaborador colaborador : colaboradores) {
+			if (colaborador.getCurp().equals(colaboradorProyecto.getColaborador().getCurp())) {
+				isValid = true;
+				break;
+			}
+		}
+		return isValid;
+	}
+
+	private boolean isContained(Colaborador colaborador, List<ColaboradorProyecto> colaboradores) {
+		Boolean isValid = false;
+		for (ColaboradorProyecto colaboradorProyecto : colaboradores) {
+			if (colaboradorProyecto.getColaborador().getCurp().equals(colaborador.getCurp())) {
+				isValid = true;
+			}
+		}
+		return isValid;
+	}
 
 }
