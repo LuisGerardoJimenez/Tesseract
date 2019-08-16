@@ -38,7 +38,7 @@ import com.opensymphony.xwork2.ModelDriven;
 		@Result(name = "documento", type = "stream", params = { "contentType", "${type}", "inputName",
 				"fileInputStream", "bufferSize", "1024", "contentDisposition",
 				"attachment;filename=\"${filename}\"" }) })
-@AllowedMethods({ "entrar", "elegirColaboradores" })
+@AllowedMethods({ "entrar", "elegirColaboradores", "guardarColaboradores" })
 public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<Proyecto> {
 	private static final long serialVersionUID = 1L;
 	private static final String MODULOS = "modulos";

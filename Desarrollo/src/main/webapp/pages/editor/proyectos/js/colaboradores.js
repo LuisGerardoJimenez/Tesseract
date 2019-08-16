@@ -32,9 +32,11 @@ function tablaToJson(idTable) {
 	var table = $("#" + idTable).dataTable();
 	var arregloColaboradores = [];
 	var seleccionado;
-
+	
 	for (var i = 0; i < table.fnSettings().fnRecordsTotal(); i++) {
 		var curp = table.fnGetData(i, 1);
+		console.log("CURP: ", curp)
+		console.log("Elemento: ", document.getElementById("checkbox-" + curp))
 		seleccionado = document.getElementById("checkbox-" + curp).checked;
 		if (seleccionado == true) {
 			arregloColaboradores.push(new Colaborador(curp));

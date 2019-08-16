@@ -30,15 +30,15 @@ public class ColaboradorProyecto implements Serializable, GenericInterface {
 	@Column(name = "id")
 	private int id;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ColaboradorCURP")
 	private Colaborador colaborador;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Rolid")
 	private Rol rol;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Proyectoid")
 	private Proyecto proyecto;
 

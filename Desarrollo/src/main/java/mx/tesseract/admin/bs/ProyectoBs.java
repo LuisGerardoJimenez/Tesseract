@@ -181,9 +181,13 @@ public class ProyectoBs {
 		if (jsonColaboradoresTabla != null && !jsonColaboradoresTabla.equals("")) {
 			colaboradoresSeleccionados = JsonUtil.mapJSONToArrayList(jsonColaboradoresTabla, Colaborador.class);
 		}
+		
+		for (Colaborador c : colaboradoresSeleccionados) {
+			System.out.println("CURP: "+c.getCurp());
+		}
 
 //		for (ColaboradorProyecto colaboradorProyectoOld : model.getProyecto_colaboradores()) {
-//			if (!isContained(colaboradorProyectoOld, colaboradoresSeleccionados) && colaboradorProyectoOld.getRol().getId() != RolBs.consultarIdRol(Rol_Enum.LIDER)){
+//			if (colaboradorProyectoOld.getRol().getId() != Constantes.ROL_LIDER &&!isContained(colaboradorProyectoOld, colaboradoresSeleccionados)){
 //				colaboradoresProyectoRemove.add(colaboradorProyectoOld);
 //			}
 //		}
@@ -198,21 +202,21 @@ public class ProyectoBs {
 //						colaborador, rol, model));
 //			}
 //		}
-
-		for (ColaboradorProyecto colaboradorToRemove : colaboradoresProyectoRemove) {
-			model.getProyecto_colaboradores().remove(colaboradorToRemove);
-		}
-
-		for (ColaboradorProyecto colaboradorToAdd : colaboradoresProyectoAdd) {
-			model.getProyecto_colaboradores().add(colaboradorToAdd);
-		}
+//
+//		for (ColaboradorProyecto colaboradorToRemove : colaboradoresProyectoRemove) {
+//			model.getProyecto_colaboradores().remove(colaboradorToRemove);
+//		}
+//
+//		for (ColaboradorProyecto colaboradorToAdd : colaboradoresProyectoAdd) {
+//			model.getProyecto_colaboradores().add(colaboradorToAdd);
+//		}
 
 	}
 	
-	private boolean isContained(ColaboradorProyecto colaboradorProyecto, List<Colaborador> colaboradores) {
+	private boolean isContained(ColaboradorProyecto colaboradorProyectoOld, List<Colaborador> colaboradoresSeleccionados) {
 		Boolean isValid = false;
-		for (Colaborador colaborador : colaboradores) {
-			if (colaborador.getCurp().equals(colaboradorProyecto.getColaborador().getCurp())) {
+		for (Colaborador colaborador : colaboradoresSeleccionados) {
+			if (colaborador.getCurp().equals(colaboradorProyectoOld.getColaborador().getCurp())) {
 				isValid = true;
 				break;
 			}
