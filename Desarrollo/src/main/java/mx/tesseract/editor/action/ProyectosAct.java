@@ -113,7 +113,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 			}
 			SessionManager.set(idSel, "idProyecto");
 			model = loginBs.consultarProyectoActivo();
-			prepararVista();
+			cargarListaCheckbox();
 			resultado = COLABORADORES;
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
@@ -126,7 +126,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 		return resultado;
 	}
 
-	public void prepararVista() {
+	public void cargarListaCheckbox() {
 		List<Colaborador> colaboradoresSeleccionados = new ArrayList<Colaborador>();
 		Colaborador colaboradorJSON = null;
 		for (ColaboradorProyecto colaboradorProyecto : model.getProyecto_colaboradores()) {

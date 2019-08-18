@@ -177,31 +177,24 @@ public class ProyectoBs {
 		List<ColaboradorProyecto> colaboradoresProyectoRemove = new ArrayList<ColaboradorProyecto>();
 		Rol rol;
 		Colaborador colaborador;
-
 		if (jsonColaboradoresTabla != null && !jsonColaboradoresTabla.equals("")) {
 			colaboradoresSeleccionados = JsonUtil.mapJSONToArrayList(jsonColaboradoresTabla, Colaborador.class);
 		}
-		
 		for (Colaborador c : colaboradoresSeleccionados) {
 			System.out.println("CURP: "+c.getCurp());
 		}
-
-//		for (ColaboradorProyecto colaboradorProyectoOld : model.getProyecto_colaboradores()) {
-//			if (colaboradorProyectoOld.getRol().getId() != Constantes.ROL_LIDER &&!isContained(colaboradorProyectoOld, colaboradoresSeleccionados)){
-//				colaboradoresProyectoRemove.add(colaboradorProyectoOld);
-//			}
-//		}
-//
-//		for (Colaborador colaboradorSeleccionado : colaboradoresSeleccionados) {
-//			if (!isContained(colaboradorSeleccionado,
-//					model.getProyecto_colaboradores())) {
-//				rol = RolBs.findById(RolBs.consultarIdRol(Rol_Enum.ANALISTA));
-//				colaborador = ColaboradorBs
-//						.consultarPersona(colaboradorSeleccionado.getCurp());
-//				colaboradoresProyectoAdd.add(new ColaboradorProyecto(
-//						colaborador, rol, model));
-//			}
-//		}
+		for (ColaboradorProyecto colaboradorProyectoOld : model.getProyecto_colaboradores()) {
+			if (colaboradorProyectoOld.getRol().getId() != Constantes.ROL_LIDER && !isContained(colaboradorProyectoOld, colaboradoresSeleccionados)){
+				colaboradoresProyectoRemove.add(colaboradorProyectoOld);
+			}
+		}
+		for (Colaborador colaboradorSeleccionado : colaboradoresSeleccionados) {
+			if (!isContained(colaboradorSeleccionado, model.getProyecto_colaboradores())) {
+				rol = genericoDAO.findById(Rol.class, Constantes.ROL_ANALISTA);
+				colaborador = genericoDAO.findById(Colaborador.class, colaboradorSeleccionado.getCurp());
+				colaboradoresProyectoAdd.add(new ColaboradorProyecto(colaborador, rol, model));
+			}
+		}
 //
 //		for (ColaboradorProyecto colaboradorToRemove : colaboradoresProyectoRemove) {
 //			model.getProyecto_colaboradores().remove(colaboradorToRemove);
