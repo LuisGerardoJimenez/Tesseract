@@ -1,5 +1,7 @@
 package mx.tesseract.editor.entidad;
 
+import java.io.Serializable;
+
 /*
  * Luis Gerardo Jiménez
  */
@@ -21,18 +23,24 @@ import mx.tesseract.admin.entidad.Proyecto;
 //import mx.tesseract.generadorPruebas.model.ValorPantallaTrayectoria;
 
 @Entity
-@Table(name = "Pantalla", catalog = "TESSERACT")
+@Table(name = "pantalla")
 @PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
-public class Pantalla extends Elemento implements java.io.Serializable {
+public class Pantalla extends Elemento implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Column(name = "imagen")
 	private byte[] imagen;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Moduloid", referencedColumnName = "id")	
 	private Modulo modulo;
+	
 //	private Set<Accion> acciones = new HashSet<Accion>(0);
+	
+	@Column(name = "patron")
 	private String patron;
+	
 //	private Set<ValorPantallaTrayectoria> valoresPantallaTrayectoria;
 
 	public Pantalla() {
@@ -51,7 +59,6 @@ public class Pantalla extends Elemento implements java.io.Serializable {
 //		this.modulo = modulo;
 //	}
 
-	@Column(name = "imagen", length = 999)
 	public byte[] getImagen() {
 		return this.imagen;
 	}
@@ -60,8 +67,6 @@ public class Pantalla extends Elemento implements java.io.Serializable {
 		this.imagen = imagen;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Moduloid", referencedColumnName = "id")	
 	public Modulo getModulo() {
 		return this.modulo;
 	}
@@ -79,7 +84,6 @@ public class Pantalla extends Elemento implements java.io.Serializable {
 //		this.acciones = acciones;
 //	}
 
-	@Column(name = "patron", length = 2000)
 	public String getPatron() {
 		return patron;
 	}

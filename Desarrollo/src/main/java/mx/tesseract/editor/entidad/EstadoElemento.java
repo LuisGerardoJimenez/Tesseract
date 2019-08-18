@@ -4,7 +4,6 @@ package mx.tesseract.editor.entidad;
  * Luis Gerardo Jiménez
  */
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
