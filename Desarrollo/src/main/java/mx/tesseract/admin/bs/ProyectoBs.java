@@ -167,43 +167,37 @@ public class ProyectoBs {
 		}
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
 	public void modificarColaboradoresProyecto(Proyecto model, String jsonColaboradoresTabla) {
-		agregarColaboradores(model, jsonColaboradoresTabla);
-	}
-	
-	private void agregarColaboradores(Proyecto model, String jsonColaboradoresTabla) {
-		List<Colaborador> colaboradoresSeleccionados = new ArrayList<Colaborador>();
-		List<ColaboradorProyecto> colaboradoresProyectoAdd = new ArrayList<ColaboradorProyecto>();
-		List<ColaboradorProyecto> colaboradoresProyectoRemove = new ArrayList<ColaboradorProyecto>();
-		Rol rol;
-		Colaborador colaborador;
-		if (jsonColaboradoresTabla != null && !jsonColaboradoresTabla.equals("")) {
-			colaboradoresSeleccionados = JsonUtil.mapJSONToArrayList(jsonColaboradoresTabla, Colaborador.class);
-		}
-		for (Colaborador c : colaboradoresSeleccionados) {
-			System.out.println("CURP: "+c.getCurp());
-		}
-		for (ColaboradorProyecto colaboradorProyectoOld : model.getProyecto_colaboradores()) {
-			if (colaboradorProyectoOld.getRol().getId() != Constantes.ROL_LIDER && !isContained(colaboradorProyectoOld, colaboradoresSeleccionados)){
-				colaboradoresProyectoRemove.add(colaboradorProyectoOld);
+		try {
+			List<Colaborador> colaboradoresSeleccionados = new ArrayList<Colaborador>();
+			List<ColaboradorProyecto> colaboradoresProyectoAdd = new ArrayList<ColaboradorProyecto>();
+			List<ColaboradorProyecto> colaboradoresProyectoRemove = new ArrayList<ColaboradorProyecto>();
+			Rol rol;
+			Colaborador colaborador;
+			if (jsonColaboradoresTabla != null && !jsonColaboradoresTabla.equals("")) {
+				colaboradoresSeleccionados = JsonUtil.mapJSONToArrayList(jsonColaboradoresTabla, Colaborador.class);
 			}
-		}
-		for (Colaborador colaboradorSeleccionado : colaboradoresSeleccionados) {
-			if (!isContained(colaboradorSeleccionado, model.getProyecto_colaboradores())) {
-				rol = genericoDAO.findById(Rol.class, Constantes.ROL_ANALISTA);
-				colaborador = genericoDAO.findById(Colaborador.class, colaboradorSeleccionado.getCurp());
-				colaboradoresProyectoAdd.add(new ColaboradorProyecto(colaborador, rol, model));
+			for (Colaborador c : colaboradoresSeleccionados) {
+				System.out.println("CURP: "+c.getCurp());
 			}
+			for (ColaboradorProyecto colaboradorProyectoOld : model.getProyecto_colaboradores()) {
+				if (colaboradorProyectoOld.getRol().getId() != Constantes.ROL_LIDER && !isContained(colaboradorProyectoOld, colaboradoresSeleccionados)){
+					colaboradoresProyectoRemove.add(colaboradorProyectoOld);
+				}
+			}
+			for (Colaborador colaboradorSeleccionado : colaboradoresSeleccionados) {
+				if (!isContained(colaboradorSeleccionado, model.getProyecto_colaboradores())) {
+					rol = genericoDAO.findById(Rol.class, Constantes.ROL_ANALISTA);
+					colaborador = genericoDAO.findById(Colaborador.class, colaboradorSeleccionado.getCurp());
+					colaboradoresProyectoAdd.add(new ColaboradorProyecto(colaborador, rol, model));
+				}
+			}
+			genericoDAO.deleteList(colaboradoresProyectoRemove);
+			genericoDAO.updateList(colaboradoresProyectoAdd);
+		} catch (Exception e) {
+			throw new TESSERACTException("No se puede editar colaboradores del proyecto.", "MSG12");
 		}
-//
-//		for (ColaboradorProyecto colaboradorToRemove : colaboradoresProyectoRemove) {
-//			model.getProyecto_colaboradores().remove(colaboradorToRemove);
-//		}
-//
-//		for (ColaboradorProyecto colaboradorToAdd : colaboradoresProyectoAdd) {
-//			model.getProyecto_colaboradores().add(colaboradorToAdd);
-//		}
-
 	}
 	
 	private boolean isContained(ColaboradorProyecto colaboradorProyectoOld, List<Colaborador> colaboradoresSeleccionados) {
