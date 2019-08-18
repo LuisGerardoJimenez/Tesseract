@@ -178,9 +178,6 @@ public class ProyectoBs {
 			if (jsonColaboradoresTabla != null && !jsonColaboradoresTabla.equals("")) {
 				colaboradoresSeleccionados = JsonUtil.mapJSONToArrayList(jsonColaboradoresTabla, Colaborador.class);
 			}
-			for (Colaborador c : colaboradoresSeleccionados) {
-				System.out.println("CURP: "+c.getCurp());
-			}
 			for (ColaboradorProyecto colaboradorProyectoOld : model.getProyecto_colaboradores()) {
 				if (colaboradorProyectoOld.getRol().getId() != Constantes.ROL_LIDER && !isContained(colaboradorProyectoOld, colaboradoresSeleccionados)){
 					colaboradoresProyectoRemove.add(colaboradorProyectoOld);
