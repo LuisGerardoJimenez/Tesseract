@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import mx.tesseract.util.GenericInterface;
 
 @Entity
-@Table(name = "UnidadTamanio")
+@Table(name = "unidadtamanio")
 public class UnidadTamanio implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;

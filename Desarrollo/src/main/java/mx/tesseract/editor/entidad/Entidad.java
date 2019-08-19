@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -15,9 +18,10 @@ import mx.tesseract.util.ElementoInterface;
 import mx.tesseract.util.GenericInterface;
 
 @Entity
-@Table(name = "Entidad")
+@Table(name = "entidad")
+@Inheritance(strategy=InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
-
+@DiscriminatorValue("ENT")
 public class Entidad extends Elemento implements Serializable, GenericInterface, ElementoInterface {
 
 	private static final long serialVersionUID = 1L;

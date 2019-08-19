@@ -23,6 +23,7 @@ import mx.tesseract.util.GenericInterface;
 @PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
 @DiscriminatorValue("GLS")
 public class TerminoGlosario extends Elemento implements Serializable, GenericInterface, ElementoInterface {
+	
 	private static final long serialVersionUID = 1L;
 		
 	public TerminoGlosario(){
