@@ -23,7 +23,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import mx.tesseract.util.GenericInterface;
 
 @Entity
-@Table(name = "Atributo", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "atributo", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"nombre", "EntidadElementoid" }))
 public class Atributo implements Serializable, GenericInterface {
 
