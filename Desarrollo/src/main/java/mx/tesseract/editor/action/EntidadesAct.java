@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.bs.AccessBs;
+import mx.tesseract.dto.EntidadDTO;
+import mx.tesseract.editor.bs.EntidadBs;
 //import mx.tesseract.editor.bs.AtributoBs;
 //import mx.tesseract.editor.bs.EntidadBs;
 //import mx.tesseract.editor.dao.TipoDatoDAO;
@@ -20,6 +23,7 @@ import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.TipoDato;
 import mx.tesseract.editor.entidad.UnidadTamanio;
 import mx.tesseract.util.ActionSupportTESSERACT;
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.JsonUtil;
 import mx.tesseract.util.TESSERACTException;
@@ -30,25 +34,29 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
 @ResultPath("/pages/editor/")
 @Results({
 		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = {
-				"actionName", "entidades" }),
+				"actionName", Constantes.ACTION_NAME_ENTIDADES }),
 		@Result(name = "referencias", type = "json", params = { "root",
-				"elementosReferencias" }),
+				Constantes.ACTION_NAME_ELEMENTOS_REFERENCIAS }),
 		@Result(name = "proyectos", type = "redirectAction", params = {
-						"actionName", "proyectos" })
+						"actionName", Constantes.ACTION_NAME_PROYECTOS })
 })
 
-public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<Entidad> {
+public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<EntidadDTO> {
 
 	private static final long serialVersionUID = 1L;
+	private static final String PROYECTOS = "proyectos";
+	private static final String REFERENCIAS = "referencias";
+	private EntidadDTO model;
 	private Proyecto proyecto;
-	private Entidad model;
 	private Colaborador colaborador;
 	private Modulo modulo;
 	
@@ -59,64 +67,54 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 	private Integer idSel;
 	private List<String> elementosReferencias;
 	private String comentario;
+	private Integer idProyecto;
+	
+	@Autowired
+	private LoginBs loginBs;
+	
+	@Autowired
+	private EntidadBs entidadBs;
 
-	public String index() throws Exception {
-		String resultado;
+	@SuppressWarnings("unchecked")
+	public String index() {
+		String resultado = PROYECTOS;
 		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			listEntidades = EntidadBs.consultarEntidadesProyecto(proyecto);
-
-			@SuppressWarnings("unchecked")
-			Collection<String> msjs = (Collection<String>) SessionManager
-					.get("mensajesAccion");
-			this.setActionMessages(msjs);
-			SessionManager.delete("mensajesAccion");
-
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				proyecto = loginBs.consultarProyectoActivo();
+				listEntidades = entidadBs.consultarEntidadesProyecto(proyecto.getId());
+				resultado = INDEX;
+				Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+				this.setActionMessages(msjs);
+				SessionManager.delete("mensajesAccion");
+			}
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return INDEX;
+		return resultado;
 	}
 
-//	public String editNew() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			buscaCatalogos();
-//			resultado = EDITNEW;
-//		} catch (TESSERACTException pe) {
-//			System.err.println(pe.getMessage());
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
+	public String editNew() {
+		String resultado = null;
+		try {
+			proyecto = loginBs.consultarProyectoActivo();
+			model.setIdProyecto(proyecto.getId());
+			listTipoDato = entidadBs.consultarTiposDato();
+			listUnidadTamanio = entidadBs.consultarUnidadesTamanio();
+			resultado = EDITNEW;
+		} catch (TESSERACTException pe) {
+			System.err.println(pe.getMessage());
+			ErrorManager.agregaMensajeError(this, pe);
+			resultado = index();
+		} catch (Exception e) {
+			e.printStackTrace();
+			ErrorManager.agregaMensajeError(this, e);
+			resultado = index();
+		}
+		return resultado;
+	}
 //
 //	public String create() throws Exception {
 //		String resultado = null;
@@ -302,19 +300,6 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 //		}
 //		return resultado;
 //	}
-//
-//	private void buscaCatalogos() {
-//		listTipoDato = EntidadBs.consultarTiposDato();
-//		listUnidadTamanio = EntidadBs.consultarUnidadesTamanio();
-//		if (listUnidadTamanio == null || listUnidadTamanio.isEmpty()) {
-//			throw new TESSERACTException(
-//					"No hay unidades para registrar el atributo.", "MSG13");
-//		}
-//		if (listTipoDato == null || listTipoDato.isEmpty()) {
-//			throw new TESSERACTException(
-//					"No hay tipos de dato para registrar el atributo.", "MSG13");
-//		}
-//	}
 
 //	private void agregarAtributos() {
 //		Set<Atributo> atributosModelo = new HashSet<Atributo>(0);
@@ -441,11 +426,12 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 		return "referencias";
 	}
 
-	public Entidad getModel() {
-		return (model == null) ? model = new Entidad() : this.model;
+	@VisitorFieldValidator
+	public EntidadDTO getModel() {
+		return (model == null) ? model = new EntidadDTO() : this.model;
 	}
 
-	public void setModel(Entidad model) {
+	public void setModel(EntidadDTO model) {
 		this.model = model;
 	}
 
@@ -521,4 +507,13 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 	public void setModulo(Modulo modulo) {
 		this.modulo = modulo;
 	}
+
+	public Integer getIdProyecto() {
+		return idProyecto;
+	}
+
+	public void setIdProyecto(Integer idProyecto) {
+		this.idProyecto = idProyecto;
+	}
+
 }

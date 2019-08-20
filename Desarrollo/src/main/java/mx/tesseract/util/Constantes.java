@@ -68,6 +68,8 @@ public final class Constantes {
 	public static final String ACTION_NAME_PROYECTOS = "proyectos";
 	public static final String ACTION_NAME_MODULOS = "modulos";
 	public static final String ACTION_NAME_GLOSARIO = "glosario";
+	public static final String ACTION_NAME_ENTIDADES = "entidades";
+	public static final String ACTION_NAME_ELEMENTOS_REFERENCIAS = "elementosReferencias";
 	
 	//DICCIONARIO
 	public static final String DICCIONARIO = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
