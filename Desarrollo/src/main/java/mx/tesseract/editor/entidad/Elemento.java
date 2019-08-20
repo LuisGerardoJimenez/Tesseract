@@ -22,15 +22,15 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.ValidatorType;
+//import com.fasterxml.jackson.annotation.JsonSubTypes;
+//import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+//import com.fasterxml.jackson.annotation.JsonTypeInfo;
+//import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
+//import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
+//import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
+//import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+//import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
+//import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.GenericInterface;
@@ -46,16 +46,16 @@ import mx.tesseract.util.GenericInterface;
 @Table(name = "elemento")
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="clave", discriminatorType = DiscriminatorType.STRING, length=10)
-@JsonTypeInfo(
-		  use = JsonTypeInfo.Id.NAME,
-		  include = JsonTypeInfo.As.PROPERTY,
-		  property = "type")
-		@JsonSubTypes({
-		  @Type(value = Mensaje.class, name = "mensaje"),
-		  @Type(value = Pantalla.class, name = "pantalla"),
-		  @Type(value = Pantalla.class, name = "reglaNegocio"),
-		  @Type(value = TerminoGlosario.class, name = "terminoGlosario")
-		})
+//@JsonTypeInfo(
+//		  use = JsonTypeInfo.Id.NAME,
+//		  include = JsonTypeInfo.As.PROPERTY,
+//		  property = "type")
+//		@JsonSubTypes({
+//		  @Type(value = Mensaje.class, name = "mensaje"),
+//		  @Type(value = Pantalla.class, name = "pantalla"),
+//		  @Type(value = Pantalla.class, name = "reglaNegocio"),
+//		  @Type(value = TerminoGlosario.class, name = "terminoGlosario")
+//		})
 public class Elemento implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
@@ -167,13 +167,13 @@ public class Elemento implements Serializable, GenericInterface {
 		this.estadoElemento = estadoElemento;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
+//	public String getType() {
+//		return type;
+//	}
+//
+//	public void setType(String type) {
+//		this.type = type;
+//	}
 
 	
 }
