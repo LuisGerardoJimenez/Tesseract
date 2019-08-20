@@ -28,9 +28,10 @@ public class ElementoDAO {
 			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndClave", Elemento.class);
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
 			query.setParameter(Constantes.NUMERO_DOS, clave.toString());
-			elementos = query.getResultList();
+			elementos = (List<T>) query.getResultList();
+			System.out.println("----------------------------> "+elementos);
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
 		return elementos;
 	}
