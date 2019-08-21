@@ -44,10 +44,10 @@ public class ActorBs {
 	private ElementoDAO elementoDAO;
 	
 	public List<Actor> consultarActoresProyecto(Integer idProyecto) {
-		List<Actor> listActores = elementoDAO.findAllByIdProyectoAndClave(idProyecto, Clave.ACT);
-		if (listActores.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar los actores.","MSG12");
-		}
+		List<Actor> listActores = elementoDAO.findAllByIdProyectoAndClave(Actor.class, idProyecto, Clave.ACT);
+//		if (listActores.isEmpty()) {
+//			throw new TESSERACTException("No se pueden consultar los actores.","MSG12");
+//		}
 		return listActores;
 	}
 	
