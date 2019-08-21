@@ -8,8 +8,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import mx.tesseract.enums.ReferenciaEnum.Clave;
+import mx.tesseract.editor.entidad.Actor;
 //import mx.tesseract.editor.entidad.Actualizacion;
 import mx.tesseract.editor.entidad.Elemento;
+import mx.tesseract.editor.entidad.Entidad;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ElementoInterface;
 
@@ -22,15 +24,15 @@ public class ElementoDAO {
 	private EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
-	public <T extends ElementoInterface> List<T> findAllByIdProyectoAndClave(Integer idProyecto, Clave clave) {
+	public <T extends ElementoInterface> List<T> findAllByIdProyectoAndClave(Class<T> clase, Integer idProyecto, Clave clave) {
 		List<T> elementos = new ArrayList<T>();
 		try {
-			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndClave", Elemento.class);
-			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
-			query.setParameter(Constantes.NUMERO_DOS, clave.toString());
-			elementos = query.getResultList();
+			Query query = entityManager.createQuery("SELECT e FROM Elemento e JOIN e.proyecto p WHERE p.id = :idProyecto AND e.clave = :clave", Elemento.class);
+			query.setParameter("idProyecto", idProyecto);
+			query.setParameter("clave", clave.toString());
+			elementos = (List<T>) query.getResultList();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
 		return elementos;
 	}

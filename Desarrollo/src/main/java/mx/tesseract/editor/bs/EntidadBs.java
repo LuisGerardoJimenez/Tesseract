@@ -50,7 +50,7 @@ public class EntidadBs {
 	private GenericoDAO genericoDAO;
 	
 	public List<Entidad> consultarEntidadesProyecto(Integer idProyecto) {
-		List<Entidad> listEntidades = elementoDAO.findAllByIdProyectoAndClave(idProyecto, Clave.ACT);
+		List<Entidad> listEntidades = elementoDAO.findAllByIdProyectoAndClave(Entidad.class, idProyecto, Clave.ENT);
 		return listEntidades;
 	}
 	
