@@ -70,6 +70,7 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 			idProyecto = (Integer) SessionManager.get("idProyecto");
 			if (idProyecto != null) {
 				proyecto = loginBs.consultarProyectoActivo();
+				model.setProyecto(proyecto);
 				listActores = actorBs.consultarActoresProyecto(proyecto.getId());
 				resultado = INDEX;
 				Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");

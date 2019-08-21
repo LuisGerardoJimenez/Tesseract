@@ -13,12 +13,19 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.ElementoInterface;
 import mx.tesseract.util.GenericInterface;
+
+
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "Actor.consultarActorByProyecto", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?")
+	})
 
 @Entity
 @Table(name = "actor")

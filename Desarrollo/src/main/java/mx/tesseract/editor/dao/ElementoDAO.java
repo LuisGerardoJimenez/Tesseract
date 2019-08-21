@@ -25,36 +25,16 @@ public class ElementoDAO {
 
 	@SuppressWarnings("unchecked")
 	public <T extends ElementoInterface> List<T> findAllByIdProyectoAndClave(Class<T> clase, Integer idProyecto, Clave clave) {
-		List<T> el = new ArrayList<T>();
-		List<Object[]> elementos = new ArrayList<Object[]>();
+		List<T> elementos = new ArrayList<T>();
 		try {
-			Query query = entityManager.createQuery("SELECT a FROM Actor a JOIN a.proyecto p WHERE p.id = :idProyecto");
+			Query query = entityManager.createQuery("SELECT e FROM Elemento e JOIN e.proyecto p WHERE p.id = :idProyecto AND e.clave = :clave", Elemento.class);
 			query.setParameter("idProyecto", idProyecto);
-//			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
-//			query.setParameter(Constantes.NUMERO_DOS, clave.toString());
-			List<Actor> actores = (List<Actor>) query.getResultList();
-			for (Actor a : actores) {
-				System.out.println(a);
-			}
-//			elementos = (List<Object[]>) query.getResultList();
-//			for (Object[] o : elementos) {
-//				Elemento e = new Elemento();
-//				e.setId((Integer)o[0]);
-//				e.setClave((String)o[1]);
-//				e.setNumero((String)o[2]);
-//				e.setNombre((String)o[3]);
-//				e.setDescripcion((String)o[4]);
-//				Entidad ent = (Entidad) e;
-////				for (int x=0; x < o.length ; x++) {
-////					System.out.println(o[x]);
-////					//System.out.println(((Entidad)o[x]).getNombre());
-////				}
-//			}
-			//System.out.println("----------------------------> "+elementos);
+			query.setParameter("clave", clave.toString());
+			elementos = (List<T>) query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return el;
+		return elementos;
 	}
 
 	@SuppressWarnings("unchecked")
