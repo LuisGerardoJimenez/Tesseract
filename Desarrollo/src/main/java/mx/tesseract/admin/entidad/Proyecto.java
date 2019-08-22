@@ -159,7 +159,7 @@ public class Proyecto implements Serializable, GenericInterface {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.trim();
 	}
 
 	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
@@ -204,7 +204,7 @@ public class Proyecto implements Serializable, GenericInterface {
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.descripcion = descripcion.trim();
 	}
 	
 	@DoubleRangeFieldValidator(message = "%{getText('MSG6',{'12', 'digitos positivos'})}", minInclusive = "0.00", maxInclusive = "999999999.99", shortCircuit= true)
@@ -251,7 +251,7 @@ public class Proyecto implements Serializable, GenericInterface {
 	}
 	
 	public void setColaboradorCurp(String colaboradorCurp) {
-		this.colaboradorCurp = colaboradorCurp;
+		this.colaboradorCurp = colaboradorCurp.trim();
 	}
 
 }

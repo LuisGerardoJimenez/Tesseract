@@ -94,7 +94,7 @@ public class Modulo implements Serializable, GenericInterface {
 	}
 
 	public void setClave(String clave) {
-		this.clave = clave;
+		this.clave = clave.trim();
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
@@ -105,7 +105,7 @@ public class Modulo implements Serializable, GenericInterface {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.trim();
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
@@ -116,7 +116,7 @@ public class Modulo implements Serializable, GenericInterface {
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.descripcion = descripcion.trim();
 	}
 	
 	public Proyecto getProyecto() {

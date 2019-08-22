@@ -112,7 +112,7 @@ public class Elemento implements Serializable, GenericInterface, ElementoInterfa
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.trim();
 	}
 	
 	public Proyecto getProyecto() {
@@ -128,7 +128,7 @@ public class Elemento implements Serializable, GenericInterface, ElementoInterfa
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.descripcion = descripcion.trim();
 	}
 	
 	public EstadoElemento getEstadoElemento() {
