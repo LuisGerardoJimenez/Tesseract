@@ -59,9 +59,9 @@ public class RN006 {
 		Boolean valido = true;
 		TerminoGlosario terminoGlosario;
 		if (entidad.getId() == null) {
-			terminoGlosario = elementoDAO.findAllByIdProyectoAndNombreAndClave(entidad.getIdProyecto(), entidad.getNombre(), Clave.GLS);
+			terminoGlosario = elementoDAO.findAllByIdProyectoAndNombreAndClave(TerminoGlosario.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.GLS);
 		} else {
-			terminoGlosario = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.GLS);
+			terminoGlosario = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(TerminoGlosario.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.GLS);
 		}
 		if (terminoGlosario != null) {
 			valido = false;

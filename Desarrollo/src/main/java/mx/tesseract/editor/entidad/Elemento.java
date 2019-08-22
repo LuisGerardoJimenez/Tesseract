@@ -19,23 +19,29 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.util.ElementoInterface;
 import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
-	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndClave", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?"),
-	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndNombreAndClave", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.nombre = ? AND e.clave = ?", resultClass = Elemento.class),
-	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndIdAndNombreAndClave", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.id != ? AND e.nombre = ? AND e.clave = ?", resultClass = Elemento.class),
 	@NamedNativeQuery(name = "Elemento.findNextNumber", query = "SELECT COALESCE(MAX(e.numero), 1) FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?"),
+	})
+
+@NamedQueries({
+	@NamedQuery(name = "Elemento.consultarElementosByProyectoAndClave", query = "SELECT e FROM Elemento e JOIN e.proyecto p WHERE p.id = :idProyecto AND e.clave = :clave"),
+	@NamedQuery(name = "Elemento.consultarElementosByProyectoAndNombreAndClave", query = "SELECT e FROM Elemento e JOIN e.proyecto p  WHERE p.id = :idProyecto AND e.nombre = :nombre AND e.clave = :clave"),
+	@NamedQuery(name = "Elemento.consultarElementosByProyectoAndIdAndNombreAndClave", query = "SELECT e FROM Elemento e JOIN e.proyecto p  WHERE p.id = :idProyecto AND e.id != :id AND e.nombre = :nombre AND e.clave = :clave")
 	})
 
 @Entity
 @Table(name = "elemento")
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="clave", discriminatorType = DiscriminatorType.STRING, length=10)
-public class Elemento implements Serializable, GenericInterface {
+public class Elemento implements Serializable, GenericInterface, ElementoInterface {
 
 	private static final long serialVersionUID = 1L;
 	
