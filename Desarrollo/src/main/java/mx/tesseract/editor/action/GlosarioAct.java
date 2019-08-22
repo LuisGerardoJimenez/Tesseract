@@ -56,7 +56,6 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 	private static final String MODULOS = "modulos";
 	private Proyecto proyecto;
 	private TerminoGlosarioDTO model;
-	private Colaborador colaborador;
 	private List<TerminoGlosario> listGlosario;
 	private Integer idSel;
 	private Integer idProyecto;
@@ -91,6 +90,9 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 		}
 		return resultado;
 	}
+	
+	
+	
 	
 	public String editNew() {
 		String resultado = MODULOS;

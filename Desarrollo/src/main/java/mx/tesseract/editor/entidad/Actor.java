@@ -18,6 +18,8 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
+
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.ElementoInterface;
 import mx.tesseract.util.GenericInterface;
@@ -66,7 +68,7 @@ public class Actor extends Elemento implements Serializable, GenericInterface, E
 	public void setOtraCardinalidad(String otraCardinalidad) {
 		this.otraCardinalidad = otraCardinalidad;
 	}
-
+	
 	public Cardinalidad getCardinalidad() {
 		return this.cardinalidad;
 	}

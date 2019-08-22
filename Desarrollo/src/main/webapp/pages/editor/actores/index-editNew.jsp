@@ -12,7 +12,7 @@
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/validaciones.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jquery.caret.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jquery.atwho.js"></script>
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/editor/actores/js/index-editNew.js"></script>	
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/actores/js/index-editNew.js"></script>	
 ]]>
 
 </head>
@@ -33,30 +33,30 @@
 			<table class="seccion">
 				<tr>
 					<td class="label obligatorio"><s:text name="labelNombre" /></td>
-					<td><s:textfield name="model.nombre" maxlength="100"
+					<td><s:textfield name="model.nombre" maxlength="200"
 							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
 						<s:fielderror fieldName ="model.nombre" cssClass="error"
 							theme="jquery" /></td>
 				</tr>
 				<tr>
 					<td class="label obligatorio"><s:text name="labelDescripcion" /></td>
-					<td><s:textarea name="model.descripcion" maxlength="200"
+					<td><s:textarea name="model.descripcion" maxlength="999"
 							cssErrorClass="input-error" cssClass="inputFormularioExtraGrande ui-widget" />
 						<s:fielderror fieldName ="model.descripcion" cssClass="error"
 							theme="jquery" /></td>
 				</tr>
 				<tr>
 				<td class="label obligatorio"><s:text name="labelCardinalidad" /></td>
-				<td><s:select list="listCardinalidad" cssClass="inputFormulario" name="model.cardinalidad.id" id="cardinalidad"
+				<td><s:select list="listCardinalidad" cssClass="inputFormulario" name="model.cardinalidadId" id="cardinalidad"
        						cssErrorClass="select-error" listKey="id" headerValue="Seleccione" headerKey="-1" listValue="nombre" onchange="verificarOtro();"></s:select>
-       						<s:fielderror fieldName = "model.cardinalidad.id" cssClass="error"
+       						<s:fielderror fieldName = "model.cardinalidadId" cssClass="error"
 							theme="jquery" />
 				</td>
 				</tr>
 				
 				<tr style="display: none;" id = "otro">
 				<td class="label obligatorio"><s:text name="labelOtro" /></td>
-					<td><s:textfield name="model.otraCardinalidad" id="otraCardinalidad" maxlength="10"
+					<td><s:textfield name="model.otraCardinalidad" id="otraCardinalidad" maxlength="45"
 							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
 						<s:fielderror fieldName = "model.otraCardinalidad" cssClass="error"
 							theme="jquery" /></td>

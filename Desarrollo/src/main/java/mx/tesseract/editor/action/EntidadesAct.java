@@ -47,7 +47,7 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 		@Result(name = "referencias", type = "json", params = { "root",
 				Constantes.ACTION_NAME_ELEMENTOS_REFERENCIAS }),
 		@Result(name = "proyectos", type = "redirectAction", params = {
-						"actionName", Constantes.ACTION_NAME_PROYECTOS })
+				"actionName", Constantes.ACTION_NAME_PROYECTOS })
 })
 
 public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<EntidadDTO> {
