@@ -107,11 +107,9 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 		} catch (TESSERACTException pe) {
 			System.err.println(pe.getMessage());
 			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
 		} catch (Exception e) {
 			e.printStackTrace();
 			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
 		}
 		return resultado;
 	}

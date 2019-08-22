@@ -61,21 +61,6 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 				proyecto = proyectoBs.consultarProyecto(idProyecto);
 				model.setProyecto(proyecto);
 				listReglasNegocio = reglaNegocioBs.consultarGlosarioProyecto(proyecto.getId());
-				System.out.println(listReglasNegocio.size());
-				for (ReglaNegocio r : listReglasNegocio) {
-					System.out.println("Nombre: "+r.getNombre());
-					System.out.println("Clave: "+r.getClave());
-					System.out.println("DESC: "+r.getDescripcion());
-					System.out.println("Numero: "+r.getNumero());
-					System.out.println("Nombre: "+r.getNombre());
-					System.out.println("Estado: "+r.getEstadoElemento().getNombre());
-					System.out.println("Nombre: "+r.getNombre());
-					System.out.println("Proyecto: "+r.getProyecto().getNombre());
-					System.out.println("TipoRN: "+r.getTiporeglanegocio().getNombre());
-					System.out.println("TipoComp: "+r.getTipocomparacion());
-					System.out.println("ExpReg: "+r.getExpresionRegular());
-					
-				}
 				resultado = INDEX;
 				Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 				this.setActionMessages(msjs);
