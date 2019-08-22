@@ -32,13 +32,12 @@ public class Atributo implements Serializable, GenericInterface {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id")
-	@JsonProperty("Id") 
 	private Integer id;
 	
 	@Column(name = "nombre")
 	private String nombre;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "EntidadElementoid", referencedColumnName = "Elementoid")
 	private Entidad entidad;
 	
