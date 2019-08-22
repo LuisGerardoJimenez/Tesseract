@@ -49,7 +49,7 @@ public class Mensaje extends Elemento implements Serializable {
 	}
 
 	public void setRedaccion(String redaccion) {
-		this.redaccion = redaccion;
+		this.redaccion = redaccion.trim();
 	}
 
 	public boolean isParametrizado() {

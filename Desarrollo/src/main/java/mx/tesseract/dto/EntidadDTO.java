@@ -14,7 +14,7 @@ public class EntidadDTO {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.trim();
 	}
 
 	public String getDescripcion() {
@@ -22,7 +22,7 @@ public class EntidadDTO {
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.descripcion = descripcion.trim();
 	}
 
 	public Integer getIdProyecto() {

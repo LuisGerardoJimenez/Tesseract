@@ -109,7 +109,7 @@ public class Atributo implements Serializable, GenericInterface {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.trim();
 	}
 
 	public Entidad getEntidad() {
@@ -125,7 +125,7 @@ public class Atributo implements Serializable, GenericInterface {
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.descripcion = descripcion.trim();
 	}
 
 	public boolean isObligatorio() {
@@ -149,7 +149,7 @@ public class Atributo implements Serializable, GenericInterface {
 	}
 
 	public void setFormatoArchivo(String formatoArchivo) {
-		this.formatoArchivo = formatoArchivo;
+		this.formatoArchivo = formatoArchivo.trim();
 	}
 
 	public TipoDato getTipoDato() {
@@ -178,7 +178,7 @@ public class Atributo implements Serializable, GenericInterface {
 		return otroTipoDato;
 	}
 	public void setOtroTipoDato(String otroTipoDato) {
-		this.otroTipoDato = otroTipoDato;
+		this.otroTipoDato = otroTipoDato.trim();
 	}
 
 	
