@@ -12,7 +12,7 @@
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/validaciones.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jquery.caret.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jquery.atwho.js"></script>
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/editor/actores/js/index-edit.js"></script>	
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/actores/js/index-edit.js"></script>	
 ]]>
 
 </head>
@@ -47,9 +47,9 @@
 				</tr>
 				<tr>
 				<td class="label obligatorio"><s:text name="labelCardinalidad" /></td>
-				<td><s:select list="listCardinalidad" cssClass="inputFormulario" name="model.cardinalidad.id" id="cardinalidad"
+				<td><s:select list="listCardinalidad" cssClass="inputFormulario" name="model.cardinalidadId" id="cardinalidad"
        						cssErrorClass="select-error" listKey="id" headerValue="Seleccione" headerKey="-1" listValue="nombre" onchange="verificarOtro();"></s:select>
-       						<s:fielderror fieldName = "model.cardinalidad.id" cssClass="error"
+       						<s:fielderror fieldName = "model.cardinalidadId" cssClass="error"
 							theme="jquery" />
 				</td>
 				</tr>
