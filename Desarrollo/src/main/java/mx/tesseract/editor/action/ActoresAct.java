@@ -1,21 +1,19 @@
 package mx.tesseract.editor.action;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import mx.tesseract.admin.bs.LoginBs;
-import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
-import mx.tesseract.bs.AccessBs;
+import mx.tesseract.dto.ActorDTO;
 //import mx.tesseract.bs.AnalisisEnum.CU_Actores;
 import mx.tesseract.editor.bs.ActorBs;
-import mx.tesseract.editor.bs.ElementoBs;
+import mx.tesseract.editor.bs.CardinalidadBs;
 import mx.tesseract.editor.entidad.Actor;
 import mx.tesseract.editor.entidad.Cardinalidad;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.util.ActionSupportTESSERACT;
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
@@ -26,29 +24,30 @@ import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.opensymphony.xwork2.Action;
+
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
 @ResultPath("/pages/editor/")
 @Results({
 		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = {
-				"actionName", "actores" }),
+				"actionName", Constantes.ACTION_NAME_ACTORES }),
 		@Result(name = "referencias", type = "json", params = { "root",
-				"elementosReferencias" }),
+				Constantes.ACTION_NAME_ELEMENTOS_REFERENCIAS }),
 		@Result(name = "proyectos", type = "redirectAction", params = {
-				"actionName", "proyectos" })		
+				"actionName", Constantes.ACTION_NAME_PROYECTOS })		
 })
-public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Actor> {
+
+public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<ActorDTO> {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String PROYECTOS = "proyectos";
-	private Map<String, Object> userSession;
+	private static final String ACTORES = "actores";
 	private Proyecto proyecto;
-	private Colaborador colaborador;
 	private Modulo modulo;
 	
-	private Actor model;
+	
+	private ActorDTO model;
 	private List<Actor> listActores;
 	private List<Cardinalidad> listCardinalidad;
 	private Integer cardinalidadSeleccionada;
@@ -62,6 +61,9 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 	
 	@Autowired
 	private ActorBs actorBs;
+	
+	@Autowired
+	private CardinalidadBs cardinalidadBs;
 
 	@SuppressWarnings("unchecked")
 	public String index(){
@@ -70,7 +72,6 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 			idProyecto = (Integer) SessionManager.get("idProyecto");
 			if (idProyecto != null) {
 				proyecto = loginBs.consultarProyectoActivo();
-				model.setProyecto(proyecto);
 				listActores = actorBs.consultarActoresProyecto(proyecto.getId());
 				resultado = INDEX;
 				Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
@@ -84,6 +85,136 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 		}
 		return resultado;
 	}
+	
+	public String editNew() {
+		String resultado = ACTORES;
+		try {
+			proyecto = loginBs.consultarProyectoActivo();
+			model.setIdProyecto(proyecto.getId());
+			listCardinalidad = cardinalidadBs.consultarCardinalidad();
+			resultado = EDITNEW;
+		} catch (TESSERACTException pe) {
+			System.err.println(pe.getMessage());
+			ErrorManager.agregaMensajeError(this, pe);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		return resultado;
+	}
+	
+	public void validateCreate() {
+		if (!hasErrors()) {
+			try {
+				model.setIdProyecto((Integer) SessionManager.get("idProyecto"));
+				actorBs.registrarActor(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				editNew();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				editNew();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				editNew();
+			}
+		} else {
+			editNew();
+			System.out.println(getFieldErrors());
+		}
+	}
+	
+	public String create() {
+		addActionMessage(getText("MSG1", new String[] { "El", "Actor", "registrado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public String show() {
+		String resultado = ACTORES;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				proyecto = loginBs.consultarProyectoActivo();
+				
+				resultado = SHOW;
+			}
+		} catch (TESSERACTException te) {
+			te.setIdMensaje("MSG26");
+			ErrorManager.agregaMensajeError(this, te);
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		return resultado;
+	}
+	
+	public String edit() {
+		String resultado = ACTORES;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				proyecto = loginBs.consultarProyectoActivo();
+				model.setIdProyecto(proyecto.getId());
+				listCardinalidad = cardinalidadBs.consultarCardinalidad();
+				resultado = EDIT;
+			}
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
+			resultado = index();
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+			resultado = index();
+		}
+		return resultado;
+	}
+	
+	public void validateUpdate() {
+		if (!hasErrors()) {
+			try {
+				actorBs.modificarActor(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				edit();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				edit();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				edit();
+			}
+		}else {
+			edit();
+			System.out.println(getFieldErrors());
+		}
+	}
+	
+	public String update() {
+		addActionMessage(getText("MSG1", new String[] { "El", "actor", "modificado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 //	public String editNew() throws Exception {
 //
@@ -291,26 +422,21 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 //		return "referencias";
 //	}
 
-	//@VisitorFieldValidator
-	public Actor getModel() {
-		return (model == null) ? model = new Actor() : model;
+	@VisitorFieldValidator
+	public ActorDTO getModel() {
+		return (model == null) ? model = new ActorDTO() : model;
 	}
 
-	public void setModel(Actor model) {
+	public void setModel(ActorDTO model) {
 		this.model = model;
 	}
-
-	public Map<String, Object> getUserSession() {
-		return userSession;
+	
+	public Proyecto getProyecto() {
+		return proyecto;
 	}
 
-	public void setUserSession(Map<String, Object> userSession) {
-		this.userSession = userSession;
-	}
-
-	public void setSession(Map<String, Object> arg0) {
-		// TODO Auto-generated method stub
-
+	public void setProyecto(Proyecto proyecto) {
+		this.proyecto = proyecto;
 	}
 
 	public List<Actor> getListActores() {
@@ -351,7 +477,7 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 
 	public void setIdSel(int idSel) {
 		this.idSel = idSel;
-		//model = ActorBs.consultarActor(idSel);
+		model = actorBs.consultarActorById(idSel);
 	}
 
 	public String getComentario() {
@@ -377,7 +503,4 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 	public void setModulo(Modulo modulo) {
 		this.modulo = modulo;
 	}
-	
-	
-
 }
