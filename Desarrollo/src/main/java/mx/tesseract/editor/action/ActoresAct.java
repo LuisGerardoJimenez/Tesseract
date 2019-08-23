@@ -46,7 +46,6 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 	private Proyecto proyecto;
 	private Modulo modulo;
 	
-	
 	private ActorDTO model;
 	private List<Actor> listActores;
 	private List<Cardinalidad> listCardinalidad;
@@ -141,7 +140,6 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 			idProyecto = (Integer) SessionManager.get("idProyecto");
 			if (idProyecto != null) {
 				proyecto = loginBs.consultarProyectoActivo();
-				
 				resultado = SHOW;
 			}
 		} catch (TESSERACTException te) {
@@ -201,119 +199,7 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-//	public String editNew() throws Exception {
-//
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			buscaCatalogos();
-//			resultado = EDITNEW;
-//		} catch (TESSERACTException pe) {
-//			System.err.println(pe.getMessage());
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
-//
-//	private void buscaCatalogos() {
-//		listCardinalidad = ActorBs.consultarCardinalidades();
-//
-//		if (listCardinalidad == null || listCardinalidad.isEmpty()) {
-//			throw new TESSERACTException(
-//					"No hay cardinalidades para registrar el atributo.",
-//					"MSG13");
-//		}
-//	}
-//
-//	public String create() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			ActorBs.registrarActor(model);
-//			resultado = SUCCESS;
-//			addActionMessage(getText("MSG1", new String[] { "El", "Actor",
-//					"registrado" }));
-//
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		} catch (TESSERACTValidacionException pve) {
-//			ErrorManager.agregaMensajeError(this, pve);
-//			resultado = editNew();
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
-//
-//	public String show() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}		
-//			model = ActorBs.consultarActor(idSel);
-//			model.setProyecto(proyecto);
-//			resultado = SHOW;
-//		} catch (TESSERACTException pe) {
-//			pe.setIdMensaje("MSG26");
-//			ErrorManager.agregaMensajeError(this, pe);
-//			return index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			return index();
-//		}
-//		return resultado;
-//	}
 //
 //	public String destroy() throws Exception {
 //		String resultado = null;
@@ -344,72 +230,6 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 //		return resultado;
 //	}
 //
-//	public String edit() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			ElementoBs.verificarEstado(model, CU_Actores.MODIFICARACTOR7_2);
-//
-//			buscaCatalogos();
-//
-//			resultado = EDIT;
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//
-//		return resultado;
-//
-//	}
-//
-//	public String update() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-////			Actualizacion actualizacion = new Actualizacion(new Date(),
-////					comentario, model,
-////					SessionManager.consultarColaboradorActivo());
-//			//ActorBs.modificarActor(model, actualizacion);
-//			ActorBs.modificarActor(model);
-//			resultado = SUCCESS;
-//			addActionMessage(getText("MSG1", new String[] { "El", "Actor",
-//					"modificado" }));
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		} catch (TESSERACTValidacionException pve) {
-//			ErrorManager.agregaMensajeError(this, pve);
-//			resultado = edit();
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
 //
 //	public String verificarElementosReferencias() {
 //		try {

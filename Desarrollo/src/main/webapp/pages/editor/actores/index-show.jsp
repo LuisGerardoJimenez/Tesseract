@@ -36,8 +36,8 @@
 					<td><span class="label consulta"><s:text
 								name="labelCardinalidad" /></span> <span
 						class="inputFormulario ui-widget"> ${blanks} <s:if
-								test="model.cardinalidad.nombre != 'Otra'">
-								<s:property value="model.cardinalidad.nombre" />
+								test="model.cardinalidadNombre != 'Otra'">
+								<s:property value="model.cardinalidadNombre" />
 							</s:if> <s:else>
 								<s:property value="model.otraCardinalidad" />
 							</s:else></span></td>

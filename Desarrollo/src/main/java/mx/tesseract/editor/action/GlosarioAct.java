@@ -1,28 +1,20 @@
 package mx.tesseract.editor.action;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.bs.ProyectoBs;
-import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
-import mx.tesseract.bs.AccessBs;
 //import mx.tesseract.bs.AnalisisEnum.CU_Glosario;
-import mx.tesseract.enums.ReferenciaEnum.TipoReferencia;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.bs.TerminoGlosarioBs;
 //import mx.tesseract.editor.bs.ElementoBs;
-import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.entidad.TerminoGlosario;
-import mx.tesseract.editor.entidad.Modulo;
 //import mx.tesseract.editor.bs.ActorBs;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
-import mx.tesseract.util.GenericInterface;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
@@ -30,11 +22,8 @@ import mx.tesseract.util.SessionManager;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
@@ -56,11 +45,9 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 	private static final String MODULOS = "modulos";
 	private Proyecto proyecto;
 	private TerminoGlosarioDTO model;
-	private Colaborador colaborador;
 	private List<TerminoGlosario> listGlosario;
 	private Integer idSel;
 	private Integer idProyecto;
-	private List<String> elementosReferencias;
 	
 	@Autowired
 	private LoginBs loginBs;
