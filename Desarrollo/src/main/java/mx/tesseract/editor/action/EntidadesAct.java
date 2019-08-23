@@ -132,6 +132,8 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 				e.printStackTrace();
 				editNew();
 			}
+		} else {
+			editNew();
 		}
 	}
 	
