@@ -55,6 +55,7 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 	private static final long serialVersionUID = 1L;
 	private static final String PROYECTOS = "proyectos";
 	private static final String REFERENCIAS = "referencias";
+	private static final String ENTIDADES = "entidades";
 	private EntidadDTO model;
 	private Proyecto proyecto;
 	private Colaborador colaborador;
@@ -113,44 +114,32 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 		}
 		return resultado;
 	}
-//
-//	public String create() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			agregarAtributos();
-//			Proyecto proyecto = SessionManager.consultarProyectoActivo();
-//			model.setProyecto(proyecto);
-//			EntidadBs.registrarEntidad(model);
-//
-//			resultado = SUCCESS;
-//			addActionMessage(getText("MSG1", new String[] { "La", "Entidad",
-//					"registrada" }));
-//
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		} catch (TESSERACTValidacionException pve) {
-//			ErrorManager.agregaMensajeError(this, pve);
-//			resultado = editNew();
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
+
+	public void validateCreate() {
+		if (!hasErrors()) {
+			try {
+				model.setIdProyecto((Integer) SessionManager.get("idProyecto"));
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				editNew();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				editNew();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				editNew();
+			}
+		}
+	}
+	
+	public String create() {
+		addActionMessage(getText("MSG1", new String[] { "La", "Entidad", "registrada" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
 //
 //	public String edit() throws Exception {
 //		String resultado = null;
