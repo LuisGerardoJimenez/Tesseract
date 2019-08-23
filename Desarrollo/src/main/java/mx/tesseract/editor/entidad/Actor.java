@@ -1,10 +1,6 @@
 package mx.tesseract.editor.entidad;
 
 import java.io.Serializable;
-
-/*
- * Luis Gerardo Jiménez
- */
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

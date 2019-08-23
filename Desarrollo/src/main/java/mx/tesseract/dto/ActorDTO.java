@@ -17,6 +17,7 @@ public class ActorDTO {
 	private Integer idProyecto;
 	private Integer cardinalidadId;
 	private String otraCardinalidad;
+	private String cardinalidadNombre;
 	
 	public ActorDTO() {
 		
@@ -72,14 +73,22 @@ public class ActorDTO {
 
 //	Manda el mensaje cuando no se cumple la condicion
 	@FieldExpressionValidator(expression = "not (#action.model.cardinalidadId eq 3 and #action.model.otraCardinalidad eq '')", message = "%{getText('MSG4')}", shortCircuit= true)
-	@StringLengthFieldValidator(message = "%{getText('MSG25',{'1', '45', 'caracteres'})}", trim = true, minLength = "2", maxLength = "45", shortCircuit = true)
+	@StringLengthFieldValidator(message = "%{getText('MSG25',{'3', '45', 'caracteres'})}", trim = true, minLength = "3", maxLength = "45", shortCircuit = true)
 	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO, shortCircuit = true)
 	public String getOtraCardinalidad() {
 		return otraCardinalidad;
 	}
 
 	public void setOtraCardinalidad(String otraCardinalidad) {
-		this.otraCardinalidad = otraCardinalidad.trim();
+		this.otraCardinalidad = otraCardinalidad != null? otraCardinalidad.trim() : otraCardinalidad;
+	}
+
+	public String getCardinalidadNombre() {
+		return cardinalidadNombre;
+	}
+
+	public void setCardinalidadNombre(String cardinalidadNombre) {
+		this.cardinalidadNombre = cardinalidadNombre;
 	}
 
 }

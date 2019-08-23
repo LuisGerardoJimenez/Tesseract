@@ -7,7 +7,6 @@ import mx.tesseract.br.RN006;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.ActorDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
-//import mx.tesseract.bs.CatalogoBs;
 //import mx.tesseract.bs.AnalisisEnum.CU_Actores;
 //import mx.tesseract.bs.ReferenciaEnum.TipoCatalogo;
 //import mx.tesseract.editor.bs.ElementoBs.Estado;
@@ -63,10 +62,14 @@ public class ActorBs {
 			actorDTO.setId(actor.getId());
 			actorDTO.setNombre(actor.getNombre());
 			actorDTO.setDescripcion(actor.getDescripcion());
+			actorDTO.setCardinalidadId(actor.getCardinalidad().getId());
+			actorDTO.setCardinalidadNombre(actor.getCardinalidad().getNombre());
+			actorDTO.setOtraCardinalidad(actor.getOtraCardinalidad());
 			actorDTO.setIdProyecto(actor.getProyecto().getId());
 		} else {
 			throw new TESSERACTException("No se puede consultar el actor.", "MSG12");
 		}
+		System.out.println("actorDTO: "+actorDTO);
 		return actorDTO;
 	}
 	
