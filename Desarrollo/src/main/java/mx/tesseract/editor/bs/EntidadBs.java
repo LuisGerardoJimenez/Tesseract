@@ -62,6 +62,7 @@ public class EntidadBs {
 		//CatalogoBs.opcionOtro(listTiposDato, TipoCatalogo.TIPODATO);
 		return listTiposDato;
 	}
+	
 	public List<UnidadTamanio> consultarUnidadesTamanio() {
 		List<UnidadTamanio> listUnidadTamanio = genericoDAO.findAll(UnidadTamanio.class);
 		if (listUnidadTamanio.isEmpty()) {
