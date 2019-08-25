@@ -9,10 +9,12 @@ import mx.tesseract.admin.dao.ProyectoDAO;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.dto.ActorDTO;
+import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
 import mx.tesseract.editor.entidad.Actor;
+import mx.tesseract.editor.entidad.Entidad;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 
@@ -81,6 +83,20 @@ public class RN006 {
 			actor = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(Actor.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.ACT);
 		}
 		if (actor != null) {
+			valido = false;
+		}
+		return valido;
+	}
+	
+	public Boolean isValidRN006(EntidadDTO entidad) {
+		Boolean valido = true;
+		Entidad entidadDB;
+		if (entidad.getId() == null) {
+			entidadDB = elementoDAO.findAllByIdProyectoAndNombreAndClave(Entidad.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.ENT);
+		} else {
+			entidadDB = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(Entidad.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.ENT);
+		}
+		if (entidadDB != null) {
 			valido = false;
 		}
 		return valido;

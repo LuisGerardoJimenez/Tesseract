@@ -9,11 +9,20 @@ import mx.tesseract.util.Constantes;
 
 public class EntidadDTO {
 	
+	private Integer id;
 	private String nombre;
 	private String descripcion;
 	private Integer idProyecto;
 	
 	public EntidadDTO() {
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
