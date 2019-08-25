@@ -12,11 +12,14 @@ import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.bs.AccessBs;
 //import mx.tesseract.bs.AnalisisEnum.CU_Glosario;
 import mx.tesseract.enums.ReferenciaEnum.TipoReferencia;
+import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.bs.TerminoGlosarioBs;
+import mx.tesseract.editor.bs.MensajeBs;
 //import mx.tesseract.editor.bs.ElementoBs;
 import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.entidad.TerminoGlosario;
+import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.Modulo;
 //import mx.tesseract.editor.bs.ActorBs;
 import mx.tesseract.util.ActionSupportTESSERACT;
@@ -41,7 +44,7 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 @ResultPath("/pages/editor/")
 @Results({
 		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = {
-				"actionName", Constantes.ACTION_NAME_GLOSARIO }),
+				"actionName", Constantes.ACTION_NAME_MENSAJES }),
 		@Result(name = "proyectos", type = "redirectAction", params = {
 				"actionName", Constantes.ACTION_NAME_PROYECTOS }),
 		@Result(name = "modulos", type = "redirectAction", params = {
@@ -49,15 +52,15 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 		@Result(name = "referencias", type = "json", params = { "root",
 				"elementosReferencias" }),
 })
-public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<TerminoGlosarioDTO> {
+public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<MensajeDTO> {
 
 	private static final long serialVersionUID = 1L;
 	private static final String PROYECTOS = "proyectos";
 	private static final String MODULOS = "modulos";
 	private Proyecto proyecto;
-	private TerminoGlosarioDTO model;
+	private MensajeDTO model;
 	private Colaborador colaborador;
-	private List<TerminoGlosario> listGlosario;
+	private List<Mensaje> listMensajes;
 	private Integer idSel;
 	private Integer idProyecto;
 	private List<String> elementosReferencias;
@@ -66,7 +69,7 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 	private LoginBs loginBs;
 	
 	@Autowired
-	private TerminoGlosarioBs terminoGlosarioBs;
+	private MensajeBs mensajeBs;
 	
 	@Autowired
 	private ProyectoBs proyectoBs;
@@ -78,7 +81,8 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 			idProyecto = (Integer) SessionManager.get("idProyecto");
 			if (idProyecto != null) {
 				proyecto = proyectoBs.consultarProyecto(idProyecto);
-				listGlosario = terminoGlosarioBs.consultarGlosarioProyecto(proyecto.getId());
+				listMensajes = mensajeBs.consultarMensajeProyecto(proyecto.getId());
+				System.out.println("ACTION :"+listMensajes);
 				resultado = INDEX;
 				Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 				this.setActionMessages(msjs);
@@ -112,7 +116,7 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 		if (!hasErrors()) {
 			try {
 				model.setIdProyecto((Integer) SessionManager.get("idProyecto"));
-				terminoGlosarioBs.registrarTerminoGlosario(model);
+				mensajeBs.registrarMensaje(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
@@ -127,7 +131,7 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 	}
 	
 	public String create() {
-		addActionMessage(getText("MSG1", new String[] { "El", "Término", "registrado" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Mensaje", "registrado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -172,7 +176,7 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 	public void validateUpdate() {
 		if (!hasErrors()) {
 			try {
-				terminoGlosarioBs.modificarTerminoGlosario(model);
+				//terminoGlosarioBs.modificarTerminoGlosario(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
@@ -190,7 +194,7 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 	}
 	
 	public String update() {
-		addActionMessage(getText("MSG1", new String[] { "El", "Término", "registrado" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Mensaje", "registrado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -198,7 +202,7 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 	public void validateDestroy() {
 		if (!hasErrors()) {
 			try {
-				terminoGlosarioBs.eliminarTerminoGlosario(model);
+				mensajeBs.eliminarMensaje(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
@@ -216,7 +220,7 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 	}
 	
 	public String destroy() {
-		addActionMessage(getText("MSG1", new String[] { "El", "Término", "eliminado" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Mensaje", "eliminado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -264,11 +268,11 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 //	}
 	
 	@VisitorFieldValidator
-	public TerminoGlosarioDTO getModel() {
-		return (model == null) ? model = new TerminoGlosarioDTO() : model;
+	public MensajeDTO getModel() {
+		return (model == null) ? model = new MensajeDTO() : model;
 	}
 
-	public void setModel(TerminoGlosarioDTO model) {
+	public void setModel(MensajeDTO model) {
 		this.model = model;
 	}
 
@@ -280,21 +284,21 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 		this.proyecto = proyecto;
 	}
 
-	public List<TerminoGlosario> getListGlosario() {
-		return listGlosario;
+	public List<Mensaje> getListMensajes() {
+		return listMensajes;
 	}
 
-	public void setListGlosario(List<TerminoGlosario> listGlosario) {
-		this.listGlosario = listGlosario;
+	public void setListMensajes(List<Mensaje> listMensajes) {
+		this.listMensajes = listMensajes;
 	}
-	
+
 	public Integer getIdSel() {
 		return idSel;
 	}
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
-		model = terminoGlosarioBs.consultarTerminoGlosarioById(idSel);
+		model = mensajeBs.consultarMensajeById(idSel);
 	}
 	
 }
