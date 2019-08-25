@@ -19,44 +19,29 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.util.ElementoInterface;
 import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
-	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndClave", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?", resultClass = Elemento.class),
-	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndNombreAndClave", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.nombre = ? AND e.clave = ?", resultClass = Elemento.class),
-	@NamedNativeQuery(name = "Elemento.consultarElementosByProyectoAndIdAndNombreAndClave", query = "SELECT e.* FROM elemento e WHERE e.Proyectoid = ? AND e.id != ? AND e.nombre = ? AND e.clave = ?", resultClass = Elemento.class),
 	@NamedNativeQuery(name = "Elemento.findNextNumber", query = "SELECT COALESCE(MAX(e.numero), 1) FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?"),
+	})
+
+@NamedQueries({
+	@NamedQuery(name = "Elemento.consultarElementosByProyectoAndClave", query = "SELECT e FROM Elemento e JOIN e.proyecto p WHERE p.id = :idProyecto AND e.clave = :clave"),
+	@NamedQuery(name = "Elemento.consultarElementosByProyectoAndNombreAndClave", query = "SELECT e FROM Elemento e JOIN e.proyecto p  WHERE p.id = :idProyecto AND e.nombre = :nombre AND e.clave = :clave"),
+	@NamedQuery(name = "Elemento.consultarElementosByProyectoAndIdAndNombreAndClave", query = "SELECT e FROM Elemento e JOIN e.proyecto p  WHERE p.id = :idProyecto AND e.id != :id AND e.nombre = :nombre AND e.clave = :clave")
 	})
 
 @Entity
 @Table(name = "elemento")
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="clave", discriminatorType = DiscriminatorType.STRING, length=10)
-@JsonTypeInfo(
-		  use = JsonTypeInfo.Id.NAME,
-		  include = JsonTypeInfo.As.PROPERTY,
-		  property = "type")
-		@JsonSubTypes({
-		  @Type(value = Mensaje.class, name = "mensaje"),
-		  @Type(value = Pantalla.class, name = "pantalla"),
-		  @Type(value = Pantalla.class, name = "reglaNegocio"),
-		  @Type(value = TerminoGlosario.class, name = "terminoGlosario")
-		})
-public class Elemento implements Serializable, GenericInterface {
+public class Elemento implements Serializable, GenericInterface, ElementoInterface {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -84,9 +69,6 @@ public class Elemento implements Serializable, GenericInterface {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "EstadoElementoid", referencedColumnName="id")
 	private EstadoElemento estadoElemento;
-	
-	@Transient
-	private String type;
 
 	public Elemento() {
 	}
@@ -101,9 +83,6 @@ public class Elemento implements Serializable, GenericInterface {
 		this.estadoElemento = estadoElemento;
 	}
 
-//	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
-//	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5',{'un', 'número'})}", regex = "[0-9]*", shortCircuit = true)
-//	@IntRangeFieldValidator(message = "%{getText('MSG13',{'El', 'identificador', '0', '2147483647'})}", shortCircuit = true, min = "0", max = "2147483647")
 	public Integer getId() {
 		return this.id;
 	}
@@ -112,8 +91,6 @@ public class Elemento implements Serializable, GenericInterface {
 		this.id = id;
 	}
 
-	//@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-//	@StringLengthFieldValidator(message = "%{getText('MSG6',{'10', 'caracteres'})}", trim = true, maxLength = "10", shortCircuit= true)
 	public String getClave() {
 		return this.clave;
 	}
@@ -122,8 +99,6 @@ public class Elemento implements Serializable, GenericInterface {
 		this.clave = clave;
 	}
 
-	//@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-//	@StringLengthFieldValidator(message = "%{getText('MSG6',{'20', 'números'})}", trim = true, maxLength = "20", shortCircuit= true)
 	public String getNumero() {
 		return this.numero;
 	}
@@ -132,14 +107,12 @@ public class Elemento implements Serializable, GenericInterface {
 		this.numero = numero;
 	}
 
-//	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-//	@StringLengthFieldValidator(message = "%{getText('MSG6',{'200', 'caracteres'})}", trim = true, maxLength = "200", shortCircuit= true)
 	public String getNombre() {
 		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.trim();
 	}
 	
 	public Proyecto getProyecto() {
@@ -150,13 +123,12 @@ public class Elemento implements Serializable, GenericInterface {
 		this.proyecto = proyecto;
 	}
 
-//	@StringLengthFieldValidator(message = "%{getText('MSG6',{'999', 'caracteres'})}", trim = true, maxLength = "999", shortCircuit= true)
 	public String getDescripcion() {
 		return this.descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.descripcion = descripcion.trim();
 	}
 	
 	public EstadoElemento getEstadoElemento() {
@@ -165,14 +137,6 @@ public class Elemento implements Serializable, GenericInterface {
 
 	public void setEstadoElemento(EstadoElemento estadoElemento) {
 		this.estadoElemento = estadoElemento;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	

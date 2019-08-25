@@ -89,18 +89,18 @@ public class Colaborador implements Serializable, GenericInterface {
 	}
 
 	public void setCurp(String curp) {
-		this.curp = curp;
+		this.curp = curp.trim();
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, maxLength = "30", shortCircuit = true)
+	@StringLengthFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, minLength = "1", maxLength = "30", shortCircuit = true)
 	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO, shortCircuit = true)
 	public String getNombre() {
 		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.trim();
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
@@ -111,7 +111,7 @@ public class Colaborador implements Serializable, GenericInterface {
 	}
 
 	public void setApellidoPaterno(String apellidoPaterno) {
-		this.apellidoPaterno = apellidoPaterno;
+		this.apellidoPaterno = apellidoPaterno.trim();
 	}
 
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, maxLength = "30", shortCircuit = true)
@@ -121,7 +121,7 @@ public class Colaborador implements Serializable, GenericInterface {
 	}
 
 	public void setApellidoMaterno(String apellidoMaterno) {
-		this.apellidoMaterno = apellidoMaterno;
+		this.apellidoMaterno = apellidoMaterno.trim();
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
@@ -132,7 +132,7 @@ public class Colaborador implements Serializable, GenericInterface {
 	}
 
 	public void setCorreoElectronico(String correoElectronico) {
-		this.correoElectronico = correoElectronico;
+		this.correoElectronico = correoElectronico.trim();
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
@@ -143,7 +143,7 @@ public class Colaborador implements Serializable, GenericInterface {
 	}
 
 	public void setContrasenia(String contrasenia) {
-		this.contrasenia = contrasenia;
+		this.contrasenia = contrasenia.trim();
 	}
 
 	public List<ColaboradorProyecto> getColaborador_proyectos() {

@@ -1,4 +1,4 @@
-var contextPath = "prisma";
+var contextPath = "tesseract";
 
 $(document)
 		.ready(
@@ -226,7 +226,7 @@ function esValidoAtributo(idTabla, nombre, descripcion, tipoDato, otroTipoDato,
 			} 
 		}
 	} else {
-		if (vaciaONula(longitud)) {
+		if (vaciaONula(longitud)) {
 			agregarMensaje("Agregue todos los campos obligatorios.");
 			return false;
 		}

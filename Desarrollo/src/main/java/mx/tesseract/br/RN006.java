@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import mx.tesseract.admin.dao.ProyectoDAO;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
+import mx.tesseract.dto.ActorDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
+import mx.tesseract.editor.entidad.Actor;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 
@@ -59,11 +61,26 @@ public class RN006 {
 		Boolean valido = true;
 		TerminoGlosario terminoGlosario;
 		if (entidad.getId() == null) {
-			terminoGlosario = elementoDAO.findAllByIdProyectoAndNombreAndClave(entidad.getIdProyecto(), entidad.getNombre(), Clave.GLS);
+			terminoGlosario = elementoDAO.findAllByIdProyectoAndNombreAndClave(TerminoGlosario.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.GLS);
 		} else {
-			terminoGlosario = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.GLS);
+			terminoGlosario = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(TerminoGlosario.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.GLS);
 		}
 		if (terminoGlosario != null) {
+			valido = false;
+		}
+		return valido;
+	}
+	
+	
+	public Boolean isValidRN006(ActorDTO entidad) {
+		Boolean valido = true;
+		Actor actor;
+		if (entidad.getId() == null) {
+			actor = elementoDAO.findAllByIdProyectoAndNombreAndClave(Actor.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.ACT);
+		} else {
+			actor = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(Actor.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.ACT);
+		}
+		if (actor != null) {
 			valido = false;
 		}
 		return valido;

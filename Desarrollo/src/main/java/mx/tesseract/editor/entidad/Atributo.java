@@ -32,13 +32,12 @@ public class Atributo implements Serializable, GenericInterface {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id")
-	@JsonProperty("Id") 
 	private Integer id;
 	
 	@Column(name = "nombre")
 	private String nombre;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "EntidadElementoid", referencedColumnName = "Elementoid")
 	private Entidad entidad;
 	
@@ -109,7 +108,7 @@ public class Atributo implements Serializable, GenericInterface {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.trim();
 	}
 
 	public Entidad getEntidad() {
@@ -125,7 +124,7 @@ public class Atributo implements Serializable, GenericInterface {
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.descripcion = descripcion.trim();
 	}
 
 	public boolean isObligatorio() {
@@ -149,7 +148,7 @@ public class Atributo implements Serializable, GenericInterface {
 	}
 
 	public void setFormatoArchivo(String formatoArchivo) {
-		this.formatoArchivo = formatoArchivo;
+		this.formatoArchivo = formatoArchivo.trim();
 	}
 
 	public TipoDato getTipoDato() {
@@ -178,7 +177,7 @@ public class Atributo implements Serializable, GenericInterface {
 		return otroTipoDato;
 	}
 	public void setOtroTipoDato(String otroTipoDato) {
-		this.otroTipoDato = otroTipoDato;
+		this.otroTipoDato = otroTipoDato.trim();
 	}
 
 	

@@ -23,7 +23,7 @@ public class RN018 {
 		Boolean valido = true;
 		TerminoGlosario terminoGlosario = null;
 		if (entidad.getId() == null) {
-			terminoGlosario = elementoDAO.findElementoHasCasoUsoAsociado(entidad.getIdProyecto(),entidad.getId(), entidad.getNombre(), Clave.GLS);
+			//terminoGlosario = elementoDAO.findElementoHasCasoUsoAsociado(entidad.getIdProyecto(),entidad.getId(), entidad.getNombre(), Clave.GLS);
 		}
 		if (terminoGlosario != null) {
 			valido = false;
@@ -35,7 +35,7 @@ public class RN018 {
 		Boolean valido = true;
 		Mensaje mensaje = null;
 		if (entidad.getId() == null) {
-			mensaje = elementoDAO.findElementoHasCasoUsoAsociado(entidad.getIdProyecto(),entidad.getId(), entidad.getNombre(), Clave.GLS);
+			//mensaje = elementoDAO.findElementoHasCasoUsoAsociado(entidad.getIdProyecto(),entidad.getId(), entidad.getNombre(), Clave.GLS);
 		}
 		if (mensaje != null) {
 			valido = false;

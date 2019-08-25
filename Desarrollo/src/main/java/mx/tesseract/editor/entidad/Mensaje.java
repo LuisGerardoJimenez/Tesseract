@@ -56,7 +56,7 @@ public class Mensaje extends Elemento implements Serializable, GenericInterface,
 	}
 
 	public void setRedaccion(String redaccion) {
-		this.redaccion = redaccion;
+		this.redaccion = redaccion.trim();
 	}
 
 	public Integer getParametrizado() {

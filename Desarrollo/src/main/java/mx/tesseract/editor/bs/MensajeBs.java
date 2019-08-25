@@ -43,7 +43,7 @@ public class MensajeBs {
 
 	public List<Mensaje> consultarMensajeProyecto(Integer idProyecto) {
 		List<Mensaje> listMensaje = null;
-		listMensaje = elementoDAO.findAllByIdProyectoAndClave(idProyecto, Clave.MSG, Mensaje.class);
+		//listMensaje = elementoDAO.findAllByIdProyectoAndClave(idProyecto, Clave.MSG, Mensaje.class);
 		System.out.println("TAMAÑO DE: "+listMensaje.size());
 		return listMensaje;
 	}
