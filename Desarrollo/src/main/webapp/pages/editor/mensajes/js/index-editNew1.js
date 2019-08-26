@@ -1,8 +1,22 @@
-var contextPath = "tesseract";
+var contextPath = "Tesseract";
 
 $(document)
 		.ready(
 				function() {
+					$.ajax({
+						dataType : 'json',
+						url : "!verificarParametros?idSel=123",
+						type: "GET",
+						success : function(data) {
+							mostrarCamposParametros(data);
+							
+						},
+						error : function(err) {
+							alert("Ha ocurrido un error.");
+							console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
+						}
+					});
+					
 					contextPath = $("#rutaContexto").val();
 					// Se oculta el botón de editar de la redacción
 					document.getElementById("botonEditar").style.display = 'none';
@@ -15,15 +29,7 @@ $(document)
 					}
 
 					// Fin de la creación de la tabla de parámetros
-				});
-
-/*$(window).load(function(){
-	var cambioRedaccion = document.getElementById("cambioRedaccion").value;
-	if(cambioRedaccion == "true") {
-		document.getElementById("cambioRedaccion").value = "false";
-		alert("Escriba la descripción de cada parámetro.");
-	}
-})*/
+});
 
 function habilitarEdicionRedaccion() {
 	document.getElementById("inputorreadOnly").readOnly = false;
@@ -34,66 +40,15 @@ function habilitarEdicionRedaccion() {
 	token.cargarListasToken();
 }
 
-function mostrarCamposParametrosX() {
-	
-	
-	
-	var seccionParametros = document.getElementById("seccionParametros");
-	var parametrizado = document.getElementById("idParametrizado");
-	var form = document.getElementById("frmParametros");
-
-	// Se indica que la redacción ha cambiado
-	document.getElementById("cambioRedaccion").value = true;
-	// PENDIENTE verificar si contiene "PARAM." para no enviar la peticion
-	// siempre
-	form.submit();
-}
-
 function prepararEnvio() {
 	try {
 		tablaToJson("parametros");
-		//$('#mensajeComentarios').dialog('open');
 		return true;
 	} catch (err) {
-		alert("Ha ocurrido un error.");
-		console.log("Ocurrió un error: " + err);
+		alert("Ocurrió un error: " + err);
 		return false;
-		
 	}
 }
-
-function verificarEsParametrizado() {
-	var redaccion = document.getElementById("inputor").value;
-	if(/PARAM·[a-zA-Z0-9]+(\s|\.\s|,\s|$|\.$)/m.test(redaccion)) {
-		verificarParametros();
-	} else {
-		limpiarParametros();
-	}
-	
-}
-
-function verificarParametros() {
-	rutaVerificarParametros = contextPath + '/mensajes!verificarParametros';
-	var redaccion = document.getElementById("inputor").value;
-	$.ajax({
-		dataType : 'json',
-		url : rutaVerificarParametros,
-		type: "POST",
-		data : {
-			redaccionMensaje : redaccion
-		},
-		success : function(data) {
-			mostrarCamposParametros(data);
-			
-		},
-		error : function(err) {
-			alert("Ha ocurrido un error.");
-			console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
-		}
-	});
-}
-
-
 
 function tablaToJson(idTable) {
 	var tabla;
@@ -115,6 +70,7 @@ function tablaToJson(idTable) {
 		console.log("Sin parámetros.");
 	}	
 }
+
 
 
 function agregarFila(fila) {
@@ -144,26 +100,37 @@ function abrirEmergente() {
 	$('#mensajeConfirmacion').dialog('open');
 }
 
-/*
- * Agrega un mensaje en la pantalla
- */
-function agregarMensaje(mensaje) {
-	alert(mensaje);
-};
-
-function enviarComentarios(){
-	var redaccionDialogo = document.getElementById("comentarioDialogo").value;
-	if(vaciaONula(redaccionDialogo)) {
-		agregarMensaje("Agregue todos los campos obligatorios.");
-		return false;
+function verificarEsParametrizado() {
+	var redaccion = document.getElementById("inputor").value;
+	var expr = /PARAM·[a-zA-Z0-9]+(\s|\.\s|,\s|$|\.$)/m;
+	if(expr.test(redaccion)) {
+		verificarParametros();
+	} else {
+		console.log("No contiene parametros.");
+		limpiarParametros();
 	}
-	document.getElementById("comentario").value = redaccionDialogo;
-	document.getElementById("frmMsj").submit();
+	
+}
 
-	}
-function cancelarRegistroComentarios() {
-	document.getElementById("comentario").value = "";
-	$('#mensajeComentarios').dialog('close');
+function verificarParametros() {
+	rutaVerificarParametros = contextPath + '/mensajes!verificarParametros';
+	var redaccion = document.getElementById("inputor").value;
+	$.ajax({
+		dataType : 'json',
+		url : rutaVerificarParametros,
+		type: "POST",
+		data : {
+			redaccionMensaje : redaccion
+		},
+		success : function(data) {
+			mostrarCamposParametros(data);
+			
+		},
+		error : function(err) {
+			alert("Ha ocurrido un error.");
+			console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
+		}
+	});
 }
 
 function mostrarCamposParametros(json) {

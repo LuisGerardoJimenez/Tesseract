@@ -9,11 +9,15 @@ import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
+import mx.tesseract.editor.dao.ParametroDAO;
 import mx.tesseract.editor.entidad.Mensaje;
+import mx.tesseract.editor.entidad.MensajeParametro;
+import mx.tesseract.editor.entidad.Parametro;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +44,16 @@ public class MensajeBs {
 
 	@Autowired
 	private ElementoBs elementoBs;
+	
+	@Autowired
+	private TokenBs tokenBs;
+	
+	@Autowired
+	private ParametroDAO parametroDAO;
 
 	public List<Mensaje> consultarMensajeProyecto(Integer idProyecto) {
 		List<Mensaje> listMensaje = null;
-		//listMensaje = elementoDAO.findAllByIdProyectoAndClave(idProyecto, Clave.MSG, Mensaje.class);
+		listMensaje = elementoDAO.findAllByIdProyectoAndClave(Mensaje.class, idProyecto, Clave.MSG);
 		System.out.println("TAMAÑO DE: "+listMensaje.size());
 		return listMensaje;
 	}
@@ -52,11 +62,15 @@ public class MensajeBs {
 		Mensaje mensaje = genericoDAO.findById(Mensaje.class, id);
 		MensajeDTO mensajeDTO = new MensajeDTO();
 		if (mensaje != null) {
-			mensajeDTO.setId(mensaje.getId());
+			
+			mensajeDTO.setClave(mensaje.getClave());
 			mensajeDTO.setIdProyecto(mensaje.getProyecto().getId());
-			//mensajeDTO.setParametrizado(mensaje.getParametrizado());
+			mensajeDTO.setNumero(mensaje.getNumero());
 			mensajeDTO.setNombre(mensaje.getNombre());
-			//mensajeDTO.setRedaccion(mensaje.getRedaccion());
+			mensajeDTO.setId(mensaje.getId());
+			mensajeDTO.setRedaccion(mensaje.getRedaccion());
+			mensajeDTO.setParametrizado(mensaje.getParametrizado());
+			mensajeDTO.setDescripcion(mensaje.getDescripcion());
 			
 		} else {
 			throw new TESSERACTException("No se puede consultar el mensaje.", "MSG12");
@@ -69,7 +83,7 @@ public class MensajeBs {
 		//if (rn006.isValidRN006(mensajeDTO)) {
 			Mensaje mensaje = new Mensaje();
 			Proyecto proyecto = genericoDAO.findById(Proyecto.class, mensajeDTO.getIdProyecto());
-			String numero = elementoDAO.siguienteNumero(proyecto.getId(), Clave.GLS);
+			String numero = elementoDAO.siguienteNumero(proyecto.getId(), Clave.MSG);
 			mensaje.setClave(Clave.MSG.toString());
 			mensaje.setNumero(numero);
 			mensaje.setNombre(mensajeDTO.getNombre());
@@ -78,6 +92,9 @@ public class MensajeBs {
 			mensaje.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
 			mensaje.setRedaccion(mensajeDTO.getRedaccion());
 			mensaje.setParametrizado(1);
+			for(MensajeParametro mensajeParametro : mensajeDTO.getParametros()) {
+				mensajeParametro.setMensaje(mensaje);
+			}
 			genericoDAO.save(mensaje);
 		/*} else {
 			throw new TESSERACTValidacionException("EL nombre del término ya existe.", "MSG7",
@@ -108,5 +125,62 @@ public class MensajeBs {
 					"MSG13");
 		}
 	}
-
+	
+	/* FUNCIONES ADICIONALES */
+	public boolean esParametrizado(String redaccion) {
+		ArrayList<String> tokens = tokenBs.procesarTokenIpunt(redaccion);
+				
+		if(tokens.size() == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public List<Parametro> obtenerParametros(String redaccion, int idProyecto) {
+		//Se convierte la lista de parametros en json para enviarlos a la vista
+		ArrayList<String> tokens = tokenBs.procesarTokenIpunt(redaccion);
+		ArrayList<Parametro> listParametros = new ArrayList<Parametro>();
+		Parametro parametroAux = null;
+		if(listParametros.size() > 10) {
+			throw new TESSERACTValidacionException("El usuario no ingresó la descripcion de algun parametros del mensaje.", "MSG6", new String[]{"10", "parámetros"}, 
+					"model.parametros");
+		}
+		ArrayList<String> segmentos;
+		for(String token : tokens) {
+			segmentos = tokenBs.segmentarToken(token);
+			//Se hace la consulta con base en el nombre
+			Parametro parametro = consultarParametro(segmentos.get(1), idProyecto);
+			if(parametro == null) {
+				//Si el parámetro existe en la bd
+				parametro = new Parametro(segmentos.get(1),"");
+			}
+			if (!pertecene(parametro, listParametros)) {
+				parametroAux = new Parametro(parametro.getNombre(), parametro.getDescripcion());
+				listParametros.add(parametroAux);
+				
+			}
+		}
+		return listParametros;
+	}
+	
+	public Parametro consultarParametro(String nombre, int idProyecto) {
+		Parametro parametro = parametroDAO.consultarParametro(nombre, idProyecto);
+		return parametro;
+	}
+	
+	private static boolean pertecene(Parametro parametro,
+			ArrayList<Parametro> listParametros) {
+		for (Parametro parametroi : listParametros) {
+			if (parametroi.getNombre().equals(parametro.getNombre())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public List<Parametro> consultarParametros(int idProyecto) {
+		List<Parametro> listParametros = parametroDAO.consultarParametros(idProyecto);
+		return listParametros;
+	}
 }

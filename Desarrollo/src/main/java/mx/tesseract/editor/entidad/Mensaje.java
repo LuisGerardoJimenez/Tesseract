@@ -39,7 +39,8 @@ public class Mensaje extends Elemento implements Serializable, GenericInterface,
 	@Column(name = "parametrizado")
 	private Integer parametrizado;
 	
-	//private Set<MensajeParametro> parametros = new HashSet<MensajeParametro>(0);
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "mensaje", cascade = CascadeType.ALL)	
+	private Set<MensajeParametro> parametros = new HashSet<MensajeParametro>(0);
 
 	public Mensaje() {
 	}
@@ -67,14 +68,14 @@ public class Mensaje extends Elemento implements Serializable, GenericInterface,
 		this.parametrizado = parametrizado;
 	}
 
-	/*@OneToMany(fetch = FetchType.EAGER, mappedBy = "mensaje", cascade = CascadeType.ALL)	
+	
 	public Set<MensajeParametro> getParametros() {
 		return parametros;
 	}
 
 	public void setParametros(Set<MensajeParametro> parametros) {
 		this.parametros = parametros;
-	}*/
+	}
 	
 //	@JsonIgnore
 //	@Transient
