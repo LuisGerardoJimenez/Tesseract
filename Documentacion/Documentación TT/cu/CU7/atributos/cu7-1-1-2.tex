@@ -1,4 +1,4 @@
-	\begin{UseCase}{CU7.1.2}{Modificar Atributo}{
+	\begin{UseCase}{CU7.1.1.2}{Modificar Atributo}{
 		Este caso de uso permite al analista modificar la información de un atributo.
 	}
 		
@@ -17,6 +17,7 @@
 			\item \cdtRef{atributoEntidad:descripcionATR}{Descripción del atributo:} Lo obtiene el sistema.
 			\item \cdtRef{atributoEntidad:obligatorioATR}{Obligatorio:} Lo obtiene el sistema.
 			\item \hyperlink{tTipoDatoP}{Tipo de Dato:} Lo obtiene el sistema.
+			\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU12}{Pendiente} para indicar que el registro fue exitoso.
 		\end{itemize}
 		}
 		
@@ -37,7 +38,7 @@
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Da clic en el icono \editar de algún registro existente en la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
+		\UCpaso[\UCactor] Da clic en el icono \editar de algún registro existente en la pantalla \IUref{IU12}{Pendiente}.
 		\UCpaso[\UCsist] Verifica que el catálogo ''tipo de dato'' cuente con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU7-1-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Obtiene la información del atributo.
 		\UCpaso[\UCsist] Verifica que el atributo pueda modificarse con base en la regla de negocio \BRref{RN5}{Modificación de elementos asociados a casos de uso liberados}. \hyperlink{CU7-1-2:TAF}{[Trayectoria G]}
@@ -48,7 +49,7 @@
 		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU7-1-2:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU7-1-2:TAE}{[Trayectoria E]}
 		\UCpaso[\UCsist] Verifica que el nombre del atributo no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU7-1-2:TAF}{[Trayectoria F]}
-		\UCpaso[\UCsist] Actualiza la información del atributo y la tabla \cdtRef{atributoEntidad}{Atributos} de la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12}{Pendiente} para indicar al actor que el registro se ha realizado exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU7-1-2:TAA}{\textbf{Trayectoria alternativa A}}\\
