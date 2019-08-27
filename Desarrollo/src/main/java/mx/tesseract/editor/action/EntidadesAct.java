@@ -25,6 +25,7 @@ import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -40,21 +41,23 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 		@Result(name = "referencias", type = "json", params = { "root",
 				Constantes.ACTION_NAME_ELEMENTOS_REFERENCIAS }),
 		@Result(name = "proyectos", type = "redirectAction", params = {
-						"actionName", Constantes.ACTION_NAME_PROYECTOS })
+						"actionName", Constantes.ACTION_NAME_PROYECTOS }),
+		@Result(name = "atributos", type = "redirectAction", params = {
+				"actionName", Constantes.ACTION_NAME_ATRIBUTOS })
 })
-
+@AllowedMethods({"gestionarAtributos"})
 public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<EntidadDTO> {
 
 	private static final long serialVersionUID = 1L;
 	private static final String PROYECTOS = "proyectos";
 	private static final String REFERENCIAS = "referencias";
 	private static final String ENTIDADES = "entidades";
+	private static final String ATRIBUTOS = "atributos";
 	private EntidadDTO model;
 	private Proyecto proyecto;
 	
 	private List<Entidad> listEntidades;
 	private Integer idSel;
-	private List<Atributo> atributos;
 	private Integer idProyecto;
 	
 	@Autowired
@@ -213,6 +216,23 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 //		}
 //		return resultado;
 //	}
+	
+	@SuppressWarnings("unchecked")
+	public String gestionarAtributos() {
+		String resultado = INDEX;
+		try {
+			resultado = ATRIBUTOS;
+			SessionManager.set(idSel, "idEntidad");
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+			this.setActionMessages(msjs);
+			SessionManager.delete("mensajesAccion");
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
+	}
 
 	@VisitorFieldValidator
 	public EntidadDTO getModel() {
@@ -246,14 +266,6 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
 		model = entidadBs.consultarEntidadById(idSel);
-	}
-
-	public List<Atributo> getAtributos() {
-		return atributos;
-	}
-
-	public void setAtributos(List<Atributo> atributos) {
-		this.atributos = atributos;
 	}
 
 	public Integer getIdProyecto() {

@@ -71,7 +71,8 @@ public final class Constantes {
 	public static final String ACTION_NAME_ENTIDADES = "entidades";
 	public static final String ACTION_NAME_ELEMENTOS_REFERENCIAS = "elementosReferencias";
 	public static final String ACTION_NAME_ACTORES = "actores";
-	public static final String ACTION_NAME_REGLASNEGOCIO = "reglas-negocio";
+	public static final String ACTION_NAME_REGLAS_NEGOCIO = "reglas-negocio";
+	public static final String ACTION_NAME_ATRIBUTOS = "atributos";
 	
 	//DICCIONARIO
 	public static final String DICCIONARIO = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
