@@ -5,14 +5,14 @@
 		contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
 	<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Entidades</title>
+<title>Atributos</title>
 <![CDATA[
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/entidades/js/index.js"></script>
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/atributos/js/index.js"></script>
 ]]>
 </head>
 
 <body>
-	<h1>Gestionar Entidades</h1>
+	<h1>Gestionar Atributos</h1>
 	<s:actionmessage theme="jquery"/>
 	<s:actionerror theme="jquery"/>
 	
@@ -21,42 +21,29 @@
 	<div class="form">
 		<table id="gestion" class="tablaGestion" cellspacing="0" width="100%">
 			<thead>
-				<th style="width: 80%;"><s:text name="colEntidad"/></th>
+				<th style="width: 40%;"><s:text name="colAtributo"/></th>
+				<th style="width: 30%;"><s:text name="colTipoDato"/></th>
+				<th style="width: 10%;"><s:text name="colObligatorio"/></th>
 				<th style="width: 20%;"><s:text name="colAcciones"/></th>
 			</thead>
 			<tbody>
-			<s:iterator value="listEntidades" var="entidad">
+			<s:iterator value="listAtributos" var="atributo">
 				<tr>
-					<td><s:property value="%{#entidad.nombre}"/></td>
+					<td><s:property value="%{#atributo.nombre}"/></td>
+					<td><s:property value="%{#atributo.nombre}"/></td>
+					<td><s:property value="%{#atributo.nombre}"/></td>
 					<td align="center">
-						<s:if test="%{#entidad.estadoElemento.id == 1}">
-						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/entidades!gestionarAtributos?idSel=%{#entidad.id}"/>			
-						<s:a href="%{urlEditar}">
-							<img id="" class="button" title="Gestionar Atributos"
-									src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
-						</s:a>
-						</s:if>
-						${blanks}
-						
-						<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/entidades/%{#entidad.id}"/>
-							<s:a href="%{urlConsultar}">
-								<img id="" class="button" title="Consultar Entidad"
-										src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
-							</s:a>
-						${blanks}
-						<s:if test="%{#entidad.estadoElemento.id == 1}">
-							<!-- Modificar Entidad -->		
-							<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/entidades/%{#entidad.id}/edit"/>			
+						<s:if test="%{#atributo.estadoElemento.id == 1}">
+							<!-- Modificar Atributo -->		
+							<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/atributos/%{#atributo.id}/edit"/>			
 								<s:a href="%{urlEditar}">
-								<img id="" class="button" title="Modificar Entidad"
+								<img id="" class="button" title="Modificar Atributo"
 										src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
 							</s:a>
-							
-							
-						
-							<!-- Eliminar Entidad -->			
-							<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/entidades/%{#entidad.id}?_method=delete" method="post"/>-->
-							<s:a onclick="return verificarEliminacionElemento(%{#entidad.id});">
+						${blanks}
+							<!-- Eliminar Atributo -->			
+							<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/atributos/%{#atributo.id}?_method=delete" method="post"/>-->
+							<s:a onclick="return verificarEliminacionElemento(%{#atributo.id});">
 							<img id="" class="button" title="Eliminar Caso de uso"
 									src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>	
 						${blanks}	
@@ -72,9 +59,16 @@
 	<br />
 	<div align="center">
 		<button class="boton" 
-			onclick="location.href='${pageContext.request.contextPath}/entidades/new'">
+			onclick="location.href='${pageContext.request.contextPath}/atributos/new'">
 			<s:text name="Registrar"></s:text>
 		</button>
+		
+		<s:url var="urlGestionarEntidades"
+				value="%{#pageContext.request.contextPath}/entidades">
+		</s:url>
+		<input class="boton" type="button"
+				onclick="location.href='${urlGestionarEntidades}'"
+				value="Regresar" />
 	</div>
 	</s:form>
 	<div class = "invisible">

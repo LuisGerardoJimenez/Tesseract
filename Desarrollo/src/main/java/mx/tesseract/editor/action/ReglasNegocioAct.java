@@ -23,7 +23,7 @@ import mx.tesseract.util.TESSERACTException;
 @ResultPath("/pages/editor/")
 @Results({
 	@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = {
-			"actionName", Constantes.ACTION_NAME_REGLASNEGOCIO}),
+			"actionName", Constantes.ACTION_NAME_REGLAS_NEGOCIO}),
 	@Result(name = "atributos", type = "json", params = { "root",
 			"listAtributos" }),
 	@Result(name = "entidades", type = "json", params = { "root",

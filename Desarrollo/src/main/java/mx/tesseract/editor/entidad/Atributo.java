@@ -15,12 +15,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import mx.tesseract.util.GenericInterface;
+
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "Atributo.findByEntidad", query = "SELECT a.* FROM atributo a WHERE a.EntidadElementoid = ?", resultClass = Atributo.class),
+	@NamedNativeQuery(name = "Atributo.findByName", query = "SELECT a.* FROM atributo a WHERE a.nombre = ?", resultClass = Atributo.class),
+	@NamedNativeQuery(name = "Atributo.findByNameAndId", query = "SELECT a.* FROM atributo a WHERE a.nombre = ? AND a.id = ?", resultClass = Atributo.class),
+	})
 
 @Entity
 @Table(name = "atributo", uniqueConstraints = @UniqueConstraint(columnNames = {
