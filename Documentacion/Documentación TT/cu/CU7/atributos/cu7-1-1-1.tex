@@ -13,7 +13,11 @@
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU12}{Pendiente} para indicar que el registro fue exitoso.}
-		\UCitem{Precondiciones}{Que el catálogo ''Tipo de dato''contenga información }
+		\UCitem{Precondiciones}{\begin{itemize}
+				\item Que el catálogo ''Tipo de dato''contenga información.
+				\item Que el catálogo ''Unidad de tamaño''contenga información.
+			\end{itemize}
+		}
 		\UCitem{Postcondiciones}{\begin{itemize}
 				\item Se registrará un atributo perteneciente a una entidad de un proyecto.
 				\item La entidad a la que pertenece el atributo podrá ser referenciada en casos de uso.
@@ -32,7 +36,7 @@
 %--------------------------------------
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Solicita registrar un atributo oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU12A}{Pendiente}.
-		\UCpaso[\UCsist] Verifica que el catálogo ''tipo de dato'' cuente con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU7-1-1:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Verifica que el catálogo ''tipo de dato'' y ''unidad de tamaño'' cuenten con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU7-1-1:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1.1}{Registrar Atributo}.
 		\UCpaso[\UCactor] Ingresa la información solicitada. \label{CU7.1.1-P3}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU7-1-1:TAB}{[Trayectoria B]}
@@ -44,7 +48,7 @@
 	\end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU7-1-1:TAA}{\textbf{Trayectoria alternativa A}}\\
-\noindent \textbf{Condición:} El catálogo de tipo de dato no tiene información.
+\noindent \textbf{Condición:} El catálogo de ''tipo de dato'' o ''unidad de tamaño'' no tiene información.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU12A}{Pendiente} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
