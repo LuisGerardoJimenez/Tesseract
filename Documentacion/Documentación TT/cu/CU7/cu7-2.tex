@@ -18,7 +18,6 @@
 				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Lo obtiene el sistema.
 				\item \cdtRef{entidadEntidad:nombreEntidad}{Nombre de la entidad:} Lo obtiene el sistema.
 				\item \cdtRef{entidadEntidad:descripcionEntidad}{Descripción de la entidad:} Lo obtiene el sistema.
-				\item \cdtRef{atributoEntidad}{Atributos:} Tabla que muestra \cdtRef{atributoEntidad:nombreATR}{Nombre}, \cdtRef{atributoEntidad:obligatorioATR}{Obligatorio (si o no)} y \hyperlink{tTipoDatoP}{Tipo de Dato} de todos los los registros de los atributos.
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU12}{Gestionar Entidades} para indicar que la modificación fue exitosa.
 		\end{itemize}}
 		
@@ -34,7 +33,7 @@
 		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU12.2}{Modificar Entidad} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU12.2}{Modificar Entidad} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU12.2}{Modificar Entidad} cuando se registre una entidad con un nombre que ya se encuentra registrado en el sistema.
-		\item \cdtIdRef{MSG14}{Registro necesario}: Se muestra en la pantalla \IUref{IU12.2}{Modificar Entidad} cuando el actor no ingrese ningún atributo.
+		%\item \cdtIdRef{MSG14}{Registro necesario}: Se muestra en la pantalla \IUref{IU12.2}{Modificar Entidad} cuando el actor no ingrese ningún atributo.
 		\end{itemize}
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU7}{Gestionar Entidades}.}
@@ -43,16 +42,14 @@
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Da clic en el icono \editar de algún registro existente en la pantalla \IUref{IU12}{Gestionar Entidades}.
 		\UCpaso[\UCsist] Obtiene la información de la entidad.
-		\UCpaso[\UCsist] Verifica que la entidad pueda modificarse con base en la regla de negocio \BRref{RN5}{Modificación de elementos asociados a casos de uso liberados}.\hyperlink{CU7-2:TAG}{[Trayectoria G]}
+		\UCpaso[\UCsist] Verifica que la entidad pueda modificarse con base en la regla de negocio \BRref{RN5}{Modificación de elementos asociados a casos de uso liberados}.\hyperlink{CU7-2:TAF}{[Trayectoria F]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.2}{Modificar Entidad}. \label{CU7.2-P4}
 		\UCpaso[\UCactor] Modifica la información de la entidad. \label{CU7.2-P5}
-		\UCpaso[\UCactor] Gestiona los atributos a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. \label{CU7.2-P6}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU7-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU7-2:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU7-2:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU7-2:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que el nombre de la entidad no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU7-2:TAE}{[Trayectoria E]} 
-		\UCpaso[\UCsist] Verifica que el actor haya ingresado al menos un atributo. \hyperlink{CU7-2:TAF}{[Trayectoria F]}
 		\UCpaso[\UCsist] Actualiza la información de la entidad en el sistema.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12}{Gestionar Entidades} para indicar al actor que la modificación se ha realizado exitosamente.
 	\end{UCtrayectoria}		
@@ -98,22 +95,8 @@
 \end{enumerate}
 %--------------------------------------
 \hypertarget{CU7-2:TAF}{\textbf{Trayectoria alternativa F}}\\
-\noindent \textbf{Condición:} El actor no registró ningún atributo.
-\begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG14}{Registro necesario} en la sección de atributos de la pantalla \IUref{IU12.2}{Modificar Entidad}.
-	\UCpaso Regresa al paso \ref{CU7.2-P5} de la trayectoria principal.
-	\item[- -] - - {\em {Fin de la trayectoria}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU7-2:TAG}{\textbf{Trayectoria alternativa G}}\\
 \noindent \textbf{Condición:} La entidad se encuentra asociada a casos de uso liberados.
 \begin{enumerate}
 	\UCpaso[\UCsist] Oculta el botón \editar de la entidad que esta asociada a casos de uso liberados.
 	\item[- -] - - {\em {Fin del caso de uso}}.
 \end{enumerate}
-
-\subsubsection{Puntos de extensión}
-
-\UCExtenssionPoint{El actor requiere registrar un atributo.}{Presionando el botón \IUbutton{Registrar} del paso \ref{CU7.2-P4} de la trayectoria principal.}{\UCref{CU7.1.1}{Registrar Atributo}}
-\UCExtenssionPoint{El actor requiere modificar un atributo.}{Presionando el icono \editar del paso \ref{CU7.2-P4} de la trayectoria principal.}{\UCref{CU7.1.2}{Modificar Atributo}}
-\UCExtenssionPoint{El actor requiere eliminar un atributo.}{Presionando el icono \eliminar del paso \ref{CU7.2-P4} de la trayectoria principal.}{\UCref{CU7.1.3}{Eliminar Atributo}}
