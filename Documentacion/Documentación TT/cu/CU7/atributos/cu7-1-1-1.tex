@@ -24,10 +24,10 @@
 		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU12.1.1}{Registrar Atributo} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU12.1.1}{Registrar Atributo} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU12.1.1}{Registrar Atributo} cuando se registre un atributo con un nombre que ya se encuentra registrado en el sistema.
-		\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad} cuando no exista información en el catálogo ''tipo de dato''.
+		\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla\IUref{IU12A}{Pendiente} cuando no exista información en el catálogo ''tipo de dato''.
 		\end{itemize}
 		}
-		\UCitem{Tipo}{Secundario, extiende de los casos de uso \UCref{CU7.1}{Registrar Entidad} y \UCref{CU7.2}{Modificar Entidad}.}
+		\UCitem{Tipo}{Secundario, extiende de los casos de uso \UCref{CU7.1.1}{Gestionar Atributos}.}
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
@@ -46,7 +46,7 @@
 \hypertarget{CU7-1-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} El catálogo de tipo de dato no tiene información.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU12A}{Pendiente} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
@@ -54,7 +54,7 @@
 \noindent \textbf{Condición:} El actor desea cancelar la operación.
 \begin{enumerate}
 	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la pantalla \IUref{IU12.1.1}{Registrar Atributo}
-	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1}{Registrar Entidad}.
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12}{Pendiente}.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------	
