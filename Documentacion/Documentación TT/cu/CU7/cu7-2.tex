@@ -42,7 +42,6 @@
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Da clic en el icono \editar de algún registro existente en la pantalla \IUref{IU12}{Gestionar Entidades}.
 		\UCpaso[\UCsist] Obtiene la información de la entidad.
-		\UCpaso[\UCsist] Verifica que la entidad pueda modificarse con base en la regla de negocio \BRref{RN5}{Modificación de elementos asociados a casos de uso liberados}.\hyperlink{CU7-2:TAF}{[Trayectoria F]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.2}{Modificar Entidad}. \label{CU7.2-P4}
 		\UCpaso[\UCactor] Modifica la información de la entidad. \label{CU7.2-P5}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU7-2:TAA}{[Trayectoria A]}
@@ -92,11 +91,4 @@
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU12.2}{Modificar Entidad}.
 	\UCpaso Regresa al paso \ref{CU7.2-P5} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU7-2:TAF}{\textbf{Trayectoria alternativa F}}\\
-\noindent \textbf{Condición:} La entidad se encuentra asociada a casos de uso liberados.
-\begin{enumerate}
-	\UCpaso[\UCsist] Oculta el botón \editar de la entidad que esta asociada a casos de uso liberados.
-	\item[- -] - - {\em {Fin del caso de uso}}.
 \end{enumerate}
