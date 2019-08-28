@@ -22,7 +22,7 @@
 	<s:actionerror theme="jquery" />
 	<br />
 
-	<p class="instrucciones">Ingrese la información solicitada.</p>
+	<p class="instrucciones">Los campos marcados con * son obligatorios.</p>
 
 	<s:form autocomplete="off" id="frmReglasNegocio" theme="simple"
 		action="%{#pageContext.request.contextPath}/reglas-negocio"
@@ -61,11 +61,11 @@
 				<tr>
 					<td class="label obligatorio"><s:text name="labelTipo" /></td>
 					<td><s:select list="listTipoRN"
-							cssClass="inputFormulario ui-widget" name="idTipoRN"
+							cssClass="inputFormulario ui-widget" name="model.idTipoRN"
 							id="idTipoRN" listKey="id" cssErrorClass="select-error"
 							headerValue="Seleccione" headerKey="-1" listValue="nombre"
 							onchange="mostrarCamposTipoRN(); cargarCamposTipoRN();" value="idTipoRN"></s:select>
-							<s:fielderror fieldName="idTipoRN" cssClass="error"
+							<s:fielderror fieldName="model.idTipoRN" cssClass="error"
 							theme="jquery" /></td>
 				</tr>
 				<tr id="filaTextoAyudaTipoRN" class="oculto">
@@ -95,6 +95,7 @@
 							value="model.atributoExpReg.entidad.id"></s:select> <s:fielderror
 							fieldName="idEntidadFormato" cssClass="error" theme="jquery" /></td>
 				</tr>
+				 
 				<tr id="filaAtributoFormato" class="oculto">
 					<td class="label obligatorio"><s:text name="labelAtributo" /></td>
 					<td><s:select list="listAtributos"
@@ -104,6 +105,7 @@
 							listKey="id" value="model.atributoExpReg.id"></s:select> <s:fielderror
 							fieldName="idAtributoFormato" cssClass="error" theme="jquery" /></td>
 				</tr>
+				
 				<tr id="filaExpresionRegular">
 					<td class="label obligatorio"><s:text name="labelExpReg" /></td>
 					<td><s:textfield name="model.expresionRegular" maxlength="200"
@@ -213,8 +215,10 @@
 			
 		<s:hidden id="idEntidadFormato"
 			value="%{idEntidadFormato}" />
+			
 		<s:hidden id="idAtributoFormato"
 			value="%{idAtributoFormato}" />
+			
 		
 		<s:hidden id="idEntidadUnicidad"
 			value="%{idEntidadUnicidad}" />
