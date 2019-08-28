@@ -20,6 +20,15 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
+import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.ValidatorType;
+import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
+
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
@@ -43,10 +52,6 @@ public class Atributo implements Serializable, GenericInterface {
 	@Column(name = "nombre")
 	private String nombre;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "EntidadElementoid", referencedColumnName = "Elementoid")
-	private Entidad entidad;
-	
 	@Column(name = "descripcion")
 	private String descripcion;
 	
@@ -65,6 +70,10 @@ public class Atributo implements Serializable, GenericInterface {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "UnidadTamanioid", referencedColumnName="id")
 	private UnidadTamanio unidadTamanio;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "EntidadElementoid", referencedColumnName = "Elementoid")
+	private Entidad entidad;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TipoDatoid", referencedColumnName="id")
@@ -109,6 +118,9 @@ public class Atributo implements Serializable, GenericInterface {
 		this.id = id;
 	}
 
+	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
+	@StringLengthFieldValidator(message = "%{getText('MSG6',{'50', 'caracteres'})}", trim = true, maxLength = "50", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO, shortCircuit = true)
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -117,14 +129,9 @@ public class Atributo implements Serializable, GenericInterface {
 		this.nombre = nombre.trim();
 	}
 
-	public Entidad getEntidad() {
-		return entidad;
-	}
-
-	public void setEntidad(Entidad entidad) {
-		this.entidad = entidad;
-	}
-
+	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
+	@StringLengthFieldValidator(message = "%{getText('MSG6',{'999', 'caracteres'})}", trim = true, maxLength = "999", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex= Constantes.REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES, shortCircuit = true)
 	public String getDescripcion() {
 		return this.descripcion;
 	}
@@ -141,6 +148,9 @@ public class Atributo implements Serializable, GenericInterface {
 		this.obligatorio = obligatorio;
 	}
 
+//	Manda el mensaje cuando no se cumple la condicion
+	@FieldExpressionValidator(expression = "not ((#action.model.tipoDato.id eq 1 || #action.model.tipoDato.id eq 2 || #action.model.tipoDato.id eq 3) and #action.model.longitud eq null)", message = "%{getText('MSG4')}", shortCircuit= true)
+	@IntRangeFieldValidator(message = "%{getText('MSG25',{'1', '10', 'digitos positivos'})}", min = "1", max = "9999999999", shortCircuit= true)
 	public Integer getLongitud() {
 		return this.longitud;
 	}
@@ -156,7 +166,33 @@ public class Atributo implements Serializable, GenericInterface {
 	public void setFormatoArchivo(String formatoArchivo) {
 		this.formatoArchivo = formatoArchivo.trim();
 	}
+	
+	public Float getTamanioArchivo() {
+		return tamanioArchivo;
+	}
+	
+	public void setTamanioArchivo(Float tamanioArchivo) {
+		this.tamanioArchivo = tamanioArchivo;
+	}
+	
+	@VisitorFieldValidator
+	public UnidadTamanio getUnidadTamanio() {
+		return unidadTamanio;
+	}
+	
+	public void setUnidadTamanio(UnidadTamanio unidadTamanio) {
+		this.unidadTamanio = unidadTamanio;
+	}
+	
+	public Entidad getEntidad() {
+		return entidad;
+	}
 
+	public void setEntidad(Entidad entidad) {
+		this.entidad = entidad;
+	}
+	
+	@VisitorFieldValidator
 	public TipoDato getTipoDato() {
 		return tipoDato;
 	}
@@ -165,25 +201,16 @@ public class Atributo implements Serializable, GenericInterface {
 		this.tipoDato = tipoDato;
 	}
 	
-	public UnidadTamanio getUnidadTamanio() {
-		return unidadTamanio;
-	}
-	public void setUnidadTamanio(UnidadTamanio unidadTamanio) {
-		this.unidadTamanio = unidadTamanio;
-	}
-	
-	public Float getTamanioArchivo() {
-		return tamanioArchivo;
-	}
-	public void setTamanioArchivo(Float tamanioArchivo) {
-		this.tamanioArchivo = tamanioArchivo;
-	}
-	
+//	Manda el mensaje cuando no se cumple la condicion
+	@FieldExpressionValidator(expression = "not (#action.model.tipoDato.id eq 7 and #action.model.otroTipoDato eq '')", message = "%{getText('MSG4')}", shortCircuit= true)
+	@StringLengthFieldValidator(message = "%{getText('MSG6',{'45', 'caracteres'})}", trim = true, maxLength = "45", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO, shortCircuit = true)
 	public String getOtroTipoDato() {
 		return otroTipoDato;
 	}
+	
 	public void setOtroTipoDato(String otroTipoDato) {
-		this.otroTipoDato = otroTipoDato.trim();
+		this.otroTipoDato = otroTipoDato == null? otroTipoDato : otroTipoDato.trim();
 	}
 
 	

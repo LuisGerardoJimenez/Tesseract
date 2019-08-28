@@ -51,6 +51,15 @@ public final class Constantes {
 	public final static Integer ESTADO_ELEMENTO_PRECONFIGURADO = Constantes.NUMERO_SEIS;
 	public final static Integer ESTADO_ELEMENTO_CONFIGURADO = Constantes.NUMERO_SIETE;
 	
+	//TIPOS DE DATO
+	public static final Integer TIPO_DATO_CADENA = 1;
+	public static final Integer TIPO_DATO_FLOTANTE = 2;
+	public static final Integer TIPO_DATO_ENTERO = 3;
+	public static final Integer TIPO_DATO_BOOLEANO = 4;
+	public static final Integer TIPO_DATO_FECHA = 5;
+	public static final Integer TIPO_DATO_ARCHIVO = 6;
+	public static final Integer TIPO_DATO_OTRO = 7;
+	
 	//ERRORES
 	public static final String NUMERO_UNO_NEGATIVO_STRING = "-1";
 	public static final String NUMERO_DIECIOCHO_STRING = "18";
