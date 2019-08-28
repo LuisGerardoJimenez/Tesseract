@@ -80,23 +80,6 @@ public class EntidadBs {
 		return entidadDTO;
 	}
 	
-	public List<TipoDato> consultarTiposDato() {
-		List<TipoDato> listTiposDato = genericoDAO.findAll(TipoDato.class);
-		if (listTiposDato.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar los tipos de dato.", "MSG12");
-		}
-		//CatalogoBs.opcionOtro(listTiposDato, TipoCatalogo.TIPODATO);
-		return listTiposDato;
-	}
-	
-	public List<UnidadTamanio> consultarUnidadesTamanio() {
-		List<UnidadTamanio> listUnidadTamanio = genericoDAO.findAll(UnidadTamanio.class);
-		if (listUnidadTamanio.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar las unidades.","MSG12");
-		}
-		return listUnidadTamanio;
-	}
-	
 	@Transactional(rollbackFor = Exception.class)
 	public void registrarEntidad(EntidadDTO entidadDTO) {
 		if (rn006.isValidRN006(entidadDTO)) {
