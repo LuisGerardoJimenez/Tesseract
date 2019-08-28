@@ -9,11 +9,17 @@
 <title>Regla de negocio</title>
 </head>
 <body>
-	<h1>Consultar Regla de negocio</h1>
+	<h1>Consultar Regla de Negocio</h1>
 	<h3>
 		<s:property
-			value="model.clave + ' ' + model.numero + ' ' + model.nombre" />
+			value="model.clave + ' ' + model.numero + ' ' + model.nombre"/>
 	</h3>
+		
+	<h4>
+	Tipo de Regla de Negocio:
+	<s:property
+			value="model.tipoReglaNegocio.nombre"  />
+	</h4>
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
 	<br />
