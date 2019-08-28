@@ -10,12 +10,14 @@ import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.dto.ActorDTO;
 import mx.tesseract.dto.EntidadDTO;
+import mx.tesseract.dto.ReglaNegocioDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
 import mx.tesseract.editor.entidad.Actor;
 import mx.tesseract.editor.entidad.Entidad;
 import mx.tesseract.editor.entidad.Modulo;
+import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 
 @Service("rN006")
@@ -102,4 +104,17 @@ public class RN006 {
 		return valido;
 	}
 	
+	public Boolean isValidRN006(ReglaNegocioDTO entidad) {
+		Boolean valido = true;
+		ReglaNegocio reglaNegocio;
+		if (entidad.getId() == null) {
+			reglaNegocio = elementoDAO.findAllByIdProyectoAndNombreAndClave(ReglaNegocio.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.ACT);
+		} else {
+			reglaNegocio = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(ReglaNegocio.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.ACT);
+		}
+		if (reglaNegocio != null) {
+			valido = false;
+		}
+		return valido;
+	}
 }

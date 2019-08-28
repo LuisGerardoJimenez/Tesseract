@@ -1,4 +1,4 @@
-var contextPath = "prisma";
+var contextPath = "tesseract";
 
 
 $(document).ready(function() {
@@ -11,6 +11,7 @@ $(document).ready(function() {
 		console.log(err);
 	}
 } );
+
 
 function seleccionarOpcionListas() {
 	var select = document.getElementById("idTipoRN");
