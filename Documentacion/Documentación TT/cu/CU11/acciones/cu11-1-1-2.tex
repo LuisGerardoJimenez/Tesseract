@@ -1,0 +1,119 @@
+	\begin{UseCase}{CU11.1.1.2}{Modificar Acción}{
+			
+				Después de haber registrado una \hyperlink{EntidadAccion}{Acción} en una \hyperlink{pantalla}{Pantalla} dentro de algún \hyperlink{moduloEntidad}{Módulo} del \hyperlink{proyectoEntidad}{Proyecto} y el colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) requiera modificar su contenido, el sistema le permitirá editar cualquiera de los datos previamente registrados mediante un formulario, este formulario contendrá los datos precargados de la última actualización para poder modificarlos y posteriormente guardarlos.\\
+				
+	}
+	\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
+	\UCitem{Propósito}{Modificar la información de una pantalla.}
+	\UCitem{Entradas}{
+		\begin{itemize}
+			\item \cdtRef{accion:nombreACC}{Nombre de la acción}: Se escribe desde el teclado.
+			\item \cdtRef{accion:descripcionACC}{Descripción de la acción}: Se escribe desde el teclado.
+			\item \cdtRef{accion:imagenACC}{Imagen de la acción}: Se selecciona de los archivos locales.
+		\end{itemize}	
+	}
+	\UCitem{Salidas}{
+		\begin{itemize}
+			\item \cdtRef{accion:nombreACC}{Nombre de la acción}: Lo obtiene el sistema.
+			\item \cdtRef{accion:descripcionACC}{Descripción de la acción}: Lo obtiene el sistema.
+			\item \cdtRef{accion:imagenACC}{Imagen de la acción}: Lo obtiene el sistema.
+			\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU7}{Pendiente} para indicar que la edición fue exitosa.
+		\end{itemize}
+	}
+	\UCitem{Destino}{Pantalla}
+	\UCitem{Precondiciones}{\begin{itemize}
+			\item Que exista al menos una pantalla registrada.
+			\item Que exista al menos una acción registrada.
+			\item Que el catálogo ''Tipo de acción''contenga información.
+	\end{itemize}}
+	\UCitem{Postcondiciones}{Se actualizará la información de una acción perteneciente a un pantalla.}
+	\UCitem{Errores}{\begin{itemize}
+			\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU7.1.2}{Modificar Acción} cuando no se ha ingresado un dato marcado como obligatorio.
+			\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU7.1.2}{Modificar Acción} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+			\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU7.1.2}{Modificar Acción} cuando se ha excedido la longitud de alguno de los campos.
+			\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU7.1.2}{Modificar Acción} cuando se registre un actor con un nombre que ya se encuentre registrado en el sistema.
+			\item \cdtIdRef{MSG16}{Formato de archivo incorrecto}: Se muestra en la pantalla \IUref{IU7.1.2}{Modificar Acción} cuando la imagen de la acción no cumpla con el formato especificado.
+			\item \cdtIdRef{MSG17}{Se ha excedido el tamaño del archivo}: Se muestra en la pantalla \IUref{IU7.1.2}{Modificar Acción} cuando la imagen de la acción exceda el tamaño especificado.
+		\end{itemize}.
+	}
+	\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU11.1.1}{Gestionar Acciones}.}
+\end{UseCase}
+%--------------------------------------
+\begin{UCtrayectoria}
+	\UCpaso[\UCactor] Da clic en el icono \editar de la acción que desea modificar en la pantalla \IUref{IU7.1}{Registrar Pantalla} o \IUref{IU7.2}{Modificar Pantalla}.
+	\UCpaso[\UCsist] Obtiene la información de la acción.
+	\UCpaso[\UCsist] Verifica que el catálogo ''Tipo de acción'' cuente con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU11-1-1-2:TAA}{[Trayectoria A]}
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU7.1.2}{Modificar Acción}.
+	\UCpaso[\UCactor] Modifica la información de la acción. \label{CU11.1.2-P4}
+	\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU11-1-1-2:TAB}{[Trayectoria B]} 
+	\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU11-1-1-2:TAC}{[Trayectoria C]}
+	\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU11-1-1-2:TAD}{[Trayectoria D]}
+	\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU11-1-1-2:TAE}{[Trayectoria E]}\hyperlink{CU11-1-1-2:TAF}{[Trayectoria F]}
+	\UCpaso[\UCsist] Verifica que el archivo ingresado cumpla con el peso correcto, con base en la regla de negocio \BRref{RN40}{Peso de archivos de imagen}. \hyperlink{CU11-1-1-2:TAG}{[Trayectoria G]}
+	\UCpaso[\UCsist] Verifica que el nombre de la acción no se encuentre asociado a la pantalla con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU11-1-1-2:TAH}{[Trayectoria H]} 
+	\UCpaso[\UCsist] Actualiza la información de la acción en el sistema.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU7}{Pendiente} para indicar al actor que la modificación se ha realizado exitosamente.
+\end{UCtrayectoria}		
+%--------------------------------------
+\hypertarget{CU11-1-1-2:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} El catálogo de ''Tipo de acción'' no tiene información.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU12A}{Pendiente} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU11-1-1-2:TAB}{\textbf{Trayectoria alternativa B}}\\
+\noindent \textbf{Condición:} El actor desea cancelar la operación.
+\begin{enumerate}
+	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la pantalla \IUref{IU7.1.2}{Modificar Acción}.
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12A}{Pendiente}.
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU11-1-1-2:TAC}{\textbf{Trayectoria alternativa C}}\\
+\noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU7.1.2}{Modificar Acción}.
+	\UCpaso Regresa al paso \ref{CU11.1.2-P4} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU11-1-1-2:TAD}{\textbf{Trayectoria alternativa D}}\\
+\noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU7.1.2}{Modificar Acción}.
+	\UCpaso Regresa al paso \ref{CU11.1.2-P4} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU11-1-1-2:TAE}{\textbf{Trayectoria alternativa E}}\\
+\noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU7.1.2}{Modificar Acción}.
+	\UCpaso Regresa al paso \ref{CU11.1.2-P4} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU11-1-1-2:TAF}{\textbf{Trayectoria alternativa F}}\\
+\noindent \textbf{Condición:} El actor proporciona una imagen de formato incorrecto.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG16}{Formato de archivo incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU7.1.2}{Modificar Acción}.
+	\UCpaso Regresa al paso \ref{CU11.1.2-P4} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU11-1-1-2:TAG}{\textbf{Trayectoria alternativa G}}\\
+\noindent \textbf{Condición:} El actor proporciona una imagen que excede el tamaño máximo.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG17}{Se ha excedido el tamaño del archivo} señalando el campo que presenta el error en la pantalla \IUref{IU7.1.2}{Modificar Acción}.
+	\UCpaso Regresa al paso \ref{CU11.1.2-P4} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU11-1-1-2:TAH}{\textbf{Trayectoria alternativa H}}\\
+\noindent \textbf{Condición:} El actor ingresó un nombre de acción que ya está asociado a la pantalla.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU7.1.2}{Modificar Acción}.
+	\UCpaso Regresa al paso \ref{CU11.1.2-P4} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}

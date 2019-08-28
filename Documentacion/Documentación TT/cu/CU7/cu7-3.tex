@@ -29,9 +29,8 @@
 		\UCpaso[\UCactor] Da clic en el icono \eliminar del registro que desea eliminar de la pantalla \IUref{IU12}{Gestionar Entidades}.
 		\UCpaso[\UCsist] Muestra el mensaje emergente \cdtIdRef{MSG10}{Confirmar eliminación} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar} en la pantalla \IUref{IU12}{Gestionar entidades}.
 		\UCpaso[\UCactor] Confirma la eliminación de la entidad oprimiendo el botón \IUbutton{Aceptar}. \hyperlink{CU7-3:TAA}{[Trayectoria A]}
-		\UCpaso[\UCsist] Verifica que la entidad pueda eliminarse de acuerdo a la regla de negocio \BRref{RN18}{Eliminación de elementos}. \hyperlink{CU7-3:TAB}{[Trayectoria B]}
-		\UCpaso[\UCsist] Verifica que ningún caso de uso se encuentre asociado a la entidad. \hyperlink{CU7-3:TAC}{[Trayectoria C]}
-		\UCpaso[\UCsist] Verifica que ningún caso de uso se encuentre asociado a alguno de los atributos de la entidad. \hyperlink{CU7-3:TAD}{[Trayectoria D}
+		\UCpaso[\UCsist] Verifica que ningún caso de uso se encuentre asociado a la entidad. \hyperlink{CU7-3:TAB}{[Trayectoria B]}
+		\UCpaso[\UCsist] Verifica que ningún caso de uso se encuentre asociado a alguno de los atributos de la entidad. \hyperlink{CU7-3:TAC}{[Trayectoria C}
 		\UCpaso[\UCsist] Elimina la información referente a la entidad.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12}{Gestionar Entidades} para indicar al actor que el registro se ha eliminado exitosamente.
 	\end{UCtrayectoria}
@@ -43,23 +42,16 @@
 	\UCpaso[\UCactor] Oprime el botón \IUbutton{Cancelar} de la pantalla emergente.
 	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12}{Gestionar Entidades}.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
-\end{enumerate}		
-%--------------------------------------
-\hypertarget{CU7-3:TAB}{\textbf{Trayectoria alternativa B}}\\
-\noindent \textbf{Condición:} La entidad se encuentra asociada a casos de uso liberados.
-\begin{enumerate}
-	\UCpaso[\UCsist] Oculta el botón \eliminar de la entidad que esta asociada a casos de uso liberados.
-	\item[- -] - - {\em {Fin del caso de uso}}.
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU7-3:TAC}{\textbf{Trayectoria alternativa C}}\\
+\hypertarget{CU7-3:TAB}{\textbf{Trayectoria alternativa B}}\\
 \noindent \textbf{Condición:} La entidad está siendo referenciado en un caso de uso.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG13}{Eliminación no permitida} en la pantalla \IUref{IU12}{Gestionar Entidades}.
 	\item[- -] - - {\em {Fin del caso de uso}}.
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU7-3:TAD}{\textbf{Trayectoria alternativa D}}\\
+\hypertarget{CU7-3:TAC}{\textbf{Trayectoria alternativa C}}\\
 \noindent \textbf{Condición:} Algunos atributos de la entidad están siendo referenciados en algún caso de uso.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG13}{Eliminación no permitida} en la pantalla \IUref{IU12}{Gestionar Entidades}.
