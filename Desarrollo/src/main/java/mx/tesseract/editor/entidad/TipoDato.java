@@ -14,6 +14,11 @@ import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.ValidatorType;
+
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
 @Entity
@@ -37,6 +42,8 @@ public class TipoDato implements Serializable, GenericInterface {
 		this.nombre = nombre;
 	}
 
+	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
 	public Integer getId() {
 		return this.id;
 	}
