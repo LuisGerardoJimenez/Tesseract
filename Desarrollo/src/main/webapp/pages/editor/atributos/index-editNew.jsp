@@ -77,9 +77,12 @@
 					<tr id = 'trTamanioArchivo' style="display: none;">
 						<td class="label obligatorio"><s:text name="labelTamanioArchivo" /></td>
 						<td><s:textfield name="model.tamanioArchivo" id="model.tamanioArchivo"
-								maxlength="10" cssErrorClass="input-error" />${blanks}
+								maxlength="12" cssErrorClass="input-error" type="number" step="0.1" />
+								<s:fielderror fieldName ="model.tamanioArchivo" cssClass="error" theme="jquery" />
+								${blanks}
 						<s:select list="listUnidadTamanio"  name="model.unidadTamanio.id" id="model.unidadTamanio.id" listKey="id"
-       						cssErrorClass="input-error" headerValue="Seleccione" headerKey="0" listValue="abreviatura"/></td>
+       						cssErrorClass="input-error" headerValue="Seleccione" headerKey="-1" listValue="abreviatura"/>
+       						<s:fielderror fieldName ="model.unidadTamanio.id" cssClass="error" theme="jquery" /></td>
 					</tr>
 
 					<tr>

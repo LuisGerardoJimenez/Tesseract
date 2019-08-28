@@ -14,6 +14,8 @@ import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
+
 import mx.tesseract.util.GenericInterface;
 
 @Entity
@@ -41,6 +43,8 @@ public class UnidadTamanio implements Serializable, GenericInterface {
 		this.abreviatura = abreviatura;
 	}
 
+//	Manda el mensaje cuando no se cumple la condicion
+	@FieldExpressionValidator(expression = "not (#action.model.tipoDato.id eq 6 and #action.model.unidadTamanio.id eq -1)", message = "%{getText('MSG27')}", shortCircuit= true)
 	public Integer getId() {
 		return this.id;
 	}

@@ -20,6 +20,7 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.opensymphony.xwork2.validator.annotations.DoubleRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
 import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
@@ -159,6 +160,10 @@ public class Atributo implements Serializable, GenericInterface {
 		this.longitud = longitud;
 	}
 	
+//	Manda el mensaje cuando no se cumple la condicion
+	@FieldExpressionValidator(expression = "not (#action.model.tipoDato.id eq 6 and #action.model.formatoArchivo eq '')", message = "%{getText('MSG4')}", shortCircuit= true)
+	@StringLengthFieldValidator(message = "%{getText('MSG6',{'50', 'caracteres'})}", trim = true, maxLength = "50", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO_CARACTERES_ESPECIALES, shortCircuit = true)
 	public String getFormatoArchivo() {
 		return this.formatoArchivo;
 	}
@@ -166,7 +171,10 @@ public class Atributo implements Serializable, GenericInterface {
 	public void setFormatoArchivo(String formatoArchivo) {
 		this.formatoArchivo = formatoArchivo.trim();
 	}
-	
+
+//	Manda el mensaje cuando no se cumple la condicion
+	@FieldExpressionValidator(expression = "not (#action.model.tipoDato.id eq 6 and #action.model.tamanioArchivo eq null)", message = "%{getText('MSG4')}", shortCircuit= true)
+	@DoubleRangeFieldValidator(message = "%{getText('MSG25',{'1.00', '12', 'digitos positivos'})}", minInclusive = "1.00", maxInclusive = "999999999.99", shortCircuit= true)
 	public Float getTamanioArchivo() {
 		return tamanioArchivo;
 	}
