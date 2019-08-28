@@ -15,10 +15,10 @@
 			\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto}: Lo obtiene el sistema.
 			\item \cdtRef{moduloEntidad:claveModulo}{Clave del Módulo}: Lo obtiene el sistema.
 			\item \cdtRef{moduloEntidad:nombreModulo}{Nombre del Módulo}: Lo obtiene el sistema.
-			\item \cdtRef{pantalla}{Pantalla}: Tabla que muestra \cdtRef{pantalla:claveIU}{Clave}, \cdtRef{pantalla:numeroIU}{Número} y el \cdtRef{pantalla:nombreIU}{Nombre} de todas las pantallas registradas en un módulo de un proyecto.
+			\item \cdtRef{EntidadPantalla}{Pantalla}: Tabla que muestra \cdtRef{EntidadPantalla:claveIU}{Clave}, \cdtRef{EntidadPantalla:numeroIU}{Número} y el \cdtRef{EntidadPantalla:nombreIU}{Nombre} de todas las pantallas registradas en un módulo de un proyecto.
 			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU7}{Gestionar Pantallas} cuando no existen pantallas registradas.
 	\end{itemize}}
-	\UCitem{Precondiciones}{Que exista al menos un proyecto registrado.}
+	\UCitem{Precondiciones}{Que exista al menos un módulo registrado.}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{Ninguno}
 	\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU5}{Gestionar Módulos}.}
@@ -29,7 +29,7 @@
 	\UCpaso[\UCsist] Obtiene la información de las pantallas registradas en el módulo seleccionado. \hyperlink{CU11:TAA}{[Trayectoria A]}
 	\UCpaso[\UCsist] Ordena las pantallas alfabéticamente basándose en la clave de los mismos.
 	\UCpaso[\UCsist] Muestra la información de las pantallas en la pantalla \IUref{IU7}{Gestionar Pantallas} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}.\label{CU11-P4}
-	\UCpaso[\UCactor] Gestiona los proyectos a través de los botones: \IUbutton{Registrar}, \editar, \eliminar y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}}. 
+	\UCpaso[\UCactor] Gestiona los proyectos a través de los botones: \IUbutton{Registrar}, \editar, \eliminar, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} y (Acciones). 
 \end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU11:TAA}{\textbf{Trayectoria alternativa A}}\\
@@ -49,3 +49,4 @@
 \UCExtenssionPoint{El actor requiere modificar una pantalla}{Presionando el icono \editar del paso \ref{CU11-P4} de la trayectoria principal.}{\UCref{CU11.2}{Modificar Pantalla}}
 \UCExtenssionPoint{El actor requiere eliminar una pantalla}{Presionando el icono \eliminar del paso \ref{CU11-P4} de la trayectoria principal.}{\UCref{CU11.3}{Eliminar Pantalla}}
 \UCExtenssionPoint{El actor requiere consultar una pantalla}{Presionando el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} del paso \ref{CU11-P4} de la trayectoria principal.}{\UCref{CU11.4}{Consultar Pantalla}}
+\UCExtenssionPoint{El actor requiere gestionar las acciones de una pantalla}{Presionando el icono (Atributos) del paso \ref{CU11-P4} de la trayectoria principal.}{\UCref{CU11.1.1}{Gestionar Acciones}}
