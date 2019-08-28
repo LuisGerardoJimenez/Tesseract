@@ -13,8 +13,8 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jquery.caret.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jquery.atwho.js"></script>
 	<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/pages/editor/mensajes/js/token.js"></script>
-	<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/pages/editor/mensajes/js/index-editNewA.js"></script>	
-]]>
+	<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/pages/editor/mensajes/js/index-editNew.js"></script>	
+]]>x
 
 </head>
 <body>

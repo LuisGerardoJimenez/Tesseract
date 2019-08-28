@@ -3,19 +3,6 @@ var contextPath = "Tesseract";
 $(document)
 		.ready(
 				function() {
-					$.ajax({
-						dataType : 'json',
-						url : "!verificarParametros?idSel=123",
-						type: "GET",
-						success : function(data) {
-							mostrarCamposParametros(data);
-							
-						},
-						error : function(err) {
-							alert("Ha ocurrido un error.");
-							console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
-						}
-					});
 					
 					contextPath = $("#rutaContexto").val();
 					// Se oculta el botón de editar de la redacción
@@ -102,6 +89,7 @@ function abrirEmergente() {
 
 function verificarEsParametrizado() {
 	var redaccion = document.getElementById("inputor").value;
+	var str ="1";
 	var expr = /PARAM·[a-zA-Z0-9]+(\s|\.\s|,\s|$|\.$)/m;
 	if(expr.test(redaccion)) {
 		verificarParametros();
@@ -116,16 +104,23 @@ function verificarParametros() {
 	rutaVerificarParametros = contextPath + '/mensajes!verificarParametros';
 	var redaccion = document.getElementById("inputor").value;
 	$.ajax({
-		dataType : 'json',
+		dataType : 'json',cache : false,
+		async : false,
 		url : rutaVerificarParametros,
 		type: "POST",
 		data : {
 			redaccionMensaje : redaccion
 		},
-		success : function(data) {
-			mostrarCamposParametros(data);
-			
-		},
+		success: function(response, status, jqXHR){
+		      console.log(response);
+		      console.log(status);
+		      console.log(jqXHR);
+			  //console.log("Ajax Success!");
+			  if(typeof response !== 'object'){
+				  response = JSON.parse(response);
+			  }
+			  //doSomethingWithThe(response);
+	    },
 		error : function(err) {
 			alert("Ha ocurrido un error.");
 			console.log("AJAX error in request: " + JSON.stringify(err, null, 2));

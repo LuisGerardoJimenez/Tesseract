@@ -77,11 +77,11 @@ public class Mensaje extends Elemento implements Serializable, GenericInterface,
 		this.parametros = parametros;
 	}
 	
-//	@JsonIgnore
-//	@Transient
-//	public String getType() {
-//		return "mensaje";
-//	}
+	@JsonIgnore
+	@Transient
+	public String getType() {
+		return "mensaje";
+	}
 	
 
 }

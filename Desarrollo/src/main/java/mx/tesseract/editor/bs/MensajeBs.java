@@ -129,7 +129,7 @@ public class MensajeBs {
 	/* FUNCIONES ADICIONALES */
 	public boolean esParametrizado(String redaccion) {
 		ArrayList<String> tokens = tokenBs.procesarTokenIpunt(redaccion);
-				
+			System.out.println(tokens);
 		if(tokens.size() == 0) {
 			return false;
 		} else {
@@ -161,6 +161,7 @@ public class MensajeBs {
 				
 			}
 		}
+		System.out.println("EL TAMAÑO DE PARAMETROS ES : "+listParametros.size());
 		return listParametros;
 	}
 	

@@ -58,10 +58,12 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 				"actionName", Constantes.ACTION_NAME_MODULOS }),
 		@Result(name = "parametros", type = "json", params = { "root",
 		"listParametros" }),
+		@Result(name = "jsonObject", type = "json" , params = { "root",
+		"elementosReferencias" }),
 		@Result(name = "referencias", type = "json", params = { "root",
 				"elementosReferencias" }),
 })
-@AllowedMethods(value = {"verificarParametros","prueba"})
+@AllowedMethods(value = {"verificarParametros"})
 public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<MensajeDTO> {
 
 	private static final long serialVersionUID = 1L;
@@ -80,6 +82,8 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 	private String jsonParametrosGuardados;
 	private String cambioRedaccion;
 	private String redaccionMensaje;
+	
+	private String jsonObject = "prueba";
 	
 	@Autowired
 	private LoginBs loginBs;
@@ -115,6 +119,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 		String resultado = MODULOS;
 		try {
 			proyecto = loginBs.consultarProyectoActivo();
+			System.out.println("EL ID DE PROYECTO ES : "+proyecto.getId());
 			model.setIdProyecto(proyecto.getId());
 			buscarParametrosDisponibles(proyecto.getId());
 			model.setClave("MSG");
@@ -258,11 +263,11 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 	}
 	
 	/* FUNCIONES ADICIONALES */
-	public String prueba() {
-		clearActionErrors();
+	
+	public void validateVerificarParametros(){
 		clearErrors();
+		clearActionErrors();
 		clearFieldErrors();
-		return "parametros";
 	}
 	
 	public String verificarParametros() {
@@ -271,12 +276,12 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 		try {
 			if (mensajeBs.esParametrizado(redaccionMensaje)) {
 				listParametros = mensajeBs.obtenerParametros(redaccionMensaje,
-						model.getIdProyecto());
+						(Integer) SessionManager.get("idProyecto"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "parametros";
+		return "jsonObject";
 	}
 	
 	private void buscarParametrosDisponibles(int idProyecto) {
@@ -442,4 +447,13 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 	public void setElementosReferencias(List<String> elementosReferencias) {
 		this.elementosReferencias = elementosReferencias;
 	}
+
+	public String getJsonObject() {
+		return jsonObject;
+	}
+
+	public void setJsonObject(String jsonObject) {
+		this.jsonObject = jsonObject;
+	}
+	
 }
