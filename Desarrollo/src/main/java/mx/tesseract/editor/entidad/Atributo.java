@@ -34,8 +34,8 @@ import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "Atributo.findByEntidad", query = "SELECT a.* FROM atributo a WHERE a.EntidadElementoid = ?", resultClass = Atributo.class),
-	@NamedNativeQuery(name = "Atributo.findByName", query = "SELECT a.* FROM atributo a WHERE a.nombre = ?", resultClass = Atributo.class),
-	@NamedNativeQuery(name = "Atributo.findByNameAndId", query = "SELECT a.* FROM atributo a WHERE a.nombre = ? AND a.id = ?", resultClass = Atributo.class),
+	@NamedNativeQuery(name = "Atributo.findByNameAndEntidad", query = "SELECT a.* FROM atributo a WHERE a.nombre = ? AND a.EntidadElementoid = ?", resultClass = Atributo.class),
+	@NamedNativeQuery(name = "Atributo.findByNameAndIdAndEntidad", query = "SELECT a.* FROM atributo a WHERE a.nombre = ? AND a.id = ? AND a.EntidadElementoid = ?", resultClass = Atributo.class),
 	})
 
 @Entity
@@ -218,6 +218,7 @@ public class Atributo implements Serializable, GenericInterface {
 	}
 	
 	public void setOtroTipoDato(String otroTipoDato) {
+		System.out.println("OtroTipoDatoSET: "+otroTipoDato);
 		this.otroTipoDato = otroTipoDato == null? otroTipoDato : otroTipoDato.trim();
 	}
 

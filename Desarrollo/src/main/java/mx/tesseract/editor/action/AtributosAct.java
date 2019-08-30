@@ -107,7 +107,7 @@ public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<
 	public void validateCreate() {
 		if (!hasErrors()) {
 			try {
-//				entidadBs.registrarEntidad(model);
+				atributoBs.registrarAtributo(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
