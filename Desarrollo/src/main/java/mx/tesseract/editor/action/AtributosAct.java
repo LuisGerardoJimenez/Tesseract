@@ -107,22 +107,23 @@ public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<
 	public void validateCreate() {
 		if (!hasErrors()) {
 			try {
-				atributoBs.registrarAtributo(model);
+				Integer idEntidad = (Integer) SessionManager.get("idEntidad");
+				atributoBs.registrarAtributo(model, idEntidad);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
+				editNew();
 			} catch (TESSERACTException te) {
 				ErrorManager.agregaMensajeError(this, te);
 				System.err.println(te.getMessage());
+				editNew();
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
+				editNew();
 			}
 		} else {
-			System.out.println(getFieldErrors());
-			proyecto = loginBs.consultarProyectoActivo();
-			listUnidadTamanio = unidadTamanioBs.consultarUnidadesTamanio();
-			listTipoDato = tipoDatoBs.consultarTiposDato();
+			editNew();
 		}
 	}
 	

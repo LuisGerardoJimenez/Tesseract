@@ -169,7 +169,7 @@ public class Atributo implements Serializable, GenericInterface {
 	}
 
 	public void setFormatoArchivo(String formatoArchivo) {
-		this.formatoArchivo = formatoArchivo.trim();
+		this.formatoArchivo = formatoArchivo == null ? formatoArchivo : formatoArchivo.trim();
 	}
 
 //	Manda el mensaje cuando no se cumple la condicion
@@ -218,7 +218,6 @@ public class Atributo implements Serializable, GenericInterface {
 	}
 	
 	public void setOtroTipoDato(String otroTipoDato) {
-		System.out.println("OtroTipoDatoSET: "+otroTipoDato);
 		this.otroTipoDato = otroTipoDato == null? otroTipoDato : otroTipoDato.trim();
 	}
 
