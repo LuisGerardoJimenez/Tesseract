@@ -10,7 +10,6 @@ function disablefromTipoDato() {
 	document.getElementById("trTextoAyudaFormato").style.display = 'none';
 	var tipoDato = document.getElementById("model.tipoDato.id");
 	var tipoDatoTexto = tipoDato.options[tipoDato.selectedIndex].text;
-	console.log(tipoDatoTexto);
 
 //	TIPO_DATO_CADENA = 1;
 //	TIPO_DATO_FLOTANTE = 2;

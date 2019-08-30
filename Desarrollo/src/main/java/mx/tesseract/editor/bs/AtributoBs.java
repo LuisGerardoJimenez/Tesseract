@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.editor.entidad.Entidad;
+import mx.tesseract.editor.entidad.TipoDato;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.TESSERACTValidacionException;
@@ -36,28 +38,36 @@ public class AtributoBs {
 		return atributos;
 	}
 	
-	public void registrarAtributo(Atributo atributo) {
+	@Transactional(rollbackFor = Exception.class)
+	public void registrarAtributo(Atributo atributo, Integer idEntidad) {
+		Entidad entidad = genericoDAO.findById(Entidad.class, idEntidad);
+		atributo.setEntidad(entidad);
 		if (rn006.isValidRN006(atributo)) {
-			Entidad entidad = genericoDAO.findById(Entidad.class, atributo.getEntidad().getId());
-			atributo.setEntidad(entidad);
-			if (atributo.getTipoDato().getId() == Constantes.TIPO_DATO_BOOLEANO || atributo.getTipoDato().getId() == Constantes.TIPO_DATO_FECHA) {
+			TipoDato tipoDato = genericoDAO.findById(TipoDato.class, atributo.getTipoDato().getId());
+			atributo.setTipoDato(tipoDato);
+			Integer idTipo = atributo.getTipoDato().getId();
+			if (idTipo == Constantes.TIPO_DATO_BOOLEANO || idTipo == Constantes.TIPO_DATO_FECHA) {
 				atributo.setLongitud(null);
 				atributo.setFormatoArchivo(null);
 				atributo.setTamanioArchivo(null);
 				atributo.setUnidadTamanio(null);
 				atributo.setOtroTipoDato(null);
+			} else if (idTipo == Constantes.TIPO_DATO_CADENA || idTipo == Constantes.TIPO_DATO_FLOTANTE 
+					|| idTipo == Constantes.TIPO_DATO_ENTERO) {
+				atributo.setFormatoArchivo(null);
+				atributo.setTamanioArchivo(null);
+				atributo.setUnidadTamanio(null);
+				atributo.setOtroTipoDato(null);
+			} else if (idTipo == Constantes.TIPO_DATO_ARCHIVO) {
+				atributo.setLongitud(null);
+				atributo.setOtroTipoDato(null);
+			} else {
+				atributo.setLongitud(null);
+				atributo.setFormatoArchivo(null);
+				atributo.setTamanioArchivo(null);
+				atributo.setUnidadTamanio(null);
 			}
-			System.out.println("---------------------->");
-			System.out.println("Nombre: "+atributo.getNombre());
-			System.out.println("Descripcion: "+atributo.getDescripcion());
-			System.out.println("Obligatorio: "+atributo.isObligatorio());
-			System.out.println("Longitud: "+atributo.getLongitud());
-			System.out.println("FormatoArchivo: "+atributo.getFormatoArchivo());
-			System.out.println("TamañoArchivo: "+atributo.getTamanioArchivo());
-			System.out.println("UnidadTamanio: "+atributo.getUnidadTamanio().getId());
-			System.out.println("TipoDato: "+atributo.getTipoDato().getId());
-			System.out.println("OtroTipoDato: "+atributo.getOtroTipoDato());
-			System.out.println("---------------------->");			
+			genericoDAO.save(atributo);
 		} else {
 			throw new TESSERACTValidacionException("EL nombre del atributo ya existe.", "MSG7",
 					new String[] { "El", "Atributo", atributo.getNombre() }, "model.nombre");
