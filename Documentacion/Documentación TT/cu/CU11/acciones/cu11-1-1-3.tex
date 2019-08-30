@@ -6,7 +6,10 @@
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Eliminar la información de una acción perteneciente a una pantalla.}
 		\UCitem{Entradas}{Ninguna}
-		\UCitem{Salidas}{Ninguna}
+		\UCitem{Salidas}{\begin{itemize}
+				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU12}{Pendiente} para indicar que la acción fue eliminada correctamente.
+				\item \cdtIdRef{MSG10}{Confirmar eliminación}: Se muestra en la pantalla \IUref{IU12}{Pendiente} preguntando al actor si desea continuar con la eliminación de la acción.
+		\end{itemize}}
 		\UCitem{Precondiciones}{\begin{itemize}
 				\item Que la acción no se encuentre asociada a un caso de uso.
 				\item Que la acción no se encuentre asociada a un caso de uso liberado.

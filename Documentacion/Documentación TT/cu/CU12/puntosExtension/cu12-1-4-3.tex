@@ -1,0 +1,45 @@
+	\begin{UseCase}{CU12.1.4.3}{Eliminar Punto de extensión}{
+			Cuando el registro de algún \hyperlink{entidadExtension}{Punto de Extensión}  ya no tiene una razón de ser dentro del \hyperlink{casoUso}{Caso de Uso}, Tesseract permitirá al colaborador (\hyperlink{jefe}{Líder} o \hyperlink{analista}{Analista}) eliminar en su totalidad su registro. \\
+		
+	}
+		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
+		\UCitem{Propósito}{Eliminar un punto de extensión del caso de uso.}
+		\UCitem{Entradas}{Ninguna}
+		\UCitem{Salidas}{\begin{itemize}
+				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión} para indicar que el punto de extensión fue eliminado correctamente.
+				\item \cdtIdRef{MSG10}{Confirmar eliminación}: Se muestra en la pantalla \IUref{IU6.1.1}{Gestionar Puntos de extensión} preguntando al actor si desea continua con la eliminación del punto de extensión.
+		\end{itemize}}
+		\UCitem{Precondiciones}{
+				Que el caso de uso al que pertenece el punto de extensión se encuentre en estado ''Edición'' o ''Pendiente de corrección''.
+		}
+		\UCitem{Postcondiciones}{
+			Se eliminará un punto de extensión de un caso de uso.
+		}
+		\UCitem{Errores}{Ninguno}
+		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12.1.6}{Gestionar Puntos de extensión}.}
+	\end{UseCase}
+%--------------------------------------
+	\begin{UCtrayectoria}
+		\UCpaso[\UCactor] Da clic en el icono \eliminar del registro que desea eliminar de la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión}.
+		\UCpaso[\UCactor] Verifica que el caso de uso se encuentre en estado ''Edición'' o en estado ''Pendiente de corrección''. \hyperlink{CU12-1-6-3:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Muestra el mensaje emergente \cdtIdRef{MSG10}{Confirmar eliminación} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar} en la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión}.
+		\UCpaso[\UCactor] Confirma la eliminación de la pantalla oprimiendo el botón \IUbutton{Aceptar}. \hyperlink{CU12-1-6-3:TAB}{[Trayectoria B]}
+		\UCpaso[\UCsist] Elimina la información referente al punto de extensión.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión} para indicar al actor que el registro se ha eliminado exitosamente.
+	\end{UCtrayectoria}		
+%--------------------------------------
+\hypertarget{CU12-1-6-3:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} El caso de uso no se encuentra en estado ''Edición'' o ''Pendiente de corrección''.
+\begin{enumerate}
+	\UCpaso[\UCsist]  Oculta el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/talt}} del caso que no se encuentra en estado de ''Edición'' o ''Pendiente de corrección''.
+	\item[- -] - - {\em {Fin del caso de uso}}.
+\end{enumerate}
+%--------------------------------------
+	\hypertarget{CU12-1-6-3:TAB}{\textbf{Trayectoria alternativa B}}\\
+	\noindent \textbf{Condición:} El actor desea cancelar la operación.
+	\begin{enumerate}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Cancelar} de la pantalla emergente.
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1.4}{Gestionar Puntos de extensión}.
+		\item[- -] - - {\em {Fin del caso de uso}}.%
+	\end{enumerate}
+
