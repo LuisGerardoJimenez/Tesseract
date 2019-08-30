@@ -32,12 +32,13 @@ public class AtributoDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Atributo findAtributoByNombre(String nombre) {
+	public Atributo findAtributoByNombreAndEntidad(String nombre, Integer idEntidad) {
 		Atributo modulo = null;
 		List<Atributo> lista = new ArrayList<Atributo>();
 		try {
-			Query query = entityManager.createNamedQuery("Atributo.findByName", Atributo.class);
+			Query query = entityManager.createNamedQuery("Atributo.findByNameAndEntidad", Atributo.class);
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
+			query.setParameter(Constantes.NUMERO_DOS, idEntidad);
 			lista = (List<Atributo>) query.getResultList();
 			if (!lista.isEmpty()) {
 				modulo = lista.get(Constantes.NUMERO_CERO);
@@ -49,13 +50,14 @@ public class AtributoDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Atributo findAtributoByNombreAndId(String nombre, Integer idAtributo) {
+	public Atributo findAtributoByNombreAndIdAndEntidad(String nombre, Integer idAtributo, Integer idEntidad) {
 		Atributo modulo = null;
 		List<Atributo> lista = new ArrayList<Atributo>();
 		try {
-			Query query = entityManager.createNamedQuery("Atributo.findByNameAndId", Atributo.class);
+			Query query = entityManager.createNamedQuery("Atributo.findByNameAndIdAndEntidad", Atributo.class);
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
 			query.setParameter(Constantes.NUMERO_DOS, idAtributo);
+			query.setParameter(Constantes.NUMERO_TRES, idEntidad);
 			lista = (List<Atributo>) query.getResultList();
 			if (!lista.isEmpty()) {
 				modulo = lista.get(Constantes.NUMERO_CERO);

@@ -12,9 +12,11 @@ import mx.tesseract.dto.ActorDTO;
 import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.dto.ReglaNegocioDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
+import mx.tesseract.editor.dao.AtributoDAO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
 import mx.tesseract.editor.entidad.Actor;
+import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.editor.entidad.Entidad;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.ReglaNegocio;
@@ -32,6 +34,9 @@ public class RN006 {
 	
 	@Autowired
 	private ElementoDAO elementoDAO;
+	
+	@Autowired
+	private AtributoDAO atributoDAO;
 	
 	public Boolean isValidRN006(Proyecto entidad) {
 		Boolean valido = true;
@@ -99,6 +104,20 @@ public class RN006 {
 			entidadDB = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(Entidad.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.ENT);
 		}
 		if (entidadDB != null) {
+			valido = false;
+		}
+		return valido;
+	}
+	
+	public Boolean isValidRN006(Atributo entidad) {
+		Boolean valido = true;
+		Atributo atributo;
+		if (entidad.getId() == null) {
+			atributo = atributoDAO.findAtributoByNombreAndEntidad(entidad.getNombre(), entidad.getEntidad().getId());
+		} else {
+			atributo = atributoDAO.findAtributoByNombreAndIdAndEntidad(entidad.getNombre(), entidad.getId(), entidad.getEntidad().getId());
+		}
+		if (atributo != null) {
 			valido = false;
 		}
 		return valido;

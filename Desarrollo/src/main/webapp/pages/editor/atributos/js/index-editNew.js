@@ -68,8 +68,8 @@ function disablefromTipoDato() {
 			document.getElementById("trFormatoArchivo").style.display = 'none';
 			document.getElementById("trTamanioArchivo").style.display = 'none';
 			document.getElementById("trTextoAyudaFormato").style.display = 'none';
-		}
-		if (tipoDatoTexto == 'Archivo') {
+			
+		} else if (tipoDatoTexto == 'Archivo') {
 			input = document.getElementById("model.otroTipoDato");
 			if (input) {
 			    input.value = null;
@@ -78,8 +78,8 @@ function disablefromTipoDato() {
 			document.getElementById("trFormatoArchivo").style.display = '';
 			document.getElementById("trTamanioArchivo").style.display = '';
 			document.getElementById("trTextoAyudaFormato").style.display = '';
-		}
-		if (tipoDatoTexto == 'Otro') {
+			
+		} else if (tipoDatoTexto == 'Otro') {
 			input = document.getElementById("model.formatoArchivo");
 			if (input) {
 			    input.value = null;
@@ -95,7 +95,8 @@ function disablefromTipoDato() {
 			document.getElementById("trOtro").style.display = '';
 			document.getElementById("trFormatoArchivo").style.display = 'none';
 			document.getElementById("trTamanioArchivo").style.display = 'none';
-			document.getElementById("trTextoAyudaFormato").style.display = 'none';
+			document.getElementById("trTextoAyudaFormato").style.display = 'none'
+			
 		}
 	} 
 }
