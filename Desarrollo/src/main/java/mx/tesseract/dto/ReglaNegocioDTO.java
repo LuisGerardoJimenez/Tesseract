@@ -1,5 +1,6 @@
 package mx.tesseract.dto;
 
+import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -21,20 +22,22 @@ public class ReglaNegocioDTO {
 	private String descripcion;
 	private String redaccion;
 	private Integer idTipoRN;
-	private TipoReglaNegocio tipoReglaNegocio;
-	private Integer Atributoid_unicidad;
-	private Integer Atributoid_fechaI;
-	private Integer Atributoid_fechaT;
-	private Integer TipoComparacionid;
-	private String TipoComparacionnombre;
+	private Integer idEntidad1;
+	private Integer idAtributo1;
+	private Integer idOperador;
+	private Integer idEntidad2;
+	private Integer idAtributo2;
+	private Integer idEntidadFormato;
+	private Integer idAtributoFormato;
+	private Integer idEntidadUnicidad;
+	private Integer idAtributoUnicidad;
 	private Atributo atributoComp1;
 	private Atributo atributoComp2;
 	private Operador operadorComp;
-	private Integer Operadorid;
-	private Atributo Atributoid_expReg;
 	private String expresionRegular;
 
 	public ReglaNegocioDTO() {
+		
 		
 	}
 	
@@ -66,10 +69,10 @@ public class ReglaNegocioDTO {
 		return nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre.trim();
 	}
+	
 	
 	public String getDescripcion() {
 		return descripcion;
@@ -78,7 +81,153 @@ public class ReglaNegocioDTO {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	
+	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
+	public Integer getIdTipoRN() {
+		return idTipoRN;
+	}
 
+	public void setIdTipoRN(Integer idTipoRN) {
+		this.idTipoRN = idTipoRN;
+	}
+	
+
+	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
+	@StringLengthFieldValidator(message = "%{getText('MSG6',{'500', 'caracteres'})}", trim = true, maxLength = "500", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex= Constantes.REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES, shortCircuit = true)
+	public String getRedaccion() {
+		return redaccion;
+	}
+
+	public void setRedaccion(String redaccion) {
+		this.redaccion = redaccion;
+	}
+	
+	/*TIPO: COMPARACIÓN DE ATRIBUTOS*/
+
+	@FieldExpressionValidator(expression = "not (#action.model.idTipoRN eq 2 and #action.model.idEntidad1 eq -1)", message = "%{getText('MSG27')}", shortCircuit= true)
+	public Integer getIdEntidad1() {
+		return idEntidad1;
+	}
+
+	public void setIdEntidad1(Integer idEntidad1) {
+		this.idEntidad1 = idEntidad1;
+	}
+	
+	@FieldExpressionValidator(expression = "not (#action.model.idTipoRN eq 2 and #action.model.idAtributo1 eq -1)", message = "%{getText('MSG27')}", shortCircuit= true)
+	public Integer getIdAtributo1() {
+		return idAtributo1;
+	}
+
+	public void setIdAtributo1(Integer idAtributo1) {
+		this.idAtributo1 = idAtributo1;
+	}
+
+	@FieldExpressionValidator(expression = "not (#action.model.idTipoRN eq 2 and #action.model.idOperador eq -1)", message = "%{getText('MSG27')}", shortCircuit= true)
+	public Integer getIdOperador() {
+		return idOperador;
+	}
+
+	public void setIdOperador(Integer idOperador) {
+		this.idOperador = idOperador;
+	}
+
+	@FieldExpressionValidator(expression = "not (#action.model.idTipoRN eq 2 and #action.model.idEntidad2 eq -1)", message = "%{getText('MSG27')}", shortCircuit= true)
+	public Integer getIdEntidad2() {
+		return idEntidad2;
+	}
+
+	public void setIdEntidad2(Integer idEntidad2) {
+		this.idEntidad2 = idEntidad2;
+	}
+
+	@FieldExpressionValidator(expression = "not (#action.model.idTipoRN eq 2 and #action.model.idAtributo2 eq -1)", message = "%{getText('MSG27')}", shortCircuit= true)
+	public Integer getIdAtributo2() {
+		return idAtributo2;
+	}
+
+	public void setIdAtributo2(Integer idAtributo2) {
+		this.idAtributo2 = idAtributo2;
+	}
+
+
+	/*TIPO: FORMATO CORRECTO*/
+	
+	@FieldExpressionValidator(expression = "not (#action.model.idTipoRN eq 9 and #action.model.idEntidadFormato eq -1)", message = "%{getText('MSG27')}", shortCircuit= true)
+	public Integer getIdEntidadFormato() {
+		return idEntidadFormato;
+	}
+
+	public void setIdEntidadFormato(Integer idEntidadFormato) {
+		this.idEntidadFormato = idEntidadFormato;
+	}
+	
+	@FieldExpressionValidator(expression = "not (#action.model.idTipoRN eq 9 and #action.model.idAtributoFormato eq -1)", message = "%{getText('MSG27')}", shortCircuit= true)
+	public Integer getIdAtributoFormato() {
+		return idAtributoFormato;
+	}
+	
+	public void setIdAtributoFormato(Integer idAtributoFormato) {
+		this.idAtributoFormato = idAtributoFormato;
+	}
+	
+	@FieldExpressionValidator(expression = "not (#action.model.idTipoRN eq 9 and #action.model.expresionRegular eq -1)", message = "%{getText('MSG27')}", shortCircuit= true)
+	public String getExpresionRegular() {
+		return expresionRegular;
+	}
+
+	public void setExpresionRegular(String expresionRegular) {
+		this.expresionRegular = expresionRegular;
+		this.expresionRegular = expresionRegular != null? expresionRegular.trim() : expresionRegular;
+	}
+
+
+	/*TIPO: UNICIDAD DE PARÁMETROS*/
+
+	@FieldExpressionValidator(expression = "not (#action.model.idTipoRN eq 3 and #action.model.idEntidadUnicidad eq -1)", message = "%{getText('MSG27')}", shortCircuit= true)
+	public Integer getIdEntidadUnicidad() {
+		return idEntidadUnicidad;
+	}
+
+	public void setIdEntidadUnicidad(Integer idEntidadUnicidad) {
+		this.idEntidadUnicidad = idEntidadUnicidad;
+	}
+	
+	@FieldExpressionValidator(expression = "not (#action.model.idTipoRN eq 3 and #action.model.idAtributoUnicidad eq -1)", message = "%{getText('MSG27')}", shortCircuit= true)
+	public Integer getIdAtributoUnicidad() {
+		return idAtributoUnicidad;
+	}
+
+	public void setIdAtributoUnicidad(Integer idAtributoUnicidad) {
+		this.idAtributoUnicidad = idAtributoUnicidad;
+	}
+
+
+	public Atributo getAtributoComp1() {
+		return atributoComp1;
+	}
+
+	public void setAtributoComp1(Atributo atributoComp1) {
+		this.atributoComp1 = atributoComp1;
+	}
+
+	public Atributo getAtributoComp2() {
+		return atributoComp2;
+	}
+
+	public void setAtributoComp2(Atributo atributoComp2) {
+		this.atributoComp2 = atributoComp2;
+	}
+	
+	public Operador getOperadorComp() {
+		return operadorComp;
+	}
+
+	public void setOperadorComp(Operador operadorComp) {
+		this.operadorComp = operadorComp;
+	}
+	
 	public Integer getIdProyecto() {
 		return idProyecto;
 	}
@@ -94,142 +243,7 @@ public class ReglaNegocioDTO {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX_STRING, shortCircuit = true)
-	public Integer getIdTipoRN() {
-		return idTipoRN;
-	}
 
-	public void setIdTipoRN(Integer idTipoRN) {
-		this.idTipoRN = idTipoRN;
-	}
-
-	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'100', 'caracteres'})}", trim = true, maxLength = "50", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex= Constantes.REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES, shortCircuit = true)
-	public String getRedaccion() {
-		return redaccion;
-	}
-
-	public void setRedaccion(String redaccion) {
-		this.redaccion = redaccion;
-	}
-
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
-	public Integer getAtributoid_unicidad() {
-		return Atributoid_unicidad;
-	}
-
-	public void setAtributoid_unicidad(Integer atributoid_unicidad) {
-		Atributoid_unicidad = atributoid_unicidad;
-	}
-	
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
-	public Integer getAtributoid_fechaI() {
-		return Atributoid_fechaI;
-	}
-
-	public void setAtributoid_fechaI(Integer atributoid_fechaI) {
-		Atributoid_fechaI = atributoid_fechaI;
-	}
-
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
-	public Integer getAtributoid_fechaT() {
-		return Atributoid_fechaT;
-	}
-
-	public void setAtributoid_fechaT(Integer atributoid_fechaT) {
-		Atributoid_fechaT = atributoid_fechaT;
-	}
-
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
-	public Integer getTipoComparacionid() {
-		return TipoComparacionid;
-	}
-
-	public void setTipoComparacionid(Integer tipoComparacionid) {
-		TipoComparacionid = tipoComparacionid;
-	}
-
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
-	public Atributo getAtributoComp1() {
-		return atributoComp1;
-	}
-
-	public void setAtributoComp1(Atributo atributoComp1) {
-		this.atributoComp1 = atributoComp1;
-	}
-
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
-	public Atributo getAtributoComp2() {
-		return atributoComp2;
-	}
-
-	public void setAtributoComp2(Atributo atributoComp2) {
-		this.atributoComp2 = atributoComp2;
-	}
-	
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
-	public Integer getOperadorid() {
-		return Operadorid;
-	}
-
-	public void setOperadorid(Integer operadorid) {
-		Operadorid = operadorid;
-	}
-
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
-	public Atributo getAtributoid_expReg() {
-		return Atributoid_expReg;
-	}
-
-	public void setAtributoid_expReg(Atributo atributoid_expReg) {
-		Atributoid_expReg = atributoid_expReg;
-	}
-
-	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'50', 'caracteres'})}", trim = true, maxLength = "50", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex= Constantes.REGEX_CAMPO_ALFABETICO, shortCircuit = true)
-	public String getExpresionRegular() {
-		return expresionRegular;
-	}
-
-	public void setExpresionRegular(String expresionRegular) {
-		this.expresionRegular = expresionRegular;
-	}
-
-	public String getTipoComparacionnombre() {
-		return TipoComparacionnombre;
-	}
-
-	public void setTipoComparacionnombre(String tipoComparacionnombre) {
-		TipoComparacionnombre = tipoComparacionnombre;
-	}
-
-	public TipoReglaNegocio getTipoReglaNegocio() {
-		return tipoReglaNegocio;
-	}
-
-	public void setTipoReglaNegocio(TipoReglaNegocio tipoReglaNegocio) {
-		this.tipoReglaNegocio = tipoReglaNegocio;
-	}
-
-	public Operador getOperadorComp() {
-		return operadorComp;
-	}
-
-	public void setOperadorComp(Operador operadorComp) {
-		this.operadorComp = operadorComp;
-	}
 
 
 

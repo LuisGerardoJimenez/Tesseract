@@ -89,7 +89,7 @@ public final class Constantes {
 	//EXPRESIONES REGULARES
 	public static final String REGEX_CAMPO_ALFANUMERICO = "^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\\s]+$";
 	public static final String REGEX_CAMPO_ALFANUMERICO_MAYUSCULAS_SIN_ESPACIOS = "^[A-Z0-9ÑÁÉÍÓÚ]+$";
-	public static final String REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES = "^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\\s\\-\\,\\.\\:]+$";
+	public static final String REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES = "^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\\s\\-\\,\\.\\:\\>\\<\\*\\=]+$";
 	public static final String REGEX_CAMPO_ALFABETICO = "^[a-zA-zñÑáéíóúÁÉÍÓÚ\\s]+$";
 	public static final String REGEX_CAMPO_ALFABETICO_SIN_ESPACIOS = "^[a-zA-zñÑáéíóúÁÉÍÓÚ]+$";
 	public static final String REGEX_CAMPO_ALFABETICO_CARACTERES_ESPECIALES = "^[a-zA-zñÑáéíóúÁÉÍÓÚ\\s\\-\\,\\.]+$";
@@ -99,5 +99,7 @@ public final class Constantes {
 	public static final String REGEX_CONTRASENIA = "^[a-zA-Z0-9\\(\\)\\-\\_\\!\\?\\&\\@\\%\\#]{8,20}$";
 	public static final String REGEX_COMBO_BOX = "^[0-9]+$";
 	public static final String REGEX_COMBO_BOX_STRING = "^[0-9A-Z]+$";
+	/* ^ # start of string (?: (?: [^?+*{}()[\]\\|]+ # literals and ^, $ | \\. # escaped characters | \[ (?: \^?\\. | \^[^\\] | [^\\^] ) # character classes (?: [^\]\\]+ | \\. )* \] | \( (?:\?[:=!] | \?<[=!] | \?> | \?<[^\W\d]\w*> | \?'[^\W\d]\w*' )? # opening of group (?<N>) # increment counter | \) # closing of group (?<-N>) # decrement counter ) (?: (?:[?+*]|\{\d+(?:,\d*)?\}) [?+]? )? # quantifiers | \| # alternative )* # repeat content $ # end of string (?(N)(?!)) # fail if counter is non-zero.*/
+	public static final String REGEX_EXPRESION_REGULAR = "^(?:(?:[^?+*{}()[\\]\\\\|]+|\\\\.|\\[(?:\\^?\\\\.|\\^[^\\\\]|[^\\\\^])(?:[^\\]\\\\]+|\\\\.)*\\]|\\((?:\\?[:=!]|\\?<[=!]|\\?>|\\?<[^\\W\\d]\\w*>|\\?'[^\\W\\d]\\w*')?(?<N>)|\\)(?<-N>))(?:(?:[?+*]|\\{\\d+(?:,\\d*)?\\})[?+]?)?|\\|)*$(?(N)(?!)) \r\n";
 
 }

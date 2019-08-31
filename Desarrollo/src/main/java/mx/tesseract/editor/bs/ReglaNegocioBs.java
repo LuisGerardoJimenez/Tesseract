@@ -91,11 +91,11 @@ public class ReglaNegocioBs {
 			reglanegocioDTO.setNombre(reglanegocio.getNombre());
 			reglanegocioDTO.setDescripcion(reglanegocio.getDescripcion());
 			reglanegocioDTO.setRedaccion(reglanegocio.getRedaccion());
-			reglanegocioDTO.setTipoReglaNegocio(reglanegocio.getTiporeglanegocio());
-			reglanegocioDTO.setAtributoComp1(reglanegocio.getAtributo_comp1());
-			reglanegocioDTO.setAtributoComp2(reglanegocio.getAtributo_comp2());
-			reglanegocioDTO.setExpresionRegular(reglanegocio.getExpresionRegular());
-			reglanegocioDTO.setAtributoid_expReg(reglanegocio.getAtributo_exp_reg());;
+			reglanegocioDTO.setIdTipoRN(reglanegocio.getTiporeglanegocio().getId());
+//			reglanegocioDTO.setAtributoComp1(reglanegocio.getAtributo_comp1());
+//			reglanegocioDTO.setAtributoComp2(reglanegocio.getAtributo_comp2());
+//			reglanegocioDTO.setExpresionRegular(reglanegocio.getExpresionRegular());
+//			reglanegocioDTO.setAtributoid_expReg(reglanegocio.getAtributo_exp_reg());;
 			reglanegocioDTO.setIdProyecto(reglanegocio.getProyecto().getId());
 		} else {
 			throw new TESSERACTException("No se puede consultar la Regla de Negocio.", "MSG12");
@@ -104,6 +104,7 @@ public class ReglaNegocioBs {
 		return reglanegocioDTO;
 	}
 	
+
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarRN(ReglaNegocioDTO reglanegocioDTO) {
 		if (rn006.isValidRN006(reglanegocioDTO)) {
