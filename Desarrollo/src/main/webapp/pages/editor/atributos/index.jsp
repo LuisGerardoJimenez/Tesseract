@@ -39,7 +39,7 @@
 				<tr>
 					<td><s:property value="%{#atributo.nombre}"/></td>
 					<td><s:property value="%{#atributo.descripcion}"/></td>
-					<td>
+					<td align="center">
 						<s:if test = "#atributo.obligatorio == true">
 							<s:label value="Si"/>
 						</s:if>
@@ -48,41 +48,41 @@
 						</s:else>
 					</td>
 					<td><s:property value="%{#atributo.tipoDato.nombre}"/></td>
-					<td>
+					<td align="center">
 						<s:if test = "#atributo.otroTipoDato == null">
-							<s:label value="-"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.otroTipoDato}"/>
 						</s:else>
 					</td>
-					<td>
+					<td align="center">
 						<s:if test = "#atributo.longitud == null">
-							<s:label value="-"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.longitud}"/>
 						</s:else>
 					</td>
-					<td>
+					<td align="center">
 						<s:if test = "#atributo.formatoArchivo == null">
-							<s:label value="-"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.formatoArchivo}"/>
 						</s:else>
 					</td>
-					<td>
+					<td align="center">
 						<s:if test = "#atributo.tamanioArchivo == null">
-							<s:label value="-"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.tamanioArchivo}"/>
 						</s:else>
 					</td>
-					<td>
+					<td align="center">
 						<s:if test = "#atributo.unidadTamanio == null">
-							<s:label value="-"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.unidadTamanio.nombre}"/>
@@ -107,7 +107,6 @@
 			</s:iterator>
 			</tbody>
 		</table>
-		
 	</div>
 	<br />
 	<br />
