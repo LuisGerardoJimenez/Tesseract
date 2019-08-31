@@ -1,7 +1,7 @@
 	\begin{UseCase}{CU12.2}{Modificar Caso de uso}{
 			
 		Después de haber registrado un \hyperlink{casoUso}{Caso de Uso} en un \hyperlink{moduloEntidad}{Módulo} del \hyperlink{proyectoEntidad}{Proyecto} y el colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) requiera modificar su contenido, el sistema le permitirá editar cualquiera de los datos previamente registrados mediante un formulario, este formulario contendrá los datos precargados de la última actualización para poder corregirlos y posteriormente guardarlos.\\
-		Dentro de este caso de uso se le permitirá también al colaborador gestionar las precondiciones y postcondiciones propios del Caso de uso (de tal forma que podrá registrarlas y eliminarlas).\\
+		%Dentro de este caso de uso se le permitirá también al colaborador gestionar las precondiciones y postcondiciones propios del Caso de uso (de tal forma que podrá registrarlas y eliminarlas).\\
 	    Al igual que en el registro, el colaborador podrá hacer uso de tokens que le mostrará una lista de \hyperlink{tElemento}{elementos} disponibles para su utilización.
 		
 		Para que esta acción se pueda llevar a cabo es necesario que el caso de uso se encuentre en estado de Edición o Pendiente de corrección con base en el \hyperlink{edoCU}{Modelo de estados del Caso de Uso}.
@@ -77,8 +77,6 @@
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.2}{Modificar Caso de uso}.\label{CU12.2-P4}
 		\UCpaso[\UCactor] Modifica la información general del caso de uso. \label{CU12.2-P5}
 		\UCpaso[\UCactor] Modifica la descripción del caso de uso. \label{CU12.2-P6} \hyperlink{CU12-2:TAA}{[Trayectoria A]}
-		\UCpaso[\UCactor]  Gestiona las precondiciones a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. \label{CU12.2-P7}
-		\UCpaso[\UCactor] Gestiona las postcondiciones a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. \label{CU12.2-P8}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \label{CU12.2-P9} \hyperlink{CU12-2:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-2:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU12-2:TAD}{[Trayectoria D]}
@@ -100,7 +98,7 @@
 	\UCpaso[\UCactor] Selecciona un elemento de la lista.
 	\UCpaso[\UCsist] Verifica que el nombre del elemento seleccionado no contenga espacios. \hyperlink{CU12-2:TAH}{[Trayectoria H]}
 	\UCpaso[\UCsist] Agrega la referencia del elemento al texto. \label{CU12.2-TA1}
-	\UCpaso Continúa en el paso \ref{CU12.2-P7} de la trayectoria principal.
+	\UCpaso Continúa en el paso \ref{CU12.2-P9} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
@@ -166,8 +164,3 @@
 	\UCpaso[\UCsist]  Oculta el botón \editar del caso que no se encuentra en estado de ''Edición'' o ''Pendiente de corrección''.
 	\item[- -] - - {\em {Fin del caso de uso}}.
 \end{enumerate}
-
-\UCExtenssionPoint{El actor requiere registrar una precondición}{Paso \ref{CU12.2-P4} de la trayectoria principal.}{\UCref{CU12.1.2}{Registrar Precondición}}
-\UCExtenssionPoint{El actor requiere eliminar una precondición}{Paso \ref{CU12.2-P4} de la trayectoria principal.}{\UCref{CU12.1.3}{Modificar Precondición}}
-\UCExtenssionPoint{El actor requiere registrar una postcondición}{Paso \ref{CU12.2-P4} de la trayectoria principal.}{\UCref{CU12.1.4}{Registrar postcondición}}
-\UCExtenssionPoint{El actor requiere eliminar una postcondición}{Paso \ref{CU12.2-P4} de la trayectoria principal.}{\UCref{CU12.1.5}{Eliminar postcondición}}

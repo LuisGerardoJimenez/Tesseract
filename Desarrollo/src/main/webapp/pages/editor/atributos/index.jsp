@@ -21,39 +21,92 @@
 	<div class="form">
 		<table id="gestion" class="tablaGestion" cellspacing="0" width="100%">
 			<thead>
-				<th style="width: 40%;"><s:text name="colAtributo"/></th>
-				<th style="width: 30%;"><s:text name="colTipoDato"/></th>
+				<th style="width: 20%;"><s:text name="colAtributo"/></th>
+				<th style="width: 20%;"><s:text name="colDescripcion" /></th>
 				<th style="width: 10%;"><s:text name="colObligatorio"/></th>
-				<th style="width: 20%;"><s:text name="colAcciones"/></th>
+				
+				<th style="width: 0%;"><s:text name="colTipoDato"/></th>
+				<th style="width: 0%;"><s:text name="colOtroTipoDato" /></th>
+				<th style="width: 0%;"><s:text name="colLongitud" /></th>
+				<th style="width: 0%;"><s:text name="colFormatoArchivo" /></th>
+				<th style="width: 0%;"><s:text name="colTamanioArchivo" /></th>
+				<th style="width: 0%;"><s:text name="colUnidadTamanio" /></th>
+				
+				<th style="width: 5%;"><s:text name="colAcciones"/></th>
 			</thead>
 			<tbody>
 			<s:iterator value="listAtributos" var="atributo">
 				<tr>
 					<td><s:property value="%{#atributo.nombre}"/></td>
-					<td><s:property value="%{#atributo.nombre}"/></td>
-					<td><s:property value="%{#atributo.nombre}"/></td>
+					<td><s:property value="%{#atributo.descripcion}"/></td>
 					<td align="center">
-						<s:if test="%{#atributo.estadoElemento.id == 1}">
-							<!-- Modificar Atributo -->		
-							<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/atributos/%{#atributo.id}/edit"/>			
-								<s:a href="%{urlEditar}">
-								<img id="" class="button" title="Modificar Atributo"
-										src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
-							</s:a>
-						${blanks}
-							<!-- Eliminar Atributo -->			
-							<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/atributos/%{#atributo.id}?_method=delete" method="post"/>-->
-							<s:a onclick="return verificarEliminacionElemento(%{#atributo.id});">
-							<img id="" class="button" title="Eliminar Caso de uso"
-									src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>	
-						${blanks}	
+						<s:if test = "#atributo.obligatorio == true">
+							<s:label value="Si"/>
 						</s:if>
+						<s:else>
+							<s:label value="No"/>
+						</s:else>
+					</td>
+					<td><s:property value="%{#atributo.tipoDato.nombre}"/></td>
+					<td align="center">
+						<s:if test = "#atributo.otroTipoDato == null">
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
+						</s:if>
+						<s:else>
+							<s:property value="%{#atributo.otroTipoDato}"/>
+						</s:else>
+					</td>
+					<td align="center">
+						<s:if test = "#atributo.longitud == null">
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
+						</s:if>
+						<s:else>
+							<s:property value="%{#atributo.longitud}"/>
+						</s:else>
+					</td>
+					<td align="center">
+						<s:if test = "#atributo.formatoArchivo == null">
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
+						</s:if>
+						<s:else>
+							<s:property value="%{#atributo.formatoArchivo}"/>
+						</s:else>
+					</td>
+					<td align="center">
+						<s:if test = "#atributo.tamanioArchivo == null">
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
+						</s:if>
+						<s:else>
+							<s:property value="%{#atributo.tamanioArchivo}"/>
+						</s:else>
+					</td>
+					<td align="center">
+						<s:if test = "#atributo.unidadTamanio == null">
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
+						</s:if>
+						<s:else>
+							<s:property value="%{#atributo.unidadTamanio.nombre}"/>
+						</s:else>
+					</td>
+					<td align="center">
+						<!-- Modificar Atributo -->		
+						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/atributos/%{#atributo.id}/edit"/>			
+							<s:a href="%{urlEditar}">
+							<img id="" class="button" title="Modificar Atributo"
+								src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+						</s:a>
+					${blanks}
+						<!-- Eliminar Atributo -->			
+						<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/atributos/%{#atributo.id}?_method=delete" method="post"/>-->
+						<s:a onclick="return verificarEliminacionElemento(%{#atributo.id});">
+						<img id="" class="button" title="Eliminar Caso de uso"
+							src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>	
+					
 					</td>
 				</tr>
 			</s:iterator>
 			</tbody>
 		</table>
-		
 	</div>
 	<br />
 	<br />

@@ -107,27 +107,73 @@ public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<
 	public void validateCreate() {
 		if (!hasErrors()) {
 			try {
-//				entidadBs.registrarEntidad(model);
+				Integer idEntidad = (Integer) SessionManager.get("idEntidad");
+				atributoBs.registrarAtributo(model, idEntidad);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
+				editNew();
 			} catch (TESSERACTException te) {
 				ErrorManager.agregaMensajeError(this, te);
 				System.err.println(te.getMessage());
+				editNew();
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
+				editNew();
 			}
 		} else {
-			System.out.println(getFieldErrors());
-			proyecto = loginBs.consultarProyectoActivo();
-			listUnidadTamanio = unidadTamanioBs.consultarUnidadesTamanio();
-			listTipoDato = tipoDatoBs.consultarTiposDato();
+			editNew();
 		}
 	}
 	
 	public String create() {
 		addActionMessage(getText("MSG1", new String[] { "El", "Atributo", "registrado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
+	public String edit() {
+		String resultado = INDEX;
+		try {
+			proyecto = loginBs.consultarProyectoActivo();
+			listUnidadTamanio = unidadTamanioBs.consultarUnidadesTamanio();
+			listTipoDato = tipoDatoBs.consultarTiposDato();
+			resultado = EDIT;
+		} catch (TESSERACTException pe) {
+			System.err.println(pe.getMessage());
+			ErrorManager.agregaMensajeError(this, pe);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		return resultado;
+	}
+	
+	public void validateUpdate() {
+		if (!hasErrors()) {
+			try {
+				atributoBs.modificarAtributo(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				editNew();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				editNew();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				editNew();
+			}
+		} else {
+			editNew();
+		}
+	}
+	
+	public String update() {
+		addActionMessage(getText("MSG1", new String[] { "El", "Atributo", "modificado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -155,6 +201,7 @@ public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
+		model = atributoBs.consultarAtributoById(idSel);
 	}
 
 	public Proyecto getProyecto() {
