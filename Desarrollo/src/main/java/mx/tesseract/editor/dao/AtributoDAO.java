@@ -33,7 +33,7 @@ public class AtributoDAO {
 	
 	@SuppressWarnings("unchecked")
 	public Atributo findAtributoByNombreAndEntidad(String nombre, Integer idEntidad) {
-		Atributo modulo = null;
+		Atributo atributo = null;
 		List<Atributo> lista = new ArrayList<Atributo>();
 		try {
 			Query query = entityManager.createNamedQuery("Atributo.findByNameAndEntidad", Atributo.class);
@@ -41,17 +41,17 @@ public class AtributoDAO {
 			query.setParameter(Constantes.NUMERO_DOS, idEntidad);
 			lista = (List<Atributo>) query.getResultList();
 			if (!lista.isEmpty()) {
-				modulo = lista.get(Constantes.NUMERO_CERO);
+				atributo = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		return modulo;
+		return atributo;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public Atributo findAtributoByNombreAndIdAndEntidad(String nombre, Integer idAtributo, Integer idEntidad) {
-		Atributo modulo = null;
+		Atributo atributo = null;
 		List<Atributo> lista = new ArrayList<Atributo>();
 		try {
 			Query query = entityManager.createNamedQuery("Atributo.findByNameAndIdAndEntidad", Atributo.class);
@@ -60,11 +60,11 @@ public class AtributoDAO {
 			query.setParameter(Constantes.NUMERO_TRES, idEntidad);
 			lista = (List<Atributo>) query.getResultList();
 			if (!lista.isEmpty()) {
-				modulo = lista.get(Constantes.NUMERO_CERO);
+				atributo = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		return modulo;
+		return atributo;
 	}
 }

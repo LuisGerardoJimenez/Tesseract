@@ -13,6 +13,8 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.dto.AtributoDTO;
+import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.editor.bs.AtributoBs;
 import mx.tesseract.editor.bs.TipoDatoBs;
 import mx.tesseract.editor.bs.UnidadTamanioBs;
@@ -34,13 +36,13 @@ import mx.tesseract.util.TESSERACTValidacionException;
 	@Result(name = "entidades", type = "redirectAction", params = {
 			"actionName", Constantes.ACTION_NAME_ENTIDADES })		
 })
-public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<Atributo> {
+public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<AtributoDTO> {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String ENTIDADES = "entidades";
 	private static final String PROYECTOS = "proyectos";
 	private Proyecto proyecto;
-	private Atributo model;
+	private AtributoDTO model;
 	
 	private List<Atributo> listAtributos;
 	private List<TipoDato> listTipoDato;
@@ -108,7 +110,8 @@ public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<
 		if (!hasErrors()) {
 			try {
 				Integer idEntidad = (Integer) SessionManager.get("idEntidad");
-				atributoBs.registrarAtributo(model, idEntidad);
+				model.setIdEntidad(idEntidad);
+				atributoBs.registrarAtributo(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
@@ -179,11 +182,11 @@ public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<
 	}
 	
 	@VisitorFieldValidator
-	public Atributo getModel() {
-		return model;
+	public AtributoDTO getModel() {
+		return (model == null) ? model = new AtributoDTO() : this.model;
 	}
 	
-	public void setModel(Atributo model) {
+	public void setModel(AtributoDTO model) {
 		this.model = model;
 	}
 

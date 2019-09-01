@@ -44,9 +44,9 @@
 					</tr>
 					<tr>
 						<td class="label obligatorio"><s:text name="labelTipoDato"/></td>
-						<td><s:select list="listTipoDato" cssClass="inputFormulario" name="model.tipoDato.id" id="model.tipoDato.id" listKey="id"
+						<td><s:select list="listTipoDato" cssClass="inputFormulario" name="model.idTipoDato" id="model.idTipoDato" listKey="id"
        						cssErrorClass="input-error" headerValue="Seleccione" headerKey="-1" listValue="nombre" onchange="disablefromTipoDato();"/>
-       						<s:fielderror fieldName ="model.tipoDato.id" cssClass="error" theme="jquery" /></td>
+       						<s:fielderror fieldName ="model.idTipoDato" cssClass="error" theme="jquery" /></td>
 					</tr>
 					<tr id = 'trOtro' style="display: none;">
 						<td class="label obligatorio"><s:text name="labelOtro" /></td>
@@ -80,9 +80,9 @@
 								maxlength="12" cssErrorClass="input-error" type="number" step="0.1" />
 								<s:fielderror fieldName ="model.tamanioArchivo" cssClass="error" theme="jquery" />
 								${blanks}
-						<s:select list="listUnidadTamanio"  name="model.unidadTamanio.id" id="model.unidadTamanio.id" listKey="id"
+						<s:select list="listUnidadTamanio"  name="model.idUnidadTamanio" id="model.idUnidadTamanio" listKey="id"
        						cssErrorClass="input-error" headerValue="Seleccione" headerKey="-1" listValue="abreviatura"/>
-       						<s:fielderror fieldName ="model.unidadTamanio.id" cssClass="error" theme="jquery" /></td>
+       						<s:fielderror fieldName ="model.idUnidadTamanio" cssClass="error" theme="jquery" /></td>
 					</tr>
 
 					<tr>

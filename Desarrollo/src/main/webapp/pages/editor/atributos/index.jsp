@@ -115,7 +115,7 @@
 			onclick="location.href='${pageContext.request.contextPath}/atributos/new'">
 			<s:text name="Registrar"></s:text>
 		</button>
-		
+		${blanks}
 		<s:url var="urlGestionarEntidades"
 				value="%{#pageContext.request.contextPath}/entidades">
 		</s:url>

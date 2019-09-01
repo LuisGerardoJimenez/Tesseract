@@ -9,6 +9,7 @@ import mx.tesseract.admin.dao.ProyectoDAO;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.dto.ActorDTO;
+import mx.tesseract.dto.AtributoDTO;
 import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.dto.ReglaNegocioDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
@@ -109,13 +110,13 @@ public class RN006 {
 		return valido;
 	}
 	
-	public Boolean isValidRN006(Atributo entidad) {
+	public Boolean isValidRN006(AtributoDTO entidad) {
 		Boolean valido = true;
 		Atributo atributo;
 		if (entidad.getId() == null) {
-			atributo = atributoDAO.findAtributoByNombreAndEntidad(entidad.getNombre(), entidad.getEntidad().getId());
+			atributo = atributoDAO.findAtributoByNombreAndEntidad(entidad.getNombre(), entidad.getIdEntidad());
 		} else {
-			atributo = atributoDAO.findAtributoByNombreAndIdAndEntidad(entidad.getNombre(), entidad.getId(), entidad.getEntidad().getId());
+			atributo = atributoDAO.findAtributoByNombreAndIdAndEntidad(entidad.getNombre(), entidad.getId(), entidad.getIdEntidad());
 		}
 		if (atributo != null) {
 			valido = false;
