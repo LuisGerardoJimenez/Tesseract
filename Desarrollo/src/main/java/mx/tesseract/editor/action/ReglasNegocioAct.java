@@ -55,18 +55,18 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 	private static final String REGLASDENEGOCIO = "reglas-negocio";
 	private Proyecto proyecto;
 	private Entidad entidad;
-	private int idEntidad;
+	private Integer idEntidad1;
 	private Integer idProyecto;
 	private ReglaNegocioDTO model;
+	private String clave;
 	
 	private List<ReglaNegocio> listReglasNegocio;
-	private List<TipoReglaNegocio> listTipoRN;
+	private List<TipoReglaNegocio> listTipoRN; 
 	private List<Entidad> listEntidades;
-	private List<Entidad> listAtributos;
+	private List<Atributo> listAtributos;
 	private List<Operador> listOperadores;
 	private List<Entidad> listEntidades2;
 	private List<Entidad> listAtributos2;
-	
 	
 
 	private int idSel;
@@ -122,10 +122,8 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 			model.setIdProyecto(proyecto.getId());
 			listTipoRN = tipoReglaNegocioBs.consultarTipoReglaNegocio();
 			listEntidades = entidadBs.consultarEntidadesProyecto(proyecto.getId());
-			
-			//listAtributos = atributoBs.consultarAtributosByEntidad(idEntidad);
-			
-			listAtributos = entidadBs.consultarEntidadesProyecto(proyecto.getId());
+			listAtributos = atributoBs.consultarAtributosByEntidad(idEntidad1);
+			//listAtributos = entidadBs.consultarEntidadesProyecto(proyecto.getId());
 			listOperadores = operadorBs.consultarOperador();
 			listEntidades2 = entidadBs.consultarEntidadesProyecto(proyecto.getId());
 			//listAtributos2 = atributoBs.consultarAtributosByEntidad(idEntidad);
@@ -210,8 +208,8 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 				model.setIdProyecto(proyecto.getId());
 				listTipoRN = tipoReglaNegocioBs.consultarTipoReglaNegocio();
 				listEntidades = entidadBs.consultarEntidadesProyecto(proyecto.getId());
-				//listAtributos = atributoBs.consultarAtributosByEntidad(idEntidad);
-				listAtributos = entidadBs.consultarEntidadesProyecto(proyecto.getId());
+				listAtributos = atributoBs.consultarAtributosByEntidad(idEntidad1);
+				//listAtributos = entidadBs.consultarEntidadesProyecto(proyecto.getId());
 				listOperadores = operadorBs.consultarOperador();
 				listEntidades2 = entidadBs.consultarEntidadesProyecto(proyecto.getId());
 				//listAtributos2 = atributoBs.consultarAtributosByEntidad(idEntidad);
@@ -308,11 +306,13 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 		this.listEntidades = listEntidades;
 	}
 
-	public List<Entidad> getListAtributos() {
+	
+
+	public List<Atributo> getListAtributos() {
 		return listAtributos;
 	}
 
-	public void setListAtributos(List<Entidad> listAtributos) {
+	public void setListAtributos(List<Atributo> listAtributos) {
 		this.listAtributos = listAtributos;
 	}
 
@@ -348,6 +348,16 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 		this.idSel = idSel;
 		model = reglaNegocioBs.consultarRNById(idSel);
 	}
+
+	public Integer getIdEntidad1() {
+		return idEntidad1;
+	}
+
+	public void setIdEntidad1(Integer idEntidad1) {
+		this.idEntidad1 = idEntidad1;
+	}
+
+	
 
 	
 }
