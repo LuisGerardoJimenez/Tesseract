@@ -35,7 +35,7 @@ import mx.tesseract.util.GenericInterface;
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "Atributo.findByEntidad", query = "SELECT a.* FROM atributo a WHERE a.EntidadElementoid = ?", resultClass = Atributo.class),
 	@NamedNativeQuery(name = "Atributo.findByNameAndEntidad", query = "SELECT a.* FROM atributo a WHERE a.nombre = ? AND a.EntidadElementoid = ?", resultClass = Atributo.class),
-	@NamedNativeQuery(name = "Atributo.findByNameAndIdAndEntidad", query = "SELECT a.* FROM atributo a WHERE a.nombre = ? AND a.id = ? AND a.EntidadElementoid = ?", resultClass = Atributo.class),
+	@NamedNativeQuery(name = "Atributo.findByNameAndIdAndEntidad", query = "SELECT a.* FROM atributo a WHERE a.nombre = ? AND a.id != ? AND a.EntidadElementoid = ?", resultClass = Atributo.class),
 	})
 
 @Entity
@@ -68,7 +68,7 @@ public class Atributo implements Serializable, GenericInterface {
 	@Column(name = "tamanioArchivo")
 	private Float tamanioArchivo;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "UnidadTamanioid", referencedColumnName="id")
 	private UnidadTamanio unidadTamanio;
 	
@@ -76,7 +76,7 @@ public class Atributo implements Serializable, GenericInterface {
 	@JoinColumn(name = "EntidadElementoid", referencedColumnName = "Elementoid")
 	private Entidad entidad;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TipoDatoid", referencedColumnName="id")
 	private TipoDato tipoDato;
 	
@@ -119,26 +119,20 @@ public class Atributo implements Serializable, GenericInterface {
 		this.id = id;
 	}
 
-	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'50', 'caracteres'})}", trim = true, maxLength = "50", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO, shortCircuit = true)
 	public String getNombre() {
 		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre.trim();
+		this.nombre = nombre;
 	}
 
-	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'999', 'caracteres'})}", trim = true, maxLength = "999", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex= Constantes.REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES, shortCircuit = true)
 	public String getDescripcion() {
 		return this.descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion.trim();
+		this.descripcion = descripcion;
 	}
 
 	public boolean isObligatorio() {
@@ -149,9 +143,6 @@ public class Atributo implements Serializable, GenericInterface {
 		this.obligatorio = obligatorio;
 	}
 
-//	Manda el mensaje cuando no se cumple la condicion
-	@FieldExpressionValidator(expression = "not ((#action.model.tipoDato.id eq 1 || #action.model.tipoDato.id eq 2 || #action.model.tipoDato.id eq 3) and #action.model.longitud eq null)", message = "%{getText('MSG4')}", shortCircuit= true)
-	@IntRangeFieldValidator(message = "%{getText('MSG25',{'1', '10', 'digitos positivos'})}", min = "1", max = "9999999999", shortCircuit= true)
 	public Integer getLongitud() {
 		return this.longitud;
 	}
@@ -160,21 +151,14 @@ public class Atributo implements Serializable, GenericInterface {
 		this.longitud = longitud;
 	}
 	
-//	Manda el mensaje cuando no se cumple la condicion
-	@FieldExpressionValidator(expression = "not (#action.model.tipoDato.id eq 6 and #action.model.formatoArchivo eq '')", message = "%{getText('MSG4')}", shortCircuit= true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'50', 'caracteres'})}", trim = true, maxLength = "50", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO_CARACTERES_ESPECIALES, shortCircuit = true)
 	public String getFormatoArchivo() {
 		return this.formatoArchivo;
 	}
 
 	public void setFormatoArchivo(String formatoArchivo) {
-		this.formatoArchivo = formatoArchivo == null ? formatoArchivo : formatoArchivo.trim();
+		this.formatoArchivo = formatoArchivo;
 	}
 
-//	Manda el mensaje cuando no se cumple la condicion
-	@FieldExpressionValidator(expression = "not (#action.model.tipoDato.id eq 6 and #action.model.tamanioArchivo eq null)", message = "%{getText('MSG4')}", shortCircuit= true)
-	@DoubleRangeFieldValidator(message = "%{getText('MSG25',{'1.00', '12', 'digitos positivos'})}", minInclusive = "1.00", maxInclusive = "999999999.99", shortCircuit= true)
 	public Float getTamanioArchivo() {
 		return tamanioArchivo;
 	}
@@ -183,7 +167,6 @@ public class Atributo implements Serializable, GenericInterface {
 		this.tamanioArchivo = tamanioArchivo;
 	}
 	
-	@VisitorFieldValidator
 	public UnidadTamanio getUnidadTamanio() {
 		return unidadTamanio;
 	}
@@ -200,7 +183,6 @@ public class Atributo implements Serializable, GenericInterface {
 		this.entidad = entidad;
 	}
 	
-	@VisitorFieldValidator
 	public TipoDato getTipoDato() {
 		return tipoDato;
 	}
@@ -209,18 +191,12 @@ public class Atributo implements Serializable, GenericInterface {
 		this.tipoDato = tipoDato;
 	}
 	
-//	Manda el mensaje cuando no se cumple la condicion
-	@FieldExpressionValidator(expression = "not (#action.model.tipoDato.id eq 7 and #action.model.otroTipoDato eq '')", message = "%{getText('MSG4')}", shortCircuit= true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'45', 'caracteres'})}", trim = true, maxLength = "45", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO, shortCircuit = true)
 	public String getOtroTipoDato() {
 		return otroTipoDato;
 	}
 	
 	public void setOtroTipoDato(String otroTipoDato) {
-		this.otroTipoDato = otroTipoDato == null? otroTipoDato : otroTipoDato.trim();
+		this.otroTipoDato = otroTipoDato;
 	}
-
-	
 	
 }

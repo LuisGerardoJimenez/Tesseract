@@ -8,7 +8,7 @@ $(document).ready(function() {
 function disablefromTipoDato() {
 
 	document.getElementById("trTextoAyudaFormato").style.display = 'none';
-	var tipoDato = document.getElementById("model.tipoDato.id");
+	var tipoDato = document.getElementById("model.idTipoDato");
 	var tipoDatoTexto = tipoDato.options[tipoDato.selectedIndex].text;
 
 //	TIPO_DATO_CADENA = 1;
@@ -32,7 +32,7 @@ function disablefromTipoDato() {
 		if (input) {
 		    input.value = null;
 		}
-		input = document.getElementById("model.unidadTamanio.id");
+		input = document.getElementById("model.idUnidadTamanio");
 		if (input) {
 			input.selectedIndex = 0;
 		}
@@ -59,7 +59,7 @@ function disablefromTipoDato() {
 			if (input) {
 			    input.value = null;
 			}
-			input = document.getElementById("model.unidadTamanio.id");
+			input = document.getElementById("model.idUnidadTamanio");
 			if (input) {
 				input.selectedIndex = 0;
 			}
@@ -87,7 +87,7 @@ function disablefromTipoDato() {
 			if (input) {
 			    input.value = null;
 			}
-			input = document.getElementById("model.unidadTamanio.id");
+			input = document.getElementById("model.idUnidadTamanio");
 			if (input) {
 				input.selectedIndex = 0;
 			}

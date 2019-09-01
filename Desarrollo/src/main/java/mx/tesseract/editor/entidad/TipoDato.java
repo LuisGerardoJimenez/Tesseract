@@ -42,8 +42,6 @@ public class TipoDato implements Serializable, GenericInterface {
 		this.nombre = nombre;
 	}
 
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
 	public Integer getId() {
 		return this.id;
 	}
