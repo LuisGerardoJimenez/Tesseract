@@ -30,8 +30,7 @@
 		\UCpaso[\UCactor] Da clic en el icono \eliminar del registro que desea eliminar de la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
 		\UCpaso[\UCsist] Muestra el mensaje emergente \cdtIdRef{MSG10}{Confirmar eliminación} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar} en la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU8-3:TAA}{[Trayectoria A]}
-		\UCpaso[\UCsist] Verifica que la regla de negocio pueda eliminarse de acuerdo a la regla de negocio \BRref{RN18}{Eliminación de elementos}. \hyperlink{CU8-3:TAB}{[Trayectoria B]}
-		\UCpaso[\UCsist] Verifica que ningún caso de uso se encuentre asociado a la regla de negocio. \hyperlink{CU8-3:TAC}{[Trayectoria C]}
+		\UCpaso[\UCsist] Verifica que ningún caso de uso se encuentre asociado a la regla de negocio. \hyperlink{CU8-3:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Elimina la información referente a la regla de negocio.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU9}{Gestionar Regla de negocio} para indicar al actor que el registro se ha eliminado exitosamente.
 	\end{UCtrayectoria}	
@@ -46,13 +45,6 @@
 \end{enumerate}	
 %--------------------------------------
 \hypertarget{CU8-3:TAB}{\textbf{Trayectoria alternativa B}}\\
-\noindent \textbf{Condición:} La regla de negocio esta asociada a un caso de uso liberado.
-\begin{enumerate}
-\UCpaso[\UCsist] Oculta el botón \eliminar de la regla de negocio que esta asociada a casos de uso liberados de la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
-	\item[- -] - - {\em {Fin del caso de uso}}.%
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU8-3:TAC}{\textbf{Trayectoria alternativa C}}\\
 \noindent \textbf{Condición:} La regla de negocio está siendo referenciado en un caso de uso.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG13}{Eliminación no permitida} en la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.

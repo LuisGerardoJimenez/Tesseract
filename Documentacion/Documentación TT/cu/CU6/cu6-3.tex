@@ -29,8 +29,7 @@
 		\UCpaso[\UCactor] Da clic en el icono \eliminar del registro que desea eliminar de la pantalla \IUref{IU11}{Gestionar Términos de glosario}.
 		\UCpaso[\UCsist] Muestra el mensaje emergente \cdtIdRef{MSG10}{Confirmar eliminación} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar} en la pantalla \IUref{IU11}{Gestionar Términos del glosario}.
 		\UCpaso[\UCactor] Confirma la eliminación del término oprimiendo el botón \IUbutton{Aceptar}. \hyperlink{CU6-3:TAA}{[Trayectoria A]}
-		\UCpaso[\UCsist] Verifica que el término del glosario pueda eliminarse de acuerdo a la regla de negocio \BRref{RN18}{Eliminación de elementos}. \hyperlink{CU6-3:TAB}{[Trayectoria B]}
-		\UCpaso[\UCsist] Verifica que ningún caso de uso se encuentre asociado al término del glosario. \hyperlink{CU6-3:TAC}{[Trayectoria C]}
+		\UCpaso[\UCsist] Verifica que ningún caso de uso se encuentre asociado al término del glosario. \hyperlink{CU6-3:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Elimina la información referente al término del glosario.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU11}{Gestionar Términos del glosario} para indicar al actor que el registro se ha eliminado exitosamente.
 	\end{UCtrayectoria}		
@@ -46,13 +45,6 @@
 \end{enumerate}	
 %--------------------------------------
 \hypertarget{CU6-3:TAB}{\textbf{Trayectoria alternativa B}}\\
-\noindent \textbf{Condición:} El término se encuentra asociado a casos de uso liberados.
-\begin{enumerate}
-	\UCpaso[\UCsist] Oculta el botón \eliminar del término que esta asociado a casos de uso liberados.
-	\item[- -] - - {\em {Fin del caso de uso}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU6-3:TAC}{\textbf{Trayectoria alternativa C}}\\
 \noindent \textbf{Condición:} El término del glosario está siendo referenciado en un caso de uso.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG13}{Eliminación no permitida} en la pantalla \IUref{IU11}{Gestionar Términos del glosario}.
