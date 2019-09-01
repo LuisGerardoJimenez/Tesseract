@@ -33,7 +33,7 @@
 		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU8.1}{Registrar Actor} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU8.1}{Registrar Actor} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU8.1}{Registrar Actor} cuando se registre un actor con un nombre que ya se encuentre registrado en el sistema.
-		\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU8}{Gestionar Actores} cuando no existe información en el catálogo de cardilanidad.
+		\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU8}{Gestionar Actores} cuando no exista información en el catálogo ''cardinalidad''.
 		\end{itemize}.
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU10}{Gestionar Actores}.}
@@ -56,7 +56,7 @@
 \hypertarget{CU10-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} No existe información en el catálogo de ''cardinalidad''.
 \begin{enumerate}
-	\UCpaso[\UCactor] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU8}{Gestionar Actores}.
+	\UCpaso[\UCactor] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU8}{Gestionar Actores}.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 

@@ -79,7 +79,7 @@
 		\item \cdtIdRef{MSG5}{Formato de campo incorrecto}: Se muestra en la pantalla \IUref{IU9.2}{Modificar Regla de negocio} cuando el número de la regla de negocio contiene un carácter no válido.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU9.2}{Modificar Regla de negocio} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU9.2}{Modificar Regla de negocio} cuando se registre un regla de negocio con un nombre o número que ya se encuentre registrado en el sistema.
-		\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} cuando no exista información en el catálogo ''tipo de regla de negocio''.
+		\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} cuando no exista información en el catálogo ''tipo de regla de negocio''.
 		\end{itemize}
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU8}{Gestionar Reglas de negocio}.}
@@ -89,7 +89,6 @@
 		\UCpaso[\UCactor] Da clic en el icono \editar del registro que desea modificar en la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
 		\UCpaso[\UCsist] Verifica que el catálogo ''tipo de regla de negocio'' cuente con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU8-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Obtiene la información de la regla de negocio.
-		\UCpaso[\UCsist] Verifica que la regla de negocio pueda modificarse con base en la regla de negocio \BRref{RN5}{Modificación de elementos asociados a casos de uso liberados}. \hyperlink{CU8-2:TAI}{[Trayectoria I]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU9.2}{Modificar Regla de negocio}.
 		\UCpaso[\UCactor] Modifica la información de la regla de negocio. \label{CU8.2-P5}
 		\UCpaso[\UCactor] Selecciona el tipo de regla de negocio.
@@ -110,7 +109,7 @@
 \hypertarget{CU8-2:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} El catálogo tipo de regla de negocio no tiene información.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
@@ -169,11 +168,4 @@
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU9.2}{Modificar Regla de negocio}.
 	\UCpaso Regresa al paso \ref{CU8.2-P5} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU8-2:TAI}{\textbf{Trayectoria alternativa I}}\\
-\noindent \textbf{Condición:} La regla de negocio no puede modificarse debido a que se encuentra asociada a casos de uso liberados.
-\begin{enumerate}
-	\UCpaso[\UCsist] Oculta el botón \editar de la regla de negocio que esta asociada a casos de uso liberados de la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
-	\item[- -] - - {\em {Fin del caso de uso}}.
 \end{enumerate}

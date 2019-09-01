@@ -41,7 +41,6 @@
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Da clic en el icono \editar de la pantalla \IUref{IU11}{Gestionar Términos del glosario}.
 		\UCpaso[\UCsist] Obtiene la información del término.
-		\UCpaso[\UCsist] Verifica que el término pueda modificarse con base en la regla de negocio \BRref{RN5}{Modificación de elementos asociados a casos de uso liberados}. \hyperlink{CU6-2:TAF}{[Trayectoria F]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU11.2}{Modificar Término}.
 		\UCpaso[\UCactor] Modifica la información del término. \label{CU6.2-P5}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU6-2:TAB}{[Trayectoria A]}
@@ -92,10 +91,3 @@
 		\UCpaso Regresa al paso \ref{CU6.2-P5} de la trayectoria principal.
 		\item[- -] - - {\em {Fin de la trayectoria}}.
 	\end{enumerate}
-%--------------------------------------	
-\hypertarget{CU6-2:TAF}{\textbf{Trayectoria alternativa F}}\\
-\noindent \textbf{Condición:} El término se encuentra asociado a casos de uso liberados.
-\begin{enumerate}
-	\UCpaso[\UCsist] Oculta el botón \editar del término que esta asociado a casos de uso liberados.
-	\item[- -] - - {\em {Fin del caso de uso}}.
-\end{enumerate}
