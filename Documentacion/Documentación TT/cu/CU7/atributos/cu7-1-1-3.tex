@@ -5,8 +5,8 @@
 		\UCitem{Propósito}{Eliminar la información de un atributo de la tabla de atributos.}
 		\UCitem{Entradas}{Ninguna}
 		\UCitem{Salidas}{\begin{itemize}
-				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU12}{Pendiente} para indicar que la entidad fue eliminada correctamente.
-				\item \cdtIdRef{MSG10}{Confirmar eliminación}: Se muestra en la pantalla \IUref{IU12}{Pendiente} preguntando al actor si desea continuar con la eliminación de la entidad.
+				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} para indicar que la entidad fue eliminada correctamente.
+				\item \cdtIdRef{MSG10}{Confirmar eliminación}: Se muestra en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} preguntando al actor si desea continuar con la eliminación de la entidad.
 		\end{itemize}}
 		
 		\UCitem{Precondiciones}{\begin{itemize}
@@ -15,32 +15,32 @@
 		\end{itemize}}
 		\UCitem{Postcondiciones}{Se eliminará un atributo de una entidad perteneciente a un proyecto}
 		\UCitem{Errores}{\begin{itemize}
-		\item \cdtIdRef{MSG13}{Eliminación no permitida}: Se muestra en la pantalla \IUref{IU12}{Pendiente} cuando no se pueda eliminar el atributo debido a que está siendo utilizado por otro elemento.
+		\item \cdtIdRef{MSG13}{Eliminación no permitida}: Se muestra en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} cuando no se pueda eliminar el atributo debido a que está siendo utilizado por otro elemento.
 		\end{itemize}
 		}
 		\UCitem{Tipo}{Secundario, extiende de los casos de uso \UCref{CU7.1.1}{Gestionar Atributos}.}
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Da clic en el icono \eliminar del registro que desea eliminar de la pantalla \IUref{IU12}{Pendiente}.
+		\UCpaso[\UCactor] Da clic en el icono \eliminar del registro que desea eliminar de la pantalla \IUref{IU12.1.1}{Gestionar Atributos}.
 		\UCpaso[\UCsist] Muestra el mensaje emergente \cdtIdRef{MSG10}{Confirmar eliminación} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar} en la pantalla \IUref{IU12}{Gestionar entidades}.
 		\UCpaso[\UCactor] Confirma la eliminación de la entidad oprimiendo el botón \IUbutton{Aceptar}. \hyperlink{CU7-1-1-3:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que ningún elemento esté referenciando al atributo. \hyperlink{CU7-1-1-3:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Elimina la información referente al atributo.
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12}{Pendiente} para indicar al actor que el registro se ha eliminado exitosamente.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} para indicar al actor que el registro se ha eliminado exitosamente.
 	\end{UCtrayectoria}	
 %--------------------------------------
 	\hypertarget{CU7-1-1-3:TAA}{\textbf{Trayectoria alternativa A}}\\
 	\noindent \textbf{Condición:} El actor desea cancelar la operación.
 	\begin{enumerate}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Cancelar} de la pantalla emergente.
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12}{Pendiente}.
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos}.
 		\item[- -] - - {\em {Fin del caso de uso}}.%
 	\end{enumerate}
 
 	\hypertarget{CU7-1-1-3:TAB}{\textbf{Trayectoria alternativa B}}\\
 	\noindent \textbf{Condición:} Algunos atributos de la entidad están siendo referenciados en algún caso de uso.
 	\begin{enumerate}
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG13}{Eliminación no permitida} en la pantalla \IUref{IU12}{Pendiente}.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG13}{Eliminación no permitida} en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos}.
 		\item[- -] - - {\em {Fin del caso de uso}}.
 	\end{enumerate}
