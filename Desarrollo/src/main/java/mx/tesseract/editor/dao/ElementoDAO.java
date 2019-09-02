@@ -81,8 +81,9 @@ public class ElementoDAO {
 			Query query = entityManager.createNamedQuery("Elemento.findNextNumber");
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
 			query.setParameter(Constantes.NUMERO_DOS, clave.toString());
-			List<Integer> lista = query.getResultList();
-			numero = "" + lista.get(Constantes.NUMERO_CERO);
+			List<String> lista = query.getResultList();
+			Integer numeroInteger = Integer.parseInt(lista.get(Constantes.NUMERO_CERO))+Constantes.NUMERO_UNO;
+			numero = "" + numeroInteger;
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}

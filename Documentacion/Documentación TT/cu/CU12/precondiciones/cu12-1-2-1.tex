@@ -1,0 +1,95 @@
+	\begin{UseCase}{CU12.1.2.1}{Registrar Precondición}{
+			
+				Cuando el colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) está registrando la información de un \hyperlink{casoUso}{Caso de Uso} correspondiente a algún \hyperlink{moduloEntidad}{Módulo} del proyecto, el sistema le permitirá registrar las precondiciones correspondientes al caso de uso para que pueda ser utilizado en sus Trayectorias. Una \hyperlink{entidadPrecondicion}{Precondición} describe un conjunto de condiciones que deben cumplirse para poder ejecutar el caso de uso satisfactoriamente. A través de un campo el sistema solicita la redacción de la precondición que se desea registrar.\\
+			
+}
+		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
+		\UCitem{Propósito}{Registrar las precondiciones de un caso de uso.}
+		\UCitem{Entradas}{
+		\begin{itemize}
+			\item \cdtRef{entidadPrecondicion:redaccionPrecondicion}{Redacción de la precondición}: Se escribe desde el teclado.
+		\end{itemize}	
+		}
+		\UCitem{Salidas}{\begin{itemize}
+				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto}: Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto}: Lo obtiene el sistema.
+				\item \cdtRef{moduloEntidad:nombreModulo}{Nombre del Módulo}: Lo obtiene el sistema.
+				\item \cdtRef{casoUso:numeroCU}{Número} del caso de uso: Lo obtiene el sistema. 
+				\item \cdtRef{casoUso:nombreCU}{Nombre} del caso de uso: Lo obtiene el sistema.
+				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU6}{Pendiente} para indicar que el registro fue exitoso.
+		\end{itemize}}
+		\UCitem{Precondiciones}{Que exista al menos un caso de uso registrado.}
+		\UCitem{Postcondiciones}{Ninguna}
+		\UCitem{Errores}{\begin{itemize}
+		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU6.1.2}{Registrar Precondición} cuando no se ha ingresado un dato marcado como obligatorio.
+		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.2}{Registrar Precondición} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.1.2}{Registrar Precondición} cuando se ha excedido la longitud de alguno de los campos.
+		\end{itemize}.}
+		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12.1.2}{Gestionar Precondiciones}.}
+	\end{UseCase}
+%--------------------------------------
+	\begin{UCtrayectoria}
+		\UCpaso[\UCactor] Solicita registrar una precondición oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU6.1.2}{Pendiente}.
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1.2}{Registrar Precondición}.
+		\UCpaso[\UCactor] Ingresa la redacción de la precondición. \hyperlink{CU12-1-2-1:TAA}{[Trayectoria A]} \label{CU12.1.2-P3}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-1-2-1:TAB}{[Trayectoria B]} 
+		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-1-2-1:TAC}{[Trayectoria C]}
+		\UCpaso[\UCsist] Verifica que los datos requeridos sean proporcionados correctamente con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-1-2-1:TAD}{[Trayectoria D]}
+		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-1-2-1:TAE}{[Trayectoria E]}
+		\UCpaso[\UCsist] Persiste la información de la prencodición en el sistema.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12A}{Pendiente} para indicar al actor que el registro se ha realizado exitosamente.
+	\end{UCtrayectoria}		
+%--------------------------------------
+\hypertarget{CU12-1-2-1:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} El actor desea hacer referencia a un elemento existente en el proyecto.
+\begin{enumerate}
+	\UCpaso[\UCactor] Ingresa el token correspondiente al elemento a referenciar.
+	\UCpaso[\UCsist] Verifica que los tokens utilizados se encuentren correctamente estructurados, con base en la regla de negocio \BRref{RN31}{Estructura de Tokens}. 
+	\UCpaso[\UCsist] Obtiene los \hyperlink{tElemento}{elementos} registrados en el proyecto correspondientes al token ingresado. 
+	\UCpaso[\UCsist] Muestra una lista con los \hyperlink{tElemento}{elementos} encontrados.
+	\UCpaso[\UCactor] Selecciona un elemento de la lista.
+	\UCpaso[\UCsist] Verifica que el nombre del elemento seleccionado no contenga espacios. \hyperlink{CU12-1-2-1:TAF}{[Trayectoria F]}
+	\UCpaso[\UCsist] Agrega la referencia del elemento al texto. \label{CU12.1.2-TA1}
+	\UCpaso Continúa en el paso \ref{CU12.1.2-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU12-1-2-1:TAB}{\textbf{Trayectoria alternativa B}}\\
+\noindent \textbf{Condición:} El actor desea cancelar la operación.
+\begin{enumerate}
+	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la pantalla .
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6}{Gestionar Casos de uso}.
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU12-1-2-1:TAC}{\textbf{Trayectoria alternativa C}}\\
+\noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.2}{Registrar Precondición}.
+	\UCpaso Regresa al paso \ref{CU12.1.2-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU12-1-2-1:TAD}{\textbf{Trayectoria alternativa D}}\\
+\noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.2}{Registrar Precondición}.
+	\UCpaso Regresa al paso \ref{CU12.1.2-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU12-1-2-1:TAE}{\textbf{Trayectoria alternativa E}}\\
+\noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.2}{Registrar Precondición}.
+	\UCpaso Regresa al paso \ref{CU12.1.2-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU12-1-2-1:TAH}{\textbf{Trayectoria alternativa F}}\\
+\noindent \textbf{Condición:} El texto contiene espacios.
+\begin{enumerate}
+	\UCpaso[\UCsist] Sustituye los espacios por guiones bajos.
+	\UCpaso Continua en el \ref{CU12.1.2-TA1} de la trayectoria alternativa A.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}

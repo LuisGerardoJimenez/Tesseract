@@ -36,7 +36,7 @@
 		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU8.2}{Modificar Actor} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU8.2}{Modificar Actor} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU8.2}{Modificar Actor} cuando se registre un actor con un nombre que ya se encuentre registrado en el sistema.
-		\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU8}{Gestionar Actores} cuando no existe información base para el sistema.
+		\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU8}{Gestionar Actores} cuando no existe información base para el sistema.
 		\end{itemize}.
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU10}{Gestionar Actores}.}
@@ -45,7 +45,6 @@
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Da clic en el icono \editar de la pantalla \IUref{IU8}{Gestionar Actores}.
 		\UCpaso[\UCsist] Obtiene la información del actor.
-		\UCpaso[\UCsist] Verifica que el actor pueda modificarse con base en la regla de negocio \BRref{RN5}{Modificación de elementos asociados a casos de uso liberados}. \hyperlink{CU10-2:TAG}{[Trayectoria G]}
 		\UCpaso[\UCactor] Verifica que exista información referente a la Cardinalidad con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU10-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU8.2}{Modificar Actor}.
 		\UCpaso[\UCactor] Modifica la información del actor. \label{CU10.2-P6}
@@ -61,7 +60,7 @@
 \hypertarget{CU10-2:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} No existe información en el catálogo de ''cardinalidad''.
 \begin{enumerate}
-	\UCpaso[\UCactor] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU8}{Gestionar Actores}.
+	\UCpaso[\UCactor] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU8}{Gestionar Actores}.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 
@@ -104,11 +103,4 @@
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU8.2}{Modificar Actor}.
 	\UCpaso Regresa al paso \ref{CU10.2-P6} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU10-2:TAG}{\textbf{Trayectoria alternativa G}}\\
-\noindent \textbf{Condición:} El actor se encuentra asociado a casos de uso liberados.
-\begin{enumerate}
-	\UCpaso[\UCsist] Oculta el botón \editar del actor que esta asociado a casos de uso liberados.
-	\item[- -] - - {\em {Fin del caso de uso}}.
 \end{enumerate}

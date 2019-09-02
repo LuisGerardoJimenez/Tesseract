@@ -29,8 +29,7 @@
 		\UCpaso[\UCactor] Da clic en el icono \eliminar del registro que desea eliminar de la pantalla \IUref{IU8}{Gestionar Actores}.
 		\UCpaso[\UCsist] Muestra el mensaje emergente \cdtIdRef{MSG10}{Confirmar eliminación} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar}.
 		\UCpaso[\UCactor] Confirma la eliminación del actor oprimiendo el botón \IUbutton{Aceptar}. \hyperlink{CU10-3:TAA}{[Trayectoria A]}
-		\UCpaso[\UCsist] Verifica que el actor pueda eliminarse de acuerdo a la regla de negocio \BRref{RN18}{Eliminación de elementos}. \hyperlink{CU10-3:TAB}{[Trayectoria B]}
-		\UCpaso[\UCsist] Verifica que ningún caso de uso se encuentre asociado al actor. \hyperlink{CU10-3:TAC}{[Trayectoria C]}
+		\UCpaso[\UCsist] Verifica que ningún caso de uso se encuentre asociado al actor. \hyperlink{CU10-3:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Elimina la información referente al actor.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU8}{Gestionar Actores} para indicar al actor que el registro se ha eliminado exitosamente.
 	\end{UCtrayectoria}		
@@ -44,13 +43,6 @@
 \end{enumerate}	
 %--------------------------------------
 \hypertarget{CU10-3:TAB}{\textbf{Trayectoria alternativa B}}\\
-\noindent \textbf{Condición:} El actor esta asociado a casos de uso liberados.
-\begin{enumerate}
-	\UCpaso[\UCsist] Oculta el botón \eliminar del actor que esta asociado a casos de uso liberados.
-	\item[- -] - - {\em {Fin del caso de uso}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU10-3:TAC}{\textbf{Trayectoria alternativa C}}\\
 \noindent \textbf{Condición:} El actor está siendo referenciado en un caso de uso..
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG13}{Eliminación no permitida} en la pantalla \IUref{IU8}{Gestionar Actores}.

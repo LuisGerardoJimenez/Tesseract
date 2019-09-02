@@ -1,4 +1,4 @@
-	\begin{UseCase}{CU12.1.1.1.2}{Modificar Paso}{
+	\begin{UseCase}{CU12.1.1.1.1.2}{Modificar Paso}{
 		Después de haber registrado un \hyperlink{entidadPaso}{Paso} de la \hyperlink{entidadTray}{Trayectoria} del \hyperlink{casoUso}{Caso de Uso} sobre el cual se está operando y el colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) requiera modificar su contenido, el sistema le permitirá editar cualquiera de los datos previamente registrados mediante un formulario, este formulario contendrá los datos precargados de la última actualización para poder corregirlos y posteriormente guardarlos.\\
 
 		Para que esta acción se pueda llevar a cabo es necesario que exista al menos un Paso de la Trayectoria previamente registrado.
@@ -14,42 +14,53 @@
 		}
 		\UCitem{Salidas}{
 			\begin{itemize}
+				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto}: Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto}: Lo obtiene el sistema.
+				\item \cdtRef{moduloEntidad:nombreModulo}{Nombre del Módulo}: Lo obtiene el sistema.
+				\item \cdtRef{casoUso:numeroCU}{Número} del caso de uso: Lo obtiene el sistema. 
+				\item \cdtRef{casoUso:nombreCU}{Nombre} del caso de uso: Lo obtiene el sistema.
+				\item \cdtRef{entidadTray:nombreTray}{Nombre} de la trayectoria: Lo obtiene el sistema.
 				\item \cdtRef{entidadPaso:realizaPaso}{Quien realiza el paso}: Lo obtiene el sistema.
 				\item Verbo: Lo obtiene el sistema.
 				\item \cdtRef{entidadPaso:redaccionPaso}{Redacción del paso:} Lo obtiene el sistema.
+				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU6.1.1}{Pendiente} para indicar que el registro fue exitoso.
 			\end{itemize}
 		}
-		\UCitem{Precondiciones}{Ninguna}
-		\UCitem{Postcondiciones}{Ninguna}
+		\UCitem{Precondiciones}{Que los catálogos ''Realiza'' y ''Verbo'' contengan información.}
+		\UCitem{Postcondiciones}{\begin{itemize}
+				\item Que exista al menos una trayectoria registrada.
+				\item Que existe al menos un paso registrado.
+		\end{itemize}}
 		\UCitem{Errores}{\begin{itemize}
 				\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso} cuando no se ha ingresado un dato marcado como obligatorio.
 				\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso} cuando se ha excedido la longitud de alguno de los campos.
 				\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
-				\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} o \IUref{IU6.1.1.2}{Modificar Trayectoria} cuando no exista información en los catálogos  ''Realiza'' y ''Verbo''.
+				\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Pendiente} cuando no exista información en los catálogos  ''Realiza'' y ''Verbo''.
 		\end{itemize}}
-		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12.1.1.1}{Registrar Trayectoria} y \UCref{CU12.1.1.2}{Modificar Trayectoria}.}
+		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12.1.1.1.1}{Gestionar Pasos}.}
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Da clic en el icono \editar de la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} o \IUref{IU6.1.1.2}{Modificar Trayectoria}.
-		\UCpaso[\UCsist] Verifica que los catálogos ''Realiza'' y ''Verbo'' cuente con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU12-1-1-1-2:TAA}{[Trayectoria A]}
+		\UCpaso[\UCactor] Da clic en el icono \editar de la pantalla \IUref{IU6.1.1}{Pendiente}.
+		\UCpaso[\UCsist] Verifica que los catálogos ''Realiza'' y ''Verbo'' cuente con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU12-1-1-1-1-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso}.
-		\UCpaso[\UCactor] Modifica la información del paso. \hyperlink{CU12-1-1-1-2:TAB}{[Trayectoria B]}\label{CU12.1.1.1.2-P5}
-		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-1-1-1-2:TAC}{[Trayectoria C]}  \label{CU12.1.1.1.2-P6}
-		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-1-1-1-2:TAD}{[Trayectoria D]}
-		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU12-1-1-1-2:TAE}{[Trayectoria E]}
-		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-1-1-1-2:TAF}{[Trayectoria F]}
-		\UCpaso[\UCsist] Actualiza el paso en la tabla de la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} o \IUref{IU6.1.1.2}{Modificar Trayectoria}
+		\UCpaso[\UCactor] Modifica la información del paso. \hyperlink{CU12-1-1-1-1-2:TAB}{[Trayectoria B]}\label{CU12.1.1.1.1.2-P5}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-1-1-1-1-2:TAC}{[Trayectoria C]}  \label{CU12.1.1.1.1.2-P6}
+		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-1-1-1-1-2:TAD}{[Trayectoria D]}
+		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU12-1-1-1-1-2:TAE}{[Trayectoria E]}
+		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-1-1-1-1-2:TAF}{[Trayectoria F]}
+		\UCpaso[\UCsist] Actualiza la información del paso.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla. \IUref{IU6.1.1}{Pendiente} para indicar al actor que la modificación se ha realizado exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------
-\hypertarget{CU12-1-1-1-2:TAA}{\textbf{Trayectoria alternativa A}}\\
+\hypertarget{CU12-1-1-1-1-2:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} Los catálogos no contienen información.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} o \IUref{IU6.1.1.2}{Modificar Trayectoria} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU6.1.1.1}{Pendiente} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-1-1-1-2:TAB}{\textbf{Trayectoria alternativa B}}\\
+\hypertarget{CU12-1-1-1-1-2:TAB}{\textbf{Trayectoria alternativa B}}\\
 \noindent \textbf{Condición:} El actor desea hacer referencia a un elemento existente en el proyecto en la redacción del paso.
 \begin{enumerate}
 	\UCpaso[\UCactor] Ingresa el token correspondiente al elemento a referenciar.
@@ -57,48 +68,48 @@
 	\UCpaso[\UCsist] Obtiene los \hyperlink{tElemento}{elementos} registrados en el proyecto correspondientes al token ingresado. 
 	\UCpaso[\UCsist] Muestra una lista con los \hyperlink{tElemento}{elementos} encontrados.
 	\UCpaso[\UCactor] Selecciona un elemento de la lista.
-	\UCpaso[\UCsist] Verifica que el nombre del elemento seleccionado no contenga espacios. \hyperlink{CU12-1-1-1-2:TAG}{[Trayectoria G]}
-	\UCpaso[\UCsist] Agrega la referencia del elemento al texto. \label{CU12.1.1.1.2-TA1}
-	\UCpaso Continúa en el paso \ref{CU12.1.1.1.2-P6} de la trayectoria principal.
+	\UCpaso[\UCsist] Verifica que el nombre del elemento seleccionado no contenga espacios. \hyperlink{CU12-1-1-1-1-2:TAG}{[Trayectoria G]}
+	\UCpaso[\UCsist] Agrega la referencia del elemento al texto. \label{CU12.1.1.1.1.2-TA1}
+	\UCpaso Continúa en el paso \ref{CU12.1.1.1.1.2-P6} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-1-1-1-2:TAC}{\textbf{Trayectoria alternativa C}}\\
+\hypertarget{CU12-1-1-1-1-2:TAC}{\textbf{Trayectoria alternativa C}}\\
 \noindent \textbf{Condición:} El actor desea cancelar la operación.
 \begin{enumerate}
 	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso}.
-	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} o \IUref{IU6.1.1.2}{Modificar Trayectoria}.
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1.1.1}{Pendiente}.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-1-1-1-2:TAD}{\textbf{Trayectoria alternativa D}}\\
+\hypertarget{CU12-1-1-1-1-2:TAD}{\textbf{Trayectoria alternativa D}}\\
 \noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso}.
-	\UCpaso Regresa al paso \ref{CU12.1.1.1.2-P5} de la trayectoria principal.
+	\UCpaso Regresa al paso \ref{CU12.1.1.1.1.2-P5} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-1-1-1-2:TAE}{\textbf{Trayectoria alternativa E}}\\
+\hypertarget{CU12-1-1-1-1-2:TAE}{\textbf{Trayectoria alternativa E}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso}.
-	\UCpaso Regresa al paso \ref{CU12.1.1.1.2-P5} de la trayectoria principal.
+	\UCpaso Regresa al paso \ref{CU12.1.1.1.1.2-P5} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-1-1-1-2:TAF}{\textbf{Trayectoria alternativa F}}\\
+\hypertarget{CU12-1-1-1-1-2:TAF}{\textbf{Trayectoria alternativa F}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso}.
-	\UCpaso Regresa al paso \ref{CU12.1.1.1.2-P5} de la trayectoria principal.
+	\UCpaso Regresa al paso \ref{CU12.1.1.1.1.2-P5} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-1-1-1-2:TAG}{\textbf{Trayectoria alternativa G}}\\
+\hypertarget{CU12-1-1-1-1-2:TAG}{\textbf{Trayectoria alternativa G}}\\
 \noindent \textbf{Condición:} El texto contiene espacios.
 \begin{enumerate}
 	\UCpaso[\UCsist] Sustituye los espacios por guiones bajos.
-	\UCpaso Continua en el \ref{CU12.1.1.1.2-TA1} de la trayectoria alternativa A.
+	\UCpaso Continua en el \ref{CU12.1.1.1.1.2-TA1} de la trayectoria alternativa A.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}

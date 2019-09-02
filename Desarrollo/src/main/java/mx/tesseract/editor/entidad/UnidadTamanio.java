@@ -14,6 +14,8 @@ import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
+
 import mx.tesseract.util.GenericInterface;
 
 @Entity

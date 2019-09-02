@@ -1,4 +1,4 @@
-var contextPath = "prisma";
+var contextPath = "tesseract";
 
 
 $(document).ready(function() {
@@ -12,29 +12,31 @@ $(document).ready(function() {
 	}
 } );
 
+
 function seleccionarOpcionListas() {
-	var select = document.getElementById("idTipoRN");
+	var select = document.getElementById("model.idTipoRN");
 	var tipoRN = select.options[select.selectedIndex].text;
-	if(tipoRN == "Comparación de atributos") {
-		idEntidad1 = document.getElementById("idEntidad1").value; 
-		idAtributo1 = document.getElementById("idAtributo1").value;
-		idEntidad2 = document.getElementById("idEntidad2").value;
-		idAtributo2 = document.getElementById("idAtributo2").value;
-		idOperador = document.getElementById("idOperador").value;
+	if(tipoRN == "Comparaci\u00F3n de atributos") {
+		idEntidad1 = document.getElementById("model.idEntidad1").value; 
+		idAtributo1 = document.getElementById("model.idAtributo1").value;
+		idEntidad2 = document.getElementById("model.idEntidad2").value;
+		idAtributo2 = document.getElementById("model.idAtributo2").value;
+		idOperador = document.getElementById("model.idOperador").value;
 		
 		document.getElementById("entidad1").value = idEntidad1;
 		document.getElementById("atributo1").value = idAtributo1;
 		document.getElementById("entidad2").value = idEntidad2;
 		document.getElementById("atributo2").value = idAtributo2;
 		document.getElementById("operador").value = idOperador;
-	} else if(tipoRN == "Unicidad de parámetros"){
-		idEntidadUnicidad = document.getElementById("idEntidadUnicidad").value;
-		idAtributoUnicidad = document.getElementById("idAtributoUnicidad").value;
+		
+	} else if(tipoRN == "Unicidad de par\u00E1metros"){
+		idEntidadUnicidad = document.getElementById("model.idEntidadUnicidad").value;
+		idAtributoUnicidad = document.getElementById("model.idAtributoUnicidad").value;
 		document.getElementById("entidadUnicidad").value = idEntidadUnicidad;
 		document.getElementById("atributoUnicidad").value = idAtributoUnicidad;
 	} else if(tipoRN == "Formato correcto"){
-		idEntidadFormato = document.getElementById("idEntidadFormato").value;
-		idAtributoFormato = document.getElementById("idAtributoFormato").value;
+		idEntidadFormato = document.getElementById("model.idEntidadFormato").value;
+		idAtributoFormato = document.getElementById("model.idAtributoFormato").value;
 		document.getElementById("entidadFormato").value = idEntidadFormato;
 		document.getElementById("atributoFormato").value = idAtributoFormato;		
 	}
@@ -49,13 +51,13 @@ function cargarListasElementos() {
 	jsonEntidades2 = document.getElementById("jsonEntidades2").value;
 	jsonAtributos2 = document.getElementById("jsonAtributos2").value;
 	
-	if(tipoRN == "Comparación de atributos") {
+	if(tipoRN == "Comparaci\u00F3n de atributos") {
 		agregarListaSelect(document.getElementById("entidad1"), jsonEntidades);
 		agregarListaSelect(document.getElementById("atributo1"), jsonAtributos);
 		agregarListaSelect(document.getElementById("entidad2"), jsonEntidades2);
 		agregarListaSelect(document.getElementById("atributo2"), jsonAtributos2);
 		agregarListaSelectOperador(document.getElementById("operador"), jsonOperadores);
-	} else if(tipoRN == "Unicidad de parámetros"){
+	} else if(tipoRN == "Unicidad de par\u00E1metros"){
 		agregarListaSelect(document.getElementById("entidadUnicidad"), jsonEntidades);
 		agregarListaSelect(document.getElementById("atributoUnicidad"), jsonAtributos);
 	} else if(tipoRN == "Formato correcto"){
@@ -86,40 +88,40 @@ function mostrarCamposTipoRN() {
 	
 	limpiarCampos();
 	var instrucciones;
-	if(tipoRN == "Verificación de catálogos"){
-		document.getElementById("instrucciones").innerHTML = "Indica que el sistema deberá verificar la existencia de los catálogos para realizar alguna operación.";
+	if(tipoRN == "Verificaci\u00F3n de cat\u00E1logos"){
+		document.getElementById("instrucciones").innerHTML = "Indica que el sistema deber\u00E1 verificar la existencia de los cat\u00E1logos para realizar alguna operaci\u00F3n.";
 		document.getElementById("filaTextoAyudaTipoRN").className = "";
-	} else if(tipoRN == "Comparación de atributos") {
+	} else if(tipoRN == "Comparaci\u00F3n de atributos") {
 		document.getElementById("instrucciones").innerHTML = "Indica restricciones entre los valores de algunos atributos, solamente se permite hacer comparaciones " +
-																"entre atributos numéricos o entre atributos de tipo cadena.";
+																"entre atributos num\u00E9ricos o entre atributos de tipo cadena.";
 		document.getElementById("filaTextoAyudaTipoRN").className = "";
 		document.getElementById("filaOperador").className = "";
 		document.getElementById("filaEntidad1").className = "";
 		document.getElementById("filaAtributo1").className = "";
 		document.getElementById("filaEntidad2").className = "";
-		document.getElementById("filaAtributo2").className = "";
-	} else if(tipoRN == "Unicidad de parámetros"){
-		document.getElementById("instrucciones").innerHTML = "Permite indicar los atributos que hacen única una entidad dentro del sistema.";
+		document.getElementById("filaAtributo2").className = "";navegador
+	} else if(tipoRN == "Unicidad de par\u00E1metros"){
+		document.getElementById("instrucciones").innerHTML = "Permite indicar los atributos que hacen \u00FAnica una entidad dentro del sistema.";
 		document.getElementById("filaTextoAyudaTipoRN").className = "";
 		document.getElementById("filaEntidadUnicidad").className = "";
 		document.getElementById("filaAtributoUnicidad").className = "";
 	} else if(tipoRN == "Datos obligatorios"){
-		document.getElementById("instrucciones").innerHTML = "Indica que todos los datos marcados como obligatorios deberán ser ingresados por el usuario.";
+		document.getElementById("instrucciones").innerHTML = "Indica que todos los datos marcados como obligatorios deber\u00E1n ser ingresados por el usuario.";
 		document.getElementById("filaTextoAyudaTipoRN").className = "";
 	} else if(tipoRN == "Longitud correcta"){
-		document.getElementById("instrucciones").innerHTML = "Indica que la longitud máxima de los atributos no puede ser rebasada.";
+		document.getElementById("instrucciones").innerHTML = "Indica que la longitud m\u00E1xima de los atributos no puede ser rebasada.";
 		document.getElementById("filaTextoAyudaTipoRN").className = "";
 	} else if(tipoRN == "Tipo de dato correcto"){
-		document.getElementById("instrucciones").innerHTML = "Indica que todos los campos que ingrese el usuario deberán cumplir con el tipo de dato indicado.";
+		document.getElementById("instrucciones").innerHTML = "Indica que todos los campos que ingrese el usuario deber\u00E1n cumplir con el tipo de dato indicado.";
 		document.getElementById("filaTextoAyudaTipoRN").className = "";
 	} else if(tipoRN == "Formato de archivos"){
-		document.getElementById("instrucciones").innerHTML = "Indica que los archivos proporcionados por el usuario deberán cumplir con el formato especificado.";
+		document.getElementById("instrucciones").innerHTML = "Indica que los archivos proporcionados por el usuario deber\u00E1n cumplir con el formato especificado.";
 		document.getElementById("filaTextoAyudaTipoRN").className = "";
-	} else if(tipoRN == "Tamaño de archivos"){
-		document.getElementById("instrucciones").innerHTML = "Indica que los archivos que proporcione el usuario no podrán rebasar el tamaño máximo especificado.";
+	} else if(tipoRN == "Tama\u00F1o de archivos"){
+		document.getElementById("instrucciones").innerHTML = "Indica que los archivos que proporcione el usuario no podr\u00E1n rebasar el tama\u00F1o m\u00E1ximo especificado.";
 		document.getElementById("filaTextoAyudaTipoRN").className = "";
 	} else if(tipoRN == "Formato correcto"){
-		document.getElementById("instrucciones").innerHTML = "Indica que los datos proporcionados deben cumplir con la expresión regular indicada.";
+		document.getElementById("instrucciones").innerHTML = "Indica que los datos proporcionados deben cumplir con la expresi\u00F3n regular indicada.";
 		document.getElementById("filaTextoAyudaTipoRN").className = "";
 		document.getElementById("filaEntidadFormato").className = "";
 		document.getElementById("filaAtributoFormato").className = "";
@@ -133,19 +135,21 @@ function cargarCamposTipoRN() {
 	var select = document.getElementById("idTipoRN");
 	var tipoRN = select.options[select.selectedIndex].text;
 	
-	if(tipoRN == "Comparación de atributos") {
+	if(tipoRN == "Comparaci\u00F3n de atributos") {
 		cargarEntidades("entidad1");
-	} else if(tipoRN == "Unicidad de parámetros"){
+	} else if(tipoRN == "Unicidad de par\u00E1metros"){
 		cargarEntidades("entidadUnicidad");
 	} else if(tipoRN == "Formato correcto"){
 		cargarEntidades("entidadFormato");		
 	} 
 	
 }
-//UNICIDAD DE PARÁMETROS, COMPARACIÓN DE ATRIBUTOS
+//UNICIDAD DE PARAMETROS, COMPARACION DE ATRIBUTOS
 function cargarEntidades(idSelect) {
+	
 	var idTipoRN = document.getElementById("idTipoRN").value;
 	var select = document.getElementById(idSelect);
+	
 	rutaCargarEntidades = contextPath + '/reglas-negocio!cargarEntidades';
 	$.ajax({
 		dataType : 'json',
@@ -154,9 +158,13 @@ function cargarEntidades(idSelect) {
 		data : {
 			idTipoRN : idTipoRN
 		},
+		
+		
 		success : function(data) {
 			agregarListaSelect(select, data);
 		},
+		
+		
 		error : function(err) {
 			alert("Ha ocurrido un error.");
 			console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
@@ -164,11 +172,14 @@ function cargarEntidades(idSelect) {
 	});
 }
 
-//UNICIDAD DE PARÁMETROS, COMPARACIÓN DE ATRIBUTOS
+//UNICIDAD DE PAR\u00E1METROS, COMPARACI\u00F3N DE ATRIBUTOS
 function cargarAtributos(select, idSelectAtributos) {
+
 	limpiarCamposDependientes(select.id);
 	var idEntidad = select.value;
+	
 	rutaCargarAtributos = contextPath + '/reglas-negocio!cargarAtributos';
+	alert(rutaCargarAtributos);
 	$.ajax({
 		dataType : 'json',
 		url : rutaCargarAtributos,
@@ -186,8 +197,20 @@ function cargarAtributos(select, idSelectAtributos) {
 	});
 }
 
+//GIGIPRUEBA
+function gigifunc() {
+	
+	var idEntidad1 = document.getElementById("entidad1");
+	
+	console.log(idEntidad1);
 
-//COMPARACIÓN DE ATRIBUTOS
+	for (var i = 0; i < idEntidad1.length; i+=1) {
+	  console.log("En el id'" + i + "' hay este valor: " + idEntidad1[i]);
+	}
+	console.log("Hola estoy en el console log");
+}
+
+//COMPARACI\u00F3N DE ATRIBUTOS
 function cargarOperadores(select) {
 	var idTipoRN = document.getElementById("idTipoRN").value;
 	var idAtributo = select.value;
@@ -209,7 +232,7 @@ function cargarOperadores(select) {
 	});
 }
 
-//COMPARACIÓN DE ATRIBUTOS
+//COMPARACI\u00F3N DE ATRIBUTOS
 function cargarEntidadesDependientes(select, idSelectEntidades) {
 	var idAtributo = select.value;
 	rutaCargarEntidades = contextPath + '/reglas-negocio!cargarEntidadesDependientes';
@@ -230,7 +253,7 @@ function cargarEntidadesDependientes(select, idSelectEntidades) {
 	});
 }
 
-//COMPARACIÓN DE ATRIBUTOS
+//COMPARACI\u00F3N DE ATRIBUTOS
 function cargarAtributosDependientes(select, idSelectAtributos) {
 	var idEntidad = select.value;
 	var idAtributo = document.getElementById("atributo1").value;

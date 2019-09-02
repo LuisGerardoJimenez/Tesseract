@@ -15,12 +15,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.opensymphony.xwork2.validator.annotations.DoubleRangeFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
+import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.ValidatorType;
+import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
+
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "Atributo.findByEntidad", query = "SELECT a.* FROM atributo a WHERE a.EntidadElementoid = ?", resultClass = Atributo.class),
+	@NamedNativeQuery(name = "Atributo.findByNameAndEntidad", query = "SELECT a.* FROM atributo a WHERE a.nombre = ? AND a.EntidadElementoid = ?", resultClass = Atributo.class),
+	@NamedNativeQuery(name = "Atributo.findByNameAndIdAndEntidad", query = "SELECT a.* FROM atributo a WHERE a.nombre = ? AND a.id != ? AND a.EntidadElementoid = ?", resultClass = Atributo.class),
+	})
 
 @Entity
 @Table(name = "atributo", uniqueConstraints = @UniqueConstraint(columnNames = {
@@ -37,10 +53,6 @@ public class Atributo implements Serializable, GenericInterface {
 	@Column(name = "nombre")
 	private String nombre;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "EntidadElementoid", referencedColumnName = "Elementoid")
-	private Entidad entidad;
-	
 	@Column(name = "descripcion")
 	private String descripcion;
 	
@@ -56,11 +68,15 @@ public class Atributo implements Serializable, GenericInterface {
 	@Column(name = "tamanioArchivo")
 	private Float tamanioArchivo;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "UnidadTamanioid", referencedColumnName="id")
 	private UnidadTamanio unidadTamanio;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "EntidadElementoid", referencedColumnName = "Elementoid")
+	private Entidad entidad;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TipoDatoid", referencedColumnName="id")
 	private TipoDato tipoDato;
 	
@@ -108,15 +124,7 @@ public class Atributo implements Serializable, GenericInterface {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre.trim();
-	}
-
-	public Entidad getEntidad() {
-		return entidad;
-	}
-
-	public void setEntidad(Entidad entidad) {
-		this.entidad = entidad;
+		this.nombre = nombre;
 	}
 
 	public String getDescripcion() {
@@ -124,7 +132,7 @@ public class Atributo implements Serializable, GenericInterface {
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion.trim();
+		this.descripcion = descripcion;
 	}
 
 	public boolean isObligatorio() {
@@ -148,9 +156,33 @@ public class Atributo implements Serializable, GenericInterface {
 	}
 
 	public void setFormatoArchivo(String formatoArchivo) {
-		this.formatoArchivo = formatoArchivo.trim();
+		this.formatoArchivo = formatoArchivo;
 	}
 
+	public Float getTamanioArchivo() {
+		return tamanioArchivo;
+	}
+	
+	public void setTamanioArchivo(Float tamanioArchivo) {
+		this.tamanioArchivo = tamanioArchivo;
+	}
+	
+	public UnidadTamanio getUnidadTamanio() {
+		return unidadTamanio;
+	}
+	
+	public void setUnidadTamanio(UnidadTamanio unidadTamanio) {
+		this.unidadTamanio = unidadTamanio;
+	}
+	
+	public Entidad getEntidad() {
+		return entidad;
+	}
+
+	public void setEntidad(Entidad entidad) {
+		this.entidad = entidad;
+	}
+	
 	public TipoDato getTipoDato() {
 		return tipoDato;
 	}
@@ -159,27 +191,12 @@ public class Atributo implements Serializable, GenericInterface {
 		this.tipoDato = tipoDato;
 	}
 	
-	public UnidadTamanio getUnidadTamanio() {
-		return unidadTamanio;
-	}
-	public void setUnidadTamanio(UnidadTamanio unidadTamanio) {
-		this.unidadTamanio = unidadTamanio;
-	}
-	
-	public Float getTamanioArchivo() {
-		return tamanioArchivo;
-	}
-	public void setTamanioArchivo(Float tamanioArchivo) {
-		this.tamanioArchivo = tamanioArchivo;
-	}
-	
 	public String getOtroTipoDato() {
 		return otroTipoDato;
 	}
-	public void setOtroTipoDato(String otroTipoDato) {
-		this.otroTipoDato = otroTipoDato.trim();
-	}
-
 	
+	public void setOtroTipoDato(String otroTipoDato) {
+		this.otroTipoDato = otroTipoDato;
+	}
 	
 }

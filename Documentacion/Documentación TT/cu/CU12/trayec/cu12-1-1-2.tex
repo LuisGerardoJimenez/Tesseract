@@ -46,7 +46,7 @@
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.1.1.2}{Modificar Trayectoria} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU6.1.1.2}{Modificar Trayectoria} cuando se registre un caso de uso con un nombre que ya se encuentre registrado en el sistema.
 		\item \cdtIdRef{MSG14}{Registro necesario}: Se muestra en la pantalla \IUref{IU6.1.1.2}{Modificar Trayectoria} cuando el actor no registro ningún paso de la trayectoria.
-		\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} cuando no exista información en el catálogo ''tipo''.
+		\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} cuando no exista información en el catálogo ''tipo''.
 		\end{itemize}.
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12.1.1}{Gestionar Trayectorias}.}
@@ -60,9 +60,8 @@
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1.1.2}{Modificar Trayectoria}.\label{CU12.1.1.2-P14}
 		\UCpaso[\UCactor] Modifica la clave de la trayectoria. \label{CU12.1.1.2-P15}
 		\UCpaso[\UCactor] Modifica el tipo de trayectoria. \hyperlink{CU12-1-1-2:TAB}{[Trayectoria B]} \label{CU12.1.1.2-P16}
-		\UCpaso[\UCsist] Marca la casilla del campo ''Fin del caso de uso''.
-		\UCpaso[\UCactor] Gestiona los pasos de la trayectoria a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. \label{CU12.1.1.2-P18}
-		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-1-1-2:TAC}{[Trayectoria C]} 
+		\UCpaso[\UCsist] Marca la casilla del campo ''Fin del caso de uso''. 
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-1-1-2:TAC}{[Trayectoria C]} \label{CU12.1.1.2-P18}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-1-1-2:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU12-1-1-2:TAE}{[Trayectoria E]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-1-1-2:TAF}{[Trayectoria F]}
@@ -75,7 +74,7 @@
 \hypertarget{CU12-1-1-2:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} El catálogo ''tipo'' no tiene información.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG12}{Ha ocurrido un error} en la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
@@ -144,9 +143,3 @@
 	\UCpaso[\UCsist]  Oculta el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/tray}} del caso que no se encuentra en estado de ''Edición'' o ''Pendiente de corrección''.
 	\item[- -] - - {\em {Fin del caso de uso}}.
 \end{enumerate}
-
-\subsubsection{Puntos de extensión}
-
-\UCExtenssionPoint{El actor requiere registrar un paso de la trayectoria.}{Presionando el botón \IUbutton{Registrar} del paso \ref{CU12.1.1.2-P14} de la trayectoria principal.}{\UCref{CU12.1.1.1.1}{Registrar Paso}}
-\UCExtenssionPoint{El actor requiere modificar un paso de la trayectoria.}{Presionando el icono \editar del paso \ref{CU12.1.1.2-P14} de la trayectoria principal.}{\UCref{CU12.1.1.1.2}{Modificar Paso}}
-\UCExtenssionPoint{El actor requiere eliminar un paso de la trayectoria.}{Presionando el icono \eliminar del paso \ref{CU12.1.1.2-P14} de la trayectoria principal.}{\UCref{CU12.1.1.1.3}{Eliminar Paso}}

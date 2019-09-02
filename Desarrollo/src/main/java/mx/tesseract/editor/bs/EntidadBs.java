@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.br.RN006;
 import mx.tesseract.dao.GenericoDAO;
+import mx.tesseract.dto.EntidadDTO;
+import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
 //import mx.tesseract.bs.CatalogoBs;
 //import mx.tesseract.bs.AnalisisEnum.CU_CasosUso;
@@ -21,11 +24,13 @@ import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.editor.entidad.Elemento;
 //import mx.tesseract.editor.model.CasoUso;
 import mx.tesseract.editor.entidad.Entidad;
+import mx.tesseract.editor.entidad.TerminoGlosario;
 //import mx.tesseract.editor.model.Paso;
 //import mx.tesseract.editor.model.PostPrecondicion;
 //import mx.tesseract.editor.entidad.ReferenciaParametro;
 import mx.tesseract.editor.entidad.TipoDato;
 import mx.tesseract.editor.entidad.UnidadTamanio;
+import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.TESSERACTException;
@@ -38,10 +43,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("entidadBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class EntidadBs {
+	
+	@Autowired
+	private RN006 rn006;
 	
 	@Autowired
 	private ElementoDAO elementoDAO;
@@ -49,26 +58,59 @@ public class EntidadBs {
 	@Autowired
 	private GenericoDAO genericoDAO;
 	
+	@Autowired
+	private ElementoBs elementoBs;
+	
 	public List<Entidad> consultarEntidadesProyecto(Integer idProyecto) {
 		List<Entidad> listEntidades = elementoDAO.findAllByIdProyectoAndClave(Entidad.class, idProyecto, Clave.ENT);
 		return listEntidades;
 	}
 	
-	public List<TipoDato> consultarTiposDato() {
-		List<TipoDato> listTiposDato = genericoDAO.findAll(TipoDato.class);
-		if (listTiposDato.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar los tipos de dato.", "MSG12");
+	public EntidadDTO consultarEntidadById(Integer id) {
+		Entidad entidad = genericoDAO.findById(Entidad.class, id);
+		EntidadDTO entidadDTO = new EntidadDTO();
+		if (entidad != null) {
+			entidadDTO.setId(entidad.getId());
+			entidadDTO.setNombre(entidad.getNombre());
+			entidadDTO.setDescripcion(entidad.getDescripcion());
+			entidadDTO.setIdProyecto(entidad.getProyecto().getId());
+		} else {
+			throw new TESSERACTException("No se puede consultar la Entidad.", "MSG12");
 		}
-		//CatalogoBs.opcionOtro(listTiposDato, TipoCatalogo.TIPODATO);
-		return listTiposDato;
+		return entidadDTO;
 	}
 	
-	public List<UnidadTamanio> consultarUnidadesTamanio() {
-		List<UnidadTamanio> listUnidadTamanio = genericoDAO.findAll(UnidadTamanio.class);
-		if (listUnidadTamanio.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar las unidades.","MSG12");
+	@Transactional(rollbackFor = Exception.class)
+	public void registrarEntidad(EntidadDTO entidadDTO) {
+		if (rn006.isValidRN006(entidadDTO)) {
+			Entidad entidad = new Entidad();
+			Proyecto proyecto = genericoDAO.findById(Proyecto.class, entidadDTO.getIdProyecto());
+			String numero = elementoDAO.siguienteNumero(proyecto.getId(), Clave.ENT);
+			entidad.setClave(Clave.ENT.toString());
+			entidad.setNumero(numero);
+			entidad.setNombre(entidadDTO.getNombre());
+			entidad.setDescripcion(entidadDTO.getDescripcion());
+			entidad.setProyecto(proyecto);
+			entidad.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
+			genericoDAO.save(entidad);
+		} else {
+			throw new TESSERACTValidacionException("EL nombre del término ya existe.", "MSG7",
+					new String[] { "La", "Entidad", entidadDTO.getNombre() }, "model.nombre");
 		}
-		return listUnidadTamanio;
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void modificarEntidad(EntidadDTO entidadDTO) {
+		System.out.println("ID Entidad: "+entidadDTO.getId());
+		if (rn006.isValidRN006(entidadDTO)) {
+			Entidad entidad = genericoDAO.findById(Entidad.class, entidadDTO.getId());
+			entidad.setNombre(entidadDTO.getNombre());
+			entidad.setDescripcion(entidadDTO.getDescripcion());
+			genericoDAO.update(entidad);
+		} else {
+			throw new TESSERACTValidacionException("EL nombre del término ya existe.", "MSG7",
+					new String[] { "La", "Entidad", entidadDTO.getNombre() }, "model.nombre");
+		}
 	}
 
 //	public static void registrarEntidad(Entidad model) throws Exception {

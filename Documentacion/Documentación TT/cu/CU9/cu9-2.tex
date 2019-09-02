@@ -49,8 +49,7 @@
 %--------------------------------------
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Da clic en el icono \editar de la pantalla \IUref{IU10}{Gestionar Mensajes}.
-		\UCpaso[\UCsist] Obtiene la información del mensaje seleccionado.
-		\UCpaso[\UCsist] Verifica que el mensaje pueda modificarse con base en la regla de negocio \BRref{RN5}{Modificación de elementos asociados a casos de uso liberados}. \hyperlink{CU9-2:TAH}{[Trayectoria H]}		
+		\UCpaso[\UCsist] Obtiene la información del mensaje seleccionado.	
 		\UCpaso[\UCsist] Verifica que el mensaje sea parametrizado. \hyperlink{CU9-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10.2A}{Modificar Mensaje: Parametrizado}.
 		\UCpaso[\UCactor] Modifica la información del mensaje. \label{CU9.2-P6}
@@ -120,11 +119,4 @@
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU10.2}{Modificar mensaje}.
 	\UCpaso Regresa al paso \ref{CU9.2-P6} de la trayectoria principal o al paso \ref{CU9.2-AP-2} de la trayectoria Alternativa A.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU9-2:TAH}{\textbf{Trayectoria alternativa H}}\\
-\noindent \textbf{Condición:} El mensaje no puede modificarse debido a que se encuentra asociado a casos de uso liberados.
-\begin{enumerate}
-	\UCpaso[\UCsist] Oculta el botón \editar del mensaje que esta asociado a casos de uso liberados.
-	\item[- -] - - {\em {Fin del Caso de uso}}.
 \end{enumerate}

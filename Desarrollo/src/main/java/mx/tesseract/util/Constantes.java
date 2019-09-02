@@ -51,6 +51,15 @@ public final class Constantes {
 	public final static Integer ESTADO_ELEMENTO_PRECONFIGURADO = Constantes.NUMERO_SEIS;
 	public final static Integer ESTADO_ELEMENTO_CONFIGURADO = Constantes.NUMERO_SIETE;
 	
+	//TIPOS DE DATO
+	public static final Integer TIPO_DATO_CADENA = 1;
+	public static final Integer TIPO_DATO_FLOTANTE = 2;
+	public static final Integer TIPO_DATO_ENTERO = 3;
+	public static final Integer TIPO_DATO_BOOLEANO = 4;
+	public static final Integer TIPO_DATO_FECHA = 5;
+	public static final Integer TIPO_DATO_ARCHIVO = 6;
+	public static final Integer TIPO_DATO_OTRO = 7;
+	
 	//ERRORES
 	public static final String NUMERO_UNO_NEGATIVO_STRING = "-1";
 	public static final String NUMERO_DIECIOCHO_STRING = "18";
@@ -72,15 +81,16 @@ public final class Constantes {
 	public static final String ACTION_NAME_ENTIDADES = "entidades";
 	public static final String ACTION_NAME_ELEMENTOS_REFERENCIAS = "elementosReferencias";
 	public static final String ACTION_NAME_ACTORES = "actores";
-	public static final String ACTION_NAME_REGLASNEGOCIO = "reglas-negocio";
+	public static final String ACTION_NAME_REGLAS_NEGOCIO = "reglas-negocio";
+	public static final String ACTION_NAME_ATRIBUTOS = "atributos";
 	
 	//DICCIONARIO
 	public static final String DICCIONARIO = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
 	
 	//EXPRESIONES REGULARES
 	public static final String REGEX_CAMPO_ALFANUMERICO = "^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\\s]+$";
-	public static final String REGEX_CAMPO_ALFANUMERICO_MAYUSCULAS_SIN_ESPACIOS = "^[A-Z0-9ÑÁÉÍÓÚ·]+$";
-	public static final String REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES = "^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\\s\\-\\,\\.\\:]+$";
+	public static final String REGEX_CAMPO_ALFANUMERICO_MAYUSCULAS_SIN_ESPACIOS = "^[A-Z0-9ÑÁÉÍÓÚ]+$";
+	public static final String REGEX_CAMPO_ALFANUMERICO_CARACTERES_ESPECIALES = "^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\\s\\-\\,\\.\\:\\>\\<\\*\\=]+$";
 	public static final String REGEX_CAMPO_ALFABETICO = "^[a-zA-zñÑáéíóúÁÉÍÓÚ\\s]+$";
 	public static final String REGEX_CAMPO_ALFABETICO_SIN_ESPACIOS = "^[a-zA-zñÑáéíóúÁÉÍÓÚ]+$";
 	public static final String REGEX_CAMPO_ALFABETICO_CARACTERES_ESPECIALES = "^[a-zA-zñÑáéíóúÁÉÍÓÚ\\s\\-\\,\\.]+$";
@@ -90,5 +100,7 @@ public final class Constantes {
 	public static final String REGEX_CONTRASENIA = "^[a-zA-Z0-9\\(\\)\\-\\_\\!\\?\\&\\@\\%\\#]{8,20}$";
 	public static final String REGEX_COMBO_BOX = "^[0-9]+$";
 	public static final String REGEX_COMBO_BOX_STRING = "^[0-9A-Z]+$";
+	/* ^ # start of string (?: (?: [^?+*{}()[\]\\|]+ # literals and ^, $ | \\. # escaped characters | \[ (?: \^?\\. | \^[^\\] | [^\\^] ) # character classes (?: [^\]\\]+ | \\. )* \] | \( (?:\?[:=!] | \?<[=!] | \?> | \?<[^\W\d]\w*> | \?'[^\W\d]\w*' )? # opening of group (?<N>) # increment counter | \) # closing of group (?<-N>) # decrement counter ) (?: (?:[?+*]|\{\d+(?:,\d*)?\}) [?+]? )? # quantifiers | \| # alternative )* # repeat content $ # end of string (?(N)(?!)) # fail if counter is non-zero.*/
+	public static final String REGEX_EXPRESION_REGULAR = "^(?:(?:[^?+*{}()[\\]\\\\|]+|\\\\.|\\[(?:\\^?\\\\.|\\^[^\\\\]|[^\\\\^])(?:[^\\]\\\\]+|\\\\.)*\\]|\\((?:\\?[:=!]|\\?<[=!]|\\?>|\\?<[^\\W\\d]\\w*>|\\?'[^\\W\\d]\\w*')?(?<N>)|\\)(?<-N>))(?:(?:[?+*]|\\{\\d+(?:,\\d*)?\\})[?+]?)?|\\|)*$(?(N)(?!)) \r\n";
 
 }
