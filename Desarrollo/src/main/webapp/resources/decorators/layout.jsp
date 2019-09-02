@@ -77,6 +77,14 @@
 						</tr>
 					</table>
 				</s:if>
+				<s:if test="#session.idEntidad != null and entidad!=null">
+					<table class = "info">
+						<tr>
+							<td align="right">Entidad:
+							<s:property value="entidad.nombre" /></td>
+						</tr>
+					</table>
+				</s:if>
 				<s:if test="#session.idModulo != null and modulo!=null">
 					<table class = "info">
 						<tr>
