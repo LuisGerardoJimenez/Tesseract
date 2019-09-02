@@ -33,7 +33,7 @@
 						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/entidades!gestionarAtributos?idSel=%{#entidad.id}"/>			
 						<s:a href="%{urlEditar}">
 							<img id="" class="button" title="Gestionar Atributos"
-									src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
+									src="${pageContext.request.contextPath}/resources/images/icons/Atributo.svg" />
 						</s:a>
 						</s:if>
 						${blanks}
