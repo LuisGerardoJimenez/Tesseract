@@ -14,11 +14,13 @@ import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.MensajeParametro;
 import mx.tesseract.editor.entidad.Parametro;
 import mx.tesseract.editor.entidad.TerminoGlosario;
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -71,6 +73,9 @@ public class MensajeBs {
 			mensajeDTO.setRedaccion(mensaje.getRedaccion());
 			mensajeDTO.setParametrizado(mensaje.getParametrizado());
 			mensajeDTO.setDescripcion(mensaje.getDescripcion());
+			mensajeDTO.setEstadoElemento(mensaje.getEstadoElemento());
+			System.out.println("ENCOTRNO EL SYSTEM PARAMETROS: "+mensaje.getParametros());
+			mensajeDTO.setParametros(mensaje.getParametros());
 			
 		} else {
 			throw new TESSERACTException("No se puede consultar el mensaje.", "MSG12");
@@ -80,7 +85,7 @@ public class MensajeBs {
 
 	@Transactional(rollbackFor = Exception.class)
 	public void registrarMensaje(MensajeDTO mensajeDTO) {
-		//if (rn006.isValidRN006(mensajeDTO)) {
+		if (rn006.isValidRN006(mensajeDTO)) {
 			Mensaje mensaje = new Mensaje();
 			Proyecto proyecto = genericoDAO.findById(Proyecto.class, mensajeDTO.getIdProyecto());
 			String numero = elementoDAO.siguienteNumero(proyecto.getId(), Clave.MSG);
@@ -91,28 +96,39 @@ public class MensajeBs {
 			mensaje.setProyecto(proyecto);
 			mensaje.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
 			mensaje.setRedaccion(mensajeDTO.getRedaccion());
-			mensaje.setParametrizado(1);
+			mensaje.setParametrizado(Constantes.NUMERO_UNO);
+			genericoDAO.save(mensaje);
 			for(MensajeParametro mensajeParametro : mensajeDTO.getParametros()) {
 				mensajeParametro.setMensaje(mensaje);
+				genericoDAO.save(mensajeParametro);
 			}
-			genericoDAO.save(mensaje);
-		/*} else {
-			throw new TESSERACTValidacionException("EL nombre del término ya existe.", "MSG7",
-					new String[] { "El", "Módulo", terminoGlosarioDTO.getNombre() }, "model.nombre");
-		}*/
+		} else {
+			throw new TESSERACTValidacionException("EL nombre del mensaje ya existe.", "MSG7",
+					new String[] { "El", "Mensaje", mensajeDTO.getNombre() }, "model.nombre");
+		}
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void modificarTerminoGlosario(TerminoGlosarioDTO terminoGlosarioDTO) {
-		if (rn006.isValidRN006(terminoGlosarioDTO)) {
-			TerminoGlosario terminoGlosario = genericoDAO.findById(TerminoGlosario.class, terminoGlosarioDTO.getId());
-			terminoGlosario.setNombre(terminoGlosarioDTO.getNombre());
-			terminoGlosario.setDescripcion(terminoGlosarioDTO.getDescripcion());
-			genericoDAO.update(terminoGlosario);
-		} else {
-			throw new TESSERACTValidacionException("EL nombre del término ya existe.", "MSG7",
-					new String[] { "El", "Módulo", terminoGlosarioDTO.getNombre() }, "model.nombre");
-		}
+	public void modificarMensaje(MensajeDTO mensajeDTO) {
+		//if (rn006.isValidRN006(mensajeDTO)) {
+			Mensaje mensaje = genericoDAO.findById(Mensaje.class, mensajeDTO.getId());
+			System.out.println("VAMOS A MODIFICAR: "+mensaje);
+			mensaje.setNombre(mensajeDTO.getNombre());
+			mensaje.setDescripcion(mensajeDTO.getDescripcion());
+			mensaje.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
+			mensaje.setRedaccion(mensajeDTO.getRedaccion());
+			mensaje.setParametrizado(mensajeDTO.getParametrizado());
+			mensaje.setParametros(mensajeDTO.getParametros());
+			for(MensajeParametro mensajeParametro : mensaje.getParametros()) {
+				mensajeParametro.setMensaje(mensaje);
+			}
+			genericoDAO.update(mensaje);
+			
+			
+		/*} else {
+			throw new TESSERACTValidacionException("EL nombre del mensaje ya existe.", "MSG7",
+					new String[] { "El", "Mensaje", mensajeDTO.getNombre() }, "model.nombre");
+		}*/
 	}
 
 	@Transactional(rollbackFor = Exception.class)

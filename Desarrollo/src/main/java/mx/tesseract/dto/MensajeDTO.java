@@ -8,6 +8,7 @@ import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
+import mx.tesseract.editor.entidad.EstadoElemento;
 import mx.tesseract.editor.entidad.MensajeParametro;
 import mx.tesseract.util.Constantes;
 
@@ -21,6 +22,7 @@ public class MensajeDTO {
 	private String redaccion;
 	private Integer parametrizado;
 	private String descripcion;
+	EstadoElemento estadoElemento;
 	private Set<MensajeParametro> parametros = new HashSet<MensajeParametro>(0);
 	
 	public MensajeDTO() {
@@ -36,8 +38,7 @@ public class MensajeDTO {
 	}
 	
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'100', 'caracteres'})}", trim = true, maxLength = "100", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO_CARACTERES_ESPECIALES, shortCircuit = true)
+	@StringLengthFieldValidator(message = "%{getText('MSG6',{'500', 'caracteres'})}", trim = true, maxLength = "500", shortCircuit= true)
 	public String getRedaccion() {
 		return redaccion;
 	}
@@ -103,5 +104,13 @@ public class MensajeDTO {
 
 	public void setParametros(Set<MensajeParametro> parametros) {
 		this.parametros = parametros;
+	}
+
+	public EstadoElemento getEstadoElemento() {
+		return estadoElemento;
+	}
+
+	public void setEstadoElemento(EstadoElemento estadoElemento) {
+		this.estadoElemento = estadoElemento;
 	}
 }

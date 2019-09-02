@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import mx.tesseract.dao.GenericoDAO;
+import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.editor.entidad.EstadoElemento;
+import mx.tesseract.enums.AnalisisEnum.CU_Mensajes;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.TESSERACTException;
@@ -14,6 +16,14 @@ import mx.tesseract.util.TESSERACTException;
 @Service("elementoBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class ElementoBs {
+	
+	private final static int ID_EDICION = 1;
+	private final static int ID_REVISION = 2;
+	private final static int ID_PENDIENTECORRECCION = 3;
+	private final static int ID_PORLIBERAR = 4;
+	private final static int ID_LIBERADO = 5;
+	private final static int ID_PRECONFIGURADO = 6;
+	private final static int ID_CONFIGURADO = 7;
 	
 	@Autowired
 	private GenericoDAO genericoDAO;
@@ -107,24 +117,24 @@ public class ElementoBs {
 //		
 //	}
 //	
-//	public static void verificarEstado(Elemento elemento,
-//			CU_Mensajes mensajeAnalisis) {
-//		switch(mensajeAnalisis) {
-//		case MODIFICARMENSAJE9_2:
-//			if (elemento.getEstadoElemento().getId() != ElementoBs.getIdEstado(Estado.EDICION)) {
-//				throw new TESSERACTException("El estado de la regla de negocio es inválido.", "MSG13");
-//			}
-//			break;
-//		case ELIMINARMENSAJE9_3:
-//			if (elemento.getEstadoElemento().getId() != ElementoBs.getIdEstado(Estado.EDICION)) {
-//				throw new TESSERACTException("El estado de la regla de negocio es inválido.", "MSG13");
-//			}
-//			break;
-//		default:
-//			break;
-//		}
-//		
-//	}
+	public void verificarEstado(Elemento elemento,
+			CU_Mensajes mensajeAnalisis) {
+		switch(mensajeAnalisis) {
+		case MODIFICARMENSAJE9_2:
+			if (elemento.getEstadoElemento().getId() != getIdEstado(Estado.EDICION)) {
+				throw new TESSERACTException("El estado de la regla de negocio es inválido.", "MSG13");
+			}
+			break;
+		case ELIMINARMENSAJE9_3:
+			if (elemento.getEstadoElemento().getId() != getIdEstado(Estado.EDICION)) {
+				throw new TESSERACTException("El estado de la regla de negocio es inválido.", "MSG13");
+			}
+			break;
+		default:
+			break;
+		}
+		
+	}
 //	
 //	public static void verificarEstado(Elemento elemento,
 //			CU_Pantallas pantallaAnalisis) {
@@ -204,5 +214,26 @@ public class ElementoBs {
 //				.consultarEstadoElemento(estado));
 //		new ElementoDAO().modificarElemento(elemento);
 //	}
+	
+	public static int getIdEstado(Estado estado) {
+		switch(estado) {
+		case EDICION:
+			return ID_EDICION;
+		case LIBERADO:
+			return ID_LIBERADO;
+		case PENDIENTECORRECCION:
+			return ID_PENDIENTECORRECCION;
+		case PORLIBERAR:
+			return ID_PORLIBERAR;
+		case REVISION:
+			return ID_REVISION;
+		case PRECONFIGURADO:
+			return ID_PRECONFIGURADO;
+		case CONFIGURADO:
+			return ID_CONFIGURADO;
+		default:
+			return 0;
+		}
+	}
 }
 

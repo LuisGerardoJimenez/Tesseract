@@ -17,9 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import mx.tesseract.util.GenericInterface;
+
 @Entity
 @Table(name = "Mensaje_Parametro")
-public class MensajeParametro implements java.io.Serializable {
+public class MensajeParametro implements java.io.Serializable, GenericInterface {
 
 	/**
 	 * 

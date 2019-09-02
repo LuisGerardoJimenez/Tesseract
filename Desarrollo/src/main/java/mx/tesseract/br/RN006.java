@@ -9,10 +9,12 @@ import mx.tesseract.admin.dao.ProyectoDAO;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.dto.ActorDTO;
+import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
 import mx.tesseract.editor.entidad.Actor;
+import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 
@@ -81,6 +83,17 @@ public class RN006 {
 			actor = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(Actor.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.ACT);
 		}
 		if (actor != null) {
+			valido = false;
+		}
+		return valido;
+	}
+	
+	public Boolean isValidRN006(MensajeDTO entidad) {
+		Boolean valido = true;
+		Mensaje mensaje;
+		System.out.println(entidad.getIdProyecto()+" "+entidad.getNombre()+" "+Clave.MSG);
+		mensaje = elementoDAO.findAllByIdProyectoAndNombreAndClave(Mensaje.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.MSG);
+		if (mensaje != null) {
 			valido = false;
 		}
 		return valido;

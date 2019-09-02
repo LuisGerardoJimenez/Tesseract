@@ -11,7 +11,9 @@ import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.bs.AccessBs;
+import mx.tesseract.enums.AnalisisEnum.CU_Mensajes;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
+import mx.tesseract.enums.ReferenciaEnum.Clave;
 //import mx.tesseract.bs.AnalisisEnum.CU_Glosario;
 import mx.tesseract.enums.ReferenciaEnum.TipoReferencia;
 import mx.tesseract.dto.MensajeDTO;
@@ -22,6 +24,7 @@ import mx.tesseract.editor.bs.MensajeBs;
 //import mx.tesseract.editor.bs.ElementoBs;
 import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.entidad.TerminoGlosario;
+import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.MensajeParametro;
 import mx.tesseract.editor.entidad.Modulo;
@@ -58,8 +61,6 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 				"actionName", Constantes.ACTION_NAME_MODULOS }),
 		@Result(name = "parametros", type = "json", params = { "root",
 		"listParametros" }),
-		@Result(name = "jsonObject", type = "json" , params = { "root",
-		"elementosReferencias" }),
 		@Result(name = "referencias", type = "json", params = { "root",
 				"elementosReferencias" }),
 })
@@ -93,6 +94,9 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 	
 	@Autowired
 	private ProyectoBs proyectoBs;
+	
+	@Autowired
+	private ElementoBs elementoBs;
 
 	@SuppressWarnings("unchecked")
 	public String index(){
@@ -119,10 +123,8 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 		String resultado = MODULOS;
 		try {
 			proyecto = loginBs.consultarProyectoActivo();
-			System.out.println("EL ID DE PROYECTO ES : "+proyecto.getId());
 			model.setIdProyecto(proyecto.getId());
 			buscarParametrosDisponibles(proyecto.getId());
-			model.setClave("MSG");
 			resultado = EDITNEW;
 		} catch (TESSERACTException pe) {
 			System.err.println(pe.getMessage());
@@ -130,6 +132,8 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 		} catch (Exception e) {
 			e.printStackTrace();
 			ErrorManager.agregaMensajeError(this, e);
+		}finally{
+			model.setClave("MSG");
 		}
 		return resultado;
 	}
@@ -139,7 +143,6 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 			try {
 				model.setIdProyecto((Integer) SessionManager.get("idProyecto"));
 				agregarParametros();
-				model.setRedaccion('$'+model.getRedaccion());
 				System.out.println(model.getParametrizado());
 				
 				int contador2=0;
@@ -163,6 +166,8 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
+			}finally {
+				model.setClave("MSG");
 			}
 		}
 	}
@@ -200,6 +205,11 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 				model.setIdProyecto(proyecto.getId());
 				resultado = EDIT;
 			}
+			Mensaje mensaje = new Mensaje();
+			mensaje.setEstadoElemento(model.getEstadoElemento());
+			elementoBs.verificarEstado(mensaje, CU_Mensajes.MODIFICARMENSAJE9_2);
+			buscarParametrosDisponibles(proyecto.getId());
+			prepararVista();
 		} catch (TESSERACTException te) {
 			ErrorManager.agregaMensajeError(this, te);
 			resultado = index();
@@ -210,10 +220,31 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 		return resultado;
 	}
 	
+	private void prepararVista() {
+		ArrayList<Parametro> parametrosVista = new ArrayList<Parametro>();
+		Parametro parametroAux = null;
+		if (cambioRedaccion == null) {
+			cambioRedaccion = "false";
+		}
+
+		if (jsonParametros == null || jsonParametros.isEmpty()) {
+			for (MensajeParametro parametro : model.getParametros()) {
+				parametroAux = new Parametro(parametro.getParametro()
+						.getNombre(), parametro.getParametro().getDescripcion());
+				parametrosVista.add(parametroAux);
+			}
+			this.jsonParametros = JsonUtil.mapListToJSON(parametrosVista);
+		}
+
+	}
+	
 	public void validateUpdate() {
 		if (!hasErrors()) {
 			try {
-				//terminoGlosarioBs.modificarTerminoGlosario(model);
+				model.getParametros().clear();
+				agregarParametros();
+				System.out.println("ENTRO A UPDATE: "+model.getId());
+				mensajeBs.modificarMensaje(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
@@ -231,7 +262,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 	}
 	
 	public String update() {
-		addActionMessage(getText("MSG1", new String[] { "El", "Mensaje", "registrado" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Mensaje", "modificado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -271,7 +302,6 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 	}
 	
 	public String verificarParametros() {
-		System.out.println("ENTRO A LA FUNCION");
 		listParametros = new ArrayList<Parametro>();
 		try {
 			if (mensajeBs.esParametrizado(redaccionMensaje)) {
@@ -281,7 +311,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "jsonObject";
+		return "parametros";
 	}
 	
 	private void buscarParametrosDisponibles(int idProyecto) {
@@ -293,7 +323,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 			parametroAux.setDescripcion(par.getDescripcion());
 			listParametros.add(parametroAux);
 		}
-
+		
 		// Se convierte en json las Reglas de Negocio
 		if (listParametros != null) {
 			this.jsonParametrosGuardados = JsonUtil.mapListToJSON(listParametros);
@@ -323,48 +353,6 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 		}
 		System.out.println("Model params size: " + model.getParametros().size());
 	}
-	
-//
-//	public String destroy() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			TerminoGlosarioBs.eliminarTermino(model);
-//			resultado = SUCCESS;
-//			addActionMessage(getText("MSG1", new String[] { "El", "Término",
-//					"eliminado" }));
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
-//
-//	public String verificarElementosReferencias() {
-//		try {
-//			elementosReferencias = new ArrayList<String>();
-//			elementosReferencias = TerminoGlosarioBs
-//					.verificarReferencias(model);
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "referencias";
-//	}
 	
 	@VisitorFieldValidator
 	public MensajeDTO getModel() {

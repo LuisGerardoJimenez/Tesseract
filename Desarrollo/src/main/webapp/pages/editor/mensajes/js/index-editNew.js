@@ -104,22 +104,13 @@ function verificarParametros() {
 	rutaVerificarParametros = contextPath + '/mensajes!verificarParametros';
 	var redaccion = document.getElementById("inputor").value;
 	$.ajax({
-		dataType : 'json',cache : false,
-		async : false,
 		url : rutaVerificarParametros,
 		type: "POST",
 		data : {
 			redaccionMensaje : redaccion
 		},
-		success: function(response, status, jqXHR){
-		      console.log(response);
-		      console.log(status);
-		      console.log(jqXHR);
-			  //console.log("Ajax Success!");
-			  if(typeof response !== 'object'){
-				  response = JSON.parse(response);
-			  }
-			  //doSomethingWithThe(response);
+		success: function(data){
+			mostrarCamposParametros(data);
 	    },
 		error : function(err) {
 			alert("Ha ocurrido un error.");

@@ -76,7 +76,6 @@ function verificarParametros() {
 	rutaVerificarParametros = contextPath + '/mensajes!verificarParametros';
 	var redaccion = document.getElementById("inputor").value;
 	$.ajax({
-		dataType : 'json',
 		url : rutaVerificarParametros,
 		type: "POST",
 		data : {

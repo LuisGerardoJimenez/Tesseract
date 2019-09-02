@@ -13,6 +13,7 @@ public class TerminoGlosarioDTO {
 	private String nombre;
 	private String descripcion;
 	private Integer idProyecto;
+	private String clave;
 	
 	public TerminoGlosarioDTO() {
 		
@@ -54,6 +55,14 @@ public class TerminoGlosarioDTO {
 
 	public void setIdProyecto(Integer idProyecto) {
 		this.idProyecto = idProyecto;
+	}
+
+	public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
 	}
 
 }
