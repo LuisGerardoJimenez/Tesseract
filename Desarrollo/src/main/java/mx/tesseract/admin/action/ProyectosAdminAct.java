@@ -125,6 +125,7 @@ public class ProyectosAdminAct extends ActionSupportTESSERACT implements ModelDr
 					break;
 				}
 			}
+			model.setIdEstadoProyecto(model.getEstadoProyecto().getId());
 			resultado = EDIT;
 		} catch (TESSERACTException te) {
 			ErrorManager.agregaMensajeError(this, te);

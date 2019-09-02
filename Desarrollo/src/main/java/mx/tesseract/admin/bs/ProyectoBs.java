@@ -7,6 +7,7 @@ import mx.tesseract.admin.dao.ColaboradorDAO;
 import mx.tesseract.admin.dao.ProyectoDAO;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.ColaboradorProyecto;
+import mx.tesseract.admin.entidad.EstadoProyecto;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.admin.entidad.Rol;
 import mx.tesseract.br.RN006;
@@ -74,6 +75,8 @@ public class ProyectoBs {
 			if (rn006.isValidRN006(model)) {
 				if (rn035.isValidRN035(model.getFechaInicioProgramada(), model.getFechaTerminoProgramada())) {
 					agregarLiderProyecto(model);
+					EstadoProyecto estadoProyecto = genericoDAO.findById(EstadoProyecto.class, model.getIdEstadoProyecto());
+					model.setEstadoProyecto(estadoProyecto);
 					genericoDAO.save(model);
 					genericoDAO.saveList(model.getProyecto_colaboradores());
 				} else {
@@ -96,6 +99,10 @@ public class ProyectoBs {
 		if (rn022.isValidRN022(model)) {
 			if (rn006.isValidRN006(model)) {
 				if (rn035.isValidRN035(model.getFechaInicioProgramada(), model.getFechaTerminoProgramada())) {
+					if (model.getEstadoProyecto().getId() != model.getIdEstadoProyecto()) {
+						EstadoProyecto estadoProyecto = genericoDAO.findById(EstadoProyecto.class, model.getIdEstadoProyecto());
+						model.setEstadoProyecto(estadoProyecto);
+					}
 					genericoDAO.update(model);
 					editarLiderProyecto(model);
 				} else {

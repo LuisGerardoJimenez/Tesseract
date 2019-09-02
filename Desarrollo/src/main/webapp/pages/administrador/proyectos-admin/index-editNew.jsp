@@ -128,12 +128,12 @@
 
 					<tr>
 						<td class="label obligatorio"><s:text name="labelEstado" /></td>
-						<td><s:select name="model.estadoProyecto.id"
+						<td><s:select name="model.idEstadoProyecto"
 								list="listEstadosProyecto" headerValue="Seleccione"
 								headerKey="-1" listKey="id" listValue="nombre"
-								value="model.estadoProyecto.id" cssErrorClass="select-error"
+								value="model.idEstadoProyecto" cssErrorClass="select-error"
 								cssClass="inputFormulario ui-widget" /> <s:fielderror
-								fieldName="model.estadoProyecto.id" cssClass="error"
+								fieldName="model.idEstadoProyecto" cssClass="error"
 								theme="jquery" /></td>
 					</tr>
 
