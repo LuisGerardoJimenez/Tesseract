@@ -122,7 +122,6 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 			model.setIdProyecto(proyecto.getId());
 			listTipoRN = tipoReglaNegocioBs.consultarTipoReglaNegocio();
 			listEntidades = entidadBs.consultarEntidadesProyecto(proyecto.getId());
-			//listAtributos = new ArrayList<AtributoDTO>();//atributoBs.consultarAtributosByEntidad(idEntidad1);
 			listAtributos = new ArrayList<AtributoDTO>();
 			listOperadores = operadorBs.consultarOperador();
 			listEntidades2 = entidadBs.consultarEntidadesProyecto(proyecto.getId());
@@ -154,12 +153,6 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
-//				listTipoRN = tipoReglaNegocioBs.consultarTipoReglaNegocio();
-//				listEntidades = entidadBs.consultarEntidadesProyecto(proyecto.getId());
-//				listAtributos = tipoReglaNegocioBs.consultarTipoReglaNegocio().
-//				listOperadores = operadorBs.consultarOperador();
-//				listEntidades2 = entidadBs.consultarEntidadesProyecto(proyecto.getId());
-//				listAtributos2 = tipoReglaNegocioBs.consultarTipoReglaNegocio();
 			}
 		} else {
 			editNew();
@@ -206,10 +199,15 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 				listEntidades = entidadBs.consultarEntidadesProyecto(proyecto.getId());
 				listEntidades2 = entidadBs.consultarEntidadesProyecto(proyecto.getId());
 				listOperadores = operadorBs.consultarOperador();
-				if (model.getIdTipoRN() == Constantes.TIPO_COMPARACION_ATRIBUTOS) {
+				if (model.getIdTipoRN() == Constantes.TIPO_FORMATO_CORRECTO || model.getIdTipoRN() == Constantes.TIPO_UNICIDAD_PARAMETROS 
+						|| model.getIdTipoRN() == Constantes.TIPO_COMPARACION_ATRIBUTOS) {
 					listAtributos = atributoBs.consultarAtributosToRN(model.getIdEntidad1());
+					
+				}
+				if(model.getIdTipoRN() == Constantes.TIPO_COMPARACION_ATRIBUTOS) {
 					listAtributos2 = atributoBs.consultarAtributosToRN(model.getIdEntidad2());
-				} else {
+				}
+				else {
 					listAtributos = new ArrayList<AtributoDTO>();
 					listAtributos2 = new ArrayList<AtributoDTO>();
 				}
