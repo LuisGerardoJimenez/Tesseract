@@ -8,10 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import mx.tesseract.enums.ReferenciaEnum.Clave;
-import mx.tesseract.editor.entidad.Actor;
-//import mx.tesseract.editor.entidad.Actualizacion;
 import mx.tesseract.editor.entidad.Elemento;
-import mx.tesseract.editor.entidad.Entidad;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ElementoInterface;
 
