@@ -26,23 +26,16 @@
 
 	<s:form autocomplete="off" id="frmReglasNegocio" theme="simple"
 		action="%{#pageContext.request.contextPath}/reglas-negocio/%{idSel}"
-		method="post" onsubmit="return prepararEnvio();">
+		method="post">
 		<s:hidden name="_method" value="put" />
 		<div class="formulario">
-			<div class="tituloFormulario">Los campos marcados con * son obligatorios.</div>
+			<div class="tituloFormulario">Información general de la Regla de Negocio</div>
 			<table class="seccion">
 				<tr>
 					<td class="label"><s:text name="labelClave" /></td>
 					<td class="labelDerecho"><s:property value="model.clave" /> <s:fielderror
 							fieldName="model.clave" cssClass="error" theme="jquery" /></td>
 					<s:hidden value="%{model.clave}" name="model.clave" />
-				</tr>
-				<tr>
-					<td class="label obligatorio"><s:text name="labelNumero" /></td>
-					<td><s:textfield name="model.numero" maxlength="20"
-							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
-						<s:fielderror fieldName="model.numero" cssClass="error"
-							theme="jquery" /></td>
 				</tr>
 				<tr>
 					<td class="label obligatorio"><s:text name="labelNombre" /></td>
@@ -64,7 +57,7 @@
 							cssClass="inputFormulario ui-widget" name="model.idTipoRN"
 							id="idTipoRN" listKey="id" cssErrorClass="select-error"
 							headerValue="Seleccione" headerKey="-1" listValue="nombre"
-							onchange="mostrarCamposTipoRN(); cargarCamposTipoRN();" value="idTipoRN"></s:select>
+							onchange="mostrarCamposTipoRN();" value="idTipoRN"></s:select>
 							<s:fielderror fieldName="model.idTipoRN" cssClass="error"
 							theme="jquery" /></td>
 				</tr>
@@ -137,10 +130,10 @@
 					<td class="label obligatorio"><s:text name="labelEntidad1" /></td>
 					<td><s:select list="listEntidades"
 							cssClass="inputFormulario ui-widget" name="model.idEntidad1"
-							id="entidad1" cssErrorClass="select-error"
+							id="entidad1" cssErrorClass="input-error"
 							headerValue="Seleccione" headerKey="-1" listValue="nombre"
 							listKey="id" onchange="cargarAtributos(this, 'atributo1');"
-							value="idEntidad1"></s:select> <s:fielderror
+							value="idEntidad1"/> <s:fielderror
 							fieldName="model.idEntidad1" cssClass="error" theme="jquery" /></td>
 				</tr>
 				<tr id="filaAtributo1" class="oculto">
@@ -150,7 +143,6 @@
 							id="atributo1" cssErrorClass="select-error"
 							headerValue="Seleccione" headerKey="-1" listValue="nombre"
 							listKey="id"
-							onchange="cargarOperadores(this);cargarEntidadesDependientes(this, 'entidad2');"
 							value="idAtributo1"></s:select> <s:fielderror
 							fieldName="model.idAtributo1" cssClass="error" theme="jquery" /></td>
 				</tr>
@@ -214,7 +206,7 @@
 		<s:hidden name="jsonAtributos2" id="jsonAtributos2"
 			value="%{jsonAtributos2}" />
 		<s:hidden name="jsonEntidades2" id="jsonEntidades2"
-			value="%{jsonEntidades2}" />  -->
+			value="%{jsonEntidades2}" /> 
 			
 		<s:hidden id="idEntidadFormato"
 			value="%{idEntidadFormato}" />
@@ -236,7 +228,7 @@
 			value="%{idAtributo2}" />
 			
 		<s:hidden id="idOperador"
-			value="%{idOperador}" />
+			value="%{idOperador}" />   -->
 			
 			
 	</s:form>

@@ -18,7 +18,7 @@
 	<h4>
 	Tipo de Regla de Negocio:
 	<s:property
-			value="model.tipoReglaNegocio.nombre"  />
+			value="model.tiporeglanegocioNombre"  />
 	</h4>
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
@@ -47,16 +47,16 @@
 				</tr>
 
 				<s:if
-					test="model.tipoReglaNegocio.nombre == 'Comparación de atributos'">
+					test="model.tiporeglanegocioNombre == 'Comparación de atributos'">
 					<tr>
 						<td class="ui-widget inputFormulario"><span class="ecuacion">
-								<s:property value="model.atributoComp1.nombre" /> <s:property
-									value="model.operadorComp.simbolo" /> <s:property
-									value="model.atributoComp2.nombre" />
+								<s:property value="model.atributo1Nombre" /> <s:property
+									value="model.operadorSimbolo" /> <s:property
+									value="model.atributo2Nombre" />
 						</span></td>
 					</tr>
 				</s:if>
-				<s:elseif test="model.tipoReglaNegocio.nombre == 'Formato correcto'">
+				<s:elseif test="model.tiporeglanegocioNombre == 'Formato correcto'">
 					<tr>
 						<td class="definicion"><span class="labelIzq consulta"><s:text
 								name="labelExpReg" /></span> <span
@@ -67,11 +67,11 @@
 						<td class="definicion"><span class="labelIzq consulta"><s:text
 								name="labelAtributo" /></span> <span
 						class="ui-widget inputFormulario"> ${blanks} <s:property
-								value="model.atributoExpReg.nombre" /></span></td>
+								value="model.atributoExpRegNombre" /></span></td>
 					</tr>
 				</s:elseif>
 				<s:elseif
-					test="model.tipoReglaNegocio.nombre == 'Unicidad de parámetros'">
+					test="model.tiporeglanegocioNombre == 'Unicidad de par\u00E1metros'">
 					<tr>
 						<td class="ui-widget inputFormulario"><span
 							class="labelIzq consulta"><s:text name="labelEntidad" /></span>
@@ -83,7 +83,7 @@
 						<td class="ui-widget inputFormulario"><span
 							class="labelIzq consulta"><s:text name="labelAtributo" /></span>
 							<span class="ui-widget inputFormulario"> ${blanks} <s:property
-									value="model.atributoUnicidad.nombre" />
+									value="model.atributoUnicidadNombre" />
 						</span></td>
 					</tr>
 				</s:elseif>

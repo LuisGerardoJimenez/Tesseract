@@ -33,7 +33,7 @@
 			<div class="tituloFormulario">Información general de la Regla
 				de negocio</div>
 			<table class="seccion">
-				<tr>
+<!--				<tr>
 					<td class="label"><s:text name="labelClave" /></td>
 					<td class="labelDerecho"><s:property value="model.clave" /> <s:fielderror
 							fieldName="model.clave" cssClass="error" theme="jquery" /></td>
@@ -45,7 +45,7 @@
 							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
 						<s:fielderror fieldName="model.numero" cssClass="error"
 							theme="jquery" /></td>
-				</tr>
+				</tr>  -->
 				<tr>
 					<td class="label obligatorio"><s:text name="labelNombre" /></td>
 					<td><s:textfield name="model.nombre" maxlength="200"
@@ -66,7 +66,7 @@
 							cssClass="inputFormulario ui-widget" name="model.idTipoRN"
 							id="idTipoRN" listKey="id" cssErrorClass="select-error"
 							headerValue="Seleccione" headerKey="-1" listValue="nombre"
-							onchange="mostrarCamposTipoRN(); cargarCamposTipoRN();" value="idTipoRN"></s:select>
+							onchange="mostrarCamposTipoRN();" value="idTipoRN"></s:select>
 							<s:fielderror fieldName="model.idTipoRN" cssClass="error"
 							theme="jquery" /></td>
 				</tr>
@@ -155,7 +155,6 @@
 							id="atributo1" cssErrorClass="select-error"
 							headerValue="Seleccione" headerKey="-1" listValue="nombre"
 							listKey="id"
-							onchange="cargarOperadores(this);cargarEntidadesDependientes(this, 'entidad2');"
 							value="idAtributo1"></s:select> <s:fielderror
 							fieldName="model.idAtributo1" cssClass="error" theme="jquery" /></td>
 				</tr>
@@ -187,7 +186,7 @@
 							cssClass="inputFormulario ui-widget" name="model.idAtributo2"
 							id="atributo2" cssErrorClass="select-error"
 							headerValue="Seleccione" headerKey="-1" listValue="nombre"
-							listKey="id" value="idAtributo2"></s:select> <s:fielderror
+							listKey="id" value="idAtributo2"/> <s:fielderror
 							fieldName="model.idAtributo2" cssClass="error" theme="jquery" /></td>
 				</tr>
 				<tr id="filaResultado" class="oculto">
@@ -205,7 +204,8 @@
 				onclick="location.href='${pageContext.request.contextPath}/reglas-negocio'"
 				value="Cancelar" />
 		</div>
-	<!-- 	<s:hidden name="jsonAtributos" id="jsonAtributos"
+		<!--  
+	 	<s:hidden name="jsonAtributos" id="jsonAtributos"
 			value="%{jsonAtributos}" />
 		<s:hidden name="jsonEntidades" id="jsonEntidades"
 			value="%{jsonEntidades}" />
@@ -214,7 +214,7 @@
 		<s:hidden name="jsonAtributos2" id="jsonAtributos2"
 			value="%{jsonAtributos2}" />
 		<s:hidden name="jsonEntidades2" id="jsonEntidades2"
-			value="%{jsonEntidades2}" />  -->
+			value="%{jsonEntidades2}" />   -->
 			
 		<s:hidden id="idEntidadFormato"
 			value="%{idEntidadFormato}" />

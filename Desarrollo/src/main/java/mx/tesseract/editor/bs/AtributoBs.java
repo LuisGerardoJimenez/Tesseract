@@ -1,5 +1,6 @@
 package mx.tesseract.editor.bs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,6 +150,19 @@ public class AtributoBs {
 			throw new TESSERACTValidacionException("EL nombre del atributo ya existe.", "MSG7",
 					new String[] { "El", "Atributo", atributoDTO.getNombre() }, "model.nombre");
 		}
+	}
+	
+	public List<AtributoDTO> consultarAtributosToRN(Integer idEntidad) {
+		List<Atributo> atributos = atributoDAO.findByIdEntidad(idEntidad);
+		List<AtributoDTO> atributosDTO = new ArrayList<AtributoDTO>(); 
+		for(Atributo atributoItem : atributos) {
+			AtributoDTO atributoDTO = new AtributoDTO();
+			atributoDTO.setId(atributoItem.getId());
+			atributoDTO.setNombre(atributoItem.getNombre());
+			atributoDTO.setObligatorio(atributoItem.isObligatorio());
+			atributosDTO.add(atributoDTO);
+		}
+		return atributosDTO;
 	}
 	
 

@@ -42,7 +42,7 @@ public class ReglaNegocio extends Elemento implements Serializable, GenericInter
 	@Column(name = "redaccion")
 	private String redaccion;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TipoReglaNegocioid", referencedColumnName="id")
 	private TipoReglaNegocio tiporeglanegocio;
 	
