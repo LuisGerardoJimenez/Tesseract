@@ -120,12 +120,14 @@ public class ReglaNegocioBs {
 //			}
 			reglanegocioDTO.setIdProyecto(reglanegocio.getProyecto().getId());
 
-			if (tipo == 2)
+			if (tipo == Constantes.TIPO_COMPARACION_ATRIBUTOS)
 			{ 
 				reglanegocioDTO.setAtributo1Nombre(reglanegocio.getAtributo_comp1().getNombre());
 				reglanegocioDTO.setIdAtributo1(reglanegocio.getAtributo_comp1().getId());
+				reglanegocioDTO.setIdEntidad1(reglanegocio.getAtributo_comp1().getEntidad().getId());
 				reglanegocioDTO.setAtributo2Nombre(reglanegocio.getAtributo_comp2().getNombre());
 				reglanegocioDTO.setIdAtributo2(reglanegocio.getAtributo_comp2().getId());
+				reglanegocioDTO.setIdEntidad2(reglanegocio.getAtributo_comp2().getEntidad().getId());
 				reglanegocioDTO.setOperadorSimbolo(reglanegocio.getOperador().getSimbolo());
 				reglanegocioDTO.setIdOperador(reglanegocio.getOperador().getId());
 			} else if (tipo == 9) {
@@ -139,7 +141,7 @@ public class ReglaNegocioBs {
 		}
 		System.out.println("reglanegocioDTO: "+reglanegocioDTO);
 		return reglanegocioDTO;
-		}
+	}
 	
 		
 		
