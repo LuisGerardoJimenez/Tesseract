@@ -1,14 +1,14 @@
 \begin{BusinessEntity}{BREntidad}{Regla de Negocio}
 		
-	\Battr{claveBR}{Clave: }{Clave que permitirá distinguir que el elemento es una Regla de Negocio. Es una palabra corta y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
+	\Battr{claveBR}{Clave: }{Clave que permitirá distinguir que el elemento es una Regla de Negocio. Es una palabra corta y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como mínimo 1 y máximo 10 caracteres. Caracteres admitidos: [A-Z] $|$ [0-9] $|$ [Ñ-Á-É-Í-Ó-Ú]}
 
-	\Battr{numeroBR}{Número: }{Número de Regla de Negocio. Es un valor numérico entero y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
+	\Battr{numeroBR}{Número: }{Número de Regla de Negocio. Es un valor numérico entero y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe contener como valor máximo 100. Caracteres admitidos: [0-9]}
 	
-	\Battr{nombreBR}{Nombre: }{Nombre que identificará a la Regla de Negocio. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
+	\Battr{nombreBR}{Nombre: }{Nombre que identificará a la Regla de Negocio. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú]}
 	
-	\Battr{redaccionBR}{Redacción: }{Redacción de la Regla de Negocio. Descrita en uno o más párrafos y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
+	\Battr{redaccionBR}{Redacción: }{Redacción de la Regla de Negocio. Descrita en uno o más párrafos y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.  Este atributo debe de contener como mínimo 1 y máximo 499 caracteres Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú] $|$ [0-9] $|$ [  ] $|$ [\_] $|$ [-] $|$ [$!$, $?$, \&, @, \%, \#, $($, $)$, ., :, >, <, *, =, $,$]}
 	
-	\Battr{descripcionBR}{Descripción: }{Texto que describirá al a la regla de negocio. Descrita en uno o más párrafos y este dato es \hyperlink{tOpcional}{opcional} {\em (se puede omitir)}.}
+	\Battr{descripcionBR}{Descripción: }{Texto que describirá al a la regla de negocio. Descrita en uno o más párrafos y este dato es \hyperlink{tOpcional}{opcional} {\em (se puede omitir)}. Este atributo debe de contener como mínimo 1 y máximo 999 caracteres Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú] $|$ [0-9] $|$ [  ] $|$ [\_] $|$ [-] $|$ [$!$, $?$, \&, @, \%, \#, $($, $)$, ., :, >, <, *, =, $,$]}
 \end{BusinessEntity}
 
 \subsubsection{Relaciones}
