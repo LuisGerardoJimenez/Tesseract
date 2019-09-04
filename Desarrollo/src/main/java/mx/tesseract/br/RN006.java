@@ -101,7 +101,6 @@ public class RN006 {
 	public Boolean isValidRN006(MensajeDTO entidad) {
 		Boolean valido = true;
 		Mensaje mensaje;
-		System.out.println(entidad.getIdProyecto()+" "+entidad.getNombre()+" "+Clave.MSG);
 		mensaje = elementoDAO.findAllByIdProyectoAndNombreAndClave(Mensaje.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.MSG);
 		if (mensaje != null) {
 		valido = false;
