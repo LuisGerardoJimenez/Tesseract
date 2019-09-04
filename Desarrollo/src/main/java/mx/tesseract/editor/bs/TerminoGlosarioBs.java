@@ -2,7 +2,7 @@ package mx.tesseract.editor.bs;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.br.RN006;
-import mx.tesseract.br.RN023;
+import mx.tesseract.br.RN018;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.dao.GenericoDAO;
@@ -26,6 +26,9 @@ public class TerminoGlosarioBs {
 
 	@Autowired
 	private RN006 rn006;
+	
+	@Autowired
+	private RN018 rn018;
 
 	@Autowired
 	private ElementoDAO elementoDAO;
@@ -84,6 +87,17 @@ public class TerminoGlosarioBs {
 		} else {
 			throw new TESSERACTValidacionException("EL nombre del término ya existe.", "MSG7",
 					new String[] { "El", "Módulo", terminoGlosarioDTO.getNombre() }, "model.nombre");
+		}
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarTerminoGlosario(TerminoGlosarioDTO terminoGlosarioDTO) {
+		if (rn018.isValidRN018(terminoGlosarioDTO)) {
+			TerminoGlosario terminoGlosario = genericoDAO.findById(TerminoGlosario.class, terminoGlosarioDTO.getId());
+			genericoDAO.delete(terminoGlosario);
+		} else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
+					"MSG13");
 		}
 	}
 

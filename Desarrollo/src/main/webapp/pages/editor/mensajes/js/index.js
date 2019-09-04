@@ -14,7 +14,7 @@ function cancelarConfirmarEliminacion() {
 }
 
 function mostrarMensajeEliminacion(id) {
-	var urlEliminar = contextPath + "/glosario/" + id + "!destroy";	
+	var urlEliminar = contextPath + "/mensajes/" + id + "!destroy";	
 	document.getElementById("btnConfirmarEliminacion").onclick = function(){ confirmarEliminacion(urlEliminar);};
 	$('#confirmarEliminacionDialog').dialog('open');
 	return false;

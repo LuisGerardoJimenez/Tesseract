@@ -5,14 +5,15 @@
 		contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
 	<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Glosario</title>
+<title>Mensajes</title>
 <![CDATA[
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/glosario/js/index.js"></script>	
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/mensajes/js/index.js"></script>
 ]]>
 </head>
 
 <body>
-	<h1>Gestionar Términos del Glosario</h1>
+	<div class="modal" id="modal"><!-- Place at bottom of page --></div>
+	<h1>Gestionar Mensajes</h1>
 	<s:actionmessage theme="jquery"/>
 	<s:actionerror theme="jquery"/>
 	
@@ -21,34 +22,34 @@
 	<div class="form">
 		<table id="gestion" class="tablaGestion" cellspacing="0" width="100%">
 			<thead>
-				<th style="width: 80%;"><s:text name="colTermino"/></th>
+				<th style="width: 80%;"><s:text name="colMensaje"/></th>
 				<th style="width: 20%;"><s:text name="colAcciones"/></th>
 			</thead>
 			<tbody>
-			<s:iterator value="listGlosario" var="termino">
+			<s:iterator value="listMensajes" var="mensaje">
 				<tr>
-					<td><s:property value="%{#termino.nombre}"/></td>		
+					<td><s:property value="%{#mensaje.clave + ' ' + #mensaje.nombre}"/></td>		
 					<td align="center">
-						<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/glosario/%{#termino.id}"/>
-						<s:a href="%{urlConsultar}">
-							<img id="" class="button" title="Consultar Término"
-									src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
-						</s:a>
 						${blanks}
-						<s:if test="%{#termino.estadoElemento.id == 1}">	
-						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/glosario/%{#termino.id}/edit"/>			
+						<s:url var="urlCU" value="%{#pageContext.request.contextPath}/mensajes!entrarCU?idSel=%{#mensaje.id}"/>
+						<s:a href="%{urlCU}">
+						<img id="" class="button" title=""
+								src="${pageContext.request.contextPath}/resources/images/icons/UC.svg2" /></s:a>
+						${blanks}
+						<s:url var="urlIU" value="%{#pageContext.request.contextPath}/mensajes!entrarIU?idSel=%{#mensaje.id}"/>
+						<s:a href="%{urlIU}">
+						<img id="" class="button" title=""
+								src="${pageContext.request.contextPath}/resources/images/icons/IU.svg2" /></s:a>
+						${blanks}
+						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/mensajes/%{#mensaje.id}/edit"/>			
 						<s:a href="%{urlEditar}">
-							<img id="" class="button" title="Modificar Término"
+							<img id="" class="button" title="Modificar Mensaje"
 									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
 						</s:a>
-						${blanks}		
-						<!-- Eliminar término del glosario -->			
-						<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/glosario/%{#termino.id}?_method=delete" method="post"/>-->
-						<s:a href="#" onclick="return mostrarMensajeEliminacion(%{#termino.id});">
-						<img id="" class="button" title="Eliminar Persona"
-								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>		
-						${blanks}	
-						</s:if>
+						<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#mensaje.id}');">
+						<img id="" class="button" title="Eliminar Mensaje"
+								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
+						
 					</td>
 				</tr>
 			</s:iterator>
@@ -60,7 +61,7 @@
 	<br />
 	<div align="center">
 		<button class="boton" 
-			onclick="location.href='${pageContext.request.contextPath}/glosario/new'">
+			onclick="location.href='${pageContext.request.contextPath}/mensajes/new'">
 			<s:text name="Registrar"></s:text>
 		</button>
 	</div>
@@ -82,10 +83,10 @@
 	</sj:dialog>
 	<!-- EMERGENTE ERROR REFERENCIAS -->
 	<sj:dialog id="mensajeReferenciasDialog" title="Confirmación" autoOpen="false"
-		minHeight="200" minWidth="700" modal="true" draggable="true">
+		minHeight="150" minWidth="700" modal="true" draggable="true">
 		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
 				<div class="seccion">
-				<s:text name="MSG13"/>
+				<s:text name="MSG40"/>
 				<div id="elementosReferencias"></div>
 				</div>
 			<br />
@@ -93,8 +94,8 @@
 				<input type="button" onclick="cerrarMensajeReferencias()" value="Aceptar"/> 
 			</div>
 		</s:form>
-	</sj:dialog>	
-	</div>
+	</sj:dialog>
+	</div>	
 </body>
 </html>
 </jsp:root>
