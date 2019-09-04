@@ -38,8 +38,8 @@
 						${blanks}
 						<s:url var="urlIU" value="%{#pageContext.request.contextPath}/modulos!entrarIU?idSel=%{#modulo.id}"/>
 						<s:a href="%{urlIU}">
-						<img id="" class="button" title=""
-								src="${pageContext.request.contextPath}/resources/images/icons/IU.svg2" /></s:a>
+						<img id="" class="button" title="Gestionar Pantallas"
+								src="${pageContext.request.contextPath}/resources/images/icons/IU.svg" /></s:a>
 						${blanks}
 						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/modulos/%{#modulo.id}/edit"/>			
 						<s:a href="%{urlEditar}">
