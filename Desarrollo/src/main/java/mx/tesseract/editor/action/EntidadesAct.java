@@ -271,7 +271,7 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
-		model = entidadBs.consultarEntidadById(idSel);
+		model = entidadBs.consultarEntidadDTOById(idSel);
 	}
 
 	public Integer getIdProyecto() {

@@ -181,6 +181,33 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
+	
+	public void validateDestroy() {
+		if (!hasErrors()) {
+			try {
+				terminoGlosarioBs.eliminarTerminoGlosario(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				edit();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				edit();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				edit();
+			}
+		}
+	}
+	
+	public String destroy() {
+		addActionMessage(getText("MSG1", new String[] { "El", "Término", "eliminado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
 //
 //	public String destroy() throws Exception {
 //		String resultado = null;

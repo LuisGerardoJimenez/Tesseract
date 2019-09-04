@@ -9,7 +9,7 @@
 			\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto}: Lo obtiene el sistema.
 			\item \cdtRef{entidadEntidad:nombreEntidad}{Nombre de la entidad:} Lo obtiene el sistema.
 			\item \cdtRef{atributoEntidad}{Atributos:} Tabla que muestra \cdtRef{atributoEntidad:nombreATR}{Nombre}, \cdtRef{atributoEntidad:obligatorioATR}{Obligatorio (si o no)} y \hyperlink{tTipoDatoP}{Tipo de Dato} de todos los los registros de los atributos
-			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU12A}{Pendiente} cuando no existen atributos registrados.
+			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} cuando no existen atributos registrados.
 	\end{itemize}}
 	
 	\UCitem{Precondiciones}{Que exista al menos una entidad registrada.}
@@ -19,17 +19,17 @@
 \end{UseCase}
 %--------------------------------------
 \begin{UCtrayectoria}
-	\UCpaso[\UCactor] Solicita gestionar los atributos de una entidad seleccionando el icono (Pendiente) de la pantalla \IUref{IU12A}{Gestionar Entidades}.
+	\UCpaso[\UCactor] Solicita gestionar los atributos de una entidad seleccionando el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/Atributo}} de la pantalla \IUref{IU12}{Gestionar Entidades}.
 	\UCpaso[\UCsist] Obtiene la información de los atributos registrados de la entidad seleccionada. \hyperlink{CU7-1-1:TAA}{[Trayectoria A]}
 	\UCpaso[\UCsist] Ordena los atributos alfabéticamente basándose en el nombres de los mismos.
-	\UCpaso[\UCsist] Muestra la información de las atributos en la pantalla \IUref{IU12}{Pendiente} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}. \label{CU7-1-1-P4}
+	\UCpaso[\UCsist] Muestra la información de las atributos en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}. \label{CU7-1-1-P4}
 	\UCpaso[\UCactor] Gestiona los atributos a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. 
 \end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU7-1-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} No existen registros de atributos.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU12A}{Pendiente} para indicar que no hay registros de atributos para mostrar.  \label{CU7-1-1-TA1}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU12A.1.1.1}{Gestionar Atributos: Sin registros} para indicar que no hay registros de atributos para mostrar.  \label{CU7-1-1-TA1}
 	\UCpaso[\UCactor] Gestiona los atributos a través del botón: \IUbutton{Registrar}. 
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}

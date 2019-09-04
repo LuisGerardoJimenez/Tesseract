@@ -8,10 +8,6 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.ElementoInterface;

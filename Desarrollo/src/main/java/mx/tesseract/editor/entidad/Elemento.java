@@ -23,6 +23,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.ElementoInterface;
 import mx.tesseract.util.GenericInterface;
@@ -34,13 +38,24 @@ import mx.tesseract.util.GenericInterface;
 @NamedQueries({
 	@NamedQuery(name = "Elemento.consultarElementosByProyectoAndClave", query = "SELECT e FROM Elemento e JOIN e.proyecto p WHERE p.id = :idProyecto AND e.clave = :clave"),
 	@NamedQuery(name = "Elemento.consultarElementosByProyectoAndNombreAndClave", query = "SELECT e FROM Elemento e JOIN e.proyecto p  WHERE p.id = :idProyecto AND e.nombre = :nombre AND e.clave = :clave"),
-	@NamedQuery(name = "Elemento.consultarElementosByProyectoAndIdAndNombreAndClave", query = "SELECT e FROM Elemento e JOIN e.proyecto p  WHERE p.id = :idProyecto AND e.id != :id AND e.nombre = :nombre AND e.clave = :clave")
+	@NamedQuery(name = "Elemento.consultarElementosByProyectoAndIdAndNombreAndClave", query = "SELECT e FROM Elemento e JOIN e.proyecto p  WHERE p.id = :idProyecto AND e.id != :id AND e.nombre = :nombre AND e.clave = :clave"),
+	@NamedQuery(name = "Elemento.consultarPantallasByProyectoAndModulo", query = "SELECT e FROM Elemento e JOIN e.proyecto p JOIN e.modulo m WHERE p.id = :idProyecto AND e.clave = :clave AND m.id = :idModulo ")
 	})
 
 @Entity
 @Table(name = "elemento")
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="clave", discriminatorType = DiscriminatorType.STRING, length=10)
+
+@JsonTypeInfo(
+		  use = JsonTypeInfo.Id.NAME,
+		  include = JsonTypeInfo.As.PROPERTY,
+		  property = "type")
+		@JsonSubTypes({
+		  @Type(value = Mensaje.class, name = "mensaje"),
+		  @Type(value = Pantalla.class, name = "pantalla"),
+		  @Type(value = Pantalla.class, name = "reglaNegocio")
+		})
 public class Elemento implements Serializable, GenericInterface, ElementoInterface {
 
 	private static final long serialVersionUID = 1L;

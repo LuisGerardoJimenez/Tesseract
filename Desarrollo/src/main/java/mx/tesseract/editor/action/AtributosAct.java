@@ -16,6 +16,7 @@ import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dto.AtributoDTO;
 import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.editor.bs.AtributoBs;
+import mx.tesseract.editor.bs.EntidadBs;
 import mx.tesseract.editor.bs.TipoDatoBs;
 import mx.tesseract.editor.bs.UnidadTamanioBs;
 import mx.tesseract.editor.entidad.Atributo;
@@ -43,6 +44,7 @@ public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<
 	private static final String PROYECTOS = "proyectos";
 	private Proyecto proyecto;
 	private AtributoDTO model;
+	private Entidad entidad;
 	
 	private List<Atributo> listAtributos;
 	private List<TipoDato> listTipoDato;
@@ -63,6 +65,9 @@ public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<
 	@Autowired
 	private TipoDatoBs tipoDatoBs;
 	
+	@Autowired
+	private EntidadBs entidadBs;
+	
 	@SuppressWarnings("unchecked")
 	public String index() {
 		String resultado = PROYECTOS;
@@ -72,6 +77,7 @@ public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<
 				idEntidad = (Integer) SessionManager.get("idEntidad");
 				if (idEntidad != null) {
 					proyecto = loginBs.consultarProyectoActivo();
+					entidad = entidadBs.consultarEntidadById(idEntidad);
 					listAtributos = atributoBs.consultarAtributosByEntidad(idEntidad);
 					resultado = INDEX;
 					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
@@ -92,6 +98,10 @@ public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<
 	public String editNew() {
 		String resultado = INDEX;
 		try {
+			idEntidad = (Integer) SessionManager.get("idEntidad");
+			if (idEntidad != null) {
+				entidad = entidadBs.consultarEntidadById(idEntidad);
+			}
 			proyecto = loginBs.consultarProyectoActivo();
 			listUnidadTamanio = unidadTamanioBs.consultarUnidadesTamanio();
 			listTipoDato = tipoDatoBs.consultarTiposDato();
@@ -139,6 +149,10 @@ public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<
 	public String edit() {
 		String resultado = INDEX;
 		try {
+			idEntidad = (Integer) SessionManager.get("idEntidad");
+			if (idEntidad != null) {
+				entidad = entidadBs.consultarEntidadById(idEntidad);
+			}
 			proyecto = loginBs.consultarProyectoActivo();
 			listUnidadTamanio = unidadTamanioBs.consultarUnidadesTamanio();
 			listTipoDato = tipoDatoBs.consultarTiposDato();
@@ -229,6 +243,14 @@ public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setListUnidadTamanio(List<UnidadTamanio> listUnidadTamanio) {
 		this.listUnidadTamanio = listUnidadTamanio;
+	}
+
+	public Entidad getEntidad() {
+		return entidad;
+	}
+
+	public void setEntidad(Entidad entidad) {
+		this.entidad = entidad;
 	}
 	
 }

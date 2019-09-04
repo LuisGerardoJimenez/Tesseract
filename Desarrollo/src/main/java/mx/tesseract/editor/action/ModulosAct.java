@@ -19,6 +19,7 @@ import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -38,14 +39,15 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 				"cu" }),
 		@Result(name = "referencias", type = "json", params = { "root",
 				"elementosReferencias" }),
-		@Result(name = "pantallas", type = "redirectAction", params = { "actionName",
-				"pantallas" })
+		@Result(name = "pantallas", type = "redirectAction", params = { "actionName",Constantes.ACTION_NAME_PANTALLAS })
 
 })
+@AllowedMethods({"entrarIU"})
 public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Modulo> {
 
 	private static final long serialVersionUID = 1L;
 	private static final String PROYECTOS = "proyectos";
+	private static final String PANTALLAS = "pantallas";
 	private Proyecto proyecto;
 	private Modulo model;
 	private Colaborador colaborador;
@@ -186,35 +188,22 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 //		return resultado;
 //	}
 
-//	public String entrarIU() throws Exception {
-//		Map<String, Object> session = null;
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			if (idSel == null
-//					|| colaborador == null
-//					|| !AccessBs.verificarPermisos(model.getProyecto(),
-//							colaborador)) {
-//				resultado = LOGIN;
-//				return resultado;
-//			}
-//
-//			resultado = "pantallas";
-//			session = ActionContext.getContext().getSession();
-//			session.put("idModulo", idSel);
-//
-//			@SuppressWarnings("unchecked")
-//			Collection<String> msjs = (Collection<String>) SessionManager
-//					.get("mensajesAccion");
-//			this.setActionMessages(msjs);
-//			SessionManager.delete("mensajesAccion");
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return resultado;
-//	}
+	@SuppressWarnings("unchecked")
+	public String entrarIU() {
+		String resultado = INDEX;
+		try {
+			SessionManager.set(idSel, "idModulo");
+			resultado = PANTALLAS;
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+			this.setActionMessages(msjs);
+			SessionManager.delete("mensajesAccion");
+		} catch (TESSERACTException pe) {
+			ErrorManager.agregaMensajeError(this, pe);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
+	}
 	
 //	public String verificarElementosReferencias() {
 //		elementosReferencias = new ArrayList<String>();

@@ -44,8 +44,8 @@
 						${blanks}		
 						<!-- Eliminar término del glosario -->			
 						<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/glosario/%{#termino.id}?_method=delete" method="post"/>-->
-						<s:a onclick="return verificarEliminacionElemento(%{#termino.id});">
-						<img id="" class="button" title="Eliminar Término"
+						<s:a href="#" onclick="return mostrarMensajeEliminacion(%{#termino.id});">
+						<img id="" class="button" title="Eliminar Persona"
 								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>		
 						${blanks}	
 						</s:if>

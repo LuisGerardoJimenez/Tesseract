@@ -8,10 +8,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import mx.tesseract.enums.ReferenciaEnum.Clave;
-import mx.tesseract.editor.entidad.Actor;
+import mx.tesseract.editor.entidad.CasoUso;
 //import mx.tesseract.editor.entidad.Actualizacion;
 import mx.tesseract.editor.entidad.Elemento;
-import mx.tesseract.editor.entidad.Entidad;
+import mx.tesseract.editor.entidad.EstadoElemento;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ElementoInterface;
 
@@ -88,6 +88,26 @@ public class ElementoDAO {
 			System.err.println(e.getMessage());
 		}
 		return numero;
+	}
+
+	@SuppressWarnings("unchecked")
+	public CasoUso findElementoHasCasoUsoAsociado(String claveBusqueda,Clave clave) {
+		CasoUso casoUso = null;
+		try {
+			Query query = entityManager.createNamedQuery("Elemento.findElementoHasCasoUsoAsociado", Elemento.class); 
+			query.setParameter("redaccionActores", "%" + claveBusqueda + "%");
+			query.setParameter("redaccionEntradas", "%" + claveBusqueda + "%");
+			query.setParameter("redaccionSalidas", "%" + claveBusqueda + "%");
+			query.setParameter("redaccionReglasNegocio", "%" + claveBusqueda + "%");
+			query.setParameter("estado", Constantes.ESTADO_ELEMENTO_LIBERADO);
+			List<CasoUso> lista = (List<CasoUso>) query.getResultList();
+			if (!lista.isEmpty()) {
+				casoUso = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return casoUso;
 	}
 
 }
