@@ -50,7 +50,7 @@
 					<td><s:property value="%{#atributo.tipoDato.nombre}"/></td>
 					<td align="center">
 						<s:if test = "#atributo.otroTipoDato == null">
-							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.otroTipoDato}"/>
@@ -58,7 +58,7 @@
 					</td>
 					<td align="center">
 						<s:if test = "#atributo.longitud == null">
-							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.longitud}"/>
@@ -66,7 +66,7 @@
 					</td>
 					<td align="center">
 						<s:if test = "#atributo.formatoArchivo == null">
-							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.formatoArchivo}"/>
@@ -74,7 +74,7 @@
 					</td>
 					<td align="center">
 						<s:if test = "#atributo.tamanioArchivo == null">
-							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.tamanioArchivo}"/>
@@ -82,7 +82,7 @@
 					</td>
 					<td align="center">
 						<s:if test = "#atributo.unidadTamanio == null">
-							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA2.png"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.unidadTamanio.nombre}"/>

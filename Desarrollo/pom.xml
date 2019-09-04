@@ -253,6 +253,15 @@
 			<artifactId>mail</artifactId>
 			<version>1.4</version>
 		</dependency>
+		<!-- ********************** -->
+		<!-- Dependencias de Base64 -->
+		<!-- ********************** -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>Tesseract</finalName>

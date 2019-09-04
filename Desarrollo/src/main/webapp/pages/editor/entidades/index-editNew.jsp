@@ -24,7 +24,7 @@
 	<s:actionerror theme="jquery" />
 	<br />
 
-	<p class="instrucciones">Ingrese la información solicitada.</p>
+	<p class="instrucciones">Los campos marcados con * son obligatorios</p>
 	<s:form autocomplete="off" id="frmEntidad" theme="simple"
 		action="%{#pageContext.request.contextPath}/entidades" method="post">
 		<div class="formulario">

@@ -17,7 +17,7 @@
 			\item \cdtRef{atributoEntidad:descripcionATR}{Descripción del atributo:} Lo obtiene el sistema.
 			\item \cdtRef{atributoEntidad:obligatorioATR}{Obligatorio:} Lo obtiene el sistema.
 			\item \hyperlink{tTipoDatoP}{Tipo de Dato:} Lo obtiene el sistema.
-			\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU12}{Pendiente} para indicar que el registro fue exitoso.
+			\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} para indicar que el registro fue exitoso.
 		\end{itemize}
 		}
 		
@@ -33,14 +33,14 @@
 		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU12.1.2}{Modificar Atributo} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU12.1.2}{Modificar Atributo} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU12.1.2}{Modificar Atributo} cuando se registre un atributo con un nombre que ya se encuentra registrado en el sistema.
-		\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU12A}{Pendiente} cuando no exista información en el catálogo ''tipo de dato'' o ''unidad de tamaño''.
+		\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} cuando no exista información en el catálogo ''tipo de dato'' o ''unidad de tamaño''.
 		\end{itemize}
 		}
 		\UCitem{Tipo}{Secundario, extiende de los casos de uso \UCref{CU7.1.1}{Gestionar Atributos}.}
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Da clic en el icono \editar de algún registro existente en la pantalla \IUref{IU12}{Pendiente}.
+		\UCpaso[\UCactor] Da clic en el icono \editar de algún registro existente en la pantalla \IUref{IU12.1.1}{Gestionar Atributos}.
 		\UCpaso[\UCsist] Verifica que el catálogo ''Tipo de dato'' y ''unidad de tamaño'' cuenten con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU7-1-1-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Obtiene la información del atributo.
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1.2}{Modificar Atributo}.
@@ -51,13 +51,13 @@
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU7-1-1-2:TAE}{[Trayectoria E]}
 		\UCpaso[\UCsist] Verifica que el nombre del atributo no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU7-1-1-2:TAF}{[Trayectoria F]}
 		\UCpaso[\UCsist] Actualiza la información del atributo en el sistema.
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12}{Pendiente} para indicar al actor que el registro se ha realizado exitosamente.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} para indicar al actor que el registro se ha realizado exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU7-1-1-2:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} El catálogo de ''tipo de dato'' o ''unidad de tamaño'' no tiene información.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU12A}{Pendiente} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
@@ -65,7 +65,7 @@
 \noindent \textbf{Condición:} El actor desea cancelar la operación.
 \begin{enumerate}
 	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la pantalla \IUref{IU12.1.2}{Modificar Atributo}
-	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12}{Pendiente}.
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos}.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------	

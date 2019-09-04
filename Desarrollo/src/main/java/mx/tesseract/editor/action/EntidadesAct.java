@@ -8,6 +8,7 @@ import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dto.EntidadDTO;
+import mx.tesseract.editor.bs.AtributoBs;
 import mx.tesseract.editor.bs.EntidadBs;
 import mx.tesseract.editor.entidad.Atributo;
 //import mx.tesseract.editor.bs.AtributoBs;
@@ -57,6 +58,7 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 	private Proyecto proyecto;
 	
 	private List<Entidad> listEntidades;
+	private List<Atributo> atributos;
 	private Integer idSel;
 	private Integer idProyecto;
 	
@@ -65,6 +67,9 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 	
 	@Autowired
 	private EntidadBs entidadBs;
+	
+	@Autowired
+	private AtributoBs atributoBs;
 
 	@SuppressWarnings("unchecked")
 	public String index() {
@@ -177,6 +182,7 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 			idProyecto = (Integer) SessionManager.get("idProyecto");
 			if (idProyecto != null) {
 				proyecto = loginBs.consultarProyectoActivo();
+				atributos = atributoBs.consultarAtributosByEntidad(model.getId());
 				resultado = SHOW;
 			}
 		} catch (TESSERACTException te) {
@@ -187,7 +193,7 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 		}
 		return resultado;
 	}
-//
+
 //	public String destroy() throws Exception {
 //		String resultado = null;
 //		try {
@@ -265,7 +271,7 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
-		model = entidadBs.consultarEntidadById(idSel);
+		model = entidadBs.consultarEntidadDTOById(idSel);
 	}
 
 	public Integer getIdProyecto() {
@@ -274,6 +280,14 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setIdProyecto(Integer idProyecto) {
 		this.idProyecto = idProyecto;
+	}
+
+	public List<Atributo> getAtributos() {
+		return atributos;
+	}
+
+	public void setAtributos(List<Atributo> atributos) {
+		this.atributos = atributos;
 	}
 
 }

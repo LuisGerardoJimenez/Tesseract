@@ -100,6 +100,9 @@ public class Proyecto implements Serializable, GenericInterface {
 	
 	@Transient
 	private String colaboradorCurp;
+	
+	@Transient
+	private Integer idEstadoProyecto;
 
 	public Proyecto() {
 	}
@@ -227,7 +230,6 @@ public class Proyecto implements Serializable, GenericInterface {
 		this.contraparte = contraparte;
 	}
 	
-	@VisitorFieldValidator
 	public EstadoProyecto getEstadoProyecto() {
 		return estadoProyecto;
 	}
@@ -252,6 +254,16 @@ public class Proyecto implements Serializable, GenericInterface {
 	
 	public void setColaboradorCurp(String colaboradorCurp) {
 		this.colaboradorCurp = colaboradorCurp.trim();
+	}
+
+	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX, shortCircuit = true)
+	public Integer getIdEstadoProyecto() {
+		return idEstadoProyecto;
+	}
+
+	public void setIdEstadoProyecto(Integer idEstadoProyecto) {
+		this.idEstadoProyecto = idEstadoProyecto;
 	}
 
 }

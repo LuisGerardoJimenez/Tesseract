@@ -11,8 +11,11 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,7 +27,9 @@ import mx.tesseract.admin.entidad.Proyecto;
 
 @Entity
 @Table(name = "pantalla")
+@Inheritance(strategy=InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
+@DiscriminatorValue("IU")
 public class Pantalla extends Elemento implements Serializable {
 
 	private static final long serialVersionUID = 1L;

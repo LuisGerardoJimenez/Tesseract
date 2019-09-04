@@ -1,0 +1,30 @@
+%--------------------------------------
+\subsection{IU 12.1.1.1 Gestionar Atributos}
+
+\subsubsection{Objetivo}
+	En esta pantalla el actor puede visualizar los atributos pertenecientes a una entidad y las operaciones disponibles de acuerdo a si el elemento está siendo editado.
+\subsubsection{Diseño}
+	En la figura \IUref{IU12.1.1.1}{Gestionar Entidades} por medio de la cual se podrán gestionar los atributos pertenecientes a una entidad de un proyecto a través de una tabla. El actor podrá solicitar el registro, la consulta, la modificación y la eliminación de un atributo mediante los botones \IUbutton{Registrar}, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}}, \editar y \eliminar respectivamente.
+	
+	Los botones correspondientes a las opciones mencionadas para cada uno de los registros aparecerán en la tabla dependiendo de si un analista está modificando el elemento.
+	
+	En la parte superior derecha, el sistema muestra el proyecto en el que se encuentra trabajando asi como el nombre de la entidad de la cual se estan gestionando sus atributos.
+
+\IUfig[1]{interfaces/IU12-1-1-1gestionarAtributos}{IU12.1.1.1}{Gestionar Atributos}
+\subsubsection{Comandos}
+\begin{itemize}
+	\item \IUbutton{Registrar}: Permite al actor solicitar el registro de un atributo, dirige a la pantalla \IUref{IU12.1.1}{Registrar Atributo}.
+	\item \editar [Modificar]: Permite al actor solicitar la edición de un atributo, dirige a la pantalla \IUref{IU12.1.2}{Modificar Atributo}.
+	\item \eliminar [Eliminar]: Permite al actor solicitar la eliminación de un atributo, dirige a una pantalla emergente.
+\end{itemize}
+\subsubsection{Mensajes}
+
+\begin{Citemize}
+	\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} cuando no existen atributos registrados.
+\end{Citemize}
+
+\IUfig[1]{interfaces/IU12A-1-1-1gestionarAtributos}{IU12A.1.1.1}{Gestionar Atributos: Sin registros}\label{IU12A}
+\subsubsection{Comandos}
+\begin{itemize}
+	\item \IUbutton{Registrar}: Permite al actor solicitar el registro de un atributo, dirige a la pantalla \IUref{IU12.1.1}{Registrar Atributo}
+\end{itemize}

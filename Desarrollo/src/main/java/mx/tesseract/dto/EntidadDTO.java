@@ -1,10 +1,14 @@
 package mx.tesseract.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
+import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.util.Constantes;
 
 public class EntidadDTO {
