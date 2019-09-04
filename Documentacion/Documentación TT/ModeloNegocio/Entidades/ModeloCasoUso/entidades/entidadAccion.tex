@@ -1,10 +1,10 @@
 \begin{BusinessEntity}{EntidadAccion}{Acción}
 		
-	\Battr{nombreACC}{Nombre: }{Nombre que identificará a la Acción. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
+	\Battr{nombreACC}{Nombre: }{Nombre que identificará a la Acción. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como mínimo 1 y máximo 50 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú] $|$ [0-9] $|$ [ ] $|$ [-] $|$ [$,$, .]}
 
-	\Battr{descripcionACC}{Descripción: }{Texto que describirá la Acción. Descrita en uno o más párrafos y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
+	\Battr{descripcionACC}{Descripción: }{Texto que describirá la Acción. Descrita en uno o más párrafos y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.  Este atributo debe de contener como mínimo 1 y máximo 999 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú] $|$ [0-9] $|$ [  ] $|$ [\_] $|$ [-] $|$ [$!$, $?$, \&, @, \%, \#, $($, $)$, ., :, >, <, *, =, $,$]}
 	
-	\Battr{imagenACC}{Imagen: }{Es un archivo en formato PNG o JPG. Imágen que ilustrará la interfaz gráfica del sistema. y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
+	\Battr{imagenACC}{Imagen: }{Es un archivo en formato PNG o JPG. Imágen que ilustrará la interfaz gráfica del sistema. y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe pesar como máximo 5MB}
 	
 	\Battr{urlACC}{URL: }{URL que determinará el destino de la acción. Es una palabra corta y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
 \end{BusinessEntity}
