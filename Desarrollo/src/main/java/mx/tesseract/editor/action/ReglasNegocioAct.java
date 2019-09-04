@@ -1,8 +1,10 @@
 package mx.tesseract.editor.action;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -13,13 +15,13 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.dto.AtributoDTO;
 import mx.tesseract.dto.ReglaNegocioDTO;
 import mx.tesseract.editor.bs.AtributoBs;
 import mx.tesseract.editor.bs.EntidadBs;
 import mx.tesseract.editor.bs.OperadorBs;
 import mx.tesseract.editor.bs.ReglaNegocioBs;
 import mx.tesseract.editor.bs.TipoReglaNegocioBs;
-import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.editor.entidad.Entidad;
 import mx.tesseract.editor.entidad.Operador;
 import mx.tesseract.editor.entidad.ReglaNegocio;
@@ -36,9 +38,9 @@ import mx.tesseract.util.TESSERACTValidacionException;
 	@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = {
 			"actionName", Constantes.ACTION_NAME_REGLAS_NEGOCIO}),
 	@Result(name = "atributos", type = "json", params = { "root",
-			"listAtributos" }),
+			"listAtributos", "excludeNullProperties","true" }),
 	@Result(name = "entidades", type = "json", params = { "root",
-			"listEntidades" }),
+			"listEntidades"}),
 	@Result(name = "operadores", type = "json", params = { "root",
 			"listOperadores" }),
 	@Result(name = "referencias", type = "json", params = { "root",
@@ -47,6 +49,7 @@ import mx.tesseract.util.TESSERACTValidacionException;
 			"actionName", Constantes.ACTION_NAME_PROYECTOS }),
 
 })
+@AllowedMethods(value={"cargarAtributos"})
 
 public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDriven<ReglaNegocioDTO> {
 	
@@ -54,23 +57,20 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 	private static final String PROYECTOS = "proyectos";
 	private static final String REGLASDENEGOCIO = "reglas-negocio";
 	private Proyecto proyecto;
-	private Entidad entidad;
-	private Integer idEntidad1;
 	private Integer idProyecto;
 	private ReglaNegocioDTO model;
-	private String clave;
+	
+	private int entidadUC;
 	
 	private List<ReglaNegocio> listReglasNegocio;
 	private List<TipoReglaNegocio> listTipoRN; 
 	private List<Entidad> listEntidades;
-	private List<Atributo> listAtributos;
+	private List<AtributoDTO> listAtributos;
 	private List<Operador> listOperadores;
 	private List<Entidad> listEntidades2;
-	private List<Entidad> listAtributos2;
+	private List<AtributoDTO> listAtributos2;
 	
-
 	private int idSel;
-
 	
 	@Autowired
 	private ReglaNegocioBs reglaNegocioBs;
@@ -122,13 +122,11 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 			model.setIdProyecto(proyecto.getId());
 			listTipoRN = tipoReglaNegocioBs.consultarTipoReglaNegocio();
 			listEntidades = entidadBs.consultarEntidadesProyecto(proyecto.getId());
-			listAtributos = atributoBs.consultarAtributosByEntidad(idEntidad1);
-			//listAtributos = entidadBs.consultarEntidadesProyecto(proyecto.getId());
+			//listAtributos = new ArrayList<AtributoDTO>();//atributoBs.consultarAtributosByEntidad(idEntidad1);
+			listAtributos= atributoBs.consultarAtributosToRN(entidadUC);
 			listOperadores = operadorBs.consultarOperador();
 			listEntidades2 = entidadBs.consultarEntidadesProyecto(proyecto.getId());
-			//listAtributos2 = atributoBs.consultarAtributosByEntidad(idEntidad);
-			listAtributos2 = entidadBs.consultarEntidadesProyecto(proyecto.getId());
-
+			listAtributos2 = new ArrayList<AtributoDTO>();
 			resultado = EDITNEW;
 		} catch (TESSERACTException pe) {
 			System.err.println(pe.getMessage());
@@ -177,7 +175,6 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 	
 	
 	//*CONSULTAR REGLAS DE NEGOCIO*//
-	
 	@SuppressWarnings("unchecked")
 	public String show() {
 		String resultado = REGLASDENEGOCIO;
@@ -196,7 +193,6 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 		return resultado;
 	}
 	
-	
 	//*EDITAR REGLAS DE NEGOCIO*//
 	
 	public String edit() {
@@ -208,12 +204,13 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 				model.setIdProyecto(proyecto.getId());
 				listTipoRN = tipoReglaNegocioBs.consultarTipoReglaNegocio();
 				listEntidades = entidadBs.consultarEntidadesProyecto(proyecto.getId());
-				listAtributos = atributoBs.consultarAtributosByEntidad(idEntidad1);
+				listAtributos= atributoBs.consultarAtributosToRN(entidadUC);
 				//listAtributos = entidadBs.consultarEntidadesProyecto(proyecto.getId());
 				listOperadores = operadorBs.consultarOperador();
 				listEntidades2 = entidadBs.consultarEntidadesProyecto(proyecto.getId());
 				//listAtributos2 = atributoBs.consultarAtributosByEntidad(idEntidad);
-				listAtributos2 = entidadBs.consultarEntidadesProyecto(proyecto.getId());
+				//listAtributos2 = entidadBs.consultarEntidadesProyecto(proyecto.getId());
+				listAtributos2 = new ArrayList<AtributoDTO>();
 				resultado = EDIT;
 			}
 		} catch (TESSERACTException te) {
@@ -255,8 +252,27 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 		return SUCCESS;
 	}
 	
+	public void validateCargarAtributos() {
+		System.out.println("Entro a validate"+entidadUC);
+		clearErrors();
+		clearActionErrors();
+		clearFieldErrors();
+	}
 	
-	
+	public String cargarAtributos() {
+		System.out.println("Entro a cargarAtributos"+entidadUC);
+
+		listAtributos = new ArrayList<AtributoDTO>();
+		try {
+			listAtributos= atributoBs.consultarAtributosToRN(entidadUC);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(listAtributos.size()+"TAMAÑO");
+		
+		return "atributos";
+	}
+		
 	@VisitorFieldValidator
 	public ReglaNegocioDTO getModel() {
 		return (model == null) ? model = new ReglaNegocioDTO() : model;
@@ -308,11 +324,11 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 
 	
 
-	public List<Atributo> getListAtributos() {
+	public List<AtributoDTO> getListAtributos() {
 		return listAtributos;
 	}
 
-	public void setListAtributos(List<Atributo> listAtributos) {
+	public void setListAtributos(List<AtributoDTO> listAtributos) {
 		this.listAtributos = listAtributos;
 	}
 
@@ -332,14 +348,14 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 		this.listEntidades2 = listEntidades2;
 	}
 
-	public List<Entidad> getListAtributos2() {
+	public List<AtributoDTO> getListAtributos2() {
 		return listAtributos2;
 	}
 
-	public void setListAtributos2(List<Entidad> listAtributos2) {
+	public void setListAtributos2(List<AtributoDTO> listAtributos2) {
 		this.listAtributos2 = listAtributos2;
 	}
-
+	
 	public int getIdSel() {
 		return idSel;
 	}
@@ -349,16 +365,13 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 		model = reglaNegocioBs.consultarRNById(idSel);
 	}
 
-	public Integer getIdEntidad1() {
-		return idEntidad1;
+	public int getEntidadUC() {
+		return entidadUC;
 	}
 
-	public void setIdEntidad1(Integer idEntidad1) {
-		this.idEntidad1 = idEntidad1;
+	public void setEntidadUC(int entidadUC) {
+		this.entidadUC = entidadUC;
 	}
-
-	
-
 	
 }
 

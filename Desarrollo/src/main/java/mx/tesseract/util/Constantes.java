@@ -60,6 +60,18 @@ public final class Constantes {
 	public static final Integer TIPO_DATO_ARCHIVO = 6;
 	public static final Integer TIPO_DATO_OTRO = 7;
 	
+	//TIPOS DE REGLA DE NEGOCIO
+	public static final Integer TIPO_VERIFICACION_CATALOGOS = 1;
+	public static final Integer TIPO_COMPARACION_ATRIBUTOS = 2;
+	public static final Integer TIPO_UNICIDAD_PARAMETROS = 3;
+	public static final Integer TIPO_DATOS_OBLIGATORIOS = 4;
+	public static final Integer TIPO_LONGITUD_CORRECTA = 5;
+	public static final Integer TIPO_DATO_CORRECTO = 6;
+	public static final Integer TIPO_FORMATO_ARCHIVOS = 7;
+	public static final Integer TIPO_TAMANIO_ARCHIVOS = 8;
+	public static final Integer TIPO_FORMATO_CORRECTO = 9;
+	public static final Integer TIPO_OTRO = 10;
+
 	//ERRORES
 	public static final String NUMERO_UNO_NEGATIVO_STRING = "-1";
 	public static final String NUMERO_DIECIOCHO_STRING = "18";

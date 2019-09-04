@@ -1,68 +1,13 @@
-var contextPath = "prisma";
-
+var contextPath = "tesseract";
 
 $(document).ready(function() {
 	contextPath = $("#rutaContexto").val();
 	try {
 		mostrarCamposTipoRN();
-		cargarListasElementos();
-		seleccionarOpcionListas();
 	} catch (err) {
 		console.log(err);
 	}
 } );
-
-function seleccionarOpcionListas() {
-	var select = document.getElementById("idTipoRN");
-	var tipoRN = select.options[select.selectedIndex].text;
-	if(tipoRN == "Comparaci\u00F3n de atributos") {
-		idEntidad1 = document.getElementById("idEntidad1").value; 
-		idAtributo1 = document.getElementById("idAtributo1").value;
-		idEntidad2 = document.getElementById("idEntidad2").value;
-		idAtributo2 = document.getElementById("idAtributo2").value;
-		idOperador = document.getElementById("idOperador").value;
-		
-		document.getElementById("entidad1").value = idEntidad1;
-		document.getElementById("atributo1").value = idAtributo1;
-		document.getElementById("entidad2").value = idEntidad2;
-		document.getElementById("atributo2").value = idAtributo2;
-		document.getElementById("operador").value = idOperador;
-	} else if(tipoRN == "Unicidad de par\u00E1metros"){
-		idEntidadUnicidad = document.getElementById("idEntidadUnicidad").value;
-		idAtributoUnicidad = document.getElementById("idAtributoUnicidad").value;
-		document.getElementById("entidadUnicidad").value = idEntidadUnicidad;
-		document.getElementById("atributoUnicidad").value = idAtributoUnicidad;
-	} else if(tipoRN == "Formato correcto"){
-		idEntidadFormato = document.getElementById("idEntidadFormato").value;
-		idAtributoFormato = document.getElementById("idAtributoFormato").value;
-		document.getElementById("entidadFormato").value = idEntidadFormato;
-		document.getElementById("atributoFormato").value = idAtributoFormato;		
-	}
-}
-
-function cargarListasElementos() {
-	var select = document.getElementById("idTipoRN");
-	var tipoRN = select.options[select.selectedIndex].text;
-	jsonEntidades = document.getElementById("jsonEntidades").value;
-	jsonAtributos = document.getElementById("jsonAtributos").value;
-	jsonOperadores = document.getElementById("jsonOperadores").value;
-	jsonEntidades2 = document.getElementById("jsonEntidades2").value;
-	jsonAtributos2 = document.getElementById("jsonAtributos2").value;
-	
-	if(tipoRN == "Comparaci\u00F3n de atributos") {
-		agregarListaSelect(document.getElementById("entidad1"), jsonEntidades);
-		agregarListaSelect(document.getElementById("atributo1"), jsonAtributos);
-		agregarListaSelect(document.getElementById("entidad2"), jsonEntidades2);
-		agregarListaSelect(document.getElementById("atributo2"), jsonAtributos2);
-		agregarListaSelectOperador(document.getElementById("operador"), jsonOperadores);
-	} else if(tipoRN == "Unicidad de par\u00E1metros"){
-		agregarListaSelect(document.getElementById("entidadUnicidad"), jsonEntidades);
-		agregarListaSelect(document.getElementById("atributoUnicidad"), jsonAtributos);
-	} else if(tipoRN == "Formato correcto"){
-		agregarListaSelect(document.getElementById("entidadFormato"), jsonEntidades);
-		agregarListaSelect(document.getElementById("atributoFormato"), jsonAtributos);		
-	}
-}
 
 function mostrarCamposTipoRN() {
 	var select = document.getElementById("idTipoRN");
@@ -84,7 +29,7 @@ function mostrarCamposTipoRN() {
 	document.getElementById("filaTextoAyudaInterF").className = "oculto";
 	document.getElementById("filaTextoAyudaTipoRN").className = "oculto";
 	
-	limpiarCampos();
+	
 	var instrucciones;
 	if(tipoRN == "Verificaci\u00F3n de cat\u00E1logos"){
 		document.getElementById("instrucciones").innerHTML = "Indica que el sistema deber\u00E1 verificar la existencia de los cat\u00E1logos para realizar alguna operaci\u00F3n.";
@@ -129,52 +74,17 @@ function mostrarCamposTipoRN() {
 	
 }
 
-function cargarCamposTipoRN() {
-	var select = document.getElementById("idTipoRN");
-	var tipoRN = select.options[select.selectedIndex].text;
-	
-	if(tipoRN == "Comparaci\u00F3n de atributos") {
-		cargarEntidades("entidad1");
-	} else if(tipoRN == "Unicidad de par\u00E1metros"){
-		cargarEntidades("entidadUnicidad");
-	} else if(tipoRN == "Formato correcto"){
-		cargarEntidades("entidadFormato");		
-	} 
-	
-}
-//UNICIDAD DE PAR\u00E1METROS, COMPARACI\u00F3N DE ATRIBUTOS
-function cargarEntidades(idSelect) {
-	var idTipoRN = document.getElementById("idTipoRN").value;
-	var select = document.getElementById(idSelect);
-	rutaCargarEntidades = contextPath + '/reglas-negocio!cargarEntidades';
-	$.ajax({
-		dataType : 'json',
-		url : rutaCargarEntidades,
-		type: "POST",
-		data : {
-			idTipoRN : idTipoRN
-		},
-		success : function(data) {
-			agregarListaSelect(select, data);
-		},
-		error : function(err) {
-			alert("Ha ocurrido un error.");
-			console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
-		}
-	});
-}
 
-//UNICIDAD DE PAR\u00E1METROS, COMPARACI\u00F3N DE ATRIBUTOS
+//UNICIDAD DE PARAMETROS, COMPARACION DE ATRIBUTOS
 function cargarAtributos(select, idSelectAtributos) {
-	limpiarCamposDependientes(select.id);
+	//limpiarCamposDependientes(select.id);
 	var idEntidad = select.value;
 	rutaCargarAtributos = contextPath + '/reglas-negocio!cargarAtributos';
 	$.ajax({
-		dataType : 'json',
 		url : rutaCargarAtributos,
 		type: "POST",
 		data : {
-			idEntidad : idEntidad,
+			entidadUC : idEntidad
 		},
 		success : function(data) {
 			agregarListaSelect(document.getElementById(idSelectAtributos), data);
@@ -186,62 +96,16 @@ function cargarAtributos(select, idSelectAtributos) {
 	});
 }
 
-
-//COMPARACI\u00F3N DE ATRIBUTOS
-function cargarOperadores(select) {
-	var idTipoRN = document.getElementById("idTipoRN").value;
-	var idAtributo = select.value;
-	rutaCargarOperadores = contextPath + '/reglas-negocio!cargarOperadores';
-	$.ajax({
-		dataType : 'json',
-		url : rutaCargarOperadores,
-		type: "POST",
-		data : {
-			idAtributo : idAtributo
-		},
-		success : function(data) {
-			agregarListaSelectOperador(document.getElementById("operador"), data);
-		},
-		error : function(err) {
-			alert("Ha ocurrido un error.");
-			console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
-		}
-	});
-}
-
-//COMPARACI\u00F3N DE ATRIBUTOS
-function cargarEntidadesDependientes(select, idSelectEntidades) {
-	var idAtributo = select.value;
-	rutaCargarEntidades = contextPath + '/reglas-negocio!cargarEntidadesDependientes';
-	$.ajax({
-		dataType : 'json',
-		url : rutaCargarEntidades,
-		type: "POST",
-		data : {
-			idAtributo : idAtributo
-		},
-		success : function(data) {
-			agregarListaSelect(document.getElementById(idSelectEntidades), data);
-		},
-		error : function(err) {
-			alert("Ha ocurrido un error.");
-			console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
-		}
-	});
-}
-
-//COMPARACI\u00F3N DE ATRIBUTOS
+//COMPARACION DE ATRIBUTOS
 function cargarAtributosDependientes(select, idSelectAtributos) {
+	
 	var idEntidad = select.value;
-	var idAtributo = document.getElementById("atributo1").value;
-	rutaCargarAtributos = contextPath + '/reglas-negocio!cargarAtributosDependientes';
+	rutaCargarAtributos = contextPath + '/reglas-negocio!cargarAtributos';
 	$.ajax({
-		dataType : 'json',
 		url : rutaCargarAtributos,
 		type: "POST",
 		data : {
-			idAtributo : idAtributo,
-			idEntidad : idEntidad
+			entidadUC : idEntidad
 		},
 		success : function(data) {
 			agregarListaSelect(document.getElementById(idSelectAtributos), data);
@@ -250,8 +114,10 @@ function cargarAtributosDependientes(select, idSelectAtributos) {
 			alert("Ha ocurrido un error.");
 			console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
 		}
+
 	});
 }
+
 
 function agregarListaSelect(select, json) {
 	if (json !== "") {

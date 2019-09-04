@@ -7,9 +7,6 @@ import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
-import mx.tesseract.editor.entidad.Atributo;
-import mx.tesseract.editor.entidad.Operador;
-import mx.tesseract.editor.entidad.TipoReglaNegocio;
 import mx.tesseract.util.Constantes;
 
 public class ReglaNegocioDTO {
@@ -22,22 +19,24 @@ public class ReglaNegocioDTO {
 	private String descripcion;
 	private String redaccion;
 	private Integer idTipoRN;
+	private String  tiporeglanegocioNombre;
 	private Integer idEntidad1;
 	private Integer idAtributo1;
+	private String atributo1Nombre;
 	private Integer idOperador;
+	private String operadorSimbolo;
 	private Integer idEntidad2;
 	private Integer idAtributo2;
+	private String atributo2Nombre;
 	private Integer idEntidadFormato;
+	private String atributoExpRegNombre;
 	private Integer idAtributoFormato;
 	private Integer idEntidadUnicidad;
 	private Integer idAtributoUnicidad;
-	private Atributo atributoComp1;
-	private Atributo atributoComp2;
-	private Operador operadorComp;
+	private String atributoUnicidadNombre;
 	private String expresionRegular;
 
 	public ReglaNegocioDTO() {
-		
 		
 	}
 	
@@ -50,10 +49,6 @@ public class ReglaNegocioDTO {
 		this.clave = clave;
 	}
 	
-
-	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'1000', 'caracteres'})}", trim = true, maxLength = "50", shortCircuit= true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_NUMERICO_ENTERO, shortCircuit = true)
 	public String getNumero() {
 		return numero;
 	}
@@ -203,31 +198,6 @@ public class ReglaNegocioDTO {
 		this.idAtributoUnicidad = idAtributoUnicidad;
 	}
 
-
-	public Atributo getAtributoComp1() {
-		return atributoComp1;
-	}
-
-	public void setAtributoComp1(Atributo atributoComp1) {
-		this.atributoComp1 = atributoComp1;
-	}
-
-	public Atributo getAtributoComp2() {
-		return atributoComp2;
-	}
-
-	public void setAtributoComp2(Atributo atributoComp2) {
-		this.atributoComp2 = atributoComp2;
-	}
-	
-	public Operador getOperadorComp() {
-		return operadorComp;
-	}
-
-	public void setOperadorComp(Operador operadorComp) {
-		this.operadorComp = operadorComp;
-	}
-	
 	public Integer getIdProyecto() {
 		return idProyecto;
 	}
@@ -244,7 +214,53 @@ public class ReglaNegocioDTO {
 		this.id = id;
 	}
 
+	public String getTiporeglanegocioNombre() {
+		return tiporeglanegocioNombre;
+	}
 
+	public void setTiporeglanegocioNombre(String tiporeglanegocioNombre) {
+		this.tiporeglanegocioNombre = tiporeglanegocioNombre;
+	}
 
+	public String getAtributo1Nombre() {
+		return atributo1Nombre;
+	}
 
+	public void setAtributo1Nombre(String atributo1Nombre) {
+		this.atributo1Nombre = atributo1Nombre;
+	}
+
+	public String getAtributo2Nombre() {
+		return atributo2Nombre;
+	}
+
+	public void setAtributo2Nombre(String atributo2Nombre) {
+		this.atributo2Nombre = atributo2Nombre;
+	}
+
+	public String getOperadorSimbolo() {
+		return operadorSimbolo;
+	}
+
+	public void setOperadorSimbolo(String operadorSimbolo) {
+		this.operadorSimbolo = operadorSimbolo;
+	}
+
+	public String getAtributoExpRegNombre() {
+		return atributoExpRegNombre;
+	}
+
+	public void setAtributoExpRegNombre(String atributoExpRegNombre) {
+		this.atributoExpRegNombre = atributoExpRegNombre;
+	}
+
+	public String getAtributoUnicidadNombre() {
+		return atributoUnicidadNombre;
+	}
+
+	public void setAtributoUnicidadNombre(String atributoUnicidadNombre) {
+		this.atributoUnicidadNombre = atributoUnicidadNombre;
+	}
+
+	
 }
