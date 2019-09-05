@@ -12,7 +12,7 @@
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/validaciones.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jquery.caret.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jquery.atwho.js"></script>
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/editor/pantallas/js/index-editNew.js"></script>	
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/pantallas/js/index-editNew.js"></script>	
 ]]>
 
 </head>
@@ -74,11 +74,10 @@
 			<s:fielderror fieldName="pantallaB64" cssClass="error" theme="jquery" />
 			</div>
 			<div class="marcoImagen" id="marco-pantalla" style="display: none;">
-					
 				<div class="btnEliminar">
 					<a onclick="eliminarImagen('pantalla', 'imagenPantalla');"><img
 						title="Eliminar"
-						src="${pageContext.request.contextPath}/resources/images/icons/eliminar.png" /></a>
+						src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></a>
 				</div>
 				<center>
 					<img id="pantalla" src="#" class="imagen" />
@@ -86,40 +85,6 @@
 				<div class="textoAyuda">Imagen seleccionada</div>
 			</div>
 			<br />
-		</div>
-		<div class="formulario">
-			<div class="tituloFormulario">Acciones de la Pantalla</div>
-			<div class="seccion">
-				<s:fielderror fieldName="model.acciones" cssClass="error"
-					theme="jquery" />
-				<table id="tablaAccion" class="tablaGestion" cellspacing="0"
-					width="100%">
-					<thead>
-						<tr>
-							<th style="width: 20%;"><s:text name="colImagen" /></th>
-							<th style="width: 40%;"><s:text name="colNombre" /></th>
-							<th>
-								<!-- Imagen en cadena -->
-							</th>
-							<th>
-								<!-- Descripcion -->
-							</th>
-							<th>
-								<!-- Tipo acción -->
-							</th>
-							<th>
-								<!-- Pantalla destino -->
-							</th>
-							<th style="width: 30%;"><s:text name="colAcciones" /></th>
-						</tr>
-					</thead>
-				</table>
-				<br/>
-				<div align="center">
-					<sj:a onclick="solicitarRegistroAccion();" button="true">Registrar</sj:a>
-				</div>
-				
-			</div>
 		</div>
 
 		<br />
@@ -143,77 +108,6 @@
 		<s:hidden name="jsonPantallasDestino" id="jsonPantallasDestino"
 			value="%{jsonPantallasDestino}" />
 	</s:form>
-
-<!-- 	<!-- EMERGENTE REGISTRAR ACCION --> -->
-<%-- 	<sj:dialog id="accionDialog" title="Acción" autoOpen="false" --%>
-<%-- 		minHeight="300" minWidth="800" modal="true" draggable="true"> --%>
-<%-- 		<s:form autocomplete="off" id="frmAccion" name="frmAccionName" --%>
-<%-- 			theme="simple"> --%>
-<!-- 			<div class="formulario"> -->
-<!-- 			<div class="tituloFormulario">Información general de la -->
-<!-- 				Acción</div> -->
-<%-- 				<s:hidden id="filaAccion" /> --%>
-<%-- 				<s:hidden id="src-accion" /> --%>
-<!-- 				<table class="seccion"> -->
-<!-- 					<tr> -->
-<%-- 						<td class="label obligatorio"><s:text name="labelNombre" /></td> --%>
-<%-- 						<td><s:textfield name="accion.nombre" id="accion.nombre" --%>
-<%-- 								cssClass="inputFormulario ui-widget" maxlength="200" --%>
-<%-- 								cssErrorClass="input-error"></s:textfield></td> --%>
-<!-- 					</tr> -->
-<!-- 					<tr> -->
-<%-- 						<td class="label obligatorio"><s:text name="labelDescripcion" /></td> --%>
-<%-- 						<td><s:textarea rows="5" name="accion.descripcion" cssClass="inputFormularioExtraGrande ui-widget" --%>
-<%-- 								id="accion.descripcion" maxlength="999" --%>
-<%-- 								cssErrorClass="input-error"></s:textarea></td> --%>
-<!-- 					</tr> -->
-<!-- 					<tr id="fila-accion"> -->
-<%-- 						<td class="label"><s:text name="labelImagen" /></td> --%>
-<%-- 						<td id="imagenAccion"><s:file name="imagenesAcciones" --%>
-<%-- 								id="accion.imagen" size="40" --%>
-<%-- 								onchange="mostrarPrevisualizacion(this, 'accion');" --%>
-<%-- 								accept=".png" /></td> --%>
-<!-- 					</tr> -->
-<!-- 					<tr> -->
-<!-- 						<td colspan="2"><div class="marcoImagen" id="marco-accion" -->
-<!-- 								style="display: none;"> -->
-<!-- 								<div class="btnEliminar"> -->
-<!-- 									<a onclick="eliminarImagen('accion', 'accion.imagen');"><img -->
-<!-- 										title="Eliminar" -->
-<%-- 										src="${pageContext.request.contextPath}/resources/images/icons/eliminar.png" /></a> --%>
-<!-- 								</div> -->
-<!-- 								<center> -->
-<!-- 									<img src="#" id="accion" class="imagen" /> -->
-<!-- 								</center> -->
-<!-- 								<div class="textoAyuda">Imagen seleccionada</div> -->
-<!-- 							</div></td> -->
-<!-- 					</tr> -->
-<!-- 					<tr> -->
-<%-- 						<td class="label obligatorio"><s:text name="labelTipoAccion" /></td> --%>
-<%-- 						<td><s:select list="listTipoAccion" --%>
-<%-- 								cssClass="inputFormulario" name="accion.tipoAccion" --%>
-<%-- 								id="accion.tipoAccion" cssErrorClass="input-error" --%>
-<%-- 								headerValue="Seleccione" headerKey="-1" listValue="nombre" --%>
-<%-- 								listKey="id"></s:select></td> --%>
-<!-- 					</tr> -->
-<!-- 					<tr> -->
-<%-- 						<td class="label obligatorio"><s:text --%>
-<%-- 								name="labelPantallaDestino" /></td> --%>
-<%-- 						<td><s:select list="listTipoAccion" --%>
-<%-- 								cssClass="inputFormulario" name="accion.pantallaDestino" --%>
-<%-- 								id="accion.pantallaDestino" cssErrorClass="input-error" --%>
-<%-- 								headerValue="Seleccione" headerKey="-1" listValue="nombre"></s:select></td> --%>
-<!-- 					</tr> -->
-<!-- 				</table> -->
-<!-- 			</div> -->
-<!-- 			<br /> -->
-<!-- 			<div align="center"> -->
-<!-- 				<input type="button" onclick="verificarRegistroModificacion()" value="Aceptar" /> -->
-<!-- 				<input type="button" onclick="cancelarRegistrarAccion()" -->
-<!-- 					value="Cancelar" /> -->
-<!-- 			</div> -->
-<%-- 		</s:form> --%>
-<%-- 	</sj:dialog> --%>
 
 
 </body>

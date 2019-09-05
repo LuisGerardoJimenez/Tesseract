@@ -9,11 +9,13 @@ import java.util.Map;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.dto.PantallaDTO;
 import mx.tesseract.editor.bs.ElementoBs;
 import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.bs.PantallaBs;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
+import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
@@ -38,14 +40,14 @@ import com.opensymphony.xwork2.ModelDriven;
 		@Result(name = "proyectos", type = "redirectAction", params = {"actionName", Constantes.ACTION_NAME_PROYECTOS }),
 		@Result(name = "referencias", type = "json", params = { "root",
 		"elementosReferencias" }) })
-public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<Pantalla> {
+public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<PantallaDTO> {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String MODULOS = "modulos";
 	private static final String PROYECTOS = "proyectos";
 	private Proyecto proyecto;
 	private Modulo modulo;
-	private Pantalla model;
+	private PantallaDTO model;
 	
 	private Integer idProyecto;
 	private Integer idModulo; 
@@ -85,8 +87,6 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 				if (idModulo != null) {
 					proyecto = loginBs.consultarProyectoActivo();
 					modulo = moduloBs.consultarModuloById(idModulo);
-					model.setProyecto(proyecto);
-					model.setModulo(modulo);
 					listPantallas = pantallaBs.consultarPantallasByModulo(idProyecto, idModulo);
 					resultado = INDEX;
 					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
@@ -104,39 +104,41 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 		return resultado;
 	}
 
-//	public String editNew() throws Exception {
-//
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(modulo.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			model.setModulo(modulo);
-//			model.setClave("IU" + modulo.getClave());
-//			buscaCatalogos();
-//			resultado = EDITNEW;
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
-//
+	@SuppressWarnings("unchecked")
+	public String editNew() {
+		String resultado = INDEX;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					proyecto = loginBs.consultarProyectoActivo();
+					modulo = moduloBs.consultarModuloById(idModulo);
+					model.setIdProyecto(proyecto.getId());
+					model.setIdModulo(modulo.getId());
+					model.setClave(Clave.IU.toString());
+					resultado = EDITNEW;
+					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+					this.setActionMessages(msjs);
+					SessionManager.delete("mensajesAccion");
+				} else {
+					resultado = MODULOS;
+				}
+			} else {
+				resultado = PROYECTOS;
+			}
+		} catch (TESSERACTException pe) {
+			ErrorManager.agregaMensajeError(this, pe);
+			resultado = index();
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+			resultado = index();
+		}
+		return resultado;
+	}
+
 //	private void buscaCatalogos() {
 //		listTipoAccion = PantallaBs.consultarTiposAccion();
-//		
 //		List<Pantalla> pantallasAux = PantallaBs.consultarPantallasProyecto(proyecto);
 //		List<Pantalla> pantallas = new ArrayList<Pantalla>();
 //		
@@ -454,11 +456,11 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 //		return "referencias";
 //	}
 
-	public Pantalla getModel() {
-		return (model == null) ? model = new Pantalla() : this.model;
+	public PantallaDTO getModel() {
+		return (model == null) ? model = new PantallaDTO() : this.model;
 	}
 
-	public void setModel(Pantalla model) {
+	public void setModel(PantallaDTO model) {
 		this.model = model;
 	}
 

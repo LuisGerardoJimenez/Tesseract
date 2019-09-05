@@ -31,20 +31,38 @@
 //	dataTable.api().column(5).visible(false);
 //}
 //
-//function mostrarPrevisualizacion(inputFile, nombre) {
-//	document.getElementById("fila-" + nombre).style.display = 'none';
-//	var idImg = nombre.replace(/\s/g, "_");
-//	if (inputFile.files && inputFile.files[0]) {
-//        var reader = new FileReader();
-//        reader.readAsDataURL(inputFile.files[0])
-//        reader.onload = function (e) {
-//            $('#' + idImg).attr('src', reader.result);
-//            document.getElementById("src-" + nombre).value = reader.result;
-//	    	
-//        }
-//        document.getElementById("marco-" + idImg).style.display = '';
-//    }
-//}
+function mostrarPrevisualizacion(inputFile, nombre) {
+	document.getElementById("fila-" + nombre).style.display = 'none';
+	var idImg = nombre.replace(/\s/g, "_");
+	if (inputFile.files && inputFile.files[0]) {
+        var reader = new FileReader();
+        reader.readAsDataURL(inputFile.files[0])
+        reader.onload = function (e) {
+            $('#' + idImg).attr('src', reader.result);
+            document.getElementById("src-" + nombre).value = reader.result;
+        }
+        document.getElementById("marco-" + idImg).style.display = '';
+    }
+}
+
+function obtenerImagenTextoPantalla(inputFile) {
+	if (inputFile.files && inputFile.files[0]) {
+        var reader = new FileReader();
+        reader.readAsDataURL(inputFile.files[0]);
+        reader.onload = function (e) {
+            document.getElementById("src-pantalla").value = reader.result;
+        }
+    }
+}
+
+function eliminarImagen(idImg, idFileUpload) {
+	document.getElementById("src-" + idImg).value = "";
+	document.getElementById(idImg).src = "";
+	document.getElementById("marco-" + idImg).style.display = 'none';
+	document.getElementById(idFileUpload).value = null;
+	document.getElementById("fila-" + idImg).style.display = '';
+	document.getElementById("fieldError-" + idImg).style.display = 'none';
+}
 //
 //function verificarRegistroModificacion() {
 //	var indexFilaAccion = document.getElementById("filaAccion").value;
@@ -122,16 +140,6 @@
 //        	}     	
 //        }
 //    } 
-//}
-//
-//function obtenerImagenTextoPantalla(inputFile) {
-//	if (inputFile.files && inputFile.files[0]) {
-//        var reader = new FileReader();
-//        reader.readAsDataURL(inputFile.files[0]);
-//        reader.onload = function (e) {
-//            document.getElementById("src-pantalla").value = reader.result;
-//        }
-//    }
 //}
 //
 //function construirFila(srcAccion, nombre, descripcion, tipoAccion, idPantallaDestino) {
@@ -317,15 +325,6 @@
 //function solicitarRegistroAccion() {
 //	document.getElementById("filaAccion").value = -1;
 //	$('#accionDialog').dialog('open');
-//}
-//
-//function eliminarImagen(idImg, idFileUpload) {
-//	document.getElementById("src-" + idImg).value = "";
-//	document.getElementById(idImg).src = "";
-//	document.getElementById("marco-" + idImg).style.display = 'none';
-//	document.getElementById(idFileUpload).value = null;
-//	document.getElementById("fila-" + idImg).style.display = '';
-//	document.getElementById("fieldError-" + idImg).style.display = 'none';
 //}
 //
 //function cargarImagenPantalla() {
