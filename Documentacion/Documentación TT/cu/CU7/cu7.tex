@@ -1,7 +1,7 @@
 	\begin{UseCase}{CU7}{Gestionar entidades}{
 			
-		Este caso de uso permite al colaborador (\hyperlink{jefe}{Líder de análisis} o \hyperlink{analista}{Analista}) visualizar en una tabla, el registro de las entidades que forman parte del proyecto, así como solicitar el registro de una nueva (en donde tambíen es posible gestionar los atributos que compondrán la entidad), modificar alguna existente (por medio de la cual también se podrán gestionar sus atributos), eliminarla (en caso de que la entidad por algún motivo ya no forme parte del proyecto) o simplemente consultar su información (descripción de la entidad y descripción de los atributos que componen la entidad). \\
-     	Las acciones disponibles para cada \hyperlink{entidadEntidad}{Entidad} dependerán del estado en el que se encuentre el caso de uso donde son referenciadas. 
+		Este caso de uso permite al colaborador (\hyperlink{jefe}{Líder de análisis} o \hyperlink{analista}{Analista}) visualizar en una tabla, el registro de las entidades previamente registradas que forman parte del proyecto, así como solicitar el registro de una nueva, modificar los datos de alguna existente, eliminarla (en caso de que la entidad por algún motivo ya no forme parte del proyecto), consultar su información, o gestionar los atributos que componen cada una de las entidades.
+     	Las acciones disponibles para cada \hyperlink{entidadEntidad}{Entidad} dependerán del estado en el que se encuentre el caso de uso donde son referenciadas.  
 	}
 	\UCitem{Actor}{\hyperlink{jefe}{Líder de análisis}, \hyperlink{analista}{Analista}}
 	\UCitem{Propósito}{Proporcionar al actor un mecanismo para llevar el control de las entidades de un proyecto.}
@@ -35,7 +35,6 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
-
 \subsubsection{Puntos de extensión}
 
 \UCExtenssionPoint{El actor requiere registrar una entidad.}{Presionando el botón \IUbutton{Registrar} del paso \ref{CU7-P4} de la trayectoria principal o del paso \ref{CU7-TA1} de la trayectoria alternativa A.}{\UCref{CU7.1}{Registrar Entidad}}

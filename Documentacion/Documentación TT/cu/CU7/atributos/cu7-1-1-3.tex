@@ -1,5 +1,6 @@
 	\begin{UseCase}{CU7.1.1.3}{Eliminar Atributo}{
-		Este caso de uso permite al actor eliminar un registro de la tabla de atributos de la pantalla \IUref{IU12.1}{Registrar Entidad} o \IUref{IU12.2}{Modificar Entidad}.
+		Cuando ya no se hará uso de algún \hyperlink{atributoEntidad}{Atributo} o simplemente no tiene una razón de ser dentro de la \hyperlink{entidadEntidad}{Entidad}, Tesseract permitirá al colaborador (\hyperlink{jefe}{Líder} o \hyperlink{analista}{Analista}) eliminar en su totalidad el registro de dicho Atributo. \\
+		El Atributo podrá ser eliminado siempre y cuando no se encuentre asociado a una Entidad relacionada con algún caso de uso con estado ”Liberado”.
 	}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
 		\UCitem{Propósito}{Eliminar la información de un atributo de la tabla de atributos.}
