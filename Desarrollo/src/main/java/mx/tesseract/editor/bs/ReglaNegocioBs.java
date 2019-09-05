@@ -39,12 +39,10 @@ public class ReglaNegocioBs {
 	@Autowired
 	private ElementoBs elementoBs;
 	
-
 	public List<ReglaNegocio> consultarReglaNegocioProyecto(Integer idProyecto) {
 		List<ReglaNegocio> listReglaNegocio = elementoDAO.findAllByIdProyectoAndClave(ReglaNegocio.class, idProyecto, Clave.RN);
 		return listReglaNegocio;
 	}
-	
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void registrarRN(ReglaNegocioDTO reglaNegocioDTO) {
@@ -105,7 +103,7 @@ public class ReglaNegocioBs {
 	public ReglaNegocioDTO consultarRNById(Integer id) {
 		ReglaNegocio reglanegocio = genericoDAO.findById(ReglaNegocio.class, id);
 		ReglaNegocioDTO reglanegocioDTO = new ReglaNegocioDTO();
-		int tipo = reglanegocio.getTiporeglanegocio().getId();
+		int idTipoRN = reglanegocio.getTiporeglanegocio().getId();
 
 		if (reglanegocio != null) {
 			reglanegocioDTO.setId(reglanegocio.getId());
@@ -115,12 +113,10 @@ public class ReglaNegocioBs {
 			reglanegocioDTO.setDescripcion(reglanegocio.getDescripcion());
 			reglanegocioDTO.setRedaccion(reglanegocio.getRedaccion());
 			reglanegocioDTO.setTiporeglanegocioNombre(reglanegocio.getTiporeglanegocio().getNombre());
-//			if (reglanegocio.getTiporeglanegocio() != null) {
 			reglanegocioDTO.setIdTipoRN(reglanegocio.getTiporeglanegocio().getId());				
-//			}
 			reglanegocioDTO.setIdProyecto(reglanegocio.getProyecto().getId());
 
-			if (tipo == Constantes.TIPO_COMPARACION_ATRIBUTOS)
+			if (idTipoRN == Constantes.TIPO_COMPARACION_ATRIBUTOS)
 			{ 
 				reglanegocioDTO.setAtributo1Nombre(reglanegocio.getAtributo_comp1().getNombre());
 				reglanegocioDTO.setIdAtributo1(reglanegocio.getAtributo_comp1().getId());
@@ -130,10 +126,10 @@ public class ReglaNegocioBs {
 				reglanegocioDTO.setIdEntidad2(reglanegocio.getAtributo_comp2().getEntidad().getId());
 				reglanegocioDTO.setOperadorSimbolo(reglanegocio.getOperador().getSimbolo());
 				reglanegocioDTO.setIdOperador(reglanegocio.getOperador().getId());
-			} else if (tipo == 9) {
+			} else if (idTipoRN == Constantes.TIPO_FORMATO_CORRECTO) {
 				reglanegocioDTO.setExpresionRegular(reglanegocio.getExpresionRegular());
 				reglanegocioDTO.setAtributoExpRegNombre(reglanegocio.getAtributo_exp_reg().getNombre());
-			} else if (tipo == 3) {
+			} else if (idTipoRN == Constantes.TIPO_UNICIDAD_PARAMETROS) {
 			reglanegocioDTO.setAtributoUnicidadNombre(reglanegocio.getAtributo_unicidad().getNombre());
 			} 
 		} else {
@@ -142,32 +138,6 @@ public class ReglaNegocioBs {
 		System.out.println("reglanegocioDTO: "+reglanegocioDTO);
 		return reglanegocioDTO;
 	}
-	
-		
-		
-//		ReglaNegocio reglanegocio = genericoDAO.findById(ReglaNegocio.class, id);
-//		ReglaNegocioDTO reglanegocioDTO = new ReglaNegocioDTO();
-//		if (reglanegocio != null) {
-//			reglanegocioDTO.setId(reglanegocio.getId());
-//			reglanegocioDTO.setClave(reglanegocio.getClave());
-//			reglanegocioDTO.setNumero(reglanegocio.getNumero());
-//			reglanegocioDTO.setNombre(reglanegocio.getNombre());
-//			reglanegocioDTO.setDescripcion(reglanegocio.getDescripcion());
-//			reglanegocioDTO.setRedaccion(reglanegocio.getRedaccion());
-//			reglanegocioDTO.setIdTipoRN(reglanegocio.getTiporeglanegocio().getId());
-////			reglanegocioDTO.setAtributoComp1(reglanegocio.getAtributo_comp1());
-////			reglanegocioDTO.setAtributoComp2(reglanegocio.getAtributo_comp2());
-////			reglanegocioDTO.setExpresionRegular(reglanegocio.getExpresionRegular());
-////			reglanegocioDTO.setAtributoid_expReg(reglanegocio.getAtributo_exp_reg());;
-//			reglanegocioDTO.setIdProyecto(reglanegocio.getProyecto().getId());
-//		} else {
-//			throw new TESSERACTException("No se puede consultar la Regla de Negocio.", "MSG12");
-//		}
-//		System.out.println("reglanegocioDTO: "+reglanegocioDTO);
-//		return reglanegocioDTO;
-	
-	
-
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarRN(ReglaNegocioDTO reglaNegocioDTO) {
 		if (rn006.isValidRN006(reglaNegocioDTO)) {
