@@ -32,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
 @ResultPath("/pages/editor/")
 @Results({ @Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = {
@@ -135,6 +136,32 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 			resultado = index();
 		}
 		return resultado;
+	}
+	
+	public void validateCreate() {
+		if (!hasErrors()) {
+			try {
+				model.setIdProyecto((Integer) SessionManager.get("idProyecto"));
+//				entidadBs.registrarEntidad(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+			}
+		} else {
+			proyecto = loginBs.consultarProyectoActivo();
+		}
+	}
+	
+	public String create() {
+		addActionMessage(getText("MSG1", new String[] { "La", "Pantalla", "registrada" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
 	}
 
 //	private void buscaCatalogos() {
@@ -456,6 +483,7 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 //		return "referencias";
 //	}
 
+	@VisitorFieldValidator
 	public PantallaDTO getModel() {
 		return (model == null) ? model = new PantallaDTO() : this.model;
 	}
