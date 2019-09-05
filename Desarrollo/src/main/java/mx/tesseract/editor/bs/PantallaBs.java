@@ -60,7 +60,7 @@ public class PantallaBs {
 //
 //	}
 
-	public static Pantalla consultarPantalla(Integer idSel) {
+	public Pantalla consultarPantalla(Integer idSel) {
 		Pantalla p = null;
 		try {
 //			p = new PantallaDAO().consultarPantalla(idSel);
