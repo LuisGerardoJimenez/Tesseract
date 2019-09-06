@@ -147,7 +147,8 @@
 					a subir -->
 				<interceptor-ref name="fileUpload">
 					<!-- <param name="allowedTypes">application/pdf</param> -->
-					<param name="maximumSize">65536000</param>
+					<!-- <param name="maximumSize">65536000</param> -->
+					<param name="maximumSize">2000000</param>
 				</interceptor-ref>
 
 				<!-- Permite el manejo de checkboxes, estableciendo a false su valor 

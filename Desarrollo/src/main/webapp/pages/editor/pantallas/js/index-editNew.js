@@ -1,13 +1,13 @@
-//var contextPath = "error";
-//
-//$(document).ready(function() {
-//	contextPath = $("#rutaContexto").val();
-//	$('#tablaAccion').DataTable();
+var contextPath = "tesseract";
+
+$(document).ready(function() {
+	contextPath = $("#rutaContexto").val();
+	$('#tablaAccion').DataTable();
 //	ocultarColumnas("tablaAccion");
 //	cargarCatalogos();
-//	
-//	cargarImagenPantalla();
-//	
+	
+	cargarImagenPantalla();
+	
 //	var json = $("#jsonAccionesTabla").val();
 //	var jsonImg = $("#jsonImagenesAcciones").val(); 
 //	if (json !== "") {
@@ -21,7 +21,7 @@
 //							dataTableCDT.addRow("tablaAccion", accion); 
 //						}); 
 //	}
-//});
+});
 //
 //function ocultarColumnas(tabla) {
 //	var dataTable = $("#" + tabla).dataTable();
@@ -49,8 +49,11 @@ function obtenerImagenTextoPantalla(inputFile) {
 	if (inputFile.files && inputFile.files[0]) {
         var reader = new FileReader();
         reader.readAsDataURL(inputFile.files[0]);
+        var i = inputFile.files[0];
+        console.log(i.size)
         reader.onload = function (e) {
             document.getElementById("src-pantalla").value = reader.result;
+            console.log(reader.result)
         }
     }
 }
@@ -62,6 +65,15 @@ function eliminarImagen(idImg, idFileUpload) {
 	document.getElementById(idFileUpload).value = null;
 	document.getElementById("fila-" + idImg).style.display = '';
 	document.getElementById("fieldError-" + idImg).style.display = 'none';
+}
+
+function cargarImagenPantalla() {
+	var imgPantalla = document.getElementById("src-pantalla").value;
+	if(imgPantalla != "") {
+		document.getElementById("pantalla").src = imgPantalla;
+		document.getElementById("fila-pantalla").style.display = 'none';
+		document.getElementById("marco-pantalla").style.display = '';
+	}
 }
 //
 //function verificarRegistroModificacion() {
@@ -327,11 +339,3 @@ function eliminarImagen(idImg, idFileUpload) {
 //	$('#accionDialog').dialog('open');
 //}
 //
-//function cargarImagenPantalla() {
-//	var imgPantalla = document.getElementById("src-pantalla").value;
-//	if(imgPantalla != "") {
-//		document.getElementById("pantalla").src = imgPantalla;
-//		document.getElementById("fila-pantalla").style.display = 'none';
-//		document.getElementById("marco-pantalla").style.display = '';
-//	}
-//}
