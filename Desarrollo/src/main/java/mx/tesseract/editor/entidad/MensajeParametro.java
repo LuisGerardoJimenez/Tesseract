@@ -1,7 +1,7 @@
 package mx.tesseract.editor.entidad;
 
 /*
- * Sergio Ramírez Camacho 25/06/2015
+ * Diego Efrain López Orozco
  */
 import static javax.persistence.GenerationType.IDENTITY;
 

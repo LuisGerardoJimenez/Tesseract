@@ -45,18 +45,15 @@ function mostrarPrevisualizacion(inputFile, nombre) {
     }
 }
 
-function obtenerImagenTextoPantalla(inputFile) {
-	if (inputFile.files && inputFile.files[0]) {
-        var reader = new FileReader();
-        reader.readAsDataURL(inputFile.files[0]);
-        var i = inputFile.files[0];
-        console.log(i.size)
-        reader.onload = function (e) {
-            document.getElementById("src-pantalla").value = reader.result;
-            console.log(reader.result)
-        }
-    }
-}
+//function obtenerImagenTextoPantalla(inputFile) {
+//	if (inputFile.files && inputFile.files[0]) {
+//        var reader = new FileReader();
+//        reader.readAsDataURL(inputFile.files[0]);
+//        reader.onload = function (e) {
+//            document.getElementById("src-pantalla").value = reader.result;
+//        }
+//    }
+//}
 
 function eliminarImagen(idImg, idFileUpload) {
 	document.getElementById("src-" + idImg).value = "";
