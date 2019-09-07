@@ -1,7 +1,6 @@
 package mx.tesseract.editor.action;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.Map;
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dto.PantallaDTO;
-import mx.tesseract.editor.bs.ElementoBs;
 import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.bs.PantallaBs;
 import mx.tesseract.editor.entidad.Modulo;
@@ -20,7 +18,6 @@ import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.ImageConverterUtil;
-import mx.tesseract.util.JsonUtil;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
@@ -30,7 +27,6 @@ import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
@@ -155,6 +151,14 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 			}
 		} else {
 			proyecto = loginBs.consultarProyectoActivo();
+			System.out.println("<*********************>");
+			System.out.println(imagenPantalla.length());
+			System.out.println(imagenPantallaFileName);
+			System.out.println(imagenPantallaContentType);
+			System.out.println(ImageConverterUtil.parseFileToBASE64String(imagenPantalla));
+			System.out.println("<*********************>");
+			System.out.println(getActionErrors());
+			System.out.println(getFieldErrors());
 		}
 	}
 	
@@ -552,14 +556,6 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 		this.jsonAccionesTabla = jsonAccionesTabla;
 	}
 
-//	public List<TipoAccion> getListTipoAccion() {
-//		return listTipoAccion;
-//	}
-//
-//	public void setListTipoAccion(List<TipoAccion> listTipoAccion) {
-//		this.listTipoAccion = listTipoAccion;
-//	}
-
 	public String getJsonPantallasDestino() {
 		return jsonPantallasDestino;
 	}
@@ -615,7 +611,5 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 	public void setIdAccion(int idAccion) {
 		this.idAccion = idAccion;
 	}
-
-	
 	
 }
