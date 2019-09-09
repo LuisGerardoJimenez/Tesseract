@@ -100,6 +100,9 @@ public final class Constantes {
 	//DICCIONARIO
 	public static final String DICCIONARIO = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
 	
+	//TAMANIO ARCHIVOS
+	public static final Integer TAMANIO_ARCHIVO= 2000000;
+	
 	//EXPRESIONES REGULARES
 	public static final String REGEX_CAMPO_ALFANUMERICO = "^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\\s]+$";
 	public static final String REGEX_CAMPO_ALFANUMERICO_MAYUSCULAS_SIN_ESPACIOS = "^[A-Z0-9ÑÁÉÍÓÚ]+$";

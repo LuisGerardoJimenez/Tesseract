@@ -66,7 +66,7 @@
 							size="40" cssClass="inputFormulario ui-widget"
 							cssErrorClass="input-error"
 							onchange="mostrarPrevisualizacion(this, 'pantalla'); "
-							accept=".png" /> <s:fielderror fieldName="model.imagen"
+							accept=".png" /> <s:fielderror fieldName="imagenPantalla"
 							cssClass="error" theme="jquery" /></td>
 				</tr>
 			</table>

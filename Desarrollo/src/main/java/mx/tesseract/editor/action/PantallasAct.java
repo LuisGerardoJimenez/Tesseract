@@ -138,27 +138,25 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 		if (!hasErrors()) {
 			try {
 				model.setIdProyecto((Integer) SessionManager.get("idProyecto"));
-//				entidadBs.registrarEntidad(model);
+				pantallaBs.registrarPantalla(model, imagenPantalla, imagenPantallaContentType);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
+				proyecto = loginBs.consultarProyectoActivo();
 			} catch (TESSERACTException te) {
 				ErrorManager.agregaMensajeError(this, te);
 				System.err.println(te.getMessage());
+				proyecto = loginBs.consultarProyectoActivo();
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
+				proyecto = loginBs.consultarProyectoActivo();
 			}
 		} else {
 			proyecto = loginBs.consultarProyectoActivo();
-			System.out.println("<*********************>");
-			System.out.println(imagenPantalla.length());
-			System.out.println(imagenPantallaFileName);
-			System.out.println(imagenPantallaContentType);
-			System.out.println(ImageConverterUtil.parseFileToBASE64String(imagenPantalla));
-			System.out.println("<*********************>");
-			System.out.println(getActionErrors());
-			System.out.println(getFieldErrors());
+			if (imagenPantalla == null) {
+				addFieldError("imagenPantalla", this.getText("MSG30"));
+			}
 		}
 	}
 	
