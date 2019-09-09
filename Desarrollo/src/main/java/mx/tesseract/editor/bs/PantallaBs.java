@@ -1,5 +1,6 @@
 package mx.tesseract.editor.bs;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -7,12 +8,18 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.br.RN001;
+import mx.tesseract.br.RN006;
+import mx.tesseract.br.RN034;
+import mx.tesseract.br.RN040;
+import mx.tesseract.dto.PantallaDTO;
 import mx.tesseract.enums.ReferenciaEnum;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.editor.dao.PantallaDAO;
 import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
+import mx.tesseract.util.ImageConverterUtil;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
@@ -22,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("pantallasBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
@@ -29,36 +37,49 @@ public class PantallaBs {
 	
 	@Autowired
 	private PantallaDAO pantallaDAO;
+	
+	@Autowired
+	private RN040 rn040;
+	
+	@Autowired
+	private RN001 rn001;
+	
+	@Autowired
+	private RN006 rn006;
 
 	public  List<Pantalla> consultarPantallasByModulo(Integer idProyecto, Integer idModulo) {
 		List<Pantalla> listPantallas = pantallaDAO.findAllByIdModulo(idProyecto, Clave.IU, idModulo);
 		return listPantallas;
 	}
 
-//	public static void registrarPantalla(Pantalla model) throws Exception {
-//		try {
-//			validar(model);
-//			model.setClave(CLAVE + model.getModulo().getClave());
-//			model.setEstadoElemento(ElementoBs
-//					.consultarEstadoElemento(Estado.EDICION));
-//			model.setNombre(model.getNombre().trim());
-//			new PantallaDAO().registrarElemento(model);
-//		} catch (JDBCException je) {
-//			if (je.getErrorCode() == 1062) {
-//				throw new TESSERACTValidacionException("La pantalla "
-//						+ model.getNombre() + " ya existe.", "MSG7",
-//						new String[] { "La", "Pantalla", model.getNombre() },
-//						"model.nombre");
-//			}
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//
-//	}
+	@Transactional(rollbackFor = Exception.class)
+	public void registrarPantalla(PantallaDTO pantallaDTO, File archivo, String contentType) {
+		System.out.println("<*********************>");
+		System.out.println(archivo.length());
+		System.out.println(contentType);
+		System.out.println(ImageConverterUtil.parseFileToBASE64String(archivo));
+		System.out.println("<*********************>");
+		if (archivo != null) {
+			if (rn040.isValidRN040(archivo)) {
+				if (rn001.isValidRN001(pantallaDTO)) {
+					if (rn006.isValidRN006(pantallaDTO)) {
+						
+					} else {
+						throw new TESSERACTValidacionException("EL nombre de la pantalla ya existe.", "MSG7",
+								new String[] { "La", "Pantalla", pantallaDTO.getNombre() }, "model.nombre");
+					}
+				} else {
+					throw new TESSERACTValidacionException("EL número de la pantalla ya existe.", "MSG7",
+							new String[] { "El", "número", pantallaDTO.getNumero() }, "model.numero");
+				}
+			} else {
+				throw new TESSERACTValidacionException("Archivo muy grande.", "MSG17", 
+						new String[] { "2", "MB" }, null);
+			}
+		} else {
+			throw new TESSERACTValidacionException("Seleccione una imagen.", "MSG30", null, "imagenPantalla");
+		}
+	}
 
 	public Pantalla consultarPantalla(Integer idSel) {
 		Pantalla p = null;
