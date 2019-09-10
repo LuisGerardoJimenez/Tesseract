@@ -17,7 +17,6 @@ import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
-import mx.tesseract.util.ImageConverterUtil;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
@@ -138,7 +137,8 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 		if (!hasErrors()) {
 			try {
 				model.setIdProyecto((Integer) SessionManager.get("idProyecto"));
-				pantallaBs.registrarPantalla(model, imagenPantalla, imagenPantallaContentType);
+				model.setIdModulo((Integer) SessionManager.get("idModulo"));
+				pantallaBs.registrarPantalla(model, imagenPantalla);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
@@ -156,7 +156,16 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 			proyecto = loginBs.consultarProyectoActivo();
 			System.out.println(getFieldErrors());
 			if (getFieldErrors().containsKey("imagenPantalla")) {
-				addFieldError("imagenPantalla", this.getText("MSG16", new String[] { "PNG"}));
+				for (String error : (List<String>) getFieldErrors().get("imagenPantalla")) {
+					if (error.contains("PNG")) {
+						addActionError(this.getText("MSG16", new String[] { "PNG"}));
+						break;
+					}
+					if (error.contains("exceder")) {
+						addActionError(this.getText("MSG17", new String[] { "2", "MB"}));
+						break;
+					}
+				}
 			} else if (imagenPantalla == null) {
 				addFieldError("imagenPantalla", this.getText("MSG30"));
 			}

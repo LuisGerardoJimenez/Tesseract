@@ -12,13 +12,16 @@ import mx.tesseract.br.RN001;
 import mx.tesseract.br.RN006;
 import mx.tesseract.br.RN034;
 import mx.tesseract.br.RN040;
+import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.PantallaDTO;
 import mx.tesseract.enums.ReferenciaEnum;
+import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.editor.dao.PantallaDAO;
 import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
+import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.util.ImageConverterUtil;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
@@ -46,6 +49,12 @@ public class PantallaBs {
 	
 	@Autowired
 	private RN006 rn006;
+	
+	@Autowired
+	private GenericoDAO genericoDAO;
+	
+	@Autowired
+	private ElementoBs elementoBs;
 
 	public  List<Pantalla> consultarPantallasByModulo(Integer idProyecto, Integer idModulo) {
 		List<Pantalla> listPantallas = pantallaDAO.findAllByIdModulo(idProyecto, Clave.IU, idModulo);
@@ -53,17 +62,25 @@ public class PantallaBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void registrarPantalla(PantallaDTO pantallaDTO, File archivo, String contentType) {
-//		System.out.println("<*********************>");
-//		System.out.println(archivo.length());
-//		System.out.println(contentType);
-//		System.out.println(ImageConverterUtil.parseFileToBASE64String(archivo));
-//		System.out.println("<*********************>");
+	public void registrarPantalla(PantallaDTO pantallaDTO, File archivo) {
 		if (archivo != null) {
 			if (rn040.isValidRN040(archivo)) {
 				if (rn001.isValidRN001(pantallaDTO)) {
 					if (rn006.isValidRN006(pantallaDTO)) {
 						System.out.println("Se va a guardar");
+						Pantalla pantalla = new Pantalla();
+						Proyecto proyecto = genericoDAO.findById(Proyecto.class, pantallaDTO.getIdProyecto());
+						byte[] imagen = ImageConverterUtil.parseFileToBASE64ByteArray(archivo);
+						Modulo modulo = genericoDAO.findById(Modulo.class, pantallaDTO.getIdModulo());
+						pantalla.setClave(Clave.IU.toString());
+						pantalla.setNumero(pantallaDTO.getNumero());
+						pantalla.setNombre(pantallaDTO.getNombre());
+						pantalla.setDescripcion(pantallaDTO.getDescripcion());
+						pantalla.setProyecto(proyecto);
+						pantalla.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
+						pantalla.setImagen(imagen);
+						pantalla.setModulo(modulo);
+						genericoDAO.save(pantalla);
 					} else {
 						throw new TESSERACTValidacionException("EL nombre de la pantalla ya existe.", "MSG7",
 								new String[] { "La", "Pantalla", pantallaDTO.getNombre() }, "model.nombre");
