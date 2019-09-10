@@ -7,20 +7,17 @@ import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.MensajeDTO;
-import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.ParametroDAO;
 import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.MensajeParametro;
 import mx.tesseract.editor.entidad.Parametro;
-import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -88,19 +85,24 @@ public class MensajeBs {
 		if (rn006.isValidRN006(mensajeDTO)) {
 			Mensaje mensaje = new Mensaje();
 			Proyecto proyecto = genericoDAO.findById(Proyecto.class, mensajeDTO.getIdProyecto());
-			String numero = elementoDAO.siguienteNumero(proyecto.getId(), Clave.MSG);
+			//String numero = elementoDAO.siguienteNumero(proyecto.getId(), Clave.MSG);
 			mensaje.setClave(Clave.MSG.toString());
-			mensaje.setNumero(numero);
+			//mensaje.setNumero(numero);
 			mensaje.setNombre(mensajeDTO.getNombre());
 			mensaje.setDescripcion(mensajeDTO.getDescripcion());
 			mensaje.setProyecto(proyecto);
 			mensaje.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
 			mensaje.setRedaccion(mensajeDTO.getRedaccion());
 			mensaje.setParametrizado(Constantes.NUMERO_UNO);
-			genericoDAO.save(mensaje);
+			//genericoDAO.save(mensaje);
 			for(MensajeParametro mensajeParametro : mensajeDTO.getParametros()) {
+				if(mensajeParametro.getParametro().getId()== null) {
+					System.out.println(mensajeParametro.getParametro().toString());
+					mensajeParametro.getParametro().setProyecto(proyecto);
+					mensajeParametro.setParametro(genericoDAO.save(mensajeParametro.getParametro()));
+				}
 				mensajeParametro.setMensaje(mensaje);
-				genericoDAO.save(mensajeParametro);
+				//genericoDAO.save(mensajeParametro);
 			}
 		} else {
 			throw new TESSERACTValidacionException("EL nombre del mensaje ya existe.", "MSG7",
@@ -112,19 +114,28 @@ public class MensajeBs {
 	public void modificarMensaje(MensajeDTO mensajeDTO) {
 		//if (rn006.isValidRN006(mensajeDTO)) {
 			Mensaje mensaje = genericoDAO.findById(Mensaje.class, mensajeDTO.getId());
-			System.out.println("VAMOS A MODIFICAR: "+mensaje);
+			Proyecto proyecto = genericoDAO.findById(Proyecto.class, mensajeDTO.getIdProyecto());
+			mensaje.setClave(Clave.MSG.toString());
 			mensaje.setNombre(mensajeDTO.getNombre());
 			mensaje.setDescripcion(mensajeDTO.getDescripcion());
+			mensaje.setProyecto(proyecto);
 			mensaje.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
 			mensaje.setRedaccion(mensajeDTO.getRedaccion());
-			mensaje.setParametrizado(mensajeDTO.getParametrizado());
-			mensaje.setParametros(mensajeDTO.getParametros());
-			for(MensajeParametro mensajeParametro : mensaje.getParametros()) {
-				mensajeParametro.setMensaje(mensaje);
+			mensaje.setParametrizado(Constantes.NUMERO_UNO);
+			//genericoDAO.save(mensaje);
+			for(MensajeParametro mensajeParametroItem : mensajeDTO.getParametros()) {
+				if(mensajeParametroItem.getParametro().getId()== null) {
+					MensajeParametro mensajeParametro = new MensajeParametro();
+					Parametro parametro = new Parametro();
+					parametro.setNombre(mensajeParametroItem.getParametro().getNombre());
+					parametro.setDescripcion(mensajeParametroItem.getParametro().getDescripcion());
+					parametro.setProyecto(proyecto);
+					mensajeParametro.setParametro(parametro);
+					genericoDAO.save(mensajeParametro);
+				}
+				//mensajeParametro.setMensaje(mensaje);
+				//genericoDAO.save(mensajeParametro);
 			}
-			genericoDAO.update(mensaje);
-			
-			
 		/*} else {
 			throw new TESSERACTValidacionException("EL nombre del mensaje ya existe.", "MSG7",
 					new String[] { "El", "Mensaje", mensajeDTO.getNombre() }, "model.nombre");

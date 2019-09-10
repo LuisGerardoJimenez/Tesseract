@@ -27,8 +27,7 @@
 	<p class="instrucciones">Ingrese la información solicitada.</p>
 	<s:form autocomplete="off" id="frmPantalla" theme="simple"
 		enctype="multipart/form-data"
-		action="%{#pageContext.request.contextPath}/pantallas" method="post"
-		onsubmit="return preparaEnvio();">
+		action="%{#pageContext.request.contextPath}/pantallas" method="post">
 		<div class="formulario">
 			<div class="tituloFormulario">Información general de la
 				Pantalla</div>

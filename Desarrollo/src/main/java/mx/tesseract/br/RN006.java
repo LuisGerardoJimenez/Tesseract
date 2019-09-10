@@ -18,6 +18,7 @@ import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.AtributoDAO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
+import mx.tesseract.editor.dao.PantallaDAO;
 import mx.tesseract.editor.entidad.Actor;
 import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.Atributo;
@@ -42,6 +43,9 @@ public class RN006 {
 	
 	@Autowired
 	private AtributoDAO atributoDAO;
+	
+	@Autowired
+	private PantallaDAO pantallaDAO;
 	
 	public Boolean isValidRN006(Proyecto entidad) {
 		Boolean valido = true;
@@ -155,14 +159,14 @@ public class RN006 {
 	public Boolean isValidRN006(PantallaDTO entidad) {
 		Boolean valido = true;
 		Pantalla pantalla;
-//		if (entidad.getId() == null) {
-//			pantalla = elementoDAO.findAllByIdProyectoAndNombreAndClave(ReglaNegocio.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.ACT);
-//		} else {
-//			pantalla = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(ReglaNegocio.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.ACT);
-//		}
-//		if (pantalla != null) {
-//			valido = false;
-//		}
+		if (entidad.getId() == null) {
+			pantalla = pantallaDAO.findByIdProyectoAndIdModuloAndNombre(entidad.getIdProyecto(), Clave.IU, entidad.getIdModulo(), entidad.getNombre());
+		} else {
+			pantalla = pantallaDAO.findByIdProyectoAndIdModuloAndIdAndNombre(entidad.getIdProyecto(), Clave.IU, entidad.getIdModulo(), entidad.getId(), entidad.getNombre());
+		}
+		if (pantalla != null) {
+			valido = false;
+		}
 		return valido;
 	}
 }

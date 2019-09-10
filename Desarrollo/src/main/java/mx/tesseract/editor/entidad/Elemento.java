@@ -33,13 +33,19 @@ import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "Elemento.findNextNumber", query = "SELECT COALESCE(MAX(e.numero), 0) FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?"),
+	@NamedNativeQuery(name = "Elemento.findElementoHasAtributo", query = "select * from elemento e join reglanegocio r on r.Elementoid = e.id where e.Proyectoid = ? and r.Atributoid_comp1 = ? and r.Atributoid_comp2 = ? and r.Atributoid_expReg = ? and r.Atributoid_fechaI = ? and r.Atributoid_fechaT = ?"),
+	
 	})
 
 @NamedQueries({
 	@NamedQuery(name = "Elemento.consultarElementosByProyectoAndClave", query = "SELECT e FROM Elemento e JOIN e.proyecto p WHERE p.id = :idProyecto AND e.clave = :clave"),
 	@NamedQuery(name = "Elemento.consultarElementosByProyectoAndNombreAndClave", query = "SELECT e FROM Elemento e JOIN e.proyecto p  WHERE p.id = :idProyecto AND e.nombre = :nombre AND e.clave = :clave"),
 	@NamedQuery(name = "Elemento.consultarElementosByProyectoAndIdAndNombreAndClave", query = "SELECT e FROM Elemento e JOIN e.proyecto p  WHERE p.id = :idProyecto AND e.id != :id AND e.nombre = :nombre AND e.clave = :clave"),
-	@NamedQuery(name = "Elemento.consultarPantallasByProyectoAndModulo", query = "SELECT e FROM Elemento e JOIN e.proyecto p JOIN e.modulo m WHERE p.id = :idProyecto AND e.clave = :clave AND m.id = :idModulo ")
+	@NamedQuery(name = "Elemento.consultarPantallasByProyectoAndModulo", query = "SELECT e FROM Elemento e JOIN e.proyecto p JOIN e.modulo m WHERE p.id = :idProyecto AND e.clave = :clave AND m.id = :idModulo "),
+	@NamedQuery(name = "Elemento.consultarPantallasByProyectoAndModuloAndNumero", query = "SELECT e FROM Elemento e JOIN e.proyecto p JOIN e.modulo m WHERE p.id = :idProyecto AND e.clave = :clave AND m.id = :idModulo AND e.numero = :numero"),
+	@NamedQuery(name = "Elemento.consultarPantallasByProyectoAndModuloAndIdAndNumero", query = "SELECT e FROM Elemento e JOIN e.proyecto p JOIN e.modulo m WHERE p.id = :idProyecto AND e.clave = :clave AND m.id = :idModulo AND e.id != :id AND e.numero = :numero"),
+	@NamedQuery(name = "Elemento.consultarPantallasByProyectoAndModuloAndNombre", query = "SELECT e FROM Elemento e JOIN e.proyecto p JOIN e.modulo m WHERE p.id = :idProyecto AND e.clave = :clave AND m.id = :idModulo AND e.nombre = :nombre"),
+	@NamedQuery(name = "Elemento.consultarPantallasByProyectoAndModuloAndIdAndNombre", query = "SELECT e FROM Elemento e JOIN e.proyecto p JOIN e.modulo m WHERE p.id = :idProyecto AND e.clave = :clave AND m.id = :idModulo AND e.id != :id AND e.nombre = :nombre"),
 	})
 
 @Entity

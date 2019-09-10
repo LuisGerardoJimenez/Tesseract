@@ -23,6 +23,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.util.ElementoInterface;
+import mx.tesseract.util.GenericInterface;
 //import mx.tesseract.generadorPruebas.model.ValorPantallaTrayectoria;
 
 @Entity
@@ -30,7 +32,7 @@ import mx.tesseract.admin.entidad.Proyecto;
 @Inheritance(strategy=InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
 @DiscriminatorValue("IU")
-public class Pantalla extends Elemento implements Serializable {
+public class Pantalla extends Elemento implements Serializable, GenericInterface, ElementoInterface {
 
 	private static final long serialVersionUID = 1L;
 	

@@ -36,10 +36,11 @@
 						<img id="" class="button" title=""
 								src="${pageContext.request.contextPath}/resources/images/icons/UC.svg2" /></s:a>
 						${blanks}
-						<s:url var="urlIU" value="%{#pageContext.request.contextPath}/mensajes!entrarIU?idSel=%{#mensaje.id}"/>
-						<s:a href="%{urlIU}">
-						<img id="" class="button" title=""
-								src="${pageContext.request.contextPath}/resources/images/icons/IU.svg2" /></s:a>
+						<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/mensajes/%{#mensaje.id}"/>
+						<s:a href="%{urlConsultar}">
+							<img id="" class="button" title="Consultar Entidad"
+									src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
+						</s:a>
 						${blanks}
 						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/mensajes/%{#mensaje.id}/edit"/>			
 						<s:a href="%{urlEditar}">
