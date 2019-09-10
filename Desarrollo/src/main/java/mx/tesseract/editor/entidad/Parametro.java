@@ -3,7 +3,7 @@ package mx.tesseract.editor.entidad;
 import javax.persistence.CascadeType;
 
 /*
- * Sergio Ramírez Camacho 25/06/2015
+ * Diego Efrain López Orozco
  */
 
 import javax.persistence.Column;

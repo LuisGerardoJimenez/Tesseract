@@ -261,7 +261,14 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.10</version>
 		</dependency>
-		
+		<!-- ********************************** -->
+		<!-- Dependencias de FileUtils (Base64) -->
+		<!-- ********************************** -->
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.6</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>Tesseract</finalName>

@@ -65,8 +65,8 @@
 					<td><s:file id="imagenPantalla" name="imagenPantalla"
 							size="40" cssClass="inputFormulario ui-widget"
 							cssErrorClass="input-error"
-							onchange="mostrarPrevisualizacion(this, 'pantalla'); obtenerImagenTextoPantalla(this);"
-							accept=".png" /> <s:fielderror fieldName="model.imagen"
+							onchange="mostrarPrevisualizacion(this, 'pantalla'); "
+							accept=".png" /> <s:fielderror fieldName="imagenPantalla"
 							cssClass="error" theme="jquery" /></td>
 				</tr>
 			</table>
@@ -98,15 +98,8 @@
 				onclick="location.href='${urlGestionarPantallas}'" value="Cancelar" />
 		</div>
 		
-		
-		<s:hidden id="jsonAccionesTabla" name="jsonAccionesTabla"
-			value="%{jsonAccionesTabla}" />
-		<s:hidden id="jsonImagenesAcciones" name="jsonImagenesAcciones"
-			value="%{jsonImagenesAcciones}" />
 		<s:hidden id="src-pantalla" name="pantallaB64"
 			value="%{pantallaB64}" />
-		<s:hidden name="jsonPantallasDestino" id="jsonPantallasDestino"
-			value="%{jsonPantallasDestino}" />
 	</s:form>
 
 
