@@ -18,31 +18,6 @@ public class ModuloDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-//	public Modulo consultarModulo(String clave, Proyecto proyecto) {
-//		Modulo modulo = null;
-//		try {
-//			session.beginTransaction();
-//			Query query = session.createSQLQuery("select * from Modulo where clave = :clave AND Proyectoid = :proyecto").addEntity(Modulo.class) ;
-//			query.setParameter("clave", clave);
-//			query.setParameter("proyecto", proyecto.getId());
-//
-//			@SuppressWarnings("unchecked")
-//			List<Modulo> list  = query.list();
-//			if(list.isEmpty()){
-//				modulo = null;
-//			} else {
-//				modulo = list.get(0);
-//			}
-//			session.getTransaction().commit();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			session.getTransaction().rollback();
-//		}
-//
-//		return modulo;
-//
-//	}
-	
 	@SuppressWarnings("unchecked")
 	public List<Modulo> findByIdProyecto(Integer idProyecto) {
 		List<Modulo> lista = new ArrayList<Modulo>();
