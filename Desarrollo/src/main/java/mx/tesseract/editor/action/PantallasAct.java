@@ -154,7 +154,10 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 			}
 		} else {
 			proyecto = loginBs.consultarProyectoActivo();
-			if (imagenPantalla == null) {
+			System.out.println(getFieldErrors());
+			if (getFieldErrors().containsKey("imagenPantalla")) {
+				addFieldError("imagenPantalla", this.getText("MSG16", new String[] { "PNG"}));
+			} else if (imagenPantalla == null) {
 				addFieldError("imagenPantalla", this.getText("MSG30"));
 			}
 		}

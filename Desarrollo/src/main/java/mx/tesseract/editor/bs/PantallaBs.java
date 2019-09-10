@@ -54,16 +54,16 @@ public class PantallaBs {
 
 	@Transactional(rollbackFor = Exception.class)
 	public void registrarPantalla(PantallaDTO pantallaDTO, File archivo, String contentType) {
-		System.out.println("<*********************>");
-		System.out.println(archivo.length());
-		System.out.println(contentType);
-		System.out.println(ImageConverterUtil.parseFileToBASE64String(archivo));
-		System.out.println("<*********************>");
+//		System.out.println("<*********************>");
+//		System.out.println(archivo.length());
+//		System.out.println(contentType);
+//		System.out.println(ImageConverterUtil.parseFileToBASE64String(archivo));
+//		System.out.println("<*********************>");
 		if (archivo != null) {
 			if (rn040.isValidRN040(archivo)) {
 				if (rn001.isValidRN001(pantallaDTO)) {
 					if (rn006.isValidRN006(pantallaDTO)) {
-						
+						System.out.println("Se va a guardar");
 					} else {
 						throw new TESSERACTValidacionException("EL nombre de la pantalla ya existe.", "MSG7",
 								new String[] { "La", "Pantalla", pantallaDTO.getNombre() }, "model.nombre");
