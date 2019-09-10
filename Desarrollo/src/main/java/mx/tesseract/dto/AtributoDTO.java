@@ -24,6 +24,7 @@ public class AtributoDTO {
 	private Integer idTipoDato;
 	private String otroTipoDato;
 	private Integer idEntidad;
+	private Integer proyectoId;
 	
 	public AtributoDTO() {
 	}
@@ -138,6 +139,14 @@ public class AtributoDTO {
 
 	public void setIdEntidad(Integer idEntidad) {
 		this.idEntidad = idEntidad;
+	}
+
+	public Integer getProyectoId() {
+		return proyectoId;
+	}
+
+	public void setProyectoId(Integer proyectoId) {
+		this.proyectoId = proyectoId;
 	}
 
 }

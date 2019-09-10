@@ -1,5 +1,7 @@
 package mx.tesseract.editor.entidad;
 
+import javax.persistence.CascadeType;
+
 /*
  * Diego Efrain López Orozco
  */
@@ -83,7 +85,7 @@ public class Parametro implements Serializable, GenericInterface {
 	}
 	
 	//Cambios1710
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name = "Proyectoid", referencedColumnName ="id", nullable = false)
 	public Proyecto getProyecto() {
 		return proyecto;
@@ -92,6 +94,11 @@ public class Parametro implements Serializable, GenericInterface {
 	public void setProyecto(Proyecto proyecto) {
 		this.proyecto = proyecto;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Parametro [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", proyecto=" + proyecto
+				+ "]";
+	}
 	
 }

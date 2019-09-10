@@ -56,8 +56,8 @@
 						
 							<!-- Eliminar Entidad -->			
 							<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/entidades/%{#entidad.id}?_method=delete" method="post"/>-->
-							<s:a onclick="return verificarEliminacionElemento(%{#entidad.id});">
-							<img id="" class="button" title="Eliminar Caso de uso"
+							<s:a href="#" onclick="return mostrarMensajeEliminacion(%{#entidad.id});">
+							<img id="" class="button" title="Eliminar Mensaje"
 									src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>	
 						${blanks}	
 						</s:if>
@@ -83,7 +83,7 @@
 		minHeight="100" minWidth="400" modal="true" draggable="true">
 		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
 				<div class="seccion">
-				<s:text name="MSG11"></s:text>
+				<s:text name="MSG10"></s:text>
 				</div>
 			<br />
 			<div align="center">
@@ -94,10 +94,10 @@
 	</sj:dialog>
 	<!-- EMERGENTE ERROR REFERENCIAS -->
 	<sj:dialog id="mensajeReferenciasDialog" title="Confirmación" autoOpen="false"
-		minHeight="200" minWidth="700" modal="true" draggable="true">
+		minHeight="150" minWidth="700" modal="true" draggable="true">
 		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
 				<div class="seccion">
-				<s:text name="MSG14"/>
+				<s:text name="MSG40"/>
 				<div id="elementosReferencias"></div>
 				</div>
 			<br />

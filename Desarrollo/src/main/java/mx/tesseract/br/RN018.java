@@ -5,10 +5,15 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import mx.tesseract.dto.ActorDTO;
+import mx.tesseract.dto.AtributoDTO;
+import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.dto.MensajeDTO;
+import mx.tesseract.dto.ReglaNegocioDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.entidad.CasoUso;
+import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 
 @Service("rN018")
@@ -22,7 +27,7 @@ public class RN018 {
 		Boolean valido = true;
 		CasoUso casoUso = null;
 		if (entidad.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(entidad.getClave()+"·"+entidad.getId(), Clave.MSG);
+			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.MSG+"·"+entidad.getId());
 		}
 		if (casoUso != null) {
 			valido = false;
@@ -34,7 +39,55 @@ public class RN018 {
 		Boolean valido = true;
 		CasoUso casoUso = null;
 		if (entidad.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(entidad.getClave()+"·"+entidad.getId(), Clave.GLS);
+			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.GLS+"·"+entidad.getId());
+		}
+		if (casoUso != null) {
+			valido = false;
+		}
+		return valido;
+	}
+	
+	public Boolean isValidRN018(AtributoDTO entidad) {
+		Boolean valido = true;
+		ReglaNegocio reglaNegocio = null;
+		if (entidad.getId() == null) {
+			reglaNegocio = elementoDAO.findElementoHasAtributo(entidad.getId(),entidad.getProyectoId());
+		}
+		if (reglaNegocio != null) {
+			valido = false;
+		}
+		return valido;
+	}
+	
+	public Boolean isValidRN018(EntidadDTO entidadDTO) {
+		Boolean valido = true;
+		CasoUso casoUso = null;
+		if (entidadDTO.getId() == null) {
+			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.ENT.toString()+"·"+entidadDTO.getId());
+		}
+		if (casoUso != null) {
+			valido = false;
+		}
+		return valido;
+	}
+
+	public boolean isValidRN018(ReglaNegocioDTO modelDTO) {
+		Boolean valido = true;
+		CasoUso casoUso = null;
+		if (modelDTO.getId() == null) {
+			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.RN+"·"+modelDTO.getId());
+		}
+		if (casoUso != null) {
+			valido = false;
+		}
+		return valido;
+	}
+
+	public boolean isValidRN018(ActorDTO actorDTO) {
+		Boolean valido = true;
+		CasoUso casoUso = null;
+		if (actorDTO.getId() == null) {
+			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.ACT.toString()+"·"+actorDTO.getId());
 		}
 		if (casoUso != null) {
 			valido = false;
