@@ -4,8 +4,10 @@ import java.util.List;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.br.RN006;
+import mx.tesseract.br.RN018;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.ActorDTO;
+import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
 //import mx.tesseract.bs.AnalisisEnum.CU_Actores;
 //import mx.tesseract.bs.ReferenciaEnum.TipoCatalogo;
@@ -17,6 +19,7 @@ import mx.tesseract.editor.dao.ElementoDAO;
 //import mx.tesseract.editor.dao.ReferenciaParametroDAO;
 import mx.tesseract.editor.entidad.Actor;
 import mx.tesseract.editor.entidad.Cardinalidad;
+import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 //import mx.tesseract.editor.entidad.CasoUso;
@@ -49,6 +52,9 @@ public class ActorBs {
 
 	@Autowired
 	private ElementoBs elementoBs;
+	
+	@Autowired
+	private RN018 rn018;
 	
 	public List<Actor> consultarActoresProyecto(Integer idProyecto) {
 		List<Actor> listActores = elementoDAO.findAllByIdProyectoAndClave(Actor.class, idProyecto, Clave.ACT);
@@ -106,6 +112,17 @@ public class ActorBs {
 		} else {
 			throw new TESSERACTValidacionException("EL nombre del actor ya existe.", "MSG7",
 					new String[] { "El", "Actor", actorDTO.getNombre() }, "model.nombre");
+		}
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarActor(ActorDTO actorDTO) {
+		if (rn018.isValidRN018(actorDTO)) {
+			Actor actor = genericoDAO.findById(Actor.class, actorDTO.getId());
+			genericoDAO.delete(actor);
+		} else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
+					"MSG13");
 		}
 	}
 

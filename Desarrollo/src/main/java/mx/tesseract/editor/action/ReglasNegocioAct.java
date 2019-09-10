@@ -168,7 +168,6 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 	
 	
 	//*CONSULTAR REGLAS DE NEGOCIO*//
-	@SuppressWarnings("unchecked")
 	public String show() {
 		String resultado = REGLASDENEGOCIO;
 		try {
@@ -273,6 +272,32 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 		return "atributos";
 	}
 		
+	public void validateDestroy() {
+		if (!hasErrors()) {
+			try {
+				reglaNegocioBs.eliminarRN(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				edit();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				edit();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				edit();
+			}
+		}
+	}
+	
+	public String destroy() {
+		addActionMessage(getText("MSG1", new String[] { "La", "Regla de Negocio", "eliminado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
 	@VisitorFieldValidator
 	public ReglaNegocioDTO getModel() {
 		return (model == null) ? model = new ReglaNegocioDTO() : model;
