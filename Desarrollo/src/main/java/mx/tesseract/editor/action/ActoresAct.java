@@ -195,52 +195,36 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 	}
 	
 	public String update() {
-		addActionMessage(getText("MSG1", new String[] { "El", "actor", "modificado" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Actor", "modificado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
 
-//
-//	public String destroy() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			ActorBs.eliminarActor(model);
-//			resultado = SUCCESS;
-//			addActionMessage(getText("MSG1", new String[] { "El", "Actor",
-//					"eliminado" }));
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
-//
-//
-//	public String verificarElementosReferencias() {
-//		try {
-//			elementosReferencias = new ArrayList<String>();
-//			elementosReferencias = ActorBs.verificarReferencias(model);
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "referencias";
-//	}
+	public void validateDestroy() {
+		if (!hasErrors()) {
+			try {
+				actorBs.eliminarActor(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				edit();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				edit();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				edit();
+			}
+		}
+	}
+	
+	public String destroy() {
+		addActionMessage(getText("MSG1", new String[] { "El", "Actor", "eliminado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
 
 	@VisitorFieldValidator
 	public ActorDTO getModel() {

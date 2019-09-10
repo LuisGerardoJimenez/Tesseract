@@ -7,6 +7,7 @@ import java.util.Set;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.br.RN006;
+import mx.tesseract.br.RN018;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
@@ -24,6 +25,7 @@ import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.editor.entidad.Elemento;
 //import mx.tesseract.editor.model.CasoUso;
 import mx.tesseract.editor.entidad.Entidad;
+import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 //import mx.tesseract.editor.model.Paso;
 //import mx.tesseract.editor.model.PostPrecondicion;
@@ -60,6 +62,9 @@ public class EntidadBs {
 	
 	@Autowired
 	private ElementoBs elementoBs;
+	
+	@Autowired
+	private RN018 rn018;
 	
 	public List<Entidad> consultarEntidadesProyecto(Integer idProyecto) {
 		List<Entidad> listEntidades = elementoDAO.findAllByIdProyectoAndClave(Entidad.class, idProyecto, Clave.ENT);
@@ -120,6 +125,18 @@ public class EntidadBs {
 					new String[] { "La", "Entidad", entidadDTO.getNombre() }, "model.nombre");
 		}
 	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarEntidad(EntidadDTO model) {
+		if (rn018.isValidRN018(model)) {
+			Entidad entidad = genericoDAO.findById(Entidad.class, model.getId());
+			genericoDAO.delete(entidad);
+		} else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
+					"MSG13");
+		}
+	}
+	
 //
 //	public static List<Entidad> consultarEntidadesProyectoConFecha(
 //			Proyecto proyecto) {
@@ -269,24 +286,5 @@ public class EntidadBs {
 //			he.printStackTrace();
 //			throw new Exception();
 //		}
-//	}
-//
-//	public static void eliminarEntidad(Entidad model) throws Exception {
-//		try {
-//			ElementoBs.verificarEstado(model, CU_CasosUso.ELIMINARCASOUSO5_3);
-//			new EntidadDAO().eliminarElemento(model);
-//		} catch (JDBCException je) {
-//			if (je.getErrorCode() == Constantes.MYSQL_ERROR_1451) {
-//				throw new TESSERACTException("No se puede eliminar la entidad",
-//						"MSG14");
-//			}
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//
 //	}
 }

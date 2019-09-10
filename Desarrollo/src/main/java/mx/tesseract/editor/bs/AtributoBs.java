@@ -11,11 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.editor.entidad.Entidad;
+import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.TipoDato;
 import mx.tesseract.editor.entidad.UnidadTamanio;
 import mx.tesseract.util.Constantes;
+import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.br.RN006;
+import mx.tesseract.br.RN018;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.AtributoDTO;
 import mx.tesseract.editor.dao.AtributoDAO;
@@ -33,6 +36,8 @@ public class AtributoBs {
 	@Autowired
 	private GenericoDAO genericoDAO;
 	
+	@Autowired
+	private RN018 rn018;
 	
 	public List<Atributo> consultarAtributosByEntidad(Integer idEntidad) {
 		List<Atributo> atributos = atributoDAO.findByIdEntidad(idEntidad);
@@ -163,6 +168,17 @@ public class AtributoBs {
 			atributosDTO.add(atributoDTO);
 		}
 		return atributosDTO;
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarAtributo(AtributoDTO model) {
+		if (rn018.isValidRN018(model)) {
+			Atributo atributo = genericoDAO.findById(Atributo.class, model.getId());
+			genericoDAO.delete(atributo);
+		} else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
+					"MSG13");
+		}
 	}
 	
 

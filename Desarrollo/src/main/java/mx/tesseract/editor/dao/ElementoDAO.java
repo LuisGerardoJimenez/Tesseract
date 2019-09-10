@@ -12,6 +12,7 @@ import mx.tesseract.editor.entidad.CasoUso;
 //import mx.tesseract.editor.entidad.Actualizacion;
 import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.editor.entidad.EstadoElemento;
+import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ElementoInterface;
 
@@ -91,7 +92,7 @@ public class ElementoDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public CasoUso findElementoHasCasoUsoAsociado(String claveBusqueda,Clave clave) {
+	public CasoUso findElementoHasCasoUsoAsociado(String claveBusqueda) {
 		CasoUso casoUso = null;
 		try {
 			Query query = entityManager.createNamedQuery("Elemento.findElementoHasCasoUsoAsociado", Elemento.class); 
@@ -108,6 +109,28 @@ public class ElementoDAO {
 			System.err.println(e.getMessage());
 		}
 		return casoUso;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ReglaNegocio findElementoHasAtributo(Integer id, Integer proyectoId) {
+		ReglaNegocio reglaNegocio = null;
+		try {
+			Query query = entityManager.createNamedQuery("Elemento.findElementoHasAtributo", Elemento.class); 
+			query.setParameter(Constantes.NUMERO_UNO, proyectoId);
+			query.setParameter(Constantes.NUMERO_DOS, id);
+			query.setParameter(Constantes.NUMERO_TRES, id);
+			query.setParameter(Constantes.NUMERO_CUATRO, id);
+			query.setParameter(Constantes.NUMERO_CINCO, id);
+			query.setParameter(Constantes.NUMERO_SEIS, id);
+			query.setParameter("id", id);
+			List<ReglaNegocio> lista = (List<ReglaNegocio>) query.getResultList();
+			if (!lista.isEmpty()) {
+				reglaNegocio = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return reglaNegocio;
 	}
 
 }

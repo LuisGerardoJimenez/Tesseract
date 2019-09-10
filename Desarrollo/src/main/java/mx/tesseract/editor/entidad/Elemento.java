@@ -33,6 +33,8 @@ import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "Elemento.findNextNumber", query = "SELECT COALESCE(MAX(e.numero), 0) FROM elemento e WHERE e.Proyectoid = ? AND e.clave = ?"),
+	@NamedNativeQuery(name = "Elemento.findElementoHasAtributo", query = "select * from elemento e join reglanegocio r on r.Elementoid = e.id where e.Proyectoid = ? and r.Atributoid_comp1 = ? and r.Atributoid_comp2 = ? and r.Atributoid_expReg = ? and r.Atributoid_fechaI = ? and r.Atributoid_fechaT = ?"),
+	
 	})
 
 @NamedQueries({

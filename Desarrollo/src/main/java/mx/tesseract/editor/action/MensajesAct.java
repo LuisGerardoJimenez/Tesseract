@@ -83,6 +83,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 	private String jsonParametrosGuardados;
 	private String cambioRedaccion;
 	private String redaccionMensaje;
+	private boolean existenParametros;
 	
 	private String jsonObject = "prueba";
 	
@@ -180,11 +181,13 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 
 	@SuppressWarnings("unchecked")
 	public String show() {
-		String resultado = PROYECTOS;
+		String resultado = INDEX;
 		try {
 			idProyecto = (Integer) SessionManager.get("idProyecto");
 			if (idProyecto != null) {
-				proyecto = proyectoBs.consultarProyecto(idProyecto);
+				proyecto = loginBs.consultarProyectoActivo();
+				this.existenParametros = model.getParametros().size() > 0 ? true
+						: false;
 				resultado = SHOW;
 			}
 		} catch (TESSERACTException te) {
@@ -442,6 +445,14 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 
 	public void setJsonObject(String jsonObject) {
 		this.jsonObject = jsonObject;
+	}
+	
+	public boolean isExistenParametros() {
+		return existenParametros;
+	}
+
+	public void setExistenParametros(boolean existenParametros) {
+		this.existenParametros = existenParametros;
 	}
 	
 }

@@ -195,6 +195,35 @@ public class AtributosAct extends ActionSupportTESSERACT implements ModelDriven<
 		return SUCCESS;
 	}
 	
+	public void validateDestroy() {
+		if (!hasErrors()) {
+			try {
+				model.setProyectoId((Integer) SessionManager.get("idProyecto"));
+				atributoBs.eliminarAtributo(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				editNew();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				editNew();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				editNew();
+			}
+		} else {
+			editNew();
+		}
+	}
+	
+	public String destroy() {
+		addActionMessage(getText("MSG1", new String[] { "El", "Atributo", "eliminado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
 	@VisitorFieldValidator
 	public AtributoDTO getModel() {
 		return (model == null) ? model = new AtributoDTO() : this.model;

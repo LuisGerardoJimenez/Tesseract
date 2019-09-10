@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.br.RN006;
+import mx.tesseract.br.RN018;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.ReglaNegocioDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
@@ -38,6 +39,9 @@ public class ReglaNegocioBs {
 
 	@Autowired
 	private ElementoBs elementoBs;
+	
+	@Autowired
+	private RN018 rn018;
 	
 	public List<ReglaNegocio> consultarReglaNegocioProyecto(Integer idProyecto) {
 		List<ReglaNegocio> listReglaNegocio = elementoDAO.findAllByIdProyectoAndClave(ReglaNegocio.class, idProyecto, Clave.RN);
@@ -185,6 +189,17 @@ public class ReglaNegocioBs {
 		} else {
 			throw new TESSERACTValidacionException("EL nombre de la Reglande Negocio ya existe.", "MSG7",
 					new String[] { "La", "Regla de Negocio", reglaNegocioDTO.getNombre() }, "model.nombre");
+		}
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarRN(ReglaNegocioDTO modelDTO) {
+		if (rn018.isValidRN018(modelDTO)) {
+			ReglaNegocio reglaNegocio = genericoDAO.findById(ReglaNegocio.class, modelDTO.getId());
+			genericoDAO.delete(reglaNegocio);
+		} else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
+					"MSG13");
 		}
 	}
 
