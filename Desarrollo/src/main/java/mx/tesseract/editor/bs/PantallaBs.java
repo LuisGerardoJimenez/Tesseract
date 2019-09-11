@@ -60,6 +60,20 @@ public class PantallaBs {
 		List<Pantalla> listPantallas = pantallaDAO.findAllByIdModulo(idProyecto, Clave.IU, idModulo);
 		return listPantallas;
 	}
+	
+	public PantallaDTO consultarPantalla(Integer idSel) {
+		Pantalla pantalla = genericoDAO.findById(Pantalla.class, idSel);
+		PantallaDTO pantallaDTO = new PantallaDTO();
+		if (pantalla != null) {
+			pantallaDTO.setId(pantalla.getId());
+			pantallaDTO.setClave(pantalla.getClave());
+			pantallaDTO.setNumero(pantalla.getNumero());
+			pantallaDTO.setNombre(pantalla.getNombre());
+			pantallaDTO.setDescripcion(pantalla.getDescripcion());
+			pantallaDTO.setPantallaB64(pantalla.getImagen());
+		}
+		return pantallaDTO;
+	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void registrarPantalla(PantallaDTO pantallaDTO, File archivo) {
@@ -96,21 +110,6 @@ public class PantallaBs {
 		} else {
 			throw new TESSERACTValidacionException("Seleccione una imagen.", "MSG30", null, "imagenPantalla");
 		}
-	}
-
-	public Pantalla consultarPantalla(Integer idSel) {
-		Pantalla p = null;
-		try {
-//			p = new PantallaDAO().consultarPantalla(idSel);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (p == null) {
-			throw new TESSERACTException(
-					"No se puede consultar la pantalla por el id.", "MSG16",
-					new String[] { "La", "pantalla" });
-		}
-		return p;
 	}
 
 //	public static List<TipoAccion> consultarTiposAccion() {

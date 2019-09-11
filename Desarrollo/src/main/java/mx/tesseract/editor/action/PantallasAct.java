@@ -1,6 +1,7 @@
 package mx.tesseract.editor.action;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,10 +18,12 @@ import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
+import mx.tesseract.util.ImageConverterUtil;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -177,6 +180,46 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 		addActionMessage(getText("MSG1", new String[] { "La", "Pantalla", "registrada" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String edit() {
+		String resultado = INDEX;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					proyecto = loginBs.consultarProyectoActivo();
+					modulo = moduloBs.consultarModuloById(idModulo);
+					model.setIdProyecto(proyecto.getId());
+					model.setIdModulo(modulo.getId());
+					//pantallaB64 = ImageConverterUtil.parseBytesToPNGB64String(model.getPantallaB64());
+					System.out.println(pantallaB64);
+					File f = File.createTempFile(Clave.IU.toString()+"-"+modulo.getClave(), ".png");
+					FileOutputStream fos = new FileOutputStream(f);
+					fos.write(model.getPantallaB64());
+					fos.close();
+					System.out.println(f.getName());
+					System.out.println(f.getAbsolutePath());
+					imagenPantalla = f;
+					pantallaB64 = f.getAbsolutePath();
+					resultado = EDIT;
+					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+					this.setActionMessages(msjs);
+					SessionManager.delete("mensajesAccion");
+				} else {
+					resultado = MODULOS;
+				}
+			} else {
+				resultado = PROYECTOS;
+			}
+		} catch (TESSERACTException pe) {
+			ErrorManager.agregaMensajeError(this, pe);
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		return resultado;
 	}
 
 //	private void buscaCatalogos() {
@@ -524,7 +567,7 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
-		//model = PantallaBs.consultarPantalla(idSel);
+		model = pantallaBs.consultarPantalla(idSel);
 	}
 
 	public List<Pantalla> getListPantallas() {
