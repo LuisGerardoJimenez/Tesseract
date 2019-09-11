@@ -16,6 +16,7 @@ public class PantallaDTO {
 	private String descripcion;
 	private Integer idProyecto;
 	private Integer idModulo;
+	private byte[] pantallaB64;
 	
 	public PantallaDTO() {
 	}
@@ -83,6 +84,14 @@ public class PantallaDTO {
 
 	public void setIdModulo(Integer idModulo) {
 		this.idModulo = idModulo;
+	}
+
+	public byte[] getPantallaB64() {
+		return pantallaB64;
+	}
+
+	public void setPantallaB64(byte[] pantallaB64) {
+		this.pantallaB64 = pantallaB64;
 	}
 
 }
