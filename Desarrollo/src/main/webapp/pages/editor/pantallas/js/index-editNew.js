@@ -6,7 +6,7 @@ $(document).ready(function() {
 //	ocultarColumnas("tablaAccion");
 //	cargarCatalogos();
 	
-	cargarImagenPantalla();
+//	cargarImagenPantalla();
 	
 //	var json = $("#jsonAccionesTabla").val();
 //	var jsonImg = $("#jsonImagenesAcciones").val(); 
