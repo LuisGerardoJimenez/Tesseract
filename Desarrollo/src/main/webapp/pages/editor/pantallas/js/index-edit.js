@@ -69,6 +69,7 @@ function eliminarImagen(idImg, idFileUpload) {
 function cargarImagenPantalla() {
 	var imgPantalla = document.getElementById("src-pantalla").value;
 	if(imgPantalla != "") {
+		console.log(imgPantalla)
 		document.getElementById("pantalla").src = imgPantalla;
 		document.getElementById("fila-pantalla").style.display = 'none';
 		document.getElementById("marco-pantalla").style.display = '';
