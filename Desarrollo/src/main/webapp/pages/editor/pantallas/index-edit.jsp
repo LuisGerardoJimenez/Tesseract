@@ -81,7 +81,8 @@
 						src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></a>
 				</div>
 				<center>
-					<img id="pantalla" src="#" class="imagen" />
+					<s:url var="pantallaAction" value="%{#action.pantallaB64}"/>
+					<img id="pantalla" src="${pantallaAction}" class="imagen" />
 				</center>
 				<div class="textoAyuda">Imagen seleccionada</div>
 			</div>

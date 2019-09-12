@@ -1,6 +1,7 @@
 package mx.tesseract.util;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
 import org.apache.commons.io.FileUtils;
@@ -19,11 +20,12 @@ public class ImageConverterUtil {
 	 * Método que te devuelve una cadena con el contenido de un byte Array de un PNG en BASE 64
 	 * @param bytes El byte Array a convertir
 	 * @return String con el contenido del archivo en BASE 64 y prefijo data:image/png;base64,
+	 * @throws UnsupportedEncodingException 
 	 */
-	public static String parseBytesToPNGB64String(byte[] bytes) {
+	public static String parseBytesToPNGB64String(byte[] bytes) throws UnsupportedEncodingException {
 		String string = null;
 		if(bytes != null) {
-			string = new String(bytes);
+			string = new String(bytes, "UTF-8");
 			string = "data:image/png;base64,".concat(string);
 		} 
 		return string;
