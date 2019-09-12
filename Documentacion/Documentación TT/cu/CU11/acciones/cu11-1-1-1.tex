@@ -28,6 +28,7 @@
 	}
 	\UCitem{Errores}{\begin{itemize}
 			\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU7.1.1}{Registrar Acción} cuando no se ha ingresado un dato marcado como obligatorio.
+			\item \cdtIdRef{MSG30}{Imagen obligatorio}: Se muestra en la pantalla \IUref{IU7.1.1}{Registrar Acción} cuando no se ha ingresado un campo de tipo archivo como obligatorio.
 			\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU7.1.1}{Registrar Acción} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 			\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU7.1.1}{Registrar Acción} cuando se ha excedido la longitud de alguno de los campos.
 			\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU7.1.1}{Registrar Acción} cuando se registre un actor con un nombre que ya se encuentre registrado en el sistema.
@@ -46,11 +47,11 @@
 	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU7.1.1}{Registrar Acción}.
 	\UCpaso[\UCactor] Ingresa la información solicitada. \label{CU11.1.1-P3}
 	\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU11-1-1-1:TAB}{[Trayectoria B]} 
-	\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU11-1-1-1:TAC}{[Trayectoria C]}
-	\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU11-1-1-1:TAD}{[Trayectoria D]}
-	\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU11-1-1-1:TAE}{[Trayectoria E]}\hyperlink{CU11-1-1-1:TAF}{[Trayectoria F]}
-	\UCpaso[\UCsist] Verifica que el archivo ingresado cumpla con el peso correcto, con base en la regla de negocio \BRref{RN40}{Peso de archivos de imagen}. \hyperlink{CU11-1-1-1:TAG}{[Trayectoria G]}
-	\UCpaso[\UCsist] Verifica que el nombre de la acción no se encuentre asociado a la pantalla con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU11-1-1-1:TAH}{[Trayectoria H]}
+	\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU11-1-1-1:TAC}{[Trayectoria C]} \hyperlink{CU11-1-1-1:TAD}{[Trayectoria D]}
+	\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU11-1-1-1:TAE}{[Trayectoria E]}
+	\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU11-1-1-1:TAF}{[Trayectoria F]}\hyperlink{CU11-1-1-1:TAG}{[Trayectoria G]}
+	\UCpaso[\UCsist] Verifica que el archivo ingresado cumpla con el peso correcto, con base en la regla de negocio \BRref{RN40}{Peso de archivos de imagen}. \hyperlink{CU11-1-1-1:TAH}{[Trayectoria H]}
+	\UCpaso[\UCsist] Verifica que el nombre de la acción no se encuentre asociado a la pantalla con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU11-1-1-1:TAI}{[Trayectoria I]}
 	\UCpaso[\UCsist] Persiste la información de la acción en el sistema.
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12A}{Pendiente} para indicar al actor que el registro se ha realizado exitosamente.
 \end{UCtrayectoria}		
@@ -80,6 +81,14 @@
 \end{enumerate}
 %--------------------------------------
 \hypertarget{CU11-1-1-1:TAD}{\textbf{Trayectoria alternativa D}}\\
+\noindent \textbf{Condición:} El actor no ingresó un dato de tipo imagen marcado como obligatorio.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG30}{Imagen obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU7.1.1}{Registrar Acción}.
+	\UCpaso Regresa al paso \ref{CU11.1-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU11-1-1-1:TAE}{\textbf{Trayectoria alternativa E}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU7.1.1}{Registrar Acción}.
@@ -87,7 +96,7 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU11-1-1-1:TAE}{\textbf{Trayectoria alternativa E}}\\
+\hypertarget{CU11-1-1-1:TAF}{\textbf{Trayectoria alternativa F}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU7.1.1}{Registrar Acción}.
@@ -95,7 +104,7 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU11-1-1-1:TAF}{\textbf{Trayectoria alternativa F}}\\
+\hypertarget{CU11-1-1-1:TAG}{\textbf{Trayectoria alternativa G}}\\
 \noindent \textbf{Condición:} El actor proporciona una imagen de formato incorrecto.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG16}{Formato de archivo incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU7.1.1}{Registrar Acción}.
@@ -103,7 +112,7 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU11-1-1-1:TAG}{\textbf{Trayectoria alternativa G}}\\
+\hypertarget{CU11-1-1-1:TAH}{\textbf{Trayectoria alternativa H}}\\
 \noindent \textbf{Condición:} El actor proporciona una imagen que excede el tamaño máximo.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG17}{Se ha excedido el tamaño del archivo} señalando el campo que presenta el error en la pantalla \IUref{IU7.1.1}{Registrar Acción}.
@@ -111,7 +120,7 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU11-1-1-1:TAH}{\textbf{Trayectoria alternativa H}}\\
+\hypertarget{CU11-1-1-1:TAI}{\textbf{Trayectoria alternativa I}}\\
 \noindent \textbf{Condición:} El actor ingresó un nombre de acción que ya está asociado a la pantalla.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU7.1.1}{Registrar Acción}.
