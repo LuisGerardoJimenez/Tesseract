@@ -2,6 +2,7 @@ package mx.tesseract.editor.action;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -194,16 +195,7 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 					modulo = moduloBs.consultarModuloById(idModulo);
 					model.setIdProyecto(proyecto.getId());
 					model.setIdModulo(modulo.getId());
-					//pantallaB64 = ImageConverterUtil.parseBytesToPNGB64String(model.getPantallaB64());
-					System.out.println(pantallaB64);
-					File f = File.createTempFile(Clave.IU.toString()+"-"+modulo.getClave(), ".png");
-					FileOutputStream fos = new FileOutputStream(f);
-					fos.write(model.getPantallaB64());
-					fos.close();
-					System.out.println(f.getName());
-					System.out.println(f.getAbsolutePath());
-					imagenPantalla = f;
-					pantallaB64 = f.getAbsolutePath();
+					pantallaB64 = ImageConverterUtil.parseBytesToPNGB64String(model.getPantallaB64());
 					resultado = EDIT;
 					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 					this.setActionMessages(msjs);
@@ -220,6 +212,45 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 			ErrorManager.agregaMensajeError(this, e);
 		}
 		return resultado;
+	}
+	
+	public void validateUpdate() {
+		if (!hasErrors()) {
+//			try {
+//				model.setIdProyecto((Integer) SessionManager.get("idProyecto"));
+//				model.setIdModulo((Integer) SessionManager.get("idModulo"));
+//				pantallaBs.registrarPantalla(model, imagenPantalla);
+//			} catch (TESSERACTValidacionException tve) {
+//				ErrorManager.agregaMensajeError(this, tve);
+//				System.err.println(tve.getMessage());
+//				proyecto = loginBs.consultarProyectoActivo();
+//			} catch (TESSERACTException te) {
+//				ErrorManager.agregaMensajeError(this, te);
+//				System.err.println(te.getMessage());
+//				proyecto = loginBs.consultarProyectoActivo();
+//			} catch (Exception e) {
+//				ErrorManager.agregaMensajeError(this, e);
+//				e.printStackTrace();
+//				proyecto = loginBs.consultarProyectoActivo();
+//			}
+		} else {
+			proyecto = loginBs.consultarProyectoActivo();
+			try {
+				pantallaB64 = ImageConverterUtil.parseBytesToPNGB64String(model.getPantallaB64());
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+			}
+			System.out.println(getFieldErrors());
+			if (!getFieldErrors().containsKey("imagenPantalla") && imagenPantalla == null) {
+				addFieldError("imagenPantalla", this.getText("MSG30"));
+			}
+		}
+	}
+	
+	public String update() {
+		addActionMessage(getText("MSG1", new String[] { "La", "Pantalla", "modificada" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
 	}
 
 //	private void buscaCatalogos() {
