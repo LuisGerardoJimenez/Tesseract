@@ -69,9 +69,6 @@
 							cssClass="error" theme="jquery" /></td>
 				</tr>
 			</table>
-			<div class="fieldError-pantalla" >
-			<s:fielderror fieldName="pantallaB64" cssClass="error" theme="jquery" />
-			</div>
 			<div class="marcoImagen" id="marco-pantalla" style="display: none;">
 				<div class="btnEliminar">
 					<a onclick="eliminarImagen('pantalla', 'imagenPantalla');"><img
@@ -96,9 +93,6 @@
 			<input class="boton" type="button"
 				onclick="location.href='${urlGestionarPantallas}'" value="Cancelar" />
 		</div>
-		
-		<s:hidden id="src-pantalla" name="pantallaB64"
-			value="%{pantallaB64}" />
 	</s:form>
 
 

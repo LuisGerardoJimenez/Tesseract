@@ -48,7 +48,7 @@
 				</tr>
 				<tr>
 					<td class="label obligatorio"><s:text name="labelNombre" /></td>
-					<td><s:textfield name="model.nombre" maxlength="200"
+					<td><s:textfield name="model.nombre" maxlength="50"
 							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
 						<s:fielderror fieldName="model.nombre" cssClass="error"
 							theme="jquery" /></td>
@@ -61,25 +61,16 @@
 							fieldName="model.descripcion" cssClass="error" theme="jquery" /></td>
 				</tr>
 				<tr id="fila-pantalla">
-					<td class="label"><s:text name="labelImagen" /></td>
+					<td class="label"><s:text name="labelReemplazarImagen" /></td>
 					<td><s:file id="imagenPantalla" name="imagenPantalla"
 							size="40" cssClass="inputFormulario ui-widget"
 							cssErrorClass="input-error"
-							onchange="mostrarPrevisualizacion(this, 'pantalla');"
-							accept=".png" /> <s:fielderror fieldName="model.imagen"
+							onchange="mostrarPrevisualizacion(this, 'pantalla'); "
+							accept=".png" /> <s:fielderror fieldName="imagenPantalla"
 							cssClass="error" theme="jquery" /></td>
 				</tr>
 			</table>
-			<div class="fieldError-pantalla" >
-			<s:fielderror fieldName="pantallaB64" cssClass="error" theme="jquery" />
-			</div>
-			<div class="marcoImagen" id="marco-pantalla" style="display: none;">
-				
-				<div class="btnEliminar">
-					<a onclick="eliminarImagen('pantalla', 'imagenPantalla');"><img
-						title="Eliminar"
-						src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></a>
-				</div>
+			<div class="marcoImagen" id="marco-pantalla">
 				<center>
 					<s:url var="pantallaAction" value="%{#action.pantallaB64}"/>
 					<img id="pantalla" src="${pantallaAction}" class="imagen" />
@@ -91,7 +82,7 @@
 
 		<br />
 		<div align="center">
-			<s:submit class="boton" value="Aceptar"/>
+			<s:submit class="boton" value="Aceptar" />
 
 			<s:url var="urlGestionarPantallas"
 				value="%{#pageContext.request.contextPath}/pantallas">
@@ -99,12 +90,10 @@
 			<input class="boton" type="button"
 				onclick="location.href='${urlGestionarPantallas}'" value="Cancelar" />
 		</div>
-		
-		<s:hidden id="src-pantalla" name="pantallaB64"
-			value="%{pantallaB64}" />
 	</s:form>
-	
+
 
 </body>
 	</html>
 </jsp:root>
+
