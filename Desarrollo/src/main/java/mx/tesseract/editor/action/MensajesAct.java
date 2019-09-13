@@ -2,6 +2,7 @@ package mx.tesseract.editor.action;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,6 +18,7 @@ import mx.tesseract.enums.ReferenciaEnum.Clave;
 //import mx.tesseract.bs.AnalisisEnum.CU_Glosario;
 import mx.tesseract.enums.ReferenciaEnum.TipoReferencia;
 import mx.tesseract.dto.MensajeDTO;
+import mx.tesseract.dto.ParametroDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.bs.TerminoGlosarioBs;
 import mx.tesseract.editor.bs.ElementoBs;
@@ -72,7 +74,6 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 	private static final String MODULOS = "modulos";
 	private Proyecto proyecto;
 	private MensajeDTO model;
-	private Colaborador colaborador;
 	private List<Mensaje> listMensajes;
 	private Integer idSel;
 	private Integer idProyecto;
@@ -231,6 +232,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 		}
 
 		if (jsonParametros == null || jsonParametros.isEmpty()) {
+			System.out.println("Entro aqui: "+model.getParametros());
 			for (MensajeParametro parametro : model.getParametros()) {
 				parametroAux = new Parametro(parametro.getParametro()
 						.getNombre(), parametro.getParametro().getDescripcion());
@@ -246,8 +248,8 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 			try {
 				model.getParametros().clear();
 				agregarParametros();
-				System.out.println("ENTRO A UPDATE: "+model.getId());
 				mensajeBs.modificarMensaje(model);
+				//mensajeBs.modificarParametrosMensaje(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
@@ -334,6 +336,27 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 
 	}
 	
+	private void agregarParametrosUpdate() throws Exception {
+		
+		model.setParametrizado(Constantes.NUMERO_CERO);
+		if (jsonParametros != null && !jsonParametros.equals("")) {
+			model.setParametrizado(Constantes.NUMERO_UNO);
+			Set<Parametro> parametros = JsonUtil.mapJSONToSet(jsonParametros,Parametro.class);
+			
+			Set<ParametroDTO> parametrosDTO = new HashSet<ParametroDTO>(0);
+			for (Parametro p : parametros) {
+				Parametro parametroAux = mensajeBs.consultarParametro(p.getNombre(), model.getIdProyecto());
+				ParametroDTO parametroDTO = new ParametroDTO();
+				parametroDTO.setId(parametroAux.getId());
+				parametroDTO.setNombre(p.getNombre());
+				parametroDTO.setDescripcion(p.getDescripcion());
+				parametrosDTO.add(parametroDTO);
+			}
+			//model.setParametrosDTO(parametrosDTO);
+		}
+		System.out.println("Model params size: " + model.getParametros().size());
+	}
+	
 	private void agregarParametros() throws Exception {
 		model.setParametrizado(Constantes.NUMERO_UNO);
 		
@@ -355,6 +378,12 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 			}
 		}
 		System.out.println("Model params size: " + model.getParametros().size());
+		for(MensajeParametro mensajeParametroItem : model.getParametros()) {
+			System.out.println(mensajeParametroItem.getId());
+			System.out.println(mensajeParametroItem.getParametro().getId());
+			System.out.println(mensajeParametroItem.getParametro().getNombre());
+			System.out.println(mensajeParametroItem.getParametro().getDescripcion());
+		}
 	}
 	
 	@VisitorFieldValidator

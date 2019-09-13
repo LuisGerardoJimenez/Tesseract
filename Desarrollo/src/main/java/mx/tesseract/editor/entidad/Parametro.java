@@ -14,10 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
+import javax.persistence.OneToMany;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -38,11 +41,21 @@ public class Parametro implements Serializable, GenericInterface {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
+	@Column(name = "nombre", nullable = false, length = 45)
 	private String nombre;
+	@Column(name = "descripcion", nullable = false, length = 45)
 	private String descripcion;
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name = "Proyectoid", referencedColumnName ="id", nullable = false)
 	private Proyecto proyecto;
-
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parametro", orphanRemoval = true)	
+	private Set<MensajeParametro> parametros = new HashSet<MensajeParametro>(0);
+	
+	
 	public Parametro() {
 	}
 	
@@ -54,10 +67,7 @@ public class Parametro implements Serializable, GenericInterface {
 	public Parametro(String nombre) {
 		this.nombre = nombre;
 	}
-
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
+	
 	public Integer getId() {
 		return this.id;
 	}
@@ -66,7 +76,7 @@ public class Parametro implements Serializable, GenericInterface {
 		this.id = id;
 	}
 
-	@Column(name = "nombre", nullable = false, length = 45)
+	
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -75,7 +85,7 @@ public class Parametro implements Serializable, GenericInterface {
 		this.nombre = nombre;
 	}
 
-	@Column(name = "descripcion", nullable = false, length = 45)
+	
 	public String getDescripcion() {
 		return this.descripcion;
 	}
@@ -84,15 +94,20 @@ public class Parametro implements Serializable, GenericInterface {
 		this.descripcion = descripcion;
 	}
 	
-	//Cambios1710
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name = "Proyectoid", referencedColumnName ="id", nullable = false)
 	public Proyecto getProyecto() {
 		return proyecto;
 	}
 
 	public void setProyecto(Proyecto proyecto) {
 		this.proyecto = proyecto;
+	}
+	
+	public Set<MensajeParametro> getParametros() {
+		return parametros;
+	}
+
+	public void setParametros(Set<MensajeParametro> parametros) {
+		this.parametros = parametros;
 	}
 
 	@Override

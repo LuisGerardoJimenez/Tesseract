@@ -83,8 +83,6 @@
 			<br/>
 			<table id="parametros">
 				<thead>
-					<th></th>
-					<th></th>
 				</thead>
 			</table>
 			</div>
@@ -120,39 +118,6 @@
 					onclick="cerrarEmergente()"
 					value="Aceptar" />
 			</div>
-	</sj:dialog>
-	
-	<!-- COMENTARIOS DE LA ACTUALIZACIÓN -->
-	<sj:dialog id="mensajeComentarios" title="Confirmación"
-		autoOpen="false" minHeight="300" minWidth="800" modal="true"
-		draggable="true">
-		<s:form autocomplete="off" id="frmComentario"
-			name="frmComentario" theme="simple">
-			<div class="formulario">
-				<div class="tituloFormulario">Comentarios de la modificación</div>
-				<div class="seccion">
-					<p class="instrucciones">Ingrese un comentario referente a la
-						modificación realizada.</p>
-				
-
-				<table>
-					<tr>
-						<td class="label obligatorio"><s:text name="labelComentarios" /></td>
-						<td><s:textarea rows="5" name="comentarioDialogo"
-								id="comentarioDialogo" maxlength="999"
-								cssErrorClass="input-error" cssClass="inputFormulario ui-widget" /></td>
-					</tr>
-				</table>
-				</div>
-			</div>
-			<br />
-			<div align="center">
-				<input type="button" onclick="enviarComentarios()" value="Aceptar" />
-				<input type="button" onclick="cancelarRegistroComentarios()"
-					value="Cancelar" />
-			</div>
-			
-		</s:form>
 	</sj:dialog>
 </body>
 	</html>

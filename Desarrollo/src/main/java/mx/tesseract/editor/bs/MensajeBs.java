@@ -7,7 +7,9 @@ import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.MensajeDTO;
+import mx.tesseract.dto.ParametroDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
+import mx.tesseract.editor.dao.MensajeParametroDAO;
 import mx.tesseract.editor.dao.ParametroDAO;
 import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.MensajeParametro;
@@ -49,11 +51,13 @@ public class MensajeBs {
 	
 	@Autowired
 	private ParametroDAO parametroDAO;
+	
+	@Autowired
+	private MensajeParametroDAO mensajeParametroDAO;
 
 	public List<Mensaje> consultarMensajeProyecto(Integer idProyecto) {
 		List<Mensaje> listMensaje = null;
 		listMensaje = elementoDAO.findAllByIdProyectoAndClave(Mensaje.class, idProyecto, Clave.MSG);
-		System.out.println("TAMAÑO DE: "+listMensaje.size());
 		return listMensaje;
 	}
 
@@ -71,7 +75,6 @@ public class MensajeBs {
 			mensajeDTO.setParametrizado(mensaje.getParametrizado());
 			mensajeDTO.setDescripcion(mensaje.getDescripcion());
 			mensajeDTO.setEstadoElemento(mensaje.getEstadoElemento());
-			System.out.println("ENCOTRNO EL SYSTEM PARAMETROS: "+mensaje.getParametros());
 			mensajeDTO.setParametros(mensaje.getParametros());
 			
 		} else {
@@ -85,25 +88,25 @@ public class MensajeBs {
 		if (rn006.isValidRN006(mensajeDTO)) {
 			Mensaje mensaje = new Mensaje();
 			Proyecto proyecto = genericoDAO.findById(Proyecto.class, mensajeDTO.getIdProyecto());
-			//String numero = elementoDAO.siguienteNumero(proyecto.getId(), Clave.MSG);
+			String numero = elementoDAO.siguienteNumero(proyecto.getId(), Clave.MSG);
 			mensaje.setClave(Clave.MSG.toString());
-			//mensaje.setNumero(numero);
+			mensaje.setNumero(numero);
 			mensaje.setNombre(mensajeDTO.getNombre());
 			mensaje.setDescripcion(mensajeDTO.getDescripcion());
 			mensaje.setProyecto(proyecto);
 			mensaje.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
 			mensaje.setRedaccion(mensajeDTO.getRedaccion());
 			mensaje.setParametrizado(Constantes.NUMERO_UNO);
-			//genericoDAO.save(mensaje);
+			genericoDAO.save(mensaje);
 			for(MensajeParametro mensajeParametro : mensajeDTO.getParametros()) {
 				if(mensajeParametro.getParametro().getId()== null) {
-					System.out.println(mensajeParametro.getParametro().toString());
 					mensajeParametro.getParametro().setProyecto(proyecto);
 					mensajeParametro.setParametro(genericoDAO.save(mensajeParametro.getParametro()));
 				}
 				mensajeParametro.setMensaje(mensaje);
-				//genericoDAO.save(mensajeParametro);
+				genericoDAO.save(mensajeParametro);
 			}
+			
 		} else {
 			throw new TESSERACTValidacionException("EL nombre del mensaje ya existe.", "MSG7",
 					new String[] { "El", "Mensaje", mensajeDTO.getNombre() }, "model.nombre");
@@ -120,22 +123,51 @@ public class MensajeBs {
 			mensaje.setDescripcion(mensajeDTO.getDescripcion());
 			mensaje.setProyecto(proyecto);
 			mensaje.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
+			ArrayList<String> listParametrosDTO = new ArrayList<String>(); 
+			for(Parametro parametro : obtenerParametros(mensajeDTO.getRedaccion(), proyecto.getId())) {
+				listParametrosDTO.add(parametro.getNombre());
+			}
+			ArrayList<String> listParametros = new ArrayList<String>(); 
+			for(Parametro parametro : obtenerParametros(mensaje.getRedaccion(), proyecto.getId())) {
+				listParametros.add(parametro.getNombre());
+			}
 			mensaje.setRedaccion(mensajeDTO.getRedaccion());
-			mensaje.setParametrizado(Constantes.NUMERO_UNO);
-			//genericoDAO.save(mensaje);
-			for(MensajeParametro mensajeParametroItem : mensajeDTO.getParametros()) {
-				if(mensajeParametroItem.getParametro().getId()== null) {
-					MensajeParametro mensajeParametro = new MensajeParametro();
-					Parametro parametro = new Parametro();
-					parametro.setNombre(mensajeParametroItem.getParametro().getNombre());
-					parametro.setDescripcion(mensajeParametroItem.getParametro().getDescripcion());
-					parametro.setProyecto(proyecto);
-					mensajeParametro.setParametro(parametro);
+			mensaje.setParametrizado(mensajeDTO.getParametrizado());
+			
+			for(MensajeParametro mensajeParametro : mensajeDTO.getParametros()) {
+				for(MensajeParametro mensajeParametroItem : mensaje.getParametros()) {
+					
+					if(mensajeParametro.getParametro().getNombre().equals(mensajeParametroItem.getParametro().getNombre())) {
+						mensajeParametro.getParametro().setNombre(mensajeParametroItem.getParametro().getNombre());
+						mensajeParametro.getParametro().setDescripcion(mensajeParametroItem.getParametro().getDescripcion());
+					}
+					
+				}
+				if(mensajeParametro.getParametro().getId() == null) {
+					mensajeParametro.getParametro().setProyecto(proyecto);
+					genericoDAO.save(mensajeParametro.getParametro());
+					mensajeParametro.setMensaje(mensaje);
 					genericoDAO.save(mensajeParametro);
 				}
-				//mensajeParametro.setMensaje(mensaje);
-				//genericoDAO.save(mensajeParametro);
+				if(!listParametros.contains(mensajeParametro.getParametro().getNombre()) && listParametrosDTO.contains(mensajeParametro.getParametro().getNombre())) {
+					mensajeParametro.setMensaje(mensaje);
+					genericoDAO.save(mensajeParametro);
+				}
+				
+				
 			}
+			genericoDAO.update(mensaje);
+			for(String parametroItem : listParametros) {
+				if(!listParametrosDTO.contains(parametroItem)) {
+					Parametro parametro = parametroDAO.consultarParametro(parametroItem, proyecto.getId());
+					MensajeParametro  mensajeParametro = mensajeParametroDAO.consultarMensajeParametro(mensaje.getId(), parametro.getId());
+					genericoDAO.delete(mensajeParametro);
+					if(mensajeParametroDAO.consultarMensajeParametro(parametro.getId()) == null) {
+						genericoDAO.delete(parametro);
+					}
+				}
+			}
+	
 		/*} else {
 			throw new TESSERACTValidacionException("EL nombre del mensaje ya existe.", "MSG7",
 					new String[] { "El", "Mensaje", mensajeDTO.getNombre() }, "model.nombre");
@@ -156,7 +188,6 @@ public class MensajeBs {
 	/* FUNCIONES ADICIONALES */
 	public boolean esParametrizado(String redaccion) {
 		ArrayList<String> tokens = tokenBs.procesarTokenIpunt(redaccion);
-			System.out.println(tokens);
 		if(tokens.size() == 0) {
 			return false;
 		} else {
@@ -187,8 +218,7 @@ public class MensajeBs {
 				listParametros.add(parametroAux);
 				
 			}
-		}
-		System.out.println("EL TAMAÑO DE PARAMETROS ES : "+listParametros.size());
+		}		
 		return listParametros;
 	}
 	
