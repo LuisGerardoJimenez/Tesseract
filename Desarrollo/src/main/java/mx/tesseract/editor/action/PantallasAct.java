@@ -216,33 +216,29 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 	
 	public void validateUpdate() {
 		if (!hasErrors()) {
-//			try {
-//				model.setIdProyecto((Integer) SessionManager.get("idProyecto"));
-//				model.setIdModulo((Integer) SessionManager.get("idModulo"));
-//				pantallaBs.registrarPantalla(model, imagenPantalla);
-//			} catch (TESSERACTValidacionException tve) {
-//				ErrorManager.agregaMensajeError(this, tve);
-//				System.err.println(tve.getMessage());
-//				proyecto = loginBs.consultarProyectoActivo();
-//			} catch (TESSERACTException te) {
-//				ErrorManager.agregaMensajeError(this, te);
-//				System.err.println(te.getMessage());
-//				proyecto = loginBs.consultarProyectoActivo();
-//			} catch (Exception e) {
-//				ErrorManager.agregaMensajeError(this, e);
-//				e.printStackTrace();
-//				proyecto = loginBs.consultarProyectoActivo();
-//			}
+			try {
+				model.setIdProyecto((Integer) SessionManager.get("idProyecto"));
+				model.setIdModulo((Integer) SessionManager.get("idModulo"));
+				pantallaBs.modificarPantalla(model, imagenPantalla);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				proyecto = loginBs.consultarProyectoActivo();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				proyecto = loginBs.consultarProyectoActivo();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				proyecto = loginBs.consultarProyectoActivo();
+			}
 		} else {
 			proyecto = loginBs.consultarProyectoActivo();
 			try {
 				pantallaB64 = ImageConverterUtil.parseBytesToPNGB64String(model.getPantallaB64());
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
-			}
-			System.out.println(getFieldErrors());
-			if (!getFieldErrors().containsKey("imagenPantalla") && imagenPantalla == null) {
-				addFieldError("imagenPantalla", this.getText("MSG30"));
 			}
 		}
 	}
