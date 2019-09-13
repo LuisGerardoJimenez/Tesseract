@@ -39,7 +39,7 @@ public class Mensaje extends Elemento implements Serializable, GenericInterface,
 	@Column(name = "parametrizado")
 	private Integer parametrizado;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "mensaje", cascade = CascadeType.ALL)	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mensaje", orphanRemoval = true)	
 	private Set<MensajeParametro> parametros = new HashSet<MensajeParametro>(0);
 
 	public Mensaje() {

@@ -5,9 +5,6 @@ package mx.tesseract.editor.entidad;
  */
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,10 +12,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 
 import mx.tesseract.util.GenericInterface;
 
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "MensajeParametro.findByIdParametroIdMensaje", query = "SELECT mp.* FROM mensaje_parametro mp where mp.MensajeElementoid = ? and mp.Parametroid=?", resultClass = MensajeParametro.class),
+	@NamedNativeQuery(name = "MensajeParametro.findByIdParametro", query = "SELECT mp.* FROM mensaje_parametro mp where mp.Parametroid=?", resultClass = MensajeParametro.class)
+	})
 @Entity
 @Table(name = "Mensaje_Parametro")
 public class MensajeParametro implements java.io.Serializable, GenericInterface {
@@ -27,8 +30,15 @@ public class MensajeParametro implements java.io.Serializable, GenericInterface 
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id")
 	private Integer id;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MensajeElementoid")
 	private Mensaje mensaje;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Parametroid")
 	private Parametro parametro;
 	//private Set<ValorMensajeParametro> valores = new HashSet<ValorMensajeParametro>(0);
 
@@ -38,10 +48,7 @@ public class MensajeParametro implements java.io.Serializable, GenericInterface 
 	public MensajeParametro(Parametro parametro) {
 		this.parametro = parametro;
 	}
-
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
+	
 	public Integer getId() {
 		return this.id;
 	}
@@ -50,8 +57,6 @@ public class MensajeParametro implements java.io.Serializable, GenericInterface 
 		this.id = id;
 	}
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "MensajeElementoid", referencedColumnName ="Elementoid", nullable = false)
 	public Mensaje getMensaje() {
 		return mensaje;
 	}
@@ -60,8 +65,6 @@ public class MensajeParametro implements java.io.Serializable, GenericInterface 
 		this.mensaje = mensaje;
 	}
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Parametroid", referencedColumnName ="id", nullable = false)
 	public Parametro getParametro() {
 		return parametro;
 	}
