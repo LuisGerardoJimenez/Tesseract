@@ -79,30 +79,7 @@ public class PantallaBs {
 	public void registrarPantalla(PantallaDTO pantallaDTO, File archivo) {
 		if (archivo != null) {
 			if (rn040.isValidRN040(archivo)) {
-				if (rn001.isValidRN001(pantallaDTO)) {
-					if (rn006.isValidRN006(pantallaDTO)) {
-						System.out.println("Se va a guardar");
-						Pantalla pantalla = new Pantalla();
-						Proyecto proyecto = genericoDAO.findById(Proyecto.class, pantallaDTO.getIdProyecto());
-						byte[] imagen = ImageConverterUtil.parseFileToBASE64ByteArray(archivo);
-						Modulo modulo = genericoDAO.findById(Modulo.class, pantallaDTO.getIdModulo());
-						pantalla.setClave(Clave.IU.toString());
-						pantalla.setNumero(pantallaDTO.getNumero());
-						pantalla.setNombre(pantallaDTO.getNombre());
-						pantalla.setDescripcion(pantallaDTO.getDescripcion());
-						pantalla.setProyecto(proyecto);
-						pantalla.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
-						pantalla.setImagen(imagen);
-						pantalla.setModulo(modulo);
-						genericoDAO.save(pantalla);
-					} else {
-						throw new TESSERACTValidacionException("EL nombre de la pantalla ya existe.", "MSG7",
-								new String[] { "La", "Pantalla", pantallaDTO.getNombre() }, "model.nombre");
-					}
-				} else {
-					throw new TESSERACTValidacionException("EL número de la pantalla ya existe.", "MSG7",
-							new String[] { "El", "número", pantallaDTO.getNumero() }, "model.numero");
-				}
+				validarYAgregar(pantallaDTO, archivo);
 			} else {
 				throw new TESSERACTValidacionException("Archivo muy grande.", "MSG17", 
 						new String[] { "2", "MB" }, null);
@@ -112,40 +89,67 @@ public class PantallaBs {
 		}
 	}
 	
+	private void validarYAgregar(PantallaDTO pantallaDTO, File archivo) {
+		if (rn001.isValidRN001(pantallaDTO)) {
+			if (rn006.isValidRN006(pantallaDTO)) {
+				System.out.println("Se va a guardar");
+				Pantalla pantalla = new Pantalla();
+				Proyecto proyecto = genericoDAO.findById(Proyecto.class, pantallaDTO.getIdProyecto());
+				byte[] imagen = ImageConverterUtil.parseFileToBASE64ByteArray(archivo);
+				Modulo modulo = genericoDAO.findById(Modulo.class, pantallaDTO.getIdModulo());
+				pantalla.setClave(Clave.IU.toString());
+				pantalla.setNumero(pantallaDTO.getNumero());
+				pantalla.setNombre(pantallaDTO.getNombre());
+				pantalla.setDescripcion(pantallaDTO.getDescripcion());
+				pantalla.setProyecto(proyecto);
+				pantalla.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
+				pantalla.setImagen(imagen);
+				pantalla.setModulo(modulo);
+				genericoDAO.save(pantalla);
+			} else {
+				throw new TESSERACTValidacionException("EL nombre de la pantalla ya existe.", "MSG7",
+						new String[] { "La", "Pantalla", pantallaDTO.getNombre() }, "model.nombre");
+			}
+		} else {
+			throw new TESSERACTValidacionException("EL número de la pantalla ya existe.", "MSG7",
+					new String[] { "El", "número", pantallaDTO.getNumero() }, "model.numero");
+		}
+	}
+	
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarPantalla(PantallaDTO pantallaDTO, File archivo) {
 		if (archivo != null) {
 			if (rn040.isValidRN040(archivo)) {
-				if (rn001.isValidRN001(pantallaDTO)) {
-					if (rn006.isValidRN006(pantallaDTO)) {
-						System.out.println("Se va a guardar");
-						Pantalla pantalla = new Pantalla();
-						Proyecto proyecto = genericoDAO.findById(Proyecto.class, pantallaDTO.getIdProyecto());
-						byte[] imagen = ImageConverterUtil.parseFileToBASE64ByteArray(archivo);
-						Modulo modulo = genericoDAO.findById(Modulo.class, pantallaDTO.getIdModulo());
-						pantalla.setClave(Clave.IU.toString());
-						pantalla.setNumero(pantallaDTO.getNumero());
-						pantalla.setNombre(pantallaDTO.getNombre());
-						pantalla.setDescripcion(pantallaDTO.getDescripcion());
-						pantalla.setProyecto(proyecto);
-						pantalla.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
-						pantalla.setImagen(imagen);
-						pantalla.setModulo(modulo);
-						genericoDAO.save(pantalla);
-					} else {
-						throw new TESSERACTValidacionException("EL nombre de la pantalla ya existe.", "MSG7",
-								new String[] { "La", "Pantalla", pantallaDTO.getNombre() }, "model.nombre");
-					}
-				} else {
-					throw new TESSERACTValidacionException("EL número de la pantalla ya existe.", "MSG7",
-							new String[] { "El", "número", pantallaDTO.getNumero() }, "model.numero");
-				}
+				validarYEditar(pantallaDTO, archivo, true);
 			} else {
 				throw new TESSERACTValidacionException("Archivo muy grande.", "MSG17", 
 						new String[] { "2", "MB" }, null);
 			}
 		} else {
-			throw new TESSERACTValidacionException("Seleccione una imagen.", "MSG30", null, "imagenPantalla");
+			validarYEditar(pantallaDTO, archivo, false);
+		}
+	}
+	
+	private void validarYEditar(PantallaDTO pantallaDTO, File archivo, Boolean cambiarImagen) {
+		if (rn001.isValidRN001(pantallaDTO)) {
+			if (rn006.isValidRN006(pantallaDTO)) {
+				System.out.println("Se va a editar");
+				Pantalla pantalla = genericoDAO.findById(Pantalla.class, pantallaDTO.getId());
+				if (cambiarImagen) {
+					byte[] imagen = ImageConverterUtil.parseFileToBASE64ByteArray(archivo);
+					pantalla.setImagen(imagen);
+				}
+				pantalla.setNumero(pantallaDTO.getNumero());
+				pantalla.setNombre(pantallaDTO.getNombre());
+				pantalla.setDescripcion(pantallaDTO.getDescripcion());
+				genericoDAO.update(pantalla);
+			} else {
+				throw new TESSERACTValidacionException("EL nombre de la pantalla ya existe.", "MSG7",
+						new String[] { "La", "Pantalla", pantallaDTO.getNombre() }, "model.nombre");
+			}
+		} else {
+			throw new TESSERACTValidacionException("EL número de la pantalla ya existe.", "MSG7",
+					new String[] { "El", "número", pantallaDTO.getNumero() }, "model.numero");
 		}
 	}
 

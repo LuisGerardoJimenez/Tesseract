@@ -114,8 +114,6 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 				if (idModulo != null) {
 					proyecto = loginBs.consultarProyectoActivo();
 					modulo = moduloBs.consultarModuloById(idModulo);
-					model.setIdProyecto(proyecto.getId());
-					model.setIdModulo(modulo.getId());
 					model.setClave(Clave.IU.toString());
 					resultado = EDITNEW;
 					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
@@ -146,31 +144,18 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
-				proyecto = loginBs.consultarProyectoActivo();
+				editNew();
 			} catch (TESSERACTException te) {
 				ErrorManager.agregaMensajeError(this, te);
 				System.err.println(te.getMessage());
-				proyecto = loginBs.consultarProyectoActivo();
+				editNew();
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
-				proyecto = loginBs.consultarProyectoActivo();
+				editNew();
 			}
 		} else {
 			proyecto = loginBs.consultarProyectoActivo();
-			System.out.println(getFieldErrors());
-//			if (getFieldErrors().containsKey("imagenPantalla")) {
-//				for (String error : (List<String>) getFieldErrors().get("imagenPantalla")) {
-//					if (error.contains("PNG")) {
-//						addActionError(this.getText("MSG16", new String[] { "PNG"}));
-//						break;
-//					}
-//					if (error.contains("exceder")) {
-//						addActionError(this.getText("MSG17", new String[] { "2", "MB"}));
-//						break;
-//					}
-//				}
-//			}
 			if (!getFieldErrors().containsKey("imagenPantalla") && imagenPantalla == null) {
 				addFieldError("imagenPantalla", this.getText("MSG30"));
 			}
@@ -193,8 +178,6 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 				if (idModulo != null) {
 					proyecto = loginBs.consultarProyectoActivo();
 					modulo = moduloBs.consultarModuloById(idModulo);
-					model.setIdProyecto(proyecto.getId());
-					model.setIdModulo(modulo.getId());
 					pantallaB64 = ImageConverterUtil.parseBytesToPNGB64String(model.getPantallaB64());
 					resultado = EDIT;
 					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
@@ -223,23 +206,18 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
-				proyecto = loginBs.consultarProyectoActivo();
+				edit();
 			} catch (TESSERACTException te) {
 				ErrorManager.agregaMensajeError(this, te);
 				System.err.println(te.getMessage());
-				proyecto = loginBs.consultarProyectoActivo();
+				edit();
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
-				proyecto = loginBs.consultarProyectoActivo();
+				edit();
 			}
 		} else {
-			proyecto = loginBs.consultarProyectoActivo();
-			try {
-				pantallaB64 = ImageConverterUtil.parseBytesToPNGB64String(model.getPantallaB64());
-			} catch (Exception e) {
-				ErrorManager.agregaMensajeError(this, e);
-			}
+			edit();
 		}
 	}
 	
@@ -248,22 +226,6 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-
-//	private void buscaCatalogos() {
-//		listTipoAccion = PantallaBs.consultarTiposAccion();
-//		List<Pantalla> pantallasAux = PantallaBs.consultarPantallasProyecto(proyecto);
-//		List<Pantalla> pantallas = new ArrayList<Pantalla>();
-//		
-//		for(Pantalla pantalla : pantallasAux) {
-//			Pantalla pAux = new Pantalla();
-//			pAux.setClave(pantalla.getClave());
-//			pAux.setNombre(pantalla.getNombre());
-//			pAux.setNumero(pantalla.getNumero());
-//			pAux.setId(pantalla.getId());
-//			pantallas.add(pAux);
-//		}
-//		jsonPantallasDestino = JsonUtil.mapListToJSON(pantallas);
-//	}
 //
 //	private void agregarAcciones() throws Exception{
 //		Set<Accion> accionesModelo = new HashSet<Accion>(0);
@@ -321,131 +283,6 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 //		
 //	}
 
-//	public String create() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(modulo.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			model.setModulo(modulo);
-//			agregarAcciones();
-//			agregarImagen();
-//			
-//			PantallaBs.registrarPantalla(model);
-//			
-//			resultado = SUCCESS;
-//			addActionMessage(getText("MSG1", new String[] { "La",
-//					"Pantalla", "registrada" }));
-//
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		} catch (TESSERACTValidacionException pve) {
-//			ErrorManager.agregaMensajeError(this, pve);
-//			resultado = editNew();
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
-//	
-//	private void agregarImagen() throws IOException {
-//		if(pantallaB64 != null && !pantallaB64.isEmpty() && !pantallaB64.contains("image/png")) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario seleccionó una imagen que no es PNG.", "MSG36", null,
-//					"pantallaB64");
-//		}
-//		byte[] imgDecodificada = ImageConverterUtil.parsePNGB64StringToBytes(pantallaB64);
-//		model.setImagen(imgDecodificada);
-//	}
-//	
-//	public String edit() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			model.setModulo(modulo);
-//			ElementoBs.verificarEstado(model, CU_Pantallas.MODIFICARPANTALLA6_2);
-//			
-//			buscaCatalogos();
-//			prepararVista();
-//			
-//			resultado = EDIT;
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//
-//		return resultado;
-//		
-//	}
-//	
-//	public String update() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			model.setModulo(modulo);
-//			model.getAcciones().clear();
-//			agregarAcciones();
-//			agregarImagen();
-//
-////			Actualizacion actualizacion = new Actualizacion(new Date(),
-////					comentario, model,
-////					SessionManager.consultarColaboradorActivo());
-////
-////			PantallaBs.modificarPantalla(model, actualizacion);
-//			PantallaBs.modificarPantalla(model);
-//			resultado = SUCCESS;
-//			addActionMessage(getText("MSG1", new String[] { "La",
-//					"Pantalla", "modificada" }));
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		} catch (TESSERACTValidacionException pve) {
-//			ErrorManager.agregaMensajeError(this, pve);
-//			resultado = edit();
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
 //	
 //	public String destroy() throws Exception {
 //		String resultado =  null;
@@ -517,34 +354,7 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 //		return resultado;
 //	}
 //	
-//	private void prepararVista() {
-//		pantallaB64 = ImageConverterUtil.parseBytesToPNGB64String(model.getImagen());
-//		List<Accion> listAcciones = new ArrayList<Accion>();
-//		List<String> listImagenesAcciones = new ArrayList<String>();
-//		for(Accion acc : model.getAcciones()) {
-//			Accion accAux = new Accion();
-//			accAux.setId(acc.getId());
-//			accAux.setNombre(acc.getNombre());
-//			accAux.setDescripcion(acc.getDescripcion());
-//			accAux.setTipoAccion(acc.getTipoAccion());
-//			
-//			Pantalla pAux = new Pantalla();
-//			Pantalla pant = acc.getPantalla();
-//			pAux.setClave(pant.getClave());
-//			pAux.setNumero(pant.getNumero());
-//			pAux.setNombre(pant.getNombre());
-//			pAux.setId(pant.getId());
-//			
-//			accAux.setPantallaDestino(pAux);
-//			listAcciones.add(accAux);
-//			
-//			listImagenesAcciones.add(ImageConverterUtil.parseBytesToPNGB64String(acc.getImagen()));
-//		}
-//		jsonAccionesTabla = JsonUtil.mapListToJSON(listAcciones);
-//		jsonImagenesAcciones = JsonUtil.mapListToJSON(listImagenesAcciones);
-//		
-//	}
-	
+//	
 //	public String verificarElementosReferencias() {
 //		try {
 //			elementosReferencias = new ArrayList<String>();
@@ -691,6 +501,14 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setIdAccion(int idAccion) {
 		this.idAccion = idAccion;
+	}
+
+	public Modulo getModulo() {
+		return modulo;
+	}
+
+	public void setModulo(Modulo modulo) {
+		this.modulo = modulo;
 	}
 	
 }
