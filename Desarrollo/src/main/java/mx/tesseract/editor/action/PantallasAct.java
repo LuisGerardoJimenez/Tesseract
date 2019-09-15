@@ -25,6 +25,7 @@ import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -38,13 +39,16 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 		"actionName", Constantes.ACTION_NAME_PANTALLAS }),
 		@Result(name = "modulos", type = "redirectAction", params = {"actionName", Constantes.ACTION_NAME_MODULOS }),
 		@Result(name = "proyectos", type = "redirectAction", params = {"actionName", Constantes.ACTION_NAME_PROYECTOS }),
+		@Result(name = "acciones", type = "redirectAction", params = {"actionName", Constantes.ACTION_NAME_ACCIONES }),
 		@Result(name = "referencias", type = "json", params = { "root",
 		"elementosReferencias" }) })
+@AllowedMethods({"gestionarAcciones"})
 public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<PantallaDTO> {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String MODULOS = "modulos";
 	private static final String PROYECTOS = "proyectos";
+	private static final String ACCIONES = "acciones";
 	private Proyecto proyecto;
 	private Modulo modulo;
 	private PantallaDTO model;
@@ -226,6 +230,23 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public String gestionarAcciones() {
+		String resultado = INDEX;
+		try {
+			resultado = ACCIONES;
+			SessionManager.set(idSel, "idPantalla");
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+			this.setActionMessages(msjs);
+			SessionManager.delete("mensajesAccion");
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
+	}
 //
 //	private void agregarAcciones() throws Exception{
 //		Set<Accion> accionesModelo = new HashSet<Accion>(0);
@@ -404,7 +425,7 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
-		model = pantallaBs.consultarPantalla(idSel);
+		model = pantallaBs.consultarPantallaDTO(idSel);
 	}
 
 	public List<Pantalla> getListPantallas() {

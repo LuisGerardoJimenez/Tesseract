@@ -94,6 +94,16 @@
 						</tr>
 					</table>
 				</s:if>
+				<s:if test="#session.idPantalla != null and pantalla!=null">
+					<table class = "info">
+						<tr>
+							<td align="right">Pantalla:
+							<s:property value="pantalla.clave" />
+							<s:property value="pantalla.numero" /> - <s:property
+									value="pantalla.nombre" /></td>
+						</tr>
+					</table>
+				</s:if>
 				<s:if test="#session.idCU != null">
 					<table class = "info">
 						<tr>

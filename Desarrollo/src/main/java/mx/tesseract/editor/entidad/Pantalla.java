@@ -1,12 +1,14 @@
 package mx.tesseract.editor.entidad;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /*
  * Luis Gerardo Jiménez
  */
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -43,7 +45,8 @@ public class Pantalla extends Elemento implements Serializable, GenericInterface
 	@JoinColumn(name = "Moduloid", referencedColumnName = "id")	
 	private Modulo modulo;
 	
-//	private Set<Accion> acciones = new HashSet<Accion>(0);
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pantalla", orphanRemoval = true)
+	private List<Accion> acciones = new ArrayList<Accion>();
 	
 	@Column(name = "patron")
 	private String patron;
@@ -82,14 +85,13 @@ public class Pantalla extends Elemento implements Serializable, GenericInterface
 		this.modulo = modulo;
 	}
 	
-//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pantalla", cascade = CascadeType.ALL, orphanRemoval = true)
-//	public Set<Accion> getAcciones() {
-//		return acciones;
-//	}
-//
-//	public void setAcciones(Set<Accion> acciones) {
-//		this.acciones = acciones;
-//	}
+	public List<Accion> getAcciones() {
+		return acciones;
+	}
+
+	public void setAcciones(List<Accion> acciones) {
+		this.acciones = acciones;
+	}
 
 	public String getPatron() {
 		return patron;

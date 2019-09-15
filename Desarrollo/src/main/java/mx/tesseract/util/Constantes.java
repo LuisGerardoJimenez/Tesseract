@@ -96,6 +96,7 @@ public final class Constantes {
 	public static final String ACTION_NAME_REGLAS_NEGOCIO = "reglas-negocio";
 	public static final String ACTION_NAME_ATRIBUTOS = "atributos";
 	public static final String ACTION_NAME_PANTALLAS = "pantallas";
+	public static final String ACTION_NAME_ACCIONES = "acciones";
 	
 	//DICCIONARIO
 	public static final String DICCIONARIO = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
