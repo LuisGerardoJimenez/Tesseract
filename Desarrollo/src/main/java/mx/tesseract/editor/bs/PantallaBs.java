@@ -17,6 +17,7 @@ import mx.tesseract.dto.PantallaDTO;
 import mx.tesseract.enums.ReferenciaEnum;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
+import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.PantallaDAO;
 import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.editor.entidad.Modulo;
@@ -55,13 +56,29 @@ public class PantallaBs {
 	
 	@Autowired
 	private ElementoBs elementoBs;
+	
+	@Autowired
+	private ElementoDAO elementoDAO;
 
 	public  List<Pantalla> consultarPantallasByModulo(Integer idProyecto, Integer idModulo) {
 		List<Pantalla> listPantallas = pantallaDAO.findAllByIdModulo(idProyecto, Clave.IU, idModulo);
 		return listPantallas;
 	}
 	
-	public PantallaDTO consultarPantalla(Integer idSel) {
+	public List<Pantalla> consultarPantallas(Integer idProyecto) {
+		List<Pantalla> listPantallas = elementoDAO.findAllByIdProyectoAndClave(Pantalla.class, idProyecto, Clave.IU);
+		return listPantallas;
+	}
+	
+	public Pantalla consultarPantalla(Integer idPantalla) {
+		Pantalla pantalla = genericoDAO.findById(Pantalla.class, idPantalla);
+		if (pantalla == null) {
+			throw new TESSERACTException("No se puede consultar la pantalla.", "MSG12");			
+		}
+		return pantalla;
+	}
+	
+	public PantallaDTO consultarPantallaDTO(Integer idSel) {
 		Pantalla pantalla = genericoDAO.findById(Pantalla.class, idSel);
 		PantallaDTO pantallaDTO = new PantallaDTO();
 		if (pantalla != null) {

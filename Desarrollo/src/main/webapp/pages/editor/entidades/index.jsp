@@ -30,8 +30,8 @@
 					<td><s:property value="%{#entidad.nombre}"/></td>
 					<td align="center">
 						<s:if test="%{#entidad.estadoElemento.id == 1}">
-						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/entidades!gestionarAtributos?idSel=%{#entidad.id}"/>			
-						<s:a href="%{urlEditar}">
+						<s:url var="urlAtributos" value="%{#pageContext.request.contextPath}/entidades!gestionarAtributos?idSel=%{#entidad.id}"/>			
+						<s:a href="%{urlAtributos}">
 							<img id="" class="button" title="Gestionar Atributos"
 									src="${pageContext.request.contextPath}/resources/images/icons/Atributo.svg" />
 						</s:a>
