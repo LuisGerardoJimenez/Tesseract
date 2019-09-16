@@ -10,6 +10,8 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import mx.tesseract.editor.entidad.Accion;
+import mx.tesseract.editor.entidad.Elemento;
+import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.util.Constantes;
 
 @Repository("accionDAO")
@@ -30,6 +32,41 @@ public class AccionDAO {
 			 System.err.println(e.getMessage());
 		}
 		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Accion findByNombreAndIdPantalla(String nombre, Integer idPantalla) {
+		Accion accion = null;
+		try {
+			Query query = entityManager.createNamedQuery("Accion.findByNameAndPantalla", Accion.class);
+			query.setParameter(Constantes.NUMERO_UNO, nombre);
+			query.setParameter(Constantes.NUMERO_DOS, idPantalla);
+			List<Accion> lista = (List<Accion>) query.getResultList();
+			if (!lista.isEmpty()) {
+				accion = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return accion;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Accion findByNombreAndIdAndIdPantalla(String nombre, Integer id, Integer idPantalla) {
+		Accion accion = null;
+		try {
+			Query query = entityManager.createNamedQuery("Accion.findByNameAndIdAndPantalla", Accion.class);
+			query.setParameter(Constantes.NUMERO_UNO, nombre);
+			query.setParameter(Constantes.NUMERO_DOS, id);
+			query.setParameter(Constantes.NUMERO_TRES, idPantalla);
+			List<Accion> lista = (List<Accion>) query.getResultList();
+			if (!lista.isEmpty()) {
+				accion = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return accion;
 	}
 
 }

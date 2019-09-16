@@ -1,5 +1,6 @@
 package mx.tesseract.editor.action;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
@@ -60,6 +61,10 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 	private Modulo modulo;
 	private AccionDTO model;
 	private Pantalla pantalla;
+	
+	private File imagenAccion;
+	private String imagenAccionContentType;
+	private String imagenAccionFileName;
 	
 	private List<Accion> listAcciones;
 	private List<TipoAccion> listTipoAccion;
@@ -160,36 +165,40 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 		}
 		return resultado;
 	}
-//	
-//	public void validateCreate() {
-//		if (!hasErrors()) {
-//			try {
-//				Integer idEntidad = (Integer) SessionManager.get("idEntidad");
-//				model.setIdEntidad(idEntidad);
-//				atributoBs.registrarAtributo(model);
-//			} catch (TESSERACTValidacionException tve) {
-//				ErrorManager.agregaMensajeError(this, tve);
-//				System.err.println(tve.getMessage());
-//				editNew();
-//			} catch (TESSERACTException te) {
-//				ErrorManager.agregaMensajeError(this, te);
-//				System.err.println(te.getMessage());
-//				editNew();
-//			} catch (Exception e) {
-//				ErrorManager.agregaMensajeError(this, e);
-//				e.printStackTrace();
-//				editNew();
-//			}
-//		} else {
-//			editNew();
-//		}
-//	}
-//	
-//	public String create() {
-//		addActionMessage(getText("MSG1", new String[] { "El", "Atributo", "registrado" }));
-//		SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		return SUCCESS;
-//	}
+	
+	public void validateCreate() {
+		if (!hasErrors()) {
+			try {
+				Integer idPantala = (Integer) SessionManager.get("idPantalla");
+				model.setIdPantalla(idPantala);
+				accionBs.registrarAccion(model, imagenAccion);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				editNew();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				editNew();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				editNew();
+			}
+		} else {
+			proyecto = loginBs.consultarProyectoActivo();
+			if (!getFieldErrors().containsKey("imagenAccion") && imagenAccion == null) {
+				addFieldError("imagenAccion", this.getText("MSG30"));
+			}
+			editNew();
+		}
+	}
+	
+	public String create() {
+		addActionMessage(getText("MSG1", new String[] { "La", "Acción", "registrada" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
 //	
 //	public String edit() {
 //		String resultado = INDEX;
@@ -303,6 +312,30 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 
 	public void setListPantallas(List<Pantalla> listPantallas) {
 		this.listPantallas = listPantallas;
+	}
+
+	public File getImagenAccion() {
+		return imagenAccion;
+	}
+
+	public void setImagenAccion(File imagenAccion) {
+		this.imagenAccion = imagenAccion;
+	}
+
+	public String getImagenAccionContentType() {
+		return imagenAccionContentType;
+	}
+
+	public void setImagenAccionContentType(String imagenAccionContentType) {
+		this.imagenAccionContentType = imagenAccionContentType;
+	}
+
+	public String getImagenAccionFileName() {
+		return imagenAccionFileName;
+	}
+
+	public void setImagenAccionFileName(String imagenAccionFileName) {
+		this.imagenAccionFileName = imagenAccionFileName;
 	}
 	
 }

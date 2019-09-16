@@ -33,7 +33,7 @@
 			<table class="seccion">
 				<tr>
 					<td class="label obligatorio"><s:text name="labelNombre" /></td>
-					<td><s:textfield name="model.nombre" maxlength="50"
+					<td><s:textfield name="model.nombre" maxlength="45"
 							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
 						<s:fielderror fieldName="model.nombre" cssClass="error"
 							theme="jquery" /></td>
@@ -59,7 +59,7 @@
 					<td class="label obligatorio"><s:text name="labelPantallaDestino" /></td>
 					<td><s:select name="model.idPantallaDestino"
 							list="listPantallas" headerValue="Seleccione"
-							headerKey="-1" listKey="id" listValue="nombre"
+							headerKey="-1" listKey="id" listValue="%{modulo.clave + ' - ' +numero+' '+nombre}"
 							value="model.idPantallaDestino" cssErrorClass="select-error"
 							cssClass="inputFormulario ui-widget" /> <s:fielderror
 							fieldName="model.idPantallaDestino" cssClass="error"
@@ -67,17 +67,17 @@
 				</tr>
 				<tr id="fila-pantalla">
 					<td class="label"><s:text name="labelImagen" /></td>
-					<td><s:file id="imagenPantalla" name="imagenPantalla"
+					<td><s:file id="imagenAccion" name="imagenAccion"
 							size="40" cssClass="inputFormulario ui-widget"
 							cssErrorClass="input-error"
 							onchange="mostrarPrevisualizacion(this, 'pantalla'); "
-							accept=".png" /> <s:fielderror fieldName="imagenPantalla"
+							accept=".png" /> <s:fielderror fieldName="imagenAccion"
 							cssClass="error" theme="jquery" /></td>
 				</tr>
 			</table>
 			<div class="marcoImagen" id="marco-pantalla" style="display: none;">
 				<div class="btnEliminar">
-					<a onclick="eliminarImagen('pantalla', 'imagenPantalla');"><img
+					<a onclick="eliminarImagen('pantalla', 'imagenAccion');"><img
 						title="Eliminar"
 						src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></a>
 				</div>
