@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<h1>Gestionar Proyectos</h1>
+	<h1>Gestionar Proyectos de Administrador</h1>
 	<s:actionmessage theme="jquery"/>
 	<s:actionerror theme="jquery"/>
 	

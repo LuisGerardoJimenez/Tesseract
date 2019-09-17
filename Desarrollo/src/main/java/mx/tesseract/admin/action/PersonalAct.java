@@ -74,7 +74,7 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 	}
 
 	public String create() {
-		addActionMessage(getText("MSG1", new String[] { "La", "Persona", "registrada" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Colaborador", "registrado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -103,7 +103,7 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 	}
 
 	public String update() {
-		addActionMessage(getText("MSG1", new String[] { "La", "Persona", "modificada" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Colaborador", "modificado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -129,7 +129,7 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 	}
 
 	public String destroy() {
-		addActionMessage(getText("MSG1", new String[] { "La", "Persona", "eliminada" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Colaborador", "eliminado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}

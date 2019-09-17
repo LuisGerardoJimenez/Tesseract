@@ -1,0 +1,96 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tipo de documento y paquetes
+\documentclass[10pt]{book}
+\usepackage{cdt/cdtBusiness}
+\usepackage{eldPosEstrucAcad}
+\usepackage{subfigure}
+%\usepackage{cite}
+%\usepackage{verbatim}
+%\usepackage{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Datos del proyecto
+\documento{C4--MU}{Manual de Usuarios}{\RELEASE{1.0}} %  {\DRAFT{\today}}
+\proyecto[ELD--POSGRADO]{\sae}
+\sistema[SAE]{SAE V2.0}
+\entregable{--PEA}{Proceso de Gestión Académica}
+\organizacion[ELD]{\eld}
+\autor[CDT--ESCOM--IPN]{\cdt}
+\fecha{17 de Mayo de 2018} % Establecer la fecha cuando se desee congelar la fecha del documento: dd de Mes de Año (17 de Enero de 2018), de ser borrador, el argumento es \today.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Datos para revisión
+\elaboro[Líder de Proyecto]{M. en C. José Jaime López Rabadán}
+\superviso[Secretario de Posgrado de la ELD]{Mayra M. Camil}
+\aprobo[Secretario de Posgrado de la ELD]{Mayra M. Camil}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Documentación relacionada al documento
+\docRefs{
+	\docItem{Propuesta de Desarrollo}{1.0}{Sistema de Administración Escolar para el Departamento de Posgrado de la Escuela Libre de Derecho}{Propuesta general para el desarrollo del SAEV2.0}
+	\docItem{C7-PF}{1}{Proceso Fortalecido}{Descripción general de los procesos fortalecidos contemplados en el SAEV2.0}
+	\docItem{C1-DA}{1}{Documento de Análisis}{Documentación del modelo de estados,  información, negocio, comportamiento e interacción para el SAE V2.0}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Elementos contenidos en el documento
+\elemRefs{
+	%Secretario de posgrado
+   \elemItem{Secretario de Posgrado}{1.0}{}
+   \elemItem{Inicio de Sesión}{1.0}{}
+   \elemItem{Menú principal}{1.0}{}
+ }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inicio del Documento
+\begin{document}
+
+	%=========================================================
+	% Portada
+	\ThisLRCornerWallPaper{1}{cdt/theme/agua.jpg}
+	\thispagestyle{empty}
+
+	\maketitle %Genera la portada (obtiene la estructura en cdtBook.sty)
+
+	%=========================================================
+	% Datos del proyecto y el documento, así como los elementos entregados 
+	\makeDocInfo %Genera los datos del proyecto y del documento (obtiene la estructura en cdtBook.sty)
+	\makeDocRefs %Genera los documentos relacionados (obtiene la estructura en cdtBook.sty)
+	\pagebreak
+	\makeElemRefs %Genera la lista de elementos entregados (obtiene la estructura en cdtBook.sty)
+	\pagebreak
+	\makeObservaciones[3cm] %Genera la sección de observaciones (obtiene la estructura en cdtBook.sty)
+	\makeFirmas %Genera la sección de firmas (obtiene la estructura en cdtBook.sty)
+	
+	%=========================================================
+	% Indices del documento
+	\renewcommand{\tablename}{Tabla}	
+	\renewcommand{\listtablename}{Índice de tablas}
+	\frontmatter
+	\LRCornerWallPaper{1}{cdt/theme/pleca.jpg}
+	\tableofcontents
+	\listoffigures
+	\listoftables
+	\mainmatter	
+
+	%=========================================================
+	%Contenido	
+	\cfinput{introduccion} %Capítulo Introducción: Contexto y estructura del documento
+	\cfinput{ingresoSistema} %Capítulo Ingreso Sistema: Describe el ingreso al sistema de forma general
+	%----------------------------------
+	%Roles
+	%Secretario de Posgrado
+	
+	\cfinput{roles/secretarioPosgrado/secretarioPosgrado}
+	\cfinput{roles/coordinadorControlEscolar/coordinadorControlEscolar}
+	\cfinput{roles/directorAcademico/directorAcademico}
+	\cfinput{roles/coordinadorPrograma/coordinadorPrograma}
+	\cfinput{roles/asistenteSistemas/asistenteSistemas}
+	%\cfinput{roles/profesor/asistenteSistemas}
+	%\cfinput{roles/alumno/asistenteSistemas}
+	%\cfinput{roles/aspirante/asistenteSistemas}
+
+	\clossing	
+
+\end{document}
