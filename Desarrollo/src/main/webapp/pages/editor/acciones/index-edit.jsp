@@ -6,7 +6,7 @@
 		contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
 	<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Pantalla</title>
+<title>Acción</title>
 <![CDATA[
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/constructores.js"></script>
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/validaciones.js"></script>
@@ -18,37 +18,23 @@
 </head>
 <body>
 
-	<h1>Modificar Pantalla</h1>
+	<h1>Modificar Acción</h1>
 
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
 	<br />
 
 	<p class="instrucciones">Ingrese la información solicitada.</p>
-	<s:form autocomplete="off" id="frmPantalla" theme="simple"
+	<s:form autocomplete="off" id="frmAcciones" theme="simple"
 		enctype="multipart/form-data"
-		action="%{#pageContext.request.contextPath}/pantallas/%{idSel}" method="post">
+		action="%{#pageContext.request.contextPath}/acciones/%{idSel}" method="post">
 		<s:hidden name="_method" value="put" />
 		<div class="formulario">
-			<div class="tituloFormulario">Información general de la
-				Pantalla</div>
+			<div class="tituloFormulario">Información general de la Acción</div>
 			<table class="seccion">
 				<tr>
-					<td class="label"><s:text name="labelClave" /></td>
-					<td class="labelDerecho"><s:property value="model.clave" /> <s:fielderror
-							fieldName="model.clave" cssClass="error" theme="jquery" /></td>
-					<s:hidden value="%{model.clave}" name="model.clave" />
-				</tr>
-				<tr>
-					<td class="label obligatorio"><s:text name="labelNumero" /></td>
-					<td><s:textfield name="model.numero" maxlength="20"
-							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
-						<s:fielderror fieldName="model.numero" cssClass="error"
-							theme="jquery" /></td>
-				</tr>
-				<tr>
 					<td class="label obligatorio"><s:text name="labelNombre" /></td>
-					<td><s:textfield name="model.nombre" maxlength="50"
+					<td><s:textfield name="model.nombre" maxlength="45"
 							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
 						<s:fielderror fieldName="model.nombre" cssClass="error"
 							theme="jquery" /></td>
@@ -60,20 +46,40 @@
 							cssErrorClass="input-error"></s:textarea> <s:fielderror
 							fieldName="model.descripcion" cssClass="error" theme="jquery" /></td>
 				</tr>
+				<tr>
+					<td class="label obligatorio"><s:text name="labelTipoAccion" /></td>
+					<td><s:select name="model.idTipoAccion"
+							list="listTipoAccion" headerValue="Seleccione"
+							headerKey="-1" listKey="id" listValue="nombre"
+							value="model.idTipoAccion" cssErrorClass="select-error"
+							cssClass="inputFormulario ui-widget" /> <s:fielderror
+							fieldName="model.idTipoAccion" cssClass="error"
+							theme="jquery" /></td>
+				</tr>
+				<tr>
+					<td class="label obligatorio"><s:text name="labelPantallaDestino" /></td>
+					<td><s:select name="model.idPantallaDestino"
+							list="listPantallas" headerValue="Seleccione"
+							headerKey="-1" listKey="id" listValue="%{modulo.clave + ' - ' +numero+' '+nombre}"
+							value="model.idPantallaDestino" cssErrorClass="select-error"
+							cssClass="inputFormulario ui-widget" /> <s:fielderror
+							fieldName="model.idPantallaDestino" cssClass="error"
+							theme="jquery" /></td>
+				</tr>
 				<tr id="fila-pantalla">
 					<td class="label"><s:text name="labelReemplazarImagen" /></td>
-					<td><s:file id="imagenPantalla" name="imagenPantalla"
+					<td><s:file id="imagenAccion" name="imagenAccion"
 							size="40" cssClass="inputFormulario ui-widget"
 							cssErrorClass="input-error"
 							onchange="mostrarPrevisualizacion(this, 'pantalla'); "
-							accept=".png" /> <s:fielderror fieldName="imagenPantalla"
+							accept=".png" /> <s:fielderror fieldName="imagenAccion"
 							cssClass="error" theme="jquery" /></td>
 				</tr>
 			</table>
 			<div class="marcoImagen" id="marco-pantalla">
 				<center>
-					<s:url var="pantallaAction" value="%{#action.pantallaB64}"/>
-					<img id="pantalla" src="${pantallaAction}" class="imagen" />
+					<s:url var="pantallaAccion" value="%{#action.model.imagenB64}"/>
+					<img id="pantalla" src="${pantallaAccion}" class="imagen" />
 				</center>
 				<div class="textoAyuda">Imagen seleccionada</div>
 			</div>
@@ -84,11 +90,11 @@
 		<div align="center">
 			<s:submit class="boton" value="Aceptar" />
 
-			<s:url var="urlGestionarPantallas"
-				value="%{#pageContext.request.contextPath}/pantallas">
+			<s:url var="urlGestionarAcciones"
+				value="%{#pageContext.request.contextPath}/acciones">
 			</s:url>
 			<input class="boton" type="button"
-				onclick="location.href='${urlGestionarPantallas}'" value="Cancelar" />
+				onclick="location.href='${urlGestionarAcciones}'" value="Cancelar" />
 		</div>
 	</s:form>
 

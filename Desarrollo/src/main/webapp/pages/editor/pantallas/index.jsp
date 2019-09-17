@@ -41,7 +41,7 @@
 									<s:url var="urlAcciones" value="%{#pageContext.request.contextPath}/pantallas!gestionarAcciones?idSel=%{#pantalla.id}"/>
 									<s:a href="%{urlAcciones}">
 									<img id="" class="button" title="Gestionar Acciones"
-										src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/Accion.svg" />
 									</s:a> 
 								</s:if>
 								${blanks}

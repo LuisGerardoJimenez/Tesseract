@@ -109,7 +109,6 @@ public class PantallaBs {
 	private void validarYAgregar(PantallaDTO pantallaDTO, File archivo) {
 		if (rn001.isValidRN001(pantallaDTO)) {
 			if (rn006.isValidRN006(pantallaDTO)) {
-				System.out.println("Se va a guardar");
 				Pantalla pantalla = new Pantalla();
 				Proyecto proyecto = genericoDAO.findById(Proyecto.class, pantallaDTO.getIdProyecto());
 				byte[] imagen = ImageConverterUtil.parseFileToBASE64ByteArray(archivo);
@@ -150,7 +149,6 @@ public class PantallaBs {
 	private void validarYEditar(PantallaDTO pantallaDTO, File archivo, Boolean cambiarImagen) {
 		if (rn001.isValidRN001(pantallaDTO)) {
 			if (rn006.isValidRN006(pantallaDTO)) {
-				System.out.println("Se va a editar");
 				Pantalla pantalla = genericoDAO.findById(Pantalla.class, pantallaDTO.getId());
 				if (cambiarImagen) {
 					byte[] imagen = ImageConverterUtil.parseFileToBASE64ByteArray(archivo);

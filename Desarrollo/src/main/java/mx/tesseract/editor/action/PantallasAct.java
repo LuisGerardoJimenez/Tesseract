@@ -11,8 +11,10 @@ import java.util.Map;
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dto.PantallaDTO;
+import mx.tesseract.editor.bs.AccionBs;
 import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.bs.PantallaBs;
+import mx.tesseract.editor.entidad.Accion;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
@@ -57,20 +59,12 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 	private Integer idModulo; 
 	
 	private List<Pantalla> listPantallas;
-//	private List<TipoAccion> listTipoAccion;
-	private String jsonPantallasDestino;
-	
-	private String jsonAccionesTabla;
+	private List<Accion> listAcciones;
 	private Integer idSel;
 	private File imagenPantalla;
-	private String jsonImagenesAcciones;
 	private String imagenPantallaContentType;
 	private String imagenPantallaFileName;
 	private String pantallaB64;
-	private List<String> imagenesAcciones;
-	private List<String> elementosReferencias;
-	private String comentario;
-	private int idAccion;
 	
 	@Autowired
 	private LoginBs loginBs;
@@ -80,6 +74,9 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 	
 	@Autowired
 	private PantallaBs pantallaBs;
+	
+	@Autowired
+	private AccionBs accionBs;
 
 	@SuppressWarnings("unchecked")
 	public String index() {
@@ -247,63 +244,35 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 		}
 		return resultado;
 	}
-//
-//	private void agregarAcciones() throws Exception{
-//		Set<Accion> accionesModelo = new HashSet<Accion>(0);
-//		List<Accion> accionesVista = new ArrayList<Accion>();
-//		Accion accionBD = null;
-//		Pantalla pantallaDestino = null;
-//		TipoAccion tipoAccion = null;
-//		
-//		List<String> imagenesAccionesTexto = null;
-//		if (jsonAccionesTabla != null && !jsonAccionesTabla.equals("")) {
-//			if(jsonImagenesAcciones != null && !jsonImagenesAcciones.equals("")) {
-//				imagenesAccionesTexto = JsonUtil.mapJSONToArrayList(jsonImagenesAcciones, String.class);
-//			}				
-//
-//			accionesVista = JsonUtil.mapJSONToArrayList(jsonAccionesTabla, Accion.class);
-//			
-//			if(accionesVista != null) {
-//				
-//				int i = 0;
-//				for (Accion accionVista : accionesVista) {
-//					if(accionVista.getPantallaDestino() != null && accionVista.getPantallaDestino().getId() > 0) {
-//						pantallaDestino = PantallaBs.consultarPantalla(accionVista.getPantallaDestino().getId());
-//					}
-//
-//					if(imagenesAccionesTexto.get(i) != null && !imagenesAccionesTexto.get(i).isEmpty() &&!imagenesAccionesTexto.get(i).contains("image/png")) {
-//						throw new TESSERACTValidacionException(
-//								"El usuario seleccionó una imagen que no es PNG.", "MSG36");
-//					}
-//					byte[] imgDecodificada = ImageConverterUtil.parsePNGB64StringToBytes(imagenesAccionesTexto.get(i));
-//					
-//					tipoAccion = PantallaBs.consultarTipoAccion(accionVista.getTipoAccion().getId());
-//					
-//					if(accionVista.getId() != null && accionVista.getId() != 0) {
-//						accionBD = AccionBs.consultarAccion(accionVista.getId());
-//						accionBD.setNombre(accionVista.getNombre());
-//						accionBD.setDescripcion(accionVista.getDescripcion());
-//						accionBD.setImagen(imgDecodificada);
-//						accionBD.setPantallaDestino(pantallaDestino);
-//						accionBD.setTipoAccion(tipoAccion);
-//						accionesModelo.add(accionBD);
-//					} else {
-//						accionVista.setId(null);
-//						accionVista.setPantalla(model);
-//						accionVista.setImagen(imgDecodificada);
-//						accionVista.setPantallaDestino(pantallaDestino);
-//						accionVista.setTipoAccion(tipoAccion);
-//						accionesModelo.add(accionVista);
-//					}
-//					
-//					i++;
-//				}
-//				model.getAcciones().addAll(accionesModelo);
-//			}
-//		}
-//		
-//	}
-
+	
+	@SuppressWarnings("unchecked")
+	public String show() {
+		String resultado = INDEX;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					proyecto = loginBs.consultarProyectoActivo();
+					modulo = moduloBs.consultarModuloById(idModulo);
+					pantallaB64 = ImageConverterUtil.parseBytesToPNGB64String(model.getPantallaB64());
+					resultado = SHOW;
+					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+					this.setActionMessages(msjs);
+					SessionManager.delete("mensajesAccion");
+				} else {
+					resultado = MODULOS;
+				}
+			} else {
+				resultado = PROYECTOS;
+			}
+		} catch (TESSERACTException pe) {
+			ErrorManager.agregaMensajeError(this, pe);
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		return resultado;
+	}
 //	
 //	public String destroy() throws Exception {
 //		String resultado =  null;
@@ -336,46 +305,7 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 //		}
 //		return resultado;
 //	}
-//
-//	public String show() throws Exception{
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			model.setModulo(modulo);			
-//			prepararVista();
-//			//String nombre = model.getClave() + model.getNombre() + model.getNumero() + ".png";
-//			//@SuppressWarnings("deprecation")
-//			//String ruta = request.getRealPath("/") + "/tmp/images/" + nombre;
-//			
-//			/*this.imagenPantalla = ImageConverterUtil.convertByteArrayToFile(ruta, model.getImagen());
-//			this.imagenPantallaContentType = "image/png";
-//			this.imagenPantallaFileName = nombre;*/
-//			
-//			
-//			resultado = SHOW;
-//		} catch (TESSERACTException pe) {
-//			pe.setIdMensaje("MSG26");
-//			ErrorManager.agregaMensajeError(this, pe);
-//			return index();
-//		} catch(Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			return index();
-//		}
-//		return resultado;
-//	}
-//	
-//	
+	
 //	public String verificarElementosReferencias() {
 //		try {
 //			elementosReferencias = new ArrayList<String>();
@@ -460,68 +390,12 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 		this.imagenPantallaFileName = imagenPantallaFileName;
 	}
 
-	public String getJsonAccionesTabla() {
-		return jsonAccionesTabla;
-	}
-
-	public void setJsonAccionesTabla(String jsonAccionesTabla) {
-		this.jsonAccionesTabla = jsonAccionesTabla;
-	}
-
-	public String getJsonPantallasDestino() {
-		return jsonPantallasDestino;
-	}
-
-	public void setJsonPantallasDestino(String jsonPantallasDestino) {
-		this.jsonPantallasDestino = jsonPantallasDestino;
-	}
-
-	public String getJsonImagenesAcciones() {
-		return jsonImagenesAcciones;
-	}
-
-	public void setJsonImagenesAcciones(String jsonImagenesAcciones) {
-		this.jsonImagenesAcciones = jsonImagenesAcciones;
-	}
-
 	public String getPantallaB64() {
 		return pantallaB64;
 	}
 
 	public void setPantallaB64(String pantallaB64) {
 		this.pantallaB64 = pantallaB64;
-	}
-
-	public List<String> getImagenesAcciones() {
-		return imagenesAcciones;
-	}
-
-	public void setImagenesAcciones(List<String> imagenesAcciones) {
-		this.imagenesAcciones = imagenesAcciones;
-	}
-
-	public List<String> getElementosReferencias() {
-		return elementosReferencias;
-	}
-
-	public void setElementosReferencias(List<String> elementosReferencias) {
-		this.elementosReferencias = elementosReferencias;
-	}
-
-	public String getComentario() {
-		return comentario;
-	}
-
-	public void setComentario(String comentario) {
-		this.comentario = comentario;
-	}
-
-	public int getIdAccion() {
-		return idAccion;
-	}
-
-	public void setIdAccion(int idAccion) {
-		this.idAccion = idAccion;
 	}
 
 	public Modulo getModulo() {

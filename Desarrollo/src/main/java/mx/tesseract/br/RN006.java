@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import mx.tesseract.admin.dao.ProyectoDAO;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
+import mx.tesseract.dto.AccionDTO;
 import mx.tesseract.dto.ActorDTO;
 import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.dto.PantallaDTO;
@@ -15,10 +16,12 @@ import mx.tesseract.dto.AtributoDTO;
 import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.dto.ReglaNegocioDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
+import mx.tesseract.editor.dao.AccionDAO;
 import mx.tesseract.editor.dao.AtributoDAO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
 import mx.tesseract.editor.dao.PantallaDAO;
+import mx.tesseract.editor.entidad.Accion;
 import mx.tesseract.editor.entidad.Actor;
 import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.Atributo;
@@ -46,6 +49,9 @@ public class RN006 {
 	
 	@Autowired
 	private PantallaDAO pantallaDAO;
+	
+	@Autowired
+	private AccionDAO accionDAO;
 	
 	public Boolean isValidRN006(Proyecto entidad) {
 		Boolean valido = true;
@@ -169,4 +175,19 @@ public class RN006 {
 		}
 		return valido;
 	}
+	
+	public Boolean isValidRN006(AccionDTO entidad) {
+		Boolean valido = true;
+		Accion accion;
+		if (entidad.getId() == null) {
+			accion = accionDAO.findByNombreAndIdPantalla(entidad.getNombre(), entidad.getIdPantalla());
+		} else {
+			accion = accionDAO.findByNombreAndIdAndIdPantalla(entidad.getNombre(), entidad.getId(), entidad.getIdPantalla());
+		}
+		if (accion != null) {
+			valido = false;
+		}
+		return valido;
+	}
+	
 }
