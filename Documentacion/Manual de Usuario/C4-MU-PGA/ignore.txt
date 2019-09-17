@@ -1,0 +1,14 @@
+C4-MU-PGA.aux
+C4-MU-PGA.lof
+C4-MU-PGA.log
+C4-MU-PGA.out
+C4-MU-PGA.pdf
+C4-MU-PGA.synctex.gz
+C4-MU-PGA.toc
+C4-MU-PGA-SecretarioPosgrado.aux
+C4-MU-PGA-SecretarioPosgrado.lof
+C4-MU-PGA-SecretarioPosgrado.log
+C4-MU-PGA-SecretarioPosgrado.out
+C4-MU-PGA-SecretarioPosgrado.pdf
+C4-MU-PGA-SecretarioPosgrado.synctex.gz
+C4-MU-PGA-SecretarioPosgrado.toc

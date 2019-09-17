@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<h1>Gestionar Personal</h1>
+	<h1>Gestionar Colaboradores</h1>
 	<s:actionmessage theme="jquery"/>
 	<s:actionerror theme="jquery"/>
 	
