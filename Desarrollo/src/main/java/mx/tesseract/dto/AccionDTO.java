@@ -16,6 +16,7 @@ public class AccionDTO {
 	private Integer idTipoAccion;
 	private Integer idPantallaDestino;
 	private Integer idPantalla;
+	private String imagenB64;
 	
 	
 	public AccionDTO() {
@@ -77,6 +78,14 @@ public class AccionDTO {
 
 	public void setIdPantalla(Integer idPantalla) {
 		this.idPantalla = idPantalla;
+	}
+
+	public String getImagenB64() {
+		return imagenB64;
+	}
+
+	public void setImagenB64(String imagenB64) {
+		this.imagenB64 = imagenB64;
 	}
 
 }

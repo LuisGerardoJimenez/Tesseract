@@ -1,6 +1,7 @@
 package mx.tesseract.editor.bs;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import mx.tesseract.editor.dao.AccionDAO;
 import mx.tesseract.editor.entidad.Accion;
 import mx.tesseract.editor.entidad.Pantalla;
 import mx.tesseract.editor.entidad.TipoAccion;
+import mx.tesseract.util.ImageConverterUtil;
 import mx.tesseract.util.TESSERACTValidacionException;
 
 @Service("accionBs")
@@ -40,6 +42,46 @@ public class AccionBs {
 		return acciones;
 	}
 	
+	public AccionDTO consultarAccionDTO(Integer idAccion) {
+		AccionDTO accionDTO = new AccionDTO();
+		try {
+			Accion accion = genericoDAO.findById(Accion.class, idAccion);
+			if (accion != null) {
+				accionDTO.setId(accion.getId());
+				accionDTO.setNombre(accion.getNombre());
+				accionDTO.setDescripcion(accion.getDescripcion());
+				accionDTO.setIdPantalla(accion.getPantalla().getId());
+				accionDTO.setIdTipoAccion(accion.getTipoAccion().getId());
+				accionDTO.setIdPantallaDestino(accion.getPantallaDestino().getId());
+				accionDTO.setImagenB64(ImageConverterUtil.parseBytesToPNGB64String(accion.getImagen()));
+			}
+		} catch (Exception e) {
+			 System.err.println(e.getMessage());
+		}
+		return accionDTO;
+	}
+	
+	public List<AccionDTO> consultarAccionesDTOByPantalla(Integer idPantalla) {
+		List<AccionDTO> accionesDTO = new ArrayList<AccionDTO>();
+		try {
+			List<Accion> acciones = accionDAO.findAllByPantalla(idPantalla);
+			for (Accion accion : acciones) {
+				AccionDTO accionDTO = new AccionDTO();
+				accionDTO.setId(accion.getId());
+				accionDTO.setNombre(accion.getNombre());
+				accionDTO.setDescripcion(accion.getDescripcion());
+				accionDTO.setIdPantallaDestino(accion.getPantalla().getId());
+				accionDTO.setIdTipoAccion(accion.getTipoAccion().getId());
+				accionDTO.setIdPantallaDestino(accion.getPantallaDestino().getId());
+				accionDTO.setImagenB64(ImageConverterUtil.parseBytesToPNGB64String(accion.getImagen()));
+				accionesDTO.add(accionDTO);
+			}
+		} catch (Exception e) {
+			 System.err.println(e.getMessage());
+		}
+		return accionesDTO;
+	}
+	
 	@Transactional(rollbackFor = Exception.class)
 	public void registrarAccion(AccionDTO accionDTO, File archivo) {
 		if (archivo != null) {
@@ -49,12 +91,14 @@ public class AccionBs {
 					TipoAccion tipoAccion = genericoDAO.findById(TipoAccion.class, accionDTO.getIdTipoAccion());
 					Pantalla pantalla = genericoDAO.findById(Pantalla.class, accionDTO.getIdPantalla());
 					Pantalla pantallaDestino = genericoDAO.findById(Pantalla.class, accionDTO.getIdPantallaDestino());
+					byte[] imagen = ImageConverterUtil.parseFileToBASE64ByteArray(archivo);
 					accion.setNombre(accionDTO.getNombre());
 					accion.setDescripcion(accionDTO.getDescripcion());
 					accion.setTipoAccion(tipoAccion);
 					accion.setPantalla(pantalla);
 					accion.setPantallaDestino(pantallaDestino);
-//					TODO: Terminar de urlDestino y metodo
+					accion.setImagen(imagen);
+					genericoDAO.save(accion);
 				} else {
 					throw new TESSERACTValidacionException("EL nombre de la acción ya existe.", "MSG7",
 							new String[] { "La", "Accion", accionDTO.getNombre() }, "model.nombre");
@@ -67,4 +111,39 @@ public class AccionBs {
 			throw new TESSERACTValidacionException("Seleccione una imagen.", "MSG30", null, "imagenPantalla");
 		}
 	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void modificarAccion(AccionDTO accionDTO, File archivo) {
+		if (archivo != null) {
+			if (rn040.isValidRN040(archivo)) {
+				validarYEditar(accionDTO, archivo, true);
+			} else {
+				throw new TESSERACTValidacionException("Archivo muy grande.", "MSG17", 
+						new String[] { "2", "MB" }, null);
+			}
+		} else {
+			validarYEditar(accionDTO, archivo, false);
+		}
+	}
+	
+	private void validarYEditar(AccionDTO accionDTO, File archivo, Boolean cambiarImagen) {
+		if (rn006.isValidRN006(accionDTO)) {
+			Accion accion = genericoDAO.findById(Accion.class, accionDTO.getId());
+			TipoAccion tipoAccion = genericoDAO.findById(TipoAccion.class, accionDTO.getIdTipoAccion());
+			Pantalla pantallaDestino = genericoDAO.findById(Pantalla.class, accionDTO.getIdPantallaDestino());
+			if (cambiarImagen) {
+				byte[] imagen = ImageConverterUtil.parseFileToBASE64ByteArray(archivo);
+				accion.setImagen(imagen);
+			}
+			accion.setNombre(accionDTO.getNombre());
+			accion.setDescripcion(accionDTO.getDescripcion());
+			accion.setTipoAccion(tipoAccion);
+			accion.setPantallaDestino(pantallaDestino);
+			genericoDAO.update(accion);
+		} else {
+			throw new TESSERACTValidacionException("EL nombre de la acción ya existe.", "MSG7",
+					new String[] { "La", "Accion", accionDTO.getNombre() }, "model.nombre");
+		}
+	}
+	
 }

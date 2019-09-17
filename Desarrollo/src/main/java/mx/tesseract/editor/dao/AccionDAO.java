@@ -55,6 +55,9 @@ public class AccionDAO {
 	public Accion findByNombreAndIdAndIdPantalla(String nombre, Integer id, Integer idPantalla) {
 		Accion accion = null;
 		try {
+			System.out.println("Nombre: "+nombre);
+			System.out.println("Id: "+id);
+			System.out.println("IdPantalla: "+idPantalla);
 			Query query = entityManager.createNamedQuery("Accion.findByNameAndIdAndPantalla", Accion.class);
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
 			query.setParameter(Constantes.NUMERO_DOS, id);
@@ -62,6 +65,7 @@ public class AccionDAO {
 			List<Accion> lista = (List<Accion>) query.getResultList();
 			if (!lista.isEmpty()) {
 				accion = lista.get(Constantes.NUMERO_CERO);
+				System.out.println("AccionId : "+accion.getId());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

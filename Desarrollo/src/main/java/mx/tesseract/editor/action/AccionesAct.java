@@ -66,7 +66,7 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 	private String imagenAccionContentType;
 	private String imagenAccionFileName;
 	
-	private List<Accion> listAcciones;
+	private List<AccionDTO> listAcciones;
 	private List<TipoAccion> listTipoAccion;
 	private List<Pantalla> listPantallas;
 	private Integer idSel;
@@ -117,7 +117,7 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 			proyecto = loginBs.consultarProyectoActivo();
 			modulo = moduloBs.consultarModuloById(idModulo);
 			pantalla = pantallaBs.consultarPantalla(idPantalla);
-			listAcciones = accionBs.consultarAccionesByPantalla(idPantalla);
+			listAcciones = accionBs.consultarAccionesDTOByPantalla(idPantalla);
 			resultado = INDEX;
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
@@ -135,7 +135,7 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 			if (idProyecto != null) {
 				idModulo = (Integer) SessionManager.get("idModulo");
 				if (idModulo != null) {
-					resultado = buscarCatalogos();
+					resultado = buscarCatalogos(true);
 				} else {
 					resultado = MODULOS;
 				}
@@ -150,7 +150,7 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 		return resultado;
 	}
 	
-	private String buscarCatalogos() {
+	private String buscarCatalogos(Boolean agregar) {
 		String resultado = null;
 		idPantalla = (Integer) SessionManager.get("idPantalla");
 		if (idPantalla != null) {
@@ -159,7 +159,11 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 			pantalla = pantallaBs.consultarPantalla(idPantalla);
 			listTipoAccion = tipoAccionBs.consultarTiposAccion();
 			listPantallas = pantallaBs.consultarPantallas(idProyecto);
-			resultado = EDITNEW;
+			if (agregar) {
+				resultado = EDITNEW;
+			} else {
+				resultado = EDIT;
+			}
 		} else {
 			resultado = PANTALLAS;
 		}
@@ -199,55 +203,56 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-//	
-//	public String edit() {
-//		String resultado = INDEX;
-//		try {
-//			idEntidad = (Integer) SessionManager.get("idEntidad");
-//			if (idEntidad != null) {
-//				entidad = entidadBs.consultarEntidadById(idEntidad);
-//			}
-//			proyecto = loginBs.consultarProyectoActivo();
-//			listUnidadTamanio = unidadTamanioBs.consultarUnidadesTamanio();
-//			listTipoDato = tipoDatoBs.consultarTiposDato();
-//			resultado = EDIT;
-//		} catch (TESSERACTException pe) {
-//			System.err.println(pe.getMessage());
-//			ErrorManager.agregaMensajeError(this, pe);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			ErrorManager.agregaMensajeError(this, e);
-//		}
-//		return resultado;
-//	}
-//	
-//	public void validateUpdate() {
-//		if (!hasErrors()) {
-//			try {
-//				atributoBs.modificarAtributo(model);
-//			} catch (TESSERACTValidacionException tve) {
-//				ErrorManager.agregaMensajeError(this, tve);
-//				System.err.println(tve.getMessage());
-//				editNew();
-//			} catch (TESSERACTException te) {
-//				ErrorManager.agregaMensajeError(this, te);
-//				System.err.println(te.getMessage());
-//				editNew();
-//			} catch (Exception e) {
-//				ErrorManager.agregaMensajeError(this, e);
-//				e.printStackTrace();
-//				editNew();
-//			}
-//		} else {
-//			editNew();
-//		}
-//	}
-//	
-//	public String update() {
-//		addActionMessage(getText("MSG1", new String[] { "El", "Atributo", "modificado" }));
-//		SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		return SUCCESS;
-//	}
+
+	public String edit() {
+		String resultado = INDEX;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					resultado = buscarCatalogos(false);
+				} else {
+					resultado = MODULOS;
+				}
+			}
+		} catch (TESSERACTException pe) {
+			System.err.println(pe.getMessage());
+			ErrorManager.agregaMensajeError(this, pe);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		return resultado;
+	}
+	
+	public void validateUpdate() {
+		if (!hasErrors()) {
+			try {
+				accionBs.modificarAccion(model, imagenAccion);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				edit();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				edit();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				edit();
+			}
+		} else {
+			edit();
+		}
+	}
+	
+	public String update() {
+		addActionMessage(getText("MSG1", new String[] { "La", "Acción", "modificada" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
 	
 	@VisitorFieldValidator
 	public AccionDTO getModel() {
@@ -282,11 +287,11 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 		this.pantalla = pantalla;
 	}
 
-	public List<Accion> getListAcciones() {
+	public List<AccionDTO> getListAcciones() {
 		return listAcciones;
 	}
 
-	public void setListAcciones(List<Accion> listAcciones) {
+	public void setListAcciones(List<AccionDTO> listAcciones) {
 		this.listAcciones = listAcciones;
 	}
 
@@ -296,6 +301,7 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
+		model = accionBs.consultarAccionDTO(idSel);
 	}
 
 	public List<TipoAccion> getListTipoAccion() {

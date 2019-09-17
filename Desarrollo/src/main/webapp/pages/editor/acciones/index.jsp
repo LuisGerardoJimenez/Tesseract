@@ -23,7 +23,8 @@
 			<table id="gestion" class="tablaGestion" cellspacing="0" width="100%">
 				<thead>
 					<tr>
-						<th><s:text name="colAcciones" /></th>
+						<th><s:text name="colNombre" /></th>
+						<th><s:text name="colImagen" /></th>
 						<th style="width: 20%;"><s:text name="colAcciones" /></th>
 					</tr>
 				</thead>
@@ -32,6 +33,10 @@
 						<tr>
 							<td>
 								<s:property value="%{#accion.nombre}" /></td>
+							<td align="center">
+								<s:url var="pantallaAccion" value="%{#accion.imagenB64}"/>
+								<img id="pantalla" src="${pantallaAccion}" class="imagen" height="80" width="80"/>
+							</td>
 							<td align="center">
 								${blanks}
 								<s:url var="urlEditar"

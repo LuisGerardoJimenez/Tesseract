@@ -68,7 +68,6 @@ public class Accion implements java.io.Serializable, GenericInterface {
 	@Column(name = "metodo")
 	private String metodo;
 	
-	
 //	private Set<ValorAccionTrayectoria> valoresAccionTrayectoria;
 
 	public Accion() {
