@@ -57,7 +57,9 @@ public class CasoUso extends Elemento implements Serializable, ElementoInterface
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casouso", orphanRemoval = true)
 	private List<CasoUsoActor> actores = new ArrayList<CasoUsoActor>();
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUso", orphanRemoval = true)
 	private List<CasoUsoReglaNegocio> reglas = new ArrayList<CasoUsoReglaNegocio>();
+	
 //	private Set<Salida> salidas = new HashSet<Salida>(0);
 //	private Set<Entrada> entradas = new HashSet<Entrada>(0);
 //	private Set<PostPrecondicion> postprecondiciones = new HashSet<PostPrecondicion>(0);
