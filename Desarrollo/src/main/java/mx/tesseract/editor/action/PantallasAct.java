@@ -1,20 +1,17 @@
 package mx.tesseract.editor.action;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.dto.AccionDTO;
 import mx.tesseract.dto.PantallaDTO;
 import mx.tesseract.editor.bs.AccionBs;
 import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.bs.PantallaBs;
-import mx.tesseract.editor.entidad.Accion;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
@@ -26,7 +23,6 @@ import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
@@ -59,7 +55,7 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 	private Integer idModulo; 
 	
 	private List<Pantalla> listPantallas;
-	private List<Accion> listAcciones;
+	private List<AccionDTO> listAcciones;
 	private Integer idSel;
 	private File imagenPantalla;
 	private String imagenPantallaContentType;
@@ -256,6 +252,10 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 					proyecto = loginBs.consultarProyectoActivo();
 					modulo = moduloBs.consultarModuloById(idModulo);
 					pantallaB64 = ImageConverterUtil.parseBytesToPNGB64String(model.getPantallaB64());
+					listAcciones = accionBs.consultarAccionesDTOByPantalla(model.getId());
+					for (AccionDTO accionDTO : listAcciones) {
+						System.out.println("Nombre: "+accionDTO.getNombre());
+					}
 					resultado = SHOW;
 					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 					this.setActionMessages(msjs);
@@ -404,6 +404,14 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setModulo(Modulo modulo) {
 		this.modulo = modulo;
+	}
+
+	public List<AccionDTO> getListAcciones() {
+		return listAcciones;
+	}
+
+	public void setListAcciones(List<AccionDTO> listAcciones) {
+		this.listAcciones = listAcciones;
 	}
 	
 }

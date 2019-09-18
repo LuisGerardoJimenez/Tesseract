@@ -31,7 +31,7 @@ import mx.tesseract.util.GenericInterface;
 	})
 
 @Entity
-@Table(name = "Accion")
+@Table(name = "accion")
 public class Accion implements java.io.Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
