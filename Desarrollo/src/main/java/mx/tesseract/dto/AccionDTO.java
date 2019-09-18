@@ -17,6 +17,10 @@ public class AccionDTO {
 	private Integer idPantallaDestino;
 	private Integer idPantalla;
 	private String imagenB64;
+	private String nombreTipoAccion;
+	private String claveModuloPantallaDestino;
+	private String numeroPantallaDestino;
+	private String nombrePantallaDestino;
 	
 	
 	public AccionDTO() {
@@ -86,6 +90,38 @@ public class AccionDTO {
 
 	public void setImagenB64(String imagenB64) {
 		this.imagenB64 = imagenB64;
+	}
+
+	public String getNombreTipoAccion() {
+		return nombreTipoAccion;
+	}
+
+	public void setNombreTipoAccion(String nombreTipoAccion) {
+		this.nombreTipoAccion = nombreTipoAccion;
+	}
+
+	public String getClaveModuloPantallaDestino() {
+		return claveModuloPantallaDestino;
+	}
+
+	public void setClaveModuloPantallaDestino(String claveModuloPantallaDestino) {
+		this.claveModuloPantallaDestino = claveModuloPantallaDestino;
+	}
+
+	public String getNumeroPantallaDestino() {
+		return numeroPantallaDestino;
+	}
+
+	public void setNumeroPantallaDestino(String numeroPantallaDestino) {
+		this.numeroPantallaDestino = numeroPantallaDestino;
+	}
+
+	public String getNombrePantallaDestino() {
+		return nombrePantallaDestino;
+	}
+
+	public void setNombrePantallaDestino(String nombrePantallaDestino) {
+		this.nombrePantallaDestino = nombrePantallaDestino;
 	}
 
 }

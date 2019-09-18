@@ -74,6 +74,10 @@ public class AccionBs {
 				accionDTO.setIdTipoAccion(accion.getTipoAccion().getId());
 				accionDTO.setIdPantallaDestino(accion.getPantallaDestino().getId());
 				accionDTO.setImagenB64(ImageConverterUtil.parseBytesToPNGB64String(accion.getImagen()));
+				accionDTO.setNombreTipoAccion(accion.getTipoAccion().getNombre());
+				accionDTO.setClaveModuloPantallaDestino(accion.getPantallaDestino().getModulo().getClave());
+				accionDTO.setNumeroPantallaDestino(accion.getPantallaDestino().getNumero());
+				accionDTO.setNombrePantallaDestino(accion.getPantallaDestino().getNombre());
 				accionesDTO.add(accionDTO);
 			}
 		} catch (Exception e) {
