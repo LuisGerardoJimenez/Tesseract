@@ -8,7 +8,7 @@
 <head>
 <title>Pantalla</title>
 <![CDATA[
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/editor/pantallas/js/index-show.js"></script>	
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/pantallas/js/index-show.js"></script>	
 ]]>
 
 </head>
@@ -25,26 +25,26 @@
 				<h4><s:property value="model.nombre"/></h4>
 				<p class="instrucciones"><s:property value="model.descripcion"/></p>
 			</div>
-			<div class="marcoImagen" id="marco-pantalla" style="display: none;">
+			<div class="marcoImagen" id="marco-pantalla">
 				<center>
-					<img id="pantalla" src="#" class="imagen" />
+					<s:url var="pantallaAction" value="%{#action.pantallaB64}"/>
+					<img id="pantalla" src="${pantallaAction}" class="imagen" />
 				</center>
 			</div>
 		</div>
 		
 		
-		<div class="formulario" id="seccion-acciones" style="display: none;">
+		<div class="formulario" id="seccion-acciones" >
 			<div class="tituloFormulario">${blanks}</div>
 			<div class="seccion" id="acciones">
 				<h5><s:text name="labelAcciones" /></h5>
-				<s:iterator value="model.acciones" var="accion">
+				<s:iterator value="listAcciones" var="accion">
 				<table class="tablaConsulta">
 						<tr>
 							<td>
-								<div class="imagenAccion">
-									<div class="marcoImagen" id="marco-accion${accion.id}" style="display: none;">
-										<center><img src="#" id="accion${accion.id}"/></center>
-									</div>
+								<div  id="marco-accion${accion.id}">
+										<s:url var="pantallaAccion" value="%{#accion.imagenB64}"/>
+										<img src="${pantallaAccion}" id="accion${accion.id}"/>
 								</div>
 								<div class="descripcionAccion">
 									<a name="accion-${accion.id}"><!-- accion --></a>
@@ -53,29 +53,30 @@
 												${blanks} <s:property value="%{#accion.descripcion}"/>
 												${blanks}
 												</span>
-									<div>
+									
+								</div>
+								<div>
 										<span class="labelIzq consulta"><s:text name="labelTipoAccion" /></span>
 										<span class="ui-widget "> 
-													${blanks} <s:property value="#accion.tipoAccion.nombre"/>
+													${blanks} <s:property value="#accion.nombreTipoAccion"/>
 													${blanks}
 										</span>
-									</div>
-									<div>
-										<span class="labelIzq consulta"><s:text name="labelPantallaDestino" /></span>
-										<span class="ui-widget "> 
-													${blanks}
-													<s:if test="#accion.pantallaDestino.id == model.id">
-														<s:text name="labelPantallaActual"/>
-													</s:if> <s:else>
-													<a class="referencia"
-														href='${pageContext.request.contextPath}/pantallas/${accion.pantallaDestino.id}'>
-															${accion.pantallaDestino.clave}
-															${accion.pantallaDestino.numero} ${blanks}
-															${accion.pantallaDestino.nombre}</a>
-													</s:else> 
-													
-										</span>
-									</div>
+								</div>
+								<div>
+									<span class="labelIzq consulta"><s:text name="labelPantallaDestino" /></span>
+									<span class="ui-widget "> 
+											${blanks}
+											<s:if test="#accion.idPantallaDestino == model.id">
+												<s:text name="labelPantallaActual"/>
+											</s:if>
+											<s:else>
+												 <a class="referencia"
+													href='${pageContext.request.contextPath}/pantallas/${accion.idPantallaDestino}'>
+														${accion.claveModuloPantallaDestino}
+														${accion.numeroPantallaDestino} ${blanks}
+														${accion.nombrePantallaDestino}</a>
+											</s:else> 
+									</span>
 								</div>
 							</td>
 						</tr>
@@ -86,18 +87,13 @@
 
 		<br />
 		<div align="center">
+			<s:url var="urlGestionarPantallas"
+				value="%{#pageContext.request.contextPath}/pantallas">
+			</s:url>
 			<input class="boton" type="button"
-				onclick="location.href='${urlPrev}'"
-				value="Regresar" />
+				onclick="location.href='${urlGestionarPantallas}'" value="Regresar" />
+				${blanks}
 		</div>
-		
-		<s:hidden id="pantallaB64" name="pantallaB64"
-			value="%{pantallaB64}" />
-		<s:hidden id="jsonAccionesTabla" name="jsonAccionesTabla"
-			value="%{jsonAccionesTabla}" />
-		<s:hidden id="jsonImagenesAcciones" name="jsonImagenesAcciones"
-			value="%{jsonImagenesAcciones}" />
-
 
 
 </body>
