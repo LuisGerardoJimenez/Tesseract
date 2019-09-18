@@ -29,7 +29,13 @@ public class CasoUsoReglaNegocio implements Serializable {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id")
 	private Integer id;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CasoUsoElementoid", referencedColumnName = "Elementoid")
 	private CasoUso casoUso;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ReglaNegocioElementoid", referencedColumnName = "Elementoid")
 	private ReglaNegocio reglaNegocio;
 	
 	public CasoUsoReglaNegocio() {
@@ -48,8 +54,6 @@ public class CasoUsoReglaNegocio implements Serializable {
 		this.id = id;
 	}
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "CasoUsoElementoid", referencedColumnName = "Elementoid")
 	public CasoUso getCasoUso() {
 		return casoUso;
 	}
@@ -58,8 +62,6 @@ public class CasoUsoReglaNegocio implements Serializable {
 		this.casoUso = casoUso;
 	}
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ReglaNegocioElementoid", referencedColumnName = "Elementoid")
 	public ReglaNegocio getReglaNegocio() {
 		return reglaNegocio;
 	}
@@ -67,6 +69,5 @@ public class CasoUsoReglaNegocio implements Serializable {
 	public void setReglaNegocio(ReglaNegocio reglaNegocio) {
 		this.reglaNegocio = reglaNegocio;
 	}
-
 	
 }
