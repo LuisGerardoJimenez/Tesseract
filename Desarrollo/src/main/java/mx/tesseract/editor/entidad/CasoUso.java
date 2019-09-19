@@ -60,9 +60,11 @@ public class CasoUso extends Elemento implements Serializable, ElementoInterface
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUso", orphanRemoval = true)
 	private List<CasoUsoReglaNegocio> reglas = new ArrayList<CasoUsoReglaNegocio>();
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUso", orphanRemoval = true)
+	private List<PostPrecondicion> postprecondiciones = new ArrayList<PostPrecondicion>();
+	
 //	private Set<Salida> salidas = new HashSet<Salida>(0);
 //	private Set<Entrada> entradas = new HashSet<Entrada>(0);
-//	private Set<PostPrecondicion> postprecondiciones = new HashSet<PostPrecondicion>(0);
 //	private Set<Trayectoria> trayectorias = new HashSet<Trayectoria>(0);
 //	private Set<Inclusion> incluidoEn = new HashSet<Inclusion>(0);
 //	private Set<Inclusion> incluye = new HashSet<Inclusion>(0);
@@ -128,6 +130,22 @@ public class CasoUso extends Elemento implements Serializable, ElementoInterface
 
 	public void setActores(List<CasoUsoActor> actores) {
 		this.actores = actores;
+	}
+
+	public List<CasoUsoReglaNegocio> getReglas() {
+		return reglas;
+	}
+
+	public void setReglas(List<CasoUsoReglaNegocio> reglas) {
+		this.reglas = reglas;
+	}
+
+	public List<PostPrecondicion> getPostprecondiciones() {
+		return postprecondiciones;
+	}
+
+	public void setPostprecondiciones(List<PostPrecondicion> postprecondiciones) {
+		this.postprecondiciones = postprecondiciones;
 	}
 
 }
