@@ -7,6 +7,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,14 +38,12 @@ public class PostPrecondicion implements Serializable {
 	@Column(name = "precondicion")
 	private boolean precondicion;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CasoUsoElementoid", referencedColumnName = "Elementoid")
 	private CasoUso casoUso;
 	
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "postPrecondicion")
-//	private List<ReferenciaParametro> referencias = new ArrayList<ReferenciaParametro>();
-
-
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "postPrecondicion")
+	private List<ReferenciaParametro> referencias = new ArrayList<ReferenciaParametro>();
 
 	public PostPrecondicion() {
 	}
@@ -87,12 +87,12 @@ public class PostPrecondicion implements Serializable {
 		this.casoUso = casoUso;
 	}
 	
-//	public Set<ReferenciaParametro> getReferencias() {
-//		return referencias;
-//	}
-//
-//	public void setReferencias(Set<ReferenciaParametro> referencias) {
-//		this.referencias = referencias;
-//	}
+	public List<ReferenciaParametro> getReferencias() {
+		return referencias;
+	}
+
+	public void setReferencias(List<ReferenciaParametro> referencias) {
+		this.referencias = referencias;
+	}
 
 }
