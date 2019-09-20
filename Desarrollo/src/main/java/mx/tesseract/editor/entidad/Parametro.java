@@ -37,21 +37,23 @@ import mx.tesseract.util.GenericInterface;
 @Table(name = "Parametro")
 public class Parametro implements Serializable, GenericInterface {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
+	@Column(name = "id")
 	private Integer id;
-	@Column(name = "nombre", nullable = false, length = 45)
+	
+	@Column(name = "nombre")
 	private String nombre;
-	@Column(name = "descripcion", nullable = false, length = 45)
+	
+	@Column(name = "descripcion")
 	private String descripcion;
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name = "Proyectoid", referencedColumnName ="id", nullable = false)
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Proyectoid", referencedColumnName ="id")
 	private Proyecto proyecto;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parametro", orphanRemoval = true)	
 	private Set<MensajeParametro> parametros = new HashSet<MensajeParametro>(0);
 	
