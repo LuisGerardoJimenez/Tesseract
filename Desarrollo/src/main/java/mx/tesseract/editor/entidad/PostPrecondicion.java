@@ -36,7 +36,7 @@ public class PostPrecondicion implements Serializable {
 	private String redaccion;
 	
 	@Column(name = "precondicion")
-	private boolean precondicion;
+	private Boolean precondicion;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CasoUsoElementoid", referencedColumnName = "Elementoid")
@@ -49,7 +49,7 @@ public class PostPrecondicion implements Serializable {
 	}
 
 	public PostPrecondicion(String redaccion,
-			boolean precondicion, CasoUso casoUso) {
+			Boolean precondicion, CasoUso casoUso) {
 		this.redaccion = redaccion;
 		this.precondicion = precondicion;
 		this.casoUso = casoUso;
@@ -71,11 +71,11 @@ public class PostPrecondicion implements Serializable {
 		this.redaccion = redaccion;
 	}
 	
-	public boolean isPrecondicion() {
+	public Boolean isPrecondicion() {
 		return precondicion;
 	}
 
-	public void setPrecondicion(boolean precondicion) {
+	public void setPrecondicion(Boolean precondicion) {
 		this.precondicion = precondicion;
 	}
 	
