@@ -49,12 +49,21 @@ public class ReferenciaParametro implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PostPrecondicionid", referencedColumnName="id")
 	private PostPrecondicion postPrecondicion;
-//	private Paso paso;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Pasoid", referencedColumnName="id")
+	private Paso paso;
 //	private Extension extension;
 	
-	// Entidad a la que se hizo referencia
-//	private Paso pasoDestino;
-//	private Trayectoria trayectoria;
+	// Entidad a la que se hizo referencia:
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PasoidDestino", referencedColumnName="id")
+	private Paso pasoDestino;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Trayectoriaid", referencedColumnName="id")
+	private Trayectoria trayectoria;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ElementoidDestino", referencedColumnName="id")
@@ -92,16 +101,14 @@ public class ReferenciaParametro implements Serializable {
 		this.postPrecondicion = postPrecondicion;
 	}
 
-//	@ManyToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "Pasoid", referencedColumnName="id", nullable = true)
-//	public Paso getPaso() {
-//		return paso;
-//	}
-//
-//	public void setPaso(Paso paso) {
-//		this.paso = paso;
-//	}
-//
+	public Paso getPaso() {
+		return paso;
+	}
+
+	public void setPaso(Paso paso) {
+		this.paso = paso;
+	}
+
 //	@ManyToOne(fetch = FetchType.EAGER)
 //	@JoinColumn(name = "Extensionid", referencedColumnName="id", nullable = true)
 //	public Extension getExtension() {
@@ -111,17 +118,15 @@ public class ReferenciaParametro implements Serializable {
 //	public void setExtension(Extension extension) {
 //		this.extension = extension;
 //	}
-//	
-//	@ManyToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "PasoidDestino", referencedColumnName="id", nullable = true)
-//	public Paso getPasoDestino() {
-//		return pasoDestino;
-//	}
-//
-//	public void setPasoDestino(Paso pasoDestino) {
-//		this.pasoDestino = pasoDestino;
-//	}
-//	
+	
+	public Paso getPasoDestino() {
+		return pasoDestino;
+	}
+
+	public void setPasoDestino(Paso pasoDestino) {
+		this.pasoDestino = pasoDestino;
+	}
+	
 //	public Elemento getElementoDestino() {
 //		return elementoDestino;
 //	}
@@ -153,16 +158,14 @@ public class ReferenciaParametro implements Serializable {
 //	public void setTipoParametro(TipoParametro tipoParametro) {
 //		this.tipoParametro = tipoParametro;
 //	}
-//
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "Trayectoriaid", referencedColumnName="id", nullable = true)
-//	public Trayectoria getTrayectoria() {
-//		return trayectoria;
-//	}
-//
-//	public void setTrayectoria(Trayectoria trayectoria) {
-//		this.trayectoria = trayectoria;
-//	}
+
+	public Trayectoria getTrayectoria() {
+		return trayectoria;
+	}
+
+	public void setTrayectoria(Trayectoria trayectoria) {
+		this.trayectoria = trayectoria;
+	}
 //
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "referenciaParametro", cascade = CascadeType.ALL, orphanRemoval = true)
 //	public Set<ValorMensajeParametro> getValoresMensajeParametro() {

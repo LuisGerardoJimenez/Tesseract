@@ -1,15 +1,14 @@
 package mx.tesseract.editor.entidad;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /*
  * Luis Gerardo Jiménez
  */
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,38 +25,53 @@ import javax.persistence.UniqueConstraint;
 
 
 @Entity
-@Table(name = "Paso", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "paso", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"numero", "Trayectoriaid" }))
 public class Paso implements Serializable, Comparable<Paso> {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id")
 	private Integer id;
-	private int numero;
+	
+	@Column(name = "numero")
+	private Integer numero;
+	
+	@Column(name = "realizaActor")
 	private Boolean realizaActor;
+	
+	@Column(name = "redaccion")
 	private String redaccion;
-//	private Trayectoria trayectoria;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Trayectoriaid", referencedColumnName ="id")
+	private Trayectoria trayectoria;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Verboid",referencedColumnName="id")
 	private Verbo verbo;
+	
+	@Column(name = "otroVerbo")
 	private String otroVerbo;
 
-
-	private Set<ReferenciaParametro> referencias = new HashSet<ReferenciaParametro>(0);
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paso", orphanRemoval = true)
+	private List<ReferenciaParametro> referencias = new ArrayList<ReferenciaParametro>();
 
 
 	public Paso() {
 	}
 
-//	public Paso(int numero, Boolean realizaActor, String redaccion,
-//			Trayectoria trayectoria, Verbo verbo) {
-//		this.numero = numero;
-//		this.realizaActor = realizaActor;
-//		this.redaccion = redaccion;
-//		this.trayectoria = trayectoria;
-//		this.verbo = verbo;
-//	}
+	public Paso(Integer numero, Boolean realizaActor, String redaccion,
+			Trayectoria trayectoria, Verbo verbo) {
+		this.numero = numero;
+		this.realizaActor = realizaActor;
+		this.redaccion = redaccion;
+		this.trayectoria = trayectoria;
+		this.verbo = verbo;
+	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
 	}
@@ -66,16 +80,14 @@ public class Paso implements Serializable, Comparable<Paso> {
 		this.id = id;
 	}
 
-	@Column(name = "numero", nullable = false)
-	public int getNumero() {
+	public Integer getNumero() {
 		return this.numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 
-	@Column(name = "realizaActor", nullable = false)
 	public Boolean isRealizaActor() {
 		return this.realizaActor;
 	}
@@ -84,8 +96,7 @@ public class Paso implements Serializable, Comparable<Paso> {
 	public void setRealizaActor(Boolean realizaActor) {
 		this.realizaActor = realizaActor;
 	}
-
-	@Column(name = "redaccion", nullable = false, length = 1000)
+	
 	public String getRedaccion() {
 		return this.redaccion;
 	}
@@ -94,27 +105,22 @@ public class Paso implements Serializable, Comparable<Paso> {
 		this.redaccion = redaccion;
 	}
 	
-//	@ManyToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "Trayectoriaid", referencedColumnName ="id", nullable = false)
-//	public Trayectoria getTrayectoria() {
-//		return trayectoria;
-//	}
-//
-//	public void setTrayectoria(Trayectoria trayectoria) {
-//		this.trayectoria = trayectoria;
-//	}
+	public Trayectoria getTrayectoria() {
+		return trayectoria;
+	}
+
+	public void setTrayectoria(Trayectoria trayectoria) {
+		this.trayectoria = trayectoria;
+	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paso", cascade = CascadeType.ALL, orphanRemoval = true)
-	public Set<ReferenciaParametro> getReferencias() {
+	public List<ReferenciaParametro> getReferencias() {
 		return referencias;
 	}
 
-	public void setReferencias(Set<ReferenciaParametro> referencias) {
+	public void setReferencias(List<ReferenciaParametro> referencias) {
 		this.referencias = referencias;
 	}
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Verboid",referencedColumnName="id", nullable = false)
 	public Verbo getVerbo() {
 		return verbo;
 	}
@@ -123,7 +129,6 @@ public class Paso implements Serializable, Comparable<Paso> {
 		this.verbo = verbo;
 	}
 
-	@Column(name = "otroVerbo", nullable = true, length = 45)
 	public String getOtroVerbo() {
 		return otroVerbo;
 	}
