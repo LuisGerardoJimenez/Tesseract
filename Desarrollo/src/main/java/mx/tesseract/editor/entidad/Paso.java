@@ -35,7 +35,7 @@ public class Paso implements Serializable, Comparable<Paso> {
 	private int numero;
 	private Boolean realizaActor;
 	private String redaccion;
-	private Trayectoria trayectoria;
+//	private Trayectoria trayectoria;
 	private Verbo verbo;
 	private String otroVerbo;
 
@@ -46,14 +46,14 @@ public class Paso implements Serializable, Comparable<Paso> {
 	public Paso() {
 	}
 
-	public Paso(int numero, Boolean realizaActor, String redaccion,
-			Trayectoria trayectoria, Verbo verbo) {
-		this.numero = numero;
-		this.realizaActor = realizaActor;
-		this.redaccion = redaccion;
-		this.trayectoria = trayectoria;
-		this.verbo = verbo;
-	}
+//	public Paso(int numero, Boolean realizaActor, String redaccion,
+//			Trayectoria trayectoria, Verbo verbo) {
+//		this.numero = numero;
+//		this.realizaActor = realizaActor;
+//		this.redaccion = redaccion;
+//		this.trayectoria = trayectoria;
+//		this.verbo = verbo;
+//	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -94,15 +94,15 @@ public class Paso implements Serializable, Comparable<Paso> {
 		this.redaccion = redaccion;
 	}
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Trayectoriaid", referencedColumnName ="id", nullable = false)
-	public Trayectoria getTrayectoria() {
-		return trayectoria;
-	}
-
-	public void setTrayectoria(Trayectoria trayectoria) {
-		this.trayectoria = trayectoria;
-	}
+//	@ManyToOne(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "Trayectoriaid", referencedColumnName ="id", nullable = false)
+//	public Trayectoria getTrayectoria() {
+//		return trayectoria;
+//	}
+//
+//	public void setTrayectoria(Trayectoria trayectoria) {
+//		this.trayectoria = trayectoria;
+//	}
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paso", cascade = CascadeType.ALL, orphanRemoval = true)
 	public Set<ReferenciaParametro> getReferencias() {
