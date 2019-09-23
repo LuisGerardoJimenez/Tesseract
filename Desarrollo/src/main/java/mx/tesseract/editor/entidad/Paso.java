@@ -23,11 +23,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import mx.tesseract.util.GenericInterface;
+
 
 @Entity
 @Table(name = "paso", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"numero", "Trayectoriaid" }))
-public class Paso implements Serializable, Comparable<Paso> {
+public class Paso implements Serializable, Comparable<Paso>, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
 	

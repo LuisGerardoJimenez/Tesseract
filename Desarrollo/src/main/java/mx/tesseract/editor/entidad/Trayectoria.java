@@ -32,10 +32,12 @@ import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
+import mx.tesseract.util.GenericInterface;
+
 @Entity
 @Table(name = "Trayectoria", uniqueConstraints = @UniqueConstraint(columnNames = { "clave",
 		"CasoUsoElementoid" }))
-public class Trayectoria implements Serializable, Comparable<Trayectoria> {
+public class Trayectoria implements Serializable, Comparable<Trayectoria>, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
 	

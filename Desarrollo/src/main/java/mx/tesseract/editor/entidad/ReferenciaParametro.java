@@ -40,10 +40,6 @@ public class ReferenciaParametro implements Serializable {
 	@JoinColumn(name = "TipoParametroid", referencedColumnName="id")
 	private TipoParametro tipoParametro;
 	
-//	private Set<ValorMensajeParametro> valoresMensajeParametro; 
-//	private Set<Query> queries;
-//	private Set<ValorMensajeParametroTrayectoria> valoresMensajeParametroTrayectoria;
-	
 	// Entidad que hizo la referencia:
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -53,7 +49,10 @@ public class ReferenciaParametro implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Pasoid", referencedColumnName="id")
 	private Paso paso;
-//	private Extension extension;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Extensionid", referencedColumnName="id")
+	private Extension extension;
 	
 	// Entidad a la que se hizo referencia:
 	
@@ -79,7 +78,6 @@ public class ReferenciaParametro implements Serializable {
 
 	public ReferenciaParametro() {
 	}
-
 
 	public ReferenciaParametro(TipoParametro tipoParametro) {
 		this.tipoParametro = tipoParametro;
@@ -109,15 +107,13 @@ public class ReferenciaParametro implements Serializable {
 		this.paso = paso;
 	}
 
-//	@ManyToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "Extensionid", referencedColumnName="id", nullable = true)
-//	public Extension getExtension() {
-//		return extension;
-//	}
-//
-//	public void setExtension(Extension extension) {
-//		this.extension = extension;
-//	}
+	public Extension getExtension() {
+		return extension;
+	}
+
+	public void setExtension(Extension extension) {
+		this.extension = extension;
+	}
 	
 	public Paso getPasoDestino() {
 		return pasoDestino;
@@ -127,37 +123,37 @@ public class ReferenciaParametro implements Serializable {
 		this.pasoDestino = pasoDestino;
 	}
 	
-//	public Elemento getElementoDestino() {
-//		return elementoDestino;
-//	}
-//
-//	public void setElementoDestino(Elemento elementoDestino) {
-//		this.elementoDestino = elementoDestino;
-//	}
-//
-//	public Accion getAccionDestino() {
-//		return accionDestino;
-//	}
-//
-//	public void setAccionDestino(Accion accionDestino) {
-//		this.accionDestino = accionDestino;
-//	}
-//	
-//	public Atributo getAtributo() {
-//		return atributo;
-//	}
-//
-//	public void setAtributo(Atributo atributo) {
-//		this.atributo = atributo;
-//	}
-//
-//	public TipoParametro getTipoParametro() {
-//		return tipoParametro;
-//	}
-//
-//	public void setTipoParametro(TipoParametro tipoParametro) {
-//		this.tipoParametro = tipoParametro;
-//	}
+	public Elemento getElementoDestino() {
+		return elementoDestino;
+	}
+
+	public void setElementoDestino(Elemento elementoDestino) {
+		this.elementoDestino = elementoDestino;
+	}
+
+	public Accion getAccionDestino() {
+		return accionDestino;
+	}
+
+	public void setAccionDestino(Accion accionDestino) {
+		this.accionDestino = accionDestino;
+	}
+	
+	public Atributo getAtributo() {
+		return atributo;
+	}
+
+	public void setAtributo(Atributo atributo) {
+		this.atributo = atributo;
+	}
+
+	public TipoParametro getTipoParametro() {
+		return tipoParametro;
+	}
+
+	public void setTipoParametro(TipoParametro tipoParametro) {
+		this.tipoParametro = tipoParametro;
+	}
 
 	public Trayectoria getTrayectoria() {
 		return trayectoria;
@@ -166,36 +162,5 @@ public class ReferenciaParametro implements Serializable {
 	public void setTrayectoria(Trayectoria trayectoria) {
 		this.trayectoria = trayectoria;
 	}
-//
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "referenciaParametro", cascade = CascadeType.ALL, orphanRemoval = true)
-//	public Set<ValorMensajeParametro> getValoresMensajeParametro() {
-//		return valoresMensajeParametro;
-//	}
-//
-//
-//	public void setValoresMensajeParametro(
-//			Set<ValorMensajeParametro> valoresMensajeParametro) {
-//		this.valoresMensajeParametro = valoresMensajeParametro;
-//	}
-//
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "referenciaParametro", cascade = CascadeType.ALL, orphanRemoval = true)
-//	public Set<Query> getQueries() {
-//		return queries;
-//	}
-//
-//	public void setQueries(Set<Query> queries) {
-//		this.queries = queries;
-//	}
-//	
-//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "referenciaParametro", cascade = CascadeType.ALL, orphanRemoval = true)
-//	public Set<ValorMensajeParametroTrayectoria> getValoresMensajeParametroTrayectoria() {
-//		return valoresMensajeParametroTrayectoria;
-//	}
-//
-//
-//	public void setValoresMensajeParametroTrayectoria(
-//			Set<ValorMensajeParametroTrayectoria> valoresMensajeParametroTrayectoria) {
-//		this.valoresMensajeParametroTrayectoria = valoresMensajeParametroTrayectoria;
-//	}
 
 }
