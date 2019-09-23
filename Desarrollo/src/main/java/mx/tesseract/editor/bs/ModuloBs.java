@@ -143,11 +143,11 @@ public class ModuloBs {
 //		List<String> listReferenciasVista = new ArrayList<String>();
 //		Set<String> setReferenciasVista = new HashSet<String>(0);
 //		
-//		List<CasoUso> casosUso = CuBs.consultarCasosUsoModulo(model);
+//		List<CasoUso> casosUso = CasoUsoBs.consultarCasosUsoModulo(model);
 //		List<Pantalla> pantallas = PantallaBs.consultarPantallasModulo(model);
 //		System.out.println("Se buscan los CU y pantallas");
 //		for(CasoUso casoUso : casosUso) {
-//			setReferenciasVista.addAll(CuBs.verificarReferencias(casoUso, model));
+//			setReferenciasVista.addAll(CasoUsoBs.verificarReferencias(casoUso, model));
 //		}
 //		
 //		for(Pantalla pantalla : pantallas) {

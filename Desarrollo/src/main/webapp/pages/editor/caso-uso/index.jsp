@@ -7,7 +7,7 @@
 <head>
 <title>Casos de uso</title>
 <![CDATA[
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/editor/cu/js/index.js"></script>	
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/caso-uso/js/index.js"></script>	
 ]]> 
 </head>
 <body>

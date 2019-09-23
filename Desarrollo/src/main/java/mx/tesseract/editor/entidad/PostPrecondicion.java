@@ -19,11 +19,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import mx.tesseract.util.GenericInterface;
+
 
 
 @Entity
 @Table(name = "postprecondicion")
-public class PostPrecondicion implements Serializable {
+public class PostPrecondicion implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
 	
