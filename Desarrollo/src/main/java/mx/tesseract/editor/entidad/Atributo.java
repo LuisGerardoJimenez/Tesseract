@@ -57,7 +57,7 @@ public class Atributo implements Serializable, GenericInterface {
 	private String descripcion;
 	
 	@Column(name = "obligatorio")
-	private boolean obligatorio;
+	private Boolean obligatorio;
 	
 	@Column(name = "longitud")
 	private Integer longitud;
@@ -86,14 +86,14 @@ public class Atributo implements Serializable, GenericInterface {
 	public Atributo() {
 	}
 	public Atributo(String nombre, Entidad entidad, String descripcion,
-			boolean obligatorio) {
+			Boolean obligatorio) {
 		this.nombre = nombre;
 		this.entidad = entidad;
 		this.descripcion = descripcion;
 		this.obligatorio = obligatorio;
 	}
 	public Atributo(String nombre, Entidad entidad, String descripcion,
-			boolean obligatorio, int longitud) {
+			Boolean obligatorio, int longitud) {
 		this.nombre = nombre;
 		this.entidad = entidad;
 		this.descripcion = descripcion;
@@ -102,7 +102,7 @@ public class Atributo implements Serializable, GenericInterface {
 	}
 	
 	public Atributo(String nombre, Entidad entidad, String descripcion,
-			boolean obligatorio, int longitud, int id) {
+			Boolean obligatorio, int longitud, int id) {
 		this.nombre = nombre;
 		this.entidad = entidad;
 		this.descripcion = descripcion;
@@ -135,11 +135,11 @@ public class Atributo implements Serializable, GenericInterface {
 		this.descripcion = descripcion;
 	}
 
-	public boolean isObligatorio() {
+	public Boolean isObligatorio() {
 		return this.obligatorio;
 	}
 
-	public void setObligatorio(boolean obligatorio) {
+	public void setObligatorio(Boolean obligatorio) {
 		this.obligatorio = obligatorio;
 	}
 

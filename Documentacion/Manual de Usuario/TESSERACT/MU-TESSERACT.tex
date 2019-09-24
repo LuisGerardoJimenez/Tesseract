@@ -1,0 +1,53 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tipo de documento y paquetes
+\documentclass[10pt]{book}
+\usepackage{cdt/cdtBusiness}
+\usepackage{eldPosEstrucAcad}
+\usepackage{float}
+%\usepackage{subfigure}
+%\usepackage{cite}
+%\usepackage{verbatim}
+%\usepackage{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Datos del proyecto
+\documento{}{Sistema generador de documentos de casos de uso} {{\today}} %{\RELEASE{1.0}} 
+\proyecto[TT2]{Trabajo Terminal II} %\sae
+\sistema[TESSERACT]{TESSERACT}
+\entregable{}{Manual de Usuario}
+\organizacion[ELD]{\escom}
+\autor[CDT--ESCOM--IPN]{} %cdt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inicio del Documento
+\begin{document}
+
+	%=========================================================
+	% Portada
+	\ThisLRCornerWallPaper{1}{theme/FooterPortadaTesseract}
+	\thispagestyle{empty}
+
+	\maketitle %Genera la portada (obtiene la estructura en cdtBook.sty)
+	
+	%=========================================================
+	% Indices del documento
+	\renewcommand{\tablename}{Tabla}	
+	\renewcommand{\listtablename}{Índice de tablas}
+	\frontmatter
+	\LRCornerWallPaper{1}{theme/LineaLogo}
+	\tableofcontents
+	\listoffigures
+	\listoftables
+	\mainmatter
+	
+	%=========================================================
+	%Contenido
+	\cfinput{ingresoSistema} %Capítulo Ingreso Sistema: Describe el ingreso al sistema de forma general
+ 	\cfinput{roles/administrador/administrador} %Rol: Secretario de Posgrado
+ 	\cfinput{roles/lider/liderProyecto}
+%	\cfinput{roles/coordinadorControlEscolar/coordinadorControlEscolar} %Rol: Coordinador de control escolar
+%	\cfinput{roles/directorAcademico/directorAcademico} %Rol: Director Académico
+%	\cfinput{roles/coordinadorPrograma/coordinadorPrograma} %Rol: Coordinador Programa
+%	\cfinput{roles/asistenteSistemas/asistenteSistemas} %Rol: Asistente Programa
+	
+	
+\end{document}

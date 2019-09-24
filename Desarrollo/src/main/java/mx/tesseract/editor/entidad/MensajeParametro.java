@@ -5,6 +5,8 @@ package mx.tesseract.editor.entidad;
  */
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,23 +25,24 @@ import mx.tesseract.util.GenericInterface;
 	@NamedNativeQuery(name = "MensajeParametro.findByIdParametro", query = "SELECT mp.* FROM mensaje_parametro mp where mp.Parametroid=?", resultClass = MensajeParametro.class)
 	})
 @Entity
-@Table(name = "Mensaje_Parametro")
-public class MensajeParametro implements java.io.Serializable, GenericInterface {
+@Table(name = "mensaje_parametro")
+public class MensajeParametro implements Serializable, GenericInterface {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id")
 	private Integer id;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MensajeElementoid")
+	@JoinColumn(name = "MensajeElementoid", referencedColumnName = "Elementoid")
 	private Mensaje mensaje;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Parametroid")
+	@JoinColumn(name = "Parametroid", referencedColumnName = "id")
 	private Parametro parametro;
+	
 	//private Set<ValorMensajeParametro> valores = new HashSet<ValorMensajeParametro>(0);
 
 	public MensajeParametro() {
