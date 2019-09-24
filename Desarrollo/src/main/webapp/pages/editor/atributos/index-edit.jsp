@@ -18,7 +18,7 @@
 </head>
 <body>
 
-	<h1>Editar Atributo</h1>
+	<h1>Modificar Atributo</h1>
 
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
