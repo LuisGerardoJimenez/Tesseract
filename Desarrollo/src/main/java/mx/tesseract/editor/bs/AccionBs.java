@@ -2,7 +2,9 @@ package mx.tesseract.editor.bs;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -15,8 +17,14 @@ import mx.tesseract.br.RN040;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.AccionDTO;
 import mx.tesseract.editor.dao.AccionDAO;
+import mx.tesseract.editor.dao.ReferenciaParametroDAO;
 import mx.tesseract.editor.entidad.Accion;
+import mx.tesseract.editor.entidad.CasoUso;
+import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
+import mx.tesseract.editor.entidad.Paso;
+import mx.tesseract.editor.entidad.PostPrecondicion;
+import mx.tesseract.editor.entidad.ReferenciaParametro;
 import mx.tesseract.editor.entidad.TipoAccion;
 import mx.tesseract.util.ImageConverterUtil;
 import mx.tesseract.util.TESSERACTValidacionException;
@@ -36,6 +44,9 @@ public class AccionBs {
 	
 	@Autowired
 	private RN006 rn006;
+	
+	@Autowired
+	private ReferenciaParametroDAO referenciaParametroDAO;
 	
 	public List<Accion> consultarAccionesByPantalla(Integer idPantalla) {
 		List<Accion> acciones = accionDAO.findAllByPantalla(idPantalla);
@@ -148,6 +159,89 @@ public class AccionBs {
 			throw new TESSERACTValidacionException("EL nombre de la acción ya existe.", "MSG7",
 					new String[] { "La", "Accion", accionDTO.getNombre() }, "model.nombre");
 		}
+	}
+	
+	public List<String> verificarReferencias(Accion model, Modulo modulo) {
+
+		List<ReferenciaParametro> referenciasParametro;
+
+		List<String> listReferenciasVista = new ArrayList<String>();
+		Set<String> setReferenciasVista = new HashSet<String>(0);
+
+		PostPrecondicion postPrecondicion = null; // Origen de la referencia
+		Paso paso = null; // Origen de la referencia
+		String casoUso = "";
+
+		referenciasParametro = referenciaParametroDAO.consultarReferenciasParametro(model);
+
+		for (ReferenciaParametro referencia : referenciasParametro) {
+			String linea = "";
+			postPrecondicion = referencia.getPostPrecondicion();
+			paso = referencia.getPaso();
+
+			if (postPrecondicion != null && (modulo == null || postPrecondicion.getCasoUso().getModulo().getId() != modulo.getId())) {
+				casoUso = postPrecondicion.getCasoUso().getClave()
+						+ postPrecondicion.getCasoUso().getNumero() + " "
+						+ postPrecondicion.getCasoUso().getNombre();
+				if (postPrecondicion.isPrecondicion()) {
+					linea = "Precondiciones del caso de uso " + casoUso;
+				} else {
+					linea = "Postcondiciones del caso de uso "
+							+ postPrecondicion.getCasoUso().getClave()
+							+ postPrecondicion.getCasoUso().getNumero() + " "
+							+ postPrecondicion.getCasoUso().getNombre();
+				}
+
+			} else if (paso != null && (modulo == null || paso.getTrayectoria().getCasoUso().getModulo().getId() != modulo.getId())) {
+				casoUso = paso.getTrayectoria().getCasoUso().getClave()
+						+ paso.getTrayectoria().getCasoUso().getNumero() + " "
+						+ paso.getTrayectoria().getCasoUso().getNombre();
+				linea = "Paso "
+						+ paso.getNumero()
+						+ " de la trayectoria "
+						+ ((paso.getTrayectoria().isAlternativa()) ? "alternativa "
+								+ paso.getTrayectoria().getClave()
+								: "principal") + " del caso de uso " + casoUso;
+			}
+
+			if (linea != "") {
+				setReferenciasVista.add(linea);
+			}
+		}
+
+		listReferenciasVista.addAll(setReferenciasVista);
+
+		return listReferenciasVista;
+	}
+	
+	public List<CasoUso> verificarCasosUsoReferencias(Accion model) {
+
+		List<ReferenciaParametro> referenciasParametro;
+
+		List<CasoUso> listReferenciasVista = new ArrayList<CasoUso>();
+		Set<CasoUso> setReferenciasVista = new HashSet<CasoUso>(0);
+
+		PostPrecondicion postPrecondicion = null; // Origen de la referencia
+		Paso paso = null; // Origen de la referencia
+
+		referenciasParametro = referenciaParametroDAO.consultarReferenciasParametro(model);
+
+		for (ReferenciaParametro referencia : referenciasParametro) {
+			String linea = "";
+			postPrecondicion = referencia.getPostPrecondicion();
+			paso = referencia.getPaso();
+
+			if (postPrecondicion != null) {
+				setReferenciasVista.add(postPrecondicion.getCasoUso());
+
+			} else if (paso != null) {
+				setReferenciasVista.add(paso.getTrayectoria().getCasoUso());
+			}
+		}
+
+		listReferenciasVista.addAll(setReferenciasVista);
+
+		return listReferenciasVista;
 	}
 	
 }

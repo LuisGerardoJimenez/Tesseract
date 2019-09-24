@@ -17,11 +17,18 @@ import mx.tesseract.dto.PantallaDTO;
 import mx.tesseract.enums.ReferenciaEnum;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
+import mx.tesseract.editor.dao.AccionDAO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.PantallaDAO;
+import mx.tesseract.editor.dao.ReferenciaParametroDAO;
+import mx.tesseract.editor.entidad.Accion;
+import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
+import mx.tesseract.editor.entidad.Paso;
+import mx.tesseract.editor.entidad.PostPrecondicion;
+import mx.tesseract.editor.entidad.ReferenciaParametro;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.util.ImageConverterUtil;
 import mx.tesseract.util.TESSERACTException;
@@ -59,6 +66,15 @@ public class PantallaBs {
 	
 	@Autowired
 	private ElementoDAO elementoDAO;
+	
+	@Autowired
+	private ReferenciaParametroDAO referenciaParametroDAO;
+	
+	@Autowired
+	private AccionDAO accionDAO;
+	
+	@Autowired
+	private AccionBs accionBs;
 
 	public  List<Pantalla> consultarPantallasByModulo(Integer idProyecto, Integer idModulo) {
 		List<Pantalla> listPantallas = pantallaDAO.findAllByIdModulo(idProyecto, Clave.IU, idModulo);
@@ -168,6 +184,11 @@ public class PantallaBs {
 		}
 	}
 
+	public void eliminarMensaje(PantallaDTO model) {
+		// TODO Auto-generated method stub
+		
+	}
+
 //	public static List<TipoAccion> consultarTiposAccion() {
 //		List<TipoAccion> listTiposAccion = new TipoAccionDAO()
 //				.consultarTiposAccion();
@@ -223,128 +244,127 @@ public class PantallaBs {
 //
 //	}
 
-//	public static List<String> verificarReferencias(Pantalla model, Modulo modulo) {
-//
-//		List<ReferenciaParametro> referenciasParametro = new ArrayList<ReferenciaParametro>();
-//		List<Accion> referenciasAccion = new ArrayList<Accion>();
-//
-//		List<String> listReferenciasVista = new ArrayList<String>();
-//		Set<String> setReferenciasVista = new HashSet<String>(0);
-//
-//		PostPrecondicion postPrecondicion = null; // Origen de la referencia
-//		Paso paso = null; // Origen de la referencia
-//		Accion accion = null; // Origen de la referencia
-//		String casoUso = ""; // Caso de uso que tiene la referencia
-//		String pantalla = ""; // Pantalla que tiene la referencia
-//
-//		referenciasParametro = new ReferenciaParametroDAO()
-//				.consultarReferenciasParametro(model);
-//		referenciasAccion = new AccionDAO().consultarReferencias(model);
-//
-//		for (ReferenciaParametro referencia : referenciasParametro) {
-//			String linea = "";
-//			postPrecondicion = referencia.getPostPrecondicion();
-//			paso = referencia.getPaso();
-//			accion = referencia.getAccionDestino();
-//
-//			if (postPrecondicion != null && (modulo == null || postPrecondicion.getCasoUso().getModulo().getId() != modulo.getId())) {
-//				casoUso = postPrecondicion.getCasoUso().getClave()
-//						+ postPrecondicion.getCasoUso().getNumero() + " "
-//						+ postPrecondicion.getCasoUso().getNombre();
-//				if (postPrecondicion.isPrecondicion()) {
-//					linea = "Precondiciones del caso de uso " + casoUso;
-//				} else {
-//					linea = "Postcondiciones del caso de uso "
-//							+ postPrecondicion.getCasoUso().getClave()
-//							+ postPrecondicion.getCasoUso().getNumero() + " "
-//							+ postPrecondicion.getCasoUso().getNombre();
-//				}
-//
-//			} else if (paso != null && (modulo == null || paso.getTrayectoria().getCasoUso().getModulo().getId() != modulo.getId())) {
-//				casoUso = paso.getTrayectoria().getCasoUso().getClave()
-//						+ paso.getTrayectoria().getCasoUso().getNumero() + " "
-//						+ paso.getTrayectoria().getCasoUso().getNombre();
-//				linea = "Paso "
-//						+ paso.getNumero()
-//						+ " de la trayectoria "
-//						+ ((paso.getTrayectoria().isAlternativa()) ? "alternativa "
-//								+ paso.getTrayectoria().getClave()
-//								: "principal") + " del caso de uso " + casoUso;
-//			} else if (accion != null && (modulo == null || accion.getPantalla().getModulo().getId() != modulo.getId())) {
-//				if (accion.getPantalla() != model) {
-//					pantalla = accion.getPantalla().getClave()
-//							+ accion.getPantalla().getNumero() + " "
-//							+ accion.getPantalla().getNombre();
-//					linea = "Acción " + accion.getNombre() + " de la pantalla "
-//							+ pantalla;
-//				}
-//			}
-//
-//			if (linea != "") {
-//				setReferenciasVista.add(linea);
-//			}
-//		}
-//		for(Accion accionOP : referenciasAccion) {
-//			if(modulo == null || accionOP.getPantalla().getModulo().getId() != modulo.getId()) {
-//				String linea = "";
-//				pantalla = accionOP.getPantalla().getClave()
-//						+ accionOP.getPantalla().getNumero() + " "
-//						+ accionOP.getPantalla().getNombre();
-//				linea = "Acción " + accionOP.getNombre() + " de la pantalla "
-//						+ pantalla; 
-//				if (linea != "") {
-//					setReferenciasVista.add(linea);
-//				}
-//			}
-//		}
-//
-//		for (Accion acc : model.getAcciones()) {
-//			setReferenciasVista.addAll(AccionBs.verificarReferencias(acc, modulo));
-//		}
-//
-//		listReferenciasVista.addAll(setReferenciasVista);
-//
-//		return listReferenciasVista;
-//	}
-//	
-//	public static List<CasoUso> verificarCasosUsoReferencias(Pantalla model) {
-//
-//		List<ReferenciaParametro> referenciasParametro = new ArrayList<ReferenciaParametro>();
-//
-//		List<CasoUso> listReferenciasVista = new ArrayList<CasoUso>();
-//		Set<CasoUso> setReferenciasVista = new HashSet<CasoUso>(0);
-//
-//		PostPrecondicion postPrecondicion = null; // Origen de la referencia
-//		Paso paso = null; // Origen de la referencia
-//		Accion accion = null; // Origen de la referencia
-//		String casoUso = ""; // Caso de uso que tiene la referencia
-//		String pantalla = ""; // Pantalla que tiene la referencia
-//
-//		referenciasParametro = new ReferenciaParametroDAO()
-//				.consultarReferenciasParametro(model);
-//
-//		for (ReferenciaParametro referencia : referenciasParametro) {
-//			String linea = "";
-//			postPrecondicion = referencia.getPostPrecondicion();
-//			paso = referencia.getPaso();
-//			accion = referencia.getAccionDestino();
-//
-//			if (postPrecondicion != null) {
-//				setReferenciasVista.add(postPrecondicion.getCasoUso());
-//
-//			} else if (paso != null) {
-//				setReferenciasVista.add(paso.getTrayectoria().getCasoUso());
-//			}
-//		}
-//
-//		for (Accion acc : model.getAcciones()) {
-//			setReferenciasVista.addAll(AccionBs.verificarCasosUsoReferencias(acc));
-//		}
-//
-//		listReferenciasVista.addAll(setReferenciasVista);
-//
-//		return listReferenciasVista;
-//	}
+	public List<String> verificarReferencias(Pantalla model, Modulo modulo) {
+
+		List<ReferenciaParametro> referenciasParametro = new ArrayList<ReferenciaParametro>();
+		List<Accion> referenciasAccion = new ArrayList<Accion>();
+
+		List<String> listReferenciasVista = new ArrayList<String>();
+		Set<String> setReferenciasVista = new HashSet<String>(0);
+
+		PostPrecondicion postPrecondicion = null; // Origen de la referencia
+		Paso paso = null; // Origen de la referencia
+		Accion accion = null; // Origen de la referencia
+		String casoUso = ""; // Caso de uso que tiene la referencia
+		String pantalla = ""; // Pantalla que tiene la referencia
+
+		referenciasParametro = referenciaParametroDAO.consultarReferenciasParametro(model);
+		referenciasAccion = accionDAO.consultarReferencias(model);
+
+		for (ReferenciaParametro referencia : referenciasParametro) {
+			String linea = "";
+			postPrecondicion = referencia.getPostPrecondicion();
+			paso = referencia.getPaso();
+			accion = referencia.getAccionDestino();
+
+			if (postPrecondicion != null && (modulo == null || postPrecondicion.getCasoUso().getModulo().getId() != modulo.getId())) {
+				casoUso = postPrecondicion.getCasoUso().getClave()
+						+ postPrecondicion.getCasoUso().getNumero() + " "
+						+ postPrecondicion.getCasoUso().getNombre();
+				if (postPrecondicion.isPrecondicion()) {
+					linea = "Precondiciones del caso de uso " + casoUso;
+				} else {
+					linea = "Postcondiciones del caso de uso "
+							+ postPrecondicion.getCasoUso().getClave()
+							+ postPrecondicion.getCasoUso().getNumero() + " "
+							+ postPrecondicion.getCasoUso().getNombre();
+				}
+
+			} else if (paso != null && (modulo == null || paso.getTrayectoria().getCasoUso().getModulo().getId() != modulo.getId())) {
+				casoUso = paso.getTrayectoria().getCasoUso().getClave()
+						+ paso.getTrayectoria().getCasoUso().getNumero() + " "
+						+ paso.getTrayectoria().getCasoUso().getNombre();
+				linea = "Paso "
+						+ paso.getNumero()
+						+ " de la trayectoria "
+						+ ((paso.getTrayectoria().isAlternativa()) ? "alternativa "
+								+ paso.getTrayectoria().getClave()
+								: "principal") + " del caso de uso " + casoUso;
+			} else if (accion != null && (modulo == null || accion.getPantalla().getModulo().getId() != modulo.getId())) {
+				if (accion.getPantalla() != model) {
+					pantalla = accion.getPantalla().getClave()
+							+ accion.getPantalla().getNumero() + " "
+							+ accion.getPantalla().getNombre();
+					linea = "Acción " + accion.getNombre() + " de la pantalla "
+							+ pantalla;
+				}
+			}
+
+			if (linea != "") {
+				setReferenciasVista.add(linea);
+			}
+		}
+		for(Accion accionOP : referenciasAccion) {
+			if(modulo == null || accionOP.getPantalla().getModulo().getId() != modulo.getId()) {
+				String linea = "";
+				pantalla = accionOP.getPantalla().getClave()
+						+ accionOP.getPantalla().getNumero() + " "
+						+ accionOP.getPantalla().getNombre();
+				linea = "Acción " + accionOP.getNombre() + " de la pantalla "
+						+ pantalla; 
+				if (linea != "") {
+					setReferenciasVista.add(linea);
+				}
+			}
+		}
+
+		for (Accion acc : model.getAcciones()) {
+			setReferenciasVista.addAll(accionBs.verificarReferencias(acc, modulo));
+		}
+
+		listReferenciasVista.addAll(setReferenciasVista);
+
+		return listReferenciasVista;
+	}
+	
+	public List<CasoUso> verificarCasosUsoReferencias(Pantalla model) {
+
+		List<ReferenciaParametro> referenciasParametro = new ArrayList<ReferenciaParametro>();
+
+		List<CasoUso> listReferenciasVista = new ArrayList<CasoUso>();
+		Set<CasoUso> setReferenciasVista = new HashSet<CasoUso>(0);
+
+		PostPrecondicion postPrecondicion = null; // Origen de la referencia
+		Paso paso = null; // Origen de la referencia
+		Accion accion = null; // Origen de la referencia
+		String casoUso = ""; // Caso de uso que tiene la referencia
+		String pantalla = ""; // Pantalla que tiene la referencia
+
+		referenciasParametro = new ReferenciaParametroDAO()
+				.consultarReferenciasParametro(model);
+
+		for (ReferenciaParametro referencia : referenciasParametro) {
+			String linea = "";
+			postPrecondicion = referencia.getPostPrecondicion();
+			paso = referencia.getPaso();
+			accion = referencia.getAccionDestino();
+
+			if (postPrecondicion != null) {
+				setReferenciasVista.add(postPrecondicion.getCasoUso());
+
+			} else if (paso != null) {
+				setReferenciasVista.add(paso.getTrayectoria().getCasoUso());
+			}
+		}
+
+		for (Accion acc : model.getAcciones()) {
+			setReferenciasVista.addAll(accionBs.verificarCasosUsoReferencias(acc));
+		}
+
+		listReferenciasVista.addAll(setReferenciasVista);
+
+		return listReferenciasVista;
+	}
 
 //	public static void modificarPantalla(Pantalla model) throws Exception {
 //		try {

@@ -273,38 +273,32 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 		}
 		return resultado;
 	}
-//	
-//	public String destroy() throws Exception {
-//		String resultado =  null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			model.setModulo(modulo);
-//			PantallaBs.eliminarPantalla(model);
-//			resultado = SUCCESS;
-//			addActionMessage(getText("MSG1", new String[] { "La",
-//					"Pantalla", "eliminada" }));
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//			
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
+
+	public void validateDestroy() {
+		if (!hasErrors()) {
+			try {
+				pantallaBs.eliminarMensaje(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				edit();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				edit();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				edit();
+			}
+		}
+	}
+	
+	public String destroy() {
+		addActionMessage(getText("MSG1", new String[] { "El", "Pantalla", "eliminado" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
 	
 //	public String verificarElementosReferencias() {
 //		try {
