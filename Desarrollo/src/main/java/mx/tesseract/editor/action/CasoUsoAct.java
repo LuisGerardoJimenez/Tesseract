@@ -140,7 +140,6 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	
 	@SuppressWarnings("unchecked")
 	public String index() {
-		System.out.println("----------------------------AA");
 		String resultado = PROYECTOS;
 		try {
 			idProyecto = (Integer) SessionManager.get("idProyecto");
@@ -153,58 +152,51 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 					model.setProyecto(proyecto);
 					model.setModulo(modulo);
 					resultado = INDEX;
+					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+					this.setActionMessages(msjs);
+					SessionManager.delete("mensajesAccion");
+					Collection<String> msjsError = (Collection<String>) SessionManager.get("mensajesError");
+					this.setActionErrors(msjsError);
+					SessionManager.delete("mensajesError");
 				} else {
 					resultado = MODULOS;
 				}
 			}
-			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
-			this.setActionMessages(msjs);
-			SessionManager.delete("mensajesAccion");
-			Collection<String> msjsError = (Collection<String>) SessionManager.get("mensajesError");
-			this.setActionErrors(msjsError);
-			SessionManager.delete("mensajesError");
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 		}
 		return resultado;
 	}
 
-//	public String editNew() {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(modulo.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			model.setModulo(modulo);
-//
-//			buscaElementos();
-//
-//			model.setClave(CasoUsoBs.calcularClave(modulo.getClave()));
-//			resultado = EDITNEW;
-//		} catch (TESSERACTValidacionException pve) {
-//			ErrorManager.agregaMensajeError(this, pve);
-//			resultado = editNew();
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//
-//		return resultado;
-//	}
+	public String editNew() {
+		String resultado = PROYECTOS;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					proyecto = loginBs.consultarProyectoActivo();
+					modulo = moduloBs.consultarModuloById(idModulo);
+					model.setProyecto(proyecto);
+					model.setModulo(modulo);
+//					buscaElementos();
+//					model.setClave(CasoUsoBs.calcularClave(modulo.getClave()));
+					resultado = EDITNEW;
+				} else {
+					resultado = MODULOS;
+				}
+			}
+		} catch (TESSERACTValidacionException tve) {
+			ErrorManager.agregaMensajeError(this, tve);
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		return resultado;
+	}
 
 //	public String create() throws TESSERACTException, Exception {
 //		String resultado = null;
