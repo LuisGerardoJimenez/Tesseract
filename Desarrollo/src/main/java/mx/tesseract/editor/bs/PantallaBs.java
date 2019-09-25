@@ -1,41 +1,27 @@
 package mx.tesseract.editor.bs;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.br.RN001;
 import mx.tesseract.br.RN006;
-import mx.tesseract.br.RN034;
+import mx.tesseract.br.RN018;
 import mx.tesseract.br.RN040;
 import mx.tesseract.dao.GenericoDAO;
+import mx.tesseract.dto.AccionDTO;
 import mx.tesseract.dto.PantallaDTO;
-import mx.tesseract.enums.ReferenciaEnum;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
-import mx.tesseract.editor.dao.AccionDAO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.PantallaDAO;
-import mx.tesseract.editor.dao.ReferenciaParametroDAO;
 import mx.tesseract.editor.entidad.Accion;
-import mx.tesseract.editor.entidad.CasoUso;
-import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
-import mx.tesseract.editor.entidad.Paso;
-import mx.tesseract.editor.entidad.PostPrecondicion;
-import mx.tesseract.editor.entidad.ReferenciaParametro;
-import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.util.ImageConverterUtil;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
-import org.hibernate.HibernateException;
-import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -59,6 +45,9 @@ public class PantallaBs {
 	private RN006 rn006;
 	
 	@Autowired
+	private RN018 rn018;
+	
+	@Autowired
 	private GenericoDAO genericoDAO;
 	
 	@Autowired
@@ -66,15 +55,6 @@ public class PantallaBs {
 	
 	@Autowired
 	private ElementoDAO elementoDAO;
-	
-	@Autowired
-	private ReferenciaParametroDAO referenciaParametroDAO;
-	
-	@Autowired
-	private AccionDAO accionDAO;
-	
-	@Autowired
-	private AccionBs accionBs;
 
 	public  List<Pantalla> consultarPantallasByModulo(Integer idProyecto, Integer idModulo) {
 		List<Pantalla> listPantallas = pantallaDAO.findAllByIdModulo(idProyecto, Clave.IU, idModulo);
@@ -184,9 +164,20 @@ public class PantallaBs {
 		}
 	}
 
-	public void eliminarMensaje(PantallaDTO model) {
-		// TODO Auto-generated method stub
-		
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarPantalla(PantallaDTO model) {
+		if (rn018.isValidRN018(model)) {
+			Pantalla pantalla = genericoDAO.findById(Pantalla.class, model.getId());
+			for(Accion accion : pantalla.getAcciones()) {
+				AccionDTO accionDTO = new AccionDTO();
+				accionDTO.setId(accion.getId());
+				if(!rn018.isValidRN018(accionDTO)) throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.", "MSG13");
+			}
+			genericoDAO.delete(pantalla);
+		} else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
+					"MSG13");
+		}
 	}
 
 //	public static List<TipoAccion> consultarTiposAccion() {
@@ -244,7 +235,7 @@ public class PantallaBs {
 //
 //	}
 
-	public List<String> verificarReferencias(Pantalla model, Modulo modulo) {
+	/*public List<String> verificarReferencias(Pantalla model, Modulo modulo) {
 
 		List<ReferenciaParametro> referenciasParametro = new ArrayList<ReferenciaParametro>();
 		List<Accion> referenciasAccion = new ArrayList<Accion>();
@@ -364,7 +355,7 @@ public class PantallaBs {
 		listReferenciasVista.addAll(setReferenciasVista);
 
 		return listReferenciasVista;
-	}
+	}*/
 
 //	public static void modificarPantalla(Pantalla model) throws Exception {
 //		try {

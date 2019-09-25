@@ -277,7 +277,7 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 	public void validateDestroy() {
 		if (!hasErrors()) {
 			try {
-				pantallaBs.eliminarMensaje(model);
+				pantallaBs.eliminarPantalla(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
@@ -295,7 +295,7 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 	}
 	
 	public String destroy() {
-		addActionMessage(getText("MSG1", new String[] { "El", "Pantalla", "eliminado" }));
+		addActionMessage(getText("MSG1", new String[] { "La", "Pantalla", "eliminada" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}

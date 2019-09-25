@@ -243,6 +243,32 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 		return SUCCESS;
 	}
 	
+	public void validateDestroy() {
+		if (!hasErrors()) {
+			try {
+				accionBs.eliminarAccion(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				edit();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				edit();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				edit();
+			}
+		}
+	}
+	
+	public String destroy() {
+		addActionMessage(getText("MSG1", new String[] { "La", "Acción", "eliminada" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
 	@VisitorFieldValidator
 	public AccionDTO getModel() {
 		return (model == null) ? model = new AccionDTO() : this.model;

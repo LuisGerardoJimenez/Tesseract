@@ -51,7 +51,7 @@ public class ReferenciaEnum {
 	}
 	
 	public enum Clave {
-		ACT, ENT, GLS, RN, MSG, IU, CU
+		ACT, ENT, GLS, RN, MSG, IU, CU, ACC
 	}
 	
 	public enum TipoRelacion {

@@ -2,9 +2,7 @@ package mx.tesseract.editor.bs;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -13,20 +11,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mx.tesseract.br.RN006;
+import mx.tesseract.br.RN018;
 import mx.tesseract.br.RN040;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.AccionDTO;
 import mx.tesseract.editor.dao.AccionDAO;
-import mx.tesseract.editor.dao.ReferenciaParametroDAO;
 import mx.tesseract.editor.entidad.Accion;
-import mx.tesseract.editor.entidad.CasoUso;
-import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
-import mx.tesseract.editor.entidad.Paso;
-import mx.tesseract.editor.entidad.PostPrecondicion;
-import mx.tesseract.editor.entidad.ReferenciaParametro;
 import mx.tesseract.editor.entidad.TipoAccion;
 import mx.tesseract.util.ImageConverterUtil;
+import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
 @Service("accionBs")
@@ -46,7 +40,7 @@ public class AccionBs {
 	private RN006 rn006;
 	
 	@Autowired
-	private ReferenciaParametroDAO referenciaParametroDAO;
+	private RN018 rn018;
 	
 	public List<Accion> consultarAccionesByPantalla(Integer idPantalla) {
 		List<Accion> acciones = accionDAO.findAllByPantalla(idPantalla);
@@ -160,8 +154,19 @@ public class AccionBs {
 					new String[] { "La", "Accion", accionDTO.getNombre() }, "model.nombre");
 		}
 	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarAccion(AccionDTO model) {
+		if (rn018.isValidRN018(model)) {
+			Accion accion = genericoDAO.findById(Accion.class, model.getId());
+			genericoDAO.delete(accion);
+		} else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
+					"MSG13");
+		}
+	}
 	
-	public List<String> verificarReferencias(Accion model, Modulo modulo) {
+	/*public List<String> verificarReferencias(Accion model, Modulo modulo) {
 
 		List<ReferenciaParametro> referenciasParametro;
 
@@ -242,6 +247,6 @@ public class AccionBs {
 		listReferenciasVista.addAll(setReferenciasVista);
 
 		return listReferenciasVista;
-	}
+	}*/
 	
 }
