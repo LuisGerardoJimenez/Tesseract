@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$('#gestion').DataTable().column(0).visible(false);
-	contextPath = $("#rutaContexto").val();
+	var contextPath = $("#rutaContexto").val();
 } );
 
 function confirmarEliminacion(urlEliminar) {
@@ -13,7 +13,7 @@ function cancelarConfirmarEliminacion() {
 }
 
 function verificarEliminacionElemento(idElemento) {
-	rutaVerificarReferencias = contextPath + '/pantallas!verificarElementosReferencias';
+	var rutaVerificarReferencias = contextPath + '/pantallas!verificarElementosReferencias';
 	$.ajax({
 		dataType : 'json',
 		url : rutaVerificarReferencias,
