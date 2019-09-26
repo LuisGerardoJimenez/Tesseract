@@ -1,5 +1,4 @@
-﻿package mx.tesseract.util;
-
+package mx.tesseract.util;
 
 import java.util.Properties;
 
@@ -33,7 +32,7 @@ public class Correo {
 	        props.put("mail.smtp.port", "587");
 
             Session session=Session.getDefaultInstance(props, null);
-        session.setDebug(true);
+            session.setDebug(true);
 
             // Se construye el mensaje a enviar
             MimeMessage message = new MimeMessage(session);
