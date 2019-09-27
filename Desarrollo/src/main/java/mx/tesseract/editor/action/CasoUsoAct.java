@@ -427,15 +427,11 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 //		List<Elemento> listElementos;
 //		List<ReglaNegocio> listReglasNegocio = new ArrayList<ReglaNegocio>();
 //		List<Entidad> listEntidades = new ArrayList<Entidad>();
-//		List<CasoUso> listCasosUso = new ArrayList<CasoUso>();
 //		List<Pantalla> listPantallas = new ArrayList<Pantalla>();
 //		List<Mensaje> listMensajes = new ArrayList<Mensaje>();
 //		List<Actor> listActores = new ArrayList<Actor>();
 //		List<TerminoGlosario> listTerminosGls = new ArrayList<TerminoGlosario>();
 //		List<Atributo> listAtributos = new ArrayList<Atributo>();
-//		List<Paso> listPasos = new ArrayList<Paso>();
-//		List<Trayectoria> listTrayectorias = new ArrayList<Trayectoria>();
-//		List<Accion> listAcciones = new ArrayList<Accion>();
 //
 //		// Se consultan los elementos de todo el proyecto
 //		listElementos = CasoUsoBs.consultarElementos(proyecto);
