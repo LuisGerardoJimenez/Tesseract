@@ -52,6 +52,7 @@
 %--------------------------------------
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Solicita registrar un caso de uso oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU6}{Gestionar Casos de uso}.
+		\UCpaso[\UCsist] Verifica que existan elementos registrados. \hyperlink{CU12-1:TAI}{[Trayectoria I]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1}{Registrar Caso de uso}.\label{CU12.1-P2}
 		\UCpaso[\UCactor] Ingresa la información general del caso de uso. \label{CU12.1-P12}
 		\UCpaso[\UCactor] Ingresa la descripción del caso de uso. \hyperlink{CU12-1:TAA}{[Trayectoria A]}
@@ -134,4 +135,12 @@
 	\UCpaso[\UCsist] Sustituye los espacios por guiones bajos.
 	\UCpaso Continua en el \ref{CU12.1-TA1} de la trayectoria alternativa A.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU12-1:TAI}{\textbf{Trayectoria alternativa I}}\\
+\noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MS31}{Elementos Vacíos} en la pantalla \IUref{IU6.1}{Registrar Caso de uso}.
+	\UCpaso Continua en el paso \ref{CU12.1-P2} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
