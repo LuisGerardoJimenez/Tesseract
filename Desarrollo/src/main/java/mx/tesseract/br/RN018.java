@@ -17,6 +17,7 @@ import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
+import mx.tesseract.util.Constantes;
 
 @Service("rN018")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
@@ -113,7 +114,7 @@ public class RN018 {
 		Boolean valido = true;
 		CasoUso casoUso = null;
 		if (model.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.ACC.toString()+"·"+model.getId());
+			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Constantes.TIPO_REFERENCIA_ACCION.toString()+"·"+model.getId());
 		}
 		if (casoUso != null) {
 			valido = false;

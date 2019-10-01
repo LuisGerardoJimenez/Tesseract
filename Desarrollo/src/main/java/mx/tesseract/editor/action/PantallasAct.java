@@ -299,29 +299,6 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-	
-//	public String verificarElementosReferencias() {
-//		try {
-//			elementosReferencias = new ArrayList<String>();
-//			elementosReferencias = PantallaBs.verificarReferencias(model, null);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "referencias";
-//	}
-	
-//	public String verificarElementosReferenciasAccion() {
-//		try {
-//			Accion accion = AccionBs.consultarAccion(idAccion);
-//			elementosReferencias = new ArrayList<String>();
-//			elementosReferencias = AccionBs.verificarReferencias(accion, null);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "referencias";
-//	}
 
 	@VisitorFieldValidator
 	public PantallaDTO getModel() {

@@ -51,7 +51,7 @@ public class ReferenciaEnum {
 	}
 	
 	public enum Clave {
-		ACT, ENT, GLS, RN, MSG, IU, CU, ACC
+		ACT, ENT, GLS, RN, MSG, IU, CU
 	}
 	
 	public enum TipoRelacion {
@@ -121,9 +121,6 @@ public class ReferenciaEnum {
 		}
 		if (tokenReferencia.equals("GLS")){
 			return TipoReferencia.TERMINOGLS;
-		}
-		if (tokenReferencia.equals("ACC")){
-			return TipoReferencia.ACCION;
 		}
 		if (tokenReferencia.equals("TRAY")){
 			return TipoReferencia.TRAYECTORIA;

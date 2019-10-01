@@ -192,16 +192,6 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 		}
 		return resultado;
 	}
-	
-//	public String verificarElementosReferencias() {
-//		elementosReferencias = new ArrayList<String>();
-//		try {
-//			elementosReferencias = ModuloBs.verificarReferencias(model);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "referencias";
-//	}
 
 	public void validateDestroy() {
 		if (!hasActionErrors()) {
