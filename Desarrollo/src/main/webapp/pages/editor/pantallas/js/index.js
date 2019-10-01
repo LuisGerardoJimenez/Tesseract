@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	$('#gestion').DataTable();
 	var contextPath = $("#rutaContexto").val();
-
 } );
 
 function confirmarEliminacion(urlEliminar) {
