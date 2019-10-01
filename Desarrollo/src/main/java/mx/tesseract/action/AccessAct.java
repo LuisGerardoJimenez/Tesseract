@@ -17,7 +17,6 @@ import mx.tesseract.util.SessionManager;
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Results({ @Result(name = "administrador", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_PROYECTOS_ADMIN }),
@@ -29,7 +28,6 @@ public class AccessAct extends ActionSupportTESSERACT {
 	private static final long serialVersionUID = 1L;
 	private static final String ADMINISTRADOR = "administrador";
 	private static final String COLABORADOR = "colaborador";
-	private static final String RECOVER = "recover";
 	private Map<String, Object> userSession;
 	private String userName;
 	private String password;

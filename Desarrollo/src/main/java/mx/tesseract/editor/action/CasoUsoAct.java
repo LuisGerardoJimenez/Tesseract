@@ -10,6 +10,7 @@ import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.bs.AccessBs;
+import mx.tesseract.editor.bs.ActorBs;
 import mx.tesseract.editor.bs.CasoUsoBs;
 //import mx.tesseract.bs.ReferenciaEnum;
 //import mx.tesseract.bs.TipoSeccionEnum;
@@ -17,7 +18,12 @@ import mx.tesseract.editor.bs.CasoUsoBs;
 //import mx.tesseract.bs.TipoSeccionEnum.TipoSeccionENUM;
 //import mx.tesseract.editor.bs.CasoUsoBs;
 import mx.tesseract.editor.bs.ElementoBs;
+import mx.tesseract.editor.bs.EntidadBs;
+import mx.tesseract.editor.bs.MensajeBs;
 import mx.tesseract.editor.bs.ModuloBs;
+import mx.tesseract.editor.bs.PantallaBs;
+import mx.tesseract.editor.bs.ReglaNegocioBs;
+import mx.tesseract.editor.bs.TerminoGlosarioBs;
 import mx.tesseract.editor.bs.TokenBs;
 //import mx.tesseract.editor.bs.TrayectoriaBs;
 //import mx.tesseract.editor.bs.ElementoBs.Estado;
@@ -138,9 +144,26 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	@Autowired
 	private CasoUsoBs casoUsoBs;
 	
+	@Autowired
+	private ReglaNegocioBs reglaNegocioBs;
+	
+	@Autowired
+	private EntidadBs entidadBs;
+	
+	@Autowired
+	private PantallaBs pantallaBs;
+	
+	@Autowired
+	private MensajeBs mensajeBs;
+	
+	@Autowired
+	private ActorBs actorBs;
+	
+	@Autowired
+	private TerminoGlosarioBs terminoGlosarioBs;
+	
 	@SuppressWarnings("unchecked")
 	public String index() {
-		System.out.println("----------------------------AA");
 		String resultado = PROYECTOS;
 		try {
 			idProyecto = (Integer) SessionManager.get("idProyecto");
@@ -153,58 +176,92 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 					model.setProyecto(proyecto);
 					model.setModulo(modulo);
 					resultado = INDEX;
+					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+					this.setActionMessages(msjs);
+					SessionManager.delete("mensajesAccion");
+					Collection<String> msjsError = (Collection<String>) SessionManager.get("mensajesError");
+					this.setActionErrors(msjsError);
+					SessionManager.delete("mensajesError");
 				} else {
 					resultado = MODULOS;
 				}
 			}
-			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
-			this.setActionMessages(msjs);
-			SessionManager.delete("mensajesAccion");
-			Collection<String> msjsError = (Collection<String>) SessionManager.get("mensajesError");
-			this.setActionErrors(msjsError);
-			SessionManager.delete("mensajesError");
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 		}
 		return resultado;
 	}
 
-//	public String editNew() {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(modulo.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			model.setModulo(modulo);
-//
-//			buscaElementos();
-//
-//			model.setClave(CasoUsoBs.calcularClave(modulo.getClave()));
-//			resultado = EDITNEW;
-//		} catch (TESSERACTValidacionException pve) {
-//			ErrorManager.agregaMensajeError(this, pve);
-//			resultado = editNew();
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//
-//		return resultado;
-//	}
+	public String editNew() {
+		String resultado = PROYECTOS;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					proyecto = loginBs.consultarProyectoActivo();
+					modulo = moduloBs.consultarModuloById(idModulo);
+					model.setProyecto(proyecto);
+					model.setModulo(modulo);
+					buscaElementos();
+					resultado = EDITNEW;
+				} else {
+					resultado = MODULOS;
+				}
+			}
+		} catch (TESSERACTValidacionException tve) {
+			ErrorManager.agregaMensajeError(this, tve);
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		return resultado;
+	}
+	
+	private void buscaElementos() {
+		List<ReglaNegocio> listReglasNegocio = reglaNegocioBs.consultarReglaNegocioProyecto(idProyecto);
+		List<Entidad> listEntidades = entidadBs.consultarEntidadesProyecto(idProyecto);
+		List<Pantalla> listPantallas = pantallaBs.consultarPantallas(idProyecto);
+		List<Mensaje> listMensajes = mensajeBs.consultarMensajeProyecto(idProyecto);
+		List<Actor> listActores = actorBs.consultarActoresProyecto(idProyecto);
+		List<TerminoGlosario> listTerminosGls = terminoGlosarioBs.consultarGlosarioProyecto(idProyecto);
+		List<Atributo> listAtributos = new ArrayList<Atributo>();
+		
+		for (Entidad entidad : listEntidades) {
+			for (Atributo atributo : entidad.getAtributos()) {
+				listAtributos.add(atributo);
+			}
+		}
+		
+		if (listReglasNegocio != null) {
+			this.jsonReglasNegocio = JsonUtil.mapListToJSON(listReglasNegocio);
+		}
+		if (listEntidades != null) {
+			this.jsonEntidades = JsonUtil.mapListToJSON(listEntidades);
+		}
+		if (listPantallas != null) {
+			this.jsonPantallas = JsonUtil.mapListToJSON(listPantallas);
+		}
+		if (listMensajes != null) {
+			this.jsonMensajes = JsonUtil.mapListToJSON(listMensajes);
+		}
+		if (listActores != null) {
+			this.jsonActores = JsonUtil.mapListToJSON(listActores);
+		}
+		if (listTerminosGls != null) {
+			this.jsonTerminosGls = JsonUtil.mapListToJSON(listTerminosGls);
+		}
+		if (listAtributos != null) {
+			this.jsonAtributos = JsonUtil.mapListToJSON(listAtributos);
+		}
+		if (listPasos != null) {
+			this.jsonPasos = JsonUtil.mapListToJSON(listPasos);
+		}
+
+	}
 
 //	public String create() throws TESSERACTException, Exception {
 //		String resultado = null;
@@ -428,190 +485,6 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 //		for (PostPrecondicion pp : casoUso.getPostprecondiciones()) {
 //			pp.setCasoUso(casoUso);
 //		}
-//	}
-
-//	private void buscaElementos() {
-//		// Lists de los elementos disponibles
-//		List<Elemento> listElementos;
-//		List<ReglaNegocio> listReglasNegocio = new ArrayList<ReglaNegocio>();
-//		List<Entidad> listEntidades = new ArrayList<Entidad>();
-//		List<CasoUso> listCasosUso = new ArrayList<CasoUso>();
-//		List<Pantalla> listPantallas = new ArrayList<Pantalla>();
-//		List<Mensaje> listMensajes = new ArrayList<Mensaje>();
-//		List<Actor> listActores = new ArrayList<Actor>();
-//		List<TerminoGlosario> listTerminosGls = new ArrayList<TerminoGlosario>();
-//		List<Atributo> listAtributos = new ArrayList<Atributo>();
-//		List<Paso> listPasos = new ArrayList<Paso>();
-//		List<Trayectoria> listTrayectorias = new ArrayList<Trayectoria>();
-//		List<Accion> listAcciones = new ArrayList<Accion>();
-//
-//		// Se consultan los elementos de todo el proyecto
-//		listElementos = CasoUsoBs.consultarElementos(proyecto);
-//		
-//		Modulo moduloAux = null;
-//		
-//
-//		if (listElementos != null && !listElementos.isEmpty()) {
-//			// Se clasifican los conjuntos
-//			for (Elemento el : listElementos) {
-//				System.out.println(ReferenciaEnum.getTipoReferencia(el));
-//				switch (ReferenciaEnum.getTipoReferencia(el)) {
-//
-//				case ACTOR:
-//					Actor auxActor = new Actor();
-//					auxActor.setClave(el.getClave());
-//					auxActor.setNombre(el.getNombre());
-//					listActores.add(auxActor);
-//					break;
-//				case CASOUSO:
-//					CasoUso cu  = (CasoUso)el;
-//					// Módulo auxiliar para la serialización
-//					moduloAux = new Modulo();
-//					moduloAux.setId(cu.getModulo().getId());
-//					moduloAux.setNombre(cu.getModulo().getNombre());
-//					moduloAux.setClave(cu.getModulo().getClave());
-//					
-//					CasoUso auxCasoUso = new CasoUso();
-//					auxCasoUso.setClave(cu.getClave());
-//					auxCasoUso.setNumero(cu.getNumero());
-//					auxCasoUso.setNombre(cu.getNombre());
-//					auxCasoUso.setModulo(moduloAux);
-//					listCasosUso.add(auxCasoUso);
-//
-//					// Se obtienen las Trayectorias
-//					Set<Trayectoria> trayectorias = ((CasoUso) el)
-//							.getTrayectorias();
-//					for (Trayectoria tray : trayectorias) {
-//						if (tray.getCasoUso().getId() == model.getId()) {
-//							Trayectoria auxTrayectoria = new Trayectoria();
-//							auxTrayectoria.setClave(tray.getClave());
-//							auxTrayectoria.setCasoUso(auxCasoUso);
-//							listTrayectorias.add(auxTrayectoria);
-//							// Se obtienen los Pasos
-//							List <Paso> pasosaux = TrayectoriaBs.obtenerPasos_(tray.getId());//HOLI
-//							for (Paso paso : pasosaux) {
-//								Paso auxPaso = new Paso();
-//								auxPaso.setTrayectoria(auxTrayectoria);
-//								auxPaso.setNumero(paso.getNumero());
-//								auxPaso.setRealizaActor(paso.isRealizaActor());
-//								auxPaso.setVerbo(paso.getVerbo());
-//								auxPaso.setOtroVerbo(paso.getOtroVerbo());
-//								auxPaso.setRedaccion(TokenBs
-//										.decodificarCadenaSinToken(paso
-//												.getRedaccion()));
-//								listPasos.add(auxPaso);
-//							}
-//						}
-//					}
-//					break;
-//				case ENTIDAD:
-//					Entidad auxEntidad = new Entidad();
-//					auxEntidad.setNombre(el.getNombre());
-//					listEntidades.add(auxEntidad);
-//					// Se obtienen los Atributos
-//					Set<Atributo> atributos = ((Entidad) el).getAtributos();
-//					for (Atributo atributo : atributos) {
-//						Atributo auxAtributo = new Atributo();
-//						auxAtributo.setEntidad(auxEntidad);
-//						auxAtributo.setNombre(atributo.getNombre());
-//						listAtributos.add(auxAtributo);
-//					}
-//
-//					break;
-//				case MENSAJE:
-//					Mensaje auxMensaje = new Mensaje();
-//					auxMensaje.setNumero(el.getNumero());
-//					auxMensaje.setNombre(el.getNombre());
-//					listMensajes.add(auxMensaje);
-//					break;
-//				case PANTALLA:
-//					Pantalla iu  = (Pantalla) el;
-//					// Módulo auxiliar para la serialización
-//					moduloAux = new Modulo();
-//					moduloAux.setId(iu.getModulo().getId());
-//					moduloAux.setNombre(iu.getModulo().getNombre());
-//					moduloAux.setClave(iu.getModulo().getClave());
-//					
-//					Pantalla auxPantalla = new Pantalla();
-//					auxPantalla.setClave(el.getClave());
-//					auxPantalla.setNumero(el.getNumero());
-//					auxPantalla.setNombre(el.getNombre());
-//					auxPantalla.setModulo(moduloAux);
-//					listPantallas.add(auxPantalla);
-//					// Se obtienen las acciones
-//					Set<Accion> acciones = ((Pantalla) el).getAcciones();
-//					for (Accion accion : acciones) {
-//						Accion auxAccion = new Accion();
-//						auxAccion.setPantalla(auxPantalla);
-//						auxAccion.setNombre(accion.getNombre());
-//						listAcciones.add(auxAccion);
-//					}
-//					break;
-//				case REGLANEGOCIO:
-//					ReglaNegocio auxReglaNegocio = new ReglaNegocio();
-//					auxReglaNegocio.setNumero(el.getNumero());
-//					auxReglaNegocio.setNombre(el.getNombre());
-//					listReglasNegocio.add(auxReglaNegocio);
-//					break;
-//				case TERMINOGLS:
-//					TerminoGlosario auxTerminoGlosario = new TerminoGlosario();
-//					auxTerminoGlosario.setNombre(el.getNombre());
-//					listTerminosGls.add(auxTerminoGlosario);
-//					break;
-//				default:
-//					break;
-//				}
-//			}
-//
-//			// Se convierte en json las Reglas de Negocio
-//			if (listReglasNegocio != null) {
-//				this.jsonReglasNegocio = JsonUtil
-//						.mapListToJSON(listReglasNegocio);
-//			}
-//			// Se convierte en json las Entidades
-//			if (listEntidades != null) {
-//				this.jsonEntidades = JsonUtil.mapListToJSON(listEntidades);
-//			}
-//			// Se convierte en json los Casos de Uso
-//			if (listCasosUso != null) {
-//				this.jsonCasosUsoProyecto = JsonUtil
-//						.mapListToJSON(listCasosUso);
-//			}
-//			// Se convierte en json las Pantallas
-//			if (listPantallas != null) {
-//				this.jsonPantallas = JsonUtil.mapListToJSON(listPantallas);
-//			}
-//			// Se convierte en json los Mensajes
-//			if (listMensajes != null) {
-//				this.jsonMensajes = JsonUtil.mapListToJSON(listMensajes);
-//			}
-//			// Se convierte en json los Actores
-//			if (listActores != null) {
-//				this.jsonActores = JsonUtil.mapListToJSON(listActores);
-//			}
-//			// Se convierte en json los Términos del Glosario
-//			if (listTerminosGls != null) {
-//				this.jsonTerminosGls = JsonUtil.mapListToJSON(listTerminosGls);
-//			}
-//			// Se convierte en json los Atributos
-//			if (listAtributos != null) {
-//				this.jsonAtributos = JsonUtil.mapListToJSON(listAtributos);
-//			}
-//			// Se convierte en json los Pasos
-//			if (listPasos != null) {
-//				this.jsonPasos = JsonUtil.mapListToJSON(listPasos);
-//			}
-//			// Se convierte en json las Trayectorias
-//			if (listTrayectorias != null) {
-//				this.jsonTrayectorias = JsonUtil
-//						.mapListToJSON(listTrayectorias);
-//			}
-//			// Se convierte en json las Acciones
-//			if (listAcciones != null) {
-//				this.jsonAcciones = JsonUtil.mapListToJSON(listAcciones);
-//			}
-//		}
-//
 //	}
 //
 //	private void prepararVista() {

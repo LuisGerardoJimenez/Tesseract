@@ -98,120 +98,25 @@
 					</tr>
 				</table>
 		</div>
-		<div class="formulario">
-			<div class="tituloFormulario">Precondiciones</div>
-			<div class="seccion">
-				<table class="tablaGestion" id="tablaPrecondiciones">
-					<thead>
-						<tr>
-							<th style="width: 60%;"><s:text name="colRedaccion"/></th>
-							<th style="width: 20%;"><s:text name="colAcciones"/></th>
-						</tr>
-					</thead>
-				</table>
-				<br />
-				<div align="center">
-					<sj:a openDialog="precondDialog" button="true">Registrar</sj:a>
-				</div>
-			</div>
-		</div>
-		
-		<div class="formulario">
-			<div class="tituloFormulario">Postcondiciones</div>
-			<div class="seccion">
-				<table class="tablaGestion" id="tablaPostcondiciones">
-					<thead>
-						<tr>
-							<th style="width: 60%;"><s:text name="colRedaccion"/></th>
-							<th style="width: 20%;"><s:text name="colAcciones"/></th>
-						</tr>
-					</thead>
-				</table>
-				<br />
-				<div align="center">
-					<sj:a openDialog="postcondDialog" button="true">Registrar</sj:a>
-				</div>
-			</div>
-		</div>
 		
 		<br />
 		<div align="center">
 			<s:submit class="boton" value="Aceptar" />
 
 			<input class="boton" type="button"
-				onclick="location.href='${pageContext.request.contextPath}/cu'"
+				onclick="location.href='${pageContext.request.contextPath}/caso-uso'"
 				value="Cancelar" />
-		</div>    
-		<s:hidden name="jsonPrecondiciones" id="jsonPrecondiciones" value="%{jsonPrecondiciones}"/>
-		<s:hidden name="jsonPostcondiciones" id="jsonPostcondiciones" value="%{jsonPostcondiciones}"/>
+		</div>
 		
 		<!-- Json de elementos -->
 		<s:hidden name="jsonReglasNegocio" id="jsonReglasNegocio" value="%{jsonReglasNegocio}"/>
 		<s:hidden name="jsonEntidades" id="jsonEntidades" value="%{jsonEntidades}"/>
-		<s:hidden name="jsonCasosUsoProyecto" id="jsonCasosUsoProyecto" value="%{jsonCasosUsoProyecto}"/>
 		<s:hidden name="jsonPantallas" id="jsonPantallas" value="%{jsonPantallas}"/>
 		<s:hidden name="jsonMensajes" id="jsonMensajes" value="%{jsonMensajes}"/>
 		<s:hidden name="jsonActores" id="jsonActores" value="%{jsonActores}"/>
 		<s:hidden name="jsonTerminosGls" id="jsonTerminosGls" value="%{jsonTerminosGls}"/>
 		<s:hidden name="jsonAtributos" id="jsonAtributos" value="%{jsonAtributos}"/>
-		<s:hidden name="jsonPasos" id="jsonPasos" value="%{jsonPasos}"/>
-		<s:hidden name="jsonTrayectorias" id="jsonTrayectorias" value="%{jsonTrayectorias}"/>
-		<s:hidden name="jsonAcciones" id="jsonAcciones" value="%{jsonAcciones}"/>
 	</s:form>
-	
-	
-	<!-- PRECONDICIONES -->	
-   	<sj:dialog id="precondDialog" title="Registrar Precondición" autoOpen="false" 
-   	minHeight="300" minWidth="800" modal="true" draggable="true" >
-	   	<s:form autocomplete="off" id="frmPrecondicion" name="frmPrecondicionName" theme="simple">
-			<div class="formulario">
-				<div class="tituloFormulario">Información de la Precondición</div>
-				<table class="seccion">
-					<tr>
-						<td class="label obligatorio"><s:text name="labelRedaccion" /></td>
-						<td><s:textarea rows="5" name="precondicion.redaccion" id="precondicionInput" cssClass="inputFormularioExtraGrande ui-widget"
-								maxlength="999" cssErrorClass="input-error"></s:textarea></td>
-					</tr>
-				</table>
-			</div>
-			<br />
-				<div align="center">
-					<input type="button"
-						onclick="registrarPrecondicion()"
-						value="Aceptar" />
-					<input type="button"
-						onclick="cancelarRegistrarPrecondicion()"
-						value="Cancelar" />
-				</div>
-		</s:form>
-	</sj:dialog>
-	<!-- POSTCONDICIONES -->	
-   	<sj:dialog id="postcondDialog" title="Registrar Postcondición" autoOpen="false" 
-   	minHeight="300" minWidth="800" modal="true" draggable="true" >
-	   	<s:form autocomplete="off" id="frmPostcondicion" name="frmPostcondicionName" theme="simple">
-			<div class="formulario">
-				<div class="tituloFormulario">Información de la Postcondición</div>
-				<table class="seccion">
-					<tr>
-						<td class="label obligatorio"><s:text name="labelRedaccion" /></td>
-						<td><s:textarea rows="5" name="postcondicion.redaccion" id="postcondicionInput" cssClass="inputFormularioExtraGrande ui-widget"
-								maxlength="999" cssErrorClass="input-error"></s:textarea></td>
-					</tr>
-				</table>
-			</div>
-			<br />
-				<div align="center">
-					<input type="button"
-						onclick="registrarPostcondicion()"
-						value="Aceptar" />
-					<input type="button"
-						onclick="cancelarRegistrarPostcondicion()"
-						value="Cancelar" />
-				</div> 
-		</s:form>
-	</sj:dialog>
-	
-	
 	
 </body>
 	</html>

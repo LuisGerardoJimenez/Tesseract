@@ -3,7 +3,7 @@ var contextPath = "tesseract";
 $(document)
 		.ready(
 				function() {
-					contextPath = $("#rutaContexto").val();
+					var contextPath = $("#rutaContexto").val();
 					// Se oculta el botón de editar de la redacción
 					document.getElementById("botonEditar").style.display = 'none';
 

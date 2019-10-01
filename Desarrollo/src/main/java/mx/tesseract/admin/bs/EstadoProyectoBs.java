@@ -1,6 +1,5 @@
 package mx.tesseract.admin.bs;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 import mx.tesseract.admin.dao.EstadoProyectoDAO;
 import mx.tesseract.admin.entidad.EstadoProyecto;
 import mx.tesseract.dao.GenericoDAO;
-import mx.tesseract.util.Constantes;
 import mx.tesseract.util.TESSERACTException;
 
 @Service("estadoProyectoBs")
