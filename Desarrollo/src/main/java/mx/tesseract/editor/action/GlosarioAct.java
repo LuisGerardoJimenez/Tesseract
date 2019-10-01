@@ -208,48 +208,6 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 		return SUCCESS;
 	}
 	
-//
-//	public String destroy() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			if (proyecto == null) {
-//				resultado = "proyectos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			TerminoGlosarioBs.eliminarTermino(model);
-//			resultado = SUCCESS;
-//			addActionMessage(getText("MSG1", new String[] { "El", "Término",
-//					"eliminado" }));
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
-//
-//	public String verificarElementosReferencias() {
-//		try {
-//			elementosReferencias = new ArrayList<String>();
-//			elementosReferencias = TerminoGlosarioBs
-//					.verificarReferencias(model);
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "referencias";
-//	}
-	
 	@VisitorFieldValidator
 	public TerminoGlosarioDTO getModel() {
 		return (model == null) ? model = new TerminoGlosarioDTO() : model;

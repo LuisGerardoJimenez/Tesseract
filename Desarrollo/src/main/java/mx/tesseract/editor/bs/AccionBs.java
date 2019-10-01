@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mx.tesseract.br.RN006;
+import mx.tesseract.br.RN018;
 import mx.tesseract.br.RN040;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.AccionDTO;
@@ -19,6 +20,7 @@ import mx.tesseract.editor.entidad.Accion;
 import mx.tesseract.editor.entidad.Pantalla;
 import mx.tesseract.editor.entidad.TipoAccion;
 import mx.tesseract.util.ImageConverterUtil;
+import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
 @Service("accionBs")
@@ -36,6 +38,9 @@ public class AccionBs {
 	
 	@Autowired
 	private RN006 rn006;
+	
+	@Autowired
+	private RN018 rn018;
 	
 	public List<Accion> consultarAccionesByPantalla(Integer idPantalla) {
 		List<Accion> acciones = accionDAO.findAllByPantalla(idPantalla);
@@ -147,6 +152,17 @@ public class AccionBs {
 		} else {
 			throw new TESSERACTValidacionException("EL nombre de la acción ya existe.", "MSG7",
 					new String[] { "La", "Accion", accionDTO.getNombre() }, "model.nombre");
+		}
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarAccion(AccionDTO model) {
+		if (rn018.isValidRN018(model)) {
+			Accion accion = genericoDAO.findById(Accion.class, model.getId());
+			genericoDAO.delete(accion);
+		} else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
+					"MSG13");
 		}
 	}
 	

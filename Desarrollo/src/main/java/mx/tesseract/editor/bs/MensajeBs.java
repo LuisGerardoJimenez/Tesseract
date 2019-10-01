@@ -7,7 +7,6 @@ import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.MensajeDTO;
-import mx.tesseract.dto.ParametroDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.MensajeParametroDAO;
 import mx.tesseract.editor.dao.ParametroDAO;
@@ -96,7 +95,7 @@ public class MensajeBs {
 			mensaje.setProyecto(proyecto);
 			mensaje.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
 			mensaje.setRedaccion(mensajeDTO.getRedaccion());
-			mensaje.setParametrizado(Constantes.NUMERO_UNO);
+			mensaje.setParametrizado(Boolean.TRUE);
 			genericoDAO.save(mensaje);
 			for(MensajeParametro mensajeParametro : mensajeDTO.getParametros()) {
 				if(mensajeParametro.getParametro().getId()== null) {

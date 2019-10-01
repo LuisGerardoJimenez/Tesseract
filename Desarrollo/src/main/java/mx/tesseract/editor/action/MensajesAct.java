@@ -2,40 +2,23 @@ package mx.tesseract.editor.action;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.bs.ProyectoBs;
-import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
-import mx.tesseract.bs.AccessBs;
 import mx.tesseract.enums.AnalisisEnum.CU_Mensajes;
-import mx.tesseract.enums.EstadoElementoEnum.Estado;
-import mx.tesseract.enums.ReferenciaEnum.Clave;
-//import mx.tesseract.bs.AnalisisEnum.CU_Glosario;
-import mx.tesseract.enums.ReferenciaEnum.TipoReferencia;
 import mx.tesseract.dto.MensajeDTO;
-import mx.tesseract.dto.ParametroDTO;
-import mx.tesseract.dto.TerminoGlosarioDTO;
-import mx.tesseract.editor.bs.TerminoGlosarioBs;
 import mx.tesseract.editor.bs.ElementoBs;
 import mx.tesseract.editor.bs.MensajeBs;
-//import mx.tesseract.editor.bs.ElementoBs;
-import mx.tesseract.editor.bs.ModuloBs;
-import mx.tesseract.editor.entidad.TerminoGlosario;
-import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.MensajeParametro;
-import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Parametro;
 //import mx.tesseract.editor.bs.ActorBs;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
-import mx.tesseract.util.GenericInterface;
 import mx.tesseract.util.JsonUtil;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
@@ -45,11 +28,8 @@ import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
@@ -156,7 +136,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 				}
 				if(contador2==0){
 					System.out.println("entra al if");
-					model.setParametrizado(Constantes.NUMERO_CERO);
+					model.setParametrizado(Boolean.FALSE);
 				}
 				mensajeBs.registrarMensaje(model);
 			} catch (TESSERACTValidacionException tve) {
@@ -179,8 +159,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	public String show() {
 		String resultado = INDEX;
 		try {
@@ -336,29 +315,8 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 
 	}
 	
-	private void agregarParametrosUpdate() throws Exception {
-		
-		model.setParametrizado(Constantes.NUMERO_CERO);
-		if (jsonParametros != null && !jsonParametros.equals("")) {
-			model.setParametrizado(Constantes.NUMERO_UNO);
-			Set<Parametro> parametros = JsonUtil.mapJSONToSet(jsonParametros,Parametro.class);
-			
-			Set<ParametroDTO> parametrosDTO = new HashSet<ParametroDTO>(0);
-			for (Parametro p : parametros) {
-				Parametro parametroAux = mensajeBs.consultarParametro(p.getNombre(), model.getIdProyecto());
-				ParametroDTO parametroDTO = new ParametroDTO();
-				parametroDTO.setId(parametroAux.getId());
-				parametroDTO.setNombre(p.getNombre());
-				parametroDTO.setDescripcion(p.getDescripcion());
-				parametrosDTO.add(parametroDTO);
-			}
-			//model.setParametrosDTO(parametrosDTO);
-		}
-		System.out.println("Model params size: " + model.getParametros().size());
-	}
-	
 	private void agregarParametros() throws Exception {
-		model.setParametrizado(Constantes.NUMERO_UNO);
+		model.setParametrizado(Boolean.TRUE);
 		
 		if (jsonParametros != null && !jsonParametros.equals("")) {
 			Set<Parametro> parametros = JsonUtil.mapJSONToSet(jsonParametros,Parametro.class);

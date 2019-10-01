@@ -1,7 +1,7 @@
 package mx.tesseract.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -20,10 +20,10 @@ public class MensajeDTO {
 	private String nombre;
 	private Integer id;
 	private String redaccion;
-	private Integer parametrizado;
+	private Boolean parametrizado;
 	private String descripcion;
 	EstadoElemento estadoElemento;
-	private Set<MensajeParametro> parametros = new HashSet<MensajeParametro>(0);
+	private List<MensajeParametro> parametros = new ArrayList<MensajeParametro>(0);
 	
 	public MensajeDTO() {
 		
@@ -47,11 +47,11 @@ public class MensajeDTO {
 		this.redaccion = redaccion;
 	}
 
-	public Integer getParametrizado() {
+	public Boolean getParametrizado() {
 		return parametrizado;
 	}
 
-	public void setParametrizado(Integer parametrizado) {
+	public void setParametrizado(Boolean parametrizado) {
 		this.parametrizado = parametrizado;
 	}
 
@@ -98,11 +98,11 @@ public class MensajeDTO {
 		this.clave = clave;
 	}
 
-	public Set<MensajeParametro> getParametros() {
+	public List<MensajeParametro> getParametros() {
 		return parametros;
 	}
 
-	public void setParametros(Set<MensajeParametro> parametros) {
+	public void setParametros(List<MensajeParametro> parametros) {
 		this.parametros = parametros;
 	}
 

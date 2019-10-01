@@ -1,11 +1,9 @@
 package mx.tesseract.editor.entidad;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -19,7 +17,6 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.ElementoInterface;
 import mx.tesseract.util.GenericInterface;
 
@@ -37,10 +34,10 @@ public class Mensaje extends Elemento implements Serializable, GenericInterface,
 	private String redaccion;
 	
 	@Column(name = "parametrizado")
-	private Integer parametrizado;
+	private Boolean parametrizado;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mensaje", orphanRemoval = true)	
-	private Set<MensajeParametro> parametros = new HashSet<MensajeParametro>(0);
+	private List<MensajeParametro> parametros = new ArrayList<MensajeParametro>();
 
 	public Mensaje() {
 	}
@@ -59,21 +56,20 @@ public class Mensaje extends Elemento implements Serializable, GenericInterface,
 	public void setRedaccion(String redaccion) {
 		this.redaccion = redaccion.trim();
 	}
-
-	public Integer getParametrizado() {
+	
+	public Boolean getParametrizado() {
 		return parametrizado;
 	}
 
-	public void setParametrizado(Integer parametrizado) {
+	public void setParametrizado(Boolean parametrizado) {
 		this.parametrizado = parametrizado;
 	}
 
-	
-	public Set<MensajeParametro> getParametros() {
+	public List<MensajeParametro> getParametros() {
 		return parametros;
 	}
 
-	public void setParametros(Set<MensajeParametro> parametros) {
+	public void setParametros(List<MensajeParametro> parametros) {
 		this.parametros = parametros;
 	}
 	
