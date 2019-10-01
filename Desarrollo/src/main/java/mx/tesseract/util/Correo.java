@@ -1,5 +1,4 @@
-﻿package mx.tesseract.util;
-
+package mx.tesseract.util;
 
 import java.util.Properties;
 
@@ -23,8 +22,8 @@ public class Correo {
 
     public void enviarCorreo(Colaborador obj, int sub) throws AddressException, MessagingException {
 
-            String mailServidor = "tesseractv1escom@gmail.com";
-            String passwordServidor = "contrasenaglobal123";
+            String uServidor = "tesseractv1escom@gmail.com";
+            String pServidor = "contrasenaglobal123";
             // Propiedades de la conexión.
             Properties props = new Properties();  
 	        props.put("mail.smtp.starttls.enable","true");
@@ -33,11 +32,11 @@ public class Correo {
 	        props.put("mail.smtp.port", "587");
 
             Session session=Session.getDefaultInstance(props, null);
-        session.setDebug(true);
+            session.setDebug(true);
 
             // Se construye el mensaje a enviar
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(mailServidor));
+            message.setFrom(new InternetAddress(uServidor));
 			// FIXME Sacar el mail de contactos
 
 			//prueba de usuario
@@ -105,7 +104,7 @@ public class Correo {
             //send the message
             
             Transport t = session.getTransport("smtp");
-            t.connect(mailServidor, passwordServidor);
+            t.connect(uServidor, pServidor);
             
             //t.sendMessage(message, message.getAllRecipients());
             t.sendMessage(message, message.getAllRecipients());

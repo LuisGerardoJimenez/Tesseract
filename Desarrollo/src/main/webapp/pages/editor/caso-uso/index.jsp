@@ -183,16 +183,8 @@
 			<s:text name="Visualizar reporte general"></s:text>
 		</button>
 		<button class="boton" 
-			onclick="location.href='${pageContext.request.contextPath}/cu/new'">
+			onclick="location.href='${pageContext.request.contextPath}/caso-uso/new'">
 			<s:text name="Registrar"></s:text>
-		</button>
-		<button class="boton" 
-			onclick="mostrarMensajeCargando();location.href='${pageContext.request.contextPath}/configuracion-casos-uso!ejecutarPruebaGeneral'">
-			<s:text name="Ejecutar prueba general"></s:text>
-		</button>
-		<button class="boton" 
-			onclick="location.href='${pageContext.request.contextPath}/guion-pruebas!configuracionTrayectoriasCasosUso'">
-			<s:text name="Generar guion de pruebas"></s:text>
 		</button>
 	</div>
 	

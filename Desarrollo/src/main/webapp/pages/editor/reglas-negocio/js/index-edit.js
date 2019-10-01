@@ -1,7 +1,7 @@
 var contextPath = "tesseract";
 
 $(document).ready(function() {
-	contextPath = $("#rutaContexto").val();
+	var contextPath = $("#rutaContexto").val();
 	try {
 		mostrarCamposTipoRN();
 	} catch (err) {
