@@ -5,7 +5,6 @@ import java.util.Map;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Colaborador;
-import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.bs.AccessBs;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;

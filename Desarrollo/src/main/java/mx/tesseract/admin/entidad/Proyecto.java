@@ -96,7 +96,7 @@ public class Proyecto implements Serializable, GenericInterface {
 	private EstadoProyecto estadoProyecto;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proyecto", orphanRemoval = true)
-	private List<ColaboradorProyecto> proyecto_colaboradores = new ArrayList<ColaboradorProyecto>(0);
+	private List<ColaboradorProyecto> proyecto_colaboradores = new ArrayList<>(0);
 	
 	@Transient
 	private String colaboradorCurp;

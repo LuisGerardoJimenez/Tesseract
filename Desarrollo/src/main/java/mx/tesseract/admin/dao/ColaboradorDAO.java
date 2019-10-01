@@ -20,7 +20,7 @@ public class ColaboradorDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Colaborador> findAllWithoutAdmin() {
-		List<Colaborador> lista = new ArrayList<Colaborador>();
+		List<Colaborador> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Colaborador.findAllWithoutAdmin", Colaborador.class);
 			query.setParameter(Constantes.NUMERO_UNO, Boolean.TRUE);

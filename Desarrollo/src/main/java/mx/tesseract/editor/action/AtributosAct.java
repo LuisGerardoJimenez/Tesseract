@@ -14,7 +14,6 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dto.AtributoDTO;
-import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.editor.bs.AtributoBs;
 import mx.tesseract.editor.bs.EntidadBs;
 import mx.tesseract.editor.bs.TipoDatoBs;
