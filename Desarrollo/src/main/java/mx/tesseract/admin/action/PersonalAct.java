@@ -160,10 +160,6 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 		model = colaboradorBs.consultarPersona(idSel);
 	}
 
-	public void setSession(Map<String, Object> session) {
-
-	}
-
 	public String getContrasenaAnterior() {
 		return contrasenaAnterior;
 	}

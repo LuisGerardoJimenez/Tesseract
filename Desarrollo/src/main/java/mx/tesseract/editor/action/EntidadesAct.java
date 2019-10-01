@@ -1,24 +1,15 @@
 package mx.tesseract.editor.action;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import mx.tesseract.admin.bs.LoginBs;
-import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.editor.bs.AtributoBs;
 import mx.tesseract.editor.bs.EntidadBs;
 import mx.tesseract.editor.entidad.Atributo;
-//import mx.tesseract.editor.bs.AtributoBs;
-//import mx.tesseract.editor.bs.EntidadBs;
-//import mx.tesseract.editor.dao.TipoDatoDAO;
-//import mx.tesseract.editor.dao.UnidadTamanioDAO;
 import mx.tesseract.editor.entidad.Entidad;
-import mx.tesseract.editor.entidad.Modulo;
-import mx.tesseract.editor.entidad.TipoDato;
-import mx.tesseract.editor.entidad.UnidadTamanio;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
@@ -175,7 +166,6 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 		return SUCCESS;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public String show() {
 		String resultado = INDEX;
 		try {

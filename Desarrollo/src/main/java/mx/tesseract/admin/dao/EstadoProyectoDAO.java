@@ -20,7 +20,7 @@ public class EstadoProyectoDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<EstadoProyecto> findAllWithoutFinished() {
-		List<EstadoProyecto> estadosProyecto = new ArrayList<EstadoProyecto>();
+		List<EstadoProyecto> estadosProyecto = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("EstadoProyecto.findAllWithoutFinished", EstadoProyecto.class);
 			query.setParameter(Constantes.NUMERO_UNO, Constantes.NUMERO_TRES);

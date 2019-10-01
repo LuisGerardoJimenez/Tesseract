@@ -21,7 +21,7 @@ public class ProyectoDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Proyecto> findByCURPColaborador(String curp) {
-		List<Proyecto> proyectos = new ArrayList<Proyecto>();
+		List<Proyecto> proyectos = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Proyecto.findByColaboradorCurp", Proyecto.class);
 			query.setParameter(Constantes.NUMERO_UNO, curp);

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	contextPath = $("#rutaContexto").val();
+	var contextPath = $("#rutaContexto").val();
 
 	if(document.getElementById("pruebaGenerada").value == "true") {
 		window.location.href = contextPath + "/configuracion-caso-uso!descargarPrueba";
@@ -36,7 +36,7 @@ function cancelarConfirmarTermino() {
 }
 
 function verificarEliminacionElemento(idElemento) {
-	rutaVerificarReferencias = contextPath
+	var rutaVerificarReferencias = contextPath
 			+ '/cu!verificarElementosReferencias';
 	$.ajax({
 		dataType : 'json',
@@ -84,7 +84,7 @@ function mostrarMensajeEliminacion(json, id) {
 
 function verificarTerminarCasoUso(idElemento) {
 	mostrarMensajeCargando();
-	rutaTerminar = contextPath + '/cu!verificarTermino';
+	var rutaTerminar = contextPath + '/cu!verificarTermino';
 	$.ajax({
 		dataType : 'json',
 		url : rutaTerminar,
