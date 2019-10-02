@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$('#gestion').DataTable();
-	var contextPath = $("#rutaContexto").val();
+	contextPath = $("#rutaContexto").val();
 
 } );
 
@@ -14,7 +14,7 @@ function cancelarConfirmarEliminacion() {
 }
 
 function mostrarMensajeEliminacion(id) {
-	var urlEliminar = contextPath + "/proyectos-admin/" + id + "!destroy";	
+	urlEliminar = contextPath + "/proyectos-admin/" + id + "!destroy";	
 	document.getElementById("btnConfirmarEliminacion").onclick = function(){ confirmarEliminacion(urlEliminar);};
 	$('#confirmarEliminacionDialog').dialog('open');
 	return false;

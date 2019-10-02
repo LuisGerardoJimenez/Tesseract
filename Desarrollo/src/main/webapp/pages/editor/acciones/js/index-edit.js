@@ -1,7 +1,7 @@
 var contextPath = "tesseract";
 
 $(document).ready(function() {
-	var contextPath = $("#rutaContexto").val();
+	contextPath = $("#rutaContexto").val();
 	$('#tablaAccion').DataTable();
 	$('pantalla').attr('src', "${pantallaAccion}");
 });

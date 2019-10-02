@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$('#gestion').DataTable();
-	var contextPath = $("#rutaContexto").val();
+	contextPath = $("#rutaContexto").val();
 
 } );
 
