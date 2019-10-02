@@ -204,7 +204,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 	}
 	
 	private void prepararVista() {
-		ArrayList<Parametro> parametrosVista = new ArrayList<Parametro>();
+		ArrayList<Parametro> parametrosVista = new ArrayList<>();
 		Parametro parametroAux = null;
 		if (cambioRedaccion == null) {
 			cambioRedaccion = "false";
@@ -228,7 +228,6 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 				model.getParametros().clear();
 				agregarParametros();
 				mensajeBs.modificarMensaje(model);
-				//mensajeBs.modificarParametrosMensaje(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
@@ -286,7 +285,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 	}
 	
 	public String verificarParametros() {
-		listParametros = new ArrayList<Parametro>();
+		listParametros = new ArrayList<>();
 		try {
 			if (mensajeBs.esParametrizado(redaccionMensaje)) {
 				listParametros = mensajeBs.obtenerParametros(redaccionMensaje,
@@ -300,7 +299,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 	
 	private void buscarParametrosDisponibles(int idProyecto) {
 		List<Parametro> listParametrosAux = mensajeBs.consultarParametros(idProyecto);
-		List<Parametro> listParametros = new ArrayList<Parametro>();
+		List<Parametro> listParametros = new ArrayList<>();
 		for (Parametro par : listParametrosAux) {
 			Parametro parametroAux = new Parametro();
 			parametroAux.setNombre(par.getNombre());

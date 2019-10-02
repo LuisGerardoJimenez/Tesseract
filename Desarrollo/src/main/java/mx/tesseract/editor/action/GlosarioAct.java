@@ -6,12 +6,9 @@ import java.util.List;
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Proyecto;
-//import mx.tesseract.bs.AnalisisEnum.CU_Glosario;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.bs.TerminoGlosarioBs;
-//import mx.tesseract.editor.bs.ElementoBs;
 import mx.tesseract.editor.entidad.TerminoGlosario;
-//import mx.tesseract.editor.bs.ActorBs;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
@@ -177,7 +174,7 @@ public class GlosarioAct extends ActionSupportTESSERACT implements ModelDriven<T
 	}
 	
 	public String update() {
-		addActionMessage(getText("MSG1", new String[] { "El", "Término", "registrado" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Término", "modificado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}

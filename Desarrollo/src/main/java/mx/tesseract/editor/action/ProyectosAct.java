@@ -104,7 +104,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	public String elegirColaboradores() {
 		String resultado = INDEX;
 		try {
-			listColaboradores = new ArrayList<Colaborador>();
+			listColaboradores = new ArrayList<>();
 			this.colaborador = loginBs.consultarColaboradorActivo();
 			for (Colaborador colaborador : colaboradorBs.consultarColaboradoresCatalogo()) {
 				if (!colaborador.getCurp().equals(this.colaborador.getCurp())) {
@@ -127,7 +127,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	}
 
 	public void cargarListaCheckbox() {
-		List<Colaborador> colaboradoresSeleccionados = new ArrayList<Colaborador>();
+		List<Colaborador> colaboradoresSeleccionados = new ArrayList<>();
 		Colaborador colaboradorJSON = null;
 		for (ColaboradorProyecto colaboradorProyecto : model.getProyecto_colaboradores()) {
 			if (colaboradorProyecto.getRol().getId() != Constantes.ROL_LIDER) {
