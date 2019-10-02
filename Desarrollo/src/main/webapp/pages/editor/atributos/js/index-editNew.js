@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var contextPath = $("#rutaContexto").val();
+	contextPath = $("#rutaContexto").val();
 	disablefromTipoDato();
 } );
 
