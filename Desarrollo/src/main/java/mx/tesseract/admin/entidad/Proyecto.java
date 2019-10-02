@@ -28,6 +28,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.opensymphony.xwork2.validator.annotations.DoubleRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
@@ -51,6 +53,7 @@ import mx.tesseract.util.GenericInterface;
 @Table(name = "proyecto", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "clave"),
 		@UniqueConstraint(columnNames = "nombre") })
+@JsonIgnoreProperties(value = { "estadoProyecto", "proyecto_colaboradores"})
 public class Proyecto implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
