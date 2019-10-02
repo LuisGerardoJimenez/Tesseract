@@ -134,7 +134,7 @@ var token = function() {
 		$inputor.caret('pos', 60);
 		$inputor.focus().atwho('run');
 		// textArea de Precondiciones
-		$inputor = $('#precondicionInput').atwho(at_configRN).atwho(
+		/*$inputor = $('#precondicionInput').atwho(at_configRN).atwho(
 				at_configENT).atwho(at_configMSG).atwho(at_configACT).atwho(
 				at_configATR).atwho(at_configGLS).atwho(at_configCU).atwho(
 				at_configIU).atwho(at_configTRAY).atwho(at_configP).atwho(
@@ -150,7 +150,7 @@ var token = function() {
 		$inputor.caret('pos', 60);
 		$inputor.focus().atwho('run');
 		// textArea de región de la trayectoria
-		$inputor = $('#ptosExtensionInput').atwho(at_configP);
+		$inputor = $('#ptosExtensionInput').atwho(at_configP);*/
 
 	}
 

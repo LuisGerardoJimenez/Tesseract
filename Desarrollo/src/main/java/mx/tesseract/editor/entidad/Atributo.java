@@ -33,7 +33,7 @@ import mx.tesseract.util.GenericInterface;
 @Entity
 @Table(name = "atributo", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"nombre", "EntidadElementoid" }))
-@JsonIgnoreProperties(value = { "unidadTamanio", "entidad", "tipoDato", "hibernateLazyInitializer" })
+@JsonIgnoreProperties(value = { "unidadTamanio", "tipoDato", "hibernateLazyInitializer" })
 public class Atributo implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
