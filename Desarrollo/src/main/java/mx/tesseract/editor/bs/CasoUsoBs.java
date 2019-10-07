@@ -1,5 +1,6 @@
 package mx.tesseract.editor.bs;
 
+import java.util.Iterator;
 import java.util.List;
 
 import mx.tesseract.br.RN006;
@@ -40,6 +41,12 @@ public class CasoUsoBs {
 	
 	public List<CasoUso> consultarCasosDeUso(Integer idProyecto, Integer idModulo) {
 		List<CasoUso> lista = casoUsoDAO.findAllByProyectoAndModulo(idProyecto, idModulo, Clave.CU);
+		Iterator<CasoUso> it = lista.iterator();
+		while (it.hasNext()) {
+			CasoUso value = it.next();
+			if (value.getModulo().getId() != idModulo)
+				it.remove();
+		}
 		return lista;
 	}
 	
