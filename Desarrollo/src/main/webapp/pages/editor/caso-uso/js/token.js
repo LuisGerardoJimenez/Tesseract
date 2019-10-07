@@ -32,7 +32,7 @@ var token = function() {
 	var at_configP;
 	var at_configTRAY;
 	var at_configACC;
-
+	
 	cargarListasToken = function() {
 
 		// Actores
@@ -121,12 +121,11 @@ var token = function() {
 		$inputor.focus().atwho('run');
 		
 		// textArea de Entradas
-		$inputor = $('#entradaInput').atwho(at_configATR).atwho(at_configGLS);
+		$inputor = $('#entradaInput').atwho(at_configATR).atwho(at_configGLS).atwho(at_configMSG).atwho(at_configENT);
 		$inputor.caret('pos', 60);
 		$inputor.focus().atwho('run');
 		// textArea de Salidas
-		$inputor = $('#salidaInput').atwho(at_configATR).atwho(at_configMSG)
-				.atwho(at_configGLS);
+		$inputor = $('#salidaInput').atwho(at_configATR).atwho(at_configMSG).atwho(at_configGLS).atwho(at_configENT).atwho(at_configIU);
 		$inputor.caret('pos', 60);
 		$inputor.focus().atwho('run');
 		// textArea de Reglas de negocio
@@ -151,7 +150,17 @@ var token = function() {
 		$inputor.focus().atwho('run');
 		// textArea de región de la trayectoria
 		$inputor = $('#ptosExtensionInput').atwho(at_configP);*/
-
+		console.log(at_configRN,
+				at_configENT,
+				at_configCU,
+				at_configIU,
+				at_configMSG,
+				at_configACT,
+				at_configGLS,
+				at_configATR,
+				at_configP,
+				at_configTRAY,
+				at_configACC);
 	}
 
 	function cargaLista(tipo, token, listaObjetos) {

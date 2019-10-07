@@ -3,7 +3,17 @@ package mx.tesseract.enums;
 import mx.tesseract.admin.entidad.EstadoProyecto;
 import mx.tesseract.admin.entidad.Rol;
 import mx.tesseract.editor.entidad.TerminoGlosario;
+import mx.tesseract.editor.entidad.Trayectoria;
+import mx.tesseract.editor.entidad.Accion;
+import mx.tesseract.editor.entidad.Actor;
+import mx.tesseract.editor.entidad.Atributo;
+import mx.tesseract.editor.entidad.CasoUso;
+import mx.tesseract.editor.entidad.Entidad;
 import mx.tesseract.editor.entidad.EstadoElemento;
+import mx.tesseract.editor.entidad.Mensaje;
+import mx.tesseract.editor.entidad.Pantalla;
+import mx.tesseract.editor.entidad.Paso;
+import mx.tesseract.editor.entidad.ReglaNegocio;
 
 //import mx.tesseract.editor.entidad.Accion;
 //import mx.tesseract.editor.entidad.Actor;
@@ -65,7 +75,7 @@ public class ReferenciaEnum {
 		CASOUSO_POSTPRECONDICIONES, CASOUSO_PASOS,
 		
 		/* Pantalla */
-		PANTALLA_PASOS, PANTALLA_POSTPRECONDICIONES,
+		PANTALLA_PASOS, PANTALLA_POSTPRECONDICIONES, PANTALLA_SALIDAS,
 		
 		/* Mensajes */
 		MENSAJE_SALIDAS, MENSAJE_POSTPRECONDICIONES, MENSAJE_PASOS,
@@ -141,172 +151,174 @@ public class ReferenciaEnum {
 			return TipoReferencia.TERMINOGLS;
 		}
 		
-//		if (objeto instanceof Actor) {
-//			return TipoReferencia.ACTOR;
-//		}
-//		if (objeto instanceof Atributo) {
-//			return TipoReferencia.ATRIBUTO;
-//		}
-//		if (objeto instanceof Entidad) {
-//			return TipoReferencia.ENTIDAD;
-//		}
-//		if (objeto instanceof CasoUso) {
-//			return TipoReferencia.CASOUSO;
-//		}
-//		if (objeto instanceof Pantalla) {
-//			return TipoReferencia.PANTALLA;
-//		}
-//		if (objeto instanceof Mensaje) {
-//			return TipoReferencia.MENSAJE;
-//		}
-//		if (objeto instanceof ReglaNegocio) {
-//			return TipoReferencia.REGLANEGOCIO;
-//		}
-//		if (objeto instanceof Accion) {
-//			return TipoReferencia.ACCION;
-//		}
-//		if (objeto instanceof Trayectoria) {
-//			return TipoReferencia.TRAYECTORIA;
-//		}
-//		if (objeto instanceof Paso) {
-//			return TipoReferencia.PASO;
-//		}
+		if (objeto instanceof Actor) {
+			return TipoReferencia.ACTOR;
+		}
+		if (objeto instanceof Atributo) {
+			return TipoReferencia.ATRIBUTO;
+		}
+		if (objeto instanceof Entidad) {
+			return TipoReferencia.ENTIDAD;
+		}
+		if (objeto instanceof CasoUso) {
+			return TipoReferencia.CASOUSO;
+		}
+		if (objeto instanceof Pantalla) {
+			return TipoReferencia.PANTALLA;
+		}
+		if (objeto instanceof Mensaje) {
+			return TipoReferencia.MENSAJE;
+		}
+		if (objeto instanceof ReglaNegocio) {
+			return TipoReferencia.REGLANEGOCIO;
+		}
+		if (objeto instanceof Accion) {
+			return TipoReferencia.ACCION;
+		}
+		if (objeto instanceof Trayectoria) {
+			return TipoReferencia.TRAYECTORIA;
+		}
+		if (objeto instanceof Paso) {
+			return TipoReferencia.PASO;
+		}
 		System.out.println("No es instancia de ninguna clase");
 
 		return null;
 	}
 
-//	public static TipoRelacion getTipoRelacion(TipoReferencia tipoReferencia, TipoSeccion tipoSeccion) {
-//		if (tipoReferencia == TipoReferencia.ACTOR) {
-//			if (tipoSeccion == TipoSeccion.ACTORES) {
-//				return TipoRelacion.ACTOR_ACTORES;
-//			}
-//			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
-//				return TipoRelacion.ACTOR_POSTPRECONDICIONES;
-//
-//			}
-//			if (tipoSeccion == TipoSeccion.PASOS) {
-//				return TipoRelacion.ACTOR_PASOS;
-//			}
-//		}
-//
-//		if (tipoReferencia == TipoReferencia.ENTIDAD) {
-//			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
-//				return TipoRelacion.ENTIDAD_POSTPRECONDICIONES;
-//
-//			}
-//			if (tipoSeccion == TipoSeccion.PASOS) {
-//				return TipoRelacion.ENTIDAD_PASOS;
-//			}
-//		}
-//
-//		if (tipoReferencia == TipoReferencia.CASOUSO) {
-//			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
-//				return TipoRelacion.CASOUSO_POSTPRECONDICIONES;
-//
-//			}
-//			if (tipoSeccion == TipoSeccion.PASOS) {
-//				return TipoRelacion.CASOUSO_PASOS;
-//			}
-//		}
-//
-//		if (tipoReferencia == TipoReferencia.PANTALLA) {
-//			if (tipoSeccion == TipoSeccion.PASOS) {
-//				return TipoRelacion.PANTALLA_PASOS;
-//			}
-//			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
-//				return TipoRelacion.PANTALLA_POSTPRECONDICIONES;
-//
-//			}
-//		}
-//
-//		if (tipoReferencia == TipoReferencia.MENSAJE) {
-//			if (tipoSeccion == TipoSeccion.SALIDAS) {
-//				return TipoRelacion.MENSAJE_SALIDAS;
-//			}
-//			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
-//				return TipoRelacion.MENSAJE_POSTPRECONDICIONES;
-//
-//			}
-//			if (tipoSeccion == TipoSeccion.PASOS) {
-//				return TipoRelacion.MENSAJE_PASOS;
-//			}
-//		}
-//
-//		if (tipoReferencia == TipoReferencia.REGLANEGOCIO) {
-//			if (tipoSeccion == TipoSeccion.REGLASNEGOCIOS) {
-//				return TipoRelacion.REGLANEGOCIO_REGLASNEGOCIOS;
-//			}
-//			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
-//				return TipoRelacion.REGLANEGOCIO_POSTPRECONDICIONES;
-//
-//			}
-//			if (tipoSeccion == TipoSeccion.PASOS) {
-//				return TipoRelacion.REGLANEGOCIO_PASOS;
-//			}
-//		}
-//		if (tipoReferencia == TipoReferencia.TERMINOGLS) {
-//			if (tipoSeccion == TipoSeccion.ENTRADAS) {
-//				return TipoRelacion.TERMINOGLS_ENTRADAS;
-//			}
-//			if (tipoSeccion == TipoSeccion.SALIDAS) {
-//				return TipoRelacion.TERMINOGLS_SALIDAS;
-//			}
-//			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
-//				return TipoRelacion.TERMINOGLS_POSTPRECONDICIONES;
-//			}
-//			if (tipoSeccion == TipoSeccion.PASOS) {
-//				return TipoRelacion.TERMINOGLS_PASOS;
-//			}
-//		}
-//
-//		if (tipoReferencia == TipoReferencia.ATRIBUTO) {
-//			if (tipoSeccion == TipoSeccion.ENTRADAS) {
-//				return TipoRelacion.ATRIBUTO_ENTRADAS;
-//			}
-//			if (tipoSeccion == TipoSeccion.SALIDAS) {
-//				return TipoRelacion.ATRIBUTO_SALIDAS;
-//			}
-//			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
-//				return TipoRelacion.ATRIBUTO_POSTPRECONDICIONES;
-//			}
-//			if (tipoSeccion == TipoSeccion.PASOS) {
-//				return TipoRelacion.ATRIBUTO_PASOS;
-//			}
-//		}
-//
-//		if (tipoReferencia == TipoReferencia.ACCION) {
-//			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
-//				return TipoRelacion.ACCION_POSTPRECONDICIONES;
-//			}
-//			if (tipoSeccion == TipoSeccion.PASOS) {
-//				return TipoRelacion.ACCION_PASOS;
-//			}
-//		}
-//
-//		if (tipoReferencia == TipoReferencia.TRAYECTORIA) {
-//			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
-//				return TipoRelacion.TRAYECTORIA_POSTPRECONDICIONES;
-//			}
-//			if (tipoSeccion == TipoSeccion.PASOS) {
-//				return TipoRelacion.TRAYECTORIA_PASOS;
-//			}
-//		}
-//
-//		if (tipoReferencia == TipoReferencia.PASO) {
-//			if (tipoSeccion == TipoSeccion.PASOS) {
-//				return TipoRelacion.PASO_PASOS;
-//			}
-//			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
-//				return TipoRelacion.PASO_POSTPRECONDICIONES;
-//			}
-//			if (tipoSeccion == TipoSeccion.EXTENSIONES) {
-//				return TipoRelacion.PASO_EXTENSIONES;
-//			}
-//		}
-//		return null;
-//	}
-//
+	public static TipoRelacion getTipoRelacion(TipoReferencia tipoReferencia, TipoSeccion tipoSeccion) {
+		if (tipoReferencia == TipoReferencia.ACTOR) {
+			if (tipoSeccion == TipoSeccion.ACTORES) {
+				return TipoRelacion.ACTOR_ACTORES;
+			}
+			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
+				return TipoRelacion.ACTOR_POSTPRECONDICIONES;
+
+			}
+			if (tipoSeccion == TipoSeccion.PASOS) {
+				return TipoRelacion.ACTOR_PASOS;
+			}
+		}
+
+		if (tipoReferencia == TipoReferencia.ENTIDAD) {
+			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
+				return TipoRelacion.ENTIDAD_POSTPRECONDICIONES;
+
+			}
+			if (tipoSeccion == TipoSeccion.PASOS) {
+				return TipoRelacion.ENTIDAD_PASOS;
+			}
+		}
+
+		if (tipoReferencia == TipoReferencia.CASOUSO) {
+			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
+				return TipoRelacion.CASOUSO_POSTPRECONDICIONES;
+
+			}
+			if (tipoSeccion == TipoSeccion.PASOS) {
+				return TipoRelacion.CASOUSO_PASOS;
+			}
+		}
+
+		if (tipoReferencia == TipoReferencia.PANTALLA) {
+			if (tipoSeccion == TipoSeccion.PASOS) {
+				return TipoRelacion.PANTALLA_PASOS;
+			}
+			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
+				return TipoRelacion.PANTALLA_POSTPRECONDICIONES;
+
+			}
+			if (tipoSeccion == TipoSeccion.SALIDAS) {
+				return TipoRelacion.PANTALLA_SALIDAS;
+			}
+		}
+
+		if (tipoReferencia == TipoReferencia.MENSAJE) {
+			if (tipoSeccion == TipoSeccion.SALIDAS) {
+				return TipoRelacion.MENSAJE_SALIDAS;
+			}
+			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
+				return TipoRelacion.MENSAJE_POSTPRECONDICIONES;
+
+			}
+			if (tipoSeccion == TipoSeccion.PASOS) {
+				return TipoRelacion.MENSAJE_PASOS;
+			}
+		}
+
+		if (tipoReferencia == TipoReferencia.REGLANEGOCIO) {
+			if (tipoSeccion == TipoSeccion.REGLASNEGOCIOS) {
+				return TipoRelacion.REGLANEGOCIO_REGLASNEGOCIOS;
+			}
+			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
+				return TipoRelacion.REGLANEGOCIO_POSTPRECONDICIONES;
+
+			}
+			if (tipoSeccion == TipoSeccion.PASOS) {
+				return TipoRelacion.REGLANEGOCIO_PASOS;
+			}
+		}
+		if (tipoReferencia == TipoReferencia.TERMINOGLS) {
+			if (tipoSeccion == TipoSeccion.ENTRADAS) {
+				return TipoRelacion.TERMINOGLS_ENTRADAS;
+			}
+			if (tipoSeccion == TipoSeccion.SALIDAS) {
+				return TipoRelacion.TERMINOGLS_SALIDAS;
+			}
+			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
+				return TipoRelacion.TERMINOGLS_POSTPRECONDICIONES;
+			}
+			if (tipoSeccion == TipoSeccion.PASOS) {
+				return TipoRelacion.TERMINOGLS_PASOS;
+			}
+		}
+
+		if (tipoReferencia == TipoReferencia.ATRIBUTO) {
+			if (tipoSeccion == TipoSeccion.ENTRADAS) {
+				return TipoRelacion.ATRIBUTO_ENTRADAS;
+			}
+			if (tipoSeccion == TipoSeccion.SALIDAS) {
+				return TipoRelacion.ATRIBUTO_SALIDAS;
+			}
+			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
+				return TipoRelacion.ATRIBUTO_POSTPRECONDICIONES;
+			}
+			if (tipoSeccion == TipoSeccion.PASOS) {
+				return TipoRelacion.ATRIBUTO_PASOS;
+			}
+		}
+
+		if (tipoReferencia == TipoReferencia.ACCION) {
+			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
+				return TipoRelacion.ACCION_POSTPRECONDICIONES;
+			}
+			if (tipoSeccion == TipoSeccion.PASOS) {
+				return TipoRelacion.ACCION_PASOS;
+			}
+		}
+
+		if (tipoReferencia == TipoReferencia.TRAYECTORIA) {
+			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
+				return TipoRelacion.TRAYECTORIA_POSTPRECONDICIONES;
+			}
+			if (tipoSeccion == TipoSeccion.PASOS) {
+				return TipoRelacion.TRAYECTORIA_PASOS;
+			}
+		}
+
+		if (tipoReferencia == TipoReferencia.PASO) {
+			if (tipoSeccion == TipoSeccion.PASOS) {
+				return TipoRelacion.PASO_PASOS;
+			}
+			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
+				return TipoRelacion.PASO_POSTPRECONDICIONES;
+			}
+			if (tipoSeccion == TipoSeccion.EXTENSIONES) {
+				return TipoRelacion.PASO_EXTENSIONES;
+			}
+		}
+		return null;
+	}
 
 	@SuppressWarnings("rawtypes")
 	public static Class getClase(TipoReferencia referencia) {

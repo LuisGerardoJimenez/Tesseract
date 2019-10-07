@@ -53,7 +53,7 @@ import mx.tesseract.util.GenericInterface;
 @Table(name = "proyecto", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "clave"),
 		@UniqueConstraint(columnNames = "nombre") })
-@JsonIgnoreProperties(value = { "estadoProyecto", "proyecto_colaboradores"})
+@JsonIgnoreProperties(value = { "estadoProyecto", "proyecto_colaboradores","hibernateLazyInitializer"})
 public class Proyecto implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;

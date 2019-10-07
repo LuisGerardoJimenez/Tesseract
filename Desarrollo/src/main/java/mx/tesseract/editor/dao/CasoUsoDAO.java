@@ -11,7 +11,6 @@ import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.editor.entidad.CasoUso;
 //import mx.tesseract.editor.entidad.Actualizacion;
 import mx.tesseract.editor.entidad.Elemento;
-import mx.tesseract.editor.entidad.Pantalla;
 import mx.tesseract.util.Constantes;
 
 import org.springframework.stereotype.Repository;
@@ -26,10 +25,10 @@ public class CasoUsoDAO {
 	public List<CasoUso> findAllByProyectoAndModulo(Integer idProyecto, Integer idModulo, Clave clave) {
 		List<CasoUso> casosUso = new ArrayList<CasoUso>();
 		try {
-			Query query = entityManager.createNamedQuery("CasoUso.consultarCasosUsoByProyectoAndModulo", Elemento.class);
+			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndClave", Elemento.class);
 			query.setParameter("idProyecto", idProyecto);
 			query.setParameter("clave", clave.toString());
-			query.setParameter("idModulo", idModulo);
+			//query.setParameter("idModulo", idModulo);
 			casosUso = (List<CasoUso>) query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();

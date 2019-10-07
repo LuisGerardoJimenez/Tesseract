@@ -126,7 +126,9 @@ public class JsonUtil {
 		try {
 			return mapper.writeValueAsString(list);
 		} catch (IOException ex) {
+			System.out.println(ex);
 			ex.printStackTrace();
+			System.out.println(ex);
 			return null;
 		}
 	}
