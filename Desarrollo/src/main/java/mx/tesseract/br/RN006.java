@@ -167,9 +167,9 @@ public class RN006 {
 		Boolean valido = true;
 		ReglaNegocio reglaNegocio;
 		if (entidad.getId() == null) {
-			reglaNegocio = elementoDAO.findAllByIdProyectoAndNombreAndClave(ReglaNegocio.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.ACT);
+			reglaNegocio = elementoDAO.findAllByIdProyectoAndNombreAndClave(ReglaNegocio.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.RN);
 		} else {
-			reglaNegocio = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(ReglaNegocio.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.ACT);
+			reglaNegocio = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(ReglaNegocio.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.RN);
 		}
 		if (reglaNegocio != null) {
 			valido = false;
