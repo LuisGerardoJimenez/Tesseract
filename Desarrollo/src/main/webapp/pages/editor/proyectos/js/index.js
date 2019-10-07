@@ -14,7 +14,7 @@ function cancelarConfirmarEliminacion() {
 }
 
 function verificarEliminacionElemento(idElemento) {
-	rutaVerificarReferencias = contextPath + '/actores!verificarElementosReferencias';
+	var rutaVerificarReferencias = contextPath + '/actores!verificarElementosReferencias';
 	$.ajax({
 		dataType : 'json',
 		url : rutaVerificarReferencias,

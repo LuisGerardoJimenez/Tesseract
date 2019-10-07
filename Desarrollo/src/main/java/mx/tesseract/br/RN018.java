@@ -5,16 +5,19 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import mx.tesseract.dto.AccionDTO;
 import mx.tesseract.dto.ActorDTO;
 import mx.tesseract.dto.AtributoDTO;
 import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.dto.MensajeDTO;
+import mx.tesseract.dto.PantallaDTO;
 import mx.tesseract.dto.ReglaNegocioDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
+import mx.tesseract.util.Constantes;
 
 @Service("rN018")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
@@ -88,6 +91,30 @@ public class RN018 {
 		CasoUso casoUso = null;
 		if (actorDTO.getId() == null) {
 			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.ACT.toString()+"·"+actorDTO.getId());
+		}
+		if (casoUso != null) {
+			valido = false;
+		}
+		return valido;
+	}
+
+	public boolean isValidRN018(PantallaDTO model) {
+		Boolean valido = true;
+		CasoUso casoUso = null;
+		if (model.getId() == null) {
+			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.IU.toString()+"·"+model.getId());
+		}
+		if (casoUso != null) {
+			valido = false;
+		}
+		return valido;
+	}
+	
+	public boolean isValidRN018(AccionDTO model) {
+		Boolean valido = true;
+		CasoUso casoUso = null;
+		if (model.getId() == null) {
+			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Constantes.TIPO_REFERENCIA_ACCION.toString()+"·"+model.getId());
 		}
 		if (casoUso != null) {
 			valido = false;

@@ -62,10 +62,10 @@ public class Colaborador implements Serializable, GenericInterface {
 	private boolean administrador;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "colaborador", orphanRemoval = true)
-	private List<ColaboradorProyecto> colaborador_proyectos = new ArrayList<ColaboradorProyecto>();
+	private List<ColaboradorProyecto> colaborador_proyectos = new ArrayList<>();
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "colaborador")
-	private List<Telefono> telefonos = new ArrayList<Telefono>();
+	private List<Telefono> telefonos = new ArrayList<>();
 
 	public Colaborador() {
 	}

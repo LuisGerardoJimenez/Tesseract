@@ -1,34 +1,27 @@
 package mx.tesseract.editor.bs;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.br.RN001;
 import mx.tesseract.br.RN006;
-import mx.tesseract.br.RN034;
+import mx.tesseract.br.RN018;
 import mx.tesseract.br.RN040;
 import mx.tesseract.dao.GenericoDAO;
+import mx.tesseract.dto.AccionDTO;
 import mx.tesseract.dto.PantallaDTO;
-import mx.tesseract.enums.ReferenciaEnum;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.PantallaDAO;
-import mx.tesseract.editor.entidad.Elemento;
+import mx.tesseract.editor.entidad.Accion;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
-import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.util.ImageConverterUtil;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
-import org.hibernate.HibernateException;
-import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -50,6 +43,9 @@ public class PantallaBs {
 	
 	@Autowired
 	private RN006 rn006;
+	
+	@Autowired
+	private RN018 rn018;
 	
 	@Autowired
 	private GenericoDAO genericoDAO;
@@ -168,6 +164,22 @@ public class PantallaBs {
 		}
 	}
 
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarPantalla(PantallaDTO model) {
+		if (rn018.isValidRN018(model)) {
+			Pantalla pantalla = genericoDAO.findById(Pantalla.class, model.getId());
+			for(Accion accion : pantalla.getAcciones()) {
+				AccionDTO accionDTO = new AccionDTO();
+				accionDTO.setId(accion.getId());
+				if(!rn018.isValidRN018(accionDTO)) throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.", "MSG13");
+			}
+			genericoDAO.delete(pantalla);
+		} else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
+					"MSG13");
+		}
+	}
+
 //	public static List<TipoAccion> consultarTiposAccion() {
 //		List<TipoAccion> listTiposAccion = new TipoAccionDAO()
 //				.consultarTiposAccion();
@@ -204,147 +216,7 @@ public class PantallaBs {
 //		return ta;
 //	}
 //
-//	public static void eliminarPantalla(Pantalla model) throws Exception {
-//		try {
-//			ElementoBs.verificarEstado(model, CU_Pantallas.ELIMINARPANTALLA6_3);
-//			new PantallaDAO().eliminarElemento(model);
-//		} catch (JDBCException je) {
-//			if (je.getErrorCode() == 1451) {
-//				throw new TESSERACTException("No se puede eliminar la pantalla",
-//						"MSG14");
-//			}
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//
-//	}
 
-//	public static List<String> verificarReferencias(Pantalla model, Modulo modulo) {
-//
-//		List<ReferenciaParametro> referenciasParametro = new ArrayList<ReferenciaParametro>();
-//		List<Accion> referenciasAccion = new ArrayList<Accion>();
-//
-//		List<String> listReferenciasVista = new ArrayList<String>();
-//		Set<String> setReferenciasVista = new HashSet<String>(0);
-//
-//		PostPrecondicion postPrecondicion = null; // Origen de la referencia
-//		Paso paso = null; // Origen de la referencia
-//		Accion accion = null; // Origen de la referencia
-//		String casoUso = ""; // Caso de uso que tiene la referencia
-//		String pantalla = ""; // Pantalla que tiene la referencia
-//
-//		referenciasParametro = new ReferenciaParametroDAO()
-//				.consultarReferenciasParametro(model);
-//		referenciasAccion = new AccionDAO().consultarReferencias(model);
-//
-//		for (ReferenciaParametro referencia : referenciasParametro) {
-//			String linea = "";
-//			postPrecondicion = referencia.getPostPrecondicion();
-//			paso = referencia.getPaso();
-//			accion = referencia.getAccionDestino();
-//
-//			if (postPrecondicion != null && (modulo == null || postPrecondicion.getCasoUso().getModulo().getId() != modulo.getId())) {
-//				casoUso = postPrecondicion.getCasoUso().getClave()
-//						+ postPrecondicion.getCasoUso().getNumero() + " "
-//						+ postPrecondicion.getCasoUso().getNombre();
-//				if (postPrecondicion.isPrecondicion()) {
-//					linea = "Precondiciones del caso de uso " + casoUso;
-//				} else {
-//					linea = "Postcondiciones del caso de uso "
-//							+ postPrecondicion.getCasoUso().getClave()
-//							+ postPrecondicion.getCasoUso().getNumero() + " "
-//							+ postPrecondicion.getCasoUso().getNombre();
-//				}
-//
-//			} else if (paso != null && (modulo == null || paso.getTrayectoria().getCasoUso().getModulo().getId() != modulo.getId())) {
-//				casoUso = paso.getTrayectoria().getCasoUso().getClave()
-//						+ paso.getTrayectoria().getCasoUso().getNumero() + " "
-//						+ paso.getTrayectoria().getCasoUso().getNombre();
-//				linea = "Paso "
-//						+ paso.getNumero()
-//						+ " de la trayectoria "
-//						+ ((paso.getTrayectoria().isAlternativa()) ? "alternativa "
-//								+ paso.getTrayectoria().getClave()
-//								: "principal") + " del caso de uso " + casoUso;
-//			} else if (accion != null && (modulo == null || accion.getPantalla().getModulo().getId() != modulo.getId())) {
-//				if (accion.getPantalla() != model) {
-//					pantalla = accion.getPantalla().getClave()
-//							+ accion.getPantalla().getNumero() + " "
-//							+ accion.getPantalla().getNombre();
-//					linea = "Acción " + accion.getNombre() + " de la pantalla "
-//							+ pantalla;
-//				}
-//			}
-//
-//			if (linea != "") {
-//				setReferenciasVista.add(linea);
-//			}
-//		}
-//		for(Accion accionOP : referenciasAccion) {
-//			if(modulo == null || accionOP.getPantalla().getModulo().getId() != modulo.getId()) {
-//				String linea = "";
-//				pantalla = accionOP.getPantalla().getClave()
-//						+ accionOP.getPantalla().getNumero() + " "
-//						+ accionOP.getPantalla().getNombre();
-//				linea = "Acción " + accionOP.getNombre() + " de la pantalla "
-//						+ pantalla; 
-//				if (linea != "") {
-//					setReferenciasVista.add(linea);
-//				}
-//			}
-//		}
-//
-//		for (Accion acc : model.getAcciones()) {
-//			setReferenciasVista.addAll(AccionBs.verificarReferencias(acc, modulo));
-//		}
-//
-//		listReferenciasVista.addAll(setReferenciasVista);
-//
-//		return listReferenciasVista;
-//	}
-//	
-//	public static List<CasoUso> verificarCasosUsoReferencias(Pantalla model) {
-//
-//		List<ReferenciaParametro> referenciasParametro = new ArrayList<ReferenciaParametro>();
-//
-//		List<CasoUso> listReferenciasVista = new ArrayList<CasoUso>();
-//		Set<CasoUso> setReferenciasVista = new HashSet<CasoUso>(0);
-//
-//		PostPrecondicion postPrecondicion = null; // Origen de la referencia
-//		Paso paso = null; // Origen de la referencia
-//		Accion accion = null; // Origen de la referencia
-//		String casoUso = ""; // Caso de uso que tiene la referencia
-//		String pantalla = ""; // Pantalla que tiene la referencia
-//
-//		referenciasParametro = new ReferenciaParametroDAO()
-//				.consultarReferenciasParametro(model);
-//
-//		for (ReferenciaParametro referencia : referenciasParametro) {
-//			String linea = "";
-//			postPrecondicion = referencia.getPostPrecondicion();
-//			paso = referencia.getPaso();
-//			accion = referencia.getAccionDestino();
-//
-//			if (postPrecondicion != null) {
-//				setReferenciasVista.add(postPrecondicion.getCasoUso());
-//
-//			} else if (paso != null) {
-//				setReferenciasVista.add(paso.getTrayectoria().getCasoUso());
-//			}
-//		}
-//
-//		for (Accion acc : model.getAcciones()) {
-//			setReferenciasVista.addAll(AccionBs.verificarCasosUsoReferencias(acc));
-//		}
-//
-//		listReferenciasVista.addAll(setReferenciasVista);
-//
-//		return listReferenciasVista;
-//	}
 
 //	public static void modificarPantalla(Pantalla model) throws Exception {
 //		try {

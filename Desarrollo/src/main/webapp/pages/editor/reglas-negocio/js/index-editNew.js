@@ -78,7 +78,7 @@ function mostrarCamposTipoRN() {
 //UNICIDAD DE PARÁMETROS, COMPARACIÓN DE ATRIBUTOS
 function cargarAtributos(select, idSelectAtributos) {
 	var idEntidad = select.value;
-	rutaCargarAtributos = contextPath + '/reglas-negocio!cargarAtributos';
+	var rutaCargarAtributos = contextPath + '/reglas-negocio!cargarAtributos';
 	$.ajax({
 		url : rutaCargarAtributos,
 		type: "POST",

@@ -79,7 +79,7 @@ function mostrarCamposTipoRN() {
 function cargarAtributos(select, idSelectAtributos) {
 	//limpiarCamposDependientes(select.id);
 	var idEntidad = select.value;
-	rutaCargarAtributos = contextPath + '/reglas-negocio!cargarAtributos';
+	var rutaCargarAtributos = contextPath + '/reglas-negocio!cargarAtributos';
 	$.ajax({
 		url : rutaCargarAtributos,
 		type: "POST",

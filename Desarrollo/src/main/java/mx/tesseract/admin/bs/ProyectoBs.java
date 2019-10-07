@@ -52,13 +52,11 @@ public class ProyectoBs {
 	private RN034 rn034;
 
 	public List<Proyecto> consultarProyectos() {
-		List<Proyecto> proyectos = genericoDAO.findAll(Proyecto.class);
-		return proyectos;
+		return genericoDAO.findAll(Proyecto.class); 
 	}
 
 	public List<Proyecto> consultarProyectosByColaborador(String curp) {
-		List<Proyecto> proyectos = proyectoDAO.findByCURPColaborador(curp);
-		return proyectos;
+		return proyectoDAO.findByCURPColaborador(curp);
 	}
 
 	public Proyecto consultarProyecto(Integer idProyecto) {
@@ -177,9 +175,9 @@ public class ProyectoBs {
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarColaboradoresProyecto(Proyecto model, String jsonColaboradoresTabla) {
 		try {
-			List<Colaborador> colaboradoresSeleccionados = new ArrayList<Colaborador>();
-			List<ColaboradorProyecto> colaboradoresProyectoAdd = new ArrayList<ColaboradorProyecto>();
-			List<ColaboradorProyecto> colaboradoresProyectoRemove = new ArrayList<ColaboradorProyecto>();
+			List<Colaborador> colaboradoresSeleccionados = new ArrayList<>();
+			List<ColaboradorProyecto> colaboradoresProyectoAdd = new ArrayList<>();
+			List<ColaboradorProyecto> colaboradoresProyectoRemove = new ArrayList<>();
 			Rol rol;
 			Colaborador colaborador;
 			if (jsonColaboradoresTabla != null && !jsonColaboradoresTabla.equals("")) {

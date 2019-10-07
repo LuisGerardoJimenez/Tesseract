@@ -122,9 +122,6 @@ public class ReferenciaEnum {
 		if (tokenReferencia.equals("GLS")){
 			return TipoReferencia.TERMINOGLS;
 		}
-		if (tokenReferencia.equals("ACC")){
-			return TipoReferencia.ACCION;
-		}
 		if (tokenReferencia.equals("TRAY")){
 			return TipoReferencia.TRAYECTORIA;
 		}

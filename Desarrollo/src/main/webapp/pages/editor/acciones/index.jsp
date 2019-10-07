@@ -46,11 +46,9 @@
 										src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
 								</s:a>
 								${blanks}
-								<s:a
-									onclick="return verificarEliminacionElemento(%{#accion.id});">
-									<img id="" class="button" title="Eliminar Acción"
-										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" />
-								</s:a>
+								<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#accion.id}');">
+									<img id="" class="button" title="Eliminar Mensaje"
+										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
 							</td>
 						</tr>
 					</s:iterator>
@@ -74,42 +72,34 @@
 					value="Regresar" />
 		</div>
 	</s:form>
-	<div class="invisible">
-		<!-- EMERGENTE CONFIRMAR ELIMINACIÓN -->
-		<sj:dialog id="confirmarEliminacionDialog" title="Confirmación"
-			autoOpen="false" minHeight="100" minWidth="400" modal="true"
-			draggable="true">
-			<s:form autocomplete="off" id="frmConfirmarEliminacion"
-				name="frmConfirmarEliminacionName" theme="simple">
+	<!-- EMERGENTE CONFIRMAR ELIMINACIÓN -->
+	<sj:dialog id="confirmarEliminacionDialog" title="Confirmación" autoOpen="false"
+		minHeight="100" minWidth="400" modal="true" draggable="true">
+		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
 				<div class="seccion">
-					<s:text name="MSG11"></s:text>
+				<s:text name="MSG10"></s:text>
 				</div>
-				<br />
-				<div align="center">
-					<input id="btnConfirmarEliminacion" type="button" onclick=""
-						value="Aceptar" /> <input type="button"
-						onclick="cancelarConfirmarEliminacion();" value="Cancelar" />
-				</div>
-			</s:form>
-		</sj:dialog>
-		<!-- EMERGENTE ERROR REFERENCIAS -->
-		<sj:dialog id="mensajeReferenciasDialog" title="Confirmación"
-			autoOpen="false" minHeight="200" minWidth="700" modal="true"
-			draggable="true">
-			<s:form autocomplete="off" id="frmConfirmarEliminacion"
-				name="frmConfirmarEliminacionName" theme="simple">
+			<br />
+			<div align="center">
+				<input id = "btnConfirmarEliminacion" type="button" onclick="" value="Aceptar"/> <input
+					type="button" onclick="cancelarConfirmarEliminacion();" value="Cancelar" />
+			</div>
+		</s:form>
+	</sj:dialog>
+	<!-- EMERGENTE ERROR REFERENCIAS -->
+	<sj:dialog id="mensajeReferenciasDialog" title="Confirmación" autoOpen="false"
+		minHeight="200" minWidth="700" modal="true" draggable="true">
+		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
 				<div class="seccion">
-					<s:text name="MSG14" />
-					<div id="elementosReferencias"></div>
+				<s:text name="MSG13"/>
+				<div id="elementosReferencias"></div>
 				</div>
-				<br />
-				<div align="center">
-					<input type="button" onclick="cerrarMensajeReferencias()"
-						value="Aceptar" />
-				</div>
-			</s:form>
-		</sj:dialog>
-	</div>
+			<br />
+			<div align="center">
+				<input type="button" onclick="cerrarMensajeReferencias()" value="Aceptar"/> 
+			</div>
+		</s:form>
+	</sj:dialog>	
 </body>
 	</html>
 </jsp:root>

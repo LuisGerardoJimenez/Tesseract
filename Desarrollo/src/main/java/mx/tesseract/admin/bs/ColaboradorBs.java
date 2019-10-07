@@ -42,8 +42,7 @@ public class ColaboradorBs {
 	private Correo correo;
 
 	public List<Colaborador> consultarColaboradores() {
-		List<Colaborador> colaboradores = colaboradorDAO.findAllWithoutAdmin();
-		return colaboradores;
+		return colaboradorDAO.findAllWithoutAdmin();
 	}
 
 	public List<Colaborador> consultarColaboradoresCatalogo() {

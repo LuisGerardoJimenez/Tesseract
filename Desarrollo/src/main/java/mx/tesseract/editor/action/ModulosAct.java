@@ -1,16 +1,12 @@
 package mx.tesseract.editor.action;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.editor.bs.ModuloBs;
-//import mx.tesseract.editor.bs.ActorBs;
-//import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
@@ -25,7 +21,6 @@ import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
@@ -35,19 +30,20 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 				"actionName", Constantes.ACTION_NAME_MODULOS }),
 		@Result(name = "proyectos", type = "redirectAction", params = {
 				"actionName", Constantes.ACTION_NAME_PROYECTOS }),
-		@Result(name = "cu", type = "redirectAction", params = { "actionName",
-				"cu" }),
+		@Result(name = "caso-uso", type = "redirectAction", params = { "actionName",
+				Constantes.ACTION_NAME_CASO_USO }),
 		@Result(name = "referencias", type = "json", params = { "root",
 				"elementosReferencias" }),
 		@Result(name = "pantallas", type = "redirectAction", params = { "actionName",Constantes.ACTION_NAME_PANTALLAS })
 
 })
-@AllowedMethods({"entrarIU"})
+@AllowedMethods({"entrarIU", "entrarCU"})
 public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Modulo> {
 
 	private static final long serialVersionUID = 1L;
 	private static final String PROYECTOS = "proyectos";
 	private static final String PANTALLAS = "pantallas";
+	private static final String CASOS_USO = "caso-uso";
 	private Proyecto proyecto;
 	private Modulo model;
 	private Colaborador colaborador;
@@ -158,35 +154,22 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 		return SUCCESS;
 	}
 	
-//	public String entrarCU() throws Exception {
-//		Map<String, Object> session = null;
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			if (idSel == null
-//					|| colaborador == null
-//					|| !AccessBs.verificarPermisos(model.getProyecto(),
-//							colaborador)) {
-//				resultado = LOGIN;
-//				return resultado;
-//			}
-//
-//			resultado = "cu";
-//			session = ActionContext.getContext().getSession();
-//			session.put("idModulo", idSel);
-//
-//			@SuppressWarnings("unchecked")
-//			Collection<String> msjs = (Collection<String>) SessionManager
-//					.get("mensajesAccion");
-//			this.setActionMessages(msjs);
-//			SessionManager.delete("mensajesAccion");
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return resultado;
-//	}
+	@SuppressWarnings("unchecked")
+	public String entrarCU() {
+		String resultado = INDEX;
+		try {
+			SessionManager.set(idSel, "idModulo");
+			resultado = CASOS_USO;
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+			this.setActionMessages(msjs);
+			SessionManager.delete("mensajesAccion");
+		} catch (TESSERACTException pe) {
+			ErrorManager.agregaMensajeError(this, pe);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
+	}
 
 	@SuppressWarnings("unchecked")
 	public String entrarIU() {
@@ -204,16 +187,6 @@ public class ModulosAct extends ActionSupportTESSERACT implements ModelDriven<Mo
 		}
 		return resultado;
 	}
-	
-//	public String verificarElementosReferencias() {
-//		elementosReferencias = new ArrayList<String>();
-//		try {
-//			elementosReferencias = ModuloBs.verificarReferencias(model);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "referencias";
-//	}
 
 	public void validateDestroy() {
 		if (!hasActionErrors()) {

@@ -10,8 +10,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import mx.tesseract.editor.entidad.Accion;
-import mx.tesseract.editor.entidad.Elemento;
-import mx.tesseract.enums.ReferenciaEnum.Clave;
+import mx.tesseract.editor.entidad.Pantalla;
 import mx.tesseract.util.Constantes;
 
 @Repository("accionDAO")
@@ -71,6 +70,25 @@ public class AccionDAO {
 			e.printStackTrace();
 		}
 		return accion;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Accion> consultarReferencias(Pantalla pantalla) {
+		List<Accion> results = null;
+		Query query = null;
+		String queryCadena = null;
+		queryCadena = "FROM Accion WHERE pantallaDestino.id = :idPantalla";
+
+		try {
+			query = entityManager.createQuery(queryCadena);
+			query.setParameter("idPantalla", pantalla.getId());
+			results = query.getResultList();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return results;
 	}
 
 }

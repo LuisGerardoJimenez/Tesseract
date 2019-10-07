@@ -3,6 +3,8 @@ package mx.tesseract.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.tesseract.enums.ReferenciaEnum.TipoReferencia;
+
 public final class Constantes {
 	
 	//NUMEROS CONSTANTES ENTEROS
@@ -97,6 +99,7 @@ public final class Constantes {
 	public static final String ACTION_NAME_ATRIBUTOS = "atributos";
 	public static final String ACTION_NAME_PANTALLAS = "pantallas";
 	public static final String ACTION_NAME_ACCIONES = "acciones";
+	public static final String ACTION_NAME_CASO_USO = "caso-uso";
 	
 	//DICCIONARIO
 	public static final String DICCIONARIO = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
@@ -120,5 +123,8 @@ public final class Constantes {
 	public static final String REGEX_NUMERO_PANTALLAS = "^[0-9]{1,3}([\\.][0-9]{1,3})*$";
 	/* ^ # start of string (?: (?: [^?+*{}()[\]\\|]+ # literals and ^, $ | \\. # escaped characters | \[ (?: \^?\\. | \^[^\\] | [^\\^] ) # character classes (?: [^\]\\]+ | \\. )* \] | \( (?:\?[:=!] | \?<[=!] | \?> | \?<[^\W\d]\w*> | \?'[^\W\d]\w*' )? # opening of group (?<N>) # increment counter | \) # closing of group (?<-N>) # decrement counter ) (?: (?:[?+*]|\{\d+(?:,\d*)?\}) [?+]? )? # quantifiers | \| # alternative )* # repeat content $ # end of string (?(N)(?!)) # fail if counter is non-zero.*/
 	public static final String REGEX_EXPRESION_REGULAR = "^(?:(?:[^?+*{}()[\\]\\\\|]+|\\\\.|\\[(?:\\^?\\\\.|\\^[^\\\\]|[^\\\\^])(?:[^\\]\\\\]+|\\\\.)*\\]|\\((?:\\?[:=!]|\\?<[=!]|\\?>|\\?<[^\\W\\d]\\w*>|\\?'[^\\W\\d]\\w*')?(?<N>)|\\)(?<-N>))(?:(?:[?+*]|\\{\\d+(?:,\\d*)?\\})[?+]?)?|\\|)*$(?(N)(?!)) \r\n";
+	
+	/* Referencias */
+	public static final String TIPO_REFERENCIA_ACCION = "ACC";
 
 }

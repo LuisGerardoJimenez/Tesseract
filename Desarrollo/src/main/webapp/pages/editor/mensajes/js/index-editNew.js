@@ -101,7 +101,7 @@ function verificarEsParametrizado() {
 }
 
 function verificarParametros() {
-	rutaVerificarParametros = contextPath + '/mensajes!verificarParametros';
+	var rutaVerificarParametros = contextPath + '/mensajes!verificarParametros';
 	var redaccion = document.getElementById("inputor").value;
 	$.ajax({
 		url : rutaVerificarParametros,
