@@ -29,7 +29,7 @@
 
 
 	<s:form autocomplete="off" id="frmCU" theme="simple"
-		action="%{#pageContext.request.contextPath}/cu" 
+		action="%{#pageContext.request.contextPath}/caso-uso" 
 		method="post" onsubmit="return preparaEnvio();">
 		<div class="formulario">
 			<div class="tituloFormulario">Información general del caso de

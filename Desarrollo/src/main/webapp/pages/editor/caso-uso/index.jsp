@@ -45,7 +45,7 @@
 							${blanks}
 							<s:if test="%{#cu.estadoElemento.id == 1 || #cu.estadoElemento.id == 3}">
 								<!-- Modificar caso de uso -->		
-								<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/cu/%{#cu.id}/edit"/>			
+								<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/caso-uso/%{#cu.id}/edit"/>			
 								<s:a href="%{urlEditar}">
 									<img id="" class="button" title="Modificar Caso de uso"
 											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />

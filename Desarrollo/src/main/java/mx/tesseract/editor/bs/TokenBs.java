@@ -1,16 +1,83 @@
 package mx.tesseract.editor.bs;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+
+import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.editor.dao.AccionDAO;
+import mx.tesseract.editor.dao.AtributoDAO;
+import mx.tesseract.editor.dao.CasoUsoDAO;
+import mx.tesseract.editor.dao.ElementoDAO;
+import mx.tesseract.editor.dao.ModuloDAO;
+import mx.tesseract.editor.dao.PantallaDAO;
+import mx.tesseract.editor.dao.TipoParametroDAO;
+import mx.tesseract.editor.entidad.Accion;
+import mx.tesseract.editor.entidad.Actor;
+import mx.tesseract.editor.entidad.Atributo;
+import mx.tesseract.editor.entidad.CasoUso;
+import mx.tesseract.editor.entidad.CasoUsoActor;
+import mx.tesseract.editor.entidad.CasoUsoReglaNegocio;
+import mx.tesseract.editor.entidad.Entidad;
+import mx.tesseract.editor.entidad.Entrada;
+import mx.tesseract.editor.entidad.Extension;
+import mx.tesseract.editor.entidad.Mensaje;
+import mx.tesseract.editor.entidad.Modulo;
+import mx.tesseract.editor.entidad.Pantalla;
+import mx.tesseract.editor.entidad.Paso;
+import mx.tesseract.editor.entidad.PostPrecondicion;
+import mx.tesseract.editor.entidad.ReferenciaParametro;
+import mx.tesseract.editor.entidad.ReglaNegocio;
+import mx.tesseract.editor.entidad.Salida;
+import mx.tesseract.editor.entidad.TerminoGlosario;
+import mx.tesseract.editor.entidad.TipoParametro;
+import mx.tesseract.editor.entidad.Trayectoria;
+import mx.tesseract.enums.ReferenciaEnum;
+import mx.tesseract.enums.ReferenciaEnum.Clave;
+import mx.tesseract.enums.ReferenciaEnum.TipoSeccion;
+import mx.tesseract.util.TESSERACTException;
+import mx.tesseract.util.TESSERACTValidacionException;
 
 
 @Service("tokenBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class TokenBs {
 
+	@Autowired
+	private PantallaDAO pantallaDAO;
+	
+	@Autowired
+	private AccionDAO accionDAO;
+	
+	@Autowired
+	private ElementoDAO elementoDAO;
+	
+	@Autowired
+	private AtributoDAO atributoDAO;
+	
+	@Autowired
+	private ModuloDAO moduloDAO;
+	
+	@Autowired
+	private CasoUsoDAO casoUsoDAO;
+	
+	/*@Autowired
+	private EntidadDAO entidadDAO;
+	
+	@Autowired
+	private TerminoGlosarioDAO terminoGlosarioDAO;*/
+	
+	/*@Autowired
+	private MensajeDAO mensajeDAO;*/
+	
+	@Autowired
+	private TipoParametroDAO tipoParametroDAO;
+	
 	private static String tokenSeparator1 = "·";
 	private static String tokenSeparator2 = ":";
 	/*
@@ -181,5 +248,1212 @@ public class TokenBs {
 		return segmentos;
 	}
 	
+	/*
+	 * El método ArrayList<Object> convertirToken_Objeto(String @redaccion,
+	 * Proyecto @proyecto) se encarga de generar objetos con base en los tokens
+	 * contenidos en una cadena.
+	 * 
+	 * Parámetros:
+	 * 
+	 * @redaccion: Cadena cuyo contenido incluye los tokens en su versión
+	 * edición, por ejemplo: ATR.Escuela:Nombre. Se utilizará para procesar los
+	 * tokens y convertirlos a objetos.
+	 * 
+	 * @proyecto: Proyecto en cuestión. Se utilizará para únicamente entregar
+	 * como respuesta una lista de objetos, presentes para el proyecto actual.
+	 * 
+	 * 
+	 * Ejemplo:
+	 * 
+	 * Para la cadena 'El sistema muestra la pantalla IU.SF.1:Gestionar
+	 * elementos con el mensaje MSG.1:Operación exitosa', el método entregaría
+	 * como resultado un ArrayList con dos objetos; uno de tipo Pantalla y otro
+	 * de tipo Mensaje, con sus respectivas variables cargadas.
+	 */
+	public ArrayList<Object> convertirToken_Objeto(String redaccion,
+			Proyecto proyecto, Integer idModulo) {
+
+		ArrayList<String> tokens = procesarTokenIpunt(redaccion);
+		ArrayList<Object> objetos = new ArrayList<Object>();
+		ArrayList<String> segmentos;
+
+		Atributo atributo;
+		Actor actor;
+		Pantalla pantalla;
+		Accion accion;
+		Modulo modulo;
+		CasoUso casodeuso;
+		Trayectoria trayectoria;
+		Paso paso;
+		
+		for (String token : tokens) {
+			segmentos = segmentarToken(token);
+			switch (ReferenciaEnum.getTipoReferencia(segmentos.get(0))) {
+			case ACCION: // ACC.IUM.NUM:PANTALLA:NOMBRE_ACC =
+							// ACC.IUSF.7:Registrar_incendio:Aceptar
+				if (segmentos.size() != 5) {
+					errorEnToken("la", "acción");
+				}
+				pantalla = pantallaDAO.findByIdProyectoAndIdModuloAndNombre(proyecto.getId(),Clave.IU,idModulo ,segmentos.get(2) );
+				if (pantalla == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "la", "pantalla",
+							segmentos.get(1) + segmentos.get(2), "registrada" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: La pantalla "
+									+ segmentos.get(1) + segmentos.get(2)
+									+ " no está registrada", "MSG15",
+							parametros);
+				}
+
+				//accion = accionDAO.consultarAccion(segmentos.get(4).replaceAll("_", " "), pantalla);
+				accion = accionDAO.findByNombreAndIdPantalla(segmentos.get(4)
+						.replaceAll("_", " "),pantalla.getId());
+				
+				if (accion == null) {
+					String[] parametros = {
+							"la",
+							"accion",
+							segmentos.get(4).replaceAll("_", " ")
+									+ " de la pantalla " + segmentos.get(1)
+									+ segmentos.get(2), "registrada" };
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: La acción "
+									+ segmentos.get(4).replaceAll("_", " ")
+									+ " de la pantalla " + segmentos.get(1)
+									+ segmentos.get(2) + " no está registrada",
+							"MSG15", parametros);
+				}
+				objetos.add(accion);
+				break;
+			case ATRIBUTO: // ATR.ENTIDAD_A_B:NOMBRE_ATT
+				if (segmentos.size() != 3) {
+					errorEnToken("el", "atributo");
+				}
+				Entidad entidad = elementoDAO.findAllByIdProyectoAndNombreAndClave(Entidad.class, proyecto.getId(),segmentos.get(1)
+						.replaceAll("_", " "), Clave.ENT);
+				if (entidad == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "la", "entidad",
+							segmentos.get(1).replaceAll("_", " "), "registrada" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: La entidad "
+									+ segmentos.get(1).replaceAll("_", " ")
+									+ " no está registrada", "MSG15",
+							parametros);
+				}
+
+				//atributo = atributoDAO.consultarAtributo(segmentos.get(2).replaceAll("_", " "), entidad);
+				atributo = atributoDAO.findAtributoByNombreAndEntidad(segmentos.get(2)
+						.replaceAll("_", " "), entidad.getId());
+				
+				if (atributo == null) {
+					String[] parametros = {
+							"el",
+							"atributo",
+							segmentos.get(2).replaceAll("_", " ")
+									+ " de la entidad " + segmentos.get(1),
+							"registrado" };
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: El atributo "
+									+ segmentos.get(2) + " de la entidad "
+									+ segmentos.get(1) + " no está registrado",
+							"MSG15", parametros);
+				}
+				objetos.add(atributo);
+				break;
+			case ACTOR: // ACT.NOMBRE_ACT
+				if (segmentos.size() != 2) {
+					errorEnToken("el", "actor");
+				}
+				actor = elementoDAO.findAllByIdProyectoAndNombreAndClave(Actor.class, proyecto.getId(),segmentos.get(1)
+						.replaceAll("_", " "), Clave.ACT);
+				if (actor == null) {
+					String[] parametros = {
+							// Construcción del mensaje de error;
+							"el", "actor",
+							segmentos.get(1).replaceAll("_", " "), "registrado" };
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: El actor "
+									+ segmentos.get(1).replaceAll("_", " ")
+									+ " no está registrado", "MSG15",
+							parametros);
+				}
+				objetos.add(actor);
+
+				break;
+			case CASOUSO: // CU.MODULO.NUMERO:NOMBRE_CU
+				if (segmentos.size() != 4) {
+					errorEnToken("el", "caso de uso");
+				}
+				modulo = moduloDAO.findModuloByName(segmentos.get(1));
+				if (modulo == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "el", "modulo",
+							segmentos.get(1).replaceAll("_", " "), "registrado" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: El módulo "
+									+ segmentos.get(1) + " no está registrado",
+							"MSG15", parametros);
+				}
+
+				casodeuso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
+						.replaceAll("_", " "), Clave.CU);
+				if (casodeuso == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "el", "caso de uso",
+							tokenCU + segmentos.get(1) + segmentos.get(2),
+							"registrado" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: El caso de uso "
+									+ token + " no está registrado", "MSG15",
+							parametros);
+				}
+				objetos.add(casodeuso);
+
+				break;
+			case ENTIDAD: // ENT.NOMBRE_ENT
+				if (segmentos.size() != 2) {
+					errorEnToken("la", "entidad");
+				}
+				//entidad = entidadDAO.consultarEntidad(segmentos.get(1).replaceAll("_", " "), proyecto);
+				entidad = elementoDAO.findAllByIdProyectoAndNombreAndClave(Entidad.class, proyecto.getId(),segmentos.get(1)
+						.replaceAll("_", " "), Clave.ENT);
+				if (entidad == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "la", "entidad",
+							segmentos.get(1).replaceAll("_", " "), "registrada" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: La entidad "
+									+ segmentos.get(1) + " no está registrada",
+							"MSG15", parametros);
+				}
+				objetos.add(entidad);
+				break;
+			case TERMINOGLS: // GLS.NOMBRE_GLS
+				if (segmentos.size() != 2) {
+					errorEnToken("el", "término");
+				}
+				//TerminoGlosario terminoGlosario = terminoGlosarioDAO.consultarTerminoGlosario(segmentos.get(1).replaceAll("_", " "), proyecto);
+				TerminoGlosario terminoGlosario = elementoDAO.findAllByIdProyectoAndNombreAndClave(TerminoGlosario.class, proyecto.getId(),segmentos.get(1)
+						.replaceAll("_", " "), Clave.GLS);
+				if (terminoGlosario == null) {
+					String[] parametros = { "el", "término",
+							segmentos.get(1).replaceAll("_", " "), "registrado" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: El término no está registrado",
+							"MSG15", parametros);
+				}
+				objetos.add(terminoGlosario);
+				break;
+			case PANTALLA: // IU.MODULO.NUMERO:NOMBRE_IU
+				if (segmentos.size() != 4) {
+					errorEnToken("la", "pantalla");
+				}
+				modulo = moduloDAO.findModuloByClave(segmentos.get(1));
+				if (modulo == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "el", "modulo",
+							segmentos.get(1).replaceAll("_", " "), "registrado" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: El módulo "
+									+ segmentos.get(1) + " no está registrado",
+							"MSG15", parametros);
+				}
+
+				//pantalla = pantallaDAO.consultarPantalla(modulo,segmentos.get(2));
+				pantalla = pantallaDAO.findByIdProyectoAndIdModuloAndNumero(proyecto.getId(), Clave.IU, modulo.getId(),segmentos.get(2));
+				if (pantalla == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "la", "pantalla",
+							tokenIU + segmentos.get(1) + segmentos.get(2),
+							"registrada" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: La pantalla "
+									+ token + " no está registrada", "MSG15",
+							parametros);
+				}
+				objetos.add(pantalla);
+
+				break;
+			case MENSAJE: // MSG.NUMERO:NOMBRE_MSG
+				if (segmentos.size() != 3) {
+					errorEnToken("el", "mensaje");
+				}
+				Mensaje mensaje = elementoDAO.findAllByIdProyectoAndNombreAndClave(Mensaje.class, proyecto.getId(),segmentos.get(2)
+						.replaceAll("_", " "), Clave.MSG);
+				if (mensaje == null) {
+					String[] parametros = { "el", "mensaje",
+							segmentos.get(1).replaceAll("_", " "), "registrado" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: El mensaje "
+									+ segmentos.get(1) + " no está registrado",
+							"MSG15", parametros);
+				}
+				objetos.add(mensaje);
+				break;
+			case REGLANEGOCIO: // RN.NUMERO:NOMBRE_RN
+				if (segmentos.size() != 3) {
+					errorEnToken("la", "regla de negocio");
+				}
+				ReglaNegocio reglaNegocio = elementoDAO.findAllByIdProyectoAndNombreAndClave(ReglaNegocio.class, proyecto.getId(),segmentos.get(2)
+						.replaceAll("_", " "), Clave.RN);
+				if (reglaNegocio == null) {
+					String[] parametros = { "la", "regla de negocio",
+							segmentos.get(2).replaceAll("_", " "), "registrada" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: La regla de negocio "
+									+ segmentos.get(2) + " no está registrada",
+							"MSG15", parametros);
+				}
+				objetos.add(reglaNegocio);
+				break;
+			// TRAY·CUSF·001:s:A
+			
+			case TRAYECTORIA: // TRAY.CUMODULO.NUM:NOMBRECU:CLAVETRAY
+				if (segmentos.size() != 5) {
+					errorEnToken("la", "trayectoria");
+				}
+				elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
+						.replaceAll("_", " "), Clave.CU);
+				//casodeuso = new CasoUsoDAO().consultarCasoUso(segmentos.get(1),segmentos.get(2), proyecto);
+				casodeuso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
+						.replaceAll("_", " "), Clave.CU);
+				if (casodeuso == null) {
+					String[] parametros = { "el", "caso de uso",
+							segmentos.get(1) + segmentos.get(2), "registrado" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: El caso de uso "
+									+ segmentos.get(1) + segmentos.get(2)
+									+ " no está registrado", "MSG15",
+							parametros);
+				}
+
+				trayectoria = null;
+				for (Trayectoria t : casodeuso.getTrayectorias()) {
+					if (t.getClave().equals(segmentos.get(4))) {
+						trayectoria = t;
+					}
+				}
+
+				if (trayectoria == null) {
+					String[] parametros = {
+							"la",
+							"trayectoria",
+							segmentos.get(4) + " del caso de uso "
+									+ segmentos.get(1) + segmentos.get(2),
+							"registrada" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: La trayectoria "
+									+ segmentos.get(4) + " del caso de uso "
+									+ segmentos.get(1) + segmentos.get(2)
+									+ " no está registrada", "MSG15",
+							parametros);
+				}
+				objetos.add(trayectoria);
+				break;
+
+			case PASO: // P.CUMODULO.NUM:NOMBRECU:CLAVETRAY.NUMERO
+				if (segmentos.size() != 6) {
+					errorEnToken("el", "paso");
+				}
+				//casodeuso = new CasoUsoDAO().consultarCasoUso(segmentos.get(1),segmentos.get(2), proyecto);
+				casodeuso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
+						.replaceAll("_", " "), Clave.CU);
+				if (casodeuso == null) {
+					String[] parametros = { "el", "caso de uso",
+							segmentos.get(1) + segmentos.get(2), "registrado" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: El caso de uso "
+									+ segmentos.get(1) + segmentos.get(2)
+									+ " no está registrado", "MSG15",
+							parametros);
+				}
+
+				trayectoria = null;
+				for (Trayectoria t : casodeuso.getTrayectorias()) {
+					if (t.getClave().equals(segmentos.get(4))) {
+						trayectoria = t;
+					}
+				}
+
+				if (trayectoria == null) {
+					String[] parametros = {
+							"la",
+							"trayectoria",
+							segmentos.get(4) + " del caso de uso "
+									+ segmentos.get(1) + segmentos.get(2),
+							"registrada" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: La trayectoria "
+									+ segmentos.get(4) + "del caso de uso"
+									+ segmentos.get(1) + segmentos.get(2)
+									+ " no está registrada", "MSG15",
+							parametros);
+				}
+				paso = null;
+				for (Paso p : trayectoria.getPasos()) {
+					if (p.getNumero() == Integer.parseInt(segmentos.get(5))) {
+						paso = p;
+					}
+				}
+
+				if (paso == null) {
+					String[] parametros = {
+							"el",
+							"paso",
+							segmentos.get(5) + " de la trayectoria "
+									+ segmentos.get(4) + " del caso de uso "
+									+ segmentos.get(1) + segmentos.get(2),
+							"registrado" };
+
+					throw new TESSERACTException(
+							"TokenBs.convertirToken_Objeto: El paso "
+									+ segmentos.get(5) + "de la trayectoria"
+									+ segmentos.get(4) + "del caso de uso "
+									+ segmentos.get(1) + segmentos.get(2)
+									+ " no está registrado", "MSG15",
+							parametros);
+				}
+
+				objetos.add(paso);
+				break;
+			default:
+				break;
+
+			}
+		}
+
+		return objetos;
+	}
 	
+	/*
+	 * El método String codificarCadenaToken(String @redaccion, Proyecto
+	 * 
+	 * @proyecto se encarga de codificar la cadena a su versión base de datos
+	 * (cruda).
+	 * 
+	 * Parámetros:
+	 * 
+	 * @cadenaCodificada: Cadena cuyo contenido incluye los tokens en su versión
+	 * edición, por ejemplo: ATR·Producto:Peso.
+	 * 
+	 * Ejemplo:
+	 * 
+	 * El resultado de decodificar la cadena "ATR·Producto:Peso." sería "ATR·1",
+	 * siendo "1" el id del atributo "Peso".
+	 */
+	public String codificarCadenaToken(String redaccion,
+			Proyecto proyecto, Integer idModulo) {
+
+		ArrayList<String> tokens = procesarTokenIpunt(redaccion);
+		ArrayList<String> segmentos;
+		Pantalla pantalla;
+		Accion accion;
+		Modulo modulo;
+		CasoUso casoUso;
+		Entidad entidad;
+		Atributo atributo;
+		Trayectoria trayectoria;
+		Paso paso;
+		for (String token : tokens) {
+			segmentos = segmentarToken(token);
+			switch (ReferenciaEnum.getTipoReferencia(segmentos.get(0))) {
+			case ACCION:
+
+				if (segmentos.size() != 5) {
+					errorEnToken("la", "acción");
+				}
+				pantalla = pantallaDAO.findByIdProyectoAndIdModuloAndNumero(proyecto.getId(), Clave.IU, idModulo,segmentos.get(2));
+				//new PantallaDAO().consultarPantalla(segmentos.get(1).replaceAll("_", " "), segmentos.get(2), proyecto);
+				if (pantalla == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "la", "pantalla",
+							segmentos.get(1) + segmentos.get(2), "registrada" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: La pantalla "
+									+ segmentos.get(1) + segmentos.get(2)
+									+ " no está registrada", "MSG15",
+							parametros);
+				}
+
+				accion = accionDAO.findByNombreAndIdPantalla(segmentos.get(4)
+						.replaceAll("_", " "),pantalla.getId());
+				if (accion == null) {
+					String[] parametros = {
+							"la",
+							"accion",
+							segmentos.get(4).replaceAll("_", " ")
+									+ " de la pantalla " + segmentos.get(1)
+									+ segmentos.get(2), "registrada" };
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: La acción"
+									+ segmentos.get(4).replaceAll("_", " ")
+									+ "de la pantalla" + segmentos.get(1)
+									+ segmentos.get(2) + "no está registrada",
+							"MSG15", parametros);
+				}
+				redaccion = redaccion.replace(token, tokenACC + accion.getId());
+				break;
+			case ATRIBUTO:
+				if (segmentos.size() != 3) {
+					errorEnToken("el", "atributo");
+				}
+				entidad = elementoDAO.findAllByIdProyectoAndNombreAndClave(Entidad.class, proyecto.getId(),segmentos.get(1)
+						.replaceAll("_", " "), Clave.ENT);
+				if (entidad == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "la", "entidad",
+							segmentos.get(1).replaceAll("_", " "), "registrada" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: La entidad "
+									+ segmentos.get(1).replaceAll("_", " ")
+									+ " no está registrada", "MSG15",
+							parametros);
+				}
+
+				atributo = atributoDAO.findAtributoByNombreAndEntidad(segmentos.get(2)
+						.replaceAll("_", " "), entidad.getId());
+				if (atributo == null) {
+					String[] parametros = {
+							"el",
+							"atributo",
+							segmentos.get(2).replaceAll("_", " ")
+									+ " de la entidad " + segmentos.get(1),
+							"registrado" };
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: El atributo"
+									+ segmentos.get(2) + "de la entidad"
+									+ segmentos.get(1) + " no está registrado",
+							"MSG15", parametros);
+				}
+				redaccion = redaccion.replace(token,
+						tokenATR + atributo.getId());
+				break;
+			case ACTOR:
+				if (segmentos.size() != 2) {
+					errorEnToken("el", "actor");
+				}
+				Actor actor = elementoDAO.findAllByIdProyectoAndNombreAndClave(Actor.class, proyecto.getId(),segmentos.get(1)
+						.replaceAll("_", " "), Clave.ACT);
+				if (actor == null) {
+					String[] parametros = {
+							// Construcción del mensaje de error;
+							"el", "actor",
+							segmentos.get(1).replaceAll("_", " "), "registrado" };
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: El actor no está registrado",
+							"MSG15", parametros);
+				}
+				redaccion = redaccion.replace(token, tokenACT + actor.getId());
+
+				break;
+			case CASOUSO:
+				if (segmentos.size() != 4) {
+					errorEnToken("el", "caso de uso");
+				}
+				modulo = moduloDAO.findModuloByName(segmentos.get(1));
+				if (modulo == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "el", "modulo",
+							segmentos.get(1).replaceAll("_", " "), "registrado" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: El módulo "
+									+ segmentos.get(1) + " no está registrado",
+							"MSG15", parametros);
+				}
+
+				casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
+						.replaceAll("_", " "), Clave.CU);
+				if (casoUso == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "el", "caso de uso",
+							segmentos.get(1) + segmentos.get(2), "registrado" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: El caso de uso "
+									+ token + " no está registrado", "MSG15",
+							parametros);
+				}
+				redaccion = redaccion.replace(token, tokenCU + casoUso.getId());
+				break;
+			case ENTIDAD:
+				if (segmentos.size() != 2) {
+					errorEnToken("la", "entidad");
+				}
+				entidad = elementoDAO.findAllByIdProyectoAndNombreAndClave(Entidad.class, proyecto.getId(),segmentos.get(1)
+						.replaceAll("_", " "), Clave.ENT);
+				if (entidad == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "la", "entidad",
+							segmentos.get(1).replaceAll("_", " "), "registrada" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: La entidad "
+									+ segmentos.get(1) + " no está registrada",
+							"MSG15", parametros);
+				}
+				redaccion = redaccion
+						.replace(token, tokenENT + entidad.getId());
+				break;
+			case TERMINOGLS:
+				if (segmentos.size() != 2) {
+					errorEnToken("el", "término");
+				}
+				TerminoGlosario terminoGlosario = elementoDAO.findAllByIdProyectoAndNombreAndClave(TerminoGlosario.class, proyecto.getId(),segmentos.get(1)
+						.replaceAll("_", " "), Clave.GLS);
+				if (terminoGlosario == null) {
+					String[] parametros = { "el", "término",
+							segmentos.get(1).replaceAll("_", " "), "registrado" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: El término no está registrado",
+							"MSG15", parametros);
+				}
+				redaccion = redaccion.replace(token, segmentos.get(0)
+						+ tokenSeparator1 + terminoGlosario.getId());
+				break;
+			case PANTALLA:
+				if (segmentos.size() != 4) {
+					errorEnToken("la", "pantalla");
+				}
+				modulo = moduloDAO.findModuloByClave(segmentos.get(1));
+				if (modulo == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "el", "modulo",
+							segmentos.get(1).replaceAll("_", " "), "registrado" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: El módulo "
+									+ segmentos.get(1) + " no está registrado",
+							"MSG15", parametros);
+				}
+
+				pantalla = pantallaDAO.findByIdProyectoAndIdModuloAndNumero(proyecto.getId(), Clave.IU, modulo.getId(),segmentos.get(2));
+				//new PantallaDAO().consultarPantalla(modulo,segmentos.get(2));
+				if (pantalla == null) {
+					// Construcción del mensaje de error;
+					String[] parametros = { "la", "pantalla", token,
+							"registrada" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: La pantalla "
+									+ token + " no está registrada", "MSG15",
+							parametros);
+				}
+				redaccion = redaccion
+						.replace(token, tokenIU + pantalla.getId());
+				break;
+			case MENSAJE:
+				if (segmentos.size() != 3) {
+					errorEnToken("el", "mensaje");
+				}
+				Mensaje mensaje = elementoDAO.findAllByIdProyectoAndNombreAndClave(Mensaje.class, proyecto.getId(),segmentos.get(2)
+						.replaceAll("_", " "), Clave.MSG);
+				if (mensaje == null) {
+					String[] parametros = { "el", "mensaje",
+							segmentos.get(1).replaceAll("_", " "), "registrado" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: El mensaje "
+									+ segmentos.get(1) + " no está registrado",
+							"MSG15", parametros);
+				}
+				redaccion = redaccion
+						.replace(token, tokenMSG + mensaje.getId());
+				break;
+			case REGLANEGOCIO:
+				if (segmentos.size() != 3) {
+					errorEnToken("la", "regla de negocio");
+				}
+				ReglaNegocio reglaNegocio = elementoDAO.findAllByIdProyectoAndNombreAndClave(ReglaNegocio.class, proyecto.getId(),segmentos.get(2)
+						.replaceAll("_", " "), Clave.RN);
+				if (reglaNegocio == null) {
+					String[] parametros = { "la", "regla de negocio",
+							segmentos.get(2).replaceAll("_", " "), "registrada" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: La regla de negocio "
+									+ segmentos.get(2) + " no está registrada",
+							"MSG15", parametros);
+				}
+				redaccion = redaccion.replace(token,
+						tokenRN + reglaNegocio.getId());
+				break;
+			case TRAYECTORIA:
+				if (segmentos.size() != 5) {
+					errorEnToken("la", "trayectoria");
+				}
+				trayectoria = null;
+				casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
+						.replaceAll("_", " "), Clave.CU);
+				if (casoUso == null) {
+					String[] parametros = { "el", "caso de uso",
+							segmentos.get(1) + segmentos.get(2), "registrado" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: El caso de uso "
+									+ segmentos.get(1) + segmentos.get(2)
+									+ " no está registrado", "MSG15",
+							parametros);
+				}
+				for (Trayectoria t : casoUso.getTrayectorias()) {
+					if (t.getClave().equals(segmentos.get(4))) {
+						trayectoria = t;
+					}
+				}
+				if (trayectoria == null) {
+					String[] parametros = {
+							"la",
+							"trayectoria",
+							segmentos.get(4) + " del caso de uso "
+									+ segmentos.get(1) + segmentos.get(2),
+							"registrada" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: La trayectoria "
+									+ segmentos.get(4) + "del caso de uso"
+									+ segmentos.get(1) + segmentos.get(2)
+									+ " no está registrada", "MSG15",
+							parametros);
+				}
+				redaccion = redaccion.replace(token,
+						tokenTray + trayectoria.getId());
+				break;
+			case PASO:
+				if (segmentos.size() != 6) {
+					errorEnToken("el", "paso");
+				}
+				casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
+						.replaceAll("_", " "), Clave.CU);
+				if (casoUso == null) {
+					String[] parametros = { "el", "caso de uso",
+							segmentos.get(1) + segmentos.get(2), "registrado" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: El caso de uso "
+									+ segmentos.get(1) + segmentos.get(2)
+									+ " no está registrado", "MSG15",
+							parametros);
+				}
+
+				trayectoria = null;
+				paso = null;
+				for (Trayectoria t : casoUso.getTrayectorias()) {
+					if (t.getClave().equals(segmentos.get(4))) {
+						trayectoria = t;
+						for (Paso p : trayectoria.getPasos()) {
+							if (p.getNumero() == Integer.parseInt(segmentos
+									.get(5))) {
+								paso = p;
+								break;
+							}
+						}
+					}
+				}
+				if (trayectoria == null) {
+					String[] parametros = {
+							"la",
+							"trayectoria",
+							segmentos.get(4) + " del caso de uso "
+									+ segmentos.get(3), "registrada" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: La trayectoria "
+									+ segmentos.get(4) + "del caso de uso"
+									+ segmentos.get(1) + segmentos.get(2)
+									+ " no está registrada", "MSG15",
+							parametros);
+				}
+
+				if (paso == null) {
+					String[] parametros = {
+							"el",
+							"paso",
+							segmentos.get(5) + " de la trayectoria "
+									+ segmentos.get(4) + " del caso de uso "
+									+ segmentos.get(1) + segmentos.get(2),
+							"registrado" };
+
+					throw new TESSERACTValidacionException(
+							"TokenBs.convertirToken_Objeto: El paso "
+									+ segmentos.get(5) + " de la trayectoria "
+									+ segmentos.get(4) + " del caso de uso "
+									+ segmentos.get(1) + segmentos.get(2)
+									+ " no está registrado", "MSG15",
+							parametros);
+				}
+
+				redaccion = redaccion.replace(token, tokenP + paso.getId());
+				break;
+			default:
+				break;
+
+			}
+		}
+		if (!redaccion.isEmpty())
+			return "$" + redaccion;
+		else
+			return "";
+	}
+	
+	public static void errorEnToken(String articulo, String elemento) {
+		String[] parametros = { articulo, elemento, };
+		throw new TESSERACTException(
+				"TokenBs.errorEnToken: El token ingresado para " + articulo
+						+ " " + elemento + " es inválido.", "MSG27", parametros);
+	}
+	
+	public void almacenarObjetosToken(ArrayList<Object> objetos,
+			CasoUso casouso, TipoSeccion tipoSeccion) {
+
+		// Secciones:
+		CasoUsoActor casoUsoActor;
+		Entrada entrada;
+		Salida salida;
+		CasoUsoReglaNegocio casoUsoReglas;
+
+		// Elementos
+		Actor actor;
+		Atributo atributo;
+		TerminoGlosario termino;
+		Mensaje mensaje;
+		ReglaNegocio reglaNegocio;
+
+		for (Object objeto : objetos) {
+			switch (ReferenciaEnum.getTipoRelacion(
+					ReferenciaEnum.getTipoReferencia(objeto), tipoSeccion)) {
+			case ACTOR_ACTORES:
+				actor = (Actor) objeto;
+				casoUsoActor = new CasoUsoActor(
+						casouso, actor);
+				if (!duplicadoActor_Actores(casouso.getActores(),
+						casoUsoActor)) {
+					casouso.getActores().add(casoUsoActor);
+				}
+				break;
+			case ATRIBUTO_ENTRADAS:
+				atributo = (Atributo) objeto;
+				entrada = new Entrada(
+						tipoParametroDAO.consultarTipoParametroByNombre("Atributo"), casouso);
+				entrada.setAtributo(atributo);
+				if (!TokenBs.duplicadoAtributo_Entradas(casouso.getEntradas(),
+						entrada)) {
+					casouso.getEntradas().add(entrada);
+				}
+				break;
+			case TERMINOGLS_ENTRADAS:
+				termino = (TerminoGlosario) objeto;
+				entrada = new Entrada(
+						tipoParametroDAO.consultarTipoParametroByNombre("Término del glosario"),
+						casouso);
+				entrada.setTerminoGlosario(termino);
+				if (!TokenBs.duplicadoTermino_Entradas(casouso.getEntradas(),
+						entrada)) {
+					casouso.getEntradas().add(entrada);
+				}
+				break;
+			case TERMINOGLS_SALIDAS:
+				termino = (TerminoGlosario) objeto;
+				salida = new Salida(
+						tipoParametroDAO.consultarTipoParametroByNombre("Término del glosario"),
+						casouso);
+				salida.setTerminoGlosario(termino);
+				if (!TokenBs.duplicadoTermino_Salidas(casouso.getSalidas(),
+						salida)) {
+					casouso.getSalidas().add(salida);
+				}
+				break;
+			case MENSAJE_SALIDAS:
+				mensaje = (Mensaje) objeto;
+				salida = new Salida(tipoParametroDAO.consultarTipoParametroByNombre("Mensaje"), casouso);
+				salida.setMensaje(mensaje);
+				if (!TokenBs.duplicadoMensaje_Salidas(casouso.getSalidas(),
+						salida)) {
+					casouso.getSalidas().add(salida);
+				}
+				break;
+			case ATRIBUTO_SALIDAS:
+				atributo = (Atributo) objeto;
+				salida = new Salida(tipoParametroDAO.consultarTipoParametroByNombre("Atributo"), casouso);
+				salida.setAtributo(atributo);
+				if (!TokenBs.duplicadoAtributo_Salidas(casouso.getSalidas(),
+						salida)) {
+					casouso.getSalidas().add(salida);
+				}
+				break;
+			case REGLANEGOCIO_REGLASNEGOCIOS:
+				reglaNegocio = (ReglaNegocio) objeto;
+				casoUsoReglas = new CasoUsoReglaNegocio(casouso, reglaNegocio);
+				casoUsoReglas.setReglaNegocio(reglaNegocio);
+				if (!TokenBs.duplicadoRegla_Reglas(casouso.getReglas(),
+						casoUsoReglas)) {
+					casouso.getReglas().add(casoUsoReglas);
+				}
+				break;
+
+			default:
+				break;
+
+			}
+		}
+	}
+
+	public void almacenarObjetosToken(ArrayList<Object> objetos,
+			CasoUso casouso, TipoSeccion tipoSeccion,
+			PostPrecondicion postPrecondicion) {
+
+
+		// Elementos
+		ReferenciaParametro referenciaParametro = null;
+		Accion accion;
+		Atributo atributo;
+		Actor actor;
+		TipoParametro tipoParametro;
+		CasoUso casoUso;
+		Entidad entidad;
+		Mensaje mensaje;
+		Pantalla pantalla;
+		ReglaNegocio reglaNegocio;
+		Paso paso;
+		TerminoGlosario terminoGlosario;
+		Trayectoria trayectoria;
+
+		for (Object objeto : objetos) {
+			switch (ReferenciaEnum.getTipoRelacion(
+					ReferenciaEnum.getTipoReferencia(objeto), tipoSeccion)) {
+
+			case ACCION_POSTPRECONDICIONES:
+				accion = (Accion) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Acción");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setAccionDestino(accion);
+
+				break;
+			case ACTOR_POSTPRECONDICIONES:
+				actor = (Actor) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Actor");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(actor);
+				break;
+			case ATRIBUTO_POSTPRECONDICIONES:
+				atributo = (Atributo) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Atributo");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setAtributo(atributo);
+
+				break;
+			case CASOUSO_POSTPRECONDICIONES:
+				casoUso = (CasoUso) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Caso de uso");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(casoUso);
+				break;
+			case ENTIDAD_POSTPRECONDICIONES:
+				entidad = (Entidad) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Entidad");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(entidad);
+				break;
+			case MENSAJE_POSTPRECONDICIONES:
+				mensaje = (Mensaje) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Mensaje");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(mensaje);
+				break;
+			case PANTALLA_POSTPRECONDICIONES:
+				pantalla = (Pantalla) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Pantalla");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(pantalla);
+
+				break;
+			case PASO_POSTPRECONDICIONES:
+				paso = (Paso) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Paso");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setPasoDestino(paso);
+				break;
+			case REGLANEGOCIO_POSTPRECONDICIONES:
+				reglaNegocio = (ReglaNegocio) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Regla de negocio");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(reglaNegocio);
+				break;
+
+			case TERMINOGLS_POSTPRECONDICIONES:
+				terminoGlosario = (TerminoGlosario) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Término del glosario");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(terminoGlosario);
+				break;
+			case TRAYECTORIA_POSTPRECONDICIONES:
+				trayectoria = (Trayectoria) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Trayectoria");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setTrayectoria(trayectoria);
+				break;
+			default:
+				break;
+
+			}
+			if (referenciaParametro != null) {
+				postPrecondicion.getReferencias().add(referenciaParametro);
+				referenciaParametro.setPostPrecondicion(postPrecondicion);
+			}
+
+		}
+
+	}
+
+	public void almacenarObjetosToken(ArrayList<Object> objetos,
+			TipoSeccion tipoSeccion, Extension extension) {
+
+		// Elementos
+		ReferenciaParametro referenciaParametro = null;
+		TipoParametro tipoParametro;
+		Paso paso;
+
+		for (Object objeto : objetos) {
+			switch (ReferenciaEnum.getTipoRelacion(
+					ReferenciaEnum.getTipoReferencia(objeto), tipoSeccion)) {
+
+			case PASO_EXTENSIONES:
+				paso = (Paso) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Paso");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setPasoDestino(paso);
+				break;
+			default:
+				break;
+			}
+			if (referenciaParametro != null) {
+				extension.getReferencias().add(referenciaParametro);
+				referenciaParametro.setExtension(extension);
+			}
+		}
+	}
+
+	public void almacenarObjetosToken(ArrayList<Object> objetos,
+			TipoSeccion tipoSeccion, Paso paso) {
+
+		// Elementos
+		ReferenciaParametro referenciaParametro = null;
+		Accion accion;
+		Atributo atributo;
+		Actor actor;
+		TipoParametro tipoParametro;
+		CasoUso casoUso;
+		Entidad entidad;
+		Mensaje mensaje;
+		Pantalla pantalla;
+		ReglaNegocio reglaNegocio;
+		TerminoGlosario terminoGlosario;
+		Trayectoria trayectoria;
+		Paso pasoDestino;
+		for (Object objeto : objetos) {
+			switch (ReferenciaEnum.getTipoRelacion(
+					ReferenciaEnum.getTipoReferencia(objeto), tipoSeccion)) {
+
+			case ACCION_PASOS:
+				accion = (Accion) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Acción");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setAccionDestino(accion);
+
+				break;
+			case ACTOR_PASOS:
+				actor = (Actor) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Actor");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(actor);
+				break;
+			case ATRIBUTO_PASOS:
+				atributo = (Atributo) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Atributo");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setAtributo(atributo);
+
+				break;
+			case CASOUSO_PASOS:
+				casoUso = (CasoUso) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Caso de uso");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(casoUso);
+				break;
+			case ENTIDAD_PASOS:
+				entidad = (Entidad) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Entidad");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(entidad);
+				break;
+			case MENSAJE_PASOS:
+				mensaje = (Mensaje) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Mensaje");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(mensaje);
+				break;
+			case PANTALLA_PASOS:
+				pantalla = (Pantalla) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Pantalla");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(pantalla);
+
+				break;
+			case PASO_PASOS:
+				pasoDestino = (Paso) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Paso");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setPasoDestino(pasoDestino);
+				break;
+			case REGLANEGOCIO_PASOS:
+				reglaNegocio = (ReglaNegocio) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Regla de negocio");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(reglaNegocio);
+				break;
+
+			case TERMINOGLS_PASOS:
+				terminoGlosario = (TerminoGlosario) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Término del glosario");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setElementoDestino(terminoGlosario);
+				break;
+			case TRAYECTORIA_PASOS:
+				trayectoria = (Trayectoria) objeto;
+				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Trayectoria");
+				referenciaParametro = new ReferenciaParametro(tipoParametro);
+				referenciaParametro.setTrayectoria(trayectoria);
+				break;
+			default:
+				break;
+
+			}
+			if (referenciaParametro != null) {
+				paso.getReferencias().add(referenciaParametro);
+				referenciaParametro.setPaso(paso);
+			}
+		}
+
+	}
+	
+	public static boolean duplicadoActor_Actores(List<CasoUsoActor> actores,
+			CasoUsoActor casoUsoActor) {
+
+		for (CasoUsoActor casoUsoActori : actores) {
+			if (casoUsoActori.getActor().getId() == casoUsoActor.getActor()
+					.getId()) {
+				if (casoUsoActori.getCasouso().getId() == casoUsoActor
+						.getCasouso().getId()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public static boolean duplicadoAtributo_Entradas(List<Entrada> entradas,
+			Entrada entrada) {
+		for (Entrada entradai : entradas) {
+			if (entradai.getAtributo() != null && entrada.getAtributo() != null)
+				if (entradai.getAtributo().getId() == entrada.getAtributo()
+						.getId()) {
+					if (entradai.getCasoUso().getId() == entrada.getCasoUso()
+							.getId()) {
+						return true;
+					}
+				}
+		}
+		return false;
+	}
+
+	public static boolean duplicadoAtributo_Salidas(List<Salida> salidas,
+			Salida salida) {
+		for (Salida salidai : salidas) {
+			if (salidai.getAtributo() != null)
+				if (salidai.getAtributo().getId() == salida.getAtributo()
+						.getId()) {
+					if (salidai.getCasoUso().getId() == salida.getCasoUso()
+							.getId()) {
+						return true;
+					}
+				}
+		}
+		return false;
+	}
+
+	public static boolean duplicadoMensaje_Salidas(List<Salida> salidas,
+			Salida salida) {
+		for (Salida salidai : salidas) {
+			if (salidai.getMensaje() != null)
+				if (salidai.getMensaje().getId() == salida.getMensaje().getId()) {
+					if (salidai.getCasoUso().getId() == salida.getCasoUso()
+							.getId()) {
+						return true;
+					}
+				}
+		}
+		return false;
+	}
+
+	public static boolean duplicadoRegla_Reglas(
+			List<CasoUsoReglaNegocio> reglas, CasoUsoReglaNegocio casoUsoReglas) {
+		for (CasoUsoReglaNegocio reglai : reglas) {
+			if (reglai.getReglaNegocio().getId() == casoUsoReglas
+					.getReglaNegocio().getId()) {
+				if (reglai.getCasoUso().getId() == casoUsoReglas.getCasoUso()
+						.getId()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public static boolean duplicadoTermino_Entradas(List<Entrada> entradas,
+			Entrada entrada) {
+		for (Entrada entradai : entradas) {
+			if (entradai.getTerminoGlosario() != null)
+				if (entradai.getTerminoGlosario().getId() == entrada
+						.getTerminoGlosario().getId()) {
+					if (entradai.getCasoUso().getId() == entrada.getCasoUso()
+							.getId()) {
+						return true;
+					}
+				}
+		}
+		return false;
+	}
+
+	public static boolean duplicadoTermino_Salidas(List<Salida> salidas,
+			Salida salida) {
+		for (Salida salidai : salidas) {
+			if (salidai.getTerminoGlosario() != null)
+				if (salidai.getTerminoGlosario().getId() == salida
+						.getTerminoGlosario().getId()) {
+					if (salidai.getCasoUso().getId() == salida.getCasoUso()
+							.getId()) {
+						return true;
+					}
+				}
+		}
+		return false;
+	}
 }

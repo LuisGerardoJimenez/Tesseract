@@ -1,14 +1,16 @@
 package mx.tesseract.editor.bs;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Pattern;
 
+import mx.tesseract.br.RN006;
+import mx.tesseract.br.RN018;
 import mx.tesseract.dao.GenericoDAO;
+import mx.tesseract.dto.CasoUsoDTO;
 import mx.tesseract.editor.dao.CasoUsoDAO;
-import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
+import mx.tesseract.enums.ReferenciaEnum.TipoSeccion;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
@@ -16,8 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-
-import antlr.Token;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("casoUsoBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
@@ -29,9 +30,45 @@ public class CasoUsoBs {
 	@Autowired
 	private CasoUsoDAO casoUsoDAO;
 	
+	@Autowired
+	private TokenBs tokenBs;
+	
+	@Autowired
+	private RN006 rn006;
+	
+	@Autowired
+	private RN018 rn018;
+	
 	public List<CasoUso> consultarCasosDeUso(Integer idProyecto, Integer idModulo) {
 		List<CasoUso> lista = casoUsoDAO.findAllByProyectoAndModulo(idProyecto, idModulo, Clave.CU);
+		Iterator<CasoUso> it = lista.iterator();
+		while (it.hasNext()) {
+			CasoUso value = it.next();
+			if (value.getModulo().getId() != idModulo)
+				it.remove();
+		}
 		return lista;
+	}
+	
+	public CasoUsoDTO consultarCasoUsoDTO(Integer idCasoUso) {
+		CasoUso cu = genericoDAO.findById(CasoUso.class, idCasoUso);
+		CasoUsoDTO cuDTO = new CasoUsoDTO();
+		if (cu == null) {
+			throw new TESSERACTException("No se puede consultar el Caso de Uso.", "MSG12");			
+		}
+		cuDTO.setClave(cu.getClave());
+		cuDTO.setId(cu.getId());
+		cuDTO.setNumero(cu.getNumero());
+		cuDTO.setNombre(cu.getNombre());
+		cuDTO.setDescripcion(cu.getDescripcion());
+		cuDTO.setEstadoElemento(cu.getEstadoElemento());
+		cuDTO.setRedaccionActores(cu.getRedaccionActores());
+		cuDTO.setRedaccionEntradas(cu.getRedaccionEntradas());
+		cuDTO.setRedaccionSalidas(cu.getRedaccionSalidas());
+		cuDTO.setRedaccionReglasNegocio(cu.getRedaccionReglasNegocio());
+		cuDTO.setProyecto(cu.getProyecto());
+		cuDTO.setModulo(cu.getModulo());
+		return cuDTO;
 	}
 	
 	public CasoUso consultarCasoUso(Integer idCasoUso) {
@@ -52,26 +89,32 @@ public class CasoUsoBs {
 //		return cus;
 //	}
 
-//	public static void registrarCasoUso(CasoUso cu) throws Exception {
-//		try {
-//			validar(cu);
-//			cu.setClave(calcularClave(cu.getModulo().getClave()));
-//			cu.setEstadoElemento(ElementoBs
-//					.consultarEstadoElemento(Estado.EDICION));
-//			// Se quitan los espacios iniciales y finales del nombre
-//			cu.setNombre(cu.getNombre().trim());
-//			new CasoUsoDAO().registrarCasoUso(cu);
-//
-//		} catch (JDBCException je) {
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//	}
+	@Transactional(rollbackFor = Exception.class)
+	public void registrarCasoUso(CasoUso casoUso) {
+		if (rn006.isValidRN006(casoUso)) {
+			genericoDAO.save(casoUso);
+		} else {
+			throw new TESSERACTValidacionException("EL nombre del Caso de Uso ya existe.", "MSG7",
+					new String[] { "El", "Caso de Uso", casoUso.getNombre() }, "model.nombre");
+		}
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void modificarCasoUso(CasoUso casoUso) {
+		genericoDAO.update(casoUso);
+	}
 
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarCasoUso(CasoUsoDTO casoUsoDTO) {
+		if (rn018.isValidRN018(casoUsoDTO)) {
+			CasoUso casoUso = genericoDAO.findById(CasoUso.class, casoUsoDTO.getId());
+			genericoDAO.delete(casoUso);
+		} else {
+			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
+					"MSG13");
+		}
+	}
+	
 /*	public static void modificarCasoUso(CasoUso cu, Actualizacion actualizacion)
 			throws Exception {
 		try {
@@ -398,33 +441,34 @@ public class CasoUsoBs {
 //		return false;
 //	}
 //
-//	public static void preAlmacenarObjetosToken(CasoUso casoUso) {
-//		TokenBs.almacenarObjetosToken(TokenBs.convertirToken_Objeto(
-//				casoUso.getRedaccionActores(), casoUso.getProyecto()), casoUso,
-//				TipoSeccion.ACTORES);
-//		casoUso.setRedaccionActores(TokenBs.codificarCadenaToken(
-//				casoUso.getRedaccionActores(), casoUso.getProyecto()));
-//
-//		TokenBs.almacenarObjetosToken(TokenBs.convertirToken_Objeto(
-//				casoUso.getRedaccionEntradas(), casoUso.getProyecto()),
-//				casoUso, TipoSeccion.ENTRADAS);
-//		casoUso.setRedaccionEntradas(TokenBs.codificarCadenaToken(
-//				casoUso.getRedaccionEntradas(), casoUso.getProyecto()));
-//
-//		TokenBs.almacenarObjetosToken(TokenBs.convertirToken_Objeto(
-//				casoUso.getRedaccionSalidas(), casoUso.getProyecto()), casoUso,
-//				TipoSeccion.SALIDAS);
-//		casoUso.setRedaccionSalidas(TokenBs.codificarCadenaToken(
-//				casoUso.getRedaccionSalidas(), casoUso.getProyecto()));
-//
-//		TokenBs.almacenarObjetosToken(
-//				TokenBs.convertirToken_Objeto(
-//						casoUso.getRedaccionReglasNegocio(),
-//						casoUso.getProyecto()), casoUso,
-//				TipoSeccion.REGLASNEGOCIOS);
-//		casoUso.setRedaccionReglasNegocio(TokenBs.codificarCadenaToken(
-//				casoUso.getRedaccionReglasNegocio(), casoUso.getProyecto()));
-//
+	public void preAlmacenarObjetosToken(CasoUso casoUso) {
+		
+		tokenBs.almacenarObjetosToken(tokenBs.convertirToken_Objeto(
+				casoUso.getRedaccionActores(), casoUso.getProyecto(), casoUso.getModulo().getId()), casoUso,
+				TipoSeccion.ACTORES);
+		casoUso.setRedaccionActores(tokenBs.codificarCadenaToken(
+				casoUso.getRedaccionActores(), casoUso.getProyecto(),casoUso.getModulo().getId()));
+
+		tokenBs.almacenarObjetosToken(tokenBs.convertirToken_Objeto(
+				casoUso.getRedaccionEntradas(), casoUso.getProyecto(), casoUso.getModulo().getId()),
+				casoUso, TipoSeccion.ENTRADAS);
+		casoUso.setRedaccionEntradas(tokenBs.codificarCadenaToken(
+				casoUso.getRedaccionEntradas(), casoUso.getProyecto(), casoUso.getModulo().getId()));
+
+		tokenBs.almacenarObjetosToken(tokenBs.convertirToken_Objeto(
+				casoUso.getRedaccionSalidas(), casoUso.getProyecto(), casoUso.getModulo().getId()), casoUso,
+				TipoSeccion.SALIDAS);
+		casoUso.setRedaccionSalidas(tokenBs.codificarCadenaToken(
+				casoUso.getRedaccionSalidas(), casoUso.getProyecto(), casoUso.getModulo().getId()));
+
+		tokenBs.almacenarObjetosToken(
+				tokenBs.convertirToken_Objeto(
+						casoUso.getRedaccionReglasNegocio(),
+						casoUso.getProyecto(), casoUso.getModulo().getId()), casoUso,
+				TipoSeccion.REGLASNEGOCIOS);
+		casoUso.setRedaccionReglasNegocio(tokenBs.codificarCadenaToken(
+				casoUso.getRedaccionReglasNegocio(), casoUso.getProyecto(), casoUso.getModulo().getId()));
+
 //		Set<PostPrecondicion> postPrecondiciones = casoUso
 //				.getPostprecondiciones();
 //		for (PostPrecondicion postPrecondicion : postPrecondiciones) {
@@ -436,7 +480,7 @@ public class CasoUsoBs {
 //			postPrecondicion.setRedaccion(TokenBs.codificarCadenaToken(
 //					postPrecondicion.getRedaccion(), casoUso.getProyecto()));
 //		}
-//	}
+	}
 //
 //	public static void eliminarCasoUso(CasoUso model) throws Exception {
 //		try {

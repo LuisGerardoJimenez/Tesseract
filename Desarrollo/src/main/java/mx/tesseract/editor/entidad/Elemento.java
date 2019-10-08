@@ -23,6 +23,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -62,6 +64,7 @@ import mx.tesseract.util.GenericInterface;
 		  @Type(value = Pantalla.class, name = "pantalla"),
 		  @Type(value = Pantalla.class, name = "reglaNegocio")
 		})
+@JsonIgnoreProperties(value = { "proyecto", "estadoElemento" })
 public class Elemento implements Serializable, GenericInterface, ElementoInterface {
 
 	private static final long serialVersionUID = 1L;

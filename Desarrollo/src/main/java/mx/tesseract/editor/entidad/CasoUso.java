@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -27,22 +26,19 @@ import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import mx.tesseract.util.ElementoInterface;
 import mx.tesseract.util.GenericInterface;
 
-@Entity
-@Table(name = "casouso")
-@Inheritance(strategy=InheritanceType.JOINED)
-@PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
-@DiscriminatorValue("CU")
-
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "CasoUso.findElementoHasCasoUsoAsociado", query = "SELECT c FROM casouso c JOIN elemento e", resultClass = CasoUso.class)
 	})
-
 @NamedQueries({
 	@NamedQuery(name = "CasoUso.consultarCasosUsoByProyectoAndModulo", query = "SELECT e FROM Elemento e JOIN e.proyecto p JOIN e.modulo m WHERE p.id = :idProyecto AND e.clave = :clave AND m.id = :idModulo "),
 	@NamedQuery(name = "CasoUso.consultarCasosUsoByProyectoAndModuloAndNombre", query = "SELECT e FROM Elemento e JOIN e.proyecto p JOIN e.modulo m WHERE p.id = :idProyecto AND e.clave = :clave AND m.id = :idModulo AND e.nombre = :nombre"),
 	@NamedQuery(name = "CasoUso.consultarCasosUsoByProyectoAndModuloAndIdAndNombre", query = "SELECT e FROM Elemento e JOIN e.proyecto p JOIN e.modulo m WHERE p.id = :idProyecto AND e.clave = :clave AND m.id = :idModulo AND e.id != :id AND e.nombre = :nombre"),
 	})
-
+@Entity
+@Table(name = "casouso")
+@Inheritance(strategy=InheritanceType.JOINED)
+@PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
+@DiscriminatorValue("CU")
 public class CasoUso extends Elemento implements Serializable, GenericInterface, ElementoInterface {
 
 	private static final long serialVersionUID = 1L;

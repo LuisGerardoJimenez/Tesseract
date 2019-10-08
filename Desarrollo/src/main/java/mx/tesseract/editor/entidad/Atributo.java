@@ -20,16 +20,8 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.opensymphony.xwork2.validator.annotations.DoubleRangeFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
-import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.ValidatorType;
-import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
@@ -41,6 +33,7 @@ import mx.tesseract.util.GenericInterface;
 @Entity
 @Table(name = "atributo", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"nombre", "EntidadElementoid" }))
+@JsonIgnoreProperties(value = { "unidadTamanio", "tipoDato", "hibernateLazyInitializer" })
 public class Atributo implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;

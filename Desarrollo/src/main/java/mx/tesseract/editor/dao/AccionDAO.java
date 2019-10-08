@@ -34,6 +34,23 @@ public class AccionDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public Accion findByNombre(String nombre, Integer idPantalla) {
+		Accion accion = null;
+		try {
+			Query query = entityManager.createNamedQuery("Accion.findByNameAndPantalla", Accion.class);
+			query.setParameter(Constantes.NUMERO_UNO, nombre);
+			query.setParameter(Constantes.NUMERO_DOS, idPantalla);
+			List<Accion> lista = (List<Accion>) query.getResultList();
+			if (!lista.isEmpty()) {
+				accion = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return accion;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public Accion findByNombreAndIdPantalla(String nombre, Integer idPantalla) {
 		Accion accion = null;
 		try {
