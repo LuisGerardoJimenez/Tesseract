@@ -1,8 +1,6 @@
 package mx.tesseract.editor.entidad;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -16,11 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.ElementoInterface;
@@ -35,6 +30,7 @@ import mx.tesseract.util.GenericInterface;
 @Inheritance(strategy=InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
 @DiscriminatorValue("RN")
+@JsonIgnoreProperties(value = { "tiporeglanegocio", "atributo_unicidad", "atributo_fechaI", "atributo_fechaT", "tipocomparacion", "atributo_comp1", "atributo_comp2", "operador", "atributo_exp_reg" })
 public class ReglaNegocio extends Elemento implements Serializable, GenericInterface, ElementoInterface {
 	
 	private static final long serialVersionUID = 1L;

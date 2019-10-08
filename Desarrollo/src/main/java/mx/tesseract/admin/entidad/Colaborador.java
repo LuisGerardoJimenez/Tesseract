@@ -18,6 +18,8 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -36,6 +38,7 @@ import mx.tesseract.util.GenericInterface;
 		})
 @Entity
 @Table(name = "colaborador")
+@JsonIgnoreProperties(value = { "colaborador_proyectos", "telefonos" })
 public class Colaborador implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;

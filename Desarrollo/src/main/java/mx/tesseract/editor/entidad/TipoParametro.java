@@ -12,10 +12,18 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.io.Serializable;
 
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
+
+import mx.tesseract.admin.entidad.Colaborador;
 
 @Entity
 @Table(name = "tipoparametro")
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "TipoParametro.consultarTipoParametroById", query = "SELECT t.* FROM tipoparametro t WHERE t.id != :id", resultClass = TipoParametro.class),
+	@NamedNativeQuery(name = "TipoParametro.consultarTipoParametroByNombre", query = "SELECT t.* FROM tipoparametro t WHERE t.nombre = :nombre", resultClass = TipoParametro.class),
+	})
 public class TipoParametro implements Serializable {
 
 	private static final long serialVersionUID = 1L;
