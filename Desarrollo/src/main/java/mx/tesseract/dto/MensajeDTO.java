@@ -22,7 +22,7 @@ public class MensajeDTO {
 	private String redaccion;
 	private Boolean parametrizado;
 	private String descripcion;
-	EstadoElemento estadoElemento;
+	private EstadoElemento estadoElemento;
 	private List<MensajeParametro> parametros = new ArrayList<>();
 	
 	public MensajeDTO() {

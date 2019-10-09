@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import mx.tesseract.dto.AccionDTO;
 import mx.tesseract.dto.ActorDTO;
 import mx.tesseract.dto.AtributoDTO;
+import mx.tesseract.dto.CasoUsoDTO;
 import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.dto.PantallaDTO;
@@ -115,6 +116,18 @@ public class RN018 {
 		CasoUso casoUso = null;
 		if (model.getId() == null) {
 			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Constantes.TIPO_REFERENCIA_ACCION.toString()+"·"+model.getId());
+		}
+		if (casoUso != null) {
+			valido = false;
+		}
+		return valido;
+	}
+	
+	public boolean isValidRN018(CasoUsoDTO model) {
+		Boolean valido = true;
+		CasoUso casoUso = null;
+		if (model.getId() == null) {
+			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.CU.toString()+"·"+model.getId());
 		}
 		if (casoUso != null) {
 			valido = false;

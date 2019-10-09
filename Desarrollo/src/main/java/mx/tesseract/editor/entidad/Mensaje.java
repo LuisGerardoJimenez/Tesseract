@@ -15,6 +15,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import mx.tesseract.util.ElementoInterface;
@@ -25,7 +27,7 @@ import mx.tesseract.util.GenericInterface;
 @Inheritance(strategy=InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
 @DiscriminatorValue("MSG")
-//@JsonTypeName("mensaje")
+@JsonIgnoreProperties(value = { "parametros" })
 public class Mensaje extends Elemento implements Serializable, GenericInterface, ElementoInterface {
 
 	private static final long serialVersionUID = 1L;

@@ -26,6 +26,7 @@ import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "Accion.findByPantalla", query = "SELECT a.* FROM accion a WHERE a.PantallaElementoid = ?", resultClass = Accion.class),
+	@NamedNativeQuery(name = "Accion.findByName", query = "SELECT a.* FROM accion a WHERE a.nombre = ?", resultClass = Accion.class),
 	@NamedNativeQuery(name = "Accion.findByNameAndPantalla", query = "SELECT a.* FROM accion a WHERE a.nombre = ? AND a.PantallaElementoid = ?", resultClass = Accion.class),
 	@NamedNativeQuery(name = "Accion.findByNameAndIdAndPantalla", query = "SELECT a.* FROM accion a WHERE a.nombre = ? AND a.id != ? AND a.PantallaElementoid = ?", resultClass = Accion.class),
 	})

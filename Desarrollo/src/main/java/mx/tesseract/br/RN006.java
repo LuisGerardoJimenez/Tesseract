@@ -25,6 +25,7 @@ import mx.tesseract.editor.entidad.Accion;
 import mx.tesseract.editor.entidad.Actor;
 import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.Atributo;
+import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.Entidad;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
@@ -76,6 +77,20 @@ public class RN006 {
 			modulo = moduloDAO.findModuloByNombreAndId(entidad.getNombre(), entidad.getId());
 		}
 		if (modulo != null) {
+			valido = false;
+		}
+		return valido;
+	}
+	
+	public Boolean isValidRN006(CasoUso entidad) {
+		Boolean valido = true;
+		CasoUso casoUso;
+		if (entidad.getId() == null) {
+			casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, entidad.getProyecto().getId(), entidad.getNombre(), Clave.CU); 
+		} else {
+			casoUso = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(CasoUso.class,  entidad.getProyecto().getId(), entidad.getId(), entidad.getNombre(), Clave.CU);
+		}
+		if (casoUso != null) {
 			valido = false;
 		}
 		return valido;
