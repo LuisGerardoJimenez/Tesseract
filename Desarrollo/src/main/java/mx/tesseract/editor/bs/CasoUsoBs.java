@@ -9,6 +9,12 @@ import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.CasoUsoDTO;
 import mx.tesseract.editor.dao.CasoUsoDAO;
 import mx.tesseract.editor.entidad.CasoUso;
+import mx.tesseract.editor.entidad.CasoUsoActor;
+import mx.tesseract.editor.entidad.CasoUsoReglaNegocio;
+import mx.tesseract.editor.entidad.Entrada;
+import mx.tesseract.editor.entidad.PostPrecondicion;
+import mx.tesseract.editor.entidad.Salida;
+import mx.tesseract.editor.entidad.Trayectoria;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.enums.ReferenciaEnum.TipoSeccion;
 import mx.tesseract.util.TESSERACTException;
@@ -40,7 +46,7 @@ public class CasoUsoBs {
 	private RN018 rn018;
 	
 	public List<CasoUso> consultarCasosDeUso(Integer idProyecto, Integer idModulo) {
-		List<CasoUso> lista = casoUsoDAO.findAllByProyectoAndModulo(idProyecto, idModulo, Clave.CU);
+		List<CasoUso> lista = casoUsoDAO.findAllByProyectoAndModulo(idProyecto, idModulo, Clave.CUAD);
 		Iterator<CasoUso> it = lista.iterator();
 		while (it.hasNext()) {
 			CasoUso value = it.next();
@@ -68,6 +74,7 @@ public class CasoUsoBs {
 		cuDTO.setRedaccionReglasNegocio(cu.getRedaccionReglasNegocio());
 		cuDTO.setProyecto(cu.getProyecto());
 		cuDTO.setModulo(cu.getModulo());
+		cuDTO.setRevisiones(cu.getRevisiones());
 		return cuDTO;
 	}
 	
@@ -93,12 +100,45 @@ public class CasoUsoBs {
 	public void registrarCasoUso(CasoUso casoUso) {
 		if (rn006.isValidRN006(casoUso)) {
 			genericoDAO.save(casoUso);
+			registrarElementosAsociados(casoUso);
 		} else {
-			throw new TESSERACTValidacionException("EL nombre del Caso de Uso ya existe.", "MSG7",
+			throw new TESSERACTValidacionException("El nombre del Caso de Uso ya existe.", "MSG7",
 					new String[] { "El", "Caso de Uso", casoUso.getNombre() }, "model.nombre");
 		}
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
+	private void registrarElementosAsociados(CasoUso casoUso) {
+		for(CasoUsoActor actor : casoUso.getActores()) {
+			actor.setCasouso(casoUso);
+			genericoDAO.save(actor);
+		}
+		for(CasoUsoActor actor : casoUso.getActores()) {
+			actor.setCasouso(casoUso);
+			genericoDAO.save(actor);
+		}
+		for(CasoUsoReglaNegocio regla : casoUso.getReglas()) {
+			regla.setCasoUso(casoUso);
+			genericoDAO.save(regla);
+		}
+		for(PostPrecondicion postprecondicion : casoUso.getPostprecondiciones()) {
+			postprecondicion.setCasoUso(casoUso);
+			genericoDAO.save(postprecondicion);
+		}
+		for(Salida salida : casoUso.getSalidas()) {
+			salida.setCasoUso(casoUso);
+			genericoDAO.save(salida);
+		}
+		for(Entrada entrada : casoUso.getEntradas()) {
+			entrada.setCasoUso(casoUso);
+			genericoDAO.save(entrada);
+		}
+		for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+			trayectoria.setCasoUso(casoUso);
+			genericoDAO.save(trayectoria);
+		}
+	}
+
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarCasoUso(CasoUso casoUso) {
 		genericoDAO.update(casoUso);

@@ -27,7 +27,7 @@ public class CasoUsoDAO {
 		try {
 			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndClave", Elemento.class);
 			query.setParameter("idProyecto", idProyecto);
-			query.setParameter("clave", clave.toString());
+			query.setParameter("clave", "CUAD");
 			casosUso = (List<CasoUso>) query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();

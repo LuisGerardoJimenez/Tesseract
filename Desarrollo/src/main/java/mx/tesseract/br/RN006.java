@@ -86,9 +86,9 @@ public class RN006 {
 		Boolean valido = true;
 		CasoUso casoUso;
 		if (entidad.getId() == null) {
-			casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, entidad.getProyecto().getId(), entidad.getNombre(), Clave.CU); 
+			casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, entidad.getProyecto().getId(), entidad.getNombre(), Clave.CUAD); 
 		} else {
-			casoUso = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(CasoUso.class,  entidad.getProyecto().getId(), entidad.getId(), entidad.getNombre(), Clave.CU);
+			casoUso = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(CasoUso.class,  entidad.getProyecto().getId(), entidad.getId(), entidad.getNombre(), Clave.CUAD);
 		}
 		if (casoUso != null) {
 			valido = false;

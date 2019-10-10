@@ -127,7 +127,7 @@ public class RN018 {
 		Boolean valido = true;
 		CasoUso casoUso = null;
 		if (model.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.CU.toString()+"·"+model.getId());
+			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.CUAD.toString()+"·"+model.getId());
 		}
 		if (casoUso != null) {
 			valido = false;

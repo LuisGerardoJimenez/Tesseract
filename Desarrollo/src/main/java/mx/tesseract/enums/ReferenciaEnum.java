@@ -61,7 +61,7 @@ public class ReferenciaEnum {
 	}
 	
 	public enum Clave {
-		ACT, ENT, GLS, RN, MSG, IU, CU
+		ACT, ENT, GLS, RN, MSG, IU, CUAD
 	}
 	
 	public enum TipoRelacion {
@@ -69,7 +69,7 @@ public class ReferenciaEnum {
 		ACTOR_ACTORES, ACTOR_POSTPRECONDICIONES, ACTOR_PASOS,
 			
 		/* Entidades */
-		ENTIDAD_POSTPRECONDICIONES, ENTIDAD_PASOS, ENTIDAD_SALIDAS,
+		ENTIDAD_POSTPRECONDICIONES, ENTIDAD_PASOS, ENTIDAD_SALIDAS, ENTIDAD_ENTRADAS,
 		
 		/* Casos de uso */
 		CASOUSO_POSTPRECONDICIONES, CASOUSO_PASOS,
@@ -117,7 +117,7 @@ public class ReferenciaEnum {
 		if (tokenReferencia.equals("ENT")){
 			return TipoReferencia.ENTIDAD;
 		}
-		if (tokenReferencia.equals("CU")){
+		if (tokenReferencia.equals("CUAD")){
 			return TipoReferencia.CASOUSO;
 		}
 		if (tokenReferencia.equals("IU")){
@@ -204,6 +204,9 @@ public class ReferenciaEnum {
 			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
 				return TipoRelacion.ENTIDAD_POSTPRECONDICIONES;
 
+			}
+			if (tipoSeccion == TipoSeccion.ENTRADAS) {
+				return TipoRelacion.ENTIDAD_ENTRADAS;
 			}
 			if (tipoSeccion == TipoSeccion.PASOS) {
 				return TipoRelacion.ENTIDAD_PASOS;

@@ -2,7 +2,6 @@ package mx.tesseract.editor.bs;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -10,9 +9,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.editor.dao.AccionDAO;
 import mx.tesseract.editor.dao.AtributoDAO;
-import mx.tesseract.editor.dao.CasoUsoDAO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
 import mx.tesseract.editor.dao.PantallaDAO;
@@ -29,6 +28,7 @@ import mx.tesseract.editor.entidad.Extension;
 import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
+import mx.tesseract.editor.entidad.Parametro;
 import mx.tesseract.editor.entidad.Paso;
 import mx.tesseract.editor.entidad.PostPrecondicion;
 import mx.tesseract.editor.entidad.ReferenciaParametro;
@@ -63,9 +63,6 @@ public class TokenBs {
 	@Autowired
 	private ModuloDAO moduloDAO;
 	
-	@Autowired
-	private CasoUsoDAO casoUsoDAO;
-	
 	/*@Autowired
 	private EntidadDAO entidadDAO;
 	
@@ -77,6 +74,9 @@ public class TokenBs {
 	
 	@Autowired
 	private TipoParametroDAO tipoParametroDAO;
+	
+	@Autowired
+	private GenericoDAO genericoDAO;
 	
 	private static String tokenSeparator1 = "·";
 	private static String tokenSeparator2 = ":";
@@ -401,7 +401,7 @@ public class TokenBs {
 				}
 
 				casodeuso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CU);
+						.replaceAll("_", " "), Clave.CUAD);
 				if (casodeuso == null) {
 					// Construcción del mensaje de error;
 					String[] parametros = { "el", "caso de uso",
@@ -525,10 +525,10 @@ public class TokenBs {
 					errorEnToken("la", "trayectoria");
 				}
 				elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CU);
+						.replaceAll("_", " "), Clave.CUAD);
 				//casodeuso = new CasoUsoDAO().consultarCasoUso(segmentos.get(1),segmentos.get(2), proyecto);
 				casodeuso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CU);
+						.replaceAll("_", " "), Clave.CUAD);
 				if (casodeuso == null) {
 					String[] parametros = { "el", "caso de uso",
 							segmentos.get(1) + segmentos.get(2), "registrado" };
@@ -571,7 +571,7 @@ public class TokenBs {
 				}
 				//casodeuso = new CasoUsoDAO().consultarCasoUso(segmentos.get(1),segmentos.get(2), proyecto);
 				casodeuso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CU);
+						.replaceAll("_", " "), Clave.CUAD);
 				if (casodeuso == null) {
 					String[] parametros = { "el", "caso de uso",
 							segmentos.get(1) + segmentos.get(2), "registrado" };
@@ -781,7 +781,7 @@ public class TokenBs {
 				}
 
 				casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CU);
+						.replaceAll("_", " "), Clave.CUAD);
 				if (casoUso == null) {
 					// Construcción del mensaje de error;
 					String[] parametros = { "el", "caso de uso",
@@ -903,7 +903,7 @@ public class TokenBs {
 				}
 				trayectoria = null;
 				casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CU);
+						.replaceAll("_", " "), Clave.CUAD);
 				if (casoUso == null) {
 					String[] parametros = { "el", "caso de uso",
 							segmentos.get(1) + segmentos.get(2), "registrado" };
@@ -942,7 +942,7 @@ public class TokenBs {
 					errorEnToken("el", "paso");
 				}
 				casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CU);
+						.replaceAll("_", " "), Clave.CUAD);
 				if (casoUso == null) {
 					String[] parametros = { "el", "caso de uso",
 							segmentos.get(1) + segmentos.get(2), "registrado" };
@@ -1453,6 +1453,280 @@ public class TokenBs {
 						return true;
 					}
 				}
+		}
+		return false;
+	}
+	
+	/*
+	 * El método String decodificarCadenasToken(String @cadenaCodificada) se
+	 * encarga de decodificar la cadena a su versión de edición.
+	 * 
+	 * Parámetros:
+	 * 
+	 * @cadenaCodificada: Cadena cuyo contenido incluye los tokens en su versión
+	 * base de datos (cruda), por ejemplo: ATR·1.
+	 * 
+	 * Ejemplo:
+	 * 
+	 * El resultado de decodificar la cadena "ATR·1" sería "ATR·Producto:Peso",
+	 * siendo "ATR·Producto:Peso" el token para referenciar al atributo "Peso"
+	 * de la entidad "Producto".
+	 */
+	public String decodificarCadenasToken(String cadenaCodificada) {
+		String cadenaDecodificada = "";
+		if (cadenaCodificada != null && !cadenaCodificada.equals("")) {
+			String cadenaCodificadaBruta = cadenaCodificada.substring(1);
+			ArrayList<String> tokens = procesarTokenIpunt(cadenaCodificadaBruta);
+			ArrayList<String> segmentos;
+			Modulo modulo;
+			cadenaDecodificada = cadenaCodificadaBruta;
+
+			for (String token : tokens) {
+				segmentos = segmentarToken(token);
+				switch (ReferenciaEnum.getTipoReferencia(segmentos.get(0))) {
+				case ACCION:
+					Accion accion = genericoDAO.findById(Accion.class, Integer
+							.parseInt(segmentos.get(1)));
+					if (accion == null) {
+						cadenaDecodificada = "";
+						break;
+					} else {
+						Pantalla pantalla = accion.getPantalla();
+						cadenaDecodificada = remplazoToken(
+								cadenaDecodificada,
+								token,
+								tokenACC
+										+ pantalla.getClave()
+										+ tokenSeparator1
+										+ pantalla.getNumero()
+										+ tokenSeparator2
+										+ pantalla.getNombre()
+												.replace(" ", "_")
+										+ tokenSeparator2
+										+ accion.getNombre().replace(" ", "_"));
+					}
+					break;
+				case ATRIBUTO:
+					Atributo atributo = genericoDAO.findById(Atributo.class, Integer
+							.parseInt(segmentos.get(1)));
+					if (atributo == null) {
+						cadenaDecodificada = "";
+						break;
+					} else {
+						Entidad entidad = atributo.getEntidad();
+						cadenaDecodificada = remplazoToken(cadenaDecodificada,
+								token,
+								tokenATR
+										+ entidad.getNombre().replace(" ", "_")
+										+ tokenSeparator2
+										+ atributo.getNombre()
+												.replace(" ", "_"));
+					}
+					break;
+				case ACTOR:
+					Actor actor = elementoDAO.findById(Actor.class, Integer
+							.parseInt(segmentos.get(1)), Clave.ACT);
+					if (actor == null) {
+						cadenaDecodificada = "";
+						break;
+					}
+					cadenaDecodificada = remplazoToken(cadenaDecodificada,
+							token,
+							tokenACT + actor.getNombre().replace(" ", "_"));
+
+					break;
+				case CASOUSO:
+					CasoUso casoUso = elementoDAO.findById(CasoUso.class, Integer
+							.parseInt(segmentos.get(1)), Clave.CUAD);
+					if (casoUso == null) {
+						cadenaDecodificada = "";
+						break;
+					}
+					modulo = casoUso.getModulo();
+					cadenaDecodificada = remplazoToken(cadenaDecodificada,
+							token, tokenCU + modulo.getClave()
+									+ tokenSeparator1 + casoUso.getNumero()
+									+ tokenSeparator2
+									+ casoUso.getNombre().replace(" ", "_"));
+
+					break;
+				case ENTIDAD:
+					Entidad entidad = elementoDAO.findById(Entidad.class, Integer
+							.parseInt(segmentos.get(1)), Clave.ENT);
+					if (entidad == null) {
+						cadenaDecodificada = "";
+						break;
+					}
+					cadenaDecodificada = remplazoToken(cadenaDecodificada,
+							token,
+							tokenENT + entidad.getNombre().replace(" ", "_"));
+
+					break;
+				case TERMINOGLS:
+					TerminoGlosario terminoGlosario = elementoDAO.findById(TerminoGlosario.class, Integer
+							.parseInt(segmentos.get(1)), Clave.GLS);
+					if (terminoGlosario == null) {
+						cadenaDecodificada = "";
+					}
+					cadenaDecodificada = remplazoToken(
+							cadenaDecodificada,
+							token,
+							tokenGLS
+									+ terminoGlosario.getNombre().replace(" ",
+											"_"));
+					break;
+				case PANTALLA:
+					Pantalla pantalla = elementoDAO.findById(Pantalla.class, Integer
+							.parseInt(segmentos.get(1)), Clave.IU);
+					if (pantalla == null) {
+						cadenaDecodificada = "";
+						break;
+					}
+					modulo = pantalla.getModulo();
+					cadenaDecodificada = remplazoToken(cadenaDecodificada,
+							token, tokenIU + modulo.getClave()
+									+ tokenSeparator1 + pantalla.getNumero()
+									+ tokenSeparator2
+									+ pantalla.getNombre().replace(" ", "_"));
+
+					break;
+
+				case MENSAJE:
+					Mensaje mensaje = elementoDAO.findById(Mensaje.class, Integer
+							.parseInt(segmentos.get(1)), Clave.MSG);
+					if (mensaje == null) {
+						cadenaDecodificada = "";
+					}
+					cadenaDecodificada = remplazoToken(cadenaDecodificada,
+							token, tokenMSG + mensaje.getNumero()
+									+ tokenSeparator2
+									+ mensaje.getNombre().replace(" ", "_"));
+					break;
+				case REGLANEGOCIO:
+					
+					ReglaNegocio reglaNegocio = elementoDAO.findById(ReglaNegocio.class, Integer
+							.parseInt(segmentos.get(1)), Clave.RN);
+					if (reglaNegocio == null) {
+						cadenaDecodificada = "";
+					}
+					cadenaDecodificada = remplazoToken(cadenaDecodificada,
+							token, tokenRN
+									+ reglaNegocio.getNumero()
+									+ tokenSeparator2
+									+ reglaNegocio.getNombre()
+											.replace(" ", "_"));
+					break;
+				case TRAYECTORIA:
+					Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, Integer
+							.parseInt(segmentos.get(1)));
+					if (trayectoria == null) {
+						cadenaDecodificada = "";
+					}
+
+					CasoUso cu = trayectoria.getCasoUso();
+					cadenaDecodificada = remplazoToken(cadenaDecodificada,
+							token, tokenTray + cu.getClave() + tokenSeparator1
+									+ cu.getNumero() + tokenSeparator2
+									+ cu.getNombre().replace(" ", "_")
+									+ tokenSeparator2 + trayectoria.getClave());
+					break;
+
+				case PASO:
+					Paso paso = genericoDAO.findById(Paso.class, Integer
+							.parseInt(segmentos.get(1)));
+					if (paso == null) {
+						cadenaDecodificada = "";
+					}
+					Trayectoria t = paso.getTrayectoria();
+					CasoUso cut = t.getCasoUso();
+					cadenaDecodificada = remplazoToken(cadenaDecodificada,
+							token, tokenP + cut.getClave() + tokenSeparator1
+									+ cut.getNumero() + tokenSeparator2
+									+ cut.getNombre().replace(" ", "_")
+									+ tokenSeparator2 + t.getClave()
+									+ tokenSeparator1 + paso.getNumero());
+					break;
+					
+				case PARAMETRO:
+					System.out.println("segmento "+segmentos.get(1));
+					Parametro parametro = genericoDAO.findById(Parametro.class, segmentos.get(1));
+					System.out.println("parametro.getNombre(): "+parametro.getNombre());
+					System.out.println("cadenaDecodificada: "+cadenaDecodificada);
+					System.out.println("token: "+token);
+					System.out.println("tokenPARAM: "+tokenPARAM);
+					//System.out.println("parametro.getNombre(): "+parametro.getNombre());
+					 
+					cadenaDecodificada = remplazoToken(cadenaDecodificada, token, tokenPARAM + parametro.getNombre());
+					System.out.println("cadenaDecodificada2: "+cadenaDecodificada);
+					break;
+				default:
+					break;
+
+				}
+			}
+		}
+		return cadenaDecodificada;
+	}
+	
+	/*
+	 * El método String remplazoToken(String @cadena, String @cadena_sustituir,
+	 * String @cadena_sustituta) remplaza los tokens por el valor
+	 * correspondiente según la decodificación realizada. Es útil frente a un
+	 * simple replace, porque soluciona el siguiente problema:
+	 * 
+	 * Si se deseara remplazar el segmente de cadena "ACT·1" por "Profesor" en
+	 * la cadena "ACT·1, ACT·11" resultado sería "Profesor, Profesor1" lo cual
+	 * es indeseable por que cada token representa una referencia diferente.
+	 * 
+	 * Este método remplaza únicamente si la subcadena en la que se encuentra el
+	 * patrón es una referencia/token completo.
+	 * 
+	 * Parámetros:
+	 * 
+	 * @cadena: Cadena en la que se realizarán los remplazos.
+	 * 
+	 * @cadena_sustituir: Cadena que contiene el token que se desea sustituir
+	 * por su valor decodificado.
+	 * 
+	 * @cadena_sustituta: Cadena que contiene el valor decodificado que
+	 * sustituirá a cadena_sustituir.
+	 */
+	public static String remplazoToken(String cadena, String cadena_sustituir,
+			String cadena_sustituta) {
+		String cadenaFinal = null;
+		int indiceInicial = 0;
+		int indiceFinal = 0;
+		indiceInicial = cadena.indexOf(cadena_sustituir, indiceInicial);
+		//System.out.println("indiceInicial1 :"+indiceInicial);
+		while (indiceInicial != -1) {
+			indiceFinal = indiceInicial + cadena_sustituir.length() - 1;
+			//System.out.println("indiceFinalWhile: "+indiceFinal);
+			if (indiceFinal + 1  == cadena.length()
+					|| !ignore(cadena.charAt(indiceFinal + 1))) {
+				cadenaFinal = cadena.substring(0,
+						(indiceInicial != 0) ? indiceInicial : 0)
+						+ cadena_sustituta
+						+ cadena.substring(indiceFinal + 1, cadena.length());
+				//System.out.println("cadena.substring(indiceFinal + 1, cadena.length()): "+cadena.substring(indiceFinal + 1, cadena.length()));
+				//System.out.println("CadenaFinal: "+cadenaFinal);
+				indiceInicial = cadenaFinal.indexOf(cadena_sustituir, indiceInicial + cadena_sustituta.length());
+				cadena = cadenaFinal;
+			} else {
+				indiceInicial = cadena.indexOf(cadena_sustituir, indiceInicial + 1);
+			}
+			System.out.println("Valor cadena en while: "+cadena);
+		}
+		return cadena;
+	}
+	
+	public static boolean ignore(char nextChar) {
+		try {
+			Integer.parseInt(nextChar + "");
+		} catch (NumberFormatException e) {
+			if((nextChar + "").equals(tokenSeparator1) || (nextChar + "").equals(tokenSeparator2)) {
+				return true;
+			}
+			return false;
 		}
 		return false;
 	}
