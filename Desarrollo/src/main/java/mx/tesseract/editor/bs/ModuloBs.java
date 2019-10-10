@@ -2,6 +2,12 @@ package mx.tesseract.editor.bs;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.br.RN006;
@@ -17,12 +23,6 @@ import mx.tesseract.util.TESSERACTException;
 //import mx.tesseract.editor.model.PostPrecondicion;
 //import mx.tesseract.editor.model.ReferenciaParametro;
 import mx.tesseract.util.TESSERACTValidacionException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service("moduloBS")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
@@ -61,8 +61,8 @@ public class ModuloBs {
 
 	@Transactional(rollbackFor = Exception.class)
 	public void registrarModulo(Modulo model, Integer idProyecto) {
-		if (rn023.isValidRN023(model)) {
-			if (rn006.isValidRN006(model)) {
+		if (rn023.isValidRN023(model, idProyecto)) {
+			if (rn006.isValidRN006(model, idProyecto)) {
 				proyecto = proyectoBs.consultarProyecto(idProyecto);
 				model.setProyecto(proyecto);
 				genericoDAO.save(model);
@@ -78,7 +78,7 @@ public class ModuloBs {
 
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarModulo(Modulo model, Integer idProyecto) {
-		if (rn006.isValidRN006(model)) {
+		if (rn006.isValidRN006(model, idProyecto)) {
 			proyecto = proyectoBs.consultarProyecto(idProyecto);
 			model.setProyecto(proyecto);
 			genericoDAO.update(model);

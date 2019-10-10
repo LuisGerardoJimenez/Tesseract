@@ -15,9 +15,9 @@ public class RN023 {
 	@Autowired
 	private ModuloDAO moduloDAO;
 	
-	public Boolean isValidRN023(Modulo entidad) {
+	public Boolean isValidRN023(Modulo entidad, Integer idProyecto) {
 		Boolean valido = true;
-		Modulo modulo = moduloDAO.findModuloByClave(entidad.getClave());
+		Modulo modulo = moduloDAO.findModuloByClaveAndProyecto(entidad.getClave(), idProyecto);
 		if (modulo != null) {
 			valido = false;
 		}

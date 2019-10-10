@@ -10,6 +10,7 @@ import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.TESSERACTException;
+import mx.tesseract.util.TESSERACTLogger;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
@@ -76,17 +77,14 @@ public class AccessAct extends ActionSupportTESSERACT {
 				resultado = COLABORADOR;
 			}
 		} catch (TESSERACTValidacionException tve) {
-			System.out.println("Error en el Create() TESSERACTValidacionException");
-			System.err.println("Tve: " + tve);
+//			LoggerHelper.error(this.getClass().getName(), "findUniqueAtInsert", e);
+			TESSERACTLogger.debug(this.getClass().getName(), "Login");
 			ErrorManager.agregaMensajeError(this, tve);
 		} catch (TESSERACTException te) {
-			System.out.println("Error en el Create() TESSERACTException");
-			System.err.println("Te: " + te);
+			TESSERACTLogger.error(this.getClass().getName(), "Login", te);
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			System.out.println("E: " + e);
-			System.err.println("Error en el Create() Exception");
-			ErrorManager.agregaMensajeError(this, e);
+			TESSERACTLogger.error(this.getClass().getName(), "Login", e);
 		}
 		return resultado;
 	}

@@ -68,13 +68,13 @@ public class RN006 {
 		return valido;
 	}
 	
-	public Boolean isValidRN006(Modulo entidad) {
+	public Boolean isValidRN006(Modulo entidad, Integer idProyecto) {
 		Boolean valido = true;
 		Modulo modulo;
 		if (entidad.getId() == null) {
-			modulo = moduloDAO.findModuloByName(entidad.getNombre());
+			modulo = moduloDAO.findModuloByNameAndProyecto(entidad.getNombre(), idProyecto);
 		} else {
-			modulo = moduloDAO.findModuloByNombreAndId(entidad.getNombre(), entidad.getId());
+			modulo = moduloDAO.findModuloByNombreAndIdAndProyecto(entidad.getNombre(), entidad.getId(), idProyecto);
 		}
 		if (modulo != null) {
 			valido = false;

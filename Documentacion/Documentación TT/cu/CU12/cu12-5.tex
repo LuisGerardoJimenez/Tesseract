@@ -87,38 +87,30 @@
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Da clic en el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/revisar}} del registro que desea revisar de la pantalla \IUref{IU6}{Gestionar Casos de uso}.
 		\UCpaso[\UCsist] Obtiene la información del caso de uso seleccionado. 
-		\UCpaso[\UCsist] Verifica que el estado del caso de uso sea ''Revisión''. \hyperlink{CU12-5:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.4}{Revisar Caso de uso}.
-		\UCpaso[\UCactor] Selecciona la opción ''Sí'' para cada una de las secciones. \hyperlink{CU12-5:TAB}{[Trayectoria B]} \label{CU12.5-P5}
+		\UCpaso[\UCactor] Selecciona la opción ''Sí'' para cada una de las secciones. \hyperlink{CU12-5:TAA}{[Trayectoria A]} \label{CU12.5-P5}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \label{CU12.5-P6}
-		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-5:TAC}{[Trayectoria C]}
-		\UCpaso[\UCsist] Verifica que el actor en sesión sea ''Analista''. \hyperlink{CU12-5:TAF}{[Trayectoria F]}
+		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-5:TAB}{[Trayectoria B]}
+		\UCpaso[\UCsist] Verifica que el actor en sesión sea ''Analista''. \hyperlink{CU12-5:TAE}{[Trayectoria E]}
 		\UCpaso[\UCsist] Cambia el estado del caso de uso a ''Por liberar''.
 		\UCpaso[\UCsist] Se muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU6}{Gestionar Casos de uso}. \label{CU12.5-P12}
 	\end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU12-5:TAA}{\textbf{Trayectoria alternativa A}}\\
-\noindent \textbf{Condición:} El caso de uso que se desea revisar se encuentra en un estado diferente a ''Revisión''.
-\begin{enumerate}
-	\UCpaso[\UCsist] Oculta el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/revisar}} del caso que no se encuentra en estado de ''Revisión''.
-	\item[- -] - - {\em {Fin del caso de uso}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU12-5:TAB}{\textbf{Trayectoria alternativa B}}\\
 \noindent \textbf{Condición:} El actor marcó como incorrecta alguna de las secciones del caso de uso.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el campo correspondiente a las observaciones de aquellas secciones en las que se hayan marcado como incorrecta.
 	\UCpaso[\UCactor] Ingresa las observaciones en los campos. \label{CU12.5-TAP2}
 	\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-5:TAC}{[Trayectoria C]}
-	\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU12-5:TAD}{[Trayectoria D]}
-	\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-5:TAE}{[Trayectoria E]}
+	\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU12-5:TAC}{[Trayectoria C]}
+	\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-5:TAD}{[Trayectoria D]}
 	\UCpaso[\UCsist] Almacena las observaciones realizadas a cada sección marcada como incorrecta.
 	\UCpaso[\UCsist] Cambia el estado del caso de uso a ''Pendiente de corrección''.
 	\UCpaso  Continúa en el paso \ref{CU12.5-P12} de la Trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-5:TAC}{\textbf{Trayectoria alternativa C}}\\
+\hypertarget{CU12-5:TAB}{\textbf{Trayectoria alternativa B}}\\
 \noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU6.4}{Revisar Caso de uso}.
@@ -126,7 +118,7 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-5:TAD}{\textbf{Trayectoria alternativa D}}\\
+\hypertarget{CU12-5:TAC}{\textbf{Trayectoria alternativa C}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU6.4}{Revisar Caso de uso}.
@@ -134,7 +126,7 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-5:TAE}{\textbf{Trayectoria alternativa E}}\\
+\hypertarget{CU12-5:TAD}{\textbf{Trayectoria alternativa D}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.4}{Revisar Caso de uso}.
@@ -142,7 +134,7 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-5:TAF}{\textbf{Trayectoria alternativa F}}\\
+\hypertarget{CU12-5:TAE}{\textbf{Trayectoria alternativa E}}\\
 \noindent \textbf{Condición:} El actor en sesión es un ''Líder de Proyecto''.
 \begin{enumerate}
 	\UCpaso[\UCsist] Cambia el estado del caso de uso a ''Liberado''.

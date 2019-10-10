@@ -388,7 +388,7 @@ public class TokenBs {
 				if (segmentos.size() != 4) {
 					errorEnToken("el", "caso de uso");
 				}
-				modulo = moduloDAO.findModuloByName(segmentos.get(1));
+				modulo = moduloDAO.findModuloByNameAndProyecto(segmentos.get(1), proyecto.getId());
 				if (modulo == null) {
 					// Construcción del mensaje de error;
 					String[] parametros = { "el", "modulo",
@@ -456,7 +456,7 @@ public class TokenBs {
 				if (segmentos.size() != 4) {
 					errorEnToken("la", "pantalla");
 				}
-				modulo = moduloDAO.findModuloByClave(segmentos.get(1));
+				modulo = moduloDAO.findModuloByClaveAndProyecto(segmentos.get(1), proyecto.getId());
 				if (modulo == null) {
 					// Construcción del mensaje de error;
 					String[] parametros = { "el", "modulo",
@@ -768,7 +768,7 @@ public class TokenBs {
 				if (segmentos.size() != 4) {
 					errorEnToken("el", "caso de uso");
 				}
-				modulo = moduloDAO.findModuloByName(segmentos.get(1));
+				modulo = moduloDAO.findModuloByNameAndProyecto(segmentos.get(1), proyecto.getId());
 				if (modulo == null) {
 					// Construcción del mensaje de error;
 					String[] parametros = { "el", "modulo",
@@ -834,7 +834,7 @@ public class TokenBs {
 				if (segmentos.size() != 4) {
 					errorEnToken("la", "pantalla");
 				}
-				modulo = moduloDAO.findModuloByClave(segmentos.get(1));
+				modulo = moduloDAO.findModuloByClaveAndProyecto(segmentos.get(1), proyecto.getId());
 				if (modulo == null) {
 					// Construcción del mensaje de error;
 					String[] parametros = { "el", "modulo",
