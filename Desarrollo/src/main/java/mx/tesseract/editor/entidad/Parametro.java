@@ -34,7 +34,7 @@ import mx.tesseract.util.GenericInterface;
 	@NamedNativeQuery(name = "Parametro.findByIdProyecto", query = "SELECT p.* FROM parametro p WHERE p.Proyectoid = ?", resultClass = Parametro.class)
 	})
 @Entity
-@Table(name = "Parametro")
+@Table(name = "parametro")
 public class Parametro implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
