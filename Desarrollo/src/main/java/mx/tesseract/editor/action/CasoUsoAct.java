@@ -3,6 +3,7 @@ package mx.tesseract.editor.action;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Colaborador;
@@ -22,6 +23,7 @@ import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.bs.PantallaBs;
 import mx.tesseract.editor.bs.ReglaNegocioBs;
 import mx.tesseract.editor.bs.TerminoGlosarioBs;
+import mx.tesseract.editor.bs.TokenBs;
 //import mx.tesseract.editor.bs.TrayectoriaBs;
 //import mx.tesseract.editor.bs.ElementoBs.Estado;
 import mx.tesseract.editor.entidad.Actor;
@@ -33,8 +35,12 @@ import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
 import mx.tesseract.editor.entidad.Paso;
 import mx.tesseract.editor.entidad.ReglaNegocio;
+import mx.tesseract.editor.entidad.Revision;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
+import mx.tesseract.enums.ReferenciaEnum.Clave;
+import mx.tesseract.enums.TipoSeccionEnum;
+import mx.tesseract.enums.TipoSeccionEnum.TipoSeccionENUM;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
@@ -153,6 +159,9 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	@Autowired
 	private ElementoBs elementoBs;
 	
+	@Autowired
+	private TokenBs tokenBs;
+	
 	@SuppressWarnings("unchecked")
 	public String index() {
 		String resultado = PROYECTOS;
@@ -209,7 +218,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 		}finally{
-			model.setClave("CU");
+			model.setClave(Clave.CU.toString());
 		}
 		return resultado;
 	}
@@ -226,7 +235,8 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 					model.setProyecto(proyecto);
 					model.setModulo(modulo);
 					buscaElementos();
-					resultado = EDITNEW;
+					prepararVista();
+					resultado = EDIT;
 				} else {
 					resultado = MODULOS;
 				}
@@ -238,7 +248,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 		}finally{
-			model.setClave("CU");
+			model.setClave(Clave.CU.toString());
 		}
 		return resultado;
 	}
@@ -285,6 +295,49 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 
 	}
  
+	private void prepararVista() {
+//		Set<PostPrecondicion> postPrecondiciones = model
+//				.getPostprecondiciones();
+//		ArrayList<PostPrecondicion> precondiciones = new ArrayList<PostPrecondicion>();
+//		ArrayList<PostPrecondicion> postcondiciones = new ArrayList<PostPrecondicion>();
+//		PostPrecondicion postPrecondicionAux;
+//
+//		for (PostPrecondicion postPrecondicion : postPrecondiciones) {
+//			postPrecondicionAux = new PostPrecondicion();
+//			postPrecondicionAux.setId(postPrecondicion.getId());
+//			postPrecondicionAux.setRedaccion(TokenBs
+//					.decodificarCadenasToken(postPrecondicion.getRedaccion()));
+//			if (postPrecondicion.isPrecondicion()) {
+//				precondiciones.add(postPrecondicionAux);
+//			} else {
+//				postcondiciones.add(postPrecondicionAux);
+//			}
+//		}
+//		this.jsonPrecondiciones = JsonUtil.mapListToJSON(precondiciones);
+//		this.jsonPostcondiciones = JsonUtil.mapListToJSON(postcondiciones);
+
+		model.setRedaccionActores((tokenBs.decodificarCadenasToken(model
+				.getRedaccionActores())));
+		
+		model.setRedaccionEntradas((tokenBs.decodificarCadenasToken(model
+				.getRedaccionEntradas())));
+		
+		model.setRedaccionSalidas((tokenBs.decodificarCadenasToken(model
+				.getRedaccionSalidas())));
+		
+		model.setRedaccionReglasNegocio((tokenBs.decodificarCadenasToken(model
+				.getRedaccionReglasNegocio())));
+
+		for (Revision rev : model.getRevisiones()) {
+			if (!rev.isRevisado()
+					&& rev.getSeccion()
+							.getNombre()
+							.equals(TipoSeccionEnum.getNombre(TipoSeccionENUM.RESUMEN))) {
+				this.observaciones = rev.getObservaciones();
+			}
+		}
+	}
+	
 	public void validateCreate() {
 		if (!hasErrors()) {
 			try {
@@ -323,7 +376,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
 			}finally {
-				model.setClave("CU");
+				model.setClave(Clave.CU.toString());
 			}
 		}
 	}

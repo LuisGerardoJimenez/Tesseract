@@ -9,9 +9,11 @@ import javax.persistence.Query;
 
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.editor.entidad.CasoUso;
+import mx.tesseract.editor.entidad.CasoUsoActor;
 //import mx.tesseract.editor.entidad.Actualizacion;
 import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.util.Constantes;
+import mx.tesseract.util.GenericInterface;
 
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +29,7 @@ public class CasoUsoDAO {
 		try {
 			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndClave", Elemento.class);
 			query.setParameter("idProyecto", idProyecto);
-			query.setParameter("clave", clave.toString());
+			query.setParameter("clave", Clave.CU.toString());
 			casosUso = (List<CasoUso>) query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -53,6 +55,27 @@ public class CasoUsoDAO {
 			System.err.println(e.getMessage());
 		}
 		return casoUso;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T extends GenericInterface> T findElementoAsociado(Integer idCasoUso,Integer idElemento, Class<T> clase) {
+		T entidad = null;
+		try {
+			Query query;
+			if(clase.equals(CasoUsoActor.class))
+				query = entityManager.createNamedQuery("Elemento.findElementoAsociadoCasoUsoActor");
+			else
+				query = entityManager.createNamedQuery("Elemento.findElementoAsociadoCasoUsoReglaNegocio");
+			query.setParameter("idCasoUso", idCasoUso);
+			query.setParameter("idElemento", idElemento);
+			List<T> lista = (List<T>) query.getResultList();
+			if (!lista.isEmpty()) {
+				entidad = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return entidad;
 	}
 
 }

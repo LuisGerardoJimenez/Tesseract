@@ -1,11 +1,11 @@
 \chapter{Metodología} \label{cap:siete}
 
-En este capítulo se describen las actividades realizadas para la entrega de sprints planteados en TT1.
+En este capítulo se describen las actividades realizadas para la entrega de sprints planteados para la entrega del trabajo terminal.\\
 
-En Scrum, la metodología bajo la cual se está desarrollando el proyecto, se ejecuta en bloques temporales cortos y fijos (iteraciones de un mes). Cada iteración proporciona un resultado completo, un incremento de producto que sea potencialmente entregable. Para ello, durante la iteración el equipo colabora estrechamente y se llevan a cabo las siguientes dinámicas:
-\bigskip
-Cada día el equipo realiza una reunión de sincronización, donde cada miembro inspecciona el trabajo de los otros para poder hacer las adaptaciones necesarias, comunica cuales son los impedimconfictos en los que se encuentra, actualiza el estado de la lista de tareas de la iteración (Sprint Backlog) y los gráficos de trabajo pendiente (Burndown charts).
-\bigskip
+En Scrum, la metodología bajo la cual se está desarrollando el proyecto, se ejecuta en bloques temporales cortos y fijos (iteraciones de un mes). Cada iteración proporciona un resultado completo, un incremento de producto que sea potencialmente entregable. Para ello, durante la iteración el equipo colabora estrechamente y se llevan a cabo las siguientes dinámicas:\\
+
+Cada día el equipo realiza una reunión de sincronización, donde cada miembro inspecciona el trabajo de los otros para poder hacer las adaptaciones necesarias, comunica cuales son los impedimconfictos en los que se encuentra, actualiza el estado de la lista de tareas de la iteración (Sprint Backlog) y los gráficos de trabajo pendiente (Burndown charts).\\
+
 El Facilitador, se encarga de que el equipo pueda mantener el foco para cumplir con sus objetivos.
 Elimina los obstáculos que el equipo no puede resolver por sí mismo, protege al equipo de interrupciones externas que puedan afectar el objetivo de la iteración o su productividad.
 \newpage
@@ -36,13 +36,13 @@ Elimina los obstáculos que el equipo no puede resolver por sí mismo, protege a
 %Módulos
 %Glosario
 
-\section{Sprint 1: Análisis, diseño y codificación del módulo de usuarios}
+\section{Sprint 1: Gestión de colaboradores}
 
 \subsection{Iniciar sesión}
 \subsubsection {Análisis}
 Se requiere un proceso mediante el cual se controle el acceso individual al sistema mediante la identificación de usuario utilizando credenciales provistas por el registro de personal.\\
 
-\subsection{Gestionar personal}
+\subsection{Gestionar colaborador}
 El actor puede visualizar aquellas personas de la organización que se encuentran involucradas en uno o más proyectos, del  mismo modo el actor puede realizar diferentes acciones, como un nuevo registro o consultar, modificar y eliminar personas previamente registradas.
 
 \subsubsection {Análisis}
@@ -50,7 +50,7 @@ Es importante tener un mecanismo de control sobre aquellas entidades humanas que
 \bigskip
 El administrador, tiene la facultad y poder de:\\
 
-\textbf {Registrar persona:} Para el registro fué de suma importancia establecer los datos de entrada más relevantes para el sistema, esto con el fin de no saturar la base de datos.\\
+\textbf {Registrar colaborador:} Para el registro fué de suma importancia establecer los datos de entrada más relevantes para el sistema, esto con el fin de no saturar la base de datos.\\
 
 La información solicitada para el registro de personal es la siguiente:
 
@@ -63,19 +63,19 @@ La información solicitada para el registro de personal es la siguiente:
 
 Una vez que se realiza el registro de una persona de manera exitosa, esta podrá participar en algún proyecto.\\
 
-\textbf {Modificar persona:} Dentro del sistema existe la posibilidad de que los datos de una persona previamente registrada sean modificados, a excepción de la CURP.
+\textbf {Modificar colaborador:} Dentro del sistema existe la posibilidad de que los datos de una persona previamente registrada sean modificados, a excepción de la CURP.
 
-\textbf {Eliminar persona:} El sistema debe permitir al administrador eliminar el registro de una persona siempre y cuando esta no lidere ningún proyecto.
+\textbf {Eliminar colaborador:} El sistema debe permitir al administrador eliminar el registro de una persona siempre y cuando esta no lidere ningún proyecto.
 
-\section{Sprint 2: Análisis, diseño y codificación del módulo de gestión de proyectos}
+\section{Sprint 2: Gestión de proyectos}
 \subsection{Gestionar proyectos de administrador}
 \subsubsection {Análisis}
 El administrador puede visualizar todos los proyectos registrados en el sistema, así como registrar, modificar o eliminar un proyecto.\\
 
 El administrador, tiene la facultad y poder de:\\
 
-\textbf {Registrar proyecto:}
-Para registrar los proyectos se le solicita al administrador ingresar la siguiente información:
+\textbf {Registrar Proyecto:}
+Para registrar los proyectos se le solicita al administrador ingresar la siguiente información (atributos).
 
 \begin{itemize}
 	\item \textbf{Clave:} Con el fin de tener unicidad de registros en la base de datos.
@@ -95,29 +95,29 @@ Se puede registrar un proyecto siempre y cuando exista al menos un colaborador r
 
 Una vez registrado el proyecto se podrán gestionar los Términos del glosario, Entidades, Reglas de negocio, Mensajes y Actores.\\
 
-\textbf {Modificar proyecto:}
+\textbf {Modificar Proyecto:}
 Dentro del sistema existe la posibilidad de modificar la información de un proyecto previamente registrado, siempre y cuando el proyecto se encuentre en estado "En negociación" o "Iniciado"\\
 
-\textbf {Eliminar proyecto:}
+\textbf {Eliminar Proyecto:}
 El sistema debe permitir al administrador eliminar el registro de un proyecto.\\
 
 
 
-\section{Sprint 3: Análisis, diseño y codificación del módulo de asociación de proyectos}
+\section{Sprint 3: Gestión de Proyectos de Colaborador}
 \subsection{Gestionar proyectos de colaborador}
 \subsubsection {Análisis}
 El actor puede visualizar los proyectos en los que participa, este es el punto de acceso para gestionar: módulos, términos del glosario, entidades, reglas de negocio, mensajes y actores, así como para descargar el documento de análisis y en caso de ser líder, elegir a los colaboradores.\\
 
-\textbf {Elegir colaboradores:} El líder de análisis tiene la facultad de seleccionar a aquellas personas que colaborarán en el proyecto. Para que una persona puedas ser colaboradora tiene que haberse registrado previamente en el módulo de registro de personal.\\
+\textbf {Elegir Colaboradores:} El líder de análisis tiene la facultad de seleccionar a aquellas personas que colaborarán en el proyecto. Para que una persona puedas ser colaboradora tiene que haberse registrado previamente en el módulo de registro de personal.\\
 
-
+\section{Sprint 4: Gestión de Módulos}
 \subsection{Gestionar módulos}
 
 \subsubsection {Análisis}
 Para facilitar la construcción de sistemas de software, la estrategia de Divide y Vencerás es una técnica imprescindible, la cual se basa en la descomposición de un problema en subproblemas de su mismo tipo, lo que permite disminuir la complejidad de los mismos. La manera en la que se descompone un sistema es através de sus módulos, es por eso que se le proporcionar al actor un mecanismo para llevar el control de los módulos de un proyecto. \\
 
-\textbf {Registrar módulo:}
-Para registrar los módulos del proyecto se le solicita al actor ingresar la siguiente información:
+\textbf {Registrar Módulo:}
+Para registrar los módulos del proyecto se le solicita al actor ingresar la siguiente información (atributos).
 
 \begin{itemize}
 	\item \textbf{Clave:} Con el fin de tener unicidad de registros en la base de datos.
@@ -125,32 +125,85 @@ Para registrar los módulos del proyecto se le solicita al actor ingresar la sig
 	\item \textbf{Descripción} Para especificar las características y contenido del módulo.
 \end{itemize}
 
-\textbf {Modificar módulo:}
+\textbf {Modificar Módulo:}
 Dentro del sistema existe la posibilidad de modificar los datos de un módulo previamente registrado, a excepción de su clave.\\
 
-\textbf {Eliminar módulo:} 
+\textbf {Eliminar Módulo:} 
 El sistema debe permitir al actor eliminar el registro de un módulo siempre y cuando no existan referencias al contenido del módulo a eliminar desde elementos de algún otro módulo.
 
-
+\section{Sprint 5: Gestión de Términos de glosario}
 \subsection{Gestionar términos del glosario}
+
 \subsubsection {Análisis}
 En un proyecto es de suma importancia que se tenga una lista de palabras y expresiones clasificadas de un texto con su respectivo significado. La correcta definición conceptual de los términos de negocio en el sistema se hace imprescindible para comprenderlo.
 
-El actor, tiene la facultad y poder de:\\
+El colaborador, tiene la facultad y poder de:\\
 
-\textbf {Registrar término:}
-Para registrar la información de un término se le solicita al actor ingresar la siguiente información.
+\textbf {Registrar Término:}
+Para registrar la información de un término se le solicita al actor ingresar la siguiente información (atributos).
 \begin{itemize}
-	\item \textbf{Nombre:} Con el fin de identificar los módulos.
-	\item \textbf{Descripción} Para especificar las características y contenido del término.
+	\item \textbf{Nombre:} Con el fin de identificar los términos.
+	\item \textbf{Descripción:} Para especificar las características y contenido del término.
 \end{itemize}
 
-\textbf {Modificar término:}
+\textbf {Modificar Término:}
 Dentro del sistema existe la posibilidad de modificar los datos de un término previamente registrado.\\
 
-\textbf {Eliminar término:} 
+\textbf {Eliminar Término:} 
 El sistema debe permitir al actor eliminar el registro de un término existente.\\
 
-\textbf {Consultar término:} 
+\textbf {Consultar Término:} 
 El sistema debe permitir al actor consultar la información de un término existente.
+
+\newpage
+
+\section{Sprint 6: Gestión de Entidades}
+\subsection{Gestionar Entidades}
+
+\subsubsection {Análisis}
+Cuando se habla sobre la construcción de un proyecto de software, se habla también de la interacción de diversas entidades para lograr un fin. Una entidad es un objeto exclusivo único en el mundo real que se está controlando. Una entidad puede referirse a una persona, organización, tipo de objeto o concepto sobre los que se almacena información. Al ser un elemento clave participe dentro del desarrollo de software es importante contar con un catálogo de estos elementos.\\
+
+El colaborador, tiene la facultad y poder de:\\
+
+\textbf {Registrar Entidad:}
+Para registrar la información de una entidad se le solicita al colaborador ingresar la siguiente información (atributos).
+\begin{itemize}
+	\item \textbf{Clave:} Que permitirá distinguir que el Elemento es una Entidad en una palabra corta.
+	\item \textbf{Número: (Generado Automáticamente)} Para llevar un control interno de la cantidad de elementos en el proyecto.
+	\item \textbf{Nombre:} Nombre que identificará a la Entidad en una frase o enunciado.
+\end{itemize}
+
+\textbf {Modificar Entidad:}
+Dentro del sistema existe la posibilidad de modificar los datos de una entidad previamente registrada.\\
+
+\textbf {Eliminar Entidad:} 
+El sistema debe permitir al colaborador eliminar el registro de una entidad existente.\\
+
+\textbf {Consultar Entidad:} 
+El sistema debe permitir al colaborador consultar la información de una entidad existente.
+
+
+\section{Sprint 7: Gestión de Atributos}
+\subsection{Gestionar Atributos}
+
+\subsubsection {Análisis}
+Al considerar la inclusión de entidades como elementos participes dentro del Proyecto, no se deben perder de vista los atributos propios de cada Entidad. Un Atributo es una característica o rasgo de una Entidad que la describe, por ejemplo, el tipo de entidad Persona tiene el atributo Fecha de nacimiento. \\
+
+El colaborador, tiene la facultad y poder de:\\
+
+\textbf {Registrar Atributo:}
+Para registrar la información de un atributo se le solicita al colaborador ingresar la siguiente información (atributos).
+\begin{itemize}
+	\item \textbf{Nombre:} Que identificará al Atributo en la Entidad en una frase o enunciado.
+	\item \textbf{Descripción:} Texto que describirá al Atributo  en uno o más párrafos.
+	\item \textbf{Obligatorio:} Bandeara que indicará si el Atributo es obligatorio o no lo es.
+	\item \textbf{Longitud:} Número que describirá la longitud máxima del Atributo.
+\end{itemize}
+
+\textbf {Modificar Atributo:}
+Dentro del sistema existe la posibilidad de modificar los datos de un atributo previamente registrado.\\
+
+\textbf {Eliminar Atributo:} 
+El sistema debe permitir al colaborador eliminar el registro de un atributo existente.\\
+
 

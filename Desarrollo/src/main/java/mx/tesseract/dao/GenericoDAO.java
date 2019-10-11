@@ -86,5 +86,9 @@ public class GenericoDAO {
 		em.refresh(entidad);
 		return entidad;
 	}
+	
+	public <T extends GenericInterface> Boolean contains(T entidad) {
+		return em.contains(entidad);
+	}
 
 }

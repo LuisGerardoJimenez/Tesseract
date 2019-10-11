@@ -11,7 +11,6 @@ import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.editor.entidad.CasoUso;
 //import mx.tesseract.editor.entidad.Actualizacion;
 import mx.tesseract.editor.entidad.Elemento;
-import mx.tesseract.editor.entidad.EstadoElemento;
 import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ElementoInterface;
@@ -64,6 +63,23 @@ public class ElementoDAO {
 			query.setParameter("idProyecto", idProyecto);
 			query.setParameter("id", id);
 			query.setParameter("nombre", nombre);
+			query.setParameter("clave", clave.toString());
+			List<T> lista = (List<T>) query.getResultList();
+			if (!lista.isEmpty()) {
+				elemento = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return elemento;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T extends ElementoInterface> T findById(Class<T> clase, Integer id, Clave clave) {
+		T elemento = null;
+		try {
+			Query query = entityManager.createNamedQuery("Elemento.consultarElementosById", Elemento.class);
+			query.setParameter("id", id);
 			query.setParameter("clave", clave.toString());
 			List<T> lista = (List<T>) query.getResultList();
 			if (!lista.isEmpty()) {
