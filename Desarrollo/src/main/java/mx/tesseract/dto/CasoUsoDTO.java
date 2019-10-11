@@ -1,5 +1,7 @@
 package mx.tesseract.dto;
 
+import java.util.List;
+
 import javax.persistence.Column;
 
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
@@ -10,6 +12,7 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.editor.entidad.EstadoElemento;
 import mx.tesseract.editor.entidad.Modulo;
+import mx.tesseract.editor.entidad.Revision;
 import mx.tesseract.util.Constantes;
 
 public class CasoUsoDTO {
@@ -33,6 +36,7 @@ public class CasoUsoDTO {
 	
 	private Proyecto proyecto;
 	private Modulo modulo;
+	private List<Revision> revisiones;
 	
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'100', 'caracteres'})}", trim = true, maxLength = "100", shortCircuit= true)
@@ -137,6 +141,15 @@ public class CasoUsoDTO {
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
+
+	public List<Revision> getRevisiones() {
+		return revisiones;
+	}
+
+	public void setRevisiones(List<Revision> revisiones) {
+		this.revisiones = revisiones;
+	}
+	
 	
 	
 }

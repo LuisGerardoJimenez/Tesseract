@@ -38,7 +38,8 @@
 	<p class="instrucciones">Ingrese la información solicitada.</p>
 
 	<s:form autocomplete="off" id="frmCU" theme="simple"
-		action="%{#pageContext.request.contextPath}/cu/%{idSel}" method="post" onsubmit="return prepararEnvio();">
+		action="%{#pageContext.request.contextPath}/caso-uso/%{idSel}"
+		onsubmit="return prepararEnvio();" method="post">
 		<s:hidden name="_method" value="put" />
 		<div class="formulario">
 			<div class="tituloFormulario">Información general del caso de
@@ -114,7 +115,7 @@
 
 			</div>
 		</div>
-		<div class="formulario">
+		<!-- 	<div class="formulario">
 			<div class="tituloFormulario">Precondiciones</div>
 			<div class="seccion">
 				<table class="tablaGestion" id="tablaPrecondiciones">
@@ -148,20 +149,20 @@
 					<sj:a openDialog="postcondDialog" button="true">Registrar</sj:a>
 				</div>
 			</div>
-		</div>
+		</div>-->
 
 		<br />
 		<div align="center">
 			<s:submit class="boton" value="Aceptar"/>
 
 			<input class="boton" type="button"
-				onclick="location.href='${pageContext.request.contextPath}/cu'"
+				onclick="location.href='${pageContext.request.contextPath}/caso-uso'"
 				value="Cancelar" />
 		</div>
 
 		<s:hidden value="%{model.id}" name="model.id" />
 
-		<s:hidden name="jsonPrecondiciones" id="jsonPrecondiciones"
+	    <s:hidden name="jsonPrecondiciones" id="jsonPrecondiciones"
 			value="%{jsonPrecondiciones}" />
 		<s:hidden name="jsonPostcondiciones" id="jsonPostcondiciones"
 			value="%{jsonPostcondiciones}" />
@@ -196,7 +197,7 @@
 
 
 	<!-- PRECONDICIONES -->
-	<sj:dialog id="precondDialog" title="Registrar Precondición"
+	<!-- <sj:dialog id="precondDialog" title="Registrar Precondición"
 		autoOpen="false" minHeight="300" minWidth="800" modal="true"
 		draggable="true">
 		<s:form autocomplete="off" id="frmPrecondicion"
@@ -219,9 +220,9 @@
 					onclick="cancelarRegistrarPrecondicion()" value="Cancelar" />
 			</div>
 		</s:form>
-	</sj:dialog>
+	</sj:dialog> -->
 	<!-- POSTCONDICIONES -->
-	<sj:dialog id="postcondDialog" title="Registrar Postcondición"
+	<!-- <sj:dialog id="postcondDialog" title="Registrar Postcondición"
 		autoOpen="false" minHeight="300" minWidth="800" modal="true"
 		draggable="true">
 		<s:form autocomplete="off" id="frmPostcondicion"
@@ -244,7 +245,7 @@
 					onclick="cancelarRegistrarPostcondicion()" value="Cancelar" />
 			</div>
 		</s:form>
-	</sj:dialog>
+	</sj:dialog>-->
 
 	<!-- COMENTARIOS DE LA ACTUALIZACIÓN -->
 	<sj:dialog id="mensajeConfirmacion" title="Confirmación"

@@ -131,8 +131,8 @@ function esValidoPtoExtension(idTabla, varIdCUDestino, varCausa, varRegion) {
 
 function prepararEnvio() {
 	try {
-		tablaPrecondicionesToJson("tablaPrecondiciones");
-		tablaPostcondicionesToJson("tablaPostcondiciones");
+		//tablaPrecondicionesToJson("tablaPrecondiciones");
+		//tablaPostcondicionesToJson("tablaPostcondiciones");
 		//$('#mensajeConfirmacion').dialog('open');
 		return true;
 	} catch(err) {

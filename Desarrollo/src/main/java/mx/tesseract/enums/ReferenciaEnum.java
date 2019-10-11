@@ -69,7 +69,7 @@ public class ReferenciaEnum {
 		ACTOR_ACTORES, ACTOR_POSTPRECONDICIONES, ACTOR_PASOS,
 			
 		/* Entidades */
-		ENTIDAD_POSTPRECONDICIONES, ENTIDAD_PASOS, ENTIDAD_SALIDAS,
+		ENTIDAD_POSTPRECONDICIONES, ENTIDAD_PASOS, ENTIDAD_SALIDAS, ENTIDAD_ENTRADAS,
 		
 		/* Casos de uso */
 		CASOUSO_POSTPRECONDICIONES, CASOUSO_PASOS,
@@ -204,6 +204,9 @@ public class ReferenciaEnum {
 			if (tipoSeccion == TipoSeccion.POSTPRECONDICIONES) {
 				return TipoRelacion.ENTIDAD_POSTPRECONDICIONES;
 
+			}
+			if (tipoSeccion == TipoSeccion.ENTRADAS) {
+				return TipoRelacion.ENTIDAD_ENTRADAS;
 			}
 			if (tipoSeccion == TipoSeccion.PASOS) {
 				return TipoRelacion.ENTIDAD_PASOS;

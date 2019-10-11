@@ -17,11 +17,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import mx.tesseract.util.GenericInterface;
+
 
 @Entity
 @Table(name = "casouso_reglanegocio", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"CasoUsoElementoid", "ReglaNegocioElementoid"}))
-public class CasoUsoReglaNegocio implements Serializable {
+public class CasoUsoReglaNegocio implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
 	
