@@ -25,7 +25,7 @@
 	<s:hidden name="debug" value="browser"></s:hidden>
 	<br />
 
-	<p class="instrucciones">Ingrese la información solicitada.</p>
+	<p class="instrucciones">Los campos marcados con * son obligatorios</p>
 	<s:form autocomplete="off" id="frmActor" theme="simple"
 		action="%{#pageContext.request.contextPath}/actores" method="post">
 		<div class="formulario">
