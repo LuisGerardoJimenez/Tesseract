@@ -49,6 +49,8 @@ import mx.tesseract.util.GenericInterface;
 	@NamedQuery(name = "Elemento.consultarPantallasByProyectoAndModuloAndIdAndNumero", query = "SELECT e FROM Elemento e JOIN e.proyecto p JOIN e.modulo m WHERE p.id = :idProyecto AND e.clave = :clave AND m.id = :idModulo AND e.id != :id AND e.numero = :numero"),
 	@NamedQuery(name = "Elemento.consultarPantallasByProyectoAndModuloAndNombre", query = "SELECT e FROM Elemento e JOIN e.proyecto p JOIN e.modulo m WHERE p.id = :idProyecto AND e.clave = :clave AND m.id = :idModulo AND e.nombre = :nombre"),
 	@NamedQuery(name = "Elemento.consultarPantallasByProyectoAndModuloAndIdAndNombre", query = "SELECT e FROM Elemento e JOIN e.proyecto p JOIN e.modulo m WHERE p.id = :idProyecto AND e.clave = :clave AND m.id = :idModulo AND e.id != :id AND e.nombre = :nombre"),
+	@NamedQuery(name = "Elemento.findElementoAsociadoCasoUsoActor", query = "SELECT e FROM CasoUsoActor e JOIN e.casouso c JOIN e.actor a WHERE c.id = :idCasoUso AND a.id = :idElemento"),
+	@NamedQuery(name = "Elemento.findElementoAsociadoCasoUsoReglaNegocio", query = "SELECT e FROM CasoUsoReglaNegocio e JOIN e.casoUso c JOIN e.reglaNegocio a WHERE c.id = :idCasoUso AND a.id = :idElemento")
 	})
 
 @Entity
