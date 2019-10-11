@@ -2,41 +2,69 @@
 
 \chapter{Introducción}
 
-La etapa de mantenimiento de software requiere mayor tiempo y costo que sus fases complementarias, por lo que resulta ser también la etapa de mayor complejidad dentro del ciclo de vida de desarrollo de software. Se estima que aproximadamente dos tercios del costo total del software se dedican al mantenimiento \hyperlink{b01}{[1]}. Esta situación es causada por diversos problemas presentes durante las etapas precedentes, principalmente en la etapa de análisis, ya que es difícil contar con las bases sólidas de una documentación bien construida y estructurada que favorezca a la fase de  mantenimiento. Específicamente, el proceso de documentación de los casos de uso requiere una gran cantidad de esfuerzos humanos y es habitualmente propenso a errores, generando un impacto negativo en el desarrollo e implementación del sistema \hyperlink{b02}{[2]}. 
+La etapa de mantenimiento de software requiere mayor tiempo y costo que sus fases complementarias, por lo que resulta ser la etapa de mayor complejidad dentro del ciclo de vida de desarrollo de software. Se estima que aproximadamente dos tercios del costo total del software se dedican al mantenimiento \hyperlink{b01}{[1]}. Esta situación es causada por diversos problemas presentes durante las etapas precedentes, principalmente en la etapa de análisis, ya que es difícil contar con las bases sólidas de una documentación bien construida y estructurada que favorezca a la fase de  mantenimiento. Específicamente, el proceso de documentación de los casos de uso requiere una gran cantidad de esfuerzos humanos y es habitualmente propenso a errores, generando un impacto negativo en el desarrollo e implementación del sistema \hyperlink{b02}{[2]}. \\
 
+La construcción de una herramienta  CASE (Ingeniería de Software Asistida por Computadora) favoreceria la construcción y generación de la documentación de análisis ya que lograría estandarizar el estilo de trabajo que se emplea en la organización para documentar, elevaría la disponibilidad de la información de tal manera que los integrantes accedan a ella; controlaría quién escribe, modifica y supervisa cada parte del documento; finalmente ayudaria a la generación de los documentos finales que se le entregan al cliente.
 
+\newpage
 %---------------------------------------------------------
 \section{Problemática}
 
-La obtención de requerimientos es crucial para la generación de casos de uso desde el punto de vista del analista \hyperlink{b03}{[3]}. La inadecuada especificación de requerimientos es una de las causas predominantes en el fracaso del desarrollo de los sistemas de software hoy en día \hyperlink{b04}{[4]}. Del mismo modo, es común que el equipo de análisis se enfrente a situaciones que dificultan y prolongan la tarea de documentar casos de uso, algunos de los problemas más comunes son: La falta de consistencia en la utilización de los nombres de los actores, reglas de negocio y mensajes, la incorrecta agrupación de casos de uso en gestiones determinadas, la confusión entre escenarios \hyperlink{b05}{[5]}, la falta de adaptación a un estándar de escritura y redacción de los elementos del documento y la incorrecta descripción de derechos funcionales (permisos),  todos esto, resultado de la falta de experiencia de los analistas y el gran esfuerzo humano que requiere obtener un producto final óptimo \hyperlink{b06}{[6]}.
+La obtención de requerimientos es crucial para la generación de casos de uso desde el punto de vista del analista \hyperlink{b03}{[3]}. La inadecuada especificación de requerimientos es una de las causas predominantes en el fracaso del desarrollo de los sistemas de software hoy en día \hyperlink{b04}{[4]}. Del mismo modo, es común que el equipo de análisis se enfrente a situaciones que dificultan y prolongan la tarea de documentar casos de uso, algunos de los problemas más comunes son: \hyperlink{b05}{[5]}
 
+\begin{itemize}
+	\item Falta de consistencia en la utilización de los nombres de actores, reglas de negocio y mensajes.
+	\item Incorrecta agrupación de casos de uso en gestiones determinadas.
+	\item Confusión entre escenarios.
+	\item Falta de adaptación a un estándar de escritura y redacción de los elementos del documento.
+	\item Incorrecta descripción de derechos funcionales (permisos).
+\end{itemize}
 
-	
+Todos estos problemas son resultado de la falta de experiencia de los analistas, ya que la curva de aprendizaje es extensa, sin olvidar, el gran esfuerzo humano que requiere obtener un producto final óptimo \hyperlink{b06}{[6]}.
+
 %---------------------------------------------------------
 \section{Propuesta}
 
-	Se propone construir un sistema que asista a la generación de un documento de análisis basado en casos de uso,  que permita gestionar:
-	
-	Un catálogo de actores el cual explicará brevemente el objetivo del mismo, teniendo la siguiente estructura para definirlos: el nombre del actor, descripción del mismo y sus responsabilidades relacionadas con el sistema según aplique, con el fin de tener consistencia en la utilización de los nombres de los actores.
-	Un catálogo de Reglas de negocio especificando los siguiente: Identificador y nombre de la regla de negocio, de que tipo es, el nivel, una descripción explicando en qué consiste dicha regla, con el fin tener un control al momento de usarlas en diferentes casos de uso.
-	Un catálogo de Mensajes el cual explicará brevemente el objetivo del mismo, este catálogo documentará los mensajes de la siguiente manera: identificador y nombre del mensaje, el tipo de mensaje, propósito, la redacción del mismo y que parámetros deben cumplirse para que el mensaje aparezca esto ayudará a que el usuario pueda reutilizar mensajes en diferentes casos de uso evitando la confusión de los nombres de los mensajes.
-	La agrupación de casos uso dividiéndolos por módulos.
-	Un estándar de redacción y escritura definido para evitar confusiones en la descripción de los casos de uso.
-	Generar de manera automatizada documentos de casos de uso es un desafío que propone la idea de transformar la escritura del lenguaje natural (comúnmente empleado en la elaboración de dichos documentos) a un lenguaje formal y específico. De concretarse este desafío, el tiempo que actualmente toma solucionar los problemas que se presentan durante la elaboración del análisis y su documentación por el  personal de análisis será optimizado. Coadyuvará a adquirir experiencia al equipo para  disminuir errores, su uso representará una reducción de tiempo (el cual no podrá ser medido debido al tiempo con el que se cuenta para desarrollar el proyecto)  y en los recursos destinados al análisis. Lo anterior permitirá generar un documento de análisis  con mayor estructura y consistencia.
-	
+Se propone construir un sistema web que asista en la generación de un documento de análisis basado en casos de uso que coadyuve a los analistas, de tal manera que puedan construir y generar sus documentos de forma estandarizada, que eleve la disponibilidad de la información contenida en los proyectos y que ayude al control del registro, edición y revisión de los casos de uso.\\
 
+Para lo cual el sistema permitirá gestionar.
+
+\begin{itemize}
+	\item Un catálogo de actores el cual explicará brevemente el objetivo del mismo, teniendo la siguiente estructura para definirlos: el nombre del actor, descripción del mismo y sus responsabilidades relacionadas con el sistema según aplique, con el fin de tener consistencia en la utilización de los nombres de los actores.
+	\item Un catálogo de Reglas de negocio especificando los siguiente: Identificador y nombre de la regla de negocio, de que tipo es, el nivel, una descripción explicando en qué consiste dicha regla, con el fin tener un control al momento de usarlas en diferentes casos de uso.
+	\item Un catálogo de Mensajes el cual explicará brevemente el objetivo del mismo, este catálogo documentará los mensajes de la siguiente manera: identificador y nombre del mensaje, el tipo de mensaje, propósito, la redacción del mismo y que parámetros deben cumplirse para que el mensaje aparezca esto ayudará a que el usuario pueda reutilizar mensajes en diferentes casos de uso evitando la confusión de los nombres de los mensajes.
+	\item La agrupación de casos uso dividiéndolos por módulos.
+	\item Un estándar de redacción y escritura definido para evitar confusiones en la descripción de los casos de uso.
+\end{itemize}
+	
+Generar de manera automatizada documentos de casos de uso es un desafío que propone la idea de transformar la escritura del lenguaje natural (comúnmente empleado en la elaboración de dichos documentos) a un lenguaje formal y específico. De concretarse este desafío, el tiempo que actualmente toma solucionar los problemas que se presentan durante la elaboración del análisis y su documentación por el  personal de análisis será optimizado. Coadyuvará a adquirir experiencia al equipo para  disminuir errores, su uso representará una reducción de tiempo (el cual no podrá ser medido debido al tiempo con el que se cuenta para desarrollar el proyecto)  y en los recursos destinados al análisis. Lo anterior permitirá generar un documento de análisis  con mayor estructura y consistencia.
+	
 %---------------------------------------------------------
 \section{Objetivos}
 \subsection{Objetivo General}
-Desarrollar un sistema que asista en la generación de la documentación de casos de uso de un proyecto de software con base en una plantilla predefinida a fin de contribuir en el proceso de su creación.
+Desarrollar un sistema que a través de una plataforma web asista en la generación de la documentación de casos de uso de un proyecto de software, a fin de contribuir en el proceso de su creación de tal manera que los integrantes del proyecto puedan documentar con base en un estándar, sobre una plantilla predefinida y características específicas.
 
 \subsection{Objetivos Específicos}
-Generar un módulo de gestión de usuarios encargado del control de acceso y la administración de los usuarios, en este módulo se asignan los roles y permisos a los diferentes usuarios que se registren.
-Generar un módulo de gestión proyectos encargado de la administración de proyectos, a partir de este módulo se hará el registro, lectura, modificación, eliminación de los componentes necesarios para la documentación del proyecto; contendrá un apartado para la asignación de usuarios al proyecto.
-Generar un módulo de gestión de casos de uso encargado de la creación, lectura, modificación y eliminación de casos de uso así como la asociación de analistas.
-Generar un módulo de gestión de elementos encargado de la definición y registro de todos los elementos necesarios para la creación de casos de uso, con el objeto de registrarlos en una base de datos y poder reutilizarlos al momento de escribir un caso de uso.
-Generar un módulo de revisión y validación de elementos de casos de uso encargado de mostrar los elementos que los conforman para su revisión y validación por usuarios permitidos.
-Generar un módulo de generación de documento de análisis encargado de la generación del documento final de casos de uso para el desarrollo de un sistema con base en la plantilla predefinida.
+
+\begin{itemize}
+	\item Analizar la estructura de un documento de análisis basado en casos de uso para proponer una plantilla a construir.
+	\item Definir una arquitectura de trabajo a fin de que el desarrollo se base en esta.
+	\item Definir el alcance de los sprints con base en la metodología.
+	\item Implementar los módulos analizados y definidos en los sprints
+	\item Diseñar pruebas estáticas y dinámicas
+\end{itemize}
+
+\subsubsection{Alcance}
+
+\begin{itemize}
+	\item Generar un módulo de gestión de usuarios encargado del control de acceso y la administración de los usuarios, en este módulo se asignan los roles y permisos a los diferentes usuarios que se registren.
+	\item Generar un módulo de gestión proyectos encargado de la administración de proyectos, a partir de este módulo se hará el registro, lectura, modificación, eliminación de los componentes necesarios para la documentación del proyecto; contendrá un apartado para la asignación de usuarios al proyecto.
+	\item Generar un módulo de gestión de casos de uso encargado de la creación, lectura, modificación y eliminación de casos de uso así como la asociación de analistas.
+	\item Generar un módulo de gestión de elementos encargado de la definición y registro de todos los elementos necesarios para la creación de casos de uso, con el objeto de registrarlos en una base de datos y poder reutilizarlos al momento de escribir un caso de uso.
+	\item Generar un módulo de revisión y validación de elementos de casos de uso encargado de mostrar los elementos que los conforman para su revisión y validación por usuarios permitidos.
+	\item Generar un módulo de generación de documento de análisis encargado de la generación del documento final de casos de uso para el desarrollo de un sistema con base en la plantilla predefinida.
+
+\end{itemize}
 
 %---------------------------------------------------------
 
