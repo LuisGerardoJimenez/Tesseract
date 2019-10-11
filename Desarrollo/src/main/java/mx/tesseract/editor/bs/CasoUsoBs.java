@@ -44,7 +44,7 @@ public class CasoUsoBs {
 	private RN018 rn018;
 	
 	public List<CasoUso> consultarCasosDeUso(Integer idProyecto, Integer idModulo) {
-		List<CasoUso> lista = casoUsoDAO.findAllByProyectoAndModulo(idProyecto, idModulo, Clave.CUAD);
+		List<CasoUso> lista = casoUsoDAO.findAllByProyectoAndModulo(idProyecto, idModulo, Clave.CU);
 		Iterator<CasoUso> it = lista.iterator();
 		while (it.hasNext()) {
 			CasoUso value = it.next();

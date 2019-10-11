@@ -401,7 +401,7 @@ public class TokenBs {
 				}
 
 				casodeuso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CUAD);
+						.replaceAll("_", " "), Clave.CU);
 				if (casodeuso == null) {
 					// Construcción del mensaje de error;
 					String[] parametros = { "el", "caso de uso",
@@ -525,10 +525,10 @@ public class TokenBs {
 					errorEnToken("la", "trayectoria");
 				}
 				elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CUAD);
+						.replaceAll("_", " "), Clave.CU);
 				//casodeuso = new CasoUsoDAO().consultarCasoUso(segmentos.get(1),segmentos.get(2), proyecto);
 				casodeuso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CUAD);
+						.replaceAll("_", " "), Clave.CU);
 				if (casodeuso == null) {
 					String[] parametros = { "el", "caso de uso",
 							segmentos.get(1) + segmentos.get(2), "registrado" };
@@ -571,7 +571,7 @@ public class TokenBs {
 				}
 				//casodeuso = new CasoUsoDAO().consultarCasoUso(segmentos.get(1),segmentos.get(2), proyecto);
 				casodeuso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CUAD);
+						.replaceAll("_", " "), Clave.CU);
 				if (casodeuso == null) {
 					String[] parametros = { "el", "caso de uso",
 							segmentos.get(1) + segmentos.get(2), "registrado" };
@@ -781,7 +781,7 @@ public class TokenBs {
 				}
 
 				casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CUAD);
+						.replaceAll("_", " "), Clave.CU);
 				if (casoUso == null) {
 					// Construcción del mensaje de error;
 					String[] parametros = { "el", "caso de uso",
@@ -903,7 +903,7 @@ public class TokenBs {
 				}
 				trayectoria = null;
 				casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CUAD);
+						.replaceAll("_", " "), Clave.CU);
 				if (casoUso == null) {
 					String[] parametros = { "el", "caso de uso",
 							segmentos.get(1) + segmentos.get(2), "registrado" };
@@ -942,7 +942,7 @@ public class TokenBs {
 					errorEnToken("el", "paso");
 				}
 				casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
-						.replaceAll("_", " "), Clave.CUAD);
+						.replaceAll("_", " "), Clave.CU);
 				if (casoUso == null) {
 					String[] parametros = { "el", "caso de uso",
 							segmentos.get(1) + segmentos.get(2), "registrado" };
@@ -1537,7 +1537,7 @@ public class TokenBs {
 					break;
 				case CASOUSO:
 					CasoUso casoUso = elementoDAO.findById(CasoUso.class, Integer
-							.parseInt(segmentos.get(1)), Clave.CUAD);
+							.parseInt(segmentos.get(1)), Clave.CU);
 					if (casoUso == null) {
 						cadenaDecodificada = "";
 						break;

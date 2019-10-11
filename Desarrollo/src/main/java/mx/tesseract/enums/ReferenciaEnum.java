@@ -61,7 +61,7 @@ public class ReferenciaEnum {
 	}
 	
 	public enum Clave {
-		ACT, ENT, GLS, RN, MSG, IU, CUAD
+		ACT, ENT, GLS, RN, MSG, IU, CU
 	}
 	
 	public enum TipoRelacion {
@@ -117,7 +117,7 @@ public class ReferenciaEnum {
 		if (tokenReferencia.equals("ENT")){
 			return TipoReferencia.ENTIDAD;
 		}
-		if (tokenReferencia.equals("CUAD")){
+		if (tokenReferencia.equals("CU")){
 			return TipoReferencia.CASOUSO;
 		}
 		if (tokenReferencia.equals("IU")){

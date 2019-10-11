@@ -218,7 +218,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 		}finally{
-			model.setClave(Clave.CUAD.toString());
+			model.setClave(Clave.CU.toString());
 		}
 		return resultado;
 	}
@@ -248,7 +248,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 		}finally{
-			model.setClave(Clave.CUAD.toString());
+			model.setClave(Clave.CU.toString());
 		}
 		return resultado;
 	}
@@ -376,7 +376,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
 			}finally {
-				model.setClave(Clave.CUAD.toString());
+				model.setClave(Clave.CU.toString());
 			}
 		}
 	}

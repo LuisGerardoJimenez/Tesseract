@@ -38,7 +38,7 @@ import mx.tesseract.util.GenericInterface;
 @Table(name = "casouso")
 @Inheritance(strategy=InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
-@DiscriminatorValue("CUAD")
+@DiscriminatorValue("CU")
 public class CasoUso extends Elemento implements Serializable, GenericInterface, ElementoInterface {
 
 	private static final long serialVersionUID = 1L;
