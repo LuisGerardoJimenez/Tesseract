@@ -10,9 +10,12 @@ import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.TESSERACTException;
+import mx.tesseract.util.TESSERACTLogger;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
@@ -25,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AccessAct extends ActionSupportTESSERACT {
 	
 	private static final long serialVersionUID = 1L;
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	private static final String ADMINISTRADOR = "administrador";
 	private static final String COLABORADOR = "colaborador";
 	private Map<String, Object> userSession;
@@ -76,17 +80,13 @@ public class AccessAct extends ActionSupportTESSERACT {
 				resultado = COLABORADOR;
 			}
 		} catch (TESSERACTValidacionException tve) {
-			System.out.println("Error en el Create() TESSERACTValidacionException");
-			System.err.println("Tve: " + tve);
+//			LoggerHelper.error(this.getClass().getName(), "findUniqueAtInsert", e);
+			TESSERACT_LOGGER.debug(this.getClass().getName()+ " --> " + tve.getMessage());
 			ErrorManager.agregaMensajeError(this, tve);
 		} catch (TESSERACTException te) {
-			System.out.println("Error en el Create() TESSERACTException");
-			System.err.println("Te: " + te);
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			System.out.println("E: " + e);
-			System.err.println("Error en el Create() Exception");
-			ErrorManager.agregaMensajeError(this, e);
+			TESSERACT_LOGGER.error(this.getClass().getName(), "Login", e);
 		}
 		return resultado;
 	}

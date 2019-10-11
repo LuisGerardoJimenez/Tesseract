@@ -26,21 +26,13 @@
 %--------------------------------------
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Da clic en el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/terminar}} del registro que desea realizar la operación de la pantalla \IUref{IU6}{Gestionar Casos de uso}.
-		\UCpaso[\UCsist] Verifica que el estado del caso de uso sea ''Edición'' o ''Pendiente de corrección''. \hyperlink{CU12-5:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra el mensaje emergente \cdtIdRef{MSG8}{Confirmación de termino} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar} en la pantalla \IUref{IU6}{Gestionar Casos de uso}.
-		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-5:TAB}{[Trayectoria B]}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-5:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Cambia el estado del caso de uso a ''Revisión''.
 		\UCpaso[\UCactor] Se muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU6}{Gestionar Casos de uso}.
 	\end{UCtrayectoria}		
-%--------------------------------------
+
 \hypertarget{CU12-5:TAA}{\textbf{Trayectoria alternativa A}}\\
-\noindent \textbf{Condición:} El caso de uso que se desea terminar se encuentra en un estado diferente a ''Edición'' o ''Pendiente de corrección''.
-\begin{enumerate}
-	\UCpaso[\UCsist] Oculta el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/terminar}} del caso que no se encuentra en estado de ''Edición'' o ''Pendiente de corrección''.
-	\item[- -] - - {\em {Fin del caso de uso}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU12-5:TAB}{\textbf{Trayectoria alternativa B}}\\
 \noindent \textbf{Condición:} El actor desea cancelar la operación.
 \begin{enumerate}
 	\UCpaso[\UCactor] Oprime el botón \IUbutton{Cancelar} de la pantalla emergente.
