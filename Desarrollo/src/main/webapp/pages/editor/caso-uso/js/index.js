@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var contextPath = $("#rutaContexto").val();
+	contextPath = $("#rutaContexto").val();
 
 	if(document.getElementById("pruebaGenerada").value == "true") {
 		window.location.href = contextPath + "/configuracion-caso-uso!descargarPrueba";
@@ -9,8 +9,7 @@ $(document).ready(function() {
 		window.location.href = contextPath + "/configuracion-casos-uso!descargarPruebaGeneral";
 		document.getElementById("pruebaGenerada2").value = "false";
 	}
-	$('#gestion').DataTable().column(0).visible(false); 
-	
+	$('#gestion').DataTable().column(0).visible(false);
 });
 
 function confirmarEliminacion(urlEliminar) {
@@ -20,6 +19,13 @@ function confirmarEliminacion(urlEliminar) {
 
 function cancelarConfirmarEliminacion() {
 	$('#confirmarEliminacionDialog').dialog('close');
+}
+
+function mostrarMensajeEliminacion(id) {
+	var urlEliminar = contextPath + "/caso-uso/" + id + "!destroy";	
+	document.getElementById("btnConfirmarEliminacion").onclick = function(){ confirmarEliminacion(urlEliminar);};
+	$('#confirmarEliminacionDialog').dialog('open');
+	return false;
 }
 
 function cerrarMensajeReferencias() {
@@ -56,30 +62,6 @@ function verificarEliminacionElemento(idElemento) {
 
 	return false;
 
-}
-
-function mostrarMensajeEliminacion(json, id) {
-	var elementos = document.createElement("ul");
-	var elementosReferencias = document.getElementById("elementosReferencias");
-	var urlEliminar = contextPath + "/cu/" + id + "?_method=delete";
-	while (elementosReferencias.firstChild) {
-		elementosReferencias.removeChild(elementosReferencias.firstChild);
-	}
-	if (json != "") {
-		$.each(json, function(i, item) {
-			var elemento = document.createElement("li");
-			elemento.appendChild(document.createTextNode(item));
-			elementos.appendChild(elemento);
-		});
-		document.getElementById("elementosReferencias").appendChild(elementos);
-
-		$('#mensajeReferenciasDialog').dialog('open');
-	} else {
-		document.getElementById("btnConfirmarEliminacion").onclick = function() {
-			confirmarEliminacion(urlEliminar);
-		};
-		$('#confirmarEliminacionDialog').dialog('open');
-	}
 }
 
 function verificarTerminarCasoUso(idElemento) {

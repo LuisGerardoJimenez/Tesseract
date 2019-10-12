@@ -79,9 +79,9 @@
 								${blanks}	
 									
 								<!-- Eliminar caso de uso -->
-								<s:a onclick="return verificarEliminacionElemento(%{#cu.id});">
-								<img id="" class="button" title="Eliminar Caso de uso"
-										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>	
+								<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#cu.id}');">
+								<img id="" class="button" title="Eliminar Mensaje"
+										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
 								${blanks}
 							</s:if>				
 							<s:if test="%{#cu.estadoElemento.id == 2}">	
@@ -198,7 +198,7 @@
 		minHeight="100" minWidth="400" modal="true" draggable="true">
 		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
 				<div class="seccion">
-				<s:text name="MSG11"></s:text>
+				<s:text name="MSG10"></s:text>
 				</div>
 			<br />
 			<div align="center">
@@ -209,18 +209,18 @@
 	</sj:dialog>
 	<!-- EMERGENTE ERROR REFERENCIAS -->
 	<sj:dialog id="mensajeReferenciasDialog" title="Confirmación" autoOpen="false"
-		minHeight="200" minWidth="700" modal="true" draggable="true">
+		minHeight="150" minWidth="700" modal="true" draggable="true">
 		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
 				<div class="seccion">
-				<s:text name="MSG14"/>
-				<div class="" id="elementosReferencias"><!--  --></div>
+				<s:text name="MSG40"/>
+				<div id="elementosReferencias"></div>
 				</div>
 			<br />
 			<div align="center">
 				<input type="button" onclick="cerrarMensajeReferencias()" value="Aceptar"/> 
 			</div>
 		</s:form>
-	</sj:dialog>	
+	</sj:dialog>
 	
 	<!-- EMERGENTE TERMINAR -->
 	<sj:dialog id="mensajeTerminarDialog" title="Confirmación" autoOpen="false"
