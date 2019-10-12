@@ -49,6 +49,7 @@ import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -65,10 +66,13 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 				"elementosReferencias" }),
 		@Result(name = "modulos", type = "redirectAction", params = {
 				"actionName", Constantes.ACTION_NAME_MODULOS }),
+		@Result(name = "postprecondicion", type = "redirectAction", params = {
+				"actionName", Constantes.ACTION_NAME_POSTPRECONDICION }),
 		@Result(name = "restricciones", type = "json", params = { "root",
 				"restriccionesTermino" }),
 		@Result(name = "revision", type = "dispatcher", location = "caso-uso/revision.jsp"),
 		@Result(name = "liberacion", type = "dispatcher", location = "caso-uso/liberacion.jsp")})
+@AllowedMethods({"entrarPostprecondiciones"})
 public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<CasoUsoDTO> {
 
 	private static final long serialVersionUID = 1L;
@@ -77,6 +81,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	private static final String MODULOS = "modulos";
 	private static final String REVISION = "revision";
 	private static final String LIBERACION = "liberacion";
+	private static final String POSTPRECONDICION = "postprecondicion";
 
 	// Proyecto y módulo
 	private Proyecto proyecto;
@@ -175,6 +180,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 					listCU = casoUsoBs.consultarCasosDeUso(idProyecto, idModulo);
 					model.setProyecto(proyecto);
 					model.setModulo(modulo);
+					SessionManager.delete("idCU");
 					resultado = INDEX;
 					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 					this.setActionMessages(msjs);
@@ -465,95 +471,24 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public String entrarPostprecondiciones() {
+		String resultado = INDEX;
+		try {
+			resultado = POSTPRECONDICION;
+			SessionManager.set(idSel, "idCU");
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+			this.setActionMessages(msjs);
+			SessionManager.delete("mensajesAccion");
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
+	}
 
-//	public String edit() {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			
-//			modulo = SessionManager.consultarModuloActivo();
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			
-//			model.setProyecto(proyecto);
-//			
-//			model.setModulo(modulo);
-//
-//			ElementoBs.verificarEstado(model, CU_CasosUso.MODIFICARCASOUSO5_2);
-//
-//			buscaElementos();
-//			
-//			prepararVista();
-//
-//			resultado = EDIT;
-//		} catch (TESSERACTValidacionException pve) {
-//			ErrorManager.agregaMensajeError(this, pve);
-//			resultado = edit();
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
-//
-//	public String update() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			model.setModulo(modulo);
-//
-//			model.getActores().clear();
-//			model.getEntradas().clear();
-//			model.getSalidas().clear();
-//			model.getReglas().clear();
-//			model.getPostprecondiciones().clear();
-//
-//			agregarPostPrecondiciones(model);
-//			CasoUsoBs.preAlmacenarObjetosToken(model);
-////			Actualizacion actualizacion = new Actualizacion(new Date(),
-////					comentario, model,
-////					SessionManager.consultarColaboradorActivo());
-//
-//			//CasoUsoBs.modificarCasoUso(model, actualizacion);
-//			CasoUsoBs.modificarCasoUso(model);
-//			resultado = SUCCESS;
-//			addActionMessage(getText("MSG1", new String[] { "El",
-//					"Caso de uso", "modificado" }));
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		} catch (TESSERACTValidacionException pve) {
-//			ErrorManager.agregaMensajeError(this, pve);
-//			resultado = edit();
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
 //
 //	public String show() throws Exception {
 //		String resultado = null;
