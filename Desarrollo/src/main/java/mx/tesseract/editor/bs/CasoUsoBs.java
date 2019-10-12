@@ -177,6 +177,7 @@ public class CasoUsoBs {
 		if (rn018.isValidRN018(casoUsoDTO)) {
 			CasoUso casoUso = genericoDAO.findById(CasoUso.class, casoUsoDTO.getId());
 			genericoDAO.delete(casoUso);
+			eliminarElementosAsociados(casoUso);
 		} else {
 			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
 					"MSG13");
