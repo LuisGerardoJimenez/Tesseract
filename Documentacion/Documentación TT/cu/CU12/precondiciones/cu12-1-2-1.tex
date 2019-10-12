@@ -1,13 +1,13 @@
-	\begin{UseCase}{CU12.1.2.1}{Registrar Precondición}{
+	\begin{UseCase}{CU12.1.2.1}{Registrar Precondición/Postcondicón}{
 			
-				Cuando el colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) está registrando la información de un \hyperlink{casoUso}{Caso de Uso} correspondiente a algún \hyperlink{moduloEntidad}{Módulo} del proyecto, el sistema le permitirá registrar las precondiciones correspondientes al caso de uso para que pueda ser utilizado en sus Trayectorias. Una \hyperlink{entidadPrecondicion}{Precondición} describe un conjunto de condiciones que deben cumplirse para poder ejecutar el caso de uso satisfactoriamente. A través de un campo el sistema solicita la redacción de la precondición que se desea registrar.\\
+				Cuando el colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) ha registrado la información de un \hyperlink{casoUso}{Caso de Uso} correspondiente a algún \hyperlink{moduloEntidad}{Módulo} del proyecto, el sistema le permitirá registrar las precondiciones y/o postcondiciones correspondientes al caso de uso para que pueda ser utilizado en sus Trayectorias. Una \hyperlink{entidadPrecondicion}{Precondición} describe un conjunto de condiciones que deben cumplirse para poder ejecutar el caso de uso satisfactoriamente y  una \hyperlink{entidadPostcondicion}{Postcondición}describen un conjunto de condiciones que deberán cumplirse después de ejecutar el caso de uso. A través de un campo el sistema solicita la redacción de la precondición o postcondición que se desea registrar.\\
 			
 }
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
-		\UCitem{Propósito}{Registrar las precondiciones de un caso de uso.}
+		\UCitem{Propósito}{Registrar las precondiciones o postcondiciones de un caso de uso.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{entidadPrecondicion:redaccionPrecondicion}{Redacción de la precondición}: Se escribe desde el teclado.
+			\item \cdtRef{entidadPrecondicion:redaccionPrecondicion}{Redacción de la precondición}: Se escribe desde el teclado o \cdtRef{entidadPostcondicion:redaccionPostcondicion}{Redacción de la postcondición}: Se escribe desde el teclado.
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
@@ -21,22 +21,23 @@
 		\UCitem{Precondiciones}{Que exista al menos un caso de uso registrado.}
 		\UCitem{Postcondiciones}{Ninguna}
 		\UCitem{Errores}{\begin{itemize}
-		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU6.1.2}{Registrar Precondición} cuando no se ha ingresado un dato marcado como obligatorio.
-		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.2}{Registrar Precondición} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
-		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.1.2}{Registrar Precondición} cuando se ha excedido la longitud de alguno de los campos.
+		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU6.1.2}{Registrar Precondición/Postcondición} cuando no se ha ingresado un dato marcado como obligatorio.
+		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.2}{Registrar Precondición/Postcondición} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.1.2}{Registrar Precondición/Postcondición} cuando se ha excedido la longitud de alguno de los campos.
 		\end{itemize}.}
-		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12.1.2}{Gestionar Precondiciones}.}
+		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12.1.2}{Gestionar Precondiciones/Postcondiciones}.}
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita registrar una precondición oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU6.1.2}{Pendiente}.
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1.2}{Registrar Precondición}.
-		\UCpaso[\UCactor] Ingresa la redacción de la precondición. \hyperlink{CU12-1-2-1:TAA}{[Trayectoria A]} \label{CU12.1.2-P3}
+		\UCpaso[\UCactor] Solicita registrar una precondición o postcondición oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU6.1.2}{Pendiente}.
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1.2}{Registrar Precondición/Postcondición}.
+		\UCpaso[\UCactor] Elije el tipo de condición que desea registrar.
+		\UCpaso[\UCactor] Ingresa la redacción. \hyperlink{CU12-1-2-1:TAA}{[Trayectoria A]} \label{CU12.1.2-P3}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-1-2-1:TAB}{[Trayectoria B]} 
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-1-2-1:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que los datos requeridos sean proporcionados correctamente con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-1-2-1:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-1-2-1:TAE}{[Trayectoria E]}
-		\UCpaso[\UCsist] Persiste la información de la prencodición en el sistema.
+		\UCpaso[\UCsist] Persiste la información de la condición en el sistema.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12A}{Pendiente} para indicar al actor que el registro se ha realizado exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------
@@ -65,7 +66,7 @@
 \hypertarget{CU12-1-2-1:TAC}{\textbf{Trayectoria alternativa C}}\\
 \noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.2}{Registrar Precondición}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.2}{Registrar Precondición/Postcondicón}.
 	\UCpaso Regresa al paso \ref{CU12.1.2-P3} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
@@ -73,7 +74,7 @@
 \hypertarget{CU12-1-2-1:TAD}{\textbf{Trayectoria alternativa D}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.2}{Registrar Precondición}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.2}{Registrar Precondición/Postcondicón}.
 	\UCpaso Regresa al paso \ref{CU12.1.2-P3} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
@@ -81,7 +82,7 @@
 \hypertarget{CU12-1-2-1:TAE}{\textbf{Trayectoria alternativa E}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.2}{Registrar Precondición}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.2}{Registrar Precondición/Postcondicón}.
 	\UCpaso Regresa al paso \ref{CU12.1.2-P3} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
