@@ -126,9 +126,9 @@ Un caso de uso está compuesto por distintos elementos, los cuales se describen 
 \item \textbf{Puntos de extensión}: Es la incorporación implícita del comportamiento de otro caso de uso, el cuál no es parte del flujo principal. Modela la parte opcional del sistema, un subflujo que sólo se ejecuta bajo ciertas condiciones o varios flujos que se pueden insertar en un punto determinado. 
 \end{itemize}
 
-\subsection{Herramienta CASE}
+\section{Herramienta CASE}
 
-\subsubsection{Definición}
+\subsection{Definición}
 
 Las tecnologías de ingeniería de software asistida por computadora (CASE) son herramientas que brindan asistencia automatizada para el desarrollo de software . El objetivo de presentar las herramientas CASE es la reducción del tiempo y el costo del desarrollo de software y la mejora de la calidad de los sistemas desarrollados. \hyperlink{b15}{[15]} 
 
@@ -147,31 +147,57 @@ Una herramienta CASE se puede clasificar en tres categorías  :
 	\item Middle CASE (M-CASE), herramientas para automatizar tareas en el análisis y diseño de la aplicación.
 	\item Lower CASE (L-CASE), herramientas que semi-automatizan la generación de código, crean programas de detección de errores, soportan la depuración de programas y pruebas. Además automatizan la documentación completa de la aplicación. Aquí pueden incluirse las herramientas de desarrollo rápido de aplicaciones.
 \end{itemize}
-\hyperlink{b16}{[16]}
-Debido a sus similitudes, a veces Upper CASE y Middle CASE simplemente se conocen como Upper CASE. En general, Upper CASE es una herramienta para una vista de alto nivel del desarrollo de software, mientras que lower CASE se utiliza principalmente como herramienta en la fase de programación y prueba.
 
+Debido a sus similitudes, a veces Upper CASE y Middle CASE simplemente se conocen como Upper CASE. En general, Upper CASE es una herramienta para una vista de alto nivel del desarrollo de software, mientras que lower CASE se utiliza principalmente como herramienta en la fase de programación y prueba. \hyperlink{b16}{[16]}
 
-\subsection{Patrón de Diseño MVC (Modelo Vista-Controlador)}
+\section {Implementación del desarrollo}
 
-\subsubsection{Definición}
+\subsection{Patrones de diseño}
 
-El patrón de diseño de modelo-vista-controlador (MVC) especifica que una aplicación consta de un modelo de datos, de información de presentación y de información de control. El patrón requiere que cada uno de estos elementos esté separado en distintos objetos. \hyperlink{b17}{[17]} \\
+Cada patrón describe un problema que ocurre una y otra vez en nuestro entorno, también describe el núcleo de la solución a ese problema, de tal manera que puede usar esta solución un millón de veces, sin tener que hacerlo lo mismo dos veces. \hyperlink{b19}{[19]} \\
+
+En general, un patrón tiene cuatro elementos esenciales \hyperlink{b17}{[17]}:
+
+\begin{enumerate}
+	\item El nombre del patrón es un identificador que podemos usar para describir un problema de diseño, sus soluciones y consecuencias en una o dos palabras. Nombrar un patrón nos permite diseñar a un nivel más alto de abstracción.
+	
+	\item El problema describe cuándo aplicar el patrón. Explica el problema y su contexto. Podría describir problemas de diseño específicos, como la forma de representar algoritmos como objetos. Podría describir estructuras de clase u objeto que son sintomáticas de un diseño inflexible. A veces, el problema incluirá una lista de condiciones que deben cumplirse antes de que tenga sentido aplicar el patrón.
+	
+	\item La solución describe los elementos que componen el diseño, sus relaciones, responsabilidades y colaboraciones. La solución no describe un diseño o implementación concreta en particular, porque un patrón es como una plantilla que se puede aplicar en muchas situaciones diferentes. En cambio, el patrón proporciona una descripción abstracta de un problema de diseño y cómo lo resuelve una disposición general de elementos (clases y objetos en nuestro caso).
+	
+	\item Las consecuencias son los resultados y las compensaciones de aplicar el patrón. Aunque las consecuencias a menudo no se expresan cuando describimos las decisiones de diseño, son críticas para evaluar las alternativas de diseño y para comprender los costos y beneficios de aplicar el patrón. Las consecuencias para el software a menudo se refieren a compensaciones de espacio y tiempo. También pueden abordar problemas de lenguaje e implementación. Dado que la reutilización es a menudo un factor en el diseño orientado a objetos, las consecuencias de un patrón incluyen su impacto en la flexibilidad de un sistema, extensibilidad o portabilidad. Enumerar estas consecuencias explícitamente le ayuda a comprenderlas y evaluarlas.
+\end{enumerate}
+
+\subsubsection{Patrón de Diseño MVC (Modelo Vista-Controlador)}
+
+El patrón de diseño de modelo-vista-controlador (MVC) especifica que una aplicación consta de un modelo de datos, de información de presentación y de información de control. El patrón requiere que cada uno de estos elementos esté separado en distintos objetos. \hyperlink{b17}{[17]}
 
 \subsubsection{Características}
-
-El modelo (por ejemplo, la información de datos) contiene únicamente los datos puros de aplicación; no contiene lógica que describe cómo pueden presentarse los datos a un usuario.\\
-
-La vista (por ejemplo, la información de presentación) presenta al usuario los datos del modelo. La vista sabe cómo acceder a los datos del modelo, pero no sabe el significado de estos datos ni lo que el usuario puede hacer para manipularlos.\\
-
-Por último, el controlador (por ejemplo, la información de control) está entre la vista y el modelo. Escucha los sucesos desencadenados por la vista (u otro origen externo) y ejecuta la reacción apropiada a estos sucesos. En la mayoría de los casos, la reacción es llamar a un método del modelo. Puesto que la vista y el modelo están conectados a través de un mecanismo de notificación, el resultado de esta acción se reflejará automáticamente en la vista.\\
+MVC consta de tres tipos de objetos:
+\begin{enumerate}
+\item El modelo es el objeto de la aplicación (por ejemplo, la información de datos) contiene únicamente los datos puros de aplicación; no contiene lógica que describe cómo pueden presentarse los datos a un usuario.
+\item La vista es su presentación en pantalla  (por ejemplo, la información de presentación) presenta al usuario los datos del modelo. La vista sabe cómo acceder a los datos del modelo, pero no sabe el significado de estos datos ni lo que el usuario puede hacer para manipularlos.
+\item Por último, el controlador que  define la forma en que la interfaz de usuario reacciona a la entrada del usuario(por ejemplo, la información de control) está entre la vista y el modelo. Escucha los sucesos desencadenados por la vista (u otro origen externo) y ejecuta la reacción apropiada a estos sucesos. En la mayoría de los casos, la reacción es llamar a un método del modelo. Puesto que la vista y el modelo están conectados a través de un mecanismo de notificación, el resultado de esta acción se reflejará automáticamente en la vista.
+\end{enumerate}
 
 El comportamiento se ilustra en la figura 2.2\\
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=.65\textwidth]{images/marcoteorico/mvc}
+		\caption{Imagen que ilustra el modelo Vista-Controlador}
+		\label{fig:mvc}
+	\end{center}
+\end{figure}
+
+MVC desacopla las vistas y los modelos al establecer un protocolo de suscripción / notificación entre ellos. Una vista debe garantizar que su apariencia refleje el estado del modelo. Cada vez que los datos del modelo cambian, el modelo notifica las vistas que dependen de él. En respuesta, cada vista tiene la oportunidad de actualizarse. Este enfoque le permite adjuntar múltiples vistas a un modelo para proporcionar diferentes presentaciones. También puede crear nuevas vistas para un modelo sin reescribirlo.\\
+
+El siguiente diagrama muestra un modelo y tres vistas. (Se omitieron los controladores por simplicidad). El modelo contiene algunos valores de datos, y las vistas que definen una hoja de cálculo, un histograma y un gráfico circular muestran estos datos de varias maneras. El modelo se comunica con sus vistas cuando cambian sus valores, y las vistas se comunican con el modelo para acceder a estos valores. \hyperlink{b20}{[20]} 
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=.95\textwidth]{images/marcoteorico/mvc}
-		\caption{Imagen que ilustra el modelo Vista-Controlador}
-		\label{fig:mvc}
+		\includegraphics[width=.65\textwidth]{images/marcoteorico/mvc2}
+		\caption{Imagen que ilustra un ejemplo de cómo opera el MVC }
+		\label{fig:mvc2}
 	\end{center}
 \end{figure}
 
