@@ -1,8 +1,8 @@
-	\begin{UseCase}{CU12.1.2}{Gestionar Precondiciones}{
-     	Al momento de registrar un caso de uso, el sistema le permitirá al colaborador gestionar las precondiciones del caso de uso (de tal forma que podrá registrarlas o eliminarlas). Las precondiciones son condiciones que ha de satisfacerse justo antes del comienzo de la ejecución de las instrucciones del caso de uso.
+	\begin{UseCase}{CU12.1.2}{Gestionar Precondiciones/Postcondiciones}{
+     	Al momento de registrar un caso de uso, el sistema le permitirá al colaborador gestionar las precondiciones y postcondiciones del caso de uso (de tal forma que podrá registrarlas, editarlas o eliminarlas). Las precondiciones son condiciones que ha de satisfacerse justo antes del comienzo de la ejecución de las instrucciones del caso de uso. Las postcondiciones son aquellas condiciones que siempre deben cumplirse justamente después de la ejecución de una caso de uso.
 	}
 	\UCitem{Actor}{\hyperlink{jefe}{Líder de análisis}, \hyperlink{analista}{Analista}}
-	\UCitem{Propósito}{Proporcionar al actor un mecanismo para llevar el control de las precondiciones pertenecientes a caso de uso.}
+	\UCitem{Propósito}{Proporcionar al actor un mecanismo para llevar el control de las precondiciones y postcondiciones pertenecientes a caso de uso.}
 	\UCitem{Entradas}{Ninguna}
 	\UCitem{Salidas}{\begin{itemize}
 			\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto}: Lo obtiene el sistema.
@@ -10,8 +10,8 @@
 			\item \cdtRef{moduloEntidad:nombreModulo}{Nombre del Módulo}: Lo obtiene el sistema.
 			\item \cdtRef{casoUso:numeroCU}{Número} del caso de uso: Lo obtiene el sistema. 
 			\item \cdtRef{casoUso:nombreCU}{Nombre} del caso de uso: Lo obtiene el sistema.
-			\item \cdtRef{entidadPrecondicion}{Precondición}: Tabla que muestra \cdtRef{entidadPrecondicion:redaccionPrecondicion}{Redacción} de todas las precondiciones registradas en un caso de uso.
-			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU12A}{Pendiente} cuando no existen precondiciones registradas.
+			\item \cdtRef{entidadPrecondicion}{Precondición}: Tabla que muestra \cdtRef{entidadPrecondicion:redaccionPrecondicion}{Redacción} y el tipo de todas las precondiciones y postcondiciones registradas en un caso de uso.
+			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU12A}{Pendiente} cuando no existen precondiciones o postcondciones registradas.
 	\end{itemize}}
 	
 	\UCitem{Precondiciones}{Que exista al menos un caso de uso registrado.}
@@ -22,21 +22,22 @@
 %--------------------------------------
 \begin{UCtrayectoria}
 	\UCpaso[\UCactor] Solicita gestionar las precondiciones de un caso de uso seleccionando el icono (Pendiente) de la pantalla \IUref{IU6}{Gestionar Casos de uso}.
-	\UCpaso[\UCsist] Obtiene la información de las precondiciones registradas de caso de uso seleccionado. \hyperlink{CU12-1-2:TAA}{[Trayectoria A]}
-	\UCpaso[\UCsist] Ordena las precondiciones alfabéticamente basándose en la redacción de las mismas.
-	\UCpaso[\UCsist] Muestra la información de las precondiciones en la pantalla \IUref{IU12}{Pendiente} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}. \label{CU12-1-2-P4}
-	\UCpaso[\UCactor] Gestiona las precondiciones a través de los botones: \IUbutton{Registrar} y \eliminar. 
+	\UCpaso[\UCsist] Obtiene la información de las precondiciones y postcondiciones registradas de caso de uso seleccionado. \hyperlink{CU12-1-2:TAA}{[Trayectoria A]}
+	\UCpaso[\UCsist] Ordena las precondiciones y postcondiciones alfabéticamente basándose en la redacción de las mismas.
+	\UCpaso[\UCsist] Muestra la información encontrada en la pantalla \IUref{IU12}{Pendiente} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}. \label{CU12-1-2-P4}
+	\UCpaso[\UCactor] Gestiona las precondiciones y postcondiciones a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. 
 \end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU12-1-2:TAA}{\textbf{Trayectoria alternativa A}}\\
-\noindent \textbf{Condición:} No existen registros de precondiciones.
+\noindent \textbf{Condición:} No existen registros de precondiciones y/o postcondiciones.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU7A}{Pendiente} para indicar que no hay registros de precondiciones para mostrar.  \label{CU12-1-2-TA1}
-	\UCpaso[\UCactor] Gestiona las precondiciones a través del botón: \IUbutton{Registrar}. 
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU7A}{Pendiente} para indicar que no hay registros para mostrar.  \label{CU12-1-2-TA1}
+	\UCpaso[\UCactor] Gestiona las precondiciones y postcondiciones a través del botón: \IUbutton{Registrar}. 
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
 \subsubsection{Puntos de extensión}
 
-\UCExtenssionPoint{El actor requiere registrar una precondición}{Presionando el botón \IUbutton{Registrar} del paso \ref{CU12-1-2-P4} de la trayectoria principal o del paso \ref{CU12-1-2-TA1} de la Trayectoria Alternativa A.}{\UCref{CU12.1.2.1}{Registrar Precondición}}
-\UCExtenssionPoint{El actor requiere eliminar una precondición}{Presionando el icono \eliminar del paso \ref{CU12-1-2-P4} de la trayectoria principal.}{\UCref{CU12.1.2.2}{Eliminar Precondición}}
+\UCExtenssionPoint{El actor requiere registrar una precondición/postcondición}{Presionando el botón \IUbutton{Registrar} del paso \ref{CU12-1-2-P4} de la trayectoria principal o del paso \ref{CU12-1-2-TA1} de la Trayectoria Alternativa A.}{\UCref{CU12.1.2.1}{Registrar Precondición/Postcondición}}
+\UCExtenssionPoint{El actor requiere modificar una precondición}{Presionando el icono \editar del paso \ref{CU12-1-2-P4} de la trayectoria principal.}{\UCref{CU12.1.2.2}{Modificar precondición/postcondición}}
+\UCExtenssionPoint{El actor requiere eliminar una precondición}{Presionando el icono \eliminar del paso \ref{CU12-1-2-P4} de la trayectoria principal.}{\UCref{CU12.1.2.3}{Eliminar precondición/postcondición}}
