@@ -1,0 +1,96 @@
+	\begin{UseCase}{CU7.1.1.1}{Registrar Atributo}{
+			Permite al colaborador (ya sea \hyperlink{jefe}{Líder} o \hyperlink{analista}{Analista}) registrar la información general de un \hyperlink{atributoEntidad}{Atributo}, dichos datos se guardan con el objetivo de conocer la descripción y tipo de dato de las propiedades de la \hyperlink{entidadEntidad}{Entidad} sobre la cual se está operando.
+	}
+		
+		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
+		\UCitem{Propósito}{Registrar la información de atributo.}
+		\UCitem{Entradas}{
+		\begin{itemize}
+			\item \cdtRef{atributoEntidad:nombreATR}{Nombre del atributo:} Se escribe desde el teclado.
+			\item \cdtRef{atributoEntidad:descripcionATR}{Descripción del atributo:} Se escribe desde el teclado.
+			\item \cdtRef{atributoEntidad:obligatorioATR}{Obligatorio:} Se selecciona de una lista.
+			\item \hyperlink{tTipoDatoP}{Tipo de Dato:} Se selecciona de una lista.
+		\end{itemize}	
+		}
+		\UCitem{Salidas}{\cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} para indicar que el registro fue exitoso.}
+		\UCitem{Precondiciones}{\begin{itemize}
+				\item Que el catálogo ''Tipo de dato''contenga información.
+				\item Que el catálogo ''Unidad de tamaño''contenga información.
+			\end{itemize}
+		}
+		\UCitem{Postcondiciones}{\begin{itemize}
+				\item Se registrará un atributo perteneciente a una entidad de un proyecto.
+				\item La entidad a la que pertenece el atributo podrá ser referenciada en casos de uso.
+				\item El atributo podrá ser referenciado en casos de uso.
+		\end{itemize}}
+		\UCitem{Errores}{\begin{itemize}
+		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU12.1.1}{Registrar Atributo} cuando no se ha ingresado un dato marcado como obligatorio.
+		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU12.1.1}{Registrar Atributo} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU12.1.1}{Registrar Atributo} cuando se ha excedido la longitud de alguno de los campos.
+		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU12.1.1}{Registrar Atributo} cuando se registre un atributo con un nombre que ya se encuentra registrado en el sistema.
+		\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} cuando no exista información en el catálogo ''tipo de dato'' o ''unidad de tamaño''.
+		\end{itemize}
+		}
+		\UCitem{Tipo}{Secundario, extiende de los casos de uso \UCref{CU7.1.1}{Gestionar Atributos}.}
+	\end{UseCase}
+%--------------------------------------
+	\begin{UCtrayectoria}
+		\UCpaso[\UCactor] Solicita registrar un atributo oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos}.
+		\UCpaso[\UCsist] Verifica que el catálogo ''tipo de dato'' y ''unidad de tamaño'' cuenten con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU7-1-1-1:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1.1}{Registrar Atributo}.
+		\UCpaso[\UCactor] Ingresa la información solicitada. \label{CU7.1.1-P3}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU7-1-1-1:TAB}{[Trayectoria B]}
+		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU7-1-1-1:TAC}{[Trayectoria C]}
+		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU7-1-1-1:TAD}{[Trayectoria D]}
+		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU7-1-1-1:TAE}{[Trayectoria E]}
+		\UCpaso[\UCsist] Verifica que el nombre del atributo no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU7-1-1-1:TAF}{[Trayectoria F]}
+		\UCpaso[\UCsist] Persiste la información del atributo.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} para indicar al actor que el registro se ha realizado exitosamente.
+	\end{UCtrayectoria}		
+%--------------------------------------
+\hypertarget{CU7-1-1-1:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} El catálogo de ''tipo de dato'' o ''unidad de tamaño'' no tiene información.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU7-1-1-1:TAB}{\textbf{Trayectoria alternativa B}}\\
+\noindent \textbf{Condición:} El actor desea cancelar la operación.
+\begin{enumerate}
+	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la pantalla \IUref{IU12.1.1}{Registrar Atributo}
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1.1}{Gestionar Atributos}.
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
+%--------------------------------------	
+\hypertarget{CU7-1-1-1:TAC}{\textbf{Trayectoria alternativa C}}\\
+\noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU12.1.1}{Registrar Atributo}.
+	\UCpaso Regresa al paso \ref{CU7.1.1-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU7-1-1-1:TAD}{\textbf{Trayectoria alternativa D}}\\
+\noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU12.1.1}{Registrar Atributo}.
+	\UCpaso Regresa al paso \ref{CU7.1.1-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%-------------------------------------
+\hypertarget{CU7-1-1-1:TAE}{\textbf{Trayectoria alternativa E}}\\
+\noindent \textbf{Condición:} El actor ingresó un dato con un formato de dato incorrecto.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU12.1.1}{Registrar Atributo}.
+	\UCpaso Regresa al paso \ref{CU7.1.1-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}
+%-------------------------------------
+\hypertarget{CU7-1-1-1:TAF}{\textbf{Trayectoria alternativa F}}\\
+\noindent \textbf{Condición:} El actor ingresó un atributo que ya existe dentro de la entidad.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU12.1.1}{Registrar Atributo}.
+	\UCpaso Regresa al paso \ref{CU7.1.1-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}

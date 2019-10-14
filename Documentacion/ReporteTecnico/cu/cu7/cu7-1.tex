@@ -1,0 +1,89 @@
+	\begin{UseCase}{CU7.1}{Registrar Entidad}{
+			
+		Este caso de uso permite al colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) registrar la información de una \hyperlink{entidadEntidad}{Entidad} correspondiente al proyecto sobre el cual se está operando.
+		Una vez registrada la \hyperlink{entidadEntidad}{Entidad}, el sistema (a través de sus acciones) le permitirá al colaborador  gestionar los atributos propios de la entidad.
+
+	}
+		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
+		\UCitem{Propósito}{Registrar la información de una entidad y gestionar sus atributos.}
+		\UCitem{Entradas}{
+		\begin{itemize}
+			\item \cdtRef{entidadEntidad:nombreEntidad}{Nombre de la entidad:} Se escribe desde el teclado.
+			\item \cdtRef{entidadEntidad:descripcionEntidad}{Descripción de la entidad:} Se escribe desde el teclado.
+		\end{itemize}	
+		}
+		\UCitem{Salidas}{\begin{itemize}
+				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto:} Lo obtiene el sistema.
+				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto:} Lo obtiene el sistema.
+				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU12}{Gestionar Entidades} para indicar que el registro fue exitoso.
+		\end{itemize}}
+		
+		\UCitem{Precondiciones}{Ninguna}
+		\UCitem{Postcondiciones}{
+		\begin{itemize}
+			\item Se registrará un entidad de un proyecto en el sistema.
+			\item La entidad podrá ser referenciada en casos de uso.
+		\end{itemize}
+		}
+		\UCitem{Errores}{\begin{itemize}
+		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando no se ha ingresado un dato marcado como obligatorio.
+		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando se ha excedido la longitud de alguno de los campos.
+		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU12.1}{Registrar Entidad} cuando se registre una entidad con un nombre que ya se encuentra registrado en el sistema.
+		\end{itemize}
+		}
+		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU7}{Gestionar Entidades}.}
+	\end{UseCase}
+%--------------------------------------
+	\begin{UCtrayectoria}
+		\UCpaso[\UCactor] Solicita registrar una entidad oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU12}{Gestionar Entidades}.
+		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12.1}{Registrar Entidad}. \label{CU7.1-P2}
+		\UCpaso[\UCactor] Ingresa la información solicitada. \label{CU7.1-P3}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU7-1:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU7-1:TAB}{[Trayectoria B]}
+		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU7-1:TAC}{[Trayectoria C]}
+		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU7-1:TAD}{[Trayectoria D]}
+		\UCpaso[\UCsist] Verifica que el nombre de la entidad no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU7-1:TAE}{[Trayectoria E]}
+		\UCpaso[\UCsist] Persiste la información de la entidad.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12}{Gestionar Entidades} para indicar al actor que el registro se ha realizado exitosamente.
+	\end{UCtrayectoria}		
+%--------------------------------------
+\hypertarget{CU7-1:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} El actor desea cancelar la operación.
+\begin{enumerate}
+	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la pantalla \IUref{IU12.1}{Registrar Entidad}
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12}{Gestionar Entidades}.
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU7-1:TAB}{\textbf{Trayectoria alternativa B}}\\
+\noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU12.1}{Registrar Entidad}.
+	\UCpaso Regresa al paso \ref{CU7.1-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU7-1:TAC}{\textbf{Trayectoria alternativa C}}\\
+\noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU12.1}{Registrar Entidad}.
+	\UCpaso Regresa al paso \ref{CU7.1-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU7-1:TAD}{\textbf{Trayectoria alternativa D}}\\
+\noindent \textbf{Condición:} El actor ingresó un dato con un formato de dato incorrecto.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU12.1}{Registrar Entidad}.
+	\UCpaso Regresa al paso \ref{CU7.1-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}
+%--------------------------------------	
+\hypertarget{CU7-1:TAE}{\textbf{Trayectoria alternativa E}}\\
+\noindent \textbf{Condición:} El actor ingresó una entidad ya existe dentro del sistema.
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU12.1}{Registrar Entidad}.
+	\UCpaso Regresa al paso \ref{CU7.1-P3} de la trayectoria principal.
+	\item[- -] - - {\em {Fin de la trayectoria}}.
+\end{enumerate}
