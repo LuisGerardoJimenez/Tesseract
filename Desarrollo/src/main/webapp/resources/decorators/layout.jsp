@@ -108,9 +108,9 @@
 					<table class = "info">
 						<tr>
 							<td align="right">Caso de uso:
-								<s:property value="casoUso.clave" /> - 
-								<s:property value="casoUso.numero" />
-								<s:property value="casoUso.nombre" />
+								<s:property value="casoUsoBase.clave" /> 
+								<s:property value="casoUsoBase.numero" /> - 
+								<s:property value="casoUsoBase.nombre" />
 							</td>
 						</tr>
 					</table>

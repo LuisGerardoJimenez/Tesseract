@@ -1,14 +1,13 @@
 package mx.tesseract.editor.action;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import mx.tesseract.admin.bs.LoginBs;
-import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.editor.bs.CasoUsoBs;
 import mx.tesseract.editor.bs.ModuloBs;
+import mx.tesseract.editor.bs.PostprecondicionBs;
 import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.PostPrecondicion;
@@ -18,7 +17,6 @@ import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.SessionManager;
 
-import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -31,46 +29,46 @@ import com.opensymphony.xwork2.ModelDriven;
 		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_POSTPRECONDICION }),
 		@Result(name = "proyectos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_PROYECTOS }),
 		@Result(name = "modulos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_MODULOS }),
-		@Result(name = "caso-uso", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_CASO_USO })})
+		@Result(name = "casoUsoBase-uso", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_CASO_USO })})
 public class PostprecondicionAct extends ActionSupportTESSERACT implements ModelDriven<PostPrecondicion> {
 	private static final long serialVersionUID = 1L;
 	private static final String PROYECTOS = "proyectos";
 	private static final String MODULOS = "modulos";
-	private static final String CASO_USO = "caso-uso";
+	private static final String CASO_USO = "casoUsoBase-uso";
 	private PostPrecondicion model;
 	private Proyecto proyecto;
-	private CasoUso casoUso;
+	private CasoUso casoUsoBase;
 	private Modulo modulo;
 	private List<PostPrecondicion> listPostprecondiciones;
 	private Integer idSel;
+	private Integer idProyecto;
+	private Integer idModulo;
+	private Integer idCasoUso;
 
 	@Autowired
 	private LoginBs loginBs;
-
-	@Autowired
-	private ProyectoBs proyectoBs;
 	
 	@Autowired
 	private CasoUsoBs casoUsoBs;
 	
 	@Autowired
 	private ModuloBs moduloBs;
+	
+	@Autowired
+	private PostprecondicionBs postprecondicionBs;
 
-	@SuppressWarnings("unchecked")
 	public String index() {
-		String resultado = CASO_USO;
+		String resultado = PROYECTOS;
 		try {
-			listPostprecondiciones = new ArrayList<>();
-			Integer idCU = (Integer) SessionManager.get("idCU");
-			casoUso = casoUsoBs.consultarCasoUso(idCU);
-			proyecto = loginBs.consultarProyectoActivo();
-			modulo = moduloBs.consultarModuloById((Integer) SessionManager.get("idModulo"));
-			System.out.println(casoUso.getClave());
-			System.out.println(casoUso.getNombre());
-			resultado = INDEX;
-			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
-			this.setActionMessages(msjs);
-			SessionManager.delete("mensajesAccion");
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					resultado = buscarModelos();
+				} else {
+					resultado = MODULOS;
+				}
+			}
 		} catch (TESSERACTException te) {
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
@@ -78,20 +76,22 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 		}
 		return resultado;
 	}
-
+	
 	@SuppressWarnings("unchecked")
-	public String entrar() {
-		String resultado = INDEX;
-		try {
-			resultado = MODULOS;
-			SessionManager.set(idSel, "idProyecto");
+	private String buscarModelos() {
+		String resultado = null;
+		idCasoUso = (Integer) SessionManager.get("idCU");
+		if (idCasoUso != null) {
+			proyecto = loginBs.consultarProyectoActivo();
+			modulo = moduloBs.consultarModuloById(idModulo);
+			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+			listPostprecondiciones = postprecondicionBs.consultarPostPrecondicionesByCasoUso(casoUsoBase.getId());
+			resultado = INDEX;
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
-		} catch (TESSERACTException te) {
-			ErrorManager.agregaMensajeError(this, te);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} else {
+			resultado = CASO_USO;
 		}
 		return resultado;
 	}
@@ -105,7 +105,7 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 	}
 	
 	public Proyecto getProyecto() {
-		return (proyecto == null) ? proyecto = loginBs.consultarProyectoActivo() : proyecto;
+		return proyecto;
 	}
 
 	public void setProyecto(Proyecto proyecto) {
@@ -118,8 +118,7 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
-//		model = proyectoBs.consultarProyecto(idSel);
-//		proyecto = model;
+		model = postprecondicionBs.consultarPostPrecondicionById(idSel);
 	}
 
 	public List<PostPrecondicion> getListPostprecondiciones() {
@@ -130,12 +129,12 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 		this.listPostprecondiciones = listPostprecondiciones;
 	}
 
-	public CasoUso getCasoUso() {
-		return casoUso;
+	public CasoUso getCasoUsoBase() {
+		return casoUsoBase;
 	}
 
-	public void setCasoUso(CasoUso casoUso) {
-		this.casoUso = casoUso;
+	public void setCasoUsoBase(CasoUso casoUso) {
+		this.casoUsoBase = casoUso;
 	}
 
 	public Modulo getModulo() {
@@ -145,6 +144,5 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 	public void setModulo(Modulo modulo) {
 		this.modulo = modulo;
 	}
-	
 
 }
