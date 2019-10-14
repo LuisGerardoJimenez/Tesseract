@@ -104,12 +104,14 @@
 						</tr>
 					</table>
 				</s:if>
-				<s:if test="#session.idCU != null">
+				<s:if test="#session.idCU != null ">
 					<table class = "info">
 						<tr>
 							<td align="right">Caso de uso:
-							<s:property value="casoUso.clave + casoUso.numero + ' '" /><s:property
-									value="casoUso.nombre" /></td>
+								<s:property value="casoUsoBase.clave" /> 
+								<s:property value="casoUsoBase.numero" /> - 
+								<s:property value="casoUsoBase.nombre" />
+							</td>
 						</tr>
 					</table>
 				</s:if>

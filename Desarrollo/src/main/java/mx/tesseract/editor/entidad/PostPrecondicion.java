@@ -16,12 +16,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import mx.tesseract.util.GenericInterface;
 
-
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "PostPrecondicion.findByCasoUso", query = "SELECT p.* FROM postprecondicion p WHERE p.CasoUsoElementoid = ?", resultClass = PostPrecondicion.class)
+	})
 
 @Entity
 @Table(name = "postprecondicion")
