@@ -1,0 +1,53 @@
+	\begin{UseCase}{CU5}{Gestionar Módulos}{
+	
+	Cuando el colaborador ya dispone de los permisos necesarios para acceder a la gestión de un proyecto como (\hyperlink{jefe}{Líder} o \hyperlink{analista}{Analista}), el sistema le permitirá dividir dicho proyecto en varios segmentos llamados módulos. 
+	
+	Este caso de uso permite al colaborador (\hyperlink{jefe}{Líder} o \hyperlink{analista}{Analista}) visualizar en una tabla el listado de los módulos que componen el proyecto sobre el que se está operando y solicitar el registro de uno nuevo. En cada módulo existente se podrán realizar diferentes acciones como: gestionar sus respectivos casos de uso, gestionar las pantallas que corresponden al módulo, modificar la información de algún módulo previamente registrado (para actualizar nombre o descripción), así como eliminar un módulo (en caso de que este ya no tenga una razón de ser dentro del sistema).\\
+	
+	Un módulo podrá ser eliminado del sistema siempre y cuando este no contenga Casos de uso.
+	
+	}
+	\UCitem{Actor}{\hyperlink{jefe}{Líder de análisis}, \hyperlink{analista}{Analista}}
+	\UCitem{Propósito}{Proporcionar al actor un mecanismo para llevar el control de los módulos de un proyecto.}
+	\UCitem{Entradas}{Ninguna}
+	\UCitem{Salidas}{\begin{itemize}
+			\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto}: Lo obtiene el sistema.
+			\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto}: Lo obtiene el sistema.
+			\item \cdtRef{moduloEntidad}{Módulo}: Tabla que muestra \cdtRef{moduloEntidad:claveModulo}{Clave}, y el \cdtRef{moduloEntidad:nombreModulo}{Nombre} de los módulos de un proyecto.
+			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU4A}{Gestionar Módulos} cuando no existen módulos registrados.
+	\end{itemize}}
+	\UCitem{Precondiciones}{Que existe al menos un proyecto registrado.}
+	\UCitem{Postcondiciones}{Ninguna}
+	\UCitem{Errores}{Ninguno}
+	\UCitem{Tipo}{Secundario, extiende de \UCref{CU4}{Gestionar Proyectos de Colaborador}}
+\end{UseCase}
+%--------------------------------------
+\begin{UCtrayectoria}
+	\UCpaso[\UCactor] Da clic en el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/entrar}} de algún proyecto existente de la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador}.
+	\UCpaso[\UCsist] Obtiene la información de los módulos del proyecto seleccionado. \hyperlink{CU5:TAA}{[Trayectoria A]}
+	\UCpaso[\UCsist] Ordena los módulos alfabéticamente con base en la clave de los mismos.
+	\UCpaso[\UCsist] Muestra la información de los módulos en la pantalla \IUref{IU4}{Gestionar Módulos}.\label{CU5-P3}
+	\UCpaso[\UCactor] Gestiona los módulos a través de los botones: \IUbutton{Registrar}, \editar, \eliminar, \UCsist  y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/pantalla}}.
+\end{UCtrayectoria}		
+%--------------------------------------
+\hypertarget{CU5:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} No existen registros de módulos
+\begin{enumerate}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU4A}{Gestionar Módulos} para indicar que no hay registros de módulos para mostrar. \label{CU5-TA1}
+	\UCpaso[\UCactor] Gestiona los módulos a través del botón: \IUbutton{Registrar}. 
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}
+%--------------------------------------
+
+\subsubsection{Puntos de extensión}
+
+\UCExtenssionPoint{El actor requiere registrar un módulo.}{Presionando el botón \IUbutton{Registrar} del paso \ref{CU5-P3} de la trayectoria principal o del paso \ref{CU5-TA1} de la trayectoria alternativa A.}{\UCref{CU5.1}{Registrar Módulo}}
+\UCExtenssionPoint{El actor requiere modificar un módulo.}{Presionando el icono \editar del paso \ref{CU5-P3} de la trayectoria principal.}{\UCref{CU5.2}{Modificar Módulo}}
+\UCExtenssionPoint{El actor requiere eliminar un módulo.}{Presionando el icono \eliminar del paso \ref{CU5-P3} de la trayectoria principal.}{\UCref{CU5.3}{Eliminar Módulo}}
+\UCExtenssionPoint{El actor requiere gestionar los casos de uso de un módulo.}{Presionando el icono \UCsist del paso \ref{CU5-P3} de la trayectoria principal.}{\UCref{CU11}{Gestionar Casos de uso}}
+\UCExtenssionPoint{El actor requiere gestionar las pantallas de un módulo.}{Presionando el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/pantalla}} del paso \ref{CU5-P3} de la trayectoria principal.}{\UCref{CU3.3}{Eliminar Persona}}
+\UCExtenssionPoint{El actor requiere gestionar el glosario de un proyectos.}{Eligiendo la opción "Glosario" del menu \IUref{MN3}{Menú de Proyecto} del paso \ref{CU4-P3} de la trayectoria principal o del paso \ref{CU5-TA1} de la trayectoria alternativa B.}{\UCref{CU6}{Gestionar Términos}}
+\UCExtenssionPoint{El actor requiere gestionar las entidades de un proyecto.}{Eligiendo la opción "Entidades" del menu \IUref{MN3}{Menú de Proyecto} del paso \ref{CU5-P3} de la trayectoria principal o del paso \ref{CU5-TA1} de la trayectoria alternativa B.}{\UCref{CU7}{Gestionar Entidades}}
+\UCExtenssionPoint{El actor requiere gestionar las reglas de negocio de un proyecto.}{Eligiendo la opción "Reglas de negocio" del menu \IUref{MN3}{Menú de Proyecto} del paso \ref{CU5-P3} de la trayectoria principal o del paso \ref{CU5-TA1} de la trayectoria alternativa B.}{\UCref{CU8}{Gestionar reglas de negocio}}
+\UCExtenssionPoint{El actor requiere gestionar los mensajes de un proyecto.}{Eligiendo la opción "Mensajes" del menu \IUref{MN3}{Menú de Proyecto} del paso \ref{CU5-P3} de la trayectoria principal o del paso \ref{CU5-TA1} de la trayectoria alternativa B.}{\UCref{CU9}{Gestionar Mensajes}}
+\UCExtenssionPoint{El actor requiere gestionar los actores de un proyecto.}{Eligiendo la opción "Actores" del menu \IUref{MN3}{Menú de Proyecto} del paso \ref{CU5-P3} de la trayectoria principal o del paso \ref{CU5-TA1} de la trayectoria alternativa B}{\UCref{CU10}{Gestionar Actores}}

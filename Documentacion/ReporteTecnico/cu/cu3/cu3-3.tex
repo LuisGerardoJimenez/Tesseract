@@ -1,0 +1,51 @@
+	\begin{UseCase}{CU3.3}{Eliminar Colaborador}{
+			Cuando algún miembro deja de pertenecer a la compañía y ya no se contará con su participación dentro de algún \hyperlink{proyectoEntidad}{Proyecto}, Tesseract permitirá al {\hyperlink{admin}{Administrador}} eliminar en su totalidad el registro de un colaborador. \\
+			Un colaborador podrá ser eliminado siempre y cuando no se encuentre asociado a un \hyperlink{proyectoEntidad}{Proyecto}.
+	}
+		\UCitem{Actor}{\hyperlink{admin}{Administrador}}
+		\UCitem{Propósito}{Eliminar un colaborador del sistema.}
+		\UCitem{Entradas}{Niguna}	
+		\UCitem{Salidas}{
+		\begin{itemize}
+			\item \cdtIdRef{MSG1}{Operación Exitosa}: Se muestra en la pantalla \IUref{IU3}{Gestionar Colaboradores} para indicar que el colaborador fue eliminado correctamente.
+			\item \cdtIdRef{MSG10}{Confirmar eliminación}: Se muestra en la pantalla \IUref{IU3}{Gestionar Colaboradores} preguntando al actor si desea continuar con la eliminación del colaborador.
+		\end{itemize}
+		}
+		\UCitem{Precondiciones}{
+			Que el colaborador no se encuentre asociado a ningún proyecto.
+		}
+		\UCitem{Postcondiciones}{
+			Se eliminará un colaborador del sistema.
+		}
+		\UCitem{Errores}{
+			 \cdtIdRef{MSG28}{Eliminar colaborador}: Se muestra en la pantalla \IUref{IU3}{Gestionar Colaboradores} cuando no se pueda eliminar un colaborador debido a que se encuentra asociado a uno o mas proyectos.
+		}
+		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU3}{Gestionar Colaboradores}}
+	\end{UseCase}
+%--------------------------------------
+	\begin{UCtrayectoria}
+		\UCpaso[\UCactor] Da clic en el icono \eliminar del registro que desea eliminar de la pantalla \IUref{IU3}{Gestionar Colaboradores}.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG10}{Confirmar eliminación} en la pantalla \IUref{IU3}{Gestionar Colaboradores} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar}
+		\UCpaso[\UCactor] Confirma la eliminación del proyecto oprimiendo el botón \IUbutton{Aceptar}. \hyperlink{CU3-3:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Verifica que el Colaborador pueda eliminarse, con base en la regla de negocio \BRref{RN27}{Eliminación de Colaboradores}.  \hyperlink{CU3-3:TAB}{[Trayectoria B]}
+		\UCpaso[\UCsist] Elimina el colaborador del sistema.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU3}{Gestionar Colaboradores} para indicar al actor que se ha eliminado el registro exitosamente.
+	\end{UCtrayectoria}
+
+%--------------------------------------
+\hypertarget{CU3-3:TAA}{\textbf{Trayectoria alternativa A}}\\
+\noindent \textbf{Condición:} El actor desea cancelar la operación.
+\begin{enumerate}
+	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la ventana emergente.
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU3}{Gestionar Colaboradores}.
+	\item[- -] - - {\em {Fin del caso de uso}}.%
+\end{enumerate}		
+%--------------------------------------	
+	\hypertarget{CU3-3:TAB}{\textbf{Trayectoria alternativa B}}\\
+	\noindent \textbf{Condición:} El Colaborador tiene proyectos asociados.
+	\begin{enumerate}
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG28}{Eliminar colaborador} en la pantalla \IUref{IU3}{Gestionar Colaboradores}.
+		\item[- -] - - {\em {Fin del caso de uso}}.%
+	\end{enumerate}
+
+%--------------------------------------
