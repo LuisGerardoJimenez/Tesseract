@@ -1,0 +1,28 @@
+\chapter{Arquitectura} \label{cap:seis}
+
+La arquitectura implementada tiene como finalidad un sistema web estable, modular y escalable; para su realización se utilizaron las siguientes tecnologías:
+
+\section{Frameworks}
+\subsection {Spring}
+Spring nos brinda ventajas como: la administración de objetos, garantizando que los recursos se creen, reutilicen y limpien correctamente (Managed Objects) \hyperlink{b25}{[25]}; El Manejo de transacciones declarativas, por ejemplo Rollback de una transacción \hyperlink{b26}{[26]} y un modelo de programación consistente en diferentes API de transacciones, tal como Java Persistence API.
+La utilización de Spring junto con sus características nos brinda un sistema con alta disponibilidad.
+
+\subsection {Struts}
+Se implementó Struts2 porque es un framework de código abierto, extensible mediante plugins (REST, AJAX, etc) y utiliza el patrón de diseño MVC \hyperlink{b27}{[27]}.
+
+\section{Arquitectura n capas}
+La arquitectura n capas está implementada dentro del patrón MVC en el Modelo, ayuda a la modularidad de la capa de negocio, la capa de reglas de negocio y la capa de persistencia, de tal manera que se consigue un bajo acoplamiento.
+
+
+\section{Patrones de Diseño}
+\subsection{Interface}
+El patrón interface se utilizó para denotar aquellas clases que pueden ser utilizadas por el DAO genérico y realizar las operaciones elementales a la base de datos
+
+
+\subsection{Singleton}
+El patrón de diseño singleton se implementa mediante anotaciones de Spring con la finalidad de \hyperlink{b28}{[28]}
+
+\section{Logger log4j}
+
+
+

@@ -95,43 +95,6 @@
 \fancyfoot{}
 
 
-\newcommand{\varDireccion}{Av. Juan de Dios Bátiz esq. Miguel Othón de Mendizabal S/N Col. Lindavista, GAM, D. F.}
-
-\newcommand{\varTelefono}{57296000 Ext. 52004}
-
-\newcommand{\varCorreo}{cdt.escom@gmail.com}
-
-
-%=====================================================
-% Comando: \setDireccion{Direccion}
-% Propósito: Definir la dirección de la organización
-% Ejemplo: \setDireccion{Av. Juan de Dios Bátiz esq. Miguel Othón de Mendizabal S/N Col. Lindavista, GAM, D. F.}
-%=====================================================
-\newcommand{\setDireccion}[1]{%
-	\renewcommand{\varDireccion}{{#1}}%
-}
-
-%=====================================================
-% Comando: \setCorreo{direccion-de-correo}
-% Propósito: Definir la dirección de correo de la organización
-% Ejemplo: \setCorreo{ulises.velez@gmail.com}
-%=====================================================
-\newcommand{\setCorreo}[1]{%
-	\renewcommand{\varCorreo}{{#1}}%
-}
-
-%=====================================================
-% Comando: \setTelefono{numero-telefonico}
-% Propósito: Definir la dirección de correo de la organización
-% Ejemplo: \setTelefono{5536506147}
-%=====================================================
-\newcommand{\setTelefono}[1]{%
-	\renewcommand{\varTelefono}{{#1}}%
-}
-
-
-\fancyfoot[CO,CE]{{\footnotesize\em\varDireccion\\ {\color{colorPrincipal}\Telefon}\varTelefono~{}{\color{colorPrincipal}\Letter} \varCorreo}}
-\fancyfoot[RO,LE]{\hspace{.5cm}\footnotesize\thepage~{}}
 
 %%=====================================================
 %% Estilo para los Capítulos y secciones

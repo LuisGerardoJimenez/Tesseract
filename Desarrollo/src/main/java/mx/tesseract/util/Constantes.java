@@ -1,10 +1,5 @@
 package mx.tesseract.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import mx.tesseract.enums.ReferenciaEnum.TipoReferencia;
-
 public final class Constantes {
 	
 	//NUMEROS CONSTANTES ENTEROS
@@ -101,6 +96,7 @@ public final class Constantes {
 	public static final String ACTION_NAME_ACCIONES = "acciones";
 	public static final String ACTION_NAME_CASO_USO = "caso-uso";
 	public static final String ACTION_NAME_TRAYECTORIAS = "trayectorias";
+	public static final String ACTION_NAME_POSTPRECONDICION = "postprecondicion";
 	
 	//DICCIONARIO
 	public static final String DICCIONARIO = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
