@@ -57,7 +57,7 @@
 							<!-- Eliminar Entidad -->			
 							<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/entidades/%{#entidad.id}?_method=delete" method="post"/>-->
 							<s:a href="#" onclick="return mostrarMensajeEliminacion(%{#entidad.id});">
-							<img id="" class="button" title="Eliminar Mensaje"
+							<img id="" class="button" title="Eliminar Entidad"
 									src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>	
 						${blanks}	
 						</s:if>

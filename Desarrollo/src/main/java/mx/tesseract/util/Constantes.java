@@ -100,6 +100,7 @@ public final class Constantes {
 	public static final String ACTION_NAME_PANTALLAS = "pantallas";
 	public static final String ACTION_NAME_ACCIONES = "acciones";
 	public static final String ACTION_NAME_CASO_USO = "caso-uso";
+	public static final String ACTION_NAME_TRAYECTORIAS = "trayectorias";
 	
 	//DICCIONARIO
 	public static final String DICCIONARIO = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
@@ -126,5 +127,12 @@ public final class Constantes {
 	
 	/* Referencias */
 	public static final String TIPO_REFERENCIA_ACCION = "ACC";
+	public static final String TIPO_REFERENCIA_TRAYECTORIA = "TRAY";
+	
+	public static final String SELECT_ACTOR = "Actor";
+	public static final String SELECT_SISTEMA = "Sistema";
+	public static final String SELECT_PRINCIPAL = "Principal";
+	public static final String SELECT_ALTERNATIVA= "Alternativa";
+	
 
 }

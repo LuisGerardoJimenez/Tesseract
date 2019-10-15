@@ -12,7 +12,6 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
-import mx.tesseract.admin.entidad.ColaboradorProyecto;
 import mx.tesseract.util.GenericInterface;
 
 @Repository("genericoDAO")

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import mx.tesseract.admin.dao.ProyectoDAO;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.dto.AccionDTO;
 import mx.tesseract.dto.ActorDTO;
@@ -16,6 +17,7 @@ import mx.tesseract.dto.AtributoDTO;
 import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.dto.ReglaNegocioDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
+import mx.tesseract.dto.TrayectoriaDTO;
 import mx.tesseract.editor.dao.AccionDAO;
 import mx.tesseract.editor.dao.AtributoDAO;
 import mx.tesseract.editor.dao.ElementoDAO;
@@ -31,6 +33,7 @@ import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
 import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.editor.entidad.TerminoGlosario;
+import mx.tesseract.editor.entidad.Trayectoria;
 
 @Service("rN006")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
@@ -53,6 +56,9 @@ public class RN006 {
 	
 	@Autowired
 	private AccionDAO accionDAO;
+	
+	@Autowired
+	private GenericoDAO genericoDAO;
 	
 	public Boolean isValidRN006(Proyecto entidad) {
 		Boolean valido = true;
@@ -201,6 +207,23 @@ public class RN006 {
 		}
 		if (accion != null) {
 			valido = false;
+		}
+		return valido;
+	}
+
+	public boolean isValidRN006(TrayectoriaDTO model, Integer idCasoUso) {
+		Boolean valido = true;
+		CasoUso casoUso = genericoDAO.findById(CasoUso.class, idCasoUso);
+		if(model.getId() == null) {
+			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+				if(trayectoria.getClave().equals(model.getClave()))
+					return false;
+			}
+		}else {
+			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+				if(trayectoria.getClave().equals(model.getClave()) && trayectoria.getId().equals(model.getId()))
+					return false;
+			}
 		}
 		return valido;
 	}

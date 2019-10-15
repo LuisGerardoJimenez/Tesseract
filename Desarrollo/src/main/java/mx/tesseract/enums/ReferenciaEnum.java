@@ -1,7 +1,5 @@
 package mx.tesseract.enums;
 
-import mx.tesseract.admin.entidad.EstadoProyecto;
-import mx.tesseract.admin.entidad.Rol;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.editor.entidad.Trayectoria;
 import mx.tesseract.editor.entidad.Accion;
@@ -9,7 +7,6 @@ import mx.tesseract.editor.entidad.Actor;
 import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.Entidad;
-import mx.tesseract.editor.entidad.EstadoElemento;
 import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.Pantalla;
 import mx.tesseract.editor.entidad.Paso;
@@ -140,6 +137,9 @@ public class ReferenciaEnum {
 		}
 		if (tokenReferencia.equals("PARAM")){
 			return TipoReferencia.PARAMETRO;
+		}
+		if (tokenReferencia.equals("ACC")){
+			return TipoReferencia.ACCION;
 		}
 		return null;
 	}

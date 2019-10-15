@@ -24,6 +24,19 @@ public class ElementoDAO {
 	private EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
+	public <T extends ElementoInterface> List<T> findAllByIdProyecto(Integer idProyecto) {
+		List<T> elementos = new ArrayList<T>();
+		try {
+			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndIdCasoUso", Elemento.class);
+			query.setParameter("idProyecto", idProyecto);
+			elementos = (List<T>) query.getResultList();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return elementos;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public <T extends ElementoInterface> List<T> findAllByIdProyectoAndClave(Class<T> clase, Integer idProyecto, Clave clave) {
 		List<T> elementos = new ArrayList<T>();
 		try {
