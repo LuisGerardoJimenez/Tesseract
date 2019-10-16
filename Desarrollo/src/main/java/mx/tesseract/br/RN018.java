@@ -14,6 +14,7 @@ import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.dto.PantallaDTO;
 import mx.tesseract.dto.ReglaNegocioDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
+import mx.tesseract.dto.TrayectoriaDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.ReglaNegocio;
@@ -26,6 +27,18 @@ public class RN018 {
 	
 	@Autowired
 	private ElementoDAO elementoDAO;
+	
+	public Boolean isValidRN018(TrayectoriaDTO entidad) {
+		Boolean valido = true;
+		CasoUso casoUso = null;
+		if (entidad.getId() == null) {
+			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Constantes.TIPO_REFERENCIA_TRAYECTORIA+"·"+entidad.getId());
+		}
+		if (casoUso != null) {
+			valido = false;
+		}
+		return valido;
+	}
 	
 	public Boolean isValidRN018(MensajeDTO entidad) {
 		Boolean valido = true;

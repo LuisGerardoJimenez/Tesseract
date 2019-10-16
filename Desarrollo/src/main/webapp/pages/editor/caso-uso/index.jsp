@@ -86,7 +86,7 @@
 									
 								<!-- Eliminar caso de uso -->
 								<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#cu.id}');">
-								<img id="" class="button" title="Eliminar Mensaje"
+								<img id="" class="button" title="Eliminar Caso de uso"
 										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
 								${blanks}
 							</s:if>				

@@ -48,7 +48,7 @@
 						</s:a>
 						${blanks}
 						<s:a href="#" onclick="return mostrarMensajeEliminacion(%{#rn.id});">
-						<img id="" class="button" title="Eliminar Mensaje"
+						<img id="" class="button" title="Eliminar Regla de negocio"
 								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
 						${blanks}	
 						</s:if>					

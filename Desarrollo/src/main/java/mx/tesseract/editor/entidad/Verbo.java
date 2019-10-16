@@ -14,9 +14,14 @@ import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import mx.tesseract.util.GenericInterface;
+
 @Entity
 @Table(name = "verbo")
-public class Verbo implements Serializable {
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer" })
+public class Verbo implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
 	

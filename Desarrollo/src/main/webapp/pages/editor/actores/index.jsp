@@ -50,7 +50,7 @@
 						<!-- Eliminar Actor -->			
 						<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/actores/%{#actor.id}?_method=delete" method="post"/>-->
 						<s:a href="#" onclick="return mostrarMensajeEliminacion(%{#actor.id});">
-						<img id="" class="button" title="Eliminar Mensaje"
+						<img id="" class="button" title="Eliminar Actor"
 								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
 						${blanks}	
 						</s:if>

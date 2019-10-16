@@ -1730,4 +1730,168 @@ public class TokenBs {
 		}
 		return false;
 	}
+	
+	/*
+	 * El método String decodificarCadenaSinToken(String @cadenaCodificada) se
+	 * encarga de decodificar la cadena a su versión de consulta.
+	 * 
+	 * Parámetros:
+	 * 
+	 * @cadenaCodificada: Cadena cuyo contenido incluye los tokens en su versión
+	 * base de datos (cruda), por ejemplo: ATR·1.
+	 * 
+	 * Ejemplo:
+	 * 
+	 * El resultado de decodificar la cadena "ATR·1" sería "Peso", siendo "Peso"
+	 * el nombre del atributo cuyo id es 1.
+	 */
+	public String decodificarCadenaSinToken(String redaccion) {
+		if (redaccion == null || redaccion.isEmpty()) {
+			return "Sin información";
+		}
+		redaccion = redaccion.substring(1);
+		ArrayList<String> tokens = procesarTokenIpunt(redaccion);
+		for (String token : tokens) {
+			ArrayList<String> segmentos = segmentarToken(token);
+			String tokenReferencia = segmentos.get(0);
+			System.out.println("TOKEN REFERENCIA: "+tokenReferencia);
+			switch (ReferenciaEnum.getTipoReferencia(tokenReferencia)) {
+			case ACCION:
+				Accion accion = genericoDAO.findById(Accion.class, Integer
+						.parseInt(segmentos.get(1)));
+				if (accion == null) {
+					redaccion = "";
+					break;
+				} else {
+					redaccion = remplazoToken(redaccion, token,
+							accion.getNombre());
+				}
+				break;
+			case ACTOR:
+				Actor actor = genericoDAO.findById(Actor.class, Integer
+						.parseInt(segmentos.get(1)));
+				
+				
+				if (actor == null) {
+					redaccion = "";
+					break;
+				}
+				redaccion = remplazoToken(redaccion, token, actor.getNombre());
+				break;
+			case ATRIBUTO:
+				Atributo atributo = genericoDAO.findById(Atributo.class, Integer
+						.parseInt(segmentos.get(1)));
+				if (atributo == null) {
+					redaccion = "";
+					break;
+				} else {
+					redaccion = remplazoToken(redaccion, token,
+							atributo.getNombre());
+				}
+				break;
+			case CASOUSO:
+				CasoUso casoUso = genericoDAO.findById(CasoUso.class, Integer
+						.parseInt(segmentos.get(1)));
+				if (casoUso == null) {
+					redaccion = "";
+					break;
+				}
+				redaccion = remplazoToken(redaccion, token, casoUso.getClave()
+						+ " " + casoUso.getNumero() + " " + casoUso.getNombre());
+
+				break;
+			case ENTIDAD: // ENT.ID -> ENT.NOMBRE_ENT
+				Entidad entidad = genericoDAO.findById(Entidad.class, Integer
+						.parseInt(segmentos.get(1)));
+				if (entidad == null) {
+					redaccion = "";
+					break;
+				}
+				redaccion = remplazoToken(redaccion, token, entidad.getNombre());
+
+				break;
+			case TERMINOGLS:
+				TerminoGlosario terminoGlosario = genericoDAO.findById(TerminoGlosario.class, Integer
+						.parseInt(segmentos.get(1)));
+				if (terminoGlosario == null) {
+					redaccion = "";
+				}
+				redaccion = remplazoToken(redaccion, token,
+						terminoGlosario.getNombre());
+				break;
+			case PANTALLA: 
+				Pantalla pantalla = genericoDAO.findById(Pantalla.class, Integer
+						.parseInt(segmentos.get(1)));
+				if (pantalla == null) {
+					redaccion = "";
+					break;
+				}
+				redaccion = remplazoToken(redaccion, token,
+						pantalla.getClave() + " " + pantalla.getNumero() + " "
+								+ pantalla.getNombre());
+				break;
+
+			case MENSAJE: 
+				Mensaje mensaje = genericoDAO.findById(Mensaje.class, Integer
+						.parseInt(segmentos.get(1)));
+				if (mensaje == null) {
+					redaccion = "";
+				}
+				redaccion = remplazoToken(redaccion, token, mensaje.getClave()
+						+ " " + mensaje.getNumero() + " " + mensaje.getNombre());
+				break;
+			case REGLANEGOCIO:
+				ReglaNegocio reglaNegocio = genericoDAO.findById(ReglaNegocio.class, Integer
+						.parseInt(segmentos.get(1)));
+				if (reglaNegocio == null) {
+					redaccion = "";
+				}
+				redaccion = remplazoToken(
+						redaccion,
+						token,
+						reglaNegocio.getClave() + " "
+								+ reglaNegocio.getNumero() + " "
+								+ reglaNegocio.getNombre());
+				break;
+			case TRAYECTORIA:
+				Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, Integer
+						.parseInt(segmentos.get(1)));
+				if (trayectoria == null) {
+					redaccion = "";
+				}
+
+				redaccion = remplazoToken(redaccion, token,
+						trayectoria.getClave());
+				break;
+
+			case PASO:
+				Paso paso = genericoDAO.findById(Paso.class, Integer
+						.parseInt(segmentos.get(1)));
+				if (paso == null) {
+					redaccion = "";
+				}
+				redaccion = remplazoToken(redaccion, token, paso.getNumero()
+						+ "");
+				break;
+				
+			case PARAMETRO:
+				Parametro parametro = genericoDAO.findById(Parametro.class, Integer
+						.parseInt(segmentos.get(1)));
+				if (parametro == null) {
+					redaccion = "";
+				}
+				redaccion = remplazoToken(redaccion, token, parametro.getNombre());
+				break;
+			default:
+				break;
+
+			}
+		}
+
+		redaccion = redaccion.replace("\n", "<br/>");
+		redaccion = redaccion.replace("\r", "<br/>");
+		return redaccion;
+
+	}
+	
 }
