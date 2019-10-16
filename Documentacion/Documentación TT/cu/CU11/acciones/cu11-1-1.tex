@@ -15,7 +15,7 @@
 			\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto}: Lo obtiene el sistema.
 			\item \cdtRef{EntidadPantalla:nombreIU}{Nombre de la pantalla:} Lo obtiene el sistema.
 			\item \cdtRef{EntidadAccion}{Acción}: Tabla que muestra \cdtRef{EntidadAccion:imagenACC}{Imagen} y \cdtRef{EntidadAccion:nombreACC}{Número} de todas las acciones registradas en un pantalla.
-			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU12A}{Pendiente} cuando no existen acciones registradas.
+			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} cuando no existen acciones registradas.
 	\end{itemize}}
 	
 	\UCitem{Precondiciones}{Que exista al menos una pantalla registrada.}
@@ -25,17 +25,17 @@
 \end{UseCase}
 %--------------------------------------
 \begin{UCtrayectoria}
-	\UCpaso[\UCactor] Solicita gestionar las acciones de una pantalla seleccionando el icono (Pendiente) de la pantalla \IUref{IU7}{Gestionar Pantallas}.
+	\UCpaso[\UCactor] Solicita gestionar las acciones de una pantalla seleccionando el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/acciones}} de la pantalla \IUref{IU7}{Gestionar Pantallas}.
 	\UCpaso[\UCsist] Obtiene la información de las acciones registradas de la pantalla seleccionada. \hyperlink{CU11-1-1:TAA}{[Trayectoria A]}
 	\UCpaso[\UCsist] Ordena las acciones alfabéticamente basándose en el nombres de los mismas.
-	\UCpaso[\UCsist] Muestra la información de las acciones en la pantalla \IUref{IU12}{Pendiente} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}. \label{CU11-1-1-P4}
+	\UCpaso[\UCsist] Muestra la información de las acciones en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}. \label{CU11-1-1-P4}
 	\UCpaso[\UCactor] Gestiona las acciones a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. 
 \end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU11-1-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} No existen registros de acciones.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU7A}{Pendiente} para indicar que no hay registros de acciones para mostrar.  \label{CU11-1-1-TA1}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU17A.1.1.1}{Gestionar Acciones: Sin registros} para indicar que no hay registros de acciones para mostrar.  \label{CU11-1-1-TA1}
 	\UCpaso[\UCactor] Gestiona las acciones a través del botón: \IUbutton{Registrar}. 
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
