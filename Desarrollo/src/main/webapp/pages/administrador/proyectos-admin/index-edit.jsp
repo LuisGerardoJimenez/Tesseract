@@ -11,7 +11,7 @@
   	<script src="${pageContext.request.contextPath}/resources/template/themes/smoothness-prisma/jquery-ui.js"></script>
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/constructores.js"></script>
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/validaciones.js"></script>
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/administrador/proyectos-admin/js/index-edit.js"></script>	
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/administrador/proyectos-admin/js/index-edit.js"></script>	
 ]]>
 
 </head>
