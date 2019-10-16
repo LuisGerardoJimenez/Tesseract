@@ -11,6 +11,6 @@ $(document).ready(function() {
 	$('#fechaTerminoProgramada').datepicker({
 		  dateFormat: "dd/mm/yy"
 	});
-	var contextPath = $("#rutaContexto").val();
+	contextPath = $("#rutaContexto").val();
 
 } );
