@@ -1,20 +1,41 @@
 package mx.tesseract.editor.action;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.dto.SelectDTO;
+import mx.tesseract.editor.bs.ActorBs;
 import mx.tesseract.editor.bs.CasoUsoBs;
+import mx.tesseract.editor.bs.EntidadBs;
+import mx.tesseract.editor.bs.MensajeBs;
 import mx.tesseract.editor.bs.ModuloBs;
+import mx.tesseract.editor.bs.PantallaBs;
 import mx.tesseract.editor.bs.PostprecondicionBs;
+import mx.tesseract.editor.bs.ReglaNegocioBs;
+import mx.tesseract.editor.bs.TerminoGlosarioBs;
+import mx.tesseract.editor.bs.TokenBs;
+import mx.tesseract.editor.entidad.Accion;
+import mx.tesseract.editor.entidad.Actor;
+import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.editor.entidad.CasoUso;
+import mx.tesseract.editor.entidad.Entidad;
+import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.Modulo;
+import mx.tesseract.editor.entidad.Pantalla;
+import mx.tesseract.editor.entidad.Paso;
 import mx.tesseract.editor.entidad.PostPrecondicion;
+import mx.tesseract.editor.entidad.ReglaNegocio;
+import mx.tesseract.editor.entidad.TerminoGlosario;
+import mx.tesseract.editor.entidad.Trayectoria;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
+import mx.tesseract.util.JsonUtil;
 import mx.tesseract.util.TESSERACTException;
+import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
 import org.apache.struts2.convention.annotation.Result;
@@ -44,7 +65,22 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 	private Integer idProyecto;
 	private Integer idModulo;
 	private Integer idCasoUso;
+	private List<SelectDTO> listAlternativa;
+	private String alternativaPrincipal;
 
+	// Elementos disponibles
+	private String jsonReglasNegocio;
+	private String jsonEntidades;
+	private String jsonCasosUsoProyecto;
+	private String jsonPantallas;
+	private String jsonMensajes;
+	private String jsonActores;
+	private String jsonTerminosGls;
+	private String jsonAtributos;
+	private String jsonPasos;
+	private String jsonTrayectorias;
+	private String jsonAcciones; 
+	
 	@Autowired
 	private LoginBs loginBs;
 	
@@ -56,6 +92,27 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 	
 	@Autowired
 	private PostprecondicionBs postprecondicionBs;
+	
+	@Autowired
+	private TokenBs tokenBs;
+	
+	@Autowired
+	private ReglaNegocioBs reglaNegocioBs;
+	
+	@Autowired
+	private EntidadBs entidadBs;
+	
+	@Autowired
+	private PantallaBs pantallaBs;
+	
+	@Autowired
+	private MensajeBs mensajeBs;
+	
+	@Autowired
+	private ActorBs actorBs;
+	
+	@Autowired
+	private TerminoGlosarioBs terminoGlosarioBs;
 
 	public String index() {
 		String resultado = PROYECTOS;
@@ -77,6 +134,251 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 		return resultado;
 	}
 	
+	public String editNew() {
+		String resultado = PROYECTOS;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					buscaCatalogos();
+					buscaElementos();
+					prepararVista();
+					resultado = EDITNEW;
+				} else {
+					resultado = MODULOS;
+				}
+			}
+		} catch (TESSERACTValidacionException tve) {
+			ErrorManager.agregaMensajeError(this, tve);
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		return resultado;
+	}
+	
+	public String edit() {
+		String resultado = PROYECTOS;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					buscaCatalogos();
+					buscaElementos();
+					prepararVista();
+					resultado = EDIT;
+				} else {
+					resultado = MODULOS;
+				}
+			}
+		} catch (TESSERACTValidacionException tve) {
+			ErrorManager.agregaMensajeError(this, tve);
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		return resultado;
+	}
+	
+	private void buscaElementos() {
+		List<ReglaNegocio> listReglasNegocio = reglaNegocioBs.consultarReglaNegocioProyecto(idProyecto);
+		List<Entidad> listEntidades = entidadBs.consultarEntidadesProyecto(idProyecto);
+		List<Pantalla> listPantallas = pantallaBs.consultarPantallas(idProyecto);
+		List<Mensaje> listMensajes = mensajeBs.consultarMensajeProyecto(idProyecto);
+		List<Actor> listActores = actorBs.consultarActoresProyecto(idProyecto);
+		List<TerminoGlosario> listTerminosGls = terminoGlosarioBs.consultarGlosarioProyecto(idProyecto);
+		List<Atributo> listAtributos = new ArrayList<Atributo>();
+		List<Paso> listPasos = new ArrayList<Paso>();
+		List<CasoUso> listCasosUso = casoUsoBs.consultarCasosDeUso(idProyecto, idModulo);
+		List<Trayectoria> listTrayectorias = new ArrayList<Trayectoria>();
+		List<Accion> listAcciones = new ArrayList<Accion>();
+		
+		for (Entidad entidad : listEntidades) {
+			for (Atributo atributo : entidad.getAtributos()) {
+				listAtributos.add(atributo);
+			}
+		}
+		
+		for (CasoUso casoUso : listCasosUso) {
+			for(Trayectoria  trayectoria :casoUso.getTrayectorias()) {
+				listTrayectorias.add(trayectoria);
+				for(Paso  paso :trayectoria.getPasos()) {
+					listPasos.add(paso);
+				}
+			}
+		}
+		
+		for (Pantalla pantalla : listPantallas) {
+			for(Accion accion : pantalla.getAcciones()) {
+				listAcciones.add(accion);
+			}
+		}
+		
+		if (listReglasNegocio != null) {
+			this.jsonReglasNegocio = JsonUtil.mapListToJSON(listReglasNegocio);
+		}
+		if (listEntidades != null) {
+			this.jsonEntidades = JsonUtil.mapListToJSON(listEntidades);
+		}
+		if (listPantallas != null) {
+			this.jsonPantallas = JsonUtil.mapListToJSON(listPantallas);
+		}
+		if (listMensajes != null) {
+			this.jsonMensajes = JsonUtil.mapListToJSON(listMensajes);
+		}
+		if (listActores != null) {
+			this.jsonActores = JsonUtil.mapListToJSON(listActores);
+		}
+		if (listTerminosGls != null) {
+			this.jsonTerminosGls = JsonUtil.mapListToJSON(listTerminosGls);
+		}
+		if (listAtributos != null) {
+			this.jsonAtributos = JsonUtil.mapListToJSON(listAtributos);
+		}
+		if (listPasos != null) {
+			this.jsonPasos = JsonUtil.mapListToJSON(listPasos);
+		}
+		if (listCasosUso != null) {
+			this.jsonCasosUsoProyecto = JsonUtil
+					.mapListToJSON(listCasosUso);
+		}
+		if (listTrayectorias != null) {
+			this.jsonTrayectorias = JsonUtil.mapListToJSON(listTrayectorias);
+		}
+		
+		if (listAcciones != null) {
+			this.jsonAcciones = JsonUtil.mapListToJSON(listAcciones);
+		}
+
+	}
+	
+	private void prepararVista() {
+		model.setRedaccion(tokenBs.decodificarCadenasToken(model.getRedaccion()));
+	}
+	
+	public void validateCreate() {
+		clearErrors();
+		if (!hasErrors()) {
+			try {
+				idProyecto = (Integer) SessionManager.get("idProyecto");
+				if (idProyecto != null) {
+					idModulo = (Integer) SessionManager.get("idModulo");
+					if (idModulo != null) {
+						registrarPostprecondicion();
+					}
+				}
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private void registrarPostprecondicion() {
+		idCasoUso = (Integer) SessionManager.get("idCU");
+		if (idCasoUso != null) {
+			proyecto = loginBs.consultarProyectoActivo();
+			modulo = moduloBs.consultarModuloById(idModulo);
+			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+			model.setCasoUso(casoUsoBase);
+			postprecondicionBs.preAlmacenarObjetosToken(model, idModulo);
+			postprecondicionBs.registrarPostprecondicion(model);
+		}
+	}
+
+	public String create() {
+		addActionMessage((model.isPrecondicion()) ? getText("MSG1", new String[] { "La", "PreCondición", "registrada" }) : getText("MSG1", new String[] { "La", "PostCondición", "registrada" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
+	public void validateUpdate() {
+		if (!hasErrors()) {
+			try {
+				idProyecto = (Integer) SessionManager.get("idProyecto");
+				if (idProyecto != null) {
+					idModulo = (Integer) SessionManager.get("idModulo");
+					if (idModulo != null) {
+						modificarPostprecondicion();
+					}
+				}
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				edit();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				edit();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				edit();
+			}
+		}
+	}
+	
+	public void validateDestroy() {
+		if (!hasErrors()) {
+			try {
+				postprecondicionBs.eliminarPostprecondicion(model);
+			} catch (TESSERACTValidacionException tve) {
+				ErrorManager.agregaMensajeError(this, tve);
+				System.err.println(tve.getMessage());
+				edit();
+			} catch (TESSERACTException te) {
+				ErrorManager.agregaMensajeError(this, te);
+				System.err.println(te.getMessage());
+				edit();
+			} catch (Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+				edit();
+			}
+		}
+	}
+	
+	public String destroy() {
+		addActionMessage(getText("MSG1", new String[] { "La", "Postprecondicion", "eliminada" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
+	private void modificarPostprecondicion() {
+		idCasoUso = (Integer) SessionManager.get("idCU");
+		if (idCasoUso != null) {
+			proyecto = loginBs.consultarProyectoActivo();
+			modulo = moduloBs.consultarModuloById(idModulo);
+			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+			model.setCasoUso(casoUsoBase);
+			postprecondicionBs.preAlmacenarObjetosToken(model, idModulo);
+			postprecondicionBs.modificarPostprecondicion(model);
+		}
+	}
+
+	public String update() {
+		addActionMessage((model.isPrecondicion()) ? getText("MSG1", new String[] { "La", "PreCondición", "modificada" }) : getText("MSG1", new String[] { "La", "PostCondición", "modificada" }));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		return SUCCESS;
+	}
+	
+	private void buscaCatalogos() {
+		// Se llena la lista par indicar si es post o pre condición
+		listAlternativa = new ArrayList<SelectDTO>();
+		listAlternativa.add(new SelectDTO(Boolean.FALSE, Constantes.SELECT_POSTCONDICION));
+		listAlternativa.add(new SelectDTO(Boolean.TRUE, Constantes.SELECT_PRECONDICION));
+	}
+	
 	@SuppressWarnings("unchecked")
 	private String buscarModelos() {
 		String resultado = null;
@@ -86,6 +388,9 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 			modulo = moduloBs.consultarModuloById(idModulo);
 			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
 			listPostprecondiciones = postprecondicionBs.consultarPostPrecondicionesByCasoUso(casoUsoBase.getId());
+			for(PostPrecondicion postprecondicion : listPostprecondiciones) {
+				postprecondicion.setRedaccion(tokenBs.decodificarCadenasToken(postprecondicion.getRedaccion()));
+			}
 			resultado = INDEX;
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
@@ -145,4 +450,107 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 		this.modulo = modulo;
 	}
 
+	public List<SelectDTO> getListAlternativa() {
+		return listAlternativa;
+	}
+
+	public void setListAlternativa(List<SelectDTO> listAlternativa) {
+		this.listAlternativa = listAlternativa;
+	}
+
+	public String getAlternativaPrincipal() {
+		return alternativaPrincipal;
+	}
+
+	public void setAlternativaPrincipal(String alternativaPrincipal) {
+		this.alternativaPrincipal = alternativaPrincipal;
+	}
+
+	public String getJsonReglasNegocio() {
+		return jsonReglasNegocio;
+	}
+
+	public void setJsonReglasNegocio(String jsonReglasNegocio) {
+		this.jsonReglasNegocio = jsonReglasNegocio;
+	}
+
+	public String getJsonEntidades() {
+		return jsonEntidades;
+	}
+
+	public void setJsonEntidades(String jsonEntidades) {
+		this.jsonEntidades = jsonEntidades;
+	}
+
+	public String getJsonCasosUsoProyecto() {
+		return jsonCasosUsoProyecto;
+	}
+
+	public void setJsonCasosUsoProyecto(String jsonCasosUsoProyecto) {
+		this.jsonCasosUsoProyecto = jsonCasosUsoProyecto;
+	}
+
+	public String getJsonPantallas() {
+		return jsonPantallas;
+	}
+
+	public void setJsonPantallas(String jsonPantallas) {
+		this.jsonPantallas = jsonPantallas;
+	}
+
+	public String getJsonMensajes() {
+		return jsonMensajes;
+	}
+
+	public void setJsonMensajes(String jsonMensajes) {
+		this.jsonMensajes = jsonMensajes;
+	}
+
+	public String getJsonActores() {
+		return jsonActores;
+	}
+
+	public void setJsonActores(String jsonActores) {
+		this.jsonActores = jsonActores;
+	}
+
+	public String getJsonTerminosGls() {
+		return jsonTerminosGls;
+	}
+
+	public void setJsonTerminosGls(String jsonTerminosGls) {
+		this.jsonTerminosGls = jsonTerminosGls;
+	}
+
+	public String getJsonAtributos() {
+		return jsonAtributos;
+	}
+
+	public void setJsonAtributos(String jsonAtributos) {
+		this.jsonAtributos = jsonAtributos;
+	}
+
+	public String getJsonPasos() {
+		return jsonPasos;
+	}
+
+	public void setJsonPasos(String jsonPasos) {
+		this.jsonPasos = jsonPasos;
+	}
+
+	public String getJsonTrayectorias() {
+		return jsonTrayectorias;
+	}
+
+	public void setJsonTrayectorias(String jsonTrayectorias) {
+		this.jsonTrayectorias = jsonTrayectorias;
+	}
+
+	public String getJsonAcciones() {
+		return jsonAcciones;
+	}
+
+	public void setJsonAcciones(String jsonAcciones) {
+		this.jsonAcciones = jsonAcciones;
+	}
 }

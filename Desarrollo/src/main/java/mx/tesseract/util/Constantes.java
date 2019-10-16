@@ -129,6 +129,8 @@ public final class Constantes {
 	public static final String SELECT_SISTEMA = "Sistema";
 	public static final String SELECT_PRINCIPAL = "Principal";
 	public static final String SELECT_ALTERNATIVA= "Alternativa";
+	public static final String SELECT_POSTCONDICION= "Postcondicion";
+	public static final String SELECT_PRECONDICION= "Precondicion";
 	
 
 }
