@@ -1,0 +1,28 @@
+%--------------------------------------
+\subsection{IU 7.1.1.1 Gestionar Acciones}
+
+\subsubsection{Objetivo}
+	En esta pantalla el actor puede visualizar las acciones pertenecientes a una pantalla y las operaciones disponibles de acuerdo a si el elemento está siendo editado.
+\subsubsection{Diseño}
+	En la figura \IUref{IU7.1.1.1}{Gestionar Acciones} por medio de la cual se podrán gestionar las acciones pertenecientes a una pantalla de un proyecto a través de una tabla. El actor podrá solicitar el registro, modificación y la eliminación de una acción mediante los botones \IUbutton{Registrar}, \editar y \eliminar respectivamente.
+	
+	En la parte superior derecha, el sistema muestra el proyecto  y módulo en el que se encuentra trabajando asi como el nombre de la pantalla de la cual se estan gestionando sus acciones.
+
+\IUfig[1]{interfaces/iu7-1-1-1gestionarAcciones}{IU7.1.1.1}{Gestionar Acciones}
+\subsubsection{Comandos}
+\begin{itemize}
+	\item \IUbutton{Registrar}: Permite al actor solicitar el registro de una acción, dirige a la pantalla \IUref{IU7.1.1}{Registrar Acción}.
+	\item \editar [Modificar]: Permite al actor solicitar la edición de una acción, dirige a la pantalla \IUref{IU7.1.2}{Modificar Acción}.
+	\item \eliminar [Eliminar]: Permite al actor solicitar la eliminación de una acción, dirige a una pantalla emergente.
+\end{itemize}
+\subsubsection{Mensajes}
+
+\begin{Citemize}
+	\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} cuando no existen atributos registrados.
+\end{Citemize}
+
+\IUfig[1]{interfaces/iu7-1-1-1AgestionarAcciones}{IU17A.1.1.1}{Gestionar Acciones: Sin registros}\label{IU7.1.1.1A}
+\subsubsection{Comandos}
+\begin{itemize}
+	\item \IUbutton{Registrar}: Permite al actor solicitar el registro de una acción, dirige a la pantalla \IUref{IU7.1.1}{Registrar Acción}
+\end{itemize}

@@ -15,7 +15,7 @@
 			\item \cdtRef{accion:imagenACC}{Imagen de la acción}: Se selecciona de los archivos locales.
 		\end{itemize}	
 	}
-	\UCitem{Salidas}{\cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU7}{Pendiente} para indicar que el registro fue exitoso.}
+	\UCitem{Salidas}{\cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} para indicar que el registro fue exitoso.}
 	\UCitem{Precondiciones}{\begin{itemize}
 			\item Que exista al menos una pantalla registrada.
 			\item Que el catálogo ''Tipo de acción''contenga información. 
@@ -34,7 +34,7 @@
 			\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU7.1.1}{Registrar Acción} cuando se registre un actor con un nombre que ya se encuentre registrado en el sistema.
 			\item \cdtIdRef{MSG16}{Formato de archivo incorrecto}: Se muestra en la pantalla \IUref{IU7.1.1}{Registrar Acción} cuando la imagen de la acción no cumpla con el formato especificado.
 			\item \cdtIdRef{MSG17}{Se ha excedido el tamaño del archivo}: Se muestra en la pantalla \IUref{IU7.1.1}{Registrar Acción} cuando la imagen de la acción exceda el tamaño especificado.
-			\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU12A}{Pendiente} cuando no exista información en el catálogo ''Tipo de acción''.
+			\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} cuando no exista información en el catálogo ''Tipo de acción''.
 			
 		\end{itemize}.
 	}
@@ -42,7 +42,7 @@
 \end{UseCase}
 %--------------------------------------
 \begin{UCtrayectoria}
-	\UCpaso[\UCactor] Solicita registrar una acción oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU7.1}{Registrar Pantalla} o \IUref{IU7.2}{Modificar Pantalla}.
+	\UCpaso[\UCactor] Solicita registrar una acción oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones}.
 	\UCpaso[\UCsist] Verifica que el catálogo ''Tipo de acción'' cuente con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU11-1-1-1:TAA}{[Trayectoria A]}
 	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU7.1.1}{Registrar Acción}.
 	\UCpaso[\UCactor] Ingresa la información solicitada. \label{CU11.1.1-P3}
@@ -53,14 +53,14 @@
 	\UCpaso[\UCsist] Verifica que el archivo ingresado cumpla con el peso correcto, con base en la regla de negocio \BRref{RN40}{Peso de archivos de imagen}. \hyperlink{CU11-1-1-1:TAH}{[Trayectoria H]}
 	\UCpaso[\UCsist] Verifica que el nombre de la acción no se encuentre asociado a la pantalla con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU11-1-1-1:TAI}{[Trayectoria I]}
 	\UCpaso[\UCsist] Persiste la información de la acción en el sistema.
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12A}{Pendiente} para indicar al actor que el registro se ha realizado exitosamente.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} para indicar al actor que el registro se ha realizado exitosamente.
 \end{UCtrayectoria}		
 
 %--------------------------------------
 \hypertarget{CU11-1-1-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} El catálogo de ''Tipo de acción'' no tiene información.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU12A}{Pendiente} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
@@ -68,7 +68,7 @@
 \noindent \textbf{Condición:} El actor desea cancelar la operación.
 \begin{enumerate}
 	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la pantalla \IUref{IU7.1.1}{Registrar Acción}.
-	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU12A}{Pendiente}.
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones}.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
