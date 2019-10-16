@@ -1,6 +1,7 @@
 package mx.tesseract.enums;
 
 public class AnalisisEnum {
+	
 	public enum CU_CasosUso {
 		MODIFICARCASOUSO5_2,
 		ELIMINARCASOUSO5_3,

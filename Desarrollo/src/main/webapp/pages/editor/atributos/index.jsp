@@ -99,7 +99,7 @@
 						<!-- Eliminar Atributo -->			
 						<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/atributos/%{#atributo.id}?_method=delete" method="post"/>-->
 						<s:a href="#" onclick="return mostrarMensajeEliminacion(%{#atributo.id});">
-						<img id="" class="button" title="Eliminar Mensaje"
+						<img id="" class="button" title="Eliminar Atributo"
 								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
 					
 					</td>

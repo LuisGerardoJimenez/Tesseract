@@ -60,7 +60,7 @@
 									</s:a>
 									${blanks}
 									<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#pantalla.id}');">
-									<img id="" class="button" title="Eliminar Mensaje"
+									<img id="" class="button" title="Eliminar Pantalla"
 										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
 								</s:if></td>
 						</tr>
