@@ -234,3 +234,78 @@ Como ventajas en la utilización de un framework tenemos las siguientes:
 		\item Cualquier programador que trabaje con un framework no deberá invertir gran parte de su tiempo en buscar las clases necesarias, interconectarlas o descubrir los métodos que contienen. Los frameworks ocultan toda esta complejidad dando un alto nivel de abstracción. 
 	\end{itemize}
 \end{enumerate}
+
+\section{Pruebas}
+
+Con base en los enunciados de la ISTQB (International Software Testing Qualifications Board). \hyperlink{b34}{[34]} Las pruebas de software muestran la presencia de defectos: todo tipo de software que se desarrolle es susceptible a la presencia de «Bug`s» o defectos, con el testing de software se busca reducir al máximo la presencia de estos, pero no se puede asegurar que el software esté libre de defectos, al contrario, con el tiempo las modificaciones o adiciones de funcionalidades aumenta el riesgo de la presencia de nuevos defectos.
+
+Las pruebas dinámicas y estáticas son métodos complementarios, ya que tienden
+para encontrar diferentes tipos de defectos de manera efectiva y eficiente. Tipos de defectos que son más fáciles de encontrar durante las pruebas estáticas son: desviaciones de los estándares, falta requisitos, defectos de diseño, código no mantenible e interfaz inconsistente especificaciones. Tenga en cuenta que, a diferencia de las pruebas dinámicas, las pruebas estáticas encuentran defectos en lugar de fallas.
+
+
+\subsection{Pruebas Dinámicas}
+
+La ISTQB (International Software Testing Qualifications Board) dice que la pruebas dinámicas son todas aquellas pruebas que para su realización requieren la ejecución de la aplicación. Con los métodos de prueba dinámicos, el software se ejecuta utilizando un conjunto de valores de entrada y su salida se examina y compara con lo que se espera.   Las pruebas dinámicas permiten el uso de técnicas de caja negra y caja blanca con mayor amplitud.\\
+
+Dentro de las pruebas dinámicas podemos encontrar distintos niveles de prueba. Los niveles de prueba son grupos de actividades de prueba que se organizan y gestionan juntas. Cada nivel de prueba es una instancia del proceso de prueba, realizadas en relación con software en un determinado nivel de desarrollo, desde unidades individuales o componentes hasta sistemas completos o, en su caso, sistemas de sistemas.\\
+
+Los niveles de prueba utilizados pueden ser:
+
+\begin{itemize}
+	\item Prueba de componentes.
+	\item Pruebas de integración.
+	\item Prueba de sistema.
+	\item Pruebas de aceptación.
+\end{itemize}
+
+Los niveles de prueba se caracterizan por los siguientes atributos:
+
+\begin{itemize}
+	\item Objetivos específicos
+	\item Base de prueba, referenciada para derivar casos de prueba
+	\item Objeto de prueba (es decir, lo que se está probando)
+	\item defectos y fallas típicas
+\end{itemize}
+
+\subsection{Prueba de sistema}
+
+\textbf {Objetivos de las pruebas del sistema.}\\
+
+Las pruebas del sistema se centran en el comportamiento y las capacidades de un sistema o producto completo, a menudo considerando las tareas de extremo a extremo que el sistema puede realizar y los comportamientos no funcionales que exhibe mientras realiza esas tareas. Los objetivos de las pruebas del sistema incluyen:
+
+\begin{itemize}
+	\item Reducción del riesgo.
+	\item Verificar si los comportamientos funcionales y no funcionales del sistema son los diseñados y
+	especificado
+	\item Validar que el sistema está completo y funcionará como se esperaba.
+	\item Generar confianza en la calidad del sistema en su conjunto.
+	\item Encontrar defectos
+	\item Evitar que los defectos escapen a niveles de prueba o producción más altos
+\end{itemize}
+
+\textbf {Base de prueba}\\
+Los ejemplos de productos de trabajo que se pueden usar como base de prueba para las pruebas del sistema incluyen:
+
+\begin{itemize}
+	\item Especificaciones de requisitos del sistema y software (funcionales y no funcionales)
+	\item Informes de análisis de riesgos.
+	\item Casos de uso
+	\item Epics e historias de usuarios
+	\item Modelos de comportamiento del sistema.
+	\item Diagramas de estado
+	\item Sistema y manuales de usuario.
+\end{itemize}
+
+\textbf {Objetos de prueba}\\
+Los objetos de prueba típicos para las pruebas del sistema incluyen:
+
+\begin{itemize}
+	\item Aplicaciones
+	\item Sistemas de hardware / software
+	\item Sistemas operativos
+	\item Sistema bajo prueba (SUT)
+\end{itemize}
+
+\subsection{Pruebas Estáticas}
+
+Durante las pruebas estáticas, los productos de trabajo de software se examinan manualmente o con un conjunto de herramientas, pero no se ejecutan. Como consecuencia, las pruebas dinámicas solo pueden aplicarse al código de software. La ejecución dinámica se aplica como una técnica para detectar defectos y para determinar los atributos de calidad del código. 

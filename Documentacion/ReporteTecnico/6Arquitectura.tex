@@ -1,6 +1,6 @@
 \chapter{Arquitectura} \label{cap:seis}
 
-La arquitectura implementada tiene como finalidad un sistema web estable, modular y escalable; para su realización se utilizaron las siguientes tecnologías:
+La arquitectura implementada tiene como finalidad que el sistema web que se desarrolle sea estable, modular y escalable; para su realización se utilizaron las siguientes tecnologías:
 
 \section{Frameworks}
 \subsection {Spring}
@@ -8,9 +8,29 @@ Spring nos brinda ventajas como: la administración de objetos, garantizando que
 La utilización de Spring junto con sus características nos brinda un sistema con alta disponibilidad.
 
 \subsection {Struts}
-Se implementó Struts2 porque es un framework de código abierto, extensible mediante plugins (REST, AJAX, etc) y utiliza el patrón de diseño MVC \hyperlink{b27}{[27]}.
+Se implementó Struts2 porque es un framework de código abierto, extensible mediante plugins (REST, AJAX, etc) y utiliza el patrón de diseño MVC. \hyperlink{b27}{[27]} \\ 
+Las ventajas ofrecidas por este framework son: 
 
-\section{Arquitectura n capas}
+\begin{itemize}
+	\item Patron Observador (Observer pattern), las vistas se actualizan por sí mismas del modelo. \hyperlink{b28}{[28]}
+	\item Provee un bajo acoplamiento entre la vista y el modelo haciendo aplicaciones significativamente más fáciles de crear y mantener. \hyperlink{b28}{[28]}
+	\item Uso de Interceptores, ejecutan código antes y después de que un Action es invocado, por ejemplo al subir un archivo .\hyperlink{b29}{[29]}
+\end{itemize}
+
+\section{Modelo MVC}
+El patrón de diseño MVC (Modelo Vista Controlador) es fundamental para la separación entre
+lógica de interfaz de usuario y lógica de negocio \hyperlink{b30}{[30]}; de esta manera la estructura del proyecto tiene las siguientes características \hyperlink{b31}{[31]}:
+
+\begin{itemize}
+	\item Los objetos del modelo de datos encapsulan información.
+	\item Los objetos de vista muestran información al usuario.
+	\item Los objetos del controlador implementan acciones.
+	\item Los objetos de vista observan los objetos del modelo de datos y actualizan su \item visualización cada vez que cambian los objetos del modelo.
+	\item Los objetos de vista recopilan la entrada del usuario y la pasan a un objeto controlador que realiza la acción. 
+\end{itemize}
+
+
+\section{Arquitectura N Capas}
 La arquitectura n capas está implementada dentro del patrón MVC en el Modelo, ayuda a la modularidad de la capa de negocio, la capa de reglas de negocio y la capa de persistencia, de tal manera que se consigue un bajo acoplamiento.
 
 
@@ -20,7 +40,9 @@ El patrón interface se utilizó para denotar aquellas clases que pueden ser uti
 
 
 \subsection{Singleton}
-El patrón de diseño singleton se implementa mediante anotaciones de Spring con la finalidad de \hyperlink{b28}{[28]}
+El patrón de diseño singleton se implementó mediante anotaciones de Spring, cuando un bean es anotado con el alcance Singleton, solo se administrará una instancia compartida del bean, y todas las solicitudes de beans con un id o ids que coincidan con esa definición de bean harán que el contenedor Spring devuelva una instancia de bean específica \hyperlink{b28}{[28]}, de esta manera se convierte en un objeto administrado por Spring.\\
+
+La ventaja de esta arquitectura es la capacidad de adaptación, si en algún momento se debe modificar alguna capa, por ejemplo la capa de persistencia, ésta modificación no afectaría a las otras capas ya que la comunicación entre ellas es transparente.
 
 \section{Logger log4j}
 
