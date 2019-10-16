@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
+import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
@@ -117,14 +118,17 @@ public class Colaborador implements Serializable, GenericInterface {
 		this.apellidoPaterno = apellidoPaterno.trim();
 	}
 
+	
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, maxLength = "30", shortCircuit = true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO_SIN_ESPACIOS, shortCircuit = true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", trim = true, regex = Constantes.REGEX_CAMPO_ALFABETICO_SIN_ESPACIOS, shortCircuit = true)
+//	Manda el mensaje cuando no se cumple la condicion
+	@FieldExpressionValidator(expression = "not (not (#action.model.apellidoMaterno eq '') and #action.model.apellidoMaterno.getValue().contains(' '))", message = "%{getText('MSG5')}", shortCircuit= true)
 	public String getApellidoMaterno() {
 		return this.apellidoMaterno;
 	}
 
 	public void setApellidoMaterno(String apellidoMaterno) {
-		this.apellidoMaterno = apellidoMaterno.trim();
+		this.apellidoMaterno = apellidoMaterno;
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
