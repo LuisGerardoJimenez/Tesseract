@@ -59,13 +59,11 @@
 								
 								${blanks}	
 								<!-- Gestionar trayectorias -->			
-								<s:url var="urlGestionarTrayectorias" value="%{#pageContext.request.contextPath}/trayectorias">
-									<s:param name="idCU" value="%{#cu.id}"/>
-								</s:url>
-								<s:a href="%{urlGestionarTrayectorias}"><img
-											id="" class="button"
-											title="Gestionar Trayectorias"
-											src="${pageContext.request.contextPath}/resources/images/icons/T.svg" /></s:a>	
+								<s:url var="urlGestionarTrayectorias" value="%{#pageContext.request.contextPath}/caso-uso!entrarTrayectorias?idSel=%{#cu.id}"/>
+								<s:a href="%{urlGestionarTrayectorias}">
+									<img id="" class="button" title="Gestionar Trayectorias"
+											src="${pageContext.request.contextPath}/resources/images/icons/T.svg" />
+								</s:a>	
 								${blanks}		
 								<!-- Gestionar puntos de extensión -->				
 								<s:url var="urlGestionarPuntosExtension" value="%{#pageContext.request.contextPath}/extensiones">
