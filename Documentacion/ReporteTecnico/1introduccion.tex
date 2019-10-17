@@ -1,10 +1,10 @@
 
 
+
 \chapter{Introducción}
+La etapa de mantenimiento de software requiere mayor tiempo y costo que sus fases complementarias, por lo que resulta ser la etapa de mayor complejidad dentro del ciclo de vida de desarrollo de software. Se estima que aproximadamente dos tercios del costo total del software se dedican al mantenimiento \hyperlink{b01}{[1]}. Esta situación es causada por diversos problemas presentes durante las etapas precedentes, principalmente en la etapa de análisis, ya que es difícil contar con las bases sólidas de una documentación bien construida y estructurada que favorezca a la fase de mantenimiento. Específicamente, el proceso de documentación de los casos de uso requiere una gran cantidad de esfuerzos humanos y es habitualmente propenso a errores, generando un impacto negativo en el desarrollo e implementación del sistema \hyperlink{b02}{[2]}. \\
 
-La etapa de mantenimiento de software requiere mayor tiempo y costo que sus fases complementarias, por lo que resulta ser la etapa de mayor complejidad dentro del ciclo de vida de desarrollo de software. Se estima que aproximadamente dos tercios del costo total del software se dedican al mantenimiento \hyperlink{b01}{[1]}. Esta situación es causada por diversos problemas presentes durante las etapas precedentes, principalmente en la etapa de análisis, ya que es difícil contar con las bases sólidas de una documentación bien construida y estructurada que favorezca a la fase de  mantenimiento. Específicamente, el proceso de documentación de los casos de uso requiere una gran cantidad de esfuerzos humanos y es habitualmente propenso a errores, generando un impacto negativo en el desarrollo e implementación del sistema \hyperlink{b02}{[2]}. \\
-
-El desarrollo de una herramienta  CASE (Ingeniería de Software Asistida por Computadora) favorecería la construcción y generación de la documentación de análisis ya que lograría estandarizar el estilo de trabajo que se emplea en la organización para documentar, elevaría la disponibilidad de la información de tal manera que los integrantes accedan a ella; controlaría quién escribe, modifica y supervisa cada parte del documento; finalmente, ayudaría en la generación de los documentos finales que se le entregan al cliente.
+El desarrollo de una herramienta MIDDLE-CASE (Ingeniería de Software Asistida por Computadora) favorecería la construcción y generación de la documentación de análisis ya que no solo colaboraría en la estandarización del estilo de trabajo que se emplea en la organización para documentar; también seria capaz de recolectar, almacenar y procesar los elementos que integran un proyecto para generar el documento; elevaría la disponibilidad de la información de tal manera que los integrantes accedan a ella; controlaría quién escribe, modifica y supervisa cada parte del documento; finalmente, ayudaría en la generación de los documentos que se le entregan al cliente.
 
 \newpage
 %---------------------------------------------------------
@@ -31,21 +31,21 @@ Para lo cual el sistema permitirá gestionar:
 
 \begin{itemize}
 	\item Un catálogo de colaboradores, en donde el administrador podrá llevar un control de todo el personal involucrado en el proceso de desarrollo de los proyectos de la organización.
-	\item Un catálogo de proyectos de administrador, en donde se podrá llevar un control del registro de los proyectos y el administrador tendrá la responsabilidad de capturar la información que corresponde a cada proyecto, tal como lo es: clave, nombre, fechas de término y fin, decripción, presupuesto y estado, así como asignar un líder por proyecto (seleccionado de los colaboradores previamente registrados).
+	\item Un catálogo de proyectos de administrador, en donde se podrá llevar un control del registro de los proyectos y el administrador tendrá la responsabilidad de capturar la información que corresponde a cada proyecto, tal como lo es: clave, nombre, fechas de término y fin, descripción, presupuesto y estado, así como asignar un líder por proyecto (seleccionado de los colaboradores previamente registrados).
 	El administrador también tendrá la facultad de asignar un conjunto de colaboradores al proyecto, los cuales trabajarán como analistas y tendrán los permisos de acceso para operar en los proyectos que se le fueron encomendados.
 	\item Un catálogo de términos de glosario en donde el colaborador controlará aquellas expresiones cruciales para el entendimiento de un proyecto en específico y podrá definirlos registrando su nombre y descripción, con el fin de tener consistencia en la utilización de los nombres de los términos.
 	\item Un catálogo de actores el cual explicará brevemente el objetivo del mismo, teniendo la siguiente estructura para definirlos: el nombre del actor, descripción del mismo y sus responsabilidades relacionadas con el sistema según aplique, con el fin de tener consistencia en la utilización de los nombres de los actores.
-	\item Un catálogo de Reglas de negocio especificando los siguiente: Identificador y nombre de la regla de negocio, de que tipo es, el nivel, una descripción explicando en qué consiste dicha regla, con el fin tener un control al momento de usarlas en diferentes casos de uso.
+	\item Un catálogo de Reglas de negocio especificando lo siguiente: Identificador y nombre de la regla de negocio, de que tipo es, el nivel, una descripción explicando en qué consiste dicha regla, con el fin tener un control al momento de usarlas en diferentes casos de uso.
 	\item Un catálogo de Mensajes el cual explicará brevemente el objetivo del mismo, este catálogo documentará los mensajes de la siguiente manera: identificador y nombre del mensaje, el tipo de mensaje, propósito, la redacción del mismo y que parámetros deben cumplirse para que el mensaje aparezca esto ayudará a que el usuario pueda reutilizar mensajes en diferentes casos de uso evitando la confusión de los nombres de los mensajes.
-	\item Un catálogo de entidades con sus respectivos astributos.
-	\item Un catálogo de pantallas con sus respectivas acciones.
-	\item La agrupación de casos uso dividiéndolos por módulos. Con el propósito de obtener una estructura modular con alta cohesión, segmentando el conjunto de Casos de uso en partes mas pequeñas y con objetivos similares entre sí para que los analistas operen sobre una configuración más ordenada.
-	\item La generación de los casos de uso integrando los elementos que forman y son parte del caso de uso.
-	\item Un estándar de redacción y escritura definido para evitar confusiones en la descripción de los casos de uso.
+	\item Un catálogo de Entidades con sus respectivos atributos; las entidades documentadas unicamente con el nombre de la entidad y su descripción. Una vez registrada la entidad se podrán gestionar los atributos de la entidad correspondiente, en este caso la estructura para definir los atributos se compone de lo siguiente: el nombre del atributo, la descripción, si es un dato obligatorio o no, y por último el tipo de dato.
+	\item Un catálogo de pantallas con sus respectivas acciones; las pantallas documentadas con el nombre de la pantalla, su respectiva descripción así como la imagen o interfaz representada. Una vez registrada la pantalla se podrán gestionar las acciones de la pantalla correspondiente, en este caso la estructura para definir las acciones se compone de lo siguiente: el nombre de la acción, la descripción y por último la imagen o icono.
+	\item La agrupación de casos uso dividiéndolos por módulos. Con el propósito de obtener una estructura modular con alta cohesión, segmentando el conjunto de Casos de uso en partes más pequeñas y con objetivos similares entre sí para que los analistas operen sobre una configuración más ordenada.
+	\item La generación de los casos de uso integrando los elementos que conforman el caso de uso (descritos anteriormente), así como los elementos que son parte del mismo y que se gestionan internamente en el catálogo de casos de uso como lo son: Trayectorias, Pasos, Precondiciones, Postcondiciones y Puntos de extensión.
+	\item Un estándar de redacción y escritura definido para ordenar y evitar confusiones en la descripción de los casos de uso.
 \end{itemize}
 	
-Generar de manera semiautomatizada documentos de casos de uso a través  de una herramienta Middle Case es un desafío que propone la idea de transformar la escritura del lenguaje natural (comúnmente empleado en la elaboración de dichos documentos) a un lenguaje estándar, formal y específico. De concretarse este desafío, el tiempo que actualmente toma solucionar los problemas que se presentan durante la elaboración del análisis y su documentación por el  personal de análisis será optimizado. Coadyuvará a adquirir experiencia al equipo para  disminuir errores, su uso representará una reducción en los recursos destinados al análisis y de este modo generar un documento de análisis  con mayor estructura y consistencia.
-\newpage
+Generar de manera semiautomatizada documentos de casos de uso a través de una herramienta Middle Case es un desafío que propone la idea de transformar la escritura del lenguaje natural (comúnmente empleado en la elaboración de dichos documentos) a un lenguaje estándar, formal, específico y ordenado. De concretarse este desafío, el tiempo que actualmente toma solucionar los problemas que se presentan durante la elaboración del análisis y su documentación por el personal de análisis será optimizado; coadyuvará a adquirir experiencia al equipo para disminuir errores, su uso representará una reducción en los recursos destinados al análisis y de este modo se generará un documento de análisis con mayor estructura y consistencia.
+
 %---------------------------------------------------------
 \section{Objetivos}
 \subsection{Objetivo General}
@@ -81,7 +81,7 @@ Un proyecto de software bien construido y formado es esencial para la competitiv
 
 \begin{itemize}
 	\item Facilita la interpretación y comprensión del sistema.
-	\item Provee los antecedentes que permiten conocer cómo fué diseñado, que hace y cómo está operando.
+	\item Provee los antecedentes que permiten conocer cómo fue diseñado, que hace y cómo está operando.
 	\item Sirve de base para auditorias.
 	\item Elimina los riesgos de dependencia con respecto al personal.
 	\item Es fundamental para la capacitación de los usuarios del sistema facilitando la comunicación.
@@ -94,21 +94,22 @@ Una herramienta web capaz de recolectar, almacenar y procesar los elementos que 
 El motivo por el cual se realizará este sistema radica en la necesidad e importancia de obtener un documento de análisis bien construido, es decir, a nivel análisis y a nivel herramienta:
 
 \begin{itemize}
-\item Favorecer la mantenibilidad del sistema en contrucción (a corto y largo plazo).
+\item Favorecer la mantenibilidad del sistema en construcción (a corto y largo plazo).
 \item Lograr una trazabilidad en los elementos del documento de casos de uso.
 \item Elevar la integridad y consistencia de la información del documento de análisis mediante los permisos que otorga el sistema.
-\item Incrementar la disponibilidad, con el documento cualquier persona con los permisos correspondientes va a poder realizar las tareas o acciones  correspondientes con base en sus funciones.
+\item Incrementar la disponibilidad, con el documento cualquier persona con los permisos correspondientes va a poder realizar las tareas o acciones correspondientes con base en sus funciones.
 \item Conseguir un estándar en la forma de escribir el documento.
 \end{itemize}
 
-Y de esta manera, no solo resolver los problemas identificados en el proceso de construcción y generación del documento, si no también obtener una mejor calidad en dichos documentos que genera análisis, mismos que utiliza el resto del equipo en diferentes etapas del desarrollo y que se le entregan al cliente.\\
+Y de esta manera, no solo resolver los problemas identificados en el proceso de construcción y generación del documento, sino también obtener una mejor calidad en dichos documentos que genera análisis, mismos que utiliza el resto del equipo en diferentes etapas del desarrollo y que se le entregan al cliente.\\
 
-Éste proyecto se considera un trabajo terminal porque coadyuvará a formación de los autores en áreas de investigación, autoaprendizaje, y resolución de problemas,  en la generación de este sistema se utilizarán conocimientos del área de Ingeniería de software, bases de datos, programación, tecnologías web, algoritmos y diseño orientado a objetos.
+Este proyecto se considera un trabajo terminal porque coadyuvará a formación de los autores en áreas de investigación, autoaprendizaje, y resolución de problemas, en la generación de este sistema se utilizarán conocimientos del área de Ingeniería de software, bases de datos, programación, tecnologías web, algoritmos y diseño orientado a objetos.
 
 %---------------------------------------------------------
 \section{Estructura del Documento}
 
-El presente documento, está dirigido a todas aquellas personas interesadas en conocer el contenido del Trabajo Terminal 2018-B140, retoma los objetivos descritos en el protocolo, considerando las observaciones realizadas en la primera evaluación del trabajo. Se entregan otros dos documentos anexos a este reporte para un mejor entendimiento del sistema de los que al final de este capítulo se dará una breve explicación.\\
+El presente documento, está dirigido a todas aquellas personas interesadas en conocer el contenido del Trabajo Terminal 2018-B140, retoma los objetivos descritos en el protocolo, considerando las observaciones realizadas en la primera evaluación del trabajo. 
+
 
 En el capítulo  \ref{cap:dos} Se expone el soporte conceptual de las definiciones teóricas que se utilizaron para el planteamiento del problema del trabajo terminal. \\
 
@@ -122,4 +123,20 @@ En el capítulo  \ref{cap:seis} Se explica la arquitectura implementada en el si
 
 En el capítulo  \ref{cap:siete} Se expone el avance y resultados obtenidos en los diferentes sprints de scrum que se estructuraron para el desarrollo del proyecto. \\
 
-En el capítulo  \ref{cap:ocho} Se detalla cual fue la metodología para la ejecución de pruebas, así como las técnicas para su evaluación, también se reportan los resultados de las pruebas ejecutadas. 
+En el capítulo  \ref{cap:ocho} Se detalla cual fue la metodología para la ejecución de pruebas, así como las técnicas para su evaluación, también se reportan los resultados de las pruebas ejecutadas.\\
+
+En el capítulo \ref{cap:nueve} Se presentan los resultados obtenidos del proyecto.\\
+
+En el capítulo \ref{cap:diez} Se plantea el trabajo a futuro que se pretende realizar y cual es el camino a seguir de esta aportación.\\
+
+En el capítulo \ref{cap:once} Se describen las conclusiones del trabajo terminal.\\
+
+\vspace*{0.3in}
+
+Para un mejor entendimiento del sistema, se anexa de manera digital la siguiente documentación a la presentación de este reporte técnico:
+
+\begin{itemize}
+	\item Documento de análisis.
+	\item Manual de Usuario.
+	\item Articulo Técnico.
+\end{itemize}
