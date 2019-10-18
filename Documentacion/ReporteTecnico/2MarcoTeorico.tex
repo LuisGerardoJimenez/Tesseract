@@ -201,7 +201,6 @@ El siguiente diagrama muestra un modelo y tres vistas. (Se omitieron los control
 	\end{center}
 \end{figure}
 
-
 \subsection{Framework}
 
 \subsubsection{Definición}
@@ -235,77 +234,133 @@ Como ventajas en la utilización de un framework tenemos las siguientes:
 	\end{itemize}
 \end{enumerate}
 
+\newpage
+
 \section{Pruebas}
 
-Con base en los enunciados de la ISTQB (International Software Testing Qualifications Board). \hyperlink{b34}{[34]} Las pruebas de software muestran la presencia de defectos: todo tipo de software que se desarrolle es susceptible a la presencia de «Bug`s» o defectos, con el testing de software se busca reducir al máximo la presencia de estos, pero no se puede asegurar que el software esté libre de defectos, al contrario, con el tiempo las modificaciones o adiciones de funcionalidades aumenta el riesgo de la presencia de nuevos defectos.
+Con base en los enunciados de la ISTQB (International Software Testing Qualifications Board). \hyperlink{b34}{[34]} Las pruebas de software muestran la presencia de defectos: "todo tipo de software que se desarrolle es susceptible a la presencia de «Bug`s» o defectos y con las pruebas de software se busca reducir al máximo la presencia de estos".\\
 
-Las pruebas dinámicas y estáticas son métodos complementarios, ya que tienden
-para encontrar diferentes tipos de defectos de manera efectiva y eficiente. Tipos de defectos que son más fáciles de encontrar durante las pruebas estáticas son: desviaciones de los estándares, falta requisitos, defectos de diseño, código no mantenible e interfaz inconsistente especificaciones. Tenga en cuenta que, a diferencia de las pruebas dinámicas, las pruebas estáticas encuentran defectos en lugar de fallas.
-
+También menciona que existen diferentes técnicas de prueba de software, cada una con sus propias fortalezas y debilidades. Cada técnica individual es buena para encontrar tipos particulares de defectos y relativamente pobre para encontrar otros tipos.
+En términos generales, hay dos categorías principales, estática y dinámica. Las técnicas cubiertas se resumen en la Figura 2.4.
+ 
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=.70\textwidth]{images/marcoteorico/tecnicas}
+		\caption{Técnicas de pruebas}
+		\label{fig:tecnicas}
+	\end{center}
+\end{figure}
 
 \subsection{Pruebas Dinámicas}
 
-La ISTQB (International Software Testing Qualifications Board) dice que la pruebas dinámicas son todas aquellas pruebas que para su realización requieren la ejecución de la aplicación. Con los métodos de prueba dinámicos, el software se ejecuta utilizando un conjunto de valores de entrada y su salida se examina y compara con lo que se espera.   Las pruebas dinámicas permiten el uso de técnicas de caja negra y caja blanca con mayor amplitud.\\
+La ISTQB (International Software Testing Qualifications Board) menciona que la pruebas dinámicas son todas aquellas pruebas que para su realización requieren la ejecución de la aplicación. Las pruebas dinámicas permiten el uso de técnicas de caja negra y caja blanca con mayor amplitud. A continuación se explica su utilidad.
+\begin{enumerate}
+	\item \textbf {Pruebas de caja negra o basadas en especificación}: Se conocen como técnicas de prueba impulsadas por entrada / salida porque ven el software como un recuadro negro con entradas y salidas, pero no se tiene un conocimiento de cómo se estructura el sistema o componente dentro de la caja. En esencia, está concentrando en lo que hace el software, no en cómo lo hace.
+	
+		La definición menciona pruebas tanto funcionales como no funcionales.
+		\begin{itemize}
+			\item \textbf {Pruebas Funcionales}: Se refieren a lo que hace el sistema, sus características o funciones.
+			\item \textbf {Pruebas No Funcionales}: Se refieren a examinar qué tan bien el sistema hace algo, en lugar de lo que hace. Los aspectos no funcionales (también conocidos como características de calidad o atributos de calidad) incluyen rendimiento, usabilidad, portabilidad, mantenibilidad, etc. 
+		\end{itemize}
+	
+		Existen cinco técnicas basadas en especificaciones las cuales son:
+		\begin{itemize}
+			\item \textbf {Clases de equivalencia}: La idea detrás de la técnica es dividir un conjunto de condiciones de prueba en grupos o conjuntos que se pueden considerar iguales. La técnica requiere que solo necesitemos probar una condición de cada partición. Si una condición en una partición funciona o no, asumimos que todas las condiciones en esa partición tendrán el mismo comportamiento.
+			\item \textbf {Análisis del valor límite}: Se basa en pruebas en los límites entre particiones. Opera realizado la 'verificación de rango', se tiene que tener en cuenta que tenemos límites válidos (en las particiones válidas) y límites inválidos (en las particiones inválidas).
+			\item \textbf {Tablas de decisión}: Proporcionan una forma sistemática de establecer reglas de negocios comerciales complejas. Ayudan a explorar los efectos de combinaciones de diferentes entradas y otros estados de software que deben implementar correctamente las reglas de negocio. Ayudan a la selección sistemática de casos de prueba efectivos, pueden encontrar problemas y ambigüedades en la especificación. Es una técnica que funciona bien junto con la partición de equivalencia. La combinación de condiciones exploradas puede ser combinaciones de particiones de equivalencia.
+			\item \textbf {Prueba de transición de estado}: Se utiliza cuando se puede describir algún aspecto del sistema en lo que se llama una "máquina de estados finitos". Esto simplemente significa que el sistema puede estar en un número (finito) de estados diferentes, y las transiciones de un estado a otro están determinadas por las reglas de la 'máquina'.
+			\item \textbf {Prueba de caso de uso}:
+			La prueba de casos de uso es una técnica que nos ayuda a identificar casos de prueba que ejercitan todo el sistema transacción por transacción de principio a fin. Ivar Jacobson los describe en su libro Ingeniería de software orientada a objetos: un enfoque orientado a casos de uso [Jacobson, 1992] .
+		\end{itemize}
+	
+	\item \textbf {Pruebas de caja blanca}: Las técnicas de prueba basadas en la estructura utilizan la estructura interna del software para derivar casos de prueba. Se denominan comúnmente técnicas de 'caja blanca' o 'caja de cristal' (lo que implica que puede ver el sistema), ya que requieren conocer cómo se implementa el software, es decir, cómo funciona. Por ejemplo, una técnica estructural puede estar relacionada con el ejercicio de bucles en el software.
+	
+	\item \textbf {Basadas en experiencia}: En las técnicas basadas en la experiencia, el conocimiento, las habilidades y los antecedentes de las personas son los principales contribuyentes a las condiciones y casos de prueba. La experiencia de los técnicos y los empresarios aporta diferentes perspectivas al análisis de prueba y al proceso de diseño ya pueden tener información sobre lo que podría salir mal, lo cual es muy útil para las pruebas.
 
-Dentro de las pruebas dinámicas podemos encontrar distintos niveles de prueba. Los niveles de prueba son grupos de actividades de prueba que se organizan y gestionan juntas. Cada nivel de prueba es una instancia del proceso de prueba, realizadas en relación con software en un determinado nivel de desarrollo, desde unidades individuales o componentes hasta sistemas completos o, en su caso, sistemas de sistemas.\\
+\end{enumerate}
+
+Dentro de las pruebas dinámicas podemos encontrar distintos niveles de prueba, estos son grupos de actividades que se organizan y gestionan juntas. Cada nivel de prueba es una instancia del proceso de prueba, desde unidades individuales o componentes hasta sistemas completos o, en su caso, sistemas de sistemas.\\
 
 Los niveles de prueba utilizados pueden ser:
 
 \begin{itemize}
-	\item Prueba de componentes.
-	\item Pruebas de integración.
-	\item Prueba de sistema.
-	\item Pruebas de aceptación.
+	\item \textbf {Prueba de Componente.}
+	\item \textbf {Prueba de Integración.}
+	\item \textbf {Prueba de Sistema.}
+	\item \textbf {Prueba de Aceptación.}
 \end{itemize}
 
 Los niveles de prueba se caracterizan por los siguientes atributos:
 
 \begin{itemize}
-	\item Objetivos específicos
-	\item Base de prueba, referenciada para derivar casos de prueba
-	\item Objeto de prueba (es decir, lo que se está probando)
-	\item defectos y fallas típicas
+	\item \textbf {Objetivos específicos}
+	\item \textbf {Base de prueba, referenciada para derivar casos de prueba}
+	\item \textbf {Objeto de prueba (es decir, lo que se está probando)}
+	\item \textbf {Defectos y fallas típicas}
 \end{itemize}
 
-\subsection{Prueba de sistema}
+\subsubsection{Prueba de sistema}
 
-\textbf {Objetivos de las pruebas del sistema.}\\
+Las pruebas del sistema se centran en el comportamiento y las capacidades de un sistema o producto completo, a menudo considerando las tareas de extremo a extremo que el sistema puede realizar y los comportamientos no funcionales que exhibe mientras realiza esas tareas. Este nivel de pruebas tiene como objetivo: la reducción de riesgos, verificar si los comportamientos funcionales y no funcionales del sistema son los diseñados y especificados, alidar que el sistema está completo y funcionará como se esperaba, generar confianza en la calidad del sistema en su conjunto, encontrar defectos y Evitar que los defectos escapen a niveles de prueba o producción más altos.
 
-Las pruebas del sistema se centran en el comportamiento y las capacidades de un sistema o producto completo, a menudo considerando las tareas de extremo a extremo que el sistema puede realizar y los comportamientos no funcionales que exhibe mientras realiza esas tareas. Los objetivos de las pruebas del sistema incluyen:
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|p{3.5cm}|p{13cm}|}
+		\hline
+		\centering \textbf{Base de prueba} & \begin{itemize}
+			\item Especificaciones de requisitos del sistema y software (funcionales y no funcionales)
+			\item Informes de análisis de riesgos.
+			\item Casos de uso
+			\item Epicas e historias de usuarios.
+			\item Modelos de comportamiento del sistema.
+			\item Diagramas de estado.
+			\item Sistema y manuales de usuario.
+		\end{itemize}
+		  \\
+		\hline
+		\centering \textbf{Objeto de prueba} & \begin{itemize}
+			\item Aplicaciones (de escritorio o móviles)
+			\item Sistemas de hardware / software
+		\end{itemize}  \\
+		\hline
+	\end{tabular}
+\end{table}
 
-\begin{itemize}
-	\item Reducción del riesgo.
-	\item Verificar si los comportamientos funcionales y no funcionales del sistema son los diseñados y
-	especificado
-	\item Validar que el sistema está completo y funcionará como se esperaba.
-	\item Generar confianza en la calidad del sistema en su conjunto.
-	\item Encontrar defectos
-	\item Evitar que los defectos escapen a niveles de prueba o producción más altos
-\end{itemize}
 
-\textbf {Base de prueba}\\
-Los ejemplos de productos de trabajo que se pueden usar como base de prueba para las pruebas del sistema incluyen:
-
-\begin{itemize}
-	\item Especificaciones de requisitos del sistema y software (funcionales y no funcionales)
-	\item Informes de análisis de riesgos.
-	\item Casos de uso
-	\item Epics e historias de usuarios
-	\item Modelos de comportamiento del sistema.
-	\item Diagramas de estado
-	\item Sistema y manuales de usuario.
-\end{itemize}
-
-\textbf {Objetos de prueba}\\
-Los objetos de prueba típicos para las pruebas del sistema incluyen:
-
-\begin{itemize}
-	\item Aplicaciones
-	\item Sistemas de hardware / software
-	\item Sistemas operativos
-	\item Sistema bajo prueba (SUT)
-\end{itemize}
 
 \subsection{Pruebas Estáticas}
 
-Durante las pruebas estáticas, los productos de trabajo de software se examinan manualmente o con un conjunto de herramientas, pero no se ejecutan. Como consecuencia, las pruebas dinámicas solo pueden aplicarse al código de software. La ejecución dinámica se aplica como una técnica para detectar defectos y para determinar los atributos de calidad del código. 
+Las pruebas estáticas encuentran defectos en los productos de trabajo directamente en lugar de identificar fallas causadas por defectos cuando se ejecuta el software.  En comparación con las pruebas dinámicas, los defectos típicos que son más fáciles y baratos de encontrar y reparar mediante pruebas estáticas incluyen:
+\begin{itemize}
+	\item \textbf {Defectos de requisitos} (inconsistencias, ambigüedades, contradicciones, omisiones, imprecisiones y redundancias)
+	\item \textbf {Defectos de diseño} (algoritmos ineficientes o estructuras de bases de datos, alto acoplamiento, baja cohesión)
+	\item \textbf {Defectos de codificación} (variables con valores indefinidos, variables que se declaran pero nunca se usan, código inalcanzable, código duplicado)
+	\item \textbf {Desviaciones de los estándares} (falta de adherencia a los estándares de codificación)
+\end{itemize}
+
+La mayoría de los tipos de defectos de mantenimiento solo se pueden encontrar mediante pruebas estáticas (por ejemplo, modularización inadecuada, mala reutilización de componentes, código que es difícil de analizar y modificar sin introducir nuevos defectos).A diferencia de las pruebas dinámicas, las pruebas estáticas encuentran defectos en lugar de fallas.\\
+
+\subsubsection {Defectos de Codificación}
+
+Para el análisis estático hay muchas herramientas, y la mayoría de ellas se centran en el código de software. Las herramientas pueden mostrar no solo atributos estructurales (métricas de código), como la profundidad de anidamiento o el número ciclomático y verificar los estándares de codificación, sino también representaciones gráficas del flujo de control, las relaciones de datos y el número de rutas distintas de una línea de código a otra. Incluso el compilador puede considerarse una herramienta de análisis estático, ya que crea una tabla de símbolos, señala el uso incorrecto y comprueba el incumplimiento de las convenciones del lenguaje de codificación (sintaxis).
+
+Estos problemas se pueden encontrar utilizando herramientas de análisis estático para detectarlos. 
+
+\begin{itemize}
+	\item \textbf {Estándares de codificación:} Verificar la adherencia a los estándares de codificación es la más conocida de todas las características. La primera acción a tomar es definir o adoptar un estándar de codificación. Por lo general, un estándar de codificación consta de un conjunto de reglas de programación (p. Ej., 'Verifique siempre los límites de una matriz al copiar en esa matriz'), convenciones de nomenclatura (p. Ej., 'Las clases deben comenzar con C mayúscula) y especificaciones de diseño (p. Ej.,' Sangría 4 espacios ' ) Se recomienda que se adopten las normas existentes. 
+	\item \textbf {Métricas de código:} Cuando se realiza un análisis de código estático, generalmente se calcula la información sobre los atributos estructurales del código, como la frecuencia de comentarios, la profundidad de anidación, el número ciclomático y el número de líneas de código.
+	\item \textbf {Estructura de código:} 
+	 Hay varios aspectos de la estructura del código a considerar:
+	\begin{itemize}
+		\item Estructura de flujo de control: La estructura de flujo de control aborda la secuencia en la que se ejecutan las instrucciones.
+		\item Estructura de flujo de datos: Sigue el rastro de un elemento de datos a medida que el código accede y lo modifica.
+		\item Estructura de datos: La estructura de datos se refiere a la organización de los datos en sí, independientemente del programa.
+	\end{itemize}
+\end{itemize}
+
+
+PONER EXPLICACIÓN DE SONARQUBE
+
+pag 73
+
+
