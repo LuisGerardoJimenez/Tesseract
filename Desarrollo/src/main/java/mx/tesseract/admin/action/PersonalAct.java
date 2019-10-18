@@ -2,7 +2,6 @@ package mx.tesseract.admin.action;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import mx.tesseract.admin.bs.ColaboradorBs;
 import mx.tesseract.admin.entidad.Colaborador;
@@ -13,6 +12,8 @@ import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -27,6 +28,7 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 		@Result(name = "referencias", type = "json", params = { "root", "proyectosLider" }) })
 public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<Colaborador> {
 	private static final long serialVersionUID = 1L;
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	private Colaborador model;
 	private List<Colaborador> listPersonal;
 	private String idSel;
@@ -41,9 +43,9 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 	public String index() {
 		try {
 			listPersonal = colaboradorBs.consultarColaboradores();
-			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+			Collection<String> msjs = (Collection<String>) SessionManager.get(Constantes.MENSAJES_ACCION);
 			this.setActionMessages(msjs);
-			SessionManager.delete("mensajesAccion");
+			SessionManager.delete(Constantes.MENSAJES_ACCION);
 		} catch (TESSERACTException te) {
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
@@ -61,21 +63,21 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 			try {
 				colaboradorBs.registrarColaborador(model);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
 			}
 		}
 	}
 
 	public String create() {
 		addActionMessage(getText("MSG1", new String[] { "El", "Colaborador", "registrado" }));
-		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		SessionManager.set(this.getActionMessages(), Constantes.MENSAJES_ACCION);
 		return SUCCESS;
 	}
 
@@ -90,21 +92,21 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 			try {
 				colaboradorBs.modificarColaborador(model, correoAnterior, contrasenaAnterior);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateUpdate", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 			}
 		}
 	}
 
 	public String update() {
 		addActionMessage(getText("MSG1", new String[] { "El", "Colaborador", "modificado" }));
-		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		SessionManager.set(this.getActionMessages(), Constantes.MENSAJES_ACCION);
 		return SUCCESS;
 	}
 
@@ -113,16 +115,16 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 			try {
 				colaboradorBs.eliminarColaborador(model);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 				index();
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 				index();
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateDestroy", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 				index();
 			}
 		}
@@ -130,7 +132,7 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 
 	public String destroy() {
 		addActionMessage(getText("MSG1", new String[] { "El", "Colaborador", "eliminado" }));
-		SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		SessionManager.set(this.getActionMessages(), Constantes.MENSAJES_ACCION);
 		return SUCCESS;
 	}
 

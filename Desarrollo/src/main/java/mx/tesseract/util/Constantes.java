@@ -35,6 +35,9 @@ public final class Constantes {
 	//NUMEROS CONSTANTES DOUBLES
 	public static final Double NUMERO_MIL_MILLONES = 1000000000.00;
 	
+	//SESSION MESSAGES
+	public static final String MENSAJES_ACCION = "mensajesAccion";
+	
 	//ROLES
 	public static final Integer ROL_LIDER = 1;
 	public static final Integer ROL_ANALISTA = 2;

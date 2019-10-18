@@ -35,12 +35,6 @@ public class AccessBs {
 			throw new TESSERACTValidacionException("El usuario no ingresó la contraseña.", "MSG6",
 					new String[] { Constantes.NUMERO_VEINTE.toString(), "caracteres" }, "password");
 		}
-
-//		if (Validador.esInvalidaREGEX(password, Constantes.REGEX_CONTRASENIA)) {
-//			throw new TESSERACTValidacionException("El usuario no ingresó la contraseña.", "MSG6",
-//					new String[] { Constantes.NUMERO_VEINTE.toString(), "caracteres" }, "password");
-//		}
-
 		try {
 			colaborador = colaboradorDAO.findColaboradorByCorreo(userName);
 		} catch (Exception e) {
@@ -51,39 +45,5 @@ public class AccessBs {
 		}
 		return colaborador;
 	}
-
-//	public static void recuperarContrasenia(String userName) throws AddressException, MessagingException {
-//		Colaborador colaborador = null;
-//		if (Validador.esNuloOVacio(userName)) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario no ingresó el correo electrónico", "MSG4", null,
-//					"userName");
-//		}
-//		if (!Validador.esCorreo(userName)) {
-//			throw new TESSERACTValidacionException("Colaborador no encontrado", "MSG33");
-//
-//		}
-//		try {
-//			colaborador = new ColaboradorDAO().consultarColaboradorCorreo(userName);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		if (colaborador == null) {
-//			throw new TESSERACTValidacionException("Colaborador no encontrado", "MSG33");
-//		}
-//		Correo.enviarCorreo(colaborador, 1);
-//		
-//	}
-//	
-//	public static boolean verificarPermisos(Proyecto proyecto, Colaborador colaborador) {
-//		boolean acceso = false;
-//		for (ColaboradorProyecto colaboradorProyecto : colaborador.getColaborador_proyectos()) {
-//			if (colaboradorProyecto.getProyecto().getId() == proyecto.getId()) {
-//				acceso = true;
-//				break;
-//			}
-//		}
-//		return acceso;
-//	}
 
 }
