@@ -1,7 +1,6 @@
 package mx.tesseract.action;
 
 import java.util.Collection;
-import java.util.Map;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Colaborador;
@@ -10,7 +9,6 @@ import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.TESSERACTException;
-import mx.tesseract.util.TESSERACTLogger;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
@@ -31,7 +29,6 @@ public class AccessAct extends ActionSupportTESSERACT {
 	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	private static final String ADMINISTRADOR = "administrador";
 	private static final String COLABORADOR = "colaborador";
-	private Map<String, Object> userSession;
 	private String userName;
 	private String password;
 
@@ -58,7 +55,7 @@ public class AccessAct extends ActionSupportTESSERACT {
 		} catch (TESSERACTException pe) {
 			ErrorManager.agregaMensajeError(this, pe);
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ":" + "Mostrar Login", e);
 		}
 		return resultado;
 	}
@@ -80,13 +77,12 @@ public class AccessAct extends ActionSupportTESSERACT {
 				resultado = COLABORADOR;
 			}
 		} catch (TESSERACTValidacionException tve) {
-//			LoggerHelper.error(this.getClass().getName(), "findUniqueAtInsert", e);
 			TESSERACT_LOGGER.debug(this.getClass().getName()+ " --> " + tve.getMessage());
 			ErrorManager.agregaMensajeError(this, tve);
 		} catch (TESSERACTException te) {
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			TESSERACT_LOGGER.error(this.getClass().getName(), "Login", e);
+			TESSERACT_LOGGER.error(this.getClass().getName() + ":" + "Iniciar Sesión", e);
 		}
 		return resultado;
 	}
@@ -96,18 +92,6 @@ public class AccessAct extends ActionSupportTESSERACT {
 			SessionManager.clear();
 		}
 		return INDEX;
-	}
-
-	public void setSession(Map<String, Object> session) {
-		this.userSession = session;
-	}
-
-	public Map<String, Object> getUserSession() {
-		return userSession;
-	}
-
-	public void setUserSession(Map<String, Object> userSession) {
-		this.userSession = userSession;
 	}
 
 	public String getUserName() {

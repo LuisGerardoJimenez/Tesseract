@@ -2,56 +2,35 @@ package mx.tesseract.editor.action;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import mx.tesseract.admin.bs.LoginBs;
-import mx.tesseract.admin.entidad.Colaborador;
+import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Proyecto;
-import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.TrayectoriaDTO;
 import mx.tesseract.editor.bs.CasoUsoBs;
 import mx.tesseract.editor.bs.ElementoBs;
 import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.bs.TrayectoriaBs;
-import mx.tesseract.editor.dao.ElementoDAO;
-import mx.tesseract.editor.entidad.Accion;
-import mx.tesseract.editor.entidad.Actor;
-import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.editor.entidad.CasoUso;
-import mx.tesseract.editor.entidad.Elemento;
-import mx.tesseract.editor.entidad.Entidad;
-import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.Modulo;
-import mx.tesseract.editor.entidad.Pantalla;
-import mx.tesseract.editor.entidad.Paso;
-import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.editor.entidad.Revision;
-import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.editor.entidad.Trayectoria;
 import mx.tesseract.enums.AnalisisEnum.CU_CasosUso;
-import mx.tesseract.enums.ReferenciaEnum;
 import mx.tesseract.enums.TipoSeccionEnum;
 import mx.tesseract.enums.TipoSeccionEnum.TipoSeccionENUM;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
-import mx.tesseract.util.JsonUtil;
 import mx.tesseract.util.SessionManager;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
-import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
@@ -59,31 +38,29 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 @Results({
 		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = { "actionName",
 				"trayectorias" }),
-		@Result(name = "referencias", type = "json", params = { "root", "elementosReferencias" }),
-		@Result(name = "cu", type = "redirectAction", params = { "actionName", "cu" }) })
+		@Result(name = "proyectos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_PROYECTOS }),
+		@Result(name = "modulos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_MODULOS }),
+		@Result(name = "caso-uso", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_CASO_USO }),
+		@Result(name = "referencias", type = "json", params = { "root", "elementosReferencias" }) })
 public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriven<TrayectoriaDTO> {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-	private Map<String, Object> userSession;
 
 	private static final String PROYECTOS = "proyectos";
-	private static final String CASOUSO = "caso-uso";
+	private static final String MODULOS = "modulos";
+	private static final String CASO_USO = "caso-uso";
 
 	private Proyecto proyecto;
 	private Modulo modulo;
-	private Colaborador colaborador;
 
 	private Integer idProyecto;
 	private Integer idModulo;
+	private Integer idCasoUso;
 
-	private CasoUso casoUso;
+	private CasoUso casoUsoBase;
 	private TrayectoriaDTO model;
-	private Set<Paso> pasos = new HashSet<Paso>();
 	private List<Trayectoria> listTrayectorias;
 	private String jsonPasosTabla;
-	private Integer idCU;
 	private List<String> listRealiza;
 	private List<String> listVerbos;
 
@@ -100,7 +77,6 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 	private String jsonAcciones;
 
 	private Integer idSel;
-	private Integer idSelPaso;
 
 	private boolean existeTPrincipal;
 	private List<String> listAlternativa;
@@ -120,78 +96,94 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 	private ModuloBs moduloBs;
 
 	@Autowired
-	private GenericoDAO genericoDAO;
-
-	@Autowired
 	private ElementoBs elementoBs;
-
-	public String index(){
-		String resultado;
-		Map<String, Object> session = null;
+	
+	@Autowired
+	private ProyectoBs proyectoBs;
+	
+	@Autowired
+	private CasoUsoBs casoUsoBs;
+	
+	public String index() {
+		String resultado = PROYECTOS;
 		try {
 			idProyecto = (Integer) SessionManager.get("idProyecto");
 			if (idProyecto != null) {
 				idModulo = (Integer) SessionManager.get("idModulo");
 				if (idModulo != null) {
-					proyecto = loginBs.consultarProyectoActivo();
-					modulo = moduloBs.consultarModuloById(idModulo);
-					System.out.println(idCU);
-					idCU = 416;
-					casoUso = genericoDAO.findById(CasoUso.class, idCU);
-					model.setCasoUso(casoUso);
-
-					listTrayectorias = new ArrayList<Trayectoria>();
-					for (Trayectoria t : casoUso.getTrayectorias()) {
-						listTrayectorias.add(t);
-					}
-					for (Revision rev : model.getCasoUso().getRevisiones()) {
-						if (!rev.isRevisado() && rev.getSeccion().getNombre()
-								.equals(TipoSeccionEnum.getNombre(TipoSeccionENUM.TRAYECTORIA))) {
-							this.observaciones = rev.getObservaciones();
-						}
-					}
-					resultado = INDEX;
-					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
-					this.setActionMessages(msjs);
-					SessionManager.delete("mensajesAccion");
+					resultado = buscarModelos();
 				} else {
-					resultado = CASOUSO;
+					resultado = MODULOS;
 				}
 			}
 		} catch (TESSERACTException te) {
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			e.printStackTrace();
+			ErrorManager.agregaMensajeError(this, e);
 		}
-		return INDEX;
+		return resultado;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private String buscarModelos() {
+		String resultado = null;
+		idCasoUso = (Integer) SessionManager.get("idCU");
+		if (idCasoUso != null) {
+			proyecto = loginBs.consultarProyectoActivo();
+			modulo = moduloBs.consultarModuloById(idModulo);
+			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+			model.setCasoUso(casoUsoBase);
+			listTrayectorias = new ArrayList<Trayectoria>();
+			for (Trayectoria t : casoUsoBase.getTrayectorias()) {
+				listTrayectorias.add(t);
+			}
+			for (Revision rev : model.getCasoUso().getRevisiones()) {
+				if (!rev.isRevisado() && rev.getSeccion().getNombre()
+						.equals(TipoSeccionEnum.getNombre(TipoSeccionENUM.TRAYECTORIA))) {
+					this.observaciones = rev.getObservaciones();
+				}
+			}
+			resultado = INDEX;
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+			this.setActionMessages(msjs);
+			SessionManager.delete("mensajesAccion");
+		} else {
+			resultado = CASO_USO;
+		}
+		return resultado;
 	}
 
-	public String editNew() throws Exception {
-
-		String resultado = null;
+	@SuppressWarnings("unchecked")
+	public String editNew() {
+		String resultado = PROYECTOS;
 		try {
 			idProyecto = (Integer) SessionManager.get("idProyecto");
 			if (idProyecto != null) {
 				idModulo = (Integer) SessionManager.get("idModulo");
 				if (idModulo != null) {
-					idCU = 416;
-					existeTPrincipal = trayectoriaBs.existeTrayectoriaPrincipal(idCU);
-					buscaElementos();
-					buscaCatalogos();
-
-					resultado = EDITNEW;
-					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
-					this.setActionMessages(msjs);
-					SessionManager.delete("mensajesAccion");
+					idCasoUso = (Integer) SessionManager.get("idCU");
+					if (idCasoUso != null) {
+						proyecto = proyectoBs.consultarProyecto(idProyecto);
+						modulo = moduloBs.consultarModuloById(idModulo);
+						casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+						existeTPrincipal = trayectoriaBs.existeTrayectoriaPrincipal(idCasoUso);
+						buscaElementos();
+						buscaCatalogos();
+						resultado = EDITNEW;
+						Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+						this.setActionMessages(msjs);
+						SessionManager.delete("mensajesAccion");
+					} else {
+						resultado = CASO_USO;
+					}
 				} else {
-					resultado = CASOUSO;
+					resultado = MODULOS;
 				}
 			}
 		} catch (TESSERACTException pe) {
 			ErrorManager.agregaMensajeError(this, pe);
 			resultado = index();
 		} catch (Exception e) {
-			e.printStackTrace();
 			ErrorManager.agregaMensajeError(this, e);
 			resultado = index();
 		}
@@ -212,13 +204,10 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 					throw new TESSERACTValidacionException("El usuario no seleccionó el tipo de la trayectoria.",
 							"MSG4", null, "alternativaPrincipal");
 				}
-				idCU = 416;
-				casoUso = genericoDAO.findById(CasoUso.class, idCU);
-				model.setCasoUso(casoUso);
-				// agregarPasos();
-				// trayectoriaBs.preAlmacenarObjetosToken(model, idModulo);
-
-				trayectoriaBs.registrarTrayectoria(model, idCU);
+				idCasoUso = (Integer) SessionManager.get("idCU");
+				casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+				model.setCasoUso(casoUsoBase);
+				trayectoriaBs.registrarTrayectoria(model, idCasoUso);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
@@ -241,27 +230,29 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 	}
 
 	public String edit(){
-		String resultado = null;
+		String resultado = PROYECTOS;
 		try {
 			idProyecto = (Integer) SessionManager.get("idProyecto");
 			if (idProyecto != null) {
 				idModulo = (Integer) SessionManager.get("idModulo");
 				if (idModulo != null) {
-					idCU = 416;
-					casoUso = genericoDAO.findById(CasoUso.class, idCU);
-					model.setCasoUso(casoUso);
-					elementoBs.verificarEstado(casoUso, CU_CasosUso.MODIFICARTRAYECTORIA5_1_1_2);
-					buscaElementos();
-					buscaCatalogos();
-					existeTPrincipal = trayectoriaBs.existeTrayectoriaPrincipal(casoUso.getId(), model.getId());
-					prepararVista();
-
-					resultado = EDIT;
+					idCasoUso = (Integer) SessionManager.get("idCU");
+					if (idCasoUso != null) {
+						casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+						model.setCasoUso(casoUsoBase);
+						elementoBs.verificarEstado(casoUsoBase, CU_CasosUso.MODIFICARTRAYECTORIA5_1_1_2);
+						buscaElementos();
+						buscaCatalogos();
+						existeTPrincipal = trayectoriaBs.existeTrayectoriaPrincipal(casoUsoBase.getId(), model.getId());
+						prepararVista();
+						resultado = EDIT;
+					} else {
+						resultado = CASO_USO;
+					}
 				} else {
-					resultado = CASOUSO;
+					resultado = MODULOS;
 				}
 			}
-
 		} catch (TESSERACTException pe) {
 			ErrorManager.agregaMensajeError(this, pe);
 			resultado = index();
@@ -284,13 +275,6 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 					throw new TESSERACTValidacionException("El usuario no seleccionó el tipo de la trayectoria.",
 							"MSG4", null, "alternativaPrincipal");
 				}
-				//List<Paso> pasosAux = trayectoriaBs.obtenerPasos_(model.getId());// HOLI
-				//pasos.addAll(pasosAux);
-				//pasos.clear();
-//				model.setPasos(null);//ANTES ESTABA model.getPasos().clear();
-
-//				agregarPasos();
-//				trayectoriaBs.preAlmacenarObjetosToken(model, idModulo);
 				trayectoriaBs.modificarTrayectoria(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
@@ -355,50 +339,8 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		listVerbos = trayectoriaBs.consultarVerbos();
 	}
 
-	private void agregarPasos() {
-		/*Set<Paso> pasosModelo = new HashSet<Paso>(0);
-		Set<Paso> pasosVista = new HashSet<Paso>(0);
-
-		Paso pasoBD = null;
-		if (jsonPasosTabla != null && !jsonPasosTabla.equals("")) {
-			pasosVista = JsonUtil.mapJSONToSet(jsonPasosTabla, Paso.class);
-			for (Paso pasoVista : pasosVista) {
-				if (pasoVista.getId() != null && pasoVista.getId() != 0) {
-					System.out.println("pasoVista if: " + pasoVista.getRedaccion());
-					pasoBD = pasosBs.consultarPaso(pasoVista.getId());
-					pasoBD.setNumero(pasoVista.getNumero());
-					pasoBD.setRealizaActor(pasoVista.isRealizaActor());
-					pasoBD.setVerbo(TrayectoriaBs.consultaVerbo(pasoVista.getVerbo().getNombre()));
-					if (pasoVista.getOtroVerbo() != null && pasoVista.getOtroVerbo().isEmpty()) {
-						pasoVista.setOtroVerbo(null);
-					} else {
-						pasoBD.setOtroVerbo(pasoVista.getOtroVerbo());
-					}
-					pasoBD.setRedaccion(pasoVista.getRedaccion());
-					pasoBD.getReferencias().clear();
-					pasosModelo.add(pasoBD);
-
-				} else {
-					System.out.println("pasoVista else: " + pasoVista.getRedaccion());
-					pasoVista.setId(null);
-					pasoVista.setVerbo(TrayectoriaBs.consultaVerbo(pasoVista.getVerbo().getNombre()));
-					if (pasoVista.getOtroVerbo() != null && pasoVista.getOtroVerbo().isEmpty()) {
-						pasoVista.setOtroVerbo(null);
-					}
-					pasoVista.setTrayectoria(model);
-					pasosModelo.add(pasoVista);
-
-				}
-			}
-
-			pasos.addAll(pasosModelo);
-			System.out.println("Pasos: " + pasos);
-			model.setPasos(pasos); // antes estaba model.getPasos().addAll(pasosModelo).
-		}*/
-	}
-
 	private void buscaElementos() {
-		TrayectoriaDTO trayectoriaDTOEle = trayectoriaBs.buscaElementos(idProyecto, idCU);
+		TrayectoriaDTO trayectoriaDTOEle = trayectoriaBs.buscaElementos(idProyecto, idCasoUso);
 		// Se convierte en json las Reglas de Negocio
 		if (trayectoriaDTOEle.getJsonReglasNegocio() != null) {
 			this.jsonReglasNegocio = trayectoriaDTOEle.getJsonReglasNegocio();
@@ -436,52 +378,19 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 	}
 
 	private void prepararVista() {
-		// Set<Paso> pasos = model.getPasos();
-//		ArrayList<Paso> pasosTabla = new ArrayList<Paso>();
-//		Paso pasoAux;
-//		List<Paso>pasos = TrayectoriaBs.obtenerPasos_(model.getId());//HOLI
-//		for (Paso paso : pasos) {
-//			pasoAux = new Paso();
-//			pasoAux.setNumero(paso.getNumero());
-//			pasoAux.setRedaccion(TokenBs.decodificarCadenasToken(paso
-//					.getRedaccion()));
-//			pasoAux.setRealizaActor(paso.isRealizaActor());
-//			pasoAux.setVerbo(paso.getVerbo());
-//			pasoAux.setOtroVerbo(paso.getOtroVerbo());
-//			pasoAux.setId(paso.getId());
-//			pasosTabla.add(pasoAux);
-//		}
-//
-//		this.jsonPasosTabla = JsonUtil.mapListToJSON(pasosTabla);
-
 		if (model.isAlternativa()) {
 			alternativaPrincipal = "Alternativa";
 		} else {
 			alternativaPrincipal = "Principal";
 		}
-
 		for (Revision rev : model.getCasoUso().getRevisiones()) {
 			if (!rev.isRevisado()
 					&& rev.getSeccion().getNombre().equals(TipoSeccionEnum.getNombre(TipoSeccionENUM.TRAYECTORIA))) {
 				this.observaciones = rev.getObservaciones();
 			}
 		}
-
 	}
 
-	/*
-	 * public String verificarElementosReferencias() { try { model.setId(idSel);
-	 * elementosReferencias = new ArrayList<String>(); elementosReferencias =
-	 * TrayectoriaBs.verificarReferencias(model, null);
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); } return "referencias"; }
-	 * 
-	 * public String verificarElementosReferenciasPaso() { try {
-	 * elementosReferencias = new ArrayList<String>(); elementosReferencias =
-	 * PasoBs.verificarReferencias(PasoBs .consultarPaso(idSelPaso), null);
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); } return "referencias"; }
-	 */
 	@VisitorFieldValidator
 	public TrayectoriaDTO getModel() {
 		if (this.model == null) {
@@ -502,12 +411,12 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		this.listTrayectorias = listTrayectorias;
 	}
 
-	public Integer getIdCU() {
-		return idCU;
+	public Integer getIdCasoUso() {
+		return idCasoUso;
 	}
 
-	public void setIdCU(Integer idCU) {
-		this.idCU = idCU;
+	public void setIdCasoUso(Integer idCasoUso) {
+		this.idCasoUso = idCasoUso;
 	}
 
 	public List<String> getListRealiza() {
@@ -622,11 +531,6 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		this.jsonPasos = jsonPasos;
 	}
 
-	public void setSession(Map<String, Object> session) {
-		userSession = session;
-
-	}
-
 	public boolean isExisteTPrincipal() {
 		return existeTPrincipal;
 	}
@@ -649,14 +553,6 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 
 	public void setAlternativaPrincipal(String alternativaPrincipal) {
 		this.alternativaPrincipal = alternativaPrincipal;
-	}
-
-	public Map<String, Object> getUserSession() {
-		return userSession;
-	}
-
-	public void setUserSession(Map<String, Object> userSession) {
-		this.userSession = userSession;
 	}
 
 	public Integer getIdSel() {
@@ -692,14 +588,6 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		this.elementosReferencias = elementosReferencias;
 	}
 
-	public Integer getIdSelPaso() {
-		return idSelPaso;
-	}
-
-	public void setIdSelPaso(Integer idSelPaso) {
-		this.idSelPaso = idSelPaso;
-	}
-
 	public Proyecto getProyecto() {
 		return proyecto;
 	}
@@ -716,12 +604,12 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		this.modulo = modulo;
 	}
 
-	public CasoUso getCasoUso() {
-		return casoUso;
+	public CasoUso getCasoUsoBase() {
+		return casoUsoBase;
 	}
 
-	public void setCasoUso(CasoUso casoUso) {
-		this.casoUso = casoUso;
+	public void setCasoUsoBase(CasoUso casoUso) {
+		this.casoUsoBase = casoUso;
 	}
 
 }

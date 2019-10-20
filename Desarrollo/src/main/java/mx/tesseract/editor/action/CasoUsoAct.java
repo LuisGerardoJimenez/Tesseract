@@ -68,11 +68,13 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 				"actionName", Constantes.ACTION_NAME_MODULOS }),
 		@Result(name = "postprecondicion", type = "redirectAction", params = {
 				"actionName", Constantes.ACTION_NAME_POSTPRECONDICION }),
+		@Result(name = "trayectorias", type = "redirectAction", params = {
+				"actionName", Constantes.ACTION_NAME_TRAYECTORIAS }),
 		@Result(name = "restricciones", type = "json", params = { "root",
 				"restriccionesTermino" }),
 		@Result(name = "revision", type = "dispatcher", location = "caso-uso/revision.jsp"),
 		@Result(name = "liberacion", type = "dispatcher", location = "caso-uso/liberacion.jsp")})
-@AllowedMethods({"entrarPostprecondiciones"})
+@AllowedMethods({"entrarPostprecondiciones", "entrarTrayectorias"})
 public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<CasoUsoDTO> {
 
 	private static final long serialVersionUID = 1L;
@@ -82,6 +84,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	private static final String REVISION = "revision";
 	private static final String LIBERACION = "liberacion";
 	private static final String POSTPRECONDICION = "postprecondicion";
+	private static final String TRAYECTORIAS = "trayectorias";
 
 	// Proyecto y módulo
 	private Proyecto proyecto;
@@ -477,6 +480,23 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		String resultado = INDEX;
 		try {
 			resultado = POSTPRECONDICION;
+			SessionManager.set(idSel, "idCU");
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+			this.setActionMessages(msjs);
+			SessionManager.delete("mensajesAccion");
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String entrarTrayectorias() {
+		String resultado = INDEX;
+		try {
+			resultado = TRAYECTORIAS;
 			SessionManager.set(idSel, "idCU");
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);

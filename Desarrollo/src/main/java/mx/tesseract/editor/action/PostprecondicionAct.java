@@ -50,12 +50,12 @@ import com.opensymphony.xwork2.ModelDriven;
 		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_POSTPRECONDICION }),
 		@Result(name = "proyectos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_PROYECTOS }),
 		@Result(name = "modulos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_MODULOS }),
-		@Result(name = "casoUsoBase-uso", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_CASO_USO })})
+		@Result(name = "caso-uso", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_CASO_USO })})
 public class PostprecondicionAct extends ActionSupportTESSERACT implements ModelDriven<PostPrecondicion> {
 	private static final long serialVersionUID = 1L;
 	private static final String PROYECTOS = "proyectos";
 	private static final String MODULOS = "modulos";
-	private static final String CASO_USO = "casoUsoBase-uso";
+	private static final String CASO_USO = "caso-uso";
 	private PostPrecondicion model;
 	private Proyecto proyecto;
 	private CasoUso casoUsoBase;

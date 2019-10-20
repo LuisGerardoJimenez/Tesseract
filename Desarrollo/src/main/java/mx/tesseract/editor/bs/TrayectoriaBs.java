@@ -280,184 +280,184 @@ public class TrayectoriaBs {
 	public TrayectoriaDTO buscaElementos(Integer idProyecto, Integer idCU) {
 		TrayectoriaDTO trayectoriaDTO = new TrayectoriaDTO();
 		// Lists de los elementos disponibles
-				List<Elemento> listElementos;
-				List<ReglaNegocio> listReglasNegocio = new ArrayList<ReglaNegocio>();
-				List<Entidad> listEntidades = new ArrayList<Entidad>();
-				List<CasoUso> listCasosUso = new ArrayList<CasoUso>();
-				List<Pantalla> listPantallas = new ArrayList<Pantalla>();
-				List<Mensaje> listMensajes = new ArrayList<Mensaje>();
-				List<Actor> listActores = new ArrayList<Actor>();
-				List<TerminoGlosario> listTerminosGls = new ArrayList<TerminoGlosario>();
-				List<Atributo> listAtributos = new ArrayList<Atributo>();
-				List<Paso> listPasos = new ArrayList<Paso>();
-				List<Trayectoria> listTrayectorias = new ArrayList<Trayectoria>();
-				List<Accion> listAcciones = new ArrayList<Accion>();
+		List<Elemento> listElementos;
+		List<ReglaNegocio> listReglasNegocio = new ArrayList<ReglaNegocio>();
+		List<Entidad> listEntidades = new ArrayList<Entidad>();
+		List<CasoUso> listCasosUso = new ArrayList<CasoUso>();
+		List<Pantalla> listPantallas = new ArrayList<Pantalla>();
+		List<Mensaje> listMensajes = new ArrayList<Mensaje>();
+		List<Actor> listActores = new ArrayList<Actor>();
+		List<TerminoGlosario> listTerminosGls = new ArrayList<TerminoGlosario>();
+		List<Atributo> listAtributos = new ArrayList<Atributo>();
+		List<Paso> listPasos = new ArrayList<Paso>();
+		List<Trayectoria> listTrayectorias = new ArrayList<Trayectoria>();
+		List<Accion> listAcciones = new ArrayList<Accion>();
 
-				// Se consultan los elementos de todo el proyecto
-				listElementos = elementoDAO.findAllByIdProyecto(idProyecto);
+		// Se consultan los elementos de todo el proyecto
+		listElementos = elementoDAO.findAllByIdProyecto(idProyecto);
 
-				// Módulo auxiliar para la serialización
-				Modulo moduloAux = null;
+		// Módulo auxiliar para la serialización
+		Modulo moduloAux = null;
 
-				if (listElementos != null && !listElementos.isEmpty()) {
-					// Se clasifican los conjuntos
-					for (Elemento el : listElementos) {
-						switch (ReferenciaEnum.getTipoReferencia(el)) {
+		if (listElementos != null && !listElementos.isEmpty()) {
+			// Se clasifican los conjuntos
+			for (Elemento el : listElementos) {
+				switch (ReferenciaEnum.getTipoReferencia(el)) {
 
-						case ACTOR:
-							Actor auxActor = new Actor();
-							auxActor.setClave(el.getClave());
-							auxActor.setNombre(el.getNombre());
-							listActores.add(auxActor);
-							break;
-						case CASOUSO:					
-							CasoUso auxCasoUso = new CasoUso();
-							CasoUso cu = (CasoUso) el;
-							
-							moduloAux = new Modulo();
-							moduloAux.setId(cu.getModulo().getId());
-							moduloAux.setNombre(cu.getModulo().getNombre());
-							moduloAux.setClave(cu.getModulo().getClave());
-							
-							auxCasoUso.setClave(cu.getClave());
-							auxCasoUso.setNumero(cu.getNumero());
-							auxCasoUso.setNombre(cu.getNombre());
-							auxCasoUso.setModulo(moduloAux);
-							listCasosUso.add(auxCasoUso);
+				case ACTOR:
+					Actor auxActor = new Actor();
+					auxActor.setClave(el.getClave());
+					auxActor.setNombre(el.getNombre());
+					listActores.add(auxActor);
+					break;
+				case CASOUSO:					
+					CasoUso auxCasoUso = new CasoUso();
+					CasoUso cu = (CasoUso) el;
+					
+					moduloAux = new Modulo();
+					moduloAux.setId(cu.getModulo().getId());
+					moduloAux.setNombre(cu.getModulo().getNombre());
+					moduloAux.setClave(cu.getModulo().getClave());
+					
+					auxCasoUso.setClave(cu.getClave());
+					auxCasoUso.setNumero(cu.getNumero());
+					auxCasoUso.setNombre(cu.getNombre());
+					auxCasoUso.setModulo(moduloAux);
+					listCasosUso.add(auxCasoUso);
 
-							// Se obtienen las Trayectorias
-							List<Trayectoria> trayectorias = ((CasoUso) el)
-									.getTrayectorias();
-							for (Trayectoria tray : trayectorias) {
-								if (tray.getCasoUso().getId() == idCU) {
-									Trayectoria auxTrayectoria = new Trayectoria();
-									auxTrayectoria.setClave(tray.getClave());
-									auxTrayectoria.setCasoUso(auxCasoUso);
-									listTrayectorias.add(auxTrayectoria);
-									// Se obtienen los Pasos
-									List<Paso>pasos = tray.getPasos();//HOLI
-								//	Set<Paso> pasos = tray.getPasos();
-									for (Paso paso : pasos) {
-										Paso auxPaso = new Paso();
-										auxPaso.setTrayectoria(auxTrayectoria);
-										auxPaso.setNumero(paso.getNumero());
-										auxPaso.setRealizaActor(paso.isRealizaActor());
-										auxPaso.setVerbo(paso.getVerbo());
-										auxPaso.setOtroVerbo(paso.getOtroVerbo());
-										auxPaso.setRedaccion(tokenBs
-												.decodificarCadenaSinToken(paso
-														.getRedaccion()));
-										listPasos.add(auxPaso);
-									}
-								}
+					// Se obtienen las Trayectorias
+					List<Trayectoria> trayectorias = ((CasoUso) el)
+							.getTrayectorias();
+					for (Trayectoria tray : trayectorias) {
+						if (tray.getCasoUso().getId() == idCU) {
+							Trayectoria auxTrayectoria = new Trayectoria();
+							auxTrayectoria.setClave(tray.getClave());
+							auxTrayectoria.setCasoUso(auxCasoUso);
+							listTrayectorias.add(auxTrayectoria);
+							// Se obtienen los Pasos
+							List<Paso>pasos = tray.getPasos();//HOLI
+						//	Set<Paso> pasos = tray.getPasos();
+							for (Paso paso : pasos) {
+								Paso auxPaso = new Paso();
+								auxPaso.setTrayectoria(auxTrayectoria);
+								auxPaso.setNumero(paso.getNumero());
+								auxPaso.setRealizaActor(paso.isRealizaActor());
+								auxPaso.setVerbo(paso.getVerbo());
+								auxPaso.setOtroVerbo(paso.getOtroVerbo());
+								auxPaso.setRedaccion(tokenBs
+										.decodificarCadenaSinToken(paso
+												.getRedaccion()));
+								listPasos.add(auxPaso);
 							}
-							break;
-						case ENTIDAD:
-							Entidad auxEntidad = new Entidad();
-							auxEntidad.setNombre(el.getNombre());
-							listEntidades.add(auxEntidad);
-							// Se obtienen los Atributos
-							List<Atributo> atributos = ((Entidad) el).getAtributos();
-							for (Atributo atributo : atributos) {
-								Atributo auxAtributo = new Atributo();
-								auxAtributo.setEntidad(auxEntidad);
-								auxAtributo.setNombre(atributo.getNombre());
-								listAtributos.add(auxAtributo);
-							}
-
-							break;
-						case MENSAJE:
-							Mensaje auxMensaje = new Mensaje();
-							auxMensaje.setNumero(el.getNumero());
-							auxMensaje.setNombre(el.getNombre());
-							listMensajes.add(auxMensaje);
-							break;
-						case PANTALLA:
-							Pantalla auxPantalla = new Pantalla();
-							Pantalla pantalla = (Pantalla) el;
-							moduloAux = new Modulo();
-							moduloAux.setId(pantalla.getModulo().getId());
-							moduloAux.setNombre(pantalla.getModulo().getNombre());
-							moduloAux.setClave(pantalla.getModulo().getClave());
-							
-							auxPantalla.setClave(pantalla.getClave());
-							auxPantalla.setNumero(pantalla.getNumero());
-							auxPantalla.setNombre(pantalla.getNombre());
-							auxPantalla.setModulo(moduloAux);
-							listPantallas.add(auxPantalla);
-							// Se obtienen las acciones
-							List<Accion> acciones = ((Pantalla) el).getAcciones();
-							for (Accion accion : acciones) {
-								Accion auxAccion = new Accion();
-								auxAccion.setPantalla(auxPantalla);
-								auxAccion.setNombre(accion.getNombre());
-								listAcciones.add(auxAccion);
-							}
-							break;
-						case REGLANEGOCIO:
-							ReglaNegocio auxReglaNegocio = new ReglaNegocio();
-							auxReglaNegocio.setNumero(el.getNumero());
-							auxReglaNegocio.setNombre(el.getNombre());
-							listReglasNegocio.add(auxReglaNegocio);
-							break;
-						case TERMINOGLS:
-							TerminoGlosario auxTerminoGlosario = new TerminoGlosario();
-							auxTerminoGlosario.setNombre(el.getNombre());
-							listTerminosGls.add(auxTerminoGlosario);
-							break;
-						default:
-							break;
 						}
 					}
+					break;
+				case ENTIDAD:
+					Entidad auxEntidad = new Entidad();
+					auxEntidad.setNombre(el.getNombre());
+					listEntidades.add(auxEntidad);
+					// Se obtienen los Atributos
+					List<Atributo> atributos = ((Entidad) el).getAtributos();
+					for (Atributo atributo : atributos) {
+						Atributo auxAtributo = new Atributo();
+						auxAtributo.setEntidad(auxEntidad);
+						auxAtributo.setNombre(atributo.getNombre());
+						listAtributos.add(auxAtributo);
+					}
 
-					// Se convierte en json las Reglas de Negocio
-					if (listReglasNegocio != null) {
-						trayectoriaDTO.setJsonReglasNegocio(JsonUtil
-								.mapListToJSON(listReglasNegocio));
+					break;
+				case MENSAJE:
+					Mensaje auxMensaje = new Mensaje();
+					auxMensaje.setNumero(el.getNumero());
+					auxMensaje.setNombre(el.getNombre());
+					listMensajes.add(auxMensaje);
+					break;
+				case PANTALLA:
+					Pantalla auxPantalla = new Pantalla();
+					Pantalla pantalla = (Pantalla) el;
+					moduloAux = new Modulo();
+					moduloAux.setId(pantalla.getModulo().getId());
+					moduloAux.setNombre(pantalla.getModulo().getNombre());
+					moduloAux.setClave(pantalla.getModulo().getClave());
+					
+					auxPantalla.setClave(pantalla.getClave());
+					auxPantalla.setNumero(pantalla.getNumero());
+					auxPantalla.setNombre(pantalla.getNombre());
+					auxPantalla.setModulo(moduloAux);
+					listPantallas.add(auxPantalla);
+					// Se obtienen las acciones
+					List<Accion> acciones = ((Pantalla) el).getAcciones();
+					for (Accion accion : acciones) {
+						Accion auxAccion = new Accion();
+						auxAccion.setPantalla(auxPantalla);
+						auxAccion.setNombre(accion.getNombre());
+						listAcciones.add(auxAccion);
 					}
-					// Se convierte en json las Entidades
-					if (listEntidades != null) {
-						trayectoriaDTO.setJsonEntidades(JsonUtil.mapListToJSON(listEntidades));
-					}
-					// Se convierte en json los Casos de Uso
-					if (listCasosUso != null) {
-						trayectoriaDTO.setJsonCasosUsoProyecto(JsonUtil
-								.mapListToJSON(listCasosUso));
-					}
-					// Se convierte en json las Pantallas
-					if (listPantallas != null) {
-						trayectoriaDTO.setJsonPantallas(JsonUtil.mapListToJSON(listPantallas));
-					}
-					// Se convierte en json los Mensajes
-					if (listMensajes != null) {
-						trayectoriaDTO.setJsonMensajes(JsonUtil.mapListToJSON(listMensajes));
-					}
-					// Se convierte en json los Actores
-					if (listActores != null) {
-						trayectoriaDTO.setJsonActores(JsonUtil.mapListToJSON(listActores));
-					}
-					// Se convierte en json los Términos del Glosario
-					if (listTerminosGls != null) {
-						trayectoriaDTO.setJsonTerminosGls(JsonUtil.mapListToJSON(listTerminosGls));
-					}
-					// Se convierte en json los Atributos
-					if (listAtributos != null) {
-						trayectoriaDTO.setJsonAtributos(JsonUtil.mapListToJSON(listAtributos));
-					}
-					// Se convierte en json los Pasos
-					if (listPasos != null) {
-						trayectoriaDTO.setJsonPasos(JsonUtil.mapListToJSON(listPasos));
-					}
-					// Se convierte en json las Trayectorias
-					if (listTrayectorias != null) {
-						trayectoriaDTO.setJsonTrayectorias(JsonUtil
-								.mapListToJSON(listTrayectorias));
-					}
-					// Se convierte en json las Acciones
-					if (listAcciones != null) {
-						trayectoriaDTO.setJsonAcciones(JsonUtil.mapListToJSON(listAcciones));
-					}
+					break;
+				case REGLANEGOCIO:
+					ReglaNegocio auxReglaNegocio = new ReglaNegocio();
+					auxReglaNegocio.setNumero(el.getNumero());
+					auxReglaNegocio.setNombre(el.getNombre());
+					listReglasNegocio.add(auxReglaNegocio);
+					break;
+				case TERMINOGLS:
+					TerminoGlosario auxTerminoGlosario = new TerminoGlosario();
+					auxTerminoGlosario.setNombre(el.getNombre());
+					listTerminosGls.add(auxTerminoGlosario);
+					break;
+				default:
+					break;
 				}
+			}
+
+			// Se convierte en json las Reglas de Negocio
+			if (listReglasNegocio != null) {
+				trayectoriaDTO.setJsonReglasNegocio(JsonUtil
+						.mapListToJSON(listReglasNegocio));
+			}
+			// Se convierte en json las Entidades
+			if (listEntidades != null) {
+				trayectoriaDTO.setJsonEntidades(JsonUtil.mapListToJSON(listEntidades));
+			}
+			// Se convierte en json los Casos de Uso
+			if (listCasosUso != null) {
+				trayectoriaDTO.setJsonCasosUsoProyecto(JsonUtil
+						.mapListToJSON(listCasosUso));
+			}
+			// Se convierte en json las Pantallas
+			if (listPantallas != null) {
+				trayectoriaDTO.setJsonPantallas(JsonUtil.mapListToJSON(listPantallas));
+			}
+			// Se convierte en json los Mensajes
+			if (listMensajes != null) {
+				trayectoriaDTO.setJsonMensajes(JsonUtil.mapListToJSON(listMensajes));
+			}
+			// Se convierte en json los Actores
+			if (listActores != null) {
+				trayectoriaDTO.setJsonActores(JsonUtil.mapListToJSON(listActores));
+			}
+			// Se convierte en json los Términos del Glosario
+			if (listTerminosGls != null) {
+				trayectoriaDTO.setJsonTerminosGls(JsonUtil.mapListToJSON(listTerminosGls));
+			}
+			// Se convierte en json los Atributos
+			if (listAtributos != null) {
+				trayectoriaDTO.setJsonAtributos(JsonUtil.mapListToJSON(listAtributos));
+			}
+			// Se convierte en json los Pasos
+			if (listPasos != null) {
+				trayectoriaDTO.setJsonPasos(JsonUtil.mapListToJSON(listPasos));
+			}
+			// Se convierte en json las Trayectorias
+			if (listTrayectorias != null) {
+				trayectoriaDTO.setJsonTrayectorias(JsonUtil
+						.mapListToJSON(listTrayectorias));
+			}
+			// Se convierte en json las Acciones
+			if (listAcciones != null) {
+				trayectoriaDTO.setJsonAcciones(JsonUtil.mapListToJSON(listAcciones));
+			}
+		}
 		return trayectoriaDTO;
 	}
 	
