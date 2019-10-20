@@ -53,12 +53,19 @@
 				</tr>
 				<tr>
 					<td class="label obligatorio"><s:text name="labelTipo" /></td>
-					<td><s:select list="listAlternativa" headerKey="-1"
-							headerValue="Seleccione" id="idAlternativaPrincipal"
-							name="alternativaPrincipal" cssErrorClass="select-error"
-							onchange="cambiarElementosAlternativaPrincipal();"
-							cssClass="inputFormulario ui-widget" /> <s:fielderror
-							fieldName="alternativaPrincipal" cssClass="error" theme="jquery" />
+					<td><s:select 
+						name="model.alternativa"
+						list="listAlternativa"
+						headerKey="-1" 
+						headerValue="Seleccione" 
+						listKey="valor"
+						listValue="nombre"
+						id="idAlternativaPrincipal"
+						value="model.alternativa"
+						cssErrorClass="select-error" onchange="cambiarElementosAlternativaPrincipal();" 
+						cssClass="inputFormulario ui-widget" />
+						<s:fielderror fieldName="alternativaPrincipal" cssClass="error"
+							theme="jquery" />
 						<p id="textoAyudaPA" class="textoAyuda" /></td>
 				</tr>
 				<tr id="filaCondicion" style="display: none;">

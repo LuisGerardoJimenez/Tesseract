@@ -1,14 +1,5 @@
 package mx.tesseract.dto;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
@@ -16,15 +7,13 @@ import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
-import mx.tesseract.editor.entidad.CasoUso;
-
 public class TrayectoriaDTO {
 
 	private Integer id;
 	private String clave;
 	private Boolean alternativa;
 	private String condicion;
-	private CasoUso casoUso;
+	private Integer idCasoUso;
 	private Boolean finCasoUso;
 	
 	private String jsonReglasNegocio;
@@ -105,9 +94,6 @@ public class TrayectoriaDTO {
 	public void setJsonAcciones(String jsonAcciones) {
 		this.jsonAcciones = jsonAcciones;
 	}
-	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5',{'un', 'número'})}", regex = "[0-9]*", shortCircuit = true)
-	@IntRangeFieldValidator(message = "%{getText('MSG14',{'El', 'identificador', '0', '2147483647'})}", shortCircuit = true, min = "0", max = "2147483647") // Pendiente
 	public Integer getId() {
 		return id;
 	}
@@ -122,23 +108,26 @@ public class TrayectoriaDTO {
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
+	public Boolean getAlternativa() {
+		return alternativa;
+	}
 	public Boolean isAlternativa() {
 		return alternativa;
 	}
 	public void setAlternativa(Boolean alternativa) {
 		this.alternativa = alternativa;
-	}
+	}	
 	public String getCondicion() {
 		return condicion;
 	}
 	public void setCondicion(String condicion) {
 		this.condicion = condicion;
 	}
-	public CasoUso getCasoUso() {
-		return casoUso;
+	public Integer getIdCasoUso() {
+		return idCasoUso;
 	}
-	public void setCasoUso(CasoUso casoUso) {
-		this.casoUso = casoUso;
+	public void setIdCasoUso(Integer idCasoUso) {
+		this.idCasoUso = idCasoUso;
 	}
 	public Boolean isFinCasoUso() {
 		return finCasoUso;

@@ -66,20 +66,15 @@
 							<td align="center" class="trayectoriaPrincipal">
 								<!-- Modificar trayectoria --> 
 								<s:url var="urlModificar"
-									value="%{#pageContext.request.contextPath}/trayectorias/%{#tray.id}/edit" />
-								<s:a href="%{urlModificar}">
-									<img id="" class="button" title="Modificar Trayectoria"
-										src="${pageContext.request.contextPath}/resources/images/icons/editar.png" />
-								</s:a> ${blanks} 
+										value="%{#pageContext.request.contextPath}/trayectorias/%{#tray.id}/edit" />
+									<s:a href="%{urlModificar}">
+										<img id="" class="button" title="Modificar Trayectoria"
+											src="${pageContext.request.contextPath}/resources/images/icons/editar.png" />
+									</s:a> ${blanks} 
 								<!-- Eliminar caso de uso --> 
-								<s:url
-									var="urlEliminar"
-									value="%{#pageContext.request.contextPath}/trayectorias/%{#tray.id}?_method=delete"
-									method="post" /> <s:a
-									onclick="return verificarEliminacionTrayectoria(%{#tray.id});">
+								<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#tray.id}');">
 									<img id="" class="button" title="Eliminar Trayectoria"
-										src="${pageContext.request.contextPath}/resources/images/icons/eliminar.png" />
-								</s:a>
+										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
 							</td>
 						</s:else>
 					</s:iterator>
