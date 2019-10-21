@@ -253,9 +253,6 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 					modulo = moduloBs.consultarModuloById(idModulo);
 					pantallaB64 = ImageConverterUtil.parseBytesToPNGB64String(model.getPantallaB64());
 					listAcciones = accionBs.consultarAccionesDTOByPantalla(model.getId());
-					for (AccionDTO accionDTO : listAcciones) {
-						System.out.println("Nombre: "+accionDTO.getNombre());
-					}
 					resultado = SHOW;
 					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 					this.setActionMessages(msjs);

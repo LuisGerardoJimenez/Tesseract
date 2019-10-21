@@ -125,17 +125,13 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 			try {
 				model.setIdProyecto((Integer) SessionManager.get("idProyecto"));
 				agregarParametros();
-				System.out.println(model.getParametrizado());
 				
 				int contador2=0;
-				System.out.println(model.getRedaccion());
 				while(model.getRedaccion().indexOf("PARAM")!=-1){
-					System.out.println("entra al while");
 					contador2++;
 					break;
 				}
 				if(contador2==0){
-					System.out.println("entra al if");
 					model.setParametrizado(Boolean.FALSE);
 				}
 				mensajeBs.registrarMensaje(model);
@@ -211,7 +207,6 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 		}
 
 		if (jsonParametros == null || jsonParametros.isEmpty()) {
-			System.out.println("Entro aqui: "+model.getParametros());
 			for (MensajeParametro parametro : model.getParametros()) {
 				parametroAux = new Parametro(parametro.getParametro()
 						.getNombre(), parametro.getParametro().getDescripcion());
@@ -333,13 +328,6 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 					model.getParametros().add(nuevoParametro);
 				}
 			}
-		}
-		System.out.println("Model params size: " + model.getParametros().size());
-		for(MensajeParametro mensajeParametroItem : model.getParametros()) {
-			System.out.println(mensajeParametroItem.getId());
-			System.out.println(mensajeParametroItem.getParametro().getId());
-			System.out.println(mensajeParametroItem.getParametro().getNombre());
-			System.out.println(mensajeParametroItem.getParametro().getDescripcion());
 		}
 	}
 	

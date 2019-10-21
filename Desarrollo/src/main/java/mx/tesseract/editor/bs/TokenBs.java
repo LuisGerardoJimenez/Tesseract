@@ -1648,16 +1648,8 @@ public class TokenBs {
 					break;
 					
 				case PARAMETRO:
-					System.out.println("segmento "+segmentos.get(1));
 					Parametro parametro = genericoDAO.findById(Parametro.class, segmentos.get(1));
-					System.out.println("parametro.getNombre(): "+parametro.getNombre());
-					System.out.println("cadenaDecodificada: "+cadenaDecodificada);
-					System.out.println("token: "+token);
-					System.out.println("tokenPARAM: "+tokenPARAM);
-					//System.out.println("parametro.getNombre(): "+parametro.getNombre());
-					 
 					cadenaDecodificada = remplazoToken(cadenaDecodificada, token, tokenPARAM + parametro.getNombre());
-					System.out.println("cadenaDecodificada2: "+cadenaDecodificada);
 					break;
 				default:
 					break;
@@ -1697,24 +1689,19 @@ public class TokenBs {
 		int indiceInicial = 0;
 		int indiceFinal = 0;
 		indiceInicial = cadena.indexOf(cadena_sustituir, indiceInicial);
-		//System.out.println("indiceInicial1 :"+indiceInicial);
 		while (indiceInicial != -1) {
 			indiceFinal = indiceInicial + cadena_sustituir.length() - 1;
-			//System.out.println("indiceFinalWhile: "+indiceFinal);
 			if (indiceFinal + 1  == cadena.length()
 					|| !ignore(cadena.charAt(indiceFinal + 1))) {
 				cadenaFinal = cadena.substring(0,
 						(indiceInicial != 0) ? indiceInicial : 0)
 						+ cadena_sustituta
 						+ cadena.substring(indiceFinal + 1, cadena.length());
-				//System.out.println("cadena.substring(indiceFinal + 1, cadena.length()): "+cadena.substring(indiceFinal + 1, cadena.length()));
-				//System.out.println("CadenaFinal: "+cadenaFinal);
 				indiceInicial = cadenaFinal.indexOf(cadena_sustituir, indiceInicial + cadena_sustituta.length());
 				cadena = cadenaFinal;
 			} else {
 				indiceInicial = cadena.indexOf(cadena_sustituir, indiceInicial + 1);
 			}
-			System.out.println("Valor cadena en while: "+cadena);
 		}
 		return cadena;
 	}
@@ -1754,7 +1741,6 @@ public class TokenBs {
 		for (String token : tokens) {
 			ArrayList<String> segmentos = segmentarToken(token);
 			String tokenReferencia = segmentos.get(0);
-			System.out.println("TOKEN REFERENCIA: "+tokenReferencia);
 			switch (ReferenciaEnum.getTipoReferencia(tokenReferencia)) {
 			case ACCION:
 				Accion accion = genericoDAO.findById(Accion.class, Integer

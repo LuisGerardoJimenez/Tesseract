@@ -156,7 +156,6 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 			}
 		} else {
 			editNew();
-			System.out.println(getFieldErrors());
 		}
 	}
 	
@@ -241,7 +240,6 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 			}
 		}else {
 			edit();
-			System.out.println(getFieldErrors());
 		}
 	}
 	
@@ -252,14 +250,12 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 	}
 	
 	public void validateCargarAtributos() {
-		System.out.println("Entro a validate"+entidadUC);
 		clearErrors();
 		clearActionErrors();
 		clearFieldErrors();
 	}
 	
 	public String cargarAtributos() {
-		System.out.println("Entro a cargarAtributos"+entidadUC);
 
 		listAtributos = new ArrayList<AtributoDTO>();
 		try {
@@ -267,7 +263,6 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(listAtributos.size()+"TAMAÑO");
 		
 		return "atributos";
 	}

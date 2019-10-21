@@ -509,8 +509,7 @@ public class TrayectoriaBs {
 
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarTrayectoria(TrayectoriaDTO model) {
-		CasoUso casoUso = genericoDAO.findById(CasoUso.class, model.getIdCasoUso());
-		if (rn006.isValidRN006(model, casoUso.getId())) {
+		if (rn006.isValidRN006(model, model.getIdCasoUso())) {
 			Trayectoria entidad = genericoDAO.findById(Trayectoria.class, model.getId());
 			entidad.setClave(model.getClave());
 			entidad.setCondicion(model.getCondicion());

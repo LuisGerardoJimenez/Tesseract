@@ -75,7 +75,6 @@ public class ActorBs {
 		} else {
 			throw new TESSERACTException("No se puede consultar el actor.", "MSG12");
 		}
-		System.out.println("actorDTO: "+actorDTO);
 		return actorDTO;
 	}
 	
