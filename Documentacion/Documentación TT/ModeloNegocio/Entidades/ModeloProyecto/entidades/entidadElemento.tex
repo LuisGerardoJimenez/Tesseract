@@ -1,9 +1,9 @@
 \begin{BusinessEntity}{elementoEntidad}{Elemento}
 	\Battr{claveElemento}{Clave: }{Clave que permitirá distinguir el tipo de Elemento. Es una palabra corta y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como mínimo 1 y máximo 10 caracteres. Caracteres admitidos: [A-Z] $|$ [0-9] $|$ [Ñ-Á-É-Í-Ó-Ú]}
 		
-	\Battr{numeroElemento}{Número: }{Número del Elemento del tipo denido por la Clave. Es un valor numérico entero y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
+	\Battr{numeroElemento}{Número: }{Número del Elemento. Es un valor numérico entero y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como máximo 20 dígitos. Caracteres admitidos: [0-9]}
 		
-	\Battr{nombreElemento}{Nombre: }{Nombre que identificará al Elemento. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como mínimo 1 y máximo 100 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú] $|$ [0-9] $|$ [ ]}
+	\Battr{nombreElemento}{Nombre: }{Nombre que identificará al Elemento. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como mínimo 1 y máximo 200 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú] $|$ [0-9] $|$ [ ] $|$ [-] $|$ [$,$, .]}
 \end{BusinessEntity}
 
 \subsubsection{Relaciones}

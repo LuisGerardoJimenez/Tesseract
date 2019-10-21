@@ -1,13 +1,13 @@
 \begin{BusinessEntity}{EntidadPantalla}{Pantalla}
 	\Battr{claveIU}{Clave: }{Clave que permitirá distinguir que el elemento es una Pantalla. Es una palabra corta y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como mínimo 1 y máximo 10 caracteres. Caracteres admitidos: [A-Z] $|$ [0-9] $|$ [Ñ-Á-É-Í-Ó-Ú]}
 		
-	\Battr{numeroIU}{Número: }{Número de la Pantalla. Es un valor numérico entero y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
+	\Battr{numeroIU}{Número: }{Número de la Pantalla. Es un valor numérico entero y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como máximo 20 dígitos. Caracteres admitidos: [0-9] $|$ [.]}
 		
 	\Battr{nombreIU}{Nombre: }{Nombre que identificará a la Pantalla. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como mínimo 10 y máximo 200 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú] $|$ [0-9] $|$ [ ] $|$ [-] $|$ [$,$, .]}
 
-	\Battr{imagenIU}{Imagen: }{Es un archivo en formato PNG o JPG. Imágen que ilustrará la interfaz gráfica del sistema. y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo de archivo debe pesar como máximo 5 MB}
+	\Battr{imagenIU}{Imagen: }{Es un archivo en formato PNG. Imágen que ilustrará la interfaz gráfica del sistema. y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo de archivo debe pesar como máximo 5 MB}
 	
-	\Battr{patronIU}{Patrón: }{Texto que contiene la pantalla para su identificación. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
+	\Battr{descripcionIU}{Descripción: }{Texto que contiene la pantalla para su identificación. Descrito es uno o mas parrafos y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como mínimo 1 y máximo 999 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú] $|$ [0-9] $|$ [  ] $|$ [\_] $|$ [-] $|$ [$!$, $?$, \&, @, \%, \#, $($, $)$, ., :, >, <, *, =, $,$]}
 \end{BusinessEntity}
 
 \subsubsection{Relaciones}

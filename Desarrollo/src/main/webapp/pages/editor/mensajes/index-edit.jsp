@@ -60,7 +60,7 @@
 				<tr>
 						<td class="label obligatorio"><s:text name="labelRedaccion" /></td>
 						<td><s:textarea rows="5" name="model.redaccion" cssClass="inputFormularioExtraGrande ui-widget" id="inputor" readonly="false"
-								maxlength="999" cssErrorClass="input-error" oninput="verificarEsParametrizado();" onchange="verificarEsParametrizado();"/> 
+								maxlength="500" cssErrorClass="input-error" oninput="verificarEsParametrizado();" onchange="verificarEsParametrizado();"/> 
 								<s:fielderror
 								fieldName="model.redaccion" cssClass="error"
 								theme="jquery" /></td>
