@@ -537,6 +537,10 @@ public class TrayectoriaBs {
 		}
 		return trayectoriaDTO;
 	}
+	
+	public Trayectoria consultarTrayectoria(Integer idTrayectoria) {
+		return genericoDAO.findById(Trayectoria.class, idTrayectoria);
+	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void eliminarTrayectoria(TrayectoriaDTO model) {

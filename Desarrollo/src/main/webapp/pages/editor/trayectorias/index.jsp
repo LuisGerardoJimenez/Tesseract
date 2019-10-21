@@ -50,8 +50,15 @@
 										value="%{#pageContext.request.contextPath}/trayectorias/%{#tray.id}/edit" />
 									<s:a href="%{urlModificar}">
 										<img id="" class="button" title="Modificar Trayectoria"
-											src="${pageContext.request.contextPath}/resources/images/icons/editar.png" />
+											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
 									</s:a> ${blanks} 
+									<!-- Gestionar Pasos -->			
+									<s:url var="urlGestionarPasos" value="%{#pageContext.request.contextPath}/trayectorias!entrarPasos?idSel=%{#tray.id}"/>
+									<s:a href="%{urlGestionarPasos}">
+										<img id="" class="button" title="Gestionar Pasos"
+												src="${pageContext.request.contextPath}/resources/images/icons/P.svg" />
+									</s:a>
+									
 									<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#tray.id}');">
 									<img id="" class="button" title="Eliminar Trayectoria"
 										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
@@ -69,8 +76,15 @@
 										value="%{#pageContext.request.contextPath}/trayectorias/%{#tray.id}/edit" />
 									<s:a href="%{urlModificar}">
 										<img id="" class="button" title="Modificar Trayectoria"
-											src="${pageContext.request.contextPath}/resources/images/icons/editar.png" />
+											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
 									</s:a> ${blanks} 
+								<!-- Gestionar Pasos -->			
+								<s:url var="urlGestionarPasos" value="%{#pageContext.request.contextPath}/trayectorias!entrarPasos?idSel=%{#tray.id}"/>
+								<s:a href="%{urlGestionarPasos}">
+									<img id="" class="button" title="Gestionar Pasos"
+											src="${pageContext.request.contextPath}/resources/images/icons/P.svg" />
+								</s:a>	
+								${blanks}	
 								<!-- Eliminar caso de uso --> 
 								<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#tray.id}');">
 									<img id="" class="button" title="Eliminar Trayectoria"
