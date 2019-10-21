@@ -1,6 +1,10 @@
 \begin{BusinessEntity}{entidadExtension}{Extensión}
 		
-	\Battr{observacionRevision}{Número: }{Texto que describe la razón por la que se extiende a otro Caso de Uso. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}.
+	\Battr{ExtiendePE}{Extiende a: }{Caso de uso al cual extiende el punto de extensión. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}.}
+	
+	\Battr{causaPE}{Causa: }{Texto que describe la razón por la que se extiende a otro Caso de Uso. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como mínimo 1 y máximo 999 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú] $|$ [0-9] $|$ [  ] $|$ [\_] $|$ [-] $|$ [$!$, $?$, \&, @, \%, \#, $($, $)$, ., :, >, <, *, =, $,$]}
+	
+	\Battr{regionPE}{Región de la trayectoria: }{Texto en el cual se explica en que parte de la trayectoria se suscita el punto de extensión. Es una frase o enunciado y este dato es \hyperlink{tRequerido}{requerido} {\em (no se puede omitir)}. Este atributo debe de contener como mínimo 1 y máximo 999 caracteres. Caracteres admitidos: [A-Z] $|$ [a-z] $|$ [ñ-á-é-í-ó-ú] $|$ [Ñ-Á-É-Í-Ó-Ú] $|$ [0-9] $|$ [  ] $|$ [\_] $|$ [-] $|$ [$!$, $?$, \&, @, \%, \#, $($, $)$, ., :, >, <, *, =, $,$]}
 \end{BusinessEntity}
 
 \subsubsection{Relaciones}
