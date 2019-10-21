@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -43,20 +42,22 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 		@Result(name = "proyectos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_PROYECTOS }),
 		@Result(name = "modulos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_MODULOS }),
 		@Result(name = "caso-uso", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_CASO_USO }),
-		@Result(name = "pasos", type = "redirectAction", params = {"actionName", Constantes.ACTION_NAME_PASOS }),
 		@Result(name = "referencias", type = "json", params = { "root", "elementosReferencias" }) })
-@AllowedMethods({"entrarPasos"})
-public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriven<TrayectoriaDTO> {
+		@Result(name = "pasos", type = "redirectAction", params = {
+				"actionName", Constantes.ACTION_NAME_PASOS })
+public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<TrayectoriaDTO> {
 	
 	private static final long serialVersionUID = 1L;
 
 	private static final String PROYECTOS = "proyectos";
+	private static final String TRAYECTORIAS = "trayectorias";
 	private static final String MODULOS = "modulos";
 	private static final String CASO_USO = "caso-uso";
 	private static final String PASOS = "pasos";
 
 	private Proyecto proyecto;
 	private Modulo modulo;
+	private Trayectoria trayectoria;
 
 	private Integer idProyecto;
 	private Integer idModulo;
@@ -135,25 +136,19 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		String resultado = null;
 		idCasoUso = (Integer) SessionManager.get("idCU");
 		if (idCasoUso != null) {
-			SessionManager.delete("idTrayectoria");
-			proyecto = loginBs.consultarProyectoActivo();
-			modulo = moduloBs.consultarModuloById(idModulo);
-			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
-			model.setIdCasoUso(casoUsoBase.getId());
-			listTrayectorias = new ArrayList<Trayectoria>();
-			for (Trayectoria t : casoUsoBase.getTrayectorias()) {
-				listTrayectorias.add(t);
+			idTrayectoria = (Integer) SessionManager.get("idTrayectoria");
+			if(idTrayectoria != null) {
+				proyecto = loginBs.consultarProyectoActivo();
+				modulo = moduloBs.consultarModuloById(idModulo);
+				casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+				trayectoria = trayectoriaBs.consultarTrayectoria(idTrayectoria);
+				resultado = INDEX;
+				Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+				this.setActionMessages(msjs);
+				SessionManager.delete("mensajesAccion");
+			}else {
+				resultado = TRAYECTORIAS;
 			}
-			for (Revision rev : casoUsoBase.getRevisiones()) {
-				if (!rev.isRevisado() && rev.getSeccion().getNombre()
-						.equals(TipoSeccionEnum.getNombre(TipoSeccionENUM.TRAYECTORIA))) {
-					this.observaciones = rev.getObservaciones();
-				}
-			}
-			resultado = INDEX;
-			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
-			this.setActionMessages(msjs);
-			SessionManager.delete("mensajesAccion");
 		} else {
 			resultado = CASO_USO;
 		}
@@ -386,7 +381,7 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		String resultado = INDEX;
 		try {
 			resultado = PASOS;
-			SessionManager.set(idSel, "idTrayectoria");
+			SessionManager.set(idSel, "idCU");
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
@@ -615,6 +610,14 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 
 	public void setAlternativa(Boolean alternativa) {
 		this.alternativa = alternativa;
+	}
+
+	public Trayectoria getTrayectoria() {
+		return trayectoria;
+	}
+
+	public void setTrayectoria(Trayectoria trayectoria) {
+		this.trayectoria = trayectoria;
 	}
 
 }

@@ -99,6 +99,7 @@ public final class Constantes {
 	public static final String ACTION_NAME_ACCIONES = "acciones";
 	public static final String ACTION_NAME_CASO_USO = "caso-uso";
 	public static final String ACTION_NAME_TRAYECTORIAS = "trayectorias";
+	public static final String ACTION_NAME_PASOS = "pasos";
 	public static final String ACTION_NAME_POSTPRECONDICION = "postprecondicion";
 	
 	//DICCIONARIO
