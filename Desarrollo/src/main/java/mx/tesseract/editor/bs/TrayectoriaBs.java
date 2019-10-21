@@ -492,11 +492,12 @@ public class TrayectoriaBs {
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void registrarTrayectoria(TrayectoriaDTO model, Integer idCasoUso) {
+		CasoUso casoUso = genericoDAO.findById(CasoUso.class, idCasoUso);
 		if (rn006.isValidRN006(model, idCasoUso)) {
 			Trayectoria entidad = new Trayectoria();
 			entidad.setClave(model.getClave());
 			entidad.setAlternativa(model.isAlternativa());
-			entidad.setCasoUso(entidad.getCasoUso());
+			entidad.setCasoUso(casoUso);
 			entidad.setCondicion(model.getCondicion());
 			entidad.setFinCasoUso(model.isFinCasoUso());
 			genericoDAO.save(entidad);
@@ -508,7 +509,7 @@ public class TrayectoriaBs {
 
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarTrayectoria(TrayectoriaDTO model) {
-		if (rn006.isValidRN006(model, model.getCasoUso().getId())) {
+		if (rn006.isValidRN006(model, model.getIdCasoUso())) {
 			Trayectoria entidad = genericoDAO.findById(Trayectoria.class, model.getId());
 			entidad.setClave(model.getClave());
 			entidad.setCondicion(model.getCondicion());
@@ -524,12 +525,13 @@ public class TrayectoriaBs {
 		Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, id);
 		TrayectoriaDTO trayectoriaDTO = new TrayectoriaDTO();
 		if (trayectoria != null) {
+			System.out.println(trayectoria.getCondicion());
 			trayectoriaDTO.setClave(trayectoria.getClave());
 			trayectoriaDTO.setCondicion(trayectoria.getCondicion());
 			trayectoriaDTO.setFinCasoUso(trayectoria.isFinCasoUso());
 			trayectoriaDTO.setId(trayectoria.getId());
 			trayectoriaDTO.setAlternativa(trayectoria.isAlternativa());
-			trayectoriaDTO.setCasoUso(trayectoria.getCasoUso());
+			trayectoriaDTO.setIdCasoUso(trayectoria.getCasoUso().getId());
 		} else {
 			throw new TESSERACTException("No se puede consultar la trayectoria.", "MSG12");
 		}
@@ -545,5 +547,10 @@ public class TrayectoriaBs {
 			throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.",
 					"MSG13");
 		}
+	}
+
+	public CasoUso buscarCasoUsoByTrayectoria(TrayectoriaDTO model) {
+		CasoUso casoUso = genericoDAO.findById(CasoUso.class, model.getIdCasoUso());
+		return casoUso;
 	}
 }

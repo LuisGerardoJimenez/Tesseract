@@ -21,6 +21,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.context.annotation.Lazy;
@@ -37,6 +38,7 @@ import mx.tesseract.util.GenericInterface;
 @Entity
 @Table(name = "trayectoria", uniqueConstraints = @UniqueConstraint(columnNames = { "clave",
 		"CasoUsoElementoid" }))
+@JsonIgnoreProperties(value = { "pasos" })
 public class Trayectoria implements Serializable, Comparable<Trayectoria>, GenericInterface {
 
 	private static final long serialVersionUID = 1L;

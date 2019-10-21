@@ -20,6 +20,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import mx.tesseract.util.GenericInterface;
 
 //import mx.tesseract.generadorPruebas.model.ValorAccionTrayectoria;
@@ -33,6 +35,7 @@ import mx.tesseract.util.GenericInterface;
 
 @Entity
 @Table(name = "accion")
+@JsonIgnoreProperties({"tipoAccion", "pantallaDestino", "imagen"})
 public class Accion implements java.io.Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;

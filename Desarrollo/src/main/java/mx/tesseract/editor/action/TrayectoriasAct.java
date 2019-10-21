@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.dto.SelectDTO;
 import mx.tesseract.dto.TrayectoriaDTO;
 import mx.tesseract.editor.bs.CasoUsoBs;
 import mx.tesseract.editor.bs.ElementoBs;
@@ -79,8 +80,8 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 	private Integer idSel;
 
 	private boolean existeTPrincipal;
-	private List<String> listAlternativa;
-	private String alternativaPrincipal;
+	private List<SelectDTO> listAlternativa;
+	private Boolean alternativa;
 
 	private String observaciones;
 	private String comentario;
@@ -132,12 +133,12 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 			proyecto = loginBs.consultarProyectoActivo();
 			modulo = moduloBs.consultarModuloById(idModulo);
 			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
-			model.setCasoUso(casoUsoBase);
+			model.setIdCasoUso(casoUsoBase.getId());
 			listTrayectorias = new ArrayList<Trayectoria>();
 			for (Trayectoria t : casoUsoBase.getTrayectorias()) {
 				listTrayectorias.add(t);
 			}
-			for (Revision rev : model.getCasoUso().getRevisiones()) {
+			for (Revision rev : casoUsoBase.getRevisiones()) {
 				if (!rev.isRevisado() && rev.getSeccion().getNombre()
 						.equals(TipoSeccionEnum.getNombre(TipoSeccionENUM.TRAYECTORIA))) {
 					this.observaciones = rev.getObservaciones();
@@ -191,22 +192,15 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 	}
 
 	public void validateCreate() {
-		clearActionErrors();
-		clearErrors();
-		clearFieldErrors();
+		buscaCatalogos();
 		if (!hasErrors()) {
 			try {
-				if (alternativaPrincipal == null || alternativaPrincipal.equals("Alternativa")) {
-					model.setAlternativa(true);
-				} else if (alternativaPrincipal.equals("Principal")) {
-					model.setAlternativa(false);
-				} else {
-					throw new TESSERACTValidacionException("El usuario no seleccionó el tipo de la trayectoria.",
-							"MSG4", null, "alternativaPrincipal");
+				if(model.getAlternativa() == null) {
+					model.setAlternativa(Boolean.TRUE);
 				}
 				idCasoUso = (Integer) SessionManager.get("idCU");
 				casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
-				model.setCasoUso(casoUsoBase);
+				model.setIdCasoUso(casoUsoBase.getId());
 				trayectoriaBs.registrarTrayectoria(model, idCasoUso);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
@@ -217,8 +211,6 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
-			} finally {
-				model.setClave("MSG");
 			}
 		}
 	}
@@ -239,7 +231,7 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 					idCasoUso = (Integer) SessionManager.get("idCU");
 					if (idCasoUso != null) {
 						casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
-						model.setCasoUso(casoUsoBase);
+						model.setIdCasoUso(casoUsoBase.getId());
 						elementoBs.verificarEstado(casoUsoBase, CU_CasosUso.MODIFICARTRAYECTORIA5_1_1_2);
 						buscaElementos();
 						buscaCatalogos();
@@ -265,15 +257,11 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 	}
 
 	public void validateUpdate() {
+		buscaCatalogos();
 		if (!hasErrors()) {
 			try {
-				if (alternativaPrincipal == null || alternativaPrincipal.equals("Alternativa")) {
-					model.setAlternativa(true);
-				} else if (alternativaPrincipal.equals("Principal")) {
-					model.setAlternativa(false);
-				} else {
-					throw new TESSERACTValidacionException("El usuario no seleccionó el tipo de la trayectoria.",
-							"MSG4", null, "alternativaPrincipal");
+				if(model.getAlternativa() == null) {
+					model.setAlternativa(Boolean.TRUE);
 				}
 				trayectoriaBs.modificarTrayectoria(model);
 			} catch (TESSERACTValidacionException tve) {
@@ -331,9 +319,9 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		listRealiza.add(Constantes.SELECT_SISTEMA);
 
 		// Se llena la lista par indicar si es alternativa o no
-		listAlternativa = new ArrayList<String>();
-		listAlternativa.add(Constantes.SELECT_PRINCIPAL);
-		listAlternativa.add(Constantes.SELECT_ALTERNATIVA);
+		listAlternativa = new ArrayList<SelectDTO>();
+		listAlternativa.add(new SelectDTO( Boolean.FALSE,Constantes.SELECT_PRINCIPAL) );
+		listAlternativa.add(new SelectDTO( Boolean.TRUE,Constantes.SELECT_ALTERNATIVA));
 
 		// Se extraen los verbos de la BD
 		listVerbos = trayectoriaBs.consultarVerbos();
@@ -378,25 +366,19 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 	}
 
 	private void prepararVista() {
-		if (model.isAlternativa()) {
-			alternativaPrincipal = "Alternativa";
-		} else {
-			alternativaPrincipal = "Principal";
-		}
-		for (Revision rev : model.getCasoUso().getRevisiones()) {
+		CasoUso casoUso = trayectoriaBs.buscarCasoUsoByTrayectoria(model);
+		for (Revision rev : casoUso.getRevisiones()) {
 			if (!rev.isRevisado()
 					&& rev.getSeccion().getNombre().equals(TipoSeccionEnum.getNombre(TipoSeccionENUM.TRAYECTORIA))) {
 				this.observaciones = rev.getObservaciones();
 			}
 		}
 	}
-
+	
+	@Override
 	@VisitorFieldValidator
 	public TrayectoriaDTO getModel() {
-		if (this.model == null) {
-			model = new TrayectoriaDTO();
-		}
-		return model;
+		return (model == null) ? model = new TrayectoriaDTO() : model;
 	}
 
 	public void setModel(TrayectoriaDTO model) {
@@ -539,20 +521,12 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		this.existeTPrincipal = existeTPrincipal;
 	}
 
-	public List<String> getListAlternativa() {
+	public List<SelectDTO> getListAlternativa() {
 		return listAlternativa;
 	}
 
-	public void setListAlternativa(List<String> listAlternativa) {
+	public void setListAlternativa(List<SelectDTO> listAlternativa) {
 		this.listAlternativa = listAlternativa;
-	}
-
-	public String getAlternativaPrincipal() {
-		return alternativaPrincipal;
-	}
-
-	public void setAlternativaPrincipal(String alternativaPrincipal) {
-		this.alternativaPrincipal = alternativaPrincipal;
 	}
 
 	public Integer getIdSel() {
@@ -610,6 +584,14 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 
 	public void setCasoUsoBase(CasoUso casoUso) {
 		this.casoUsoBase = casoUso;
+	}
+
+	public Boolean getAlternativa() {
+		return alternativa;
+	}
+
+	public void setAlternativa(Boolean alternativa) {
+		this.alternativa = alternativa;
 	}
 
 }

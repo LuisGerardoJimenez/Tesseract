@@ -20,6 +20,8 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
@@ -38,6 +40,7 @@ import mx.tesseract.util.GenericInterface;
 	})
 @Entity
 @Table(name = "modulo")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "proyecto" })
 public class Modulo implements Serializable, GenericInterface {
 
 	private static final long serialVersionUID = 1L;

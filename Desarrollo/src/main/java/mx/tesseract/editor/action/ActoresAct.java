@@ -122,7 +122,6 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 			}
 		} else {
 			editNew();
-			System.out.println(getFieldErrors());
 		}
 	}
 	
@@ -190,7 +189,6 @@ public class ActoresAct extends ActionSupportTESSERACT implements ModelDriven<Ac
 			}
 		}else {
 			edit();
-			System.out.println(getFieldErrors());
 		}
 	}
 	

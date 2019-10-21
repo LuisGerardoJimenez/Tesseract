@@ -114,7 +114,6 @@ public class EntidadBs {
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarEntidad(EntidadDTO entidadDTO) {
-		System.out.println("ID Entidad: "+entidadDTO.getId());
 		if (rn006.isValidRN006(entidadDTO)) {
 			Entidad entidad = genericoDAO.findById(Entidad.class, entidadDTO.getId());
 			entidad.setNombre(entidadDTO.getNombre());

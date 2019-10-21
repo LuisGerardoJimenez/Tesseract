@@ -23,12 +23,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import mx.tesseract.util.GenericInterface;
 
 
 @Entity
 @Table(name = "paso", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"numero", "Trayectoriaid" }))
+@JsonIgnoreProperties({"referencias"})
 public class Paso implements Serializable, Comparable<Paso>, GenericInterface {
 
 	private static final long serialVersionUID = 1L;

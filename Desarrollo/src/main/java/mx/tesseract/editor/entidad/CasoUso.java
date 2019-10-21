@@ -21,6 +21,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 
 import mx.tesseract.util.ElementoInterface;
@@ -39,6 +41,7 @@ import mx.tesseract.util.GenericInterface;
 @Inheritance(strategy=InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
 @DiscriminatorValue("CU")
+@JsonIgnoreProperties(value = { "actores", "reglas", "postprecondiciones", "entradas", "salidas", "trayectorias", "extendidoDe", "extiende", "incluidoEn", "incluye", "revisiones", "hibernateLazyInitializer" })
 public class CasoUso extends Elemento implements Serializable, GenericInterface, ElementoInterface {
 
 	private static final long serialVersionUID = 1L;

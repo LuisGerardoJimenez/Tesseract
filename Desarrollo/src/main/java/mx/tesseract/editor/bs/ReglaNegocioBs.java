@@ -50,7 +50,6 @@ public class ReglaNegocioBs {
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void registrarRN(ReglaNegocioDTO reglaNegocioDTO) {
-		System.out.println("ya entre al registrar");
 		if (rn006.isValidRN006(reglaNegocioDTO)) {
 			Proyecto proyecto = genericoDAO.findById(Proyecto.class, reglaNegocioDTO.getIdProyecto());
 			ReglaNegocio reglanegocio = new ReglaNegocio();
@@ -139,7 +138,6 @@ public class ReglaNegocioBs {
 		} else {
 			throw new TESSERACTException("No se puede consultar la Regla de Negocio.", "MSG12");
 		}
-		System.out.println("reglanegocioDTO: "+reglanegocioDTO);
 		return reglanegocioDTO;
 	}
 	@Transactional(rollbackFor = Exception.class)

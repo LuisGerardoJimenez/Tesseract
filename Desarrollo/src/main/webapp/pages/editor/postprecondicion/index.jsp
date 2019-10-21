@@ -31,10 +31,10 @@
 						<tr>
 							<td>
 								<s:if test="%{#postprecondicion.precondicion == true}">
-									<s:property value="Precondición" />
+									<s:label value="Precondición" />
 								</s:if>
 								<s:else>
-									<s:property value="Postcondición" />
+									<s:label value="Postcondición" />
 								</s:else>
 							</td>
 							<td><s:property value="%{#postprecondicion.redaccion}" /></td>
@@ -46,7 +46,7 @@
 								</s:a>
 								${blanks}
 								<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#postprecondicion.id}');">
-									<img id="" class="button" title="Eliminar"
+									<img id="" class="button" title="Eliminar Postprecondicion"
 										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" />
 								</s:a>
 							</td>
@@ -56,7 +56,48 @@
 			</table>
 		</div>
 		<br />
+		<br />
+		<div align="center">
+			<button class="boton" 
+				onclick="location.href='${pageContext.request.contextPath}/caso-uso'">
+				<s:text name="Regresar"></s:text>
+			</button>
+			<button class="boton" 
+				onclick="location.href='${pageContext.request.contextPath}/postprecondicion/new'">
+				<s:text name="Registrar"></s:text>
+			</button>
+		</div>
 	</s:form>
+	<div class = "invisible">
+	<!-- EMERGENTE CONFIRMAR ELIMINACIÓN -->
+	<sj:dialog id="confirmarEliminacionDialog" title="Confirmación" autoOpen="false"
+		minHeight="100" minWidth="400" modal="true" draggable="true">
+		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
+				<div class="seccion">
+				<s:text name="MSG10"></s:text>
+				</div>
+			<br />
+			<div align="center">
+				<input id = "btnConfirmarEliminacion" type="button" onclick="" value="Aceptar"/> <input
+					type="button" onclick="cancelarConfirmarEliminacion();" value="Cancelar" />
+			</div>
+		</s:form>
+	</sj:dialog>
+	<!-- EMERGENTE ERROR REFERENCIAS -->
+	<sj:dialog id="mensajeReferenciasDialog" title="Confirmación" autoOpen="false"
+		minHeight="150" minWidth="700" modal="true" draggable="true">
+		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
+				<div class="seccion">
+				<s:text name="MSG40"/>
+				<div id="elementosReferencias"></div>
+				</div>
+			<br />
+			<div align="center">
+				<input type="button" onclick="cerrarMensajeReferencias()" value="Aceptar"/> 
+			</div>
+		</s:form>
+	</sj:dialog>
+	</div>	
 </body>
 	</html>
 </jsp:root>
