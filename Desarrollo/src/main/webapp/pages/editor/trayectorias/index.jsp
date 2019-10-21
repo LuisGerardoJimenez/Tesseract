@@ -49,7 +49,7 @@
 									<s:url var="urlModificar"
 										value="%{#pageContext.request.contextPath}/trayectorias/%{#tray.id}/edit" />
 									<s:a href="%{urlModificar}">
-										<img id="" class="button" title="Modificar Trayectorias"
+										<img id="" class="button" title="Modificar Trayectoria"
 											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
 									</s:a> ${blanks} 
 									<!-- Gestionar Pasos -->			
