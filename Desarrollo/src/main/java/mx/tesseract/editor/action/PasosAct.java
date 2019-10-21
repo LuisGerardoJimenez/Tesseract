@@ -138,6 +138,10 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 		if (idCasoUso != null) {
 			idTrayectoria = (Integer) SessionManager.get("idTrayectoria");
 			if(idTrayectoria != null) {
+				proyecto = loginBs.consultarProyectoActivo();
+				modulo = moduloBs.consultarModuloById(idModulo);
+				casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+				trayectoria = trayectoriaBs.consultarTrayectoria(idTrayectoria);
 				resultado = INDEX;
 				Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 				this.setActionMessages(msjs);
@@ -606,6 +610,14 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 
 	public void setAlternativa(Boolean alternativa) {
 		this.alternativa = alternativa;
+	}
+
+	public Trayectoria getTrayectoria() {
+		return trayectoria;
+	}
+
+	public void setTrayectoria(Trayectoria trayectoria) {
+		this.trayectoria = trayectoria;
 	}
 
 }

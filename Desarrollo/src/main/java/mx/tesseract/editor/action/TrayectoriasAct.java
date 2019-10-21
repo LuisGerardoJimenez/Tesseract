@@ -43,9 +43,8 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 		@Result(name = "proyectos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_PROYECTOS }),
 		@Result(name = "modulos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_MODULOS }),
 		@Result(name = "caso-uso", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_CASO_USO }),
+		@Result(name = "pasos", type = "redirectAction", params = {"actionName", Constantes.ACTION_NAME_PASOS }),
 		@Result(name = "referencias", type = "json", params = { "root", "elementosReferencias" }) })
-		@Result(name = "pasos", type = "redirectAction", params = {
-				"actionName", Constantes.ACTION_NAME_PASOS })
 @AllowedMethods({"entrarPasos"})
 public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriven<TrayectoriaDTO> {
 	
@@ -136,6 +135,7 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		String resultado = null;
 		idCasoUso = (Integer) SessionManager.get("idCU");
 		if (idCasoUso != null) {
+			SessionManager.delete("idTrayectoria");
 			proyecto = loginBs.consultarProyectoActivo();
 			modulo = moduloBs.consultarModuloById(idModulo);
 			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
@@ -386,7 +386,7 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		String resultado = INDEX;
 		try {
 			resultado = PASOS;
-			SessionManager.set(idTrayectoria, "idTrayectoria");
+			SessionManager.set(idSel, "idTrayectoria");
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
