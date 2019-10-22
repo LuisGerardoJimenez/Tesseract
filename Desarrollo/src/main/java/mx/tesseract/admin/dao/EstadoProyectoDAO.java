@@ -10,10 +10,14 @@ import javax.persistence.Query;
 import mx.tesseract.admin.entidad.EstadoProyecto;
 import mx.tesseract.util.Constantes;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 @Repository("estadoProyectoDAO")
 public class EstadoProyectoDAO {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -26,7 +30,7 @@ public class EstadoProyectoDAO {
 			query.setParameter(Constantes.NUMERO_UNO, Constantes.NUMERO_TRES);
 			estadosProyecto = (List<EstadoProyecto>) query.getResultList();
 		} catch (Exception e) {
-			System.err.print(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findAllWithoutFinished", e);
 		}
 		return estadosProyecto;
 	}
