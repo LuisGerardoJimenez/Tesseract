@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +18,8 @@ import mx.tesseract.util.Constantes;
 
 @Repository("parametroDAO")
 public class ParametroDAO {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -28,7 +32,7 @@ public class ParametroDAO {
 		try {
 				parametro = genericoDAO.findById(Parametro.class, identificador);
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "consultarParametro", e);
 		}
 		return parametro;
 
@@ -47,7 +51,7 @@ public class ParametroDAO {
 				parametro = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "consultarParametro(nombre, idProyecto)", e);
 		}
 		return parametro;
 	}
@@ -60,7 +64,7 @@ public class ParametroDAO {
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
 			lista = (List<Parametro>) query.getResultList();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "consultarParametros", e);
 		}
 		return lista;
 

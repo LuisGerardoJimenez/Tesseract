@@ -69,8 +69,8 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
 			} catch (Exception e) {
-				ErrorManager.agregaMensajeError(this, e);
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
+				ErrorManager.agregaMensajeError(this, e);
 			}
 		}
 	}

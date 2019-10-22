@@ -15,10 +15,14 @@ import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ElementoInterface;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 @Repository("elementoDAO")
 public class ElementoDAO {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -31,7 +35,7 @@ public class ElementoDAO {
 			query.setParameter("idProyecto", idProyecto);
 			elementos = (List<T>) query.getResultList();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findAllByIdProyecto", e);
 		}
 		return elementos;
 	}
@@ -45,7 +49,7 @@ public class ElementoDAO {
 			query.setParameter("clave", clave.toString());
 			elementos = (List<T>) query.getResultList();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findAllByIdProyectoAndClave", e);
 		}
 		return elementos;
 	}
@@ -63,7 +67,7 @@ public class ElementoDAO {
 				elemento = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findAllByIdProyectoAndNombreAndClave", e);
 		}
 		return elemento;
 	}
@@ -82,7 +86,7 @@ public class ElementoDAO {
 				elemento = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findAllByIdProyectoAndIdAndNombreAndClave", e);
 		}
 		return elemento;
 	}
@@ -99,7 +103,7 @@ public class ElementoDAO {
 				elemento = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findById", e);
 		}
 		return elemento;
 	}
@@ -115,7 +119,7 @@ public class ElementoDAO {
 			Integer numeroInteger = Integer.parseInt(lista.get(Constantes.NUMERO_CERO))+Constantes.NUMERO_UNO;
 			numero = "" + numeroInteger;
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "siguienteNumero", e);
 		}
 		return numero;
 	}
@@ -135,7 +139,7 @@ public class ElementoDAO {
 				casoUso = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findElementoHasCasoUsoAsociado", e);
 		}
 		return casoUso;
 	}
@@ -157,7 +161,7 @@ public class ElementoDAO {
 				reglaNegocio = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findElementoHasAtributo", e);
 		}
 		return reglaNegocio;
 	}

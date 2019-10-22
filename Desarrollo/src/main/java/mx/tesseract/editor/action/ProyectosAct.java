@@ -22,6 +22,8 @@ import mx.tesseract.util.TESSERACTException;
 //import mx.tesseract.util.ReportUtil;
 import mx.tesseract.util.SessionManager;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
@@ -41,6 +43,7 @@ import com.opensymphony.xwork2.ModelDriven;
 @AllowedMethods({ "entrar", "elegirColaboradores", "guardarColaboradores" })
 public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<Proyecto> {
 	private static final long serialVersionUID = 1L;
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	private static final String MODULOS = "modulos";
 	private static final String COLABORADORES = "colaboradores";
 	private Colaborador colaborador;
@@ -76,8 +79,10 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "index", e);
 			ErrorManager.agregaMensajeError(this, e);
 		}
 		return resultado;
@@ -93,9 +98,10 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "entrar", e);
 		}
 		return resultado;
 	}
@@ -119,8 +125,10 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "elegirColaboradores", e);
 			ErrorManager.agregaMensajeError(this, e);
 		}
 		return resultado;
@@ -147,9 +155,11 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 			addActionMessage(getText("MSG1", new String[] { "Los", "Colaboradores", "registrados" }));
 			SessionManager.set(this.getActionMessages(), "mensajesAccion");
 			resultado = SUCCESS;
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "guardarColaboradores", e);
 			ErrorManager.agregaMensajeError(this, e);
 		}
 		return resultado;
