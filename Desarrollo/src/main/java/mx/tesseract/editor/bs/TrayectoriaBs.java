@@ -525,7 +525,6 @@ public class TrayectoriaBs {
 		Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, id);
 		TrayectoriaDTO trayectoriaDTO = new TrayectoriaDTO();
 		if (trayectoria != null) {
-			System.out.println(trayectoria.getCondicion());
 			trayectoriaDTO.setClave(trayectoria.getClave());
 			trayectoriaDTO.setCondicion(trayectoria.getCondicion());
 			trayectoriaDTO.setFinCasoUso(trayectoria.isFinCasoUso());

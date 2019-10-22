@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import mx.tesseract.editor.entidad.Elemento;
@@ -16,6 +18,8 @@ import mx.tesseract.util.Constantes;
 
 @Repository("pantallaDAO")
 public class PantallaDAO {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -30,7 +34,7 @@ public class PantallaDAO {
 			query.setParameter("idModulo", idModulo);
 			pantallas = (List<Pantalla>) query.getResultList();
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findAllByIdModulo", e);
 		}
 		return pantallas;
 	}
@@ -45,7 +49,7 @@ public class PantallaDAO {
 			query.setParameter("idModulo", idModulo);
 			pantallas = (List<Pantalla>) query.getResultList();
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findByIdProyectoAndIdModulo", e);
 		}
 		return pantallas;
 	}
@@ -64,7 +68,7 @@ public class PantallaDAO {
 				pantalla = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findByIdProyectoAndIdModuloAndNumero", e);
 		}
 		return pantalla;
 	}
@@ -84,7 +88,7 @@ public class PantallaDAO {
 				pantalla = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findByIdProyectoAndIdModuloAndIdAndNumero", e);
 		}
 		return pantalla;
 	}
@@ -103,7 +107,7 @@ public class PantallaDAO {
 				pantalla = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findByIdProyectoAndIdModuloAndNombre", e);
 		}
 		return pantalla;
 	}
@@ -123,7 +127,7 @@ public class PantallaDAO {
 				pantalla = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findByIdProyectoAndIdModuloAndIdAndNombre", e);
 		}
 		return pantalla;
 	}

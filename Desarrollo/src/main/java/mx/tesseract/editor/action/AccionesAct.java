@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -43,6 +45,7 @@ import mx.tesseract.util.TESSERACTValidacionException;
 public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<AccionDTO> {
 	
 	private static final long serialVersionUID = 1L;
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	private static final String PANTALLAS = "pantallas";
 	private static final String PROYECTOS = "proyectos";
 	private static final String MODULOS = "modulos";
@@ -91,9 +94,10 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 				}
 			}
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "index", e);
 		}
 		return resultado;
 	}
@@ -129,11 +133,11 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 					resultado = MODULOS;
 				}
 			}
-		} catch (TESSERACTException pe) {
-			System.err.println(pe.getMessage());
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "editNew", e);
 			ErrorManager.agregaMensajeError(this, e);
 		}
 		return resultado;
@@ -166,16 +170,16 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 				model.setIdPantalla(idPantala);
 				accionBs.registrarAccion(model, imagenAccion);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 				editNew();
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 				editNew();
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 				editNew();
 			}
 		} else {
@@ -205,11 +209,11 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 					resultado = MODULOS;
 				}
 			}
-		} catch (TESSERACTException pe) {
-			System.err.println(pe.getMessage());
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "edit", e);
 			ErrorManager.agregaMensajeError(this, e);
 		}
 		return resultado;
@@ -220,16 +224,16 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 			try {
 				accionBs.modificarAccion(model, imagenAccion);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 				edit();
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 				edit();
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateUpdate", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 				edit();
 			}
 		} else {
@@ -248,16 +252,16 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 			try {
 				accionBs.eliminarAccion(model);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 				edit();
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 				edit();
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateDestroy", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 				edit();
 			}
 		}

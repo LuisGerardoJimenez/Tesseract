@@ -10,12 +10,16 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import mx.tesseract.util.GenericInterface;
 
 @Repository("genericoDAO")
 public class GenericoDAO {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 
 	@PersistenceContext
 	private EntityManager em;
@@ -35,7 +39,7 @@ public class GenericoDAO {
 		try {
             entidad = em.find(clase, id);
         } catch (Exception e) {
-        	System.err.println(e.getMessage());
+        	TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findAll", e);
         }
 		return entidad;
 	}

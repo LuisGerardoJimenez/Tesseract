@@ -10,10 +10,14 @@ import javax.persistence.Query;
 import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.util.Constantes;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 @Repository("atributoDAO")
 public class AtributoDAO {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -26,7 +30,7 @@ public class AtributoDAO {
 			query.setParameter(Constantes.NUMERO_UNO, idEntidad);
 			lista = (List<Atributo>) query.getResultList();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findByIdEntidad", e);
 		}
 		return lista;
 	}
@@ -44,7 +48,7 @@ public class AtributoDAO {
 				atributo = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findAtributoByNombreAndEntidad", e);
 		}
 		return atributo;
 	}
@@ -63,7 +67,7 @@ public class AtributoDAO {
 				atributo = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findAtributoByNombreAndIdAndEntidad", e);
 		}
 		return atributo;
 	}

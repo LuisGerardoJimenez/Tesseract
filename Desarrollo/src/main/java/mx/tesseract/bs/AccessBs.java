@@ -1,5 +1,7 @@
 package mx.tesseract.bs;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -14,6 +16,8 @@ import mx.tesseract.util.Validador;
 @Service("accessBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class AccessBs {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 
 	@Autowired
 	private ColaboradorDAO colaboradorDAO;
@@ -28,7 +32,7 @@ public class AccessBs {
 			throw new TESSERACTValidacionException("El usuario no ingresó la contraseña.", "MSG4", null, "password");
 		}
 		if (Validador.validaLongitudMaxima(userName, Constantes.NUMERO_TREINTA)) {
-			throw new TESSERACTValidacionException("El usuario no ingresó el correo electrñnico", "MSG6",
+			throw new TESSERACTValidacionException("El usuario no ingresó el correo electrónico", "MSG6",
 					new String[] { Constantes.NUMERO_TREINTA.toString(), "caracteres" }, "userName");
 		}
 		if (Validador.validaLongitudMaxima(password, Constantes.NUMERO_VEINTE)) {
@@ -38,7 +42,7 @@ public class AccessBs {
 		try {
 			colaborador = colaboradorDAO.findColaboradorByCorreo(userName);
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "verificarLogin", e);
 		}
 		if (colaborador == null || !colaborador.getContrasenia().equals(password)) {
 			throw new TESSERACTValidacionException("Colaborador no encontrado o contraseña incorrecta", "MSG19");
