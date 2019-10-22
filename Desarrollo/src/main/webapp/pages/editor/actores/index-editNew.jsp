@@ -33,14 +33,14 @@
 			<table class="seccion">
 				<tr>
 					<td class="label obligatorio"><s:text name="labelNombre" /></td>
-					<td><s:textfield name="model.nombre" maxlength="100"
+					<td><s:textfield name="model.nombre" maxlength="200"
 							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
 						<s:fielderror fieldName ="model.nombre" cssClass="error"
 							theme="jquery" /></td>
 				</tr>
 				<tr>
 					<td class="label obligatorio"><s:text name="labelDescripcion" /></td>
-					<td><s:textarea name="model.descripcion" maxlength="200"
+					<td><s:textarea name="model.descripcion" maxlength="999"
 							cssErrorClass="input-error" cssClass="inputFormularioExtraGrande ui-widget" />
 						<s:fielderror fieldName ="model.descripcion" cssClass="error"
 							theme="jquery" /></td>
