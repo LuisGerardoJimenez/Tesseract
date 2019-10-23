@@ -40,7 +40,7 @@
 							<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/cu/%{#cu.id}"/>
 							<s:a href="%{urlConsultar}">
 								<img id="" class="button" title="Consultar Caso de uso"
-										src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" alt="Consultar Caso de uso"/>
 							</s:a>	
 							${blanks}
 							<s:if test="%{#cu.estadoElemento.id == 1 || #cu.estadoElemento.id == 3}">
@@ -48,13 +48,13 @@
 								<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/caso-uso/%{#cu.id}/edit"/>			
 								<s:a href="%{urlEditar}">
 									<img id="" class="button" title="Modificar Caso de uso"
-											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Caso de uso"/>
 								</s:a>	
 
 								<s:url var="urlPostprecondiciones" value="%{#pageContext.request.contextPath}/caso-uso!entrarPostprecondiciones?idSel=%{#cu.id}"/>			
 								<s:a href="%{urlPostprecondiciones}">
 									<img id="" class="button" title="Gestionar Precondiciones y Postcondiciones"
-											src="${pageContext.request.contextPath}/resources/images/icons/logo.png" />
+											src="${pageContext.request.contextPath}/resources/images/icons/logo.png" alt="Gestionar Precondiciones y Postcondiciones"/>
 								</s:a>
 								
 								${blanks}	
@@ -62,7 +62,7 @@
 								<s:url var="urlGestionarTrayectorias" value="%{#pageContext.request.contextPath}/caso-uso!entrarTrayectorias?idSel=%{#cu.id}"/>
 								<s:a href="%{urlGestionarTrayectorias}">
 									<img id="" class="button" title="Gestionar Trayectorias"
-											src="${pageContext.request.contextPath}/resources/images/icons/T.svg" />
+											src="${pageContext.request.contextPath}/resources/images/icons/T.svg" alt="Gestionar Trayectorias"/>
 								</s:a>	
 								${blanks}		
 								<!-- Gestionar puntos de extensión -->				
@@ -72,28 +72,32 @@
 								<s:a href="%{urlGestionarPuntosExtension}"><img
 											id="" class="button"
 											title="Gestionar Puntos de extensión" 
-											src="${pageContext.request.contextPath}/resources/images/icons/P.svg" /></s:a>	
+											src="${pageContext.request.contextPath}/resources/images/icons/P.svg" alt="Gestionar Puntos de extensión"/>
+								</s:a>	
 								${blanks}	
 															
 								<!-- Terminar caso de uso -->			
 								<s:a onclick="return verificarTerminarCasoUso(%{#cu.id});">
-								<img id="" class="button" title="Terminar Caso de uso"
-										src="${pageContext.request.contextPath}/resources/images/icons/Terminar.svg" /></s:a>	
+									<img id="" class="button" title="Terminar Caso de uso"
+										src="${pageContext.request.contextPath}/resources/images/icons/Terminar.svg" alt="Terminar Caso de uso"/>
+								</s:a>	
 										
 								${blanks}	
 									
 								<!-- Eliminar caso de uso -->
 								<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#cu.id}');">
-								<img id="" class="button" title="Eliminar Caso de uso"
-										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
+									<img id="" class="button" title="Eliminar Caso de uso"
+										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Caso de uso"/>
+								</s:a>
 								${blanks}
 							</s:if>				
 							<s:if test="%{#cu.estadoElemento.id == 2}">	
 								<!-- Revisar caso de uso -->			
 								<s:url var="urlRevisar" value="%{#pageContext.request.contextPath}/cu!prepararRevision?idSel=%{#cu.id}" method="post"/>
 								<s:a href="%{urlRevisar}">
-								<img id="" class="button" title="Revisar Caso de uso"
-										src="${pageContext.request.contextPath}/resources/images/icons/Revisar.svg" /></s:a>	
+									<img id="" class="button" title="Revisar Caso de uso"
+										src="${pageContext.request.contextPath}/resources/images/icons/Revisar.svg" alt="Revisar Caso de uso"/>
+								</s:a>	
 								${blanks}	
 							</s:if>
 							
@@ -102,16 +106,18 @@
 							<!-- Liberar caso de uso -->			
 								<s:url var="urlLiberar" value="%{#pageContext.request.contextPath}/cu!prepararLiberacion?idSel=%{#cu.id}" method="post"/>
 								<s:a href="%{urlLiberar}">
-								<img id="" class="button" title="Liberar Caso de uso"
-										src="${pageContext.request.contextPath}/resources/images/icons/Liberar.svg" /></s:a>	
+									<img id="" class="button" title="Liberar Caso de uso"
+										src="${pageContext.request.contextPath}/resources/images/icons/Liberar.svg" alt="Liberar Caso de uso"/>
+								</s:a>	
 								${blanks}		
 							</s:if>
 							<s:if test="%{(#cu.estadoElemento.id == 5 or #cu.estadoElemento.id == 6 or #cu.estadoElemento.id == 7) and #rol == 1}">
 							<!-- Desbloquear caso de uso -->			
 								<s:url var="urlDesbloquear" value="%{#pageContext.request.contextPath}/cu!prepararLiberacion?idSel=%{#cu.id}" method="post"/>
 								<s:a href="%{urlDesbloquear}">
-								<img id="" class="button" title="Solicitar correcciones del Caso de uso"
-										src="${pageContext.request.contextPath}/resources/images/icons/SolicitarCorrecciones.svg" /></s:a>	
+									<img id="" class="button" title="Solicitar correcciones del Caso de uso"
+										src="${pageContext.request.contextPath}/resources/images/icons/SolicitarCorrecciones.svg" alt="Solicitar correcciones del Caso de uso"/>
+								</s:a>	
 								${blanks}
 							</s:if>
 

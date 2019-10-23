@@ -34,12 +34,13 @@
 						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/personal/%{#persona.curp}/edit"/>			
 						<s:a href="%{urlEditar}" style="color : DeepSkyBlue;">
 							<img id="" class="button" title="Modificar Persona"
-									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+								src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Persona"/>
 						</s:a>
 						${blanks}
 						<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#persona.curp}');">
-						<img id="" class="button" title="Eliminar Persona"
-								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>		
+							<img id="" class="button" title="Eliminar Persona"
+								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Persona"/>
+						</s:a>		
 					</td>
 				</tr>
 			</s:iterator>

@@ -79,7 +79,7 @@
 			<div class="marcoImagen" id="marco-pantalla">
 				<center>
 					<s:url var="pantallaAccion" value="%{#action.model.imagenB64}"/>
-					<img id="pantalla" src="${pantallaAccion}" class="imagen" />
+					<img id="pantalla" src="${pantallaAccion}" class="imagen" alt="pantalla"/>
 				</center>
 				<div class="textoAyuda">Imagen seleccionada</div>
 			</div>
