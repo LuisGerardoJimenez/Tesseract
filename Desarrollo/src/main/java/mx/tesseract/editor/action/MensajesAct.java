@@ -150,7 +150,10 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 				ErrorManager.agregaMensajeError(this, e);
 			}finally {
 				model.setClave("MSG");
+				editNew();
 			}
+		} else {
+			editNew();
 		}
 	}
 	
@@ -243,7 +246,9 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateUpdate", e);
 				ErrorManager.agregaMensajeError(this, e);
 				edit();
-			}
+			} 
+		} else {
+			edit();
 		}
 	}
 	
@@ -260,15 +265,12 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 			} catch (TESSERACTValidacionException tve) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				edit();
 			} catch (TESSERACTException te) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				edit();
 			} catch (Exception e) {
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateDestroy", e);
 				ErrorManager.agregaMensajeError(this, e);
-				edit();
 			}
 		}
 	}
