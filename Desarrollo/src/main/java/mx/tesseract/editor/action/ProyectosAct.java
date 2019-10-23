@@ -72,6 +72,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 		String resultado = INDEX;
 		try {
 			SessionManager.delete("idProyecto");
+			SessionManager.delete("elegirColaboradores");
 			SessionManager.delete("idModulo");
 			colaborador = loginBs.consultarColaboradorActivo();
 			listProyectos = proyectoBs.consultarProyectosByColaborador(colaborador.getCurp());
@@ -118,6 +119,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 				}
 			}
 			SessionManager.set(idSel, "idProyecto");
+			SessionManager.set(true, "elegirColaboradores");
 			model = loginBs.consultarProyectoActivo();
 			cargarListaCheckbox();
 			resultado = COLABORADORES;
