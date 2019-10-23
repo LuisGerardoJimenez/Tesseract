@@ -21,7 +21,7 @@ public class UnidadTamanioBs {
 	public List<UnidadTamanio> consultarUnidadesTamanio() {
 		List<UnidadTamanio> listUnidadTamanio = genericoDAO.findAll(UnidadTamanio.class);
 		if (listUnidadTamanio.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar las unidades.","MSG12");
+			throw new TESSERACTException("No se pueden consultar las unidades.","MSG29");
 		}
 		return listUnidadTamanio;
 	}

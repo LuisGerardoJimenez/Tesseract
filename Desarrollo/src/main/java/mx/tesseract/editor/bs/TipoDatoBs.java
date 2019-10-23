@@ -21,7 +21,7 @@ public class TipoDatoBs {
 	public List<TipoDato> consultarTiposDato() {
 		List<TipoDato> listTiposDato = genericoDAO.findAll(TipoDato.class);
 		if (listTiposDato.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar los tipos de dato.", "MSG12");
+			throw new TESSERACTException("No se pueden consultar los tipos de dato.", "MSG29");
 		}
 		return listTiposDato;
 	}

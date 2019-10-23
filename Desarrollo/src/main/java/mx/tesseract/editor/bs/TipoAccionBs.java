@@ -21,7 +21,7 @@ public class TipoAccionBs {
 	public List<TipoAccion> consultarTiposAccion() {
 		List<TipoAccion> tiposAccion = genericoDAO.findAll(TipoAccion.class);
 		if (tiposAccion == null) {
-			throw new TESSERACTException("No se pueden consultar los tipos de acciones.", "MSG12");			
+			throw new TESSERACTException("No se pueden consultar los tipos de acciones.", "MSG29");			
 		}
 		return tiposAccion;
 	}
