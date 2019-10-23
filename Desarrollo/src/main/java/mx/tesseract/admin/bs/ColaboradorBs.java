@@ -13,6 +13,8 @@ import mx.tesseract.util.Correo;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -22,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("colaboradorBS")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class ColaboradorBs {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 
 	@Autowired
 	private GenericoDAO genericoDAO;
@@ -83,17 +87,16 @@ public class ColaboradorBs {
 		try {
 			if (contrasenaAnterior == null || correoAnterior == null) {
 				correo.enviarCorreo(model, Constantes.NUMERO_CERO);
-				System.out.println("Se envió un correo al usuario que se registró.");
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + "Se envió un correo al usuario que se registró.");
 			} else if (!contrasenaAnterior.equals(model.getContrasenia())) {
 				correo.enviarCorreo(model, Constantes.NUMERO_CERO);
-				System.out.println("Se envió un correo porque cambió la contraseña.");
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + "Se envió un correo porque cambió la contraseña.");
 			} else if (!correoAnterior.equals(model.getCorreoElectronico())) {
 				correo.enviarCorreo(model, Constantes.NUMERO_CERO);
-				System.out.println("Se envió un correo porque cambio el correo electrónico.");
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + "Se envió un correo porque cambio el correo electrónico.");
 			}
 		} catch (Exception e) {
-			System.err.println("Error al enviar el Correo");
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "Error al enviar el Correo", e);
 		}
 	}
 
@@ -114,7 +117,6 @@ public class ColaboradorBs {
 		if (rn027.isValidRN027(model)) {
 			genericoDAO.delete(model);
 		} else {
-			System.out.println("Error en regla de negocio");
 			throw new TESSERACTException("No se puede eliminar el colaborador porque ya esta asociado a un proyecto",
 					"MSG28");
 		}
