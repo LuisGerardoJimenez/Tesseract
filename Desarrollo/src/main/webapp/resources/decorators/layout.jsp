@@ -54,7 +54,12 @@
 					</s:if>
 					<s:else>
 						<s:if test="#session.idProyecto != null">
-							<jsp:include page="/pages/editor/menus/menuAnalistaProyecto.jsp" />
+							<s:if test="#session.elegirColaboradores != null">
+								<jsp:include page="/pages/editor/menus/menuAnalista.jsp" />
+							</s:if>
+							<s:else>
+								<jsp:include page="/pages/editor/menus/menuAnalistaProyecto.jsp" />
+							</s:else>
 						</s:if>
 						<s:else>
 							<jsp:include page="/pages/editor/menus/menuAnalista.jsp" />
