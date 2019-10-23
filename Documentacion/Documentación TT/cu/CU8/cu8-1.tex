@@ -76,8 +76,7 @@
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU8-1:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU8-1:TAE}{[Trayectoria E]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU8-1:TAF}{[Trayectoria F]}
-		\UCpaso[\UCsist] Verifica que el número de la regla de negocio no se encuentre registrado con base en la regla de negocio \BRref{RN1}{Unicidad de números}. \hyperlink{CU8-1:TAG}{[Trayectoria G]}
-		\UCpaso[\UCsist] Verifica que el nombre de la regla de negocio no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU8-1:TAH}{[Trayectoria H]}
+		\UCpaso[\UCsist] Verifica que el nombre de la regla de negocio no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU8-1:TAG}{[Trayectoria G]}
 		\UCpaso[\UCsist] Persiste la información de la regla de negocio en el sistema.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} para indicar al actor que el registro se ha realizado exitosamente.
 	\end{UCtrayectoria}		
@@ -128,17 +127,8 @@
 	\UCpaso Regresa al paso \ref{CU8.1-P3} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
-%--------------------------------------
-\hypertarget{CU8-1:TAG}{\textbf{Trayectoria alternativa G}}\\
-\noindent \textbf{Condición:} El actor ingresó un número de regla de negocio repetido.
-\begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU9.1}{Registrar Regla de negocio}.
-	\UCpaso Regresa al paso \ref{CU8.1-P3} de la trayectoria principal.
-	\item[- -] - - {\em {Fin de la trayectoria}}.
-\end{enumerate}
-
 %--------------------------------------	
-\hypertarget{CU8-1:TAH}{\textbf{Trayectoria alternativa H}}\\
+\hypertarget{CU8-1:TAG}{\textbf{Trayectoria alternativa G}}\\
 \noindent \textbf{Condición:} El actor ingresó un nombre de regla de negocio repetido.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU9.1}{Registrar Regla de negocio}.
