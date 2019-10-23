@@ -32,21 +32,22 @@
 						<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/glosario/%{#termino.id}"/>
 						<s:a href="%{urlConsultar}">
 							<img id="" class="button" title="Consultar Término"
-									src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
+									src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" alt=""/>
 						</s:a>
 						${blanks}
 						<s:if test="%{#termino.estadoElemento.id == 1}">	
 						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/glosario/%{#termino.id}/edit"/>			
 						<s:a href="%{urlEditar}">
 							<img id="" class="button" title="Modificar Término"
-									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Término"/>
 						</s:a>
 						${blanks}		
 						<!-- Eliminar término del glosario -->			
 						<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/glosario/%{#termino.id}?_method=delete" method="post"/>-->
 						<s:a href="#" onclick="return mostrarMensajeEliminacion(%{#termino.id});">
-						<img id="" class="button" title="Eliminar Persona"
-								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>		
+							<img id="" class="button" title="Eliminar Persona"
+								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Persona"/>
+						</s:a>		
 						${blanks}	
 						</s:if>
 					</td>

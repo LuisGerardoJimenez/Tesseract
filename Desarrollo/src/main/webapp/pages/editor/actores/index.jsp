@@ -37,21 +37,22 @@
 						<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/actores/%{#actor.id}"/>
 						<s:a href="%{urlConsultar}">
 							<img id="" class="button" title="Consultar Actor"
-									src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
+								src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" alt="Consultar Actor"/>
 						</s:a>
 						${blanks}
 						<s:if test="%{#actor.estadoElemento.id == 1}">
 						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/actores/%{#actor.id}/edit"/>			
 						<s:a href="%{urlEditar}">
 							<img id="" class="button" title="Modificar Actor"
-									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+								src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Actor"/>
 						</s:a>
 						${blanks}		
 						<!-- Eliminar Actor -->			
 						<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/actores/%{#actor.id}?_method=delete" method="post"/>-->
 						<s:a href="#" onclick="return mostrarMensajeEliminacion(%{#actor.id});">
-						<img id="" class="button" title="Eliminar Actor"
-								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
+							<img id="" class="button" title="Eliminar Actor"
+								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Actor"/>
+						</s:a>
 						${blanks}	
 						</s:if>
 						

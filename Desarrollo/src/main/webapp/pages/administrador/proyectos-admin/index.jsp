@@ -41,12 +41,13 @@
 						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/proyectos-admin/%{#proyecto.id}/edit"/>			
 						<s:a href="%{urlEditar}">
 							<img id="" class="button" title="Modificar Proyecto"
-									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+								src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Proyecto"/>
 						</s:a>
 						${blanks}
 						<s:a onclick="return mostrarMensajeEliminacion(%{#proyecto.id});">
-						<img id="" class="button" title="Eliminar Proyecto"
-								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>		
+							<img id="" class="button" title="Eliminar Proyecto"
+								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Proyecto"/>
+						</s:a>		
 					</td>
 				</tr>
 			</s:iterator>

@@ -143,11 +143,9 @@
 										<a name="paso-${#paso.id}"></a>
 										<li class="ui-widget">
 										<s:if test="#paso.realizaActor">
-												<img
-													src="${pageContext.request.contextPath}/resources/images/icons/actor.png" />
+												<img src="${pageContext.request.contextPath}/resources/images/icons/actor.png" alt="actor"/>
 											</s:if> <s:else>
-												<img
-													src="${pageContext.request.contextPath}/resources/images/icons/uc.png" />
+												<img src="${pageContext.request.contextPath}/resources/images/icons/uc.png" alt="casoUso"/>
 											</s:else> <s:if test="#paso.verbo.nombre == 'Otro'">
 									${blanks} ${paso.otroVerbo} ${blanks} ${paso.redaccion}
 								</s:if> <s:else>
@@ -191,11 +189,9 @@
 						<ol>
 							<s:iterator value="ListPasosActual" var="paso">
 								<li class="ui-widget"><s:if test="#paso.realizaActor">
-										<img
-											src="${pageContext.request.contextPath}/resources/images/icons/actor.png" />
+										<img src="${pageContext.request.contextPath}/resources/images/icons/actor.png" alt="actor"/>
 									</s:if> <s:else>
-										<img
-											src="${pageContext.request.contextPath}/resources/images/icons/uc.png" />
+										<img src="${pageContext.request.contextPath}/resources/images/icons/uc.png" alt="casoUso"/>
 									</s:else> <s:if test="#paso.verbo.nombre == 'Otro'">
 							${blanks} ${paso.otroVerbo} ${blanks} ${paso.redaccion}
 						</s:if> <s:else>
