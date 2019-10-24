@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -12,22 +13,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.dto.PasoDTO;
 import mx.tesseract.dto.SelectDTO;
-import mx.tesseract.dto.TrayectoriaDTO;
+import mx.tesseract.editor.bs.ActorBs;
 import mx.tesseract.editor.bs.CasoUsoBs;
-import mx.tesseract.editor.bs.ElementoBs;
+import mx.tesseract.editor.bs.EntidadBs;
+import mx.tesseract.editor.bs.MensajeBs;
 import mx.tesseract.editor.bs.ModuloBs;
+import mx.tesseract.editor.bs.PantallaBs;
+import mx.tesseract.editor.bs.PasoBs;
+import mx.tesseract.editor.bs.ReglaNegocioBs;
+import mx.tesseract.editor.bs.TerminoGlosarioBs;
+import mx.tesseract.editor.bs.TokenBs;
 import mx.tesseract.editor.bs.TrayectoriaBs;
+import mx.tesseract.editor.entidad.Accion;
+import mx.tesseract.editor.entidad.Actor;
+import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.editor.entidad.CasoUso;
+import mx.tesseract.editor.entidad.Entidad;
+import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.Modulo;
-import mx.tesseract.editor.entidad.Revision;
+import mx.tesseract.editor.entidad.Pantalla;
+import mx.tesseract.editor.entidad.Paso;
+import mx.tesseract.editor.entidad.ReglaNegocio;
+import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.editor.entidad.Trayectoria;
-import mx.tesseract.enums.AnalisisEnum.CU_CasosUso;
-import mx.tesseract.enums.TipoSeccionEnum;
-import mx.tesseract.enums.TipoSeccionEnum.TipoSeccionENUM;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
+import mx.tesseract.util.JsonUtil;
 import mx.tesseract.util.SessionManager;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
@@ -38,14 +52,15 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 @ResultPath("/pages/editor/")
 @Results({
 		@Result(name = ActionSupportTESSERACT.SUCCESS, type = "redirectAction", params = { "actionName",
-				"trayectorias" }),
+				Constantes.ACTION_NAME_PASOS }),
 		@Result(name = "proyectos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_PROYECTOS }),
 		@Result(name = "modulos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_MODULOS }),
 		@Result(name = "caso-uso", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_CASO_USO }),
 		@Result(name = "referencias", type = "json", params = { "root", "elementosReferencias" }) })
 		@Result(name = "pasos", type = "redirectAction", params = {
 				"actionName", Constantes.ACTION_NAME_PASOS })
-public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<TrayectoriaDTO> {
+@AllowedMethods({"subirPaso", "bajarPaso"})
+public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<PasoDTO> {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -65,10 +80,10 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 	private Integer idTrayectoria;
 
 	private CasoUso casoUsoBase;
-	private TrayectoriaDTO model;
-	private List<Trayectoria> listTrayectorias;
+	private PasoDTO model;
+	private List<PasoDTO> listPasos;
 	private String jsonPasosTabla;
-	private List<String> listRealiza;
+	private List<SelectDTO> listRealiza;
 	private List<String> listVerbos;
 
 	private String jsonReglasNegocio;
@@ -101,15 +116,36 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 
 	@Autowired
 	private ModuloBs moduloBs;
-
-	@Autowired
-	private ElementoBs elementoBs;
 	
 	@Autowired
 	private ProyectoBs proyectoBs;
 	
 	@Autowired
 	private CasoUsoBs casoUsoBs;
+	
+	@Autowired
+	private PasoBs pasoBs;
+	
+	@Autowired
+	private ReglaNegocioBs reglaNegocioBs;
+	
+	@Autowired
+	private EntidadBs entidadBs;
+	
+	@Autowired
+	private PantallaBs pantallaBs;
+	
+	@Autowired
+	private MensajeBs mensajeBs;
+	
+	@Autowired
+	private ActorBs actorBs;
+	
+	@Autowired
+	private TerminoGlosarioBs terminoGlosarioBs;
+	
+	@Autowired
+	private TokenBs tokenBs;
 	
 	public String index() {
 		String resultado = PROYECTOS;
@@ -142,6 +178,7 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 				modulo = moduloBs.consultarModuloById(idModulo);
 				casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
 				trayectoria = trayectoriaBs.consultarTrayectoria(idTrayectoria);
+				listPasos = pasoBs.obtenerPasos(trayectoria, idModulo);
 				resultado = INDEX;
 				Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 				this.setActionMessages(msjs);
@@ -168,7 +205,6 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 						proyecto = proyectoBs.consultarProyecto(idProyecto);
 						modulo = moduloBs.consultarModuloById(idModulo);
 						casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
-						existeTPrincipal = trayectoriaBs.existeTrayectoriaPrincipal(idCasoUso);
 						buscaElementos();
 						buscaCatalogos();
 						resultado = EDITNEW;
@@ -196,13 +232,13 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 		buscaCatalogos();
 		if (!hasErrors()) {
 			try {
-				if(model.getAlternativa() == null) {
-					model.setAlternativa(Boolean.TRUE);
-				}
 				idCasoUso = (Integer) SessionManager.get("idCU");
 				casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
-				model.setIdCasoUso(casoUsoBase.getId());
-				trayectoriaBs.registrarTrayectoria(model, idCasoUso);
+				idTrayectoria = (Integer) SessionManager.get("idTrayectoria");
+				idModulo = (Integer) SessionManager.get("idModulo");
+				model.setIdTrayectoria(idTrayectoria);
+				pasoBs.preAlmacenarObjetosToken(model , casoUsoBase , idModulo);
+				pasoBs.registrarPaso(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
@@ -217,11 +253,12 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 	}
 
 	public String create() {
-		addActionMessage(getText("MSG1", new String[] { "La", "Trayectoria", "registrada" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Paso", "registrado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String edit(){
 		String resultado = PROYECTOS;
 		try {
@@ -231,14 +268,16 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 				if (idModulo != null) {
 					idCasoUso = (Integer) SessionManager.get("idCU");
 					if (idCasoUso != null) {
+						proyecto = proyectoBs.consultarProyecto(idProyecto);
+						modulo = moduloBs.consultarModuloById(idModulo);
 						casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
-						model.setIdCasoUso(casoUsoBase.getId());
-						elementoBs.verificarEstado(casoUsoBase, CU_CasosUso.MODIFICARTRAYECTORIA5_1_1_2);
 						buscaElementos();
 						buscaCatalogos();
-						existeTPrincipal = trayectoriaBs.existeTrayectoriaPrincipal(casoUsoBase.getId(), model.getId());
 						prepararVista();
 						resultado = EDIT;
+						Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+						this.setActionMessages(msjs);
+						SessionManager.delete("mensajesAccion");
 					} else {
 						resultado = CASO_USO;
 					}
@@ -261,10 +300,13 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 		buscaCatalogos();
 		if (!hasErrors()) {
 			try {
-				if(model.getAlternativa() == null) {
-					model.setAlternativa(Boolean.TRUE);
-				}
-				trayectoriaBs.modificarTrayectoria(model);
+				idCasoUso = (Integer) SessionManager.get("idCU");
+				casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+				idTrayectoria = (Integer) SessionManager.get("idTrayectoria");
+				idModulo = (Integer) SessionManager.get("idModulo");
+				model.setIdTrayectoria(idTrayectoria);
+				pasoBs.preAlmacenarObjetosToken(model , casoUsoBase , idModulo);
+				pasoBs.modificarPaso(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
@@ -282,7 +324,7 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 	}
 
 	public String update() {
-		addActionMessage(getText("MSG1", new String[] { "La", "Trayectoria", "modificada" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Paso", "modificado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -290,7 +332,7 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 	public void validateDestroy() {
 		if (!hasErrors()) {
 			try {
-				trayectoriaBs.eliminarTrayectoria(model);
+				pasoBs.eliminarPaso(model);
 			} catch (TESSERACTValidacionException tve) {
 				ErrorManager.agregaMensajeError(this, tve);
 				System.err.println(tve.getMessage());
@@ -308,72 +350,96 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 	}
 	
 	public String destroy() {
-		addActionMessage(getText("MSG1", new String[] { "La", "Trayectoria", "eliminada" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Paso", "eliminada" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
 	
 	private void buscaCatalogos() {
 		// Se llena la lista del catálogo de quien realiza
-		listRealiza = new ArrayList<String>();
-		listRealiza.add(Constantes.SELECT_ACTOR);
-		listRealiza.add(Constantes.SELECT_SISTEMA);
-
-		// Se llena la lista par indicar si es alternativa o no
-		listAlternativa = new ArrayList<SelectDTO>();
-		listAlternativa.add(new SelectDTO( Boolean.FALSE,Constantes.SELECT_PRINCIPAL) );
-		listAlternativa.add(new SelectDTO( Boolean.TRUE,Constantes.SELECT_ALTERNATIVA));
+		listRealiza = new ArrayList<SelectDTO>();
+		listRealiza.add(new SelectDTO(Boolean.TRUE, Constantes.SELECT_ACTOR));
+		listRealiza.add(new SelectDTO(Boolean.FALSE, Constantes.SELECT_SISTEMA));
 
 		// Se extraen los verbos de la BD
 		listVerbos = trayectoriaBs.consultarVerbos();
 	}
 
 	private void buscaElementos() {
-		TrayectoriaDTO trayectoriaDTOEle = trayectoriaBs.buscaElementos(idProyecto, idCasoUso);
-		// Se convierte en json las Reglas de Negocio
-		if (trayectoriaDTOEle.getJsonReglasNegocio() != null) {
-			this.jsonReglasNegocio = trayectoriaDTOEle.getJsonReglasNegocio();
+		List<ReglaNegocio> listReglasNegocio = reglaNegocioBs.consultarReglaNegocioProyecto(idProyecto);
+		List<Entidad> listEntidades = entidadBs.consultarEntidadesProyecto(idProyecto);
+		List<Pantalla> listPantallas = pantallaBs.consultarPantallas(idProyecto);
+		List<Mensaje> listMensajes = mensajeBs.consultarMensajeProyecto(idProyecto);
+		List<Actor> listActores = actorBs.consultarActoresProyecto(idProyecto);
+		List<TerminoGlosario> listTerminosGls = terminoGlosarioBs.consultarGlosarioProyecto(idProyecto);
+		List<Atributo> listAtributos = new ArrayList<Atributo>();
+		List<Paso> listPasos = new ArrayList<Paso>();
+		List<CasoUso> listCasosUso = casoUsoBs.consultarCasosDeUso(idProyecto, idModulo);
+		List<Trayectoria> listTrayectorias = new ArrayList<Trayectoria>();
+		List<Accion> listAcciones = new ArrayList<Accion>();
+		
+		for (Entidad entidad : listEntidades) {
+			for (Atributo atributo : entidad.getAtributos()) {
+				listAtributos.add(atributo);
+			}
 		}
-		if (trayectoriaDTOEle.getJsonEntidades() != null) {
-			this.jsonEntidades = trayectoriaDTOEle.getJsonEntidades();
+		
+		for (CasoUso casoUso : listCasosUso) {
+			for(Trayectoria  trayectoria :casoUso.getTrayectorias()) {
+				listTrayectorias.add(trayectoria);
+				for(Paso  paso :trayectoria.getPasos()) {
+					listPasos.add(paso);
+				}
+			}
 		}
-		if (trayectoriaDTOEle.getJsonCasosUsoProyecto() != null) {
-			this.jsonCasosUsoProyecto = trayectoriaDTOEle.getJsonCasosUsoProyecto();
+		
+		for (Pantalla pantalla : listPantallas) {
+			for(Accion accion : pantalla.getAcciones()) {
+				listAcciones.add(accion);
+			}
 		}
-		if (trayectoriaDTOEle.getJsonPantallas() != null) {
-			this.jsonPantallas = trayectoriaDTOEle.getJsonPantallas();
+		
+		if (listReglasNegocio != null) {
+			this.jsonReglasNegocio = JsonUtil.mapListToJSON(listReglasNegocio);
 		}
-		if (trayectoriaDTOEle.getJsonMensajes() != null) {
-			this.jsonMensajes = trayectoriaDTOEle.getJsonMensajes();
+		if (listEntidades != null) {
+			this.jsonEntidades = JsonUtil.mapListToJSON(listEntidades);
 		}
-		if (trayectoriaDTOEle.getJsonActores() != null) {
-			this.jsonActores = trayectoriaDTOEle.getJsonActores();
+		if (listPantallas != null) {
+			this.jsonPantallas = JsonUtil.mapListToJSON(listPantallas);
 		}
-		if (trayectoriaDTOEle.getJsonTerminosGls() != null) {
-			this.jsonTerminosGls = trayectoriaDTOEle.getJsonTerminosGls();
+		if (listMensajes != null) {
+			this.jsonMensajes = JsonUtil.mapListToJSON(listMensajes);
 		}
-		if (trayectoriaDTOEle.getJsonAtributos() != null) {
-			this.jsonAtributos = trayectoriaDTOEle.getJsonAtributos();
+		if (listActores != null) {
+			this.jsonActores = JsonUtil.mapListToJSON(listActores);
 		}
-		if (trayectoriaDTOEle.getJsonPasos() != null) {
-			this.jsonPasos = trayectoriaDTOEle.getJsonPasos();
+		if (listTerminosGls != null) {
+			this.jsonTerminosGls = JsonUtil.mapListToJSON(listTerminosGls);
 		}
-		if (trayectoriaDTOEle.getJsonTrayectorias() != null) {
-			this.jsonTrayectorias = trayectoriaDTOEle.getJsonTrayectorias();
+		if (listAtributos != null) {
+			this.jsonAtributos = JsonUtil.mapListToJSON(listAtributos);
 		}
-		if (trayectoriaDTOEle.getJsonAcciones() != null) {
-			this.jsonAcciones = trayectoriaDTOEle.getJsonAcciones();
+		if (listPasos != null) {
+			this.jsonPasos = JsonUtil.mapListToJSON(listPasos);
 		}
+		if (listCasosUso != null) {
+			this.jsonCasosUsoProyecto = JsonUtil
+					.mapListToJSON(listCasosUso);
+		}
+		if (listTrayectorias != null) {
+			this.jsonTrayectorias = JsonUtil.mapListToJSON(listTrayectorias);
+		}
+		
+		if (listAcciones != null) {
+			this.jsonAcciones = JsonUtil.mapListToJSON(listAcciones);
+		}
+
 	}
 
 	private void prepararVista() {
-		CasoUso casoUso = trayectoriaBs.buscarCasoUsoByTrayectoria(model);
-		for (Revision rev : casoUso.getRevisiones()) {
-			if (!rev.isRevisado()
-					&& rev.getSeccion().getNombre().equals(TipoSeccionEnum.getNombre(TipoSeccionENUM.TRAYECTORIA))) {
-				this.observaciones = rev.getObservaciones();
-			}
-		}
+		model.setRedaccion(tokenBs.decodificarCadenasToken(model
+				.getRedaccion()));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -393,22 +459,60 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 		return resultado;
 	}
 	
+	public String subirPaso() {
+		try {
+			idCasoUso = (Integer) SessionManager.get("idCU");
+			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+			idTrayectoria = (Integer) SessionManager.get("idTrayectoria");
+			idModulo = (Integer) SessionManager.get("idModulo");
+			pasoBs.subirPaso(model);
+		} catch (TESSERACTValidacionException tve) {
+			ErrorManager.agregaMensajeError(this, tve);
+			System.err.println(tve.getMessage());
+			index();
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
+			System.err.println(te.getMessage());
+			index();
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+			e.printStackTrace();
+			index();
+		}
+		return index();
+	}
+	
+	public String bajarPaso() {
+		try {
+			idCasoUso = (Integer) SessionManager.get("idCU");
+			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+			idTrayectoria = (Integer) SessionManager.get("idTrayectoria");
+			idModulo = (Integer) SessionManager.get("idModulo");
+			pasoBs.bajarPaso(model);
+		} catch (TESSERACTValidacionException tve) {
+			ErrorManager.agregaMensajeError(this, tve);
+			System.err.println(tve.getMessage());
+			index();
+		} catch (TESSERACTException te) {
+			ErrorManager.agregaMensajeError(this, te);
+			System.err.println(te.getMessage());
+			index();
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+			e.printStackTrace();
+			index();
+		}
+		return index();
+	}
+	
 	@Override
 	@VisitorFieldValidator
-	public TrayectoriaDTO getModel() {
-		return (model == null) ? model = new TrayectoriaDTO() : model;
+	public PasoDTO getModel() {
+		return (model == null) ? model = new PasoDTO() : model;
 	}
 
-	public void setModel(TrayectoriaDTO model) {
+	public void setModel(PasoDTO model) {
 		this.model = model;
-	}
-
-	public List<Trayectoria> getListTrayectorias() {
-		return listTrayectorias;
-	}
-
-	public void setListTrayectorias(List<Trayectoria> listTrayectorias) {
-		this.listTrayectorias = listTrayectorias;
 	}
 
 	public Integer getIdCasoUso() {
@@ -419,11 +523,11 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 		this.idCasoUso = idCasoUso;
 	}
 
-	public List<String> getListRealiza() {
+	public List<SelectDTO> getListRealiza() {
 		return listRealiza;
 	}
 
-	public void setListRealiza(List<String> listRealiza) {
+	public void setListRealiza(List<SelectDTO> listRealiza) {
 		this.listRealiza = listRealiza;
 	}
 
@@ -553,7 +657,7 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 
 	public void setIdSel(Integer idSel) {
 		this.idSel = idSel;
-		this.model = trayectoriaBs.consultarTrayectoriaById(idSel);
+		this.model = pasoBs.consultarPasoById(idSel);
 	}
 
 	public String getObservaciones() {
@@ -618,6 +722,14 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Tray
 
 	public void setTrayectoria(Trayectoria trayectoria) {
 		this.trayectoria = trayectoria;
+	}
+
+	public List<PasoDTO> getListPasos() {
+		return listPasos;
+	}
+
+	public void setListPasos(List<PasoDTO> listPasos) {
+		this.listPasos = listPasos;
 	}
 
 }

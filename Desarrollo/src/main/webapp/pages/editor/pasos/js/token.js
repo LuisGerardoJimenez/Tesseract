@@ -127,9 +127,9 @@ var token = function() {
 
 		
 		// textArea del paso
-/*		$('#inputorRedaccion').atwho(at_configRN).atwho(at_configENT)
+		$('#inputorRedaccion').atwho(at_configRN).atwho(at_configENT)
 		.atwho(at_configMSG).atwho(at_configACT).atwho(at_configATR).atwho(at_configGLS)
-		.atwho(at_configCU).atwho(at_configIU).atwho(at_configTRAY).atwho(at_configP).atwho(at_configACC);*/
+		.atwho(at_configCU).atwho(at_configIU).atwho(at_configTRAY).atwho(at_configP).atwho(at_configACC);
 
 	}
 

@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	$('#gestion').DataTable();
 	contextPath = $("#rutaContexto").val();
-
 } );
 
 function confirmarEliminacion(urlEliminar) {
@@ -14,7 +13,7 @@ function cancelarConfirmarEliminacion() {
 }
 
 function mostrarMensajeEliminacion(id) {
-	var urlEliminar = contextPath + "/trayectorias/" + id + "!destroy";	
+	var urlEliminar = contextPath + "/pasos/" + id + "!destroy";	
 	document.getElementById("btnConfirmarEliminacion").onclick = function(){ confirmarEliminacion(urlEliminar);};
 	$('#confirmarEliminacionDialog').dialog('open');
 	return false;
