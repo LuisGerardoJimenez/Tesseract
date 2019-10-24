@@ -15,10 +15,14 @@ import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 @Repository("casoUsoDAO")
 public class CasoUsoDAO {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -32,7 +36,7 @@ public class CasoUsoDAO {
 			query.setParameter("clave", Clave.CU.toString());
 			casosUso = (List<CasoUso>) query.getResultList();
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findAllByProyectoAndModulo", e);
 		}
 		return casosUso;
 	}
@@ -52,7 +56,7 @@ public class CasoUsoDAO {
 				casoUso = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findElementoHasCasoUsoAsociado", e);
 		}
 		return casoUso;
 	}
@@ -73,7 +77,7 @@ public class CasoUsoDAO {
 				entidad = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findElementoAsociado", e);
 		}
 		return entidad;
 	}

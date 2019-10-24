@@ -1,5 +1,7 @@
 package mx.tesseract.admin.bs;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -14,6 +16,8 @@ import mx.tesseract.util.SessionManager;
 @Service("loginBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class LoginBs {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 
 	@Autowired
 	private ColaboradorDAO colaboradorDAO;
@@ -29,7 +33,7 @@ public class LoginBs {
 				proyecto = genericoDAO.findById(Proyecto.class, (Integer) idProyecto);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "consultarProyectoActivo", e);
 		}
 		return proyecto;
 	}
@@ -42,7 +46,7 @@ public class LoginBs {
 				colaborador = colaboradorDAO.findColaboradorByCURP(colaboradorCURP.toString());
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "consultarColaboradorActivo", e);
 		}
 		return colaborador;
 	}

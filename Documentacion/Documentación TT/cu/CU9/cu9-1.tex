@@ -45,6 +45,7 @@
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Solicita registrar una mensaje oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU10}{Gestionar Mensajes}.
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10.1}{Registrar Mensaje: No parametrizado}.
+		\UCpaso[\UCsist] Marca como etiqueta el campo ''Clave'' de acuerdo a la regla de negocio \BRref{RN13}{Modificación del identificador}.
 		\UCpaso[\UCactor] Ingresa la información solicitada. \label{CU9.1-P3} \hyperlink{CU9-1:TAA}{[Trayectoria A]}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar} . \label{CU9.1-P4} \hyperlink{CU9-1:TAB}{[Trayectoria B]} 
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU9-1:TAC}{[Trayectoria C]}
@@ -61,6 +62,7 @@
 \begin{enumerate}
 	\UCpaso[\UCactor] Ingresa el token ''PARAM·''.
 	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10.1A}{Registrar Mensaje: Parametrizado}.
+	\UCpaso[\UCsist] Marca como etiqueta el campo ''Clave'' de acuerdo a la regla de negocio \BRref{RN13}{Modificación del identificador}.
 	\UCpaso[\UCactor] Ingresa la descripción de cada parámetro. \label{CU9.1-TA2}
 	\UCpaso[\UCsist] Continúa en el paso \ref{CU9.1-P4} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%

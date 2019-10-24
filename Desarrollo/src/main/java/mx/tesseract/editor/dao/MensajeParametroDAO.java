@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +19,8 @@ import mx.tesseract.util.Constantes;
 
 @Repository("mensajeParametroDAO")
 public class MensajeParametroDAO {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -34,7 +38,7 @@ public class MensajeParametroDAO {
 				parametro = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "consultarMensajeParametro", e);
 		}
 		return parametro;
 	}
@@ -51,7 +55,7 @@ public class MensajeParametroDAO {
 				parametro = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "consultarMensajeParametro", e);
 		}
 		return parametro;
 	}

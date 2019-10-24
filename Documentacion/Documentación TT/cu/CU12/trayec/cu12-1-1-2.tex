@@ -54,19 +54,18 @@
 %--------------------------------------
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Da clic en el icono \editar de la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias}.
-		\UCpaso[\UCsist] Verifica que el caso de uso se encuentre en estado ''Edición'' o en estado ''Pendiente de corrección''. \hyperlink{CU12-1-1-2:TAI}{[Trayectoria I]}.
 		\UCpaso[\UCsist] Obtiene la información de la trayectoria.
 		\UCpaso[\UCsist] Verifica que el catálogo ''tipo'' cuente con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU12-1-1-2:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Verifica que no exista una trayectoria del tipo ''principal'' registrada con base en la regla de negocio \BRref{RN11}{Registro de trayectorias}. \hyperlink{CU12-1-1-2:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1.1.2}{Modificar Trayectoria}.\label{CU12.1.1.2-P14}
 		\UCpaso[\UCactor] Modifica la clave de la trayectoria. \label{CU12.1.1.2-P15}
-		\UCpaso[\UCactor] Modifica el tipo de trayectoria. \hyperlink{CU12-1-1-2:TAB}{[Trayectoria B]} \label{CU12.1.1.2-P16}
+		\UCpaso[\UCactor] Modifica el tipo de trayectoria. \hyperlink{CU12-1-1-2:TAC}{[Trayectoria C]} \label{CU12.1.1.2-P16}
 		\UCpaso[\UCsist] Marca la casilla del campo ''Fin del caso de uso''. 
-		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-1-1-2:TAC}{[Trayectoria C]} \label{CU12.1.1.2-P18}
-		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-1-1-2:TAD}{[Trayectoria D]}
-		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU12-1-1-2:TAE}{[Trayectoria E]}
-		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-1-1-2:TAF}{[Trayectoria F]}
-		\UCpaso[\UCsist] Verifica que la clave de la trayectoria no se encuentre registrada en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU12-1-1-2:TAG}{[Trayectoria G]}
-		\UCpaso[\UCsist] Verifica que el actor haya ingresado al menos un paso, con base en la regla de negocio \BRref{RN32}{Pasos en la Trayectoria}. \hyperlink{CU12-1-1-2:TAH}{[Trayectoria H]}
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-1-1-2:TAD}{[Trayectoria D]} \label{CU12.1.1.2-P18}
+		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-1-1-2:TAE}{[Trayectoria E]}
+		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU12-1-1-2:TAF}{[Trayectoria F]}
+		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-1-1-2:TAG}{[Trayectoria G]}
+		\UCpaso[\UCsist] Verifica que la clave de la trayectoria no se encuentre registrada en el sistema con base en la regla de negocio {RN24}{Unicidad de la clave de la trayectoria}. \hyperlink{CU12-1-1-2:TAH}{[Trayectoria H]}
 		\UCpaso[\UCsist] Actualiza la información de la trayectoria.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla. \IUref{IU6.1.1}{Gestionar Trayectorias} para indicar al actor que la modificación se ha realizado exitosamente.
 	\end{UCtrayectoria}		
@@ -79,17 +78,27 @@
 \end{enumerate}
 %--------------------------------------
 \hypertarget{CU12-1-1-2:TAB}{\textbf{Trayectoria alternativa B}}\\
+\noindent \textbf{Condición:} Ya existe una trayectoria principal registrada.
+\begin{enumerate}
+	\UCpaso[\UCsist] Selecciona automáticamente la opción ''Alternativa'' del campo ''Tipo''.
+	\UCpaso[\UCsist] Inhabilita el campo ''tipo''.
+	\UCpaso[\UCsist] Muestra el campo de condición.
+	\UCpaso Continúa con el paso \ref{CU12.1.1.2-TB3} de la trayectoria alternativa C.
+	\item[- -] - - {\em {Fin de la trayectoria}}.%
+\end{enumerate}
+%--------------------------------------
+\hypertarget{CU12-1-1-2:TAC}{\textbf{Trayectoria alternativa C}}\\
 \noindent \textbf{Condición:} El actor desea registrar una trayectoria alternativa.
 \begin{enumerate}
 	\UCpaso[\UCactor] Selecciona la opción ''Alternativa'' del campo ''Tipo''.
 	\UCpaso[\UCsist] Muestra el campo de condición.
-	\UCpaso[\UCactor] Ingresa la condición de la trayectoria.
+	\UCpaso[\UCactor] Ingresa la condición de la trayectoria. \label{CU12.1.1.2-TB3}
 	\UCpaso[\UCactor] Selecciona si en la trayectoria se termina el caso de uso.
 	\UCpaso Continúa con el paso \ref{CU12.1.1.2-P18} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-1-1-2:TAC}{\textbf{Trayectoria alternativa C}}\\
+\hypertarget{CU12-1-1-2:TAD}{\textbf{Trayectoria alternativa D}}\\
 \noindent \textbf{Condición:} El actor desea cancelar la operación.
 \begin{enumerate}
 	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la pantalla \IUref{IU6.1.1.2}{Modificar Trayectoria}.
@@ -97,7 +106,7 @@
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-1-1-2:TAD}{\textbf{Trayectoria alternativa D}}\\
+\hypertarget{CU12-1-1-2:TAE}{\textbf{Trayectoria alternativa E}}\\
 \noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.1.2}{Modificar Trayectoria}.
@@ -105,7 +114,7 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-1-1-2:TAE}{\textbf{Trayectoria alternativa E}}\\
+\hypertarget{CU12-1-1-2:TAF}{\textbf{Trayectoria alternativa F}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.1.2}{Modificar Trayectoria}.
@@ -113,7 +122,7 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-1-1-2:TAF}{\textbf{Trayectoria alternativa F}}\\
+\hypertarget{CU12-1-1-2:TAG}{\textbf{Trayectoria alternativa G}}\\
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.1.1.2}{Modificar Trayectoria}.
@@ -121,25 +130,11 @@
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
 %--------------------------------------	
-\hypertarget{CU2-1-1-2:TAG}{\textbf{Trayectoria alternativa G}}\\
+\hypertarget{CU2-1-1-2:TAH}{\textbf{Trayectoria alternativa H}}\\
 \noindent \textbf{Condición:} El actor ingresó una clave de trayectoria que ya existe dentro del sistema.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU6.1.1.2}{Modificar Trayectoria}.
 	\UCpaso Regresa al paso \ref{CU12.1.1.2-P15} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
-%--------------------------------------
-\hypertarget{CU12-1-1-2:TAH}{\textbf{Trayectoria alternativa H}}\\
-\noindent \textbf{Condición:} El actor no registró ningún paso.
-\begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG14}{Registro necesario} en la sección de pasos de la pantalla \IUref{IU6.1.1.2}{Modificar Trayectoria}.
-	\UCpaso Regresa al paso \ref{CU12.1.1.2-P15} de la trayectoria principal.
-	\item[- -] - - {\em {Fin de la trayectoria}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU12-1-1-2:TAI}{\textbf{Trayectoria alternativa I}}\\
-\noindent \textbf{Condición:} El caso de uso no se encuentra en estado ''Edición'' o ''Pendiente de corrección''.
-\begin{enumerate}
-	\UCpaso[\UCsist]  Oculta el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/tray}} del caso que no se encuentra en estado de ''Edición'' o ''Pendiente de corrección''.
-	\item[- -] - - {\em {Fin del caso de uso}}.
-\end{enumerate}
+

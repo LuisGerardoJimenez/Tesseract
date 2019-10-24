@@ -14,7 +14,6 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jquery.atwho.js"></script>
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/pasos/js/token.js"></script>
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/pasos/js/index-editNew.js"></script>
-		
 ]]>
 
 </head>

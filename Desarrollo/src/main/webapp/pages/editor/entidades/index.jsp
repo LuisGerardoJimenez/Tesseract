@@ -33,7 +33,7 @@
 						<s:url var="urlAtributos" value="%{#pageContext.request.contextPath}/entidades!gestionarAtributos?idSel=%{#entidad.id}"/>			
 						<s:a href="%{urlAtributos}">
 							<img id="" class="button" title="Gestionar Atributos"
-									src="${pageContext.request.contextPath}/resources/images/icons/Atributo.svg" />
+									src="${pageContext.request.contextPath}/resources/images/icons/Atributo.svg" alt="Gestionar Atributos"/>
 						</s:a>
 						</s:if>
 						${blanks}
@@ -41,15 +41,15 @@
 						<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/entidades/%{#entidad.id}"/>
 							<s:a href="%{urlConsultar}">
 								<img id="" class="button" title="Consultar Entidad"
-										src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" alt="Consultar Entidad"/>
 							</s:a>
 						${blanks}
 						<s:if test="%{#entidad.estadoElemento.id == 1}">
 							<!-- Modificar Entidad -->		
 							<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/entidades/%{#entidad.id}/edit"/>			
-								<s:a href="%{urlEditar}">
+							<s:a href="%{urlEditar}">
 								<img id="" class="button" title="Modificar Entidad"
-										src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Entidad"/>
 							</s:a>
 							
 							
@@ -57,8 +57,9 @@
 							<!-- Eliminar Entidad -->			
 							<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/entidades/%{#entidad.id}?_method=delete" method="post"/>-->
 							<s:a href="#" onclick="return mostrarMensajeEliminacion(%{#entidad.id});">
-							<img id="" class="button" title="Eliminar Entidad"
-									src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>	
+								<img id="" class="button" title="Eliminar Entidad"
+									src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Entidad"/>
+							</s:a>	
 						${blanks}	
 						</s:if>
 					</td>

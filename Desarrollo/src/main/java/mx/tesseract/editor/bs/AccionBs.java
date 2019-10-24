@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -26,6 +28,8 @@ import mx.tesseract.util.TESSERACTValidacionException;
 @Service("accionBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class AccionBs {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 
 	@Autowired
 	private AccionDAO accionDAO;
@@ -61,7 +65,7 @@ public class AccionBs {
 				accionDTO.setImagenB64(ImageConverterUtil.parseBytesToPNGB64String(accion.getImagen()));
 			}
 		} catch (Exception e) {
-			 System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "consultarAccionDTO", e);
 		}
 		return accionDTO;
 	}
@@ -86,7 +90,7 @@ public class AccionBs {
 				accionesDTO.add(accionDTO);
 			}
 		} catch (Exception e) {
-			 System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "consultarAccionesDTOByPantalla", e);
 		}
 		return accionesDTO;
 	}

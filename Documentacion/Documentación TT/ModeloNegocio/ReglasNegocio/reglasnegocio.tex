@@ -8,38 +8,36 @@
 	\BRitem[Descripción:] Un número de \hyperlink{tElemento}{elemento} no se puede duplicar en el ámbito donde es utilizado ni registrarse en más de una ocasión.
 	\BRitem[Ejemplo positivo] Cumplen la regla:
 	\begin{itemize}
-		\item Dos \hyperlink{BREntidad}{reglas de negocio} con diferentes números.
+		\item Dos \hyperlink{casoUso}{casos de uso} con diferentes números.
 		\item Dos \hyperlink{EntidadPantalla}{pantallas} con diferentes números.
-		\item Dos \hyperlink{MSGEntidad}{mensajes} con diferentes números.
 	\end{itemize}
 	\BRitem[Ejemplo negativo] No cumplen con la regla:
 	\begin{itemize}
-		\item Dos \hyperlink{BREntidad}{reglas de negocio} con el mismo número.
+		\item Dos \hyperlink{casoUso}{Casos de uso} con el mismo número.
 		\item Dos \hyperlink{EntidadPantalla}{pantallas} con el mismo número.
-		\item Dos \hyperlink{MSGEntidad}{mensajes} con el mismo número.
 	\end{itemize}
-	\BRitem[Referenciado por:] \UCref{CU8.1}{Registrar Regla de Negocio}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.1}{Registrar Mensaje}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}.
+	\BRitem[Referenciado por:] \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU12.1}{Registrar Caso de uso}, \UCref{CU12.2}{Modificar Caso de uso}.
 \end{BussinesRule}
 
-\begin{BussinesRule}{RN5}{Modificación de elementos}
-	\BRitem[Tipo:] Restricción de operación. 
-	\BRitem[Clase:] Habilitadora. 
-	\BRitem[Nivel:] Controla la operación. % Otras opciones para nivel: Control, Influencia.
-	\BRitem[Descripción:] Un \hyperlink{tElemento}{elemento} no puede ser modificado si tiene asociaciones con casos de uso en estado ''Liberado''.
-	\BRitem[Ejemplo positivo] Cumplen la regla:
-	\begin{itemize}
-		\item Modificar un \hyperlink{MSGEntidad}{mensaje} que no tiene asociados casos de uso en estado ''Liberado''.
-		\item Modificar una \hyperlink{EntidadPantalla}{pantalla} que no tiene asociados casos de uso en estado ''Liberado''.
-		\item Modificar una \hyperlink{BREntidad}{regla de negocio} que no tiene asociados casos de uso en estado ''Liberado''.
-	\end{itemize}
-	\BRitem[Ejemplo negativo] No cumplen con la regla:
-	\begin{itemize}
-		\item Modificar un \hyperlink{atributoEntidad}{atributo} perteneciente a una \hyperlink{entidadEntidad}{entidad} que se encuentra asociada a un caso de uso en estado ''Liberado''.
-		\item Modificar una \hyperlink{BREntidad}{regla de negocio} asociada con tres casos de uso en estado ''Liberado''.
-		\item Modificar un \hyperlink{actorEntidad}{actor} asociado con un caso de uso en estado ''Liberado''.
-	\end{itemize}
-	\BRitem[Referenciado por:] \UCref{CU6.2}{Modificar Término de Glosario}, \UCref{CU7.2}{Modificar Entidad}, \UCref{7.1.2}{Modificar Atributo}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU10.2}{Modificar Actor}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU11.1.2}{Modificar Acción}.
-\end{BussinesRule}
+%\begin{BussinesRule}{RN5}{Modificación de elementos}
+%	\BRitem[Tipo:] Restricción de operación. 
+%	\BRitem[Clase:] Habilitadora. 
+%	\BRitem[Nivel:] Controla la operación. % Otras opciones para nivel: Control, Influencia.
+%	\BRitem[Descripción:] Un \hyperlink{tElemento}{elemento} no puede ser modificado si tiene asociaciones con casos de uso en estado ''Liberado''.
+%	\BRitem[Ejemplo positivo] Cumplen la regla:
+%	\begin{itemize}
+%		\item Modificar un \hyperlink{MSGEntidad}{mensaje} que no tiene asociados casos de uso en estado ''Liberado''.
+%		\item Modificar una \hyperlink{EntidadPantalla}{pantalla} que no tiene asociados casos de uso en estado ''Liberado''.
+%		\item Modificar una \hyperlink{BREntidad}{regla de negocio} que no tiene asociados casos de uso en estado ''Liberado''.
+%	\end{itemize}
+%	\BRitem[Ejemplo negativo] No cumplen con la regla:
+%	\begin{itemize}
+%		\item Modificar un \hyperlink{atributoEntidad}{atributo} perteneciente a una \hyperlink{entidadEntidad}{entidad} que se encuentra asociada a un caso de uso en estado ''Liberado''.
+%		\item Modificar una \hyperlink{BREntidad}{regla de negocio} asociada con tres casos de uso en estado ''Liberado''.
+%		\item Modificar un \hyperlink{actorEntidad}{actor} asociado con un caso de uso en estado ''Liberado''.
+%	\end{itemize}
+%	\BRitem[Referenciado por:] \UCref{CU6.2}{Modificar Término de Glosario}, \UCref{CU7.2}{Modificar Entidad}, \UCref{7.1.2}{Modificar Atributo}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU10.2}{Modificar Actor}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU11.1.2}{Modificar Acción}.
+%\end{BussinesRule}
 
 
 
@@ -60,7 +58,7 @@
 		\item Dos \hyperlink{EntidadPantalla}{pantallas} con el mismo nombre.
 		\item Dos \hyperlink{actorEntidad}{actores} con el mismo nombre.
 	\end{itemize}
-	\BRitem[Referenciado por:] \UCref{CU2.1}{Registrar Proyecto de Administrador}, \UCref{CU2.2}{Modificar Proyecto de Administrador}, \UCref{CU5.1}{Registrar Módulo}, \UCref{CU5.2}{Modificar Módulo}, \UCref{CU6.1}{Registrar Término de Glosario}, \UCref{CU6.2}{Modificar Término de Glosario}, \UCref{CU7.1}{Registrar Entidad}, \UCref{CU7.2}{Modificar Entidad}, \UCref{CU7.1.1}{Registrar Atributo}, \UCref{CU7.1.2}{Modificar Atributo}, \UCref{CU8.1}{Registrar Regla de Negocio}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.1}{Registrar Mensaje}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU10.1}{Registrar Actor}, \UCref{CU10.2}{Modificar Actor}, \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU11.1.1}{Registrar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU12.1}{Registrar Caso de uso}.
+	\BRitem[Referenciado por:] \UCref{CU2.1}{Registrar Proyecto de Administrador}, \UCref{CU2.2}{Modificar Proyecto de Administrador}, \UCref{CU5.1}{Registrar Módulo}, \UCref{CU5.2}{Modificar Módulo}, \UCref{CU6.1}{Registrar Término de Glosario}, \UCref{CU6.2}{Modificar Término de Glosario}, \UCref{CU7.1}{Registrar Entidad}, \UCref{CU7.2}{Modificar Entidad}, \UCref{CU7.1.1}{Registrar Atributo}, \UCref{CU7.1.2}{Modificar Atributo}, \UCref{CU8.1}{Registrar Regla de Negocio}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.1}{Registrar Mensaje}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU10.1}{Registrar Actor}, \UCref{CU10.2}{Modificar Actor}, \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU11.1.1}{Registrar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU12.1}{Registrar Caso de uso}, \UCref{CU12.2}{Modificar Caso de uso}.
 \end{BussinesRule}
 
 \begin{BussinesRule}{RN7}{Información correcta}
@@ -80,7 +78,7 @@
 		\item El actor introduce un número de \hyperlink{BREntidad}{regla de negocio} que contiene caracteres alfabéticos.
 		\item El actor introduce un \cdtRef{colaboradorEntidad:correoColaborador}{correo electrónico} que no contiene el carácter '@'.
 	\end{itemize}
-	\BRitem[Referenciado por:] \UCref{CU1}{Iniciar Sesión}, \UCref{CU2.1}{Registrar Proyecto de Administrador}, \UCref{CU2.2}{Modificar Proyecto de Administrador}, \UCref{CU3.1}{Registrar Colaborador}, \UCref{CU3.2}{Modificar Colaborador}, \UCref{CU5.1}{Registrar Módulo}, \UCref{CU5.2}{Modificar Módulo}, \UCref{CU6.1}{Registrar Término de Glosario}, \UCref{CU6.2}{Modificar Término de Glosario}, \UCref{CU7.1}{Registrar Entidad}, \UCref{CU7.2}{Modificar Entidad}, \UCref{CU7.1.1}{Registrar Atributo}, \UCref{CU7.1.2}{Modificar Atributo}, \UCref{CU8.1}{Registrar Regla de Negocio}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.1}{Registrar Mensaje}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU10.1}{Registrar Actor}, \UCref{CU10.2}{Modificar Actor}, \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU11.1.1}{Registrar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU12.1}{Registrar Caso de uso}.
+	\BRitem[Referenciado por:] \UCref{CU1}{Iniciar Sesión}, \UCref{CU2.1}{Registrar Proyecto de Administrador}, \UCref{CU2.2}{Modificar Proyecto de Administrador}, \UCref{CU3.1}{Registrar Colaborador}, \UCref{CU3.2}{Modificar Colaborador}, \UCref{CU5.1}{Registrar Módulo}, \UCref{CU5.2}{Modificar Módulo}, \UCref{CU6.1}{Registrar Término de Glosario}, \UCref{CU6.2}{Modificar Término de Glosario}, \UCref{CU7.1}{Registrar Entidad}, \UCref{CU7.2}{Modificar Entidad}, \UCref{CU7.1.1}{Registrar Atributo}, \UCref{CU7.1.2}{Modificar Atributo}, \UCref{CU8.1}{Registrar Regla de Negocio}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.1}{Registrar Mensaje}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU10.1}{Registrar Actor}, \UCref{CU10.2}{Modificar Actor}, \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU11.1.1}{Registrar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU12.1}{Registrar Caso de uso}, \UCref{CU12.2}{Modificar Caso de uso}, \UCref{CU12.1.1.1}{Registrar Trayectoria}, \UCref{CU12.1.1.2}{Modificar Trayectoria}, \UCref{CU12.1.1.1.1.1}{Registrar Paso}, \UCref{CU12.1.1.1.1.2}{Modificar Paso}, \UCref{CU12.1.2.1}{Registrar Precondición/Postcondicón}, \UCref{CU12.1.2.2}{Modificar Precondición/Postcondicón}, \UCref{CU12.1.3.1}{Registrar Punto de extensión}, \UCref{CU12.1.3.2}{Modificar Punto de extensión}, \UCref{CU12.5}{Revisar Caso de uso}.
 \end{BussinesRule}
 
 \begin{BussinesRule}{RN8}{Datos Obligatorios} 
@@ -100,7 +98,7 @@
 		\item El actor no proporciona la  \cdtRef{colaboradorEntidad:curpColaborador}{CURP} para la entidad \hyperlink{colaboradorEntidad}{colaborador}.
 		\item El actor no proporciona la \cdtRef{proyectoEntidad:contraparteProyecto}{contraparte} para la entidad \hyperlink{proyectoEntidad}{proyecto}.
 	\end{itemize}
-	\BRitem[Referenciado por:] \UCref{CU1}{Iniciar Sesión}, \UCref{CU2.1}{Registrar Proyecto de Administrador}, \UCref{CU2.2}{Modificar Proyecto de Administrador}, \UCref{CU3.1}{Registrar Colaborador}, \UCref{CU3.2}{Modificar Colaborador}, \UCref{CU5.1}{Registrar Módulo}, \UCref{CU5.2}{Modificar Módulo}, \UCref{CU6.1}{Registrar Término de Glosario}, \UCref{CU6.2}{Modificar Término de Glosario}, \UCref{CU7.1}{Registrar Entidad}, \UCref{CU7.2}{Modificar Entidad}, \UCref{CU7.1.1}{Registrar Atributo}, \UCref{CU7.1.2}{Modificar Atributo}, \UCref{CU8.1}{Registrar Regla de Negocio}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.1}{Registrar Mensaje}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU10.1}{Registrar Actor}, \UCref{CU10.2}{Modificar Actor}, \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU11.1.1}{Registrar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU12.1}{Registrar Caso de uso}. 
+	\BRitem[Referenciado por:] \UCref{CU1}{Iniciar Sesión}, \UCref{CU2.1}{Registrar Proyecto de Administrador}, \UCref{CU2.2}{Modificar Proyecto de Administrador}, \UCref{CU3.1}{Registrar Colaborador}, \UCref{CU3.2}{Modificar Colaborador}, \UCref{CU5.1}{Registrar Módulo}, \UCref{CU5.2}{Modificar Módulo}, \UCref{CU6.1}{Registrar Término de Glosario}, \UCref{CU6.2}{Modificar Término de Glosario}, \UCref{CU7.1}{Registrar Entidad}, \UCref{CU7.2}{Modificar Entidad}, \UCref{CU7.1.1}{Registrar Atributo}, \UCref{CU7.1.2}{Modificar Atributo}, \UCref{CU8.1}{Registrar Regla de Negocio}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.1}{Registrar Mensaje}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU10.1}{Registrar Actor}, \UCref{CU10.2}{Modificar Actor}, \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU11.1.1}{Registrar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU12.1}{Registrar Caso de uso}, \UCref{CU12.2}{Modificar Caso de uso}, \UCref{CU12.1.1.1}{Registrar Trayectoria}, \UCref{CU12.1.1.2}{Modificar Trayectoria}, \UCref{CU12.1.1.1.1.1}{Registrar Paso}, \UCref{CU12.1.1.1.1.2}{Modificar Paso}, \UCref{CU12.1.2.1}{Registrar Precondición/Postcondicón}, \UCref{CU12.1.2.2}{Modificar Precondición/Postcondicón}, \UCref{CU12.1.3.1}{Registrar Punto de extensión}, \UCref{CU12.1.3.2}{Modificar Punto de extensión}, \UCref{CU12.5}{Revisar Caso de uso}. 
 \end{BussinesRule}
 
 
@@ -127,12 +125,10 @@
 			\hline
 			Liberado & Consultar & Consultar, solicitar correciones\\
 			\hline
-			Configurado & Consultar & Consultar, solicitar correciones\\
-			\hline
 		\end{tabular}
 	\end{table}
 
-	\BRitem[Referenciado por:] \UCref{}{}.
+	\BRitem[Referenciado por:] \UCref{CU12}{Gestionar Casos de uso}.
 	
 \end{BussinesRule}
 
@@ -141,23 +137,23 @@
 		\BRitem[Clase:] Habilitadora. 
 		\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
 		\BRitem[Descripción:] Al menos una de las trayectorias registradas debe ser marcada como principal.
-		\BRitem[Referenciado por:] \UCref{}{}. 
+		\BRitem[Referenciado por:] \UCref{CU12.1.1.1}{Registrar Trayectoria}, \UCref{CU12.1.1.2}{Modificar Trayectoria}. 
 	\end{BussinesRule}
 
 \begin{BussinesRule}{RN12}{Identificador de elemento} 
 	\BRitem[Tipo:] Restricción de operación. 
 	\BRitem[Clase:] Habilitadora. 
 	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
-	\BRitem[Descripción:] El identificador de cada elemento se compone de un nombre, número y una clave. Donde el nombre es el que le asigna el usuario, el número es secuencial y la clave define el tipo de elemento: ''ENT'' para las entidades, ''ACT'' para los actores, ''CU'' para los casos de uso, ''IU'' para las pantallas, ''MSG'' para los mensajes, ''RN'' para las reglas de negocio y ''GLS'' para los términos del glosario.
-	\BRitem[Referenciado por:] \UCref{CU8.1}{Registrar Regla de Negocio}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.1}{Registrar Mensaje}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}. 
+	\BRitem[Descripción:] El identificador de cada elemento se compone de una clave. Donde el nombre es el que le asigna el usuario, el número es secuencial y la clave define el tipo de elemento: ''ENT'' para las entidades, ''ACT'' para los actores, ''CU'' para los casos de uso, ''IU'' para las pantallas, ''MSG'' para los mensajes, ''RN'' para las reglas de negocio y ''GLS'' para los términos del glosario.
+	\BRitem[Referenciado por:] \UCref{CU8.1}{Registrar Regla de Negocio}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.1}{Registrar Mensaje}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU12.1}{Registrar Caso de uso}, \UCref{CU12.2}{Modificar Caso de uso}. 
 \end{BussinesRule}
 
 \begin{BussinesRule}{RN13}{Modificación del identificador} 
 	\BRitem[Tipo:] Restricción de operación. 
 	\BRitem[Clase:] Habilitadora. 
 	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
-	\BRitem[Descripción:] Una vez registrado un elemento no se podrá modificar el nombre, el número o la clave del identificador.
-	\BRitem[Referenciado por:] \UCref{}{}. 
+	\BRitem[Descripción:] Una vez registrado un elemento no se podrá modificar la clave del identificador.
+	\BRitem[Referenciado por:] \UCref{CU8.1}{Registrar Regla de Negocio}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.1}{Registrar Mensaje}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU12.1}{Registrar Caso de uso}, \UCref{CU12.2}{Modificar Caso de uso}. 
 \end{BussinesRule}
 
 \begin{BussinesRule}{RN14}{Salidas del casos de uso} 
@@ -176,13 +172,13 @@
 	\BRitem[Referenciado por:] \UCref{CU6}{Gestionar Términos de Glosario}, \UCref{CU7}{Gestionar Entidades}, \UCref{CU8}{Gestionar Reglas de Negocio}, \UCref{CU9}{Gestionar Mensajes}, \UCref{CU10}{Gestionar Actores}, \UCref{CU11}{Gestionar Pantallas}. 
 \end{BussinesRule}
 
-\begin{BussinesRule}{RN16}{Nombres de las trayectorias} 
-	\BRitem[Tipo:] Restricción de operación. 
-	\BRitem[Clase:] Habilitadora. 
-	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
-	\BRitem[Descripción:] Los nombres de las trayectorias no pueden contener espacio, coma, punto, punto medio, dos puntos o guión bajo.
-	\BRitem[Referenciado por:] \UCref{}{}. 
-\end{BussinesRule}
+%\begin{BussinesRule}{RN16}{Nombres de las trayectorias} 
+%	\BRitem[Tipo:] Restricción de operación. 
+%	\BRitem[Clase:] Habilitadora. 
+%	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
+%	\BRitem[Descripción:] Los nombres de las trayectorias no pueden contener espacio, coma, punto, punto medio, dos puntos o guión bajo.
+%	\BRitem[Referenciado por:] \UCref{}{}. 
+%\end{BussinesRule}
 
 
 \begin{BussinesRule}{RN17}{Unicidad de puntos de extensión} 
@@ -190,45 +186,45 @@
 	\BRitem[Clase:] Habilitadora. 
 	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
 	\BRitem[Descripción:] No puede existir más de un punto de extensión con el mismo caso de uso origen y el mismo caso de uso destino.
-	\BRitem[Referenciado por:] \UCref{}{}. 
+	\BRitem[Referenciado por:] \UCref{CU12.1.3.1}{Registrar punto de extensión}, \UCref{CU12.1.3.2}{Modificar punto de extensión}. 
 \end{BussinesRule}
 
 
-\begin{BussinesRule}{RN18}{Eliminación de elemento} 
-	\BRitem[Tipo:] Restricción de operación. 
-	\BRitem[Clase:] Habilitadora. 
-	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
-	\BRitem[Descripción:] Un \hyperlink{tElemento}{elemento} no puede ser eliminado si tiene asociaciones con casos de uso en estado ''Liberado''.
-	\BRitem[Ejemplo positivo] Cumplen la regla:
-	\begin{itemize}
-		\item Eliminar un mensaje que no tiene asociados casos de uso en estado ''Liberado''.
-		\item Eliminar una pantalla que no tiene asociados casos de uso en estado ''Liberado''.
-		\item Eliminar una regla de negocio que no tiene asociados casos de uso en estado ''Liberado''.
-	\end{itemize}
-	\BRitem[Ejemplo negativo] No cumplen con la regla:
-	\begin{itemize}
-		\item Eliminar un atributo perteneciente a una entidad que se encuentra asociada a un caso de uso en estado ''Liberado''.
-		\item Eliminar una regla de negocio asociada con tres casos de uso en estado ''Liberado''.
-		\item Eliminar un actor asociado con un caso de uso en estado ''Liberado''.
-	\end{itemize}
-	\BRitem[Referenciado por:] \UCref{CU6.3}{Eliminar Término de Glosario}, \UCref{CU7.3}{Eliminar Entidad}, \UCref{CU7.1.3}{Eliminar Atributo}, \UCref{CU8.3}{Eliminar Regla de Negocio}, \UCref{CU9.3}{Eliminar Mensaje}, \UCref{CU10.3}{Eliminar Actor}, \UCref{CU11.3}{Eliminar Pantalla}. 
-\end{BussinesRule}
+%\begin{BussinesRule}{RN18}{Eliminación de elemento} 
+%	\BRitem[Tipo:] Restricción de operación. 
+%	\BRitem[Clase:] Habilitadora. 
+%	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
+%	\BRitem[Descripción:] Un \hyperlink{tElemento}{elemento} no puede ser eliminado si tiene asociaciones con casos de uso en estado ''Liberado''.
+%	\BRitem[Ejemplo positivo] Cumplen la regla:
+%	\begin{itemize}
+%		\item Eliminar un mensaje que no tiene asociados casos de uso en estado ''Liberado''.
+%		\item Eliminar una pantalla que no tiene asociados casos de uso en estado ''Liberado''.
+%		\item Eliminar una regla de negocio que no tiene asociados casos de uso en estado ''Liberado''.
+%	\end{itemize}
+%	\BRitem[Ejemplo negativo] No cumplen con la regla:
+%	\begin{itemize}
+%		\item Eliminar un atributo perteneciente a una entidad que se encuentra asociada a un caso de uso en estado ''Liberado''.
+%		\item Eliminar una regla de negocio asociada con tres casos de uso en estado ''Liberado''.
+%		\item Eliminar un actor asociado con un caso de uso en estado ''Liberado''.
+%	\end{itemize}
+%	\BRitem[Referenciado por:] \UCref{CU6.3}{Eliminar Término de Glosario}, \UCref{CU7.3}{Eliminar Entidad}, \UCref{CU7.1.3}{Eliminar Atributo}, \UCref{CU8.3}{Eliminar Regla de Negocio}, \UCref{CU9.3}{Eliminar Mensaje}, \UCref{CU10.3}{Eliminar Actor}, \UCref{CU11.3}{Eliminar Pantalla}. 
+%\end{BussinesRule}
 
-\begin{BussinesRule}{RN19}{Formato de correo electrónico} 
-	\BRitem[Tipo:] Restricción de operación. 
-	\BRitem[Clase:] Habilitadora. 
-	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
-	\BRitem[Descripción:] El correo electrónico debe ser una cadena de caracteres con la siguiente estructura ordenada:
-	\begin{enumerate}
-		\item Cadena de caracteres
-		\item ''@''
-		\item Cadena de caracteres
-		\item ''.''
-		\item Cadena de caracteres
-	\end{enumerate}
-	\BRitem[Ejemplo]: cadena1@cadena2.cadena3
-	\BRitem[Referenciado por:] \UCref{}{}. 
-\end{BussinesRule}
+%\begin{BussinesRule}{RN19}{Formato de correo electrónico} 
+%	\BRitem[Tipo:] Restricción de operación. 
+%	\BRitem[Clase:] Habilitadora. 
+%	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
+%	\BRitem[Descripción:] El correo electrónico debe ser una cadena de caracteres con la siguiente estructura ordenada:
+%	\begin{enumerate}
+%		\item Cadena de caracteres
+%		\item ''@''
+%		\item Cadena de caracteres
+%		\item ''.''
+%		\item Cadena de caracteres
+%	\end{enumerate}
+%	\BRitem[Ejemplo]: cadena1@cadena2.cadena3
+%	\BRitem[Referenciado por:] \UCref{}{}. 
+%\end{BussinesRule}
 
 \begin{BussinesRule}{RN20}{Verificación de catálogos} 
 	\BRitem[Tipo:] Restricción de operación. 
@@ -239,13 +235,13 @@
 \end{BussinesRule}
 
 
-\begin{BussinesRule}{RN21}{Estados para iniciar un proyecto} 
-	\BRitem[Tipo:] Restricción de operación. 
-	\BRitem[Clase:] Habilitadora. 
-	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
-	\BRitem[Descripción:] Se podrán registrar proyectos con estado ''En Negociación'' o ''Iniciado''.
-	\BRitem[Referenciado por:] \UCref{}{}. 
-\end{BussinesRule}
+%\begin{BussinesRule}{RN21}{Estados para iniciar un proyecto} 
+%	\BRitem[Tipo:] Restricción de operación. 
+%	\BRitem[Clase:] Habilitadora. 
+%	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
+%	\BRitem[Descripción:] Se podrán registrar proyectos con estado ''En Negociación'' o ''Iniciado''.
+%	\BRitem[Referenciado por:] \UCref{}{}. 
+%\end{BussinesRule}
 
 \begin{BussinesRule}{RN22}{Unicidad de la clave del proyecto} 
 	\BRitem[Tipo:] Restricción de operación. 
@@ -260,7 +256,7 @@
 	\BRitem[Clase:] Habilitadora. 
 	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
 	\BRitem[Descripción:] La clave de los módulos debe ser única en un proyecto.
-	\BRitem[Referenciado por:] \UCref{CU5.1}{Registrar Módulo}. 
+	\BRitem[Referenciado por:] \UCref{CU5.1}{Registrar Módulo}, \UCref{CU5.2}{Modificar Módulo}. 
 \end{BussinesRule}
 
 \begin{BussinesRule}{RN24}{Unicidad de la clave de la trayectoria} 
@@ -268,24 +264,24 @@
 	\BRitem[Clase:] Habilitadora. 
 	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
 	\BRitem[Descripción:] La clave de las trayectorias debe ser única en un caso de uso.
-	\BRitem[Referenciado por:] \UCref{}{}. 
+	\BRitem[Referenciado por:] \UCref{CU12.1.1.1}{Registrar Trayectoria}, \UCref{CU12.1.1.2}{Modificar Trayectoria}. 
 \end{BussinesRule}
 
-\begin{BussinesRule}{RN25}{Relación entre fechas del proyecto} 
-	\BRitem[Tipo:] Restricción de operación. 
-	\BRitem[Clase:] Habilitadora. 
-	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
-	\BRitem[Descripción:] La fecha de término del proyecto debe ser posterior a la fecha de inicio.
-	\BRitem[Referenciado por:] \UCref{}{}. 
-\end{BussinesRule}
+%\begin{BussinesRule}{RN25}{Relación entre fechas del proyecto} 
+%	\BRitem[Tipo:] Restricción de operación. 
+%	\BRitem[Clase:] Habilitadora. 
+%	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
+%	\BRitem[Descripción:] La fecha de término del proyecto debe ser posterior a la fecha de inicio.
+%	\BRitem[Referenciado por:] \UCref{}{}. 
+%\end{BussinesRule}
 
-\begin{BussinesRule}{RN26}{Relación entre fechas programadas del proyecto} 
-	\BRitem[Tipo:] Restricción de operación. 
-	\BRitem[Clase:] Habilitadora. 
-	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
-	\BRitem[Descripción:] La fecha de término programada del proyecto debe ser posterior a la fecha de inicio programada.
-	\BRitem[Referenciado por:] \UCref{}{}. 
-\end{BussinesRule}
+%\begin{BussinesRule}{RN26}{Relación entre fechas programadas del proyecto} 
+%	\BRitem[Tipo:] Restricción de operación. 
+%	\BRitem[Clase:] Habilitadora. 
+%	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
+%	\BRitem[Descripción:] La fecha de término programada del proyecto debe ser posterior a la fecha de inicio programada.
+%	\BRitem[Referenciado por:] \UCref{}{}. 
+%\end{BussinesRule}
 
 \begin{BussinesRule}{RN27}{Eliminación de Colaboradores} 
 	\BRitem[Tipo:] Restricción de operación. 
@@ -308,16 +304,16 @@
 	\BRitem[Clase:] Habilitadora. 
 	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
 	\BRitem[Descripción:] Diferentes casos de uso pueden tener el mismo nombre y/o número, únicamente si cada uno de estos pertenecen a diferentes módulos.
-	\BRitem[Referenciado por:] \UCref{CU12.1}{Registrar Caso de Uso}. 
+	\BRitem[Referenciado por:] \UCref{CU12.1}{Registrar Caso de Uso}, \UCref{CU12.2}{Modificar Caso de Uso}. 
 \end{BussinesRule}
 
-\begin{BussinesRule}{RN30}{Unicidad de pantallas} 
-	\BRitem[Tipo:] Restricción de operación. 
-	\BRitem[Clase:] Habilitadora. 
-	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
-	\BRitem[Descripción:] Diferentes pantallas pueden tener el mismo nombre y/o número, únicamente si cada una de estas pertenecen a diferentes módulos.
-	\BRitem[Referenciado por:] \UCref{}{}. 
-\end{BussinesRule}
+%\begin{BussinesRule}{RN30}{Unicidad de pantallas} 
+%	\BRitem[Tipo:] Restricción de operación. 
+%	\BRitem[Clase:] Habilitadora. 
+%	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
+%	\BRitem[Descripción:] Diferentes pantallas pueden tener el mismo nombre y/o número, únicamente si cada una de estas pertenecen a diferentes módulos.
+%	\BRitem[Referenciado por:] \UCref{}{}. 
+%\end{BussinesRule}
 
 \begin{BussinesRule}{RN31}{Estructura de tokens} 
 	\BRitem[Tipo:] Restricción de operación. 
@@ -423,7 +419,7 @@
 			\item ''Nombre'': nombre del parámentro referenciado.
 		\end{itemize}
 	\end{itemize}
-	\BRitem[Referenciado por:] \UCref{CU12.1}{Registrar Caso de Uso}. 
+	\BRitem[Referenciado por:] \UCref{CU12.1}{Registrar Caso de Uso}, \UCref{CU12.2}{Modificar Caso de Uso}, \UCref{CU12.1.1.1.1.1}{Registrar Paso}, \UCref{CU12.1.1.1.1.2}{Modificar Paso}, \UCref{CU12.1.3.1}{Registrar Punto de extensión}, \UCref{CU12.1.3.2}{Modificar Punto de extensión}. 
 \end{BussinesRule}
 
 
@@ -484,7 +480,7 @@
 	\BRitem[Clase:] Habilitadora. 
 	\BRitem[Nivel:] Control. % Otras opciones para nivel: Control, Influencia.
 	\BRitem[Descripción:] Los datos proporcionados al sistema deben tener el número y el valor de caracteres especificados en el modelo conceptual.
-	\BRitem[Referenciado por:] \UCref{CU1}{Iniciar Sesión}, \UCref{CU2.1}{Registrar Proyecto de Administrador}, \UCref{CU2.2}{Modificar Proyecto de Administrador}, \UCref{CU3.1}{Registrar Colaborador}, \UCref{CU3.2}{Modificar Colaborador}, \UCref{CU5.1}{Registrar Módulo}, \UCref{CU5.2}{Modificar Módulo}, \UCref{CU6.1}{Registrar Término de Glosario}, \UCref{CU6.2}{Modificar Término de Glosario}, \UCref{CU7.1}{Registrar Entidad}, \UCref{CU7.2}{Modificar Entidad}, \UCref{CU7.1.1}{Registrar Atributo}, \UCref{CU7.1.2}{Modificar Atributo}, \UCref{CU8.1}{Registrar Regla de Negocio}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.1}{Registrar Mensaje}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU10.1}{Registrar Actor}, \UCref{CU10.2}{Modificar Actor}, \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU11.1.1}{Registrar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU12.1}{Registrar Caso de uso}. 
+	\BRitem[Referenciado por:] \UCref{CU1}{Iniciar Sesión}, \UCref{CU2.1}{Registrar Proyecto de Administrador}, \UCref{CU2.2}{Modificar Proyecto de Administrador}, \UCref{CU3.1}{Registrar Colaborador}, \UCref{CU3.2}{Modificar Colaborador}, \UCref{CU5.1}{Registrar Módulo}, \UCref{CU5.2}{Modificar Módulo}, \UCref{CU6.1}{Registrar Término de Glosario}, \UCref{CU6.2}{Modificar Término de Glosario}, \UCref{CU7.1}{Registrar Entidad}, \UCref{CU7.2}{Modificar Entidad}, \UCref{CU7.1.1}{Registrar Atributo}, \UCref{CU7.1.2}{Modificar Atributo}, \UCref{CU8.1}{Registrar Regla de Negocio}, \UCref{CU8.2}{Modificar Regla de Negocio}, \UCref{CU9.1}{Registrar Mensaje}, \UCref{CU9.2}{Modificar Mensaje}, \UCref{CU10.1}{Registrar Actor}, \UCref{CU10.2}{Modificar Actor}, \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU11.1.1}{Registrar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU12.1}{Registrar Caso de uso}, \UCref{CU12.2}{Modificar Caso de uso}, \UCref{CU12.1.1.1}{Registrar Trayectoria}, \UCref{CU12.1.1.2}{Modificar Trayectoria}, \UCref{CU12.1.1.1.1.1}{Registrar Paso}, \UCref{CU12.1.1.1.1.2}{Modificar Paso}, \UCref{CU12.1.2.1}{Registrar Precondición/Postcondicón}, \UCref{CU12.1.2.2}{Modificar Precondición/Postcondicón}, \UCref{CU12.1.3.1}{Registrar Punto de extensión}, \UCref{CU12.1.3.2}{Modificar Punto de extensión}, \UCref{CU12.5}{Revisar Caso de uso}. 
 \end{BussinesRule}
 
 \begin{BussinesRule}{RN38}{Funciones de administrador} 
@@ -499,6 +495,6 @@
 	\BRitem[Tipo:] Restricción de operación. 
 	\BRitem[Clase:] Habilitadora. 
 	\BRitem[Nivel:] Controla la operación. % Otras opciones para nivel: Control, Influencia.
-	\BRitem[Descripción:]	Todos los archivos proporcionados al sistema deben tener un peso de 10 mb como máximo.
-	\BRitem[Referenciado por:] \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU11.1.1}{Registrar Acción}, \UCref{CU11.1.2}{Modificar Acción}, \UCref{CU11.1.2}{Modificar Acción}.
+	\BRitem[Descripción:] Todos los archivos proporcionados al sistema deben tener un peso de 10 mb como máximo.
+	\BRitem[Referenciado por:] \UCref{CU11.1}{Registrar Pantalla}, \UCref{CU11.2}{Modificar Pantalla}, \UCref{CU11.1.1}{Registrar Acción}, \UCref{CU11.1.2}{Modificar Acción}.
 \end{BussinesRule}

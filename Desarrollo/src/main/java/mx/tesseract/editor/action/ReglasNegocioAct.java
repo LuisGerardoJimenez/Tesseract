@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
@@ -54,6 +56,7 @@ import mx.tesseract.util.TESSERACTValidacionException;
 public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDriven<ReglaNegocioDTO> {
 	
 	private static final long serialVersionUID = 1L;
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	private static final String PROYECTOS = "proyectos";
 	private static final String REGLASDENEGOCIO = "reglas-negocio";
 	private Proyecto proyecto;
@@ -106,9 +109,10 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 				SessionManager.delete("mensajesAccion");
 			}
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "index", e);
 		}
 		return resultado;
 	}
@@ -127,11 +131,11 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 			listEntidades2 = entidadBs.consultarEntidadesProyecto(proyecto.getId());
 			listAtributos2 = new ArrayList<AtributoDTO>();
 			resultado = EDITNEW;
-		} catch (TESSERACTException pe) {
-			System.err.println(pe.getMessage());
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
+			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "editNew", e);
 			ErrorManager.agregaMensajeError(this, e);
 		}
 		return resultado;
@@ -143,16 +147,16 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 				model.setIdProyecto((Integer) SessionManager.get("idProyecto"));
 				reglaNegocioBs.registrarRN(model);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 				editNew();
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 				editNew();
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 			}
 		} else {
 			editNew();
@@ -177,8 +181,10 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 			}
 		} catch (TESSERACTException te) {
 			te.setIdMensaje("MSG26");
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "show", e);
 			ErrorManager.agregaMensajeError(this, e);
 		}
 		return resultado;
@@ -212,9 +218,11 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 				resultado = EDIT;
 			}
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 			resultado = index();
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "edit", e);
 			ErrorManager.agregaMensajeError(this, e);
 			resultado = index();
 		}
@@ -226,16 +234,16 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 			try {
 				reglaNegocioBs.modificarRN(model);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 				edit();
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 				edit();
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateUpdate", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 				edit();
 			}
 		}else {
@@ -261,7 +269,7 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 		try {
 			listAtributos= atributoBs.consultarAtributosToRN(entidadUC);
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "cargarAtributos", e);
 		}
 		
 		return "atributos";
@@ -272,16 +280,16 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 			try {
 				reglaNegocioBs.eliminarRN(model);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 				edit();
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 				edit();
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateDestroy", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 				edit();
 			}
 		}

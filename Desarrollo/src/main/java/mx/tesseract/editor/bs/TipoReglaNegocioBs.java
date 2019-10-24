@@ -22,7 +22,7 @@ public class TipoReglaNegocioBs {
 	public List<TipoReglaNegocio> consultarTipoReglaNegocio() {
 		List<TipoReglaNegocio> listTipoRN = genericoDAO.findAll(TipoReglaNegocio.class);
 		if (listTipoRN.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar los Tipos de Regla de Negocio.", "MSG12");
+			throw new TESSERACTException("No se pueden consultar los Tipos de Regla de Negocio.", "MSG29");
 		}
 		return listTipoRN;
 	}

@@ -22,7 +22,7 @@ public class OperadorBs {
 	public List<Operador> consultarOperador() {
 		List<Operador> listOperadores = genericoDAO.findAll(Operador.class);
 		if (listOperadores.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar los operadores.", "MSG12");
+			throw new TESSERACTException("No se pueden consultar los operadores.", "MSG29");
 		}
 		return listOperadores;
 	}

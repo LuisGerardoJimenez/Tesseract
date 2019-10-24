@@ -50,7 +50,7 @@
 					<td><s:property value="%{#atributo.tipoDato.nombre}"/></td>
 					<td align="center">
 						<s:if test = "#atributo.otroTipoDato == null">
-							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg" alt="No aplica"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.otroTipoDato}"/>
@@ -58,7 +58,7 @@
 					</td>
 					<td align="center">
 						<s:if test = "#atributo.longitud == null">
-							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg" alt="No aplica"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.longitud}"/>
@@ -66,7 +66,7 @@
 					</td>
 					<td align="center">
 						<s:if test = "#atributo.formatoArchivo == null">
-							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg" alt="No aplica"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.formatoArchivo}"/>
@@ -74,7 +74,7 @@
 					</td>
 					<td align="center">
 						<s:if test = "#atributo.tamanioArchivo == null">
-							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg" alt="No aplica"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.tamanioArchivo}"/>
@@ -82,7 +82,7 @@
 					</td>
 					<td align="center">
 						<s:if test = "#atributo.unidadTamanio == null">
-							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg"/>
+							<img class="button" title="No aplica" src="${pageContext.request.contextPath}/resources/images/icons/NA.svg" alt="No aplica"/>
 						</s:if>
 						<s:else>
 							<s:property value="%{#atributo.unidadTamanio.nombre}"/>
@@ -93,14 +93,15 @@
 						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/atributos/%{#atributo.id}/edit"/>			
 							<s:a href="%{urlEditar}">
 							<img id="" class="button" title="Modificar Atributo"
-								src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+								src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Atributo"/>
 						</s:a>
 					${blanks}
 						<!-- Eliminar Atributo -->			
 						<!--<s:url var="urlEliminar" value="%{#pageContext.request.contextPath}/atributos/%{#atributo.id}?_method=delete" method="post"/>-->
 						<s:a href="#" onclick="return mostrarMensajeEliminacion(%{#atributo.id});">
 						<img id="" class="button" title="Eliminar Atributo"
-								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
+								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Atributo"/>
+						</s:a>
 					
 					</td>
 				</tr>

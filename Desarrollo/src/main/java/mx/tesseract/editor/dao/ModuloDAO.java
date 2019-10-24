@@ -10,10 +10,14 @@ import javax.persistence.Query;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.util.Constantes;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 @Repository("moduloDAO")
 public class ModuloDAO {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -26,7 +30,7 @@ public class ModuloDAO {
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
 			lista = (List<Modulo>) query.getResultList();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findByIdProyecto", e);
 		}
 		return lista;
 	}
@@ -44,7 +48,7 @@ public class ModuloDAO {
 				modulo = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findModuloByNameAndProyecto", e);
 		}
 		return modulo;
 	}
@@ -62,7 +66,7 @@ public class ModuloDAO {
 				modulo = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findModuloByClaveAndProyecto", e);
 		}
 		return modulo;
 	}
@@ -81,7 +85,7 @@ public class ModuloDAO {
 				modulo = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findModuloByNombreAndIdAndProyecto", e);
 		}
 		return modulo;
 	}
@@ -98,7 +102,7 @@ public class ModuloDAO {
 				modulo = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "hasReferenciaElementos", e);
 		}
 		return modulo;
 	}

@@ -53,7 +53,7 @@
 					</tr>
 					
 					<tr>
-						<td class="label"><s:text name="labelSegundoApellido" /></td>
+						<td class="label obligatorio"><s:text name="labelSegundoApellido" /></td>
 						<td><s:textfield name="model.apellidoMaterno" maxlength="30"
 								cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
 							<s:fielderror fieldName ="model.apellidoMaterno" cssClass="error"

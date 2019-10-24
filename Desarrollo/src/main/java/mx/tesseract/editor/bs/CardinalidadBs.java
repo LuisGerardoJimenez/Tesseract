@@ -40,7 +40,7 @@ public class CardinalidadBs {
 	public List<Cardinalidad> consultarCardinalidad() {
 		List<Cardinalidad> listCardinalidad = genericoDAO.findAll(Cardinalidad.class);
 		if (listCardinalidad.isEmpty()) {
-			throw new TESSERACTException("No se pueden consultar las cardinalidades.", "MSG12");
+			throw new TESSERACTException("No se pueden consultar las cardinalidades.", "MSG29");
 		}
 		return listCardinalidad;
 	}

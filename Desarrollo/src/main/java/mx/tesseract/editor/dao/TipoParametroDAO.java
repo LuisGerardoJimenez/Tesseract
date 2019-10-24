@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import mx.tesseract.editor.entidad.TipoParametro;
@@ -13,6 +15,8 @@ import mx.tesseract.util.Constantes;
 
 @Repository("tipoParametroDAO")
 public class TipoParametroDAO {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -28,7 +32,7 @@ public class TipoParametroDAO {
 				tipoParametro = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.print(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "consultarTipoParametroById", e);
 		}
 		return tipoParametro;
 	}
@@ -44,7 +48,7 @@ public class TipoParametroDAO {
 				tipoParametro = lista.get(Constantes.NUMERO_CERO);
 			}
 		} catch (Exception e) {
-			System.err.print(e.getMessage());
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "consultarTipoParametroByNombre", e);
 		}
 		return tipoParametro;
 	}

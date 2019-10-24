@@ -35,7 +35,7 @@
 								<s:property value="%{#accion.nombre}" /></td>
 							<td align="center">
 								<s:url var="pantallaAccion" value="%{#accion.imagenB64}"/>
-								<img id="pantalla" src="${pantallaAccion}" class="imagen" height="80" width="80"/>
+								<img id="pantalla" src="${pantallaAccion}" class="imagen" height="80" width="80" alt="pantalla"/>
 							</td>
 							<td align="center">
 								${blanks}
@@ -43,12 +43,13 @@
 									value="%{#pageContext.request.contextPath}/acciones/%{#accion.id}/edit" />
 								<s:a href="%{urlEditar}">
 									<img id="" class="button" title="Modificar Acción"
-										src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Acción"/>
 								</s:a>
 								${blanks}
 								<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#accion.id}');">
 									<img id="" class="button" title="Eliminar Acción"
-										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
+										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Acción"/>
+								</s:a>
 							</td>
 						</tr>
 					</s:iterator>

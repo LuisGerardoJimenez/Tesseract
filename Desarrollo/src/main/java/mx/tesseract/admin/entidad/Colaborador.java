@@ -119,10 +119,9 @@ public class Colaborador implements Serializable, GenericInterface {
 	}
 
 	
+	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'30', 'caracteres'})}", trim = true, maxLength = "30", shortCircuit = true)
-	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", trim = true, regex = Constantes.REGEX_CAMPO_ALFABETICO_SIN_ESPACIOS, shortCircuit = true)
-//	Manda el mensaje cuando no se cumple la condicion
-	@FieldExpressionValidator(expression = "not (not (#action.model.apellidoMaterno eq '') and #action.model.apellidoMaterno.getValue().contains(' '))", message = "%{getText('MSG5')}", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex = Constantes.REGEX_CAMPO_ALFABETICO_SIN_ESPACIOS, shortCircuit = true)
 	public String getApellidoMaterno() {
 		return this.apellidoMaterno;
 	}
