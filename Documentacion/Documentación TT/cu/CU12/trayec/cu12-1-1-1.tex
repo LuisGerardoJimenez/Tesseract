@@ -61,8 +61,7 @@
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-1-1-1:TAE}{[Trayectoria E]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU12-1-1-1:TAF}{[Trayectoria F]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-1-1-1:TAG}{[Trayectoria G]}
-		\UCpaso[\UCsist] Verifica que la clave de la trayectoria no se encuentre registrada en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU12-1-1-1:TAH}{[Trayectoria H]}
-		\UCpaso[\UCsist] Verifica que el actor haya ingresado al menos un paso, con base en la regla de negocio \BRref{RN32}{Pasos en la Trayectoria}. \hyperlink{CU12-1-1-1:TAI}{[Trayectoria I]}
+		\UCpaso[\UCsist] Verifica que la clave de la trayectoria no se encuentre registrada en el sistema con base en la regla de negocio \BRref{RN24}{Unicidad de la clave de la trayectoria}. \hyperlink{CU12-1-1-1:TAH}{[Trayectoria H]}
 		\UCpaso[\UCsist] Persiste la información de la trayectoria.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias} para indicar al actor que el registro se ha realizado exitosamente.
 	\end{UCtrayectoria}		
@@ -131,14 +130,6 @@
 \noindent \textbf{Condición:} El actor ingresó una clave de trayectoria que ya existe dentro del sistema.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria}.
-	\UCpaso Regresa al paso \ref{CU12.1.1.1-P16} de la trayectoria principal.
-	\item[- -] - - {\em {Fin de la trayectoria}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU12-1-1-1:TAI}{\textbf{Trayectoria alternativa I}}\\
-\noindent \textbf{Condición:} El actor no registró ningún paso.
-\begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG14}{Registro necesario} en la sección de pasos de la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria}.
 	\UCpaso Regresa al paso \ref{CU12.1.1.1-P16} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
