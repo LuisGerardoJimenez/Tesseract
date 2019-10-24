@@ -49,6 +49,7 @@
 		\UCpaso[\UCsist] Obtiene la información del mensaje seleccionado.	
 		\UCpaso[\UCsist] Verifica que el mensaje sea parametrizado. \hyperlink{CU9-2:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10.2A}{Modificar Mensaje: Parametrizado}.
+		\UCpaso[\UCsist] Marca como etiqueta el campo ''Clave'' de acuerdo a la regla de negocio \BRref{RN13}{Modificación del identificador}.
 		\UCpaso[\UCactor] Modifica la información del mensaje. \label{CU9.2-P6}
 		\UCpaso[\UCactor] Modifica la descripción de los parámetros.
 		\UCpaso[\UCactor]Oprime el botón \IUbutton{Aceptar} de la pantalla \IUref{IU10.2}{Modificar Mensaje}. \label{CU9.2-P8} \hyperlink{CU9-2:TAB}{[Trayectoria B]}
@@ -65,6 +66,7 @@
 \noindent \textbf{Condición:} El mensaje no es parametrizado.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10.2}{Modificar Mensaje: No Parametrizado}.
+	\UCpaso[\UCsist] Marca como etiqueta el campo ''Clave'' de acuerdo a la regla de negocio \BRref{RN13}{Modificación del identificador}.
 	\UCpaso[\UCactor] Modifica la información del mensaje. \label{CU9.2-AP-2}
 	\UCpaso[\UCsist] Continúa en el paso \ref{CU9.2-P8} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
