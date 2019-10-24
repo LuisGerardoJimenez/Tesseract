@@ -12,12 +12,16 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.io.Serializable;
 
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import mx.tesseract.util.GenericInterface;
-
+@NamedQueries({
+	@NamedQuery(name = "Verbo.findByName", query = "SELECT v FROM Verbo v WHERE v.nombre = :nombre"),
+	})
 @Entity
 @Table(name = "verbo")
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer" })

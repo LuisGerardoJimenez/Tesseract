@@ -7,7 +7,7 @@
 <head>
 <title>Trayectorias</title>
 <![CDATA[
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/trayectorias/js/index.js"></script>
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/pasos/js/index.js"></script>
 	  
 ]]>
 </head>
@@ -37,73 +37,102 @@
 					<th style="width: 10%;"><s:text name="colAcciones"/></th>
 				</thead>
 				<tbody>
-					<s:iterator value="listTrayectorias" var="tray">
-					<td>1</td>
-					<td class="trayectoriaPrincipal"><s:property
-							value="%{#tray.clave}" /></td>
-					<td class="trayectoriaPrincipal">Trayectoria principal</td>
-					<td align="center" class="trayectoriaPrincipal">
-						<!-- Modificar trayectoria --> 
-						<s:url var="urlModificar"
-								value="%{#pageContext.request.contextPath}/trayectorias/%{#tray.id}/edit" />
-							<s:a href="%{urlModificar}">
-								<img id="" class="button" title="Modificar Trayectoria"
-									src="${pageContext.request.contextPath}/resources/images/icons/editar.png" />
-							</s:a> ${blanks} 
-						<!-- Gestionar Pasos -->			
-						<s:url var="urlGestionarPasos" value="%{#pageContext.request.contextPath}/trayectorias!entrarPasos?idSel=%{#tray.id}"/>
-						<s:a href="%{urlGestionarPasos}">
-							<img id="" class="button" title="Gestionar Pasos"
-									src="${pageContext.request.contextPath}/resources/images/icons/T.svg" />
-						</s:a>	
-						${blanks}	
-						<!-- Eliminar caso de uso --> 
-						<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#tray.id}');">
-							<img id="" class="button" title="Eliminar Trayectoria"
-								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
-					</td>
+					<s:iterator value="listPasos" var="paso">
+					<tr>
+						<td><s:property
+								value="%{#paso.numero}" /></td>
+						<td>
+							<s:if test="%{#paso.realizaActor == 1}">
+								<img id="" class="button" title="Realiza Actor"
+									src="${pageContext.request.contextPath}/resources/images/icons/actor.png" />
+							</s:if>
+							<s:else>
+								<img id="" class="button" title="Realiza Sistema"
+										src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
+							</s:else>
+							<s:if test="%{#paso.idVerbo == 13}">
+								<s:property
+								value="%{#paso.otroVerbo + ' '}" />
+							</s:if>
+							<s:else>
+								<s:property
+								value="%{#paso.verbo + ' '}" />
+							</s:else>
+							<s:property
+								value="%{#paso.redaccion}" />
+						</td>
+						<td align="center">
+							<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/pasos/%{#paso.id}!subirPaso"/>
+							<s:a href="%{urlConsultar}">
+								<img id="" class="button" title="Bajar Paso"
+										src="${pageContext.request.contextPath}/resources/images/icons/FlechaAbajo.svg" />
+							</s:a>
+							${blanks}
+							<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/pasos/%{#paso.id}!bajarPaso"/>
+							<s:a href="%{urlConsultar}">
+								<img id="" class="button" title="Subir Paso"
+										src="${pageContext.request.contextPath}/resources/images/icons/FlechaArriba.svg" />
+							</s:a>
+							${blanks}
+							<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/pasos/%{#paso.id}/edit"/>			
+							<s:a href="%{urlEditar}">
+								<img id="" class="button" title="Modificar Paso"
+										src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+							</s:a>
+							<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#paso.id}');">
+							<img id="" class="button" title="Eliminar Paso"
+									src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
+							
+						</td>
+					</tr>
 					</s:iterator>
 				</tbody>
 			</table>
 
+		</div>
+		<br />
+		<br />
+		<div align="center">
+			<button class="boton" 
+				onclick="location.href='${pageContext.request.contextPath}/trayectorias'">
+				<s:text name="Cancelar"></s:text>
+			</button>
+			<button class="boton" 
+				onclick="location.href='${pageContext.request.contextPath}/pasos/new'">
+				<s:text name="Registrar"></s:text>
+			</button>
 		</div>	
 	</s:form>
 	<div class = "invisible">
 	<!-- EMERGENTE CONFIRMAR ELIMINACIÓN -->
-	<sj:dialog id="confirmarEliminacionDialog" title="Confirmación"
-		autoOpen="false" minHeight="100" minWidth="400" modal="true"
-		draggable="true">
-		<s:form autocomplete="off" id="frmConfirmarEliminacion"
-			name="frmConfirmarEliminacionName" theme="simple">
-			<div class="seccion">
-				<s:text name="MSG11"></s:text>
-			</div>
+	<sj:dialog id="confirmarEliminacionDialog" title="Confirmación" autoOpen="false"
+		minHeight="100" minWidth="400" modal="true" draggable="true">
+		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
+				<div class="seccion">
+				<s:text name="MSG10"></s:text>
+				</div>
 			<br />
 			<div align="center">
-				<input id="btnConfirmarEliminacion" type="button" onclick=""
-					value="Aceptar" /> <input type="button"
-					onclick="cancelarConfirmarEliminacion();" value="Cancelar" />
+				<input id = "btnConfirmarEliminacion" type="button" onclick="" value="Aceptar"/> <input
+					type="button" onclick="cancelarConfirmarEliminacion();" value="Cancelar" />
 			</div>
 		</s:form>
 	</sj:dialog>
 	<!-- EMERGENTE ERROR REFERENCIAS -->
-	<sj:dialog id="mensajeReferenciasDialog" title="Confirmación"
-		autoOpen="false" minHeight="200" minWidth="700" modal="true"
-		draggable="true">
-		<s:form autocomplete="off" id="frmConfirmarEliminacion"
-			name="frmConfirmarEliminacionName" theme="simple">
-			<div class="seccion">
-				<s:text name="MSG14" />
+	<sj:dialog id="mensajeReferenciasDialog" title="Confirmación" autoOpen="false"
+		minHeight="150" minWidth="700" modal="true" draggable="true">
+		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
+				<div class="seccion">
+				<s:text name="MSG40"/>
 				<div id="elementosReferencias"></div>
-			</div>
+				</div>
 			<br />
 			<div align="center">
-				<input type="button" onclick="cerrarMensajeReferencias()"
-					value="Aceptar" />
+				<input type="button" onclick="cerrarMensajeReferencias()" value="Aceptar"/> 
 			</div>
 		</s:form>
 	</sj:dialog>
-	</div>
+	</div>	
 </body>
 	</html>
 </jsp:root>

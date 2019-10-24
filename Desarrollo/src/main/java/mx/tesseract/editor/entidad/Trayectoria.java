@@ -38,7 +38,7 @@ import mx.tesseract.util.GenericInterface;
 @Entity
 @Table(name = "trayectoria", uniqueConstraints = @UniqueConstraint(columnNames = { "clave",
 		"CasoUsoElementoid" }))
-@JsonIgnoreProperties(value = { "pasos" })
+@JsonIgnoreProperties(value = { "pasos", "hibernateLazyInitializer" })
 public class Trayectoria implements Serializable, Comparable<Trayectoria>, GenericInterface {
 
 	private static final long serialVersionUID = 1L;
