@@ -12,98 +12,65 @@
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/validaciones.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jquery.caret.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jquery.atwho.js"></script>
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/trayectorias/js/token.js"></script>
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/trayectorias/js/index-editNew.js"></script>
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/pasos/js/token.js"></script>
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/pages/editor/pasos/js/index-editNew.js"></script>
 ]]>
 
 </head>
 <body>
-	<h1>Registrar Trayectoria</h1>
+	<h1>Registrar Paso</h1>
 	
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
 	<br/>
 
 	<p class="instrucciones">Ingrese la información solicitada.</p>
-	<s:form autocomplete="off" id="frmTrayectoria" theme="simple" action="%{#pageContext.request.contextPath}/trayectorias"
+	<s:form autocomplete="off" id="frmTrayectoria" theme="simple" action="%{#pageContext.request.contextPath}/pasos"
 		method="post" onsubmit="return prepararEnvio();">
-		<div class="formulario">
-			<div class="tituloFormulario">Información general de la Trayectoria</div>
-			<table class="seccion">
-				<tr>
-					<td class="label obligatorio"><s:text name="labelClave" /></td>
-					<td><s:textfield name="model.clave" maxlength="5"
-							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" /> <s:fielderror
-							fieldName="model.clave" cssClass="error" theme="jquery" /></td>
-				</tr>
-				<tr>
-					<td class="label obligatorio"><s:text name="labelTipo" /></td>
-					<td>
-						<s:select 
-						name="model.alternativa"
-						list="listAlternativa"
-						headerKey="-1" 
-						headerValue="Seleccione" 
-						listKey="valor"
-						listValue="nombre"
-						id="idAlternativaPrincipal"
-						value="model.alternativa"
-						cssErrorClass="select-error" onchange="cambiarElementosAlternativaPrincipal();" 
-						cssClass="inputFormulario ui-widget" />
-						<s:fielderror fieldName="alternativaPrincipal" cssClass="error"
-							theme="jquery" />
-						<p id = "textoAyudaPA" class="textoAyuda"/>
-					</td>
-				</tr>
-				<tr id="filaCondicion" style="display: none;">
-					<td class="label obligatorio"><s:text name="labelCondicion" /></td>
-					<td><s:textarea rows="5" name="model.condicion" cssClass="inputFormularioExtraGrande ui-widget" id="model.idCondicion"
-							maxlength="999" cssErrorClass="input-error"></s:textarea> 
-							<s:fielderror
-							fieldName="model.condicion" cssClass="error"
-							theme="jquery" /></td>
-				</tr>
-				<tr>
-					<td class="label"><s:text name="labelFinCasoUso" /></td>
-					<td><s:checkbox name="model.finCasoUso" id="model.finCasoUso"
-							cssErrorClass="input-error"></s:checkbox> 
-							<s:fielderror
-							fieldName="model.finCasoUso" cssClass="error"
-							theme="jquery" /></td>
-				</tr>
-			</table>
-		</div>
-		<!-- <div class="formulario">
-			<div class="tituloFormulario">Pasos de la Trayectoria</div>
-			<div class="seccion">
-				<s:fielderror fieldName="model.pasos" cssClass="error" theme="jquery" />
-				<table id="tablaPaso" class="tablaGestion" cellspacing="0" width="100%">
-				<s:hidden name="numPasos" value="%{listPasos.length}" id="numPasos"/> 
-					<thead>
+		<s:hidden id="filaPaso" />
+			<div class="formulario">
+				<div class="tituloFormulario">Información del Paso</div>
+				<table class="seccion">
 						<tr>
-							<th style="width: 5%;"><s:text name="colNumero"/></th>
-							<th style="width: 55%;"><s:text name="colRedaccion"/></th>
-							<th style="width: 0;"><s:text name=""/></th>
-							<th style="width: 0;"><s:text name=""/></th>
-							<th style="width: 0;"><s:text name=""/></th>
-							<th style="width: 0;"><s:text name=""/></th>	
-							<th style="width: 10%;"><s:text name="colAcciones"/></th>
+							<td class="label obligatorio"><s:text name="labelRealiza"/></td>
+							<td>
+								<s:select 
+									name="model.realizaActor"
+									list="listRealiza"
+									headerKey="-1" 
+									headerValue="Seleccione" 
+									listKey="valor"
+									listValue="nombre"
+									id="idAlternativaPrincipal"
+									value="model.realizaActor"
+									cssErrorClass="select-error" 
+									cssClass="inputFormulario ui-widget" />
+						</td>
 						</tr>
-					</thead>
-					
+						<tr>
+							<td class="label obligatorio"><s:text name="labelVerbo"/></td>
+							<td><s:select list="listVerbos" cssClass="inputFormulario" name="model.verbo" id="model.verbo"
+       						cssErrorClass="input-error" headerKey="-1" headerValue="Seleccione" onchange="verificarOtro();"></s:select></td>
+						</tr>
+						<tr style="display: none;" id = "otroVerbo">
+							<td class="label obligatorio"><s:text name="labelOtro" /></td>
+							<td><s:textfield name="model.otroVerbo" id="model.otroVerbo" maxlength="10"
+							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
+							</td>
+						</tr>
+						<tr>
+							<td class="label obligatorio"><s:text name="labelRedaccion" /></td>
+							<td><s:textarea rows="5" name="model.redaccion" id="inputor" cssClass="inputFormularioExtraGrande ui-widget"
+									maxlength="999" cssErrorClass="input-error"></s:textarea></td>
+						</tr>
 				</table>
-				<div align="center">
-					<sj:a onclick="solicitarRegistroPaso();" button="true">Registrar</sj:a>
-				</div>
 			</div>
-		</div> -->
-		
+			<br />
 		<br />
 		<div align="center">
 			<s:submit class="boton" value="Aceptar" />
 			
-			<s:url var="urlGestionarTrayectorias" value="%{#pageContext.request.contextPath}/trayectorias">
-				<s:param name="idCU" value="%{idCU}"/>
+			<s:url var="urlGestionarTrayectorias" value="%{#pageContext.request.contextPath}/pasos">
 			</s:url>
 			<input class="boton" type="button"
 				onclick="location.href='${urlGestionarTrayectorias}'"
@@ -153,25 +120,27 @@
 					onclick="cancelarRegistrarPaso()"
 					value="Cancelar" />
 			</div>
+			
+			<!-- Json de elementos -->
+			<s:hidden name="jsonReglasNegocio" id="jsonReglasNegocio" value="%{jsonReglasNegocio}"/>
+			<s:hidden name="jsonEntidades" id="jsonEntidades" value="%{jsonEntidades}"/>
+			<s:hidden name="jsonCasosUsoProyecto" id="jsonCasosUsoProyecto" value="%{jsonCasosUsoProyecto}"/>
+			<s:hidden name="jsonPantallas" id="jsonPantallas" value="%{jsonPantallas}"/>
+			<s:hidden name="jsonMensajes" id="jsonMensajes" value="%{jsonMensajes}"/>
+			<s:hidden name="jsonActores" id="jsonActores" value="%{jsonActores}"/>
+			<s:hidden name="jsonTerminosGls" id="jsonTerminosGls" value="%{jsonTerminosGls}"/>
+			<s:hidden name="jsonAtributos" id="jsonAtributos" value="%{jsonAtributos}"/>
+			<s:hidden name="jsonPasos" id="jsonPasos" value="%{jsonPasos}"/>
+			<s:hidden name="jsonTrayectorias" id="jsonTrayectorias" value="%{jsonTrayectorias}"/>
+			<s:hidden name="jsonAcciones" id="jsonAcciones" value="%{jsonAcciones}"/>
+			<!-- Booleano que indica si existen trayectorias -->
+			<s:hidden id="existeTPrincipal" value="%{existeTPrincipal}"/>
 		</s:form>
 	</sj:dialog>
 	
 	
 	
-	<!-- Json de elementos -->
-	<s:hidden name="jsonReglasNegocio" id="jsonReglasNegocio" value="%{jsonReglasNegocio}"/>
-	<s:hidden name="jsonEntidades" id="jsonEntidades" value="%{jsonEntidades}"/>
-	<s:hidden name="jsonCasosUsoProyecto" id="jsonCasosUsoProyecto" value="%{jsonCasosUsoProyecto}"/>
-	<s:hidden name="jsonPantallas" id="jsonPantallas" value="%{jsonPantallas}"/>
-	<s:hidden name="jsonMensajes" id="jsonMensajes" value="%{jsonMensajes}"/>
-	<s:hidden name="jsonActores" id="jsonActores" value="%{jsonActores}"/>
-	<s:hidden name="jsonTerminosGls" id="jsonTerminosGls" value="%{jsonTerminosGls}"/>
-	<s:hidden name="jsonAtributos" id="jsonAtributos" value="%{jsonAtributos}"/>
-	<s:hidden name="jsonPasos" id="jsonPasos" value="%{jsonPasos}"/>
-	<s:hidden name="jsonTrayectorias" id="jsonTrayectorias" value="%{jsonTrayectorias}"/>
-	<s:hidden name="jsonAcciones" id="jsonAcciones" value="%{jsonAcciones}"/>
-	<!-- Booleano que indica si existen trayectorias -->
-	<s:hidden id="existeTPrincipal" value="%{existeTPrincipal}"/>
+	
 	
 </body>
 	</html>

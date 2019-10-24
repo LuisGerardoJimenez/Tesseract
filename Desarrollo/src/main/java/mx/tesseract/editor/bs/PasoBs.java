@@ -1,123 +1,169 @@
 package mx.tesseract.editor.bs;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import mx.tesseract.editor.dao.PasoDAO;
-import mx.tesseract.editor.entidad.Extension;
-import mx.tesseract.editor.entidad.Modulo;
+import mx.tesseract.br.RN006;
+import mx.tesseract.dao.GenericoDAO;
+import mx.tesseract.dto.PasoDTO;
+import mx.tesseract.editor.dao.VerboDAO;
+import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.Paso;
-import mx.tesseract.editor.entidad.PostPrecondicion;
-import mx.tesseract.editor.entidad.ReferenciaParametro;
+import mx.tesseract.editor.entidad.Trayectoria;
+import mx.tesseract.editor.entidad.Verbo;
+import mx.tesseract.util.Constantes;
+import mx.tesseract.util.TESSERACTException;
+import mx.tesseract.util.TESSERACTValidacionException;
 
+@Service("pasoBs")
+@Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class PasoBs {
+
+	@Autowired
+	private TokenBs tokenBs;
 	
 	@Autowired
-	private PasoDAO pasoDAO;
+	private GenericoDAO genericoDAO;
 	
-	/*
 	@Autowired
-	private ReferenciaParametroDAO ReferenciaParametroDAO;
+	private VerboDAO verboDAO;
 	
-	public static List<String> verificarReferencias(Paso model, Modulo modulo) {
+	@Autowired
+	private RN006 rn006;
+	
+	public List<PasoDTO> obtenerPasos(Trayectoria trayectoria, Integer idModulo) {
+		List<PasoDTO> pasosDTO = new ArrayList<>();
+		PasoDTO pasoDTO;
+		for(Paso paso : trayectoria.getPasos()) {
+			paso.setRedaccion(tokenBs.decodificarCadenasToken(paso
+					.getRedaccion()));
+			pasoDTO = new PasoDTO(paso.getId(), paso.getNumero(),paso.isRealizaActor(),paso.getRedaccion(),trayectoria.getId(),paso.getVerbo().getId(), paso.getVerbo().getNombre(), paso.getOtroVerbo());
+			pasosDTO.add(pasoDTO);
+		}
+		return pasosDTO;
+	}
 
-		List<ReferenciaParametro> referenciasParametro;
+	public PasoDTO consultarPasoById(Integer idSel) {
+		PasoDTO pasoDTO = new PasoDTO();
+		Paso paso = genericoDAO.findById(Paso.class, idSel);
+		pasoDTO.setId(paso.getId());
+		pasoDTO.setIdTrayectoria(paso.getTrayectoria().getId());
+		pasoDTO.setIdVerbo(paso.getVerbo().getId());
+		pasoDTO.setNumero(paso.getNumero());
+		pasoDTO.setOtroVerbo(paso.getOtroVerbo());
+		pasoDTO.setRealizaActor(paso.isRealizaActor());
+		pasoDTO.setRedaccion(paso.getRedaccion());
+		pasoDTO.setVerbo(paso.getVerbo().getNombre());
+		return pasoDTO;
+	}
 
-		List<String> listReferenciasVista = new ArrayList<String>();
-		Set<String> setReferenciasVista = new HashSet<String>(0);
-		PostPrecondicion postPrecondicion = null;
-		Paso paso = null;
-		Extension extension = null;
+	@Transactional(rollbackFor = Exception.class)
+	public void registrarPaso(PasoDTO model) {
+		if (rn006.isValidRN006(model)) {
+			Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, model.getIdTrayectoria());
+			Verbo verbo = verboDAO.findByNombre(model.getVerbo());
+			Paso entidad = new Paso();
+			entidad.setNumero(trayectoria.getPasos().size() + Constantes.NUMERO_UNO);
+			entidad.setOtroVerbo(model.getOtroVerbo());
+			entidad.setRealizaActor(model.getRealizaActor());
+			entidad.setRedaccion(model.getRedaccion());
+			entidad.setTrayectoria(trayectoria);
+			entidad.setVerbo(verbo);
+			genericoDAO.save(entidad);
+		} else {
+			throw new TESSERACTValidacionException("La redacción del paso ya existe.", "MSG7",
+					new String[] { "El", "paso", model.getRedaccion() }, "model.redaccion");
+		}
+	}
+	
+	public void preAlmacenarObjetosToken(PasoDTO model, CasoUso casoUso, Integer idModulo) {
+		model.setRedaccion(tokenBs.codificarCadenaToken(
+			model.getRedaccion(), casoUso.getProyecto(), idModulo));
+	}
 
-		String casoUso = "";
-		Integer idSelf = null;
-
-		referenciasParametro = new ReferenciaParametroDAO().consultarReferenciasParametro(model);
-		
-		for (ReferenciaParametro referencia : referenciasParametro) {
-			String linea = "";
-			postPrecondicion = referencia.getPostPrecondicion();
-			paso = referencia.getPaso();
-			extension = referencia.getExtension();
-
-			if (postPrecondicion != null && (modulo == null || postPrecondicion.getCasoUso().getModulo().getId() != modulo.getId())) {
-				casoUso = postPrecondicion.getCasoUso().getClave()
-						+ postPrecondicion.getCasoUso().getNumero() + " "
-						+ postPrecondicion.getCasoUso().getNombre();
-				if (postPrecondicion.isPrecondicion()) {
-					linea = "Precondiciones del caso de uso " + casoUso;
-				} else {
-					linea = "Postcondiciones del caso de uso "
-							+ postPrecondicion.getCasoUso().getClave()
-							+ postPrecondicion.getCasoUso().getNumero() + " "
-							+ postPrecondicion.getCasoUso().getNombre();
+	@Transactional(rollbackFor = Exception.class)
+	public void eliminarPaso(PasoDTO pasoDTO) {
+		Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, pasoDTO.getIdTrayectoria());
+		Paso paso = genericoDAO.findById(Paso.class, pasoDTO.getId());
+		Integer numeroMaximo = trayectoria.getPasos().size();
+		Integer numeroActual = paso.getNumero() + Constantes.NUMERO_UNO;
+		while(numeroActual <= numeroMaximo) {
+			for(Paso pasoItem : trayectoria.getPasos()) {
+				if(pasoItem.getNumero().equals(numeroActual)) {
+					pasoItem.setNumero(numeroActual - Constantes.NUMERO_UNO);
+					genericoDAO.update(pasoItem);
 				}
-
-			} else if (paso != null && (modulo == null || paso.getTrayectoria().getCasoUso().getModulo().getId() != modulo.getId())) {
-				idSelf = paso.getId();
-				casoUso = paso.getTrayectoria().getCasoUso().getClave()
-						+ paso.getTrayectoria().getCasoUso().getNumero() + " "
-						+ paso.getTrayectoria().getCasoUso().getNombre();
-				linea = "Paso "
-						+ paso.getNumero()
-						+ " de la trayectoria "
-						+ ((paso.getTrayectoria().isAlternativa()) ? "alternativa "
-								+ paso.getTrayectoria().getClave()
-								: "principal") + " del caso de uso " + casoUso;
-			} else if (extension != null && (modulo == null || extension.getCasoUsoOrigen().getModulo().getId() != modulo.getId())) {
-				casoUso = extension.getCasoUsoOrigen().getClave()
-						+ extension.getCasoUsoOrigen().getNumero() + " "
-						+ extension.getCasoUsoOrigen().getNombre();
-				linea = "Puntos de extensión del caso de uso " + casoUso;
 			}
-			if (linea != "" && idSelf != model.getId()) {
-				setReferenciasVista.add(linea);
-			}
+			numeroActual++;
 		}
-		listReferenciasVista.addAll(setReferenciasVista);
-		return listReferenciasVista;
+		genericoDAO.delete(paso);
 	}
 
-	public static boolean isListado(List<Integer> enteros, Integer entero) {
-		for (Integer i : enteros) {
-			if (i == entero) {
-				return true;
-			}
+	@Transactional(rollbackFor = Exception.class)
+	public void modificarPaso(PasoDTO pasoDTO) throws TESSERACTValidacionException {
+		if (rn006.isValidRN006(pasoDTO)) {
+			Verbo verbo = verboDAO.findByNombre(pasoDTO.getVerbo());
+			Paso paso = genericoDAO.findById(Paso.class, pasoDTO.getId());
+			paso.setOtroVerbo(pasoDTO.getOtroVerbo());
+			paso.setRealizaActor(pasoDTO.getRealizaActor());
+			paso.setRedaccion(pasoDTO.getRedaccion());
+			paso.setVerbo(verbo);
+			genericoDAO.update(paso);
+		} else {
+			throw new TESSERACTValidacionException("La redacción del paso ya existe.", "MSG7",
+					new String[] { "El", "paso", pasoDTO.getRedaccion() }, "model.redaccion");
 		}
-		return false;
 	}
 
-	public static Paso consultarPaso(Integer id) {
-		Paso paso = null;
-		try {
-			paso = new PasoDAO().consultarPaso(id);
-		} catch (Exception e) {
-			e.printStackTrace();
+	@Transactional(rollbackFor = Exception.class)
+	public void subirPaso(PasoDTO model) throws TESSERACTException{
+		Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, model.getIdTrayectoria());
+		if(model.getNumero() < trayectoria.getPasos().size() && trayectoria.getPasos().size() > 1) {
+			Paso actual = genericoDAO.findById(Paso.class, model.getId());
+			Paso anterior = null;
+			for(Paso paso : trayectoria.getPasos()) {
+				if(paso.getNumero().equals(actual.getNumero() + Constantes.NUMERO_UNO)) {
+					anterior = paso;
+				}
+			}
+			Integer numero;
+			numero = actual.getNumero();
+			actual.setNumero(anterior.getNumero());
+			anterior.setNumero(numero);
+			genericoDAO.update(actual);
+			genericoDAO.update(anterior);
+		}else {
+			throw new TESSERACTException("No puede realizar esta acción.", "MSG7");
 		}
-		if (paso == null) {
-			throw new PRISMAException(
-					"No se puede consultar el paso por el id.", "MSG16",
-					new String[] { "El", "paso" });
-		}
-		return paso;
+			
 	}
-	public static List<ReferenciaParametro> obtenerReferencias(Integer id){
-		Trayectoria trayectoria = null;
-		List<ReferenciaParametro> listReferenciaParametro=null;
-		try{
-			listReferenciaParametro = new PasoDAO().obtenerReferencias(id);
-		}catch(Exception e){
-			e.printStackTrace();
+
+	@Transactional(rollbackFor = Exception.class)
+	public void bajarPaso(PasoDTO model) {
+		Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, model.getIdTrayectoria());
+		if(model.getNumero() > Constantes.NUMERO_UNO && trayectoria.getPasos().size() > 1) {
+			Paso actual = genericoDAO.findById(Paso.class, model.getId());
+			Paso siguiente = null;
+			for(Paso paso : trayectoria.getPasos()) {
+				if(paso.getNumero().equals(actual.getNumero() - Constantes.NUMERO_UNO)) {
+					siguiente = paso;
+				}
+			}
+			Integer numero;
+			numero = actual.getNumero();
+			actual.setNumero(siguiente.getNumero());
+			siguiente.setNumero(numero);
+			genericoDAO.update(actual);
+			genericoDAO.update(siguiente);
+		}else {
+			throw new TESSERACTException("No puede realizar esta acción.", "MSG7");
 		}
-		if (listReferenciaParametro == null) {
-			throw new PRISMAException(
-					"No se pueden consultar los pasos por el id.", "MSG16",
-					new String[] { "La", "trayectoria" });
-		}
-		return listReferenciaParametro;
-	}*/
+	}
+	
 }

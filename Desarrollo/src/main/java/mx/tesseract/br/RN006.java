@@ -13,6 +13,7 @@ import mx.tesseract.dto.AccionDTO;
 import mx.tesseract.dto.ActorDTO;
 import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.dto.PantallaDTO;
+import mx.tesseract.dto.PasoDTO;
 import mx.tesseract.dto.AtributoDTO;
 import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.dto.ReglaNegocioDTO;
@@ -31,6 +32,7 @@ import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.Entidad;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
+import mx.tesseract.editor.entidad.Paso;
 import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.editor.entidad.Trayectoria;
@@ -222,6 +224,23 @@ public class RN006 {
 		}else {
 			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
 				if(trayectoria.getClave().equals(model.getClave()) && trayectoria.getId().equals(model.getId()))
+					return false;
+			}
+		}
+		return valido;
+	}
+
+	public boolean isValidRN006(PasoDTO model) {
+		Boolean valido = true;
+		Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, model.getIdTrayectoria());
+		if(model.getId() == null) {
+			for(Paso paso : trayectoria.getPasos()) {
+				if(paso.getRedaccion().equals(model.getRedaccion()))
+					return false;
+			}
+		}else {
+			for(Paso paso : trayectoria.getPasos()) {
+				if(paso.getRedaccion().equals(model.getRedaccion()) && paso.getId().equals(model.getId()))
 					return false;
 			}
 		}

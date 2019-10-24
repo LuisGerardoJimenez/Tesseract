@@ -14,29 +14,11 @@ $(document).ready(function() {
 		document.getElementById("otroVerbo").style.display = 'none';
 	}
 	
-	verificarAlternativaPrincipal();
-	ocultarColumnas("tablaPaso");
-	
-	/*try {
+	try {
 		token.cargarListasToken();
 	} catch (err) {
 		alert("No existen elementos para referenciar con el token.");
-	}*/
-	
-	cambiarElementosAlternativaPrincipal();
-	/*var json = $("#jsonPasosTabla").val();
-	
-	if (json !== "") {
-		var parsedJson = JSON.parse(json);
-		$
-				.each(
-						parsedJson,
-						function(i, item) {
-							var row = construirFila(item.numero, item.realizaActor, item.redaccion, 
-									item.verbo.nombre, item.otroVerbo);
-							dataTableCDT.addRow("tablaPaso", row); 
-						}); 
-	}*/
+	}
 } );
 
 function cambiarElementosAlternativaPrincipal() {
