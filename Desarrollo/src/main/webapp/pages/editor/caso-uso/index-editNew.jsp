@@ -108,16 +108,16 @@
 				value="Cancelar" />
 		</div>
 		
-		<!-- Json de elementos -->
-		<s:hidden name="jsonReglasNegocio" id="jsonReglasNegocio" value="%{jsonReglasNegocio}"/>
-		<s:hidden name="jsonEntidades" id="jsonEntidades" value="%{jsonEntidades}"/>
-		<s:hidden name="jsonPantallas" id="jsonPantallas" value="%{jsonPantallas}"/>
-		<s:hidden name="jsonMensajes" id="jsonMensajes" value="%{jsonMensajes}"/>
-		<s:hidden name="jsonActores" id="jsonActores" value="%{jsonActores}"/>
-		<s:hidden name="jsonTerminosGls" id="jsonTerminosGls" value="%{jsonTerminosGls}"/>
-		<s:hidden name="jsonAtributos" id="jsonAtributos" value="%{jsonAtributos}"/>
 	</s:form>
 	
+	<!-- Json de elementos -->
+	<s:hidden name="jsonReglasNegocio" id="jsonReglasNegocio" value="%{jsonReglasNegocio}"/>
+	<s:hidden name="jsonEntidades" id="jsonEntidades" value="%{jsonEntidades}"/>
+	<s:hidden name="jsonPantallas" id="jsonPantallas" value="%{jsonPantallas}"/>
+	<s:hidden name="jsonMensajes" id="jsonMensajes" value="%{jsonMensajes}"/>
+	<s:hidden name="jsonActores" id="jsonActores" value="%{jsonActores}"/>
+	<s:hidden name="jsonTerminosGls" id="jsonTerminosGls" value="%{jsonTerminosGls}"/>
+	<s:hidden name="jsonAtributos" id="jsonAtributos" value="%{jsonAtributos}"/>
 </body>
 	</html>
 </jsp:root>
