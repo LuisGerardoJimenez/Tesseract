@@ -162,6 +162,12 @@
 
 		<s:hidden value="%{model.id}" name="model.id" />
 
+
+
+
+
+	</s:form>
+	
 	    <s:hidden name="jsonPrecondiciones" id="jsonPrecondiciones"
 			value="%{jsonPrecondiciones}" />
 		<s:hidden name="jsonPostcondiciones" id="jsonPostcondiciones"
@@ -189,12 +195,6 @@
 		<s:hidden name="jsonAcciones" id="jsonAcciones"
 			value="%{jsonAcciones}" />
 		<s:hidden name="comentario" id="comentario" value="%{comentario}" />
-
-
-
-
-	</s:form>
-
 
 	<!-- PRECONDICIONES -->
 	<!-- <sj:dialog id="precondDialog" title="Registrar Precondición"
