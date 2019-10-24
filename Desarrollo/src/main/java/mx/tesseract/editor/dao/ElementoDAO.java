@@ -1,5 +1,6 @@
 package mx.tesseract.editor.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,8 +116,8 @@ public class ElementoDAO {
 			Query query = entityManager.createNamedQuery("Elemento.findNextNumber");
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
 			query.setParameter(Constantes.NUMERO_DOS, clave.toString());
-			List<String> lista = query.getResultList();
-			Integer numeroInteger = Integer.parseInt(lista.get(Constantes.NUMERO_CERO))+Constantes.NUMERO_UNO;
+			BigInteger numeroMax = (BigInteger) query.getSingleResult();
+			Integer numeroInteger = numeroMax.intValue()+Constantes.NUMERO_UNO;
 			numero = "" + numeroInteger;
 		} catch (Exception e) {
 			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "siguienteNumero", e);
