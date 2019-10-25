@@ -37,19 +37,20 @@
 						<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/reglas-negocio/%{#rn.id}"/>
 							<s:a href="%{urlConsultar}">
 								<img id="" class="button" title="Consultar Regla de negocio"
-										src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" alt="Consultar Regla de negocio"/>
 							</s:a>
 						${blanks}
 						<s:if test="%{#rn.estadoElemento.id == 1}">
 						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/reglas-negocio/%{#rn.id}/edit"/>
 						<s:a href="%{urlEditar}">
 							<img id="" class="button" title="Modificar Regla de negocio"
-									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Regla de negocio"/>
 						</s:a>
 						${blanks}
 						<s:a href="#" onclick="return mostrarMensajeEliminacion(%{#rn.id});">
-						<img id="" class="button" title="Eliminar Regla de negocio"
-								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
+							<img id="" class="button" title="Eliminar Regla de negocio"
+								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Regla de negocio"/>
+						</s:a>
 						${blanks}	
 						</s:if>					
 						

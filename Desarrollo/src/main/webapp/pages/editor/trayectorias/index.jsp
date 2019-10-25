@@ -50,18 +50,19 @@
 										value="%{#pageContext.request.contextPath}/trayectorias/%{#tray.id}/edit" />
 									<s:a href="%{urlModificar}">
 										<img id="" class="button" title="Modificar Trayectoria"
-											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Trayectoria"/>
 									</s:a> ${blanks} 
 									<!-- Gestionar Pasos -->			
 									<s:url var="urlGestionarPasos" value="%{#pageContext.request.contextPath}/trayectorias!entrarPasos?idSel=%{#tray.id}"/>
 									<s:a href="%{urlGestionarPasos}">
 										<img id="" class="button" title="Gestionar Pasos"
-												src="${pageContext.request.contextPath}/resources/images/icons/Pasos.svg" />
+												src="${pageContext.request.contextPath}/resources/images/icons/Pasos.svg" alt="Gestionar Pasos"/>
 									</s:a>
 									
 									<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#tray.id}');">
-									<img id="" class="button" title="Eliminar Trayectoria"
-										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
+										<img id="" class="button" title="Eliminar Trayectoria"
+											src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Trayectoria"/>
+									</s:a>
 								</td>
 							</tr>
 						</s:if>
@@ -76,19 +77,20 @@
 										value="%{#pageContext.request.contextPath}/trayectorias/%{#tray.id}/edit" />
 									<s:a href="%{urlModificar}">
 										<img id="" class="button" title="Modificar Trayectoria"
-											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Trayectoria"/>
 									</s:a> ${blanks} 
 								<!-- Gestionar Pasos -->			
 								<s:url var="urlGestionarPasos" value="%{#pageContext.request.contextPath}/trayectorias!entrarPasos?idSel=%{#tray.id}"/>
 								<s:a href="%{urlGestionarPasos}">
 									<img id="" class="button" title="Gestionar Pasos"
-											src="${pageContext.request.contextPath}/resources/images/icons/Pasos.svg" />
+											src="${pageContext.request.contextPath}/resources/images/icons/Pasos.svg" alt="Gestionar Pasos"/>
 								</s:a>	
 								${blanks}	
 								<!-- Eliminar caso de uso --> 
 								<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#tray.id}');">
 									<img id="" class="button" title="Eliminar Trayectoria"
-										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
+										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Trayectoria"/>
+								</s:a>
 							</td>
 						</s:else>
 					</s:iterator>

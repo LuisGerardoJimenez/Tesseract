@@ -50,7 +50,7 @@
 										value="%{#pageContext.request.contextPath}/proyectos!elegirColaboradores?idSel=%{#proyecto.id}"/>
 									<s:a href="%{urlElegir}">
 										<img id="" class="button" title="Elegir Colaboradores"
-											src="${pageContext.request.contextPath}/resources/images/icons/Colaboradores.svg" />										
+											src="${pageContext.request.contextPath}/resources/images/icons/Colaboradores.svg" alt="Elegir Colaboradores"/>										
 									</s:a> 						
 								</s:if>
 								<!-- Entrar -->
@@ -59,7 +59,7 @@
 										value="%{#pageContext.request.contextPath}/proyectos!entrar?idSel=%{#proyecto.id}" />
 								<s:a href="%{urlEntrar}">
 										<img id="" class="button" title="Entrar al Proyecto"
-											src="${pageContext.request.contextPath}/resources/images/icons/Entrar.svg" />										
+											src="${pageContext.request.contextPath}/resources/images/icons/Entrar.svg" alt="Entrar al Proyecto"/>										
 								</s:a> 
 								<!-- Descargar documento -->
 								${blanks}

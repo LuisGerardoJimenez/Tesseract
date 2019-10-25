@@ -41,14 +41,14 @@
 									<s:url var="urlAcciones" value="%{#pageContext.request.contextPath}/pantallas!gestionarAcciones?idSel=%{#pantalla.id}"/>
 									<s:a href="%{urlAcciones}">
 									<img id="" class="button" title="Gestionar Acciones"
-										src="${pageContext.request.contextPath}/resources/images/icons/Accion.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/Accion.svg" alt="Gestionar Acciones"/>
 									</s:a> 
 								</s:if>
 								${blanks}
 								<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/pantallas/%{#pantalla.id}" />
 								<s:a href="%{urlConsultar}">
 									<img id="" class="button" title="Consultar Pantalla"
-										src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" alt="Consultar Pantalla"/>
 								</s:a> 
 								${blanks} 
 								<s:if test="%{#pantalla.estadoElemento.id == 1}">
@@ -56,12 +56,13 @@
 										value="%{#pageContext.request.contextPath}/pantallas/%{#pantalla.id}/edit" />
 									<s:a href="%{urlEditar}">
 										<img id="" class="button" title="Modificar Pantalla"
-											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Pantalla"/>
 									</s:a>
 									${blanks}
 									<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#pantalla.id}');">
-									<img id="" class="button" title="Eliminar Pantalla"
-										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
+										<img id="" class="button" title="Eliminar Pantalla"
+											src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Pantalla"/>
+									</s:a>
 								</s:if></td>
 						</tr>
 					</s:iterator>

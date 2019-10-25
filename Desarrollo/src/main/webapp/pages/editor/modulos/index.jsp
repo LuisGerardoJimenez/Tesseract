@@ -33,22 +33,25 @@
 						${blanks}
 						<s:url var="urlCU" value="%{#pageContext.request.contextPath}/modulos!entrarCU?idSel=%{#modulo.id}"/>
 						<s:a href="%{urlCU}">
-						<img id="" class="button" title="Gestionar Casos de Uso"
-								src="${pageContext.request.contextPath}/resources/images/icons/UC.svg" /></s:a>
+							<img id="" class="button" title="Gestionar Casos de Uso"
+								src="${pageContext.request.contextPath}/resources/images/icons/UC.svg" alt="Gestionar Casos de Uso"/>
+						</s:a>
 						${blanks}
 						<s:url var="urlIU" value="%{#pageContext.request.contextPath}/modulos!entrarIU?idSel=%{#modulo.id}"/>
 						<s:a href="%{urlIU}">
-						<img id="" class="button" title="Gestionar Pantallas"
-								src="${pageContext.request.contextPath}/resources/images/icons/IU.svg" /></s:a>
+							<img id="" class="button" title="Gestionar Pantallas"
+								src="${pageContext.request.contextPath}/resources/images/icons/IU.svg" alt="Gestionar Pantallas"/>
+						</s:a>
 						${blanks}
 						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/modulos/%{#modulo.id}/edit"/>			
 						<s:a href="%{urlEditar}">
 							<img id="" class="button" title="Modificar Módulo"
-									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Módulo"/>
 						</s:a>
 						<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#modulo.id}');">
-						<img id="" class="button" title="Eliminar Módulo"
-								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
+							<img id="" class="button" title="Eliminar Módulo"
+								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Módulo"/>
+						</s:a>
 						
 					</td>
 				</tr>
