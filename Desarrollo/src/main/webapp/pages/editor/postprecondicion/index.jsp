@@ -41,13 +41,13 @@
 							<td align="center">
 								<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/postprecondicion/%{#postprecondicion.id}/edit" />
 								<s:a href="%{urlEditar}">
-										<img id="" class="button" title="Modificar"
-											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+										<img id="" class="button" title="Modificar Postprecondicion"
+											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Postprecondicion"/>
 								</s:a>
 								${blanks}
 								<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#postprecondicion.id}');">
 									<img id="" class="button" title="Eliminar Postprecondicion"
-										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Postprecondicion"/>
 								</s:a>
 							</td>
 						</tr>

@@ -31,25 +31,21 @@
 					<td><s:property value="%{#mensaje.clave + ' ' + #mensaje.nombre}"/></td>		
 					<td align="center">
 						${blanks}
-						<s:url var="urlCU" value="%{#pageContext.request.contextPath}/mensajes!entrarCU?idSel=%{#mensaje.id}"/>
-						<s:a href="%{urlCU}">
-						<img id="" class="button" title=""
-								src="${pageContext.request.contextPath}/resources/images/icons/UC.svg2" /></s:a>
-						${blanks}
 						<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/mensajes/%{#mensaje.id}"/>
 						<s:a href="%{urlConsultar}">
-							<img id="" class="button" title="Consultar Entidad"
-									src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
+							<img id="" class="button" title="Consultar Mensaje"
+									src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" alt="Consultar Mensaje"/>
 						</s:a>
 						${blanks}
 						<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/mensajes/%{#mensaje.id}/edit"/>			
 						<s:a href="%{urlEditar}">
 							<img id="" class="button" title="Modificar Mensaje"
-									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+									src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Mensaje"/>
 						</s:a>
 						<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#mensaje.id}');">
-						<img id="" class="button" title="Eliminar Mensaje"
-								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
+							<img id="" class="button" title="Eliminar Mensaje"
+								src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Mensaje"/>
+						</s:a>
 						
 					</td>
 				</tr>
