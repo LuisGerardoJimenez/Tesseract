@@ -54,7 +54,7 @@
 								<s:url var="urlPostprecondiciones" value="%{#pageContext.request.contextPath}/caso-uso!entrarPostprecondiciones?idSel=%{#cu.id}"/>			
 								<s:a href="%{urlPostprecondiciones}">
 									<img id="" class="button" title="Gestionar Precondiciones y Postcondiciones"
-											src="${pageContext.request.contextPath}/resources/images/icons/logo.png" alt="Gestionar Precondiciones y Postcondiciones"/>
+											src="${pageContext.request.contextPath}/resources/images/icons/Postprecondiciones.svg" alt="Gestionar Precondiciones y Postcondiciones"/>
 								</s:a>
 								
 								${blanks}	

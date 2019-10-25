@@ -48,15 +48,15 @@
 							</s:if>
 							<s:else>
 								<img id="" class="button" title="Realiza Sistema"
-										src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/UC.svg" />
 							</s:else>
 							<s:if test="%{#paso.idVerbo == 13}">
 								<s:property
-								value="%{#paso.otroVerbo + ' '}" />
+								value="%{' ' + #paso.otroVerbo + ' '}" />
 							</s:if>
 							<s:else>
 								<s:property
-								value="%{#paso.verbo + ' '}" />
+								value="%{' ' + #paso.verbo + ' '}" />
 							</s:else>
 							<s:property
 								value="%{#paso.redaccion}" />
