@@ -56,7 +56,7 @@
 									<s:url var="urlGestionarPasos" value="%{#pageContext.request.contextPath}/trayectorias!entrarPasos?idSel=%{#tray.id}"/>
 									<s:a href="%{urlGestionarPasos}">
 										<img id="" class="button" title="Gestionar Pasos"
-												src="${pageContext.request.contextPath}/resources/images/icons/P.svg" />
+												src="${pageContext.request.contextPath}/resources/images/icons/Pasos.svg" />
 									</s:a>
 									
 									<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#tray.id}');">
@@ -82,7 +82,7 @@
 								<s:url var="urlGestionarPasos" value="%{#pageContext.request.contextPath}/trayectorias!entrarPasos?idSel=%{#tray.id}"/>
 								<s:a href="%{urlGestionarPasos}">
 									<img id="" class="button" title="Gestionar Pasos"
-											src="${pageContext.request.contextPath}/resources/images/icons/P.svg" />
+											src="${pageContext.request.contextPath}/resources/images/icons/Pasos.svg" />
 								</s:a>	
 								${blanks}	
 								<!-- Eliminar caso de uso --> 
