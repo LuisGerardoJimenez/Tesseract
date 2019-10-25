@@ -44,11 +44,11 @@
 						<td>
 							<s:if test="%{#paso.realizaActor == 1}">
 								<img id="" class="button" title="Realiza Actor"
-									src="${pageContext.request.contextPath}/resources/images/icons/actor.png" />
+									src="${pageContext.request.contextPath}/resources/images/icons/actor.png" alt="actor"/>
 							</s:if>
 							<s:else>
 								<img id="" class="button" title="Realiza Sistema"
-										src="${pageContext.request.contextPath}/resources/images/icons/UC.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/UC.svg" alt="casoUso"/>
 							</s:else>
 							<s:if test="%{#paso.idVerbo == 13}">
 								<s:property
@@ -65,23 +65,24 @@
 							<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/pasos/%{#paso.id}!subirPaso"/>
 							<s:a href="%{urlConsultar}">
 								<img id="" class="button" title="Bajar Paso"
-										src="${pageContext.request.contextPath}/resources/images/icons/FlechaAbajo.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/FlechaAbajo.svg" alt="Bajar Paso"/>
 							</s:a>
 							${blanks}
 							<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/pasos/%{#paso.id}!bajarPaso"/>
 							<s:a href="%{urlConsultar}">
 								<img id="" class="button" title="Subir Paso"
-										src="${pageContext.request.contextPath}/resources/images/icons/FlechaArriba.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/FlechaArriba.svg" alt="Subir Paso"/>
 							</s:a>
 							${blanks}
 							<s:url var="urlEditar" value="%{#pageContext.request.contextPath}/pasos/%{#paso.id}/edit"/>			
 							<s:a href="%{urlEditar}">
 								<img id="" class="button" title="Modificar Paso"
-										src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" />
+										src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Paso"/>
 							</s:a>
 							<s:a href="#" onclick="return mostrarMensajeEliminacion('%{#paso.id}');">
-							<img id="" class="button" title="Eliminar Paso"
-									src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" /></s:a>
+								<img id="" class="button" title="Eliminar Paso"
+									src="${pageContext.request.contextPath}/resources/images/icons/Eliminar.svg" alt="Eliminar Paso"/>
+							</s:a>
 							
 						</td>
 					</tr>

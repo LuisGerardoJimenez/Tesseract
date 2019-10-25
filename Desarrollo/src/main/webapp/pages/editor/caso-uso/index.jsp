@@ -50,7 +50,7 @@
 									<img id="" class="button" title="Modificar Caso de uso"
 											src="${pageContext.request.contextPath}/resources/images/icons/Editar.svg" alt="Modificar Caso de uso"/>
 								</s:a>	
-
+								${blanks}
 								<s:url var="urlPostprecondiciones" value="%{#pageContext.request.contextPath}/caso-uso!entrarPostprecondiciones?idSel=%{#cu.id}"/>			
 								<s:a href="%{urlPostprecondiciones}">
 									<img id="" class="button" title="Gestionar Precondiciones y Postcondiciones"

@@ -28,7 +28,7 @@
 			<div class="marcoImagen" id="marco-pantalla">
 				<center>
 					<s:url var="pantallaAction" value="%{#action.pantallaB64}"/>
-					<img id="pantalla" src="${pantallaAction}" class="imagen" />
+					<img id="pantalla" src="${pantallaAction}" class="imagen" alt="pantalla"/>
 				</center>
 			</div>
 		</div>
@@ -44,7 +44,7 @@
 							<td>
 								<div  id="marco-accion${accion.id}">
 										<s:url var="pantallaAccion" value="%{#accion.imagenB64}"/>
-										<img src="${pantallaAccion}" id="accion${accion.id}"/>
+										<img src="${pantallaAccion}" id="accion${accion.id}" alt="accion"/>
 								</div>
 								<div class="descripcionAccion">
 									<a name="accion-${accion.id}"><!-- accion --></a>
