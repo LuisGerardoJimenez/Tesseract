@@ -121,24 +121,24 @@
 					value="Cancelar" />
 			</div>
 			
-			<!-- Json de elementos -->
-			<s:hidden name="jsonReglasNegocio" id="jsonReglasNegocio" value="%{jsonReglasNegocio}"/>
-			<s:hidden name="jsonEntidades" id="jsonEntidades" value="%{jsonEntidades}"/>
-			<s:hidden name="jsonCasosUsoProyecto" id="jsonCasosUsoProyecto" value="%{jsonCasosUsoProyecto}"/>
-			<s:hidden name="jsonPantallas" id="jsonPantallas" value="%{jsonPantallas}"/>
-			<s:hidden name="jsonMensajes" id="jsonMensajes" value="%{jsonMensajes}"/>
-			<s:hidden name="jsonActores" id="jsonActores" value="%{jsonActores}"/>
-			<s:hidden name="jsonTerminosGls" id="jsonTerminosGls" value="%{jsonTerminosGls}"/>
-			<s:hidden name="jsonAtributos" id="jsonAtributos" value="%{jsonAtributos}"/>
-			<s:hidden name="jsonPasos" id="jsonPasos" value="%{jsonPasos}"/>
-			<s:hidden name="jsonTrayectorias" id="jsonTrayectorias" value="%{jsonTrayectorias}"/>
-			<s:hidden name="jsonAcciones" id="jsonAcciones" value="%{jsonAcciones}"/>
-			<!-- Booleano que indica si existen trayectorias -->
-			<s:hidden id="existeTPrincipal" value="%{existeTPrincipal}"/>
+			
 		</s:form>
 	</sj:dialog>
 	
-	
+	<!-- Json de elementos -->
+	<s:hidden name="jsonReglasNegocio" id="jsonReglasNegocio" value="%{jsonReglasNegocio}"/>
+	<s:hidden name="jsonEntidades" id="jsonEntidades" value="%{jsonEntidades}"/>
+	<s:hidden name="jsonCasosUsoProyecto" id="jsonCasosUsoProyecto" value="%{jsonCasosUsoProyecto}"/>
+	<s:hidden name="jsonPantallas" id="jsonPantallas" value="%{jsonPantallas}"/>
+	<s:hidden name="jsonMensajes" id="jsonMensajes" value="%{jsonMensajes}"/>
+	<s:hidden name="jsonActores" id="jsonActores" value="%{jsonActores}"/>
+	<s:hidden name="jsonTerminosGls" id="jsonTerminosGls" value="%{jsonTerminosGls}"/>
+	<s:hidden name="jsonAtributos" id="jsonAtributos" value="%{jsonAtributos}"/>
+	<s:hidden name="jsonPasos" id="jsonPasos" value="%{jsonPasos}"/>
+	<s:hidden name="jsonTrayectorias" id="jsonTrayectorias" value="%{jsonTrayectorias}"/>
+	<s:hidden name="jsonAcciones" id="jsonAcciones" value="%{jsonAcciones}"/>
+	<!-- Booleano que indica si existen trayectorias -->
+	<s:hidden id="existeTPrincipal" value="%{existeTPrincipal}"/>
 	
 	
 	

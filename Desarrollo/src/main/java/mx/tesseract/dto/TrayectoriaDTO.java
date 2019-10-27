@@ -1,14 +1,18 @@
 package mx.tesseract.dto;
 
+import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
+
+import mx.tesseract.util.Constantes;
 
 public class TrayectoriaDTO {
 
 	private Integer id;
 	private String clave;
-	private Boolean alternativa;
+	private String alternativa;
 	private String condicion;
 	private Integer idCasoUso;
 	private Boolean finCasoUso;
@@ -24,6 +28,7 @@ public class TrayectoriaDTO {
 	private String jsonPasos;
 	private String jsonTrayectorias;
 	private String jsonAcciones;
+	
 	
 	public String getJsonReglasNegocio() {
 		return jsonReglasNegocio;
@@ -105,15 +110,15 @@ public class TrayectoriaDTO {
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
-	public Boolean getAlternativa() {
+	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", regex = Constantes.REGEX_COMBO_BOX_SOLO_STRING, shortCircuit = true)
+	public String getAlternativa() {
 		return alternativa;
 	}
-	public Boolean isAlternativa() {
-		return alternativa;
-	}
-	public void setAlternativa(Boolean alternativa) {
+	public void setAlternativa(String alternativa) {
 		this.alternativa = alternativa;
-	}	
+	}
+	
 	public String getCondicion() {
 		return condicion;
 	}
@@ -132,6 +137,5 @@ public class TrayectoriaDTO {
 	public void setFinCasoUso(Boolean finCasoUso) {
 		this.finCasoUso = finCasoUso;
 	}
-	
 	
 }

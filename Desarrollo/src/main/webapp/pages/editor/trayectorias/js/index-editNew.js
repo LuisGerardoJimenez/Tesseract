@@ -1,18 +1,9 @@
-var contextPath = "prisma";
+var contextPath = "tesseract";
 
 
 $(document).ready(function() {
 	contextPath = $("#rutaContexto").val();
 	$('table.tablaGestion').DataTable();
-	
-	var verbo = document.getElementById("paso.verbo");
-	var verboTexto = verbo.options[verbo.selectedIndex].text;
-	
-	if (verboTexto == 'Otro' || verboTexto == 'Otra') {
-		document.getElementById("otroVerbo").style.display = '';
-	} else {
-		document.getElementById("otroVerbo").style.display = 'none';
-	}
 	
 	verificarAlternativaPrincipal();
 	ocultarColumnas("tablaPaso");
@@ -239,11 +230,6 @@ function ocultarColumnas(tabla) {
 function verificarAlternativaPrincipal() {
 	var existeTPrincipal = document.getElementById("existeTPrincipal").value;
 	var select = document.getElementById("idAlternativaPrincipal");
-	if(existeTPrincipal == "true") {
-		select.selectedIndex = 2;
-		select.disabled = true;
-		document.getElementById("textoAyudaPA").innerHTML = "Solamente puede registrar Trayectorias alternativas, debido a que ya existe una Trayectoria principal.";
-	} 
 }
 
 function verificarOtro() {

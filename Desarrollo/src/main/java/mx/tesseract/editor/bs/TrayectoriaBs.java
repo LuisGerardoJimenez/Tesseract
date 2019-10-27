@@ -30,6 +30,7 @@ import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.editor.entidad.Trayectoria;
 import mx.tesseract.editor.entidad.Verbo;
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.JsonUtil;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
@@ -380,7 +381,10 @@ public class TrayectoriaBs {
 		if (rn006.isValidRN006(model, idCasoUso)) {
 			Trayectoria entidad = new Trayectoria();
 			entidad.setClave(model.getClave());
-			entidad.setAlternativa(model.isAlternativa());
+			if(model.getAlternativa().equals(Constantes.SELECT_PRINCIPAL))
+				entidad.setAlternativa(Boolean.FALSE);
+			else
+				entidad.setAlternativa(Boolean.TRUE);
 			entidad.setCasoUso(casoUso);
 			entidad.setCondicion(model.getCondicion());
 			entidad.setFinCasoUso(model.isFinCasoUso());
@@ -413,7 +417,10 @@ public class TrayectoriaBs {
 			trayectoriaDTO.setCondicion(trayectoria.getCondicion());
 			trayectoriaDTO.setFinCasoUso(trayectoria.isFinCasoUso());
 			trayectoriaDTO.setId(trayectoria.getId());
-			trayectoriaDTO.setAlternativa(trayectoria.isAlternativa());
+			if(trayectoria.isAlternativa())
+				trayectoriaDTO.setAlternativa(Constantes.SELECT_ALTERNATIVA);
+			else
+				trayectoriaDTO.setAlternativa(Constantes.SELECT_PRINCIPAL);
 			trayectoriaDTO.setIdCasoUso(trayectoria.getCasoUso().getId());
 		} else {
 			throw new TESSERACTException("No se puede consultar la trayectoria.", "MSG12");
