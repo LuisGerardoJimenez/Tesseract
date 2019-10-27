@@ -39,27 +39,49 @@
 				</tr>
 				<tr>
 					<td class="label obligatorio"><s:text name="labelTipo" /></td>
-					<td>
-						<s:select 
-						name="model.alternativa"
-						list="listAlternativa"
-						headerKey="-1" 
-						headerValue="Seleccione" 
-						listKey="valor"
-						listValue="nombre"
-						id="idAlternativaPrincipal"
-						value="model.alternativa"
-						cssErrorClass="select-error" onchange="cambiarElementosAlternativaPrincipal();" 
-						cssClass="inputFormulario ui-widget" />
-						<s:fielderror fieldName="alternativaPrincipal" cssClass="error"
+					<td class="">
+						<s:if test="existeTPrincipal">
+								<s:select 
+							list="listAlternativa"
+							headerKey="-1" 
+							headerValue="Seleccione"
+							value="model.alternativa"
+							disabled="true"
+							cssErrorClass="select-error" onchange="cambiarElementosAlternativaPrincipal();" 
+							cssClass="inputFormulario ui-widget" />
+							<s:select 
+								name="model.alternativa"
+								list="listAlternativa"
+								headerKey="-1" 
+								headerValue="Seleccione"
+								id="idAlternativaPrincipal"
+								value="model.alternativa"
+								style="display:none"
+								cssErrorClass="select-error" onchange="cambiarElementosAlternativaPrincipal();" 
+								cssClass="inputFormulario ui-widget" />
+							<s:fielderror fieldName="model.alternativa" cssClass="error"
 							theme="jquery" />
-						<p id = "textoAyudaPA" class="textoAyuda"/>
+							<p id = "textoAyudaPA" class="textoAyuda">Solamente puede registrar Trayectorias alternativas, debido a que ya existe una Trayectoria principal.</p> 
+						</s:if>
+						<s:else>
+							<s:select 
+									name="model.alternativa"
+									list="listAlternativa"
+									headerKey="-1" 
+									headerValue="Seleccione"
+									id="idAlternativaPrincipal"
+									value="model.alternativa"
+									cssErrorClass="select-error" onchange="cambiarElementosAlternativaPrincipal();" 
+									cssClass="inputFormulario ui-widget" />
+								<s:fielderror fieldName="model.alternativa" cssClass="error"
+								theme="jquery" />
+						</s:else>
 					</td>
 				</tr>
 				<tr id="filaCondicion" style="display: none;">
 					<td class="label obligatorio"><s:text name="labelCondicion" /></td>
 					<td><s:textarea rows="5" name="model.condicion" cssClass="inputFormularioExtraGrande ui-widget" id="model.idCondicion"
-							maxlength="999" cssErrorClass="input-error"></s:textarea> 
+							value="" maxlength="999" cssErrorClass="input-error"></s:textarea> 
 							<s:fielderror
 							fieldName="model.condicion" cssClass="error"
 							theme="jquery" /></td>
@@ -112,51 +134,6 @@
 		</div>
 		<s:hidden id="jsonPasosTabla" name="jsonPasosTabla" value="%{jsonPasosTabla}"/>    	
 	</s:form>
-	
-	
-	<!-- EMERGENTE REGISTRAR PASO -->	
-   	<sj:dialog id="pasoDialog" title="Registrar Paso" autoOpen="false" 
-   	minHeight="300" minWidth="800" modal="true" draggable="true" >
-	   	<s:form autocomplete="off" id="frmPaso" name="frmPasoName" theme="simple">
-	   		<s:hidden id="filaPaso" />
-			<div class="formulario">
-				<div class="tituloFormulario">Información del Paso</div>
-				<table class="seccion">
-						<tr>
-							<td class="label obligatorio"><s:text name="labelRealiza"/></td>
-							<td><s:select list="listRealiza" cssClass="inputFormulario" name="paso.realizaActor" id="realiza" 
-       						cssErrorClass="input-error" headerKey="-1" headerValue="Seleccione"></s:select></td>
-						</tr>
-						<tr>
-							<td class="label obligatorio"><s:text name="labelVerbo"/></td>
-							<td><s:select list="listVerbos" cssClass="inputFormulario" name="paso.verbo" id="paso.verbo"
-       						cssErrorClass="input-error" headerKey="-1" headerValue="Seleccione" onchange="verificarOtro();"></s:select></td>
-						</tr>
-						<tr style="display: none;" id = "otroVerbo">
-							<td class="label obligatorio"><s:text name="labelOtro" /></td>
-							<td><s:textfield name="paso.otroVerbo" id="paso.otroVerbo" maxlength="10"
-							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
-							</td>
-						</tr>
-						<tr>
-							<td class="label obligatorio"><s:text name="labelRedaccion" /></td>
-							<td><s:textarea rows="5" name="paso.redaccion" id="inputor" cssClass="inputFormularioExtraGrande ui-widget"
-									maxlength="999" cssErrorClass="input-error"></s:textarea></td>
-						</tr>
-				</table>
-			</div>
-			<br />
-			<div align="center">
-				<input type="button"
-					onclick="verificarRegistroModificacion()"
-					value="Aceptar" />
-				<input type="button"
-					onclick="cancelarRegistrarPaso()"
-					value="Cancelar" />
-			</div>
-		</s:form>
-	</sj:dialog>
-	
 	
 	
 	<!-- Json de elementos -->

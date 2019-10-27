@@ -87,7 +87,7 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 	private Integer idSel;
 
 	private boolean existeTPrincipal;
-	private List<SelectDTO> listAlternativa;
+	private List<String> listAlternativa;
 	private Boolean alternativa;
 
 	private String observaciones;
@@ -178,6 +178,9 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 						modulo = moduloBs.consultarModuloById(idModulo);
 						casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
 						existeTPrincipal = trayectoriaBs.existeTrayectoriaPrincipal(idCasoUso);
+						if(existeTPrincipal) {
+							model.setAlternativa(Constantes.SELECT_ALTERNATIVA);
+						}
 						buscaElementos();
 						buscaCatalogos();
 						resultado = EDITNEW;
@@ -205,11 +208,10 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 
 	public void validateCreate() {
 		buscaCatalogos();
+		System.out.println(getFieldErrors());
+		System.out.println(getActionErrors());
 		if (!hasErrors()) {
 			try {
-				if(model.getAlternativa() == null) {
-					model.setAlternativa(Boolean.TRUE);
-				}
 				idCasoUso = (Integer) SessionManager.get("idCU");
 				casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
 				model.setIdCasoUso(casoUsoBase.getId());
@@ -248,6 +250,9 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 						buscaElementos();
 						buscaCatalogos();
 						existeTPrincipal = trayectoriaBs.existeTrayectoriaPrincipal(casoUsoBase.getId(), model.getId());
+						if(existeTPrincipal) {
+							model.setAlternativa(Constantes.SELECT_ALTERNATIVA);
+						}
 						prepararVista();
 						resultado = EDIT;
 					} else {
@@ -273,9 +278,6 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		buscaCatalogos();
 		if (!hasErrors()) {
 			try {
-				if(model.getAlternativa() == null) {
-					model.setAlternativa(Boolean.TRUE);
-				}
 				trayectoriaBs.modificarTrayectoria(model);
 			} catch (TESSERACTValidacionException tve) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
@@ -332,9 +334,9 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		listRealiza.add(Constantes.SELECT_SISTEMA);
 
 		// Se llena la lista par indicar si es alternativa o no
-		listAlternativa = new ArrayList<SelectDTO>();
-		listAlternativa.add(new SelectDTO( Boolean.FALSE,Constantes.SELECT_PRINCIPAL) );
-		listAlternativa.add(new SelectDTO( Boolean.TRUE,Constantes.SELECT_ALTERNATIVA));
+		listAlternativa = new ArrayList<String>();
+		listAlternativa.add(Constantes.SELECT_PRINCIPAL);
+		listAlternativa.add(Constantes.SELECT_ALTERNATIVA);
 
 		// Se extraen los verbos de la BD
 		listVerbos = trayectoriaBs.consultarVerbos();
@@ -553,11 +555,11 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 		this.existeTPrincipal = existeTPrincipal;
 	}
 
-	public List<SelectDTO> getListAlternativa() {
+	public List<String> getListAlternativa() {
 		return listAlternativa;
 	}
 
-	public void setListAlternativa(List<SelectDTO> listAlternativa) {
+	public void setListAlternativa(List<String> listAlternativa) {
 		this.listAlternativa = listAlternativa;
 	}
 
