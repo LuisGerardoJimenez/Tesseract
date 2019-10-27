@@ -49,6 +49,8 @@ import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 import mx.tesseract.util.SessionManager;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
@@ -78,7 +80,7 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<CasoUsoDTO> {
 
 	private static final long serialVersionUID = 1L;
-	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	private static final String PROYECTOS = "proyectos";
 	private static final String MODULOS = "modulos";
 	private static final String REVISION = "revision";
@@ -196,8 +198,10 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 				}
 			}
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "index", e);
 			ErrorManager.agregaMensajeError(this, e);
 		}
 		return resultado;
@@ -221,10 +225,13 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 				}
 			}
 		} catch (TESSERACTValidacionException tve) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 			ErrorManager.agregaMensajeError(this, tve);
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "editNew", e);
 			ErrorManager.agregaMensajeError(this, e);
 		}finally{
 			model.setClave(Clave.CU.toString());
@@ -251,10 +258,13 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 				}
 			}
 		} catch (TESSERACTValidacionException tve) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 			ErrorManager.agregaMensajeError(this, tve);
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "edit", e);
 			ErrorManager.agregaMensajeError(this, e);
 		}finally{
 			model.setClave(Clave.CU.toString());
@@ -376,14 +386,14 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 				casoUsoBs.preAlmacenarObjetosToken(casoUso);
 				casoUsoBs.registrarCasoUso(casoUso);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 			}finally {
 				model.setClave(Clave.CU.toString());
 			}
@@ -401,16 +411,16 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 			try {
 				casoUsoBs.eliminarCasoUso(model);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 				edit();
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 				edit();
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateDestroy", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 				edit();
 			}
 		}
@@ -454,16 +464,16 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 				casoUsoBs.modificarCasoUso(casoUso);
 				
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 				edit();
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 				edit();
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateUpdate", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 				edit();
 			}
 		}
@@ -485,9 +495,10 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "entrarPostprecondiciones", e);
 		}
 		return resultado;
 	}
@@ -502,9 +513,10 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "entrarTrayectorias", e);
 		}
 		return resultado;
 	}
@@ -550,58 +562,6 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 //		}
 //		System.out.println("Resultado: "+resultado);
 //		return resultado;
-//	}
-//
-//	public String destroy() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			model.setProyecto(proyecto);
-//			model.setModulo(modulo);
-//			CasoUsoBs.eliminarCasoUso(model);
-//			resultado = SUCCESS;
-//			addActionMessage(getText("MSG1", new String[] { "El",
-//					"Caso de uso", "eliminado" }));
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			SessionManager.set(this.getActionErrors(), "mensajesError");
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			SessionManager.set(this.getActionErrors(), "mensajesError");
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
-//
-//	private void agregarPostPrecondiciones(CasoUso casoUso) {
-//		// Se agregan precondiciones al caso de uso
-//		if (jsonPrecondiciones != null && !jsonPrecondiciones.equals("")) {
-//			casoUso.getPostprecondiciones().addAll(
-//					(JsonUtil.mapJSONToSet(jsonPrecondiciones,
-//							PostPrecondicion.class)));
-//		}
-//		// Se agregan postcondiciones al caso de uso
-//		if (jsonPostcondiciones != null && !jsonPostcondiciones.equals("")) {
-//			casoUso.getPostprecondiciones().addAll(
-//					JsonUtil.mapJSONToSet(jsonPostcondiciones,
-//							PostPrecondicion.class));
-//		}
-//		// Se agrega a cada elemento el caso de uso
-//		for (PostPrecondicion pp : casoUso.getPostprecondiciones()) {
-//			pp.setCasoUso(casoUso);
-//		}
 //	}
 //
 //	private void prepararVista() {
@@ -892,6 +852,33 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 //		}
 //		return resultado;
 //	}
+	
+	/*public String revisar() throws Exception {
+	String resultado = null;
+	try {
+		colaborador = SessionManager.consultarColaboradorActivo();
+		proyecto = SessionManager.consultarProyectoActivo();
+		modulo = SessionManager.consultarModuloActivo();
+		if (modulo == null) {
+			resultado = "modulos";
+			return resultado;
+		}
+		if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
+			resultado = Action.LOGIN;
+			return resultado;
+		}
+		model.setProyecto(proyecto);
+		model.setModulo(modulo);
+		resultado = SUCCESS;
+	} catch (TESSERACTException pe) {
+		ErrorManager.agregaMensajeError(this, pe);
+		resultado = index();
+	} catch (Exception e) {
+		ErrorManager.agregaMensajeError(this, e);
+		resultado = index();
+	}
+	return resultado;
+}*/
 		
 	public String getObservacionesPuntosExt() {
 		return observacionesPuntosExt;
@@ -900,33 +887,6 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	public void setObservacionesPuntosExt(String observacionesPuntosExt) {
 		this.observacionesPuntosExt = observacionesPuntosExt;
 	}
-
-	/*public String revisar() throws Exception {
-		String resultado = null;
-		try {
-			colaborador = SessionManager.consultarColaboradorActivo();
-			proyecto = SessionManager.consultarProyectoActivo();
-			modulo = SessionManager.consultarModuloActivo();
-			if (modulo == null) {
-				resultado = "modulos";
-				return resultado;
-			}
-			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-				resultado = Action.LOGIN;
-				return resultado;
-			}
-			model.setProyecto(proyecto);
-			model.setModulo(modulo);
-			resultado = SUCCESS;
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
-	}*/
 	
 	@VisitorFieldValidator
 	public CasoUsoDTO getModel() {

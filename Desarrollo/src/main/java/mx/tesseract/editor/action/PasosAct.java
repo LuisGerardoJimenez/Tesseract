@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.AllowedMethods;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
@@ -63,7 +65,7 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<PasoDTO> {
 	
 	private static final long serialVersionUID = 1L;
-
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	private static final String PROYECTOS = "proyectos";
 	private static final String TRAYECTORIAS = "trayectorias";
 	private static final String MODULOS = "modulos";
@@ -160,8 +162,10 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 				}
 			}
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "index", e);
 			ErrorManager.agregaMensajeError(this, e);
 		}
 		return resultado;
@@ -218,10 +222,12 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 					resultado = MODULOS;
 				}
 			}
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
+			ErrorManager.agregaMensajeError(this, te);
 			resultado = index();
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "editNew", e);
 			ErrorManager.agregaMensajeError(this, e);
 			resultado = index();
 		}
@@ -240,14 +246,14 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 				pasoBs.preAlmacenarObjetosToken(model , casoUsoBase , idModulo);
 				pasoBs.registrarPaso(model);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 			}
 		}
 	}
@@ -285,11 +291,12 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 					resultado = MODULOS;
 				}
 			}
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
+			ErrorManager.agregaMensajeError(this, te);
 			resultado = index();
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "edit", e);
 			ErrorManager.agregaMensajeError(this, e);
 			resultado = index();
 		}
@@ -308,16 +315,16 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 				pasoBs.preAlmacenarObjetosToken(model , casoUsoBase , idModulo);
 				pasoBs.modificarPaso(model);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 				edit();
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 				edit();
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateUpdate", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 				edit();
 			}
 		}
@@ -334,16 +341,16 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 			try {
 				pasoBs.eliminarPaso(model);
 			} catch (TESSERACTValidacionException tve) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				System.err.println(tve.getMessage());
 				edit();
 			} catch (TESSERACTException te) {
+				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				System.err.println(te.getMessage());
 				edit();
 			} catch (Exception e) {
+				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateDestroy", e);
 				ErrorManager.agregaMensajeError(this, e);
-				e.printStackTrace();
 				edit();
 			}
 		}
@@ -357,7 +364,7 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 	
 	private void buscaCatalogos() {
 		// Se llena la lista del catálogo de quien realiza
-		listRealiza = new ArrayList<SelectDTO>();
+		listRealiza = new ArrayList<>();
 		listRealiza.add(new SelectDTO(Boolean.TRUE, Constantes.SELECT_ACTOR));
 		listRealiza.add(new SelectDTO(Boolean.FALSE, Constantes.SELECT_SISTEMA));
 
@@ -372,11 +379,11 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 		List<Mensaje> listMensajes = mensajeBs.consultarMensajeProyecto(idProyecto);
 		List<Actor> listActores = actorBs.consultarActoresProyecto(idProyecto);
 		List<TerminoGlosario> listTerminosGls = terminoGlosarioBs.consultarGlosarioProyecto(idProyecto);
-		List<Atributo> listAtributos = new ArrayList<Atributo>();
-		List<Paso> listPasos = new ArrayList<Paso>();
+		List<Atributo> listAtributos = new ArrayList<>();
+		List<Paso> listPasos = new ArrayList<>();
 		List<CasoUso> listCasosUso = casoUsoBs.consultarCasosDeUso(idProyecto, idModulo);
-		List<Trayectoria> listTrayectorias = new ArrayList<Trayectoria>();
-		List<Accion> listAcciones = new ArrayList<Accion>();
+		List<Trayectoria> listTrayectorias = new ArrayList<>();
+		List<Accion> listAcciones = new ArrayList<>();
 		
 		for (Entidad entidad : listEntidades) {
 			for (Atributo atributo : entidad.getAtributos()) {
@@ -452,9 +459,10 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 			this.setActionMessages(msjs);
 			SessionManager.delete("mensajesAccion");
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "entrarPasos", e);
 		}
 		return resultado;
 	}
@@ -467,16 +475,16 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 			idModulo = (Integer) SessionManager.get("idModulo");
 			pasoBs.subirPaso(model);
 		} catch (TESSERACTValidacionException tve) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 			ErrorManager.agregaMensajeError(this, tve);
-			System.err.println(tve.getMessage());
 			index();
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
-			System.err.println(te.getMessage());
 			index();
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "subirPaso", e);
 			ErrorManager.agregaMensajeError(this, e);
-			e.printStackTrace();
 			index();
 		}
 		return index();
@@ -490,16 +498,16 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 			idModulo = (Integer) SessionManager.get("idModulo");
 			pasoBs.bajarPaso(model);
 		} catch (TESSERACTValidacionException tve) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 			ErrorManager.agregaMensajeError(this, tve);
-			System.err.println(tve.getMessage());
 			index();
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
-			System.err.println(te.getMessage());
 			index();
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "bajarPaso", e);
 			ErrorManager.agregaMensajeError(this, e);
-			e.printStackTrace();
 			index();
 		}
 		return index();

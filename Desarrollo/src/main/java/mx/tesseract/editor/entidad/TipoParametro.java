@@ -16,7 +16,6 @@ import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 
-import mx.tesseract.admin.entidad.Colaborador;
 
 @Entity
 @Table(name = "tipoparametro")

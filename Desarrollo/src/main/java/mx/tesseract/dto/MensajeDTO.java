@@ -26,7 +26,7 @@ public class MensajeDTO {
 	private List<MensajeParametro> parametros = new ArrayList<>();
 	
 	public MensajeDTO() {
-		
+//		Constructor por default	
 	}
 	
 	public Integer getId() {

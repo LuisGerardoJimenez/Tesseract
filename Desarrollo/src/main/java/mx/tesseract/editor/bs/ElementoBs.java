@@ -18,13 +18,13 @@ import mx.tesseract.util.TESSERACTException;
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class ElementoBs {
 	
-	private final static int ID_EDICION = 1;
-	private final static int ID_REVISION = 2;
-	private final static int ID_PENDIENTECORRECCION = 3;
-	private final static int ID_PORLIBERAR = 4;
-	private final static int ID_LIBERADO = 5;
-	private final static int ID_PRECONFIGURADO = 6;
-	private final static int ID_CONFIGURADO = 7;
+	private static final int ID_EDICION = 1;
+	private static final int ID_REVISION = 2;
+	private static final int ID_PENDIENTECORRECCION = 3;
+	private static final int ID_PORLIBERAR = 4;
+	private static final int ID_LIBERADO = 5;
+	private static final int ID_PRECONFIGURADO = 6;
+	private static final int ID_CONFIGURADO = 7;
 	
 	@Autowired
 	private GenericoDAO genericoDAO;

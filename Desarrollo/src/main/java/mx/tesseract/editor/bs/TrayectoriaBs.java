@@ -220,8 +220,7 @@ public class TrayectoriaBs {
 							auxTrayectoria.setCasoUso(auxCasoUso);
 							listTrayectorias.add(auxTrayectoria);
 							// Se obtienen los Pasos
-							List<Paso>pasos = tray.getPasos();//HOLI
-						//	Set<Paso> pasos = tray.getPasos();
+							List<Paso>pasos = tray.getPasos();
 							for (Paso paso : pasos) {
 								Paso auxPaso = new Paso();
 								auxPaso.setTrayectoria(auxTrayectoria);

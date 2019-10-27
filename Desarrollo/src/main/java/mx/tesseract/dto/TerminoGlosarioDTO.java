@@ -16,7 +16,7 @@ public class TerminoGlosarioDTO {
 	private String clave;
 	
 	public TerminoGlosarioDTO() {
-		
+//		Constructor por default
 	}
 	
 	public Integer getId() {

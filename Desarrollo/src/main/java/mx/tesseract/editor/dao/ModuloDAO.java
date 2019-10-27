@@ -24,7 +24,7 @@ public class ModuloDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Modulo> findByIdProyecto(Integer idProyecto) {
-		List<Modulo> lista = new ArrayList<Modulo>();
+		List<Modulo> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Modulo.findByIdProyecto", Modulo.class);
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
@@ -38,7 +38,7 @@ public class ModuloDAO {
 	@SuppressWarnings("unchecked")
 	public Modulo findModuloByNameAndProyecto(String name, Integer idProyecto) {
 		Modulo modulo = null;
-		List<Modulo> lista = new ArrayList<Modulo>();
+		List<Modulo> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Modulo.findByNameAndProyecto", Modulo.class);
 			query.setParameter(Constantes.NUMERO_UNO, name);
@@ -56,7 +56,7 @@ public class ModuloDAO {
 	@SuppressWarnings("unchecked")
 	public Modulo findModuloByClaveAndProyecto(String clave, Integer idProyecto) {
 		Modulo modulo = null;
-		List<Modulo> lista = new ArrayList<Modulo>();
+		List<Modulo> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Modulo.findByClaveAndProyecto", Modulo.class);
 			query.setParameter(Constantes.NUMERO_UNO, clave);
@@ -74,7 +74,7 @@ public class ModuloDAO {
 	@SuppressWarnings("unchecked")
 	public Modulo findModuloByNombreAndIdAndProyecto(String nombre, Integer idModulo, Integer idProyecto) {
 		Modulo modulo = null;
-		List<Modulo> lista = new ArrayList<Modulo>();
+		List<Modulo> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Modulo.findByNameAndIdAndProyecto", Modulo.class);
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
@@ -93,7 +93,7 @@ public class ModuloDAO {
 	@SuppressWarnings("unchecked")
 	public Modulo hasReferenciaElementos(Integer idModulo) {
 		Modulo modulo = null;
-		List<Modulo> lista = new ArrayList<Modulo>();
+		List<Modulo> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Modulo.hasReferenciaElementos", Modulo.class);
 			query.setParameter(Constantes.NUMERO_UNO, idModulo);

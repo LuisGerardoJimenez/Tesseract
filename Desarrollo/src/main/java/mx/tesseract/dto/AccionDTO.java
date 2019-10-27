@@ -24,6 +24,7 @@ public class AccionDTO {
 	
 	
 	public AccionDTO() {
+//		Constructor por default
 	}
 
 	public Integer getId() {

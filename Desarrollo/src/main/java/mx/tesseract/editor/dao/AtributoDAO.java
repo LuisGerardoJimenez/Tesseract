@@ -24,7 +24,7 @@ public class AtributoDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Atributo> findByIdEntidad(Integer idEntidad) {
-		List<Atributo> lista = new ArrayList<Atributo>();
+		List<Atributo> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Atributo.findByEntidad", Atributo.class);
 			query.setParameter(Constantes.NUMERO_UNO, idEntidad);
@@ -38,7 +38,7 @@ public class AtributoDAO {
 	@SuppressWarnings("unchecked")
 	public Atributo findAtributoByNombreAndEntidad(String nombre, Integer idEntidad) {
 		Atributo atributo = null;
-		List<Atributo> lista = new ArrayList<Atributo>();
+		List<Atributo> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Atributo.findByNameAndEntidad", Atributo.class);
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
@@ -56,7 +56,7 @@ public class AtributoDAO {
 	@SuppressWarnings("unchecked")
 	public Atributo findAtributoByNombreAndIdAndEntidad(String nombre, Integer idAtributo, Integer idEntidad) {
 		Atributo atributo = null;
-		List<Atributo> lista = new ArrayList<Atributo>();
+		List<Atributo> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Atributo.findByNameAndIdAndEntidad", Atributo.class);
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
