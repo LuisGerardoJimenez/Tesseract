@@ -138,5 +138,4 @@ public class TrayectoriaDTO {
 		this.finCasoUso = finCasoUso;
 	}
 	
-	
 }

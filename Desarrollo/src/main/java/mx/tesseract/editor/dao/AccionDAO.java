@@ -26,7 +26,7 @@ public class AccionDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Accion> findAllByPantalla(Integer idPantalla) {
-		List<Accion> lista = new ArrayList<Accion>();
+		List<Accion> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Accion.findByPantalla", Accion.class);
 			query.setParameter(Constantes.NUMERO_UNO, idPantalla);

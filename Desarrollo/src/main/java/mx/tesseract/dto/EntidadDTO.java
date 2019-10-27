@@ -15,6 +15,7 @@ public class EntidadDTO {
 	private Integer idProyecto;
 	
 	public EntidadDTO() {
+//		Constructor por default
 	}
 
 	public Integer getId() {

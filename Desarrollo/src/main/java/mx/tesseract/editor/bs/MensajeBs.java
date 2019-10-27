@@ -120,11 +120,11 @@ public class MensajeBs {
 		mensaje.setDescripcion(mensajeDTO.getDescripcion());
 		mensaje.setProyecto(proyecto);
 		mensaje.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
-		ArrayList<String> listParametrosDTO = new ArrayList<String>(); 
+		ArrayList<String> listParametrosDTO = new ArrayList<>(); 
 		for(Parametro parametro : obtenerParametros(mensajeDTO.getRedaccion(), proyecto.getId())) {
 			listParametrosDTO.add(parametro.getNombre());
 		}
-		ArrayList<String> listParametros = new ArrayList<String>(); 
+		ArrayList<String> listParametros = new ArrayList<>(); 
 		for(Parametro parametro : obtenerParametros(mensaje.getRedaccion(), proyecto.getId())) {
 			listParametros.add(parametro.getNombre());
 		}
@@ -190,7 +190,7 @@ public class MensajeBs {
 	public List<Parametro> obtenerParametros(String redaccion, int idProyecto) {
 		//Se convierte la lista de parametros en json para enviarlos a la vista
 		ArrayList<String> tokens = tokenBs.procesarTokenIpunt(redaccion);
-		ArrayList<Parametro> listParametros = new ArrayList<Parametro>();
+		ArrayList<Parametro> listParametros = new ArrayList<>();
 		Parametro parametroAux = null;
 		if(listParametros.size() > 10) {
 			throw new TESSERACTValidacionException("El usuario no ingresó la descripcion de algun parametros del mensaje.", "MSG6", new String[]{"10", "parámetros"}, 

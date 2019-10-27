@@ -19,6 +19,7 @@ public class PantallaDTO {
 	private byte[] pantallaB64;
 	
 	public PantallaDTO() {
+//		Constructor por default
 	}
 
 	public Integer getId() {

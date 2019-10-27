@@ -126,10 +126,10 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 			model.setIdProyecto(proyecto.getId());
 			listTipoRN = tipoReglaNegocioBs.consultarTipoReglaNegocio();
 			listEntidades = entidadBs.consultarEntidadesProyecto(proyecto.getId());
-			listAtributos = new ArrayList<AtributoDTO>();
+			listAtributos = new ArrayList<>();
 			listOperadores = operadorBs.consultarOperador();
 			listEntidades2 = entidadBs.consultarEntidadesProyecto(proyecto.getId());
-			listAtributos2 = new ArrayList<AtributoDTO>();
+			listAtributos2 = new ArrayList<>();
 			resultado = EDITNEW;
 		} catch (TESSERACTException te) {
 			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
@@ -212,8 +212,8 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 					listAtributos2 = atributoBs.consultarAtributosToRN(model.getIdEntidad2());
 				}
 				else {
-					listAtributos = new ArrayList<AtributoDTO>();
-					listAtributos2 = new ArrayList<AtributoDTO>();
+					listAtributos = new ArrayList<>();
+					listAtributos2 = new ArrayList<>();
 				}
 				resultado = EDIT;
 			}
@@ -265,7 +265,7 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 	
 	public String cargarAtributos() {
 
-		listAtributos = new ArrayList<AtributoDTO>();
+		listAtributos = new ArrayList<>();
 		try {
 			listAtributos= atributoBs.consultarAtributosToRN(entidadUC);
 		} catch (Exception e) {

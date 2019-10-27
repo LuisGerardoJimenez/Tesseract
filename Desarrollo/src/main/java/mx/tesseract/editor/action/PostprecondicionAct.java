@@ -202,11 +202,11 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 		List<Mensaje> listMensajes = mensajeBs.consultarMensajeProyecto(idProyecto);
 		List<Actor> listActores = actorBs.consultarActoresProyecto(idProyecto);
 		List<TerminoGlosario> listTerminosGls = terminoGlosarioBs.consultarGlosarioProyecto(idProyecto);
-		List<Atributo> listAtributos = new ArrayList<Atributo>();
-		List<Paso> listPasos = new ArrayList<Paso>();
+		List<Atributo> listAtributos = new ArrayList<>();
+		List<Paso> listPasos = new ArrayList<>();
 		List<CasoUso> listCasosUso = casoUsoBs.consultarCasosDeUso(idProyecto, idModulo);
-		List<Trayectoria> listTrayectorias = new ArrayList<Trayectoria>();
-		List<Accion> listAcciones = new ArrayList<Accion>();
+		List<Trayectoria> listTrayectorias = new ArrayList<>();
+		List<Accion> listAcciones = new ArrayList<>();
 		
 		for (Entidad entidad : listEntidades) {
 			for (Atributo atributo : entidad.getAtributos()) {
@@ -385,7 +385,7 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 	
 	private void buscaCatalogos() {
 		// Se llena la lista par indicar si es post o pre condición
-		listAlternativa = new ArrayList<SelectDTO>();
+		listAlternativa = new ArrayList<>();
 		listAlternativa.add(new SelectDTO(Boolean.FALSE, Constantes.SELECT_POSTCONDICION));
 		listAlternativa.add(new SelectDTO(Boolean.TRUE, Constantes.SELECT_PRECONDICION));
 	}

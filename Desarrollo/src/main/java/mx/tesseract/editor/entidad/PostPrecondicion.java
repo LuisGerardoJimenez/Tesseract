@@ -49,7 +49,7 @@ public class PostPrecondicion implements Serializable, GenericInterface {
 	private CasoUso casoUso;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "postPrecondicion")
-	private List<ReferenciaParametro> referencias = new ArrayList<ReferenciaParametro>();
+	private List<ReferenciaParametro> referencias = new ArrayList<>();
 
 	public PostPrecondicion() {
 	}

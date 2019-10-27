@@ -62,7 +62,7 @@ public class Paso implements Serializable, Comparable<Paso>, GenericInterface {
 	private String otroVerbo;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paso", orphanRemoval = true)
-	private List<ReferenciaParametro> referencias = new ArrayList<ReferenciaParametro>();
+	private List<ReferenciaParametro> referencias = new ArrayList<>();
 
 
 	public Paso() {

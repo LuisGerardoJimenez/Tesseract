@@ -37,7 +37,7 @@ public class ReglaNegocioDTO {
 	private String expresionRegular;
 
 	public ReglaNegocioDTO() {
-		
+//		Constructor por default
 	}
 	
 	public String getClave() {

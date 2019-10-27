@@ -41,7 +41,7 @@ public class ParametroDAO {
 	@SuppressWarnings("unchecked")
 	public Parametro consultarParametro(String nombre, int idProyecto) {
 		Parametro parametro = null;
-		List<Parametro> lista = new ArrayList<Parametro>();
+		List<Parametro> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Parametro.findByNombreAndProyectoId", Parametro.class);
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
@@ -58,7 +58,7 @@ public class ParametroDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Parametro> consultarParametros(int idProyecto) {
-		List<Parametro> lista = new ArrayList<Parametro>();
+		List<Parametro> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Parametro.findByIdProyecto", Parametro.class);
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
