@@ -130,7 +130,19 @@ var token = function() {
 		$('#inputorRedaccion').atwho(at_configRN).atwho(at_configENT)
 		.atwho(at_configMSG).atwho(at_configACT).atwho(at_configATR).atwho(at_configGLS)
 		.atwho(at_configCU).atwho(at_configIU).atwho(at_configTRAY).atwho(at_configP).atwho(at_configACC);
-
+		
+		
+		console.log(at_configRN,
+				at_configENT,
+				at_configCU,
+				at_configIU,
+				at_configMSG,
+				at_configACT,
+				at_configGLS,
+				at_configATR,
+				at_configP,
+				at_configTRAY,
+				at_configACC);
 	}
 
 	function cargaLista(tipo, token, listaObjetos) {

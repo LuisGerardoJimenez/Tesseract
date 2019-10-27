@@ -5,7 +5,7 @@ $(document).ready(function() {
 	contextPath = $("#rutaContexto").val();
 	$('table.tablaGestion').DataTable();
 	
-	var verbo = document.getElementById("paso.verbo");
+	var verbo = document.getElementById("model.verbo");
 	var verboTexto = verbo.options[verbo.selectedIndex].text;
 	
 	if (verboTexto == 'Otro' || verboTexto == 'Otra') {
@@ -228,9 +228,8 @@ function verificarAlternativaPrincipal() {
 	} 
 }
 
-function verificarOtro() {
-	var verbo = document.getElementById("paso.verbo");
-	var verboTexto = verbo.options[verbo.selectedIndex].text;
+function verificarOtro(element) {
+	var verboTexto = element.value;
 
 	if (verboTexto == 'Otro' || verboTexto == 'Otra') {
 		document.getElementById("otroVerbo").style.display = '';

@@ -42,7 +42,7 @@
 						<td><s:property
 								value="%{#paso.numero}" /></td>
 						<td>
-							<s:if test="%{#paso.realizaActor == 1}">
+							<s:if test="%{#paso.realizaActor == 'Actor'}">
 								<img id="" class="button" title="Realiza Actor"
 									src="${pageContext.request.contextPath}/resources/images/icons/actor.png" alt="actor"/>
 							</s:if>
