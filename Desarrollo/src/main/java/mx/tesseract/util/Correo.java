@@ -10,6 +10,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ import mx.tesseract.admin.entidad.Colaborador;
 @Service("correo")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class Correo {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 
     public void enviarCorreo(Colaborador obj, int sub) throws AddressException, MessagingException {
 
@@ -37,7 +41,7 @@ public class Correo {
             // Se construye el mensaje a enviar
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(uServidor));
-			// FIXME Sacar el mail de contactos
+			// Sacar el mail de contactos
 
 			//prueba de usuario
             //la contraseña con tamaño 6
@@ -106,9 +110,8 @@ public class Correo {
             Transport t = session.getTransport("smtp");
             t.connect(uServidor, pServidor);
             
-            //t.sendMessage(message, message.getAllRecipients());
             t.sendMessage(message, message.getAllRecipients());
-            System.out.println("Correo enviado...");
+            TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + "Correo enviado...");
 
             // Cierre.
             t.close();

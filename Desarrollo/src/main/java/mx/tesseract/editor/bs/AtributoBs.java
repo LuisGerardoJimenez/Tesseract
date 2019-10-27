@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.editor.entidad.Entidad;
-import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.TipoDato;
 import mx.tesseract.editor.entidad.UnidadTamanio;
 import mx.tesseract.util.Constantes;
@@ -159,7 +158,7 @@ public class AtributoBs {
 	
 	public List<AtributoDTO> consultarAtributosToRN(Integer idEntidad) {
 		List<Atributo> atributos = atributoDAO.findByIdEntidad(idEntidad);
-		List<AtributoDTO> atributosDTO = new ArrayList<AtributoDTO>(); 
+		List<AtributoDTO> atributosDTO = new ArrayList<>(); 
 		for(Atributo atributoItem : atributos) {
 			AtributoDTO atributoDTO = new AtributoDTO();
 			atributoDTO.setId(atributoItem.getId());

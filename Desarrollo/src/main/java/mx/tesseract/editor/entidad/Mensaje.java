@@ -39,17 +39,11 @@ public class Mensaje extends Elemento implements Serializable, GenericInterface,
 	private Boolean parametrizado;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mensaje", orphanRemoval = true)	
-	private List<MensajeParametro> parametros = new ArrayList<MensajeParametro>();
+	private List<MensajeParametro> parametros = new ArrayList<>();
 
 	public Mensaje() {
+//		Constructor por default
 	}
-
-//	public Mensaje(String clave, String numero, String nombre,
-//			Proyecto proyecto, String descripcion, EstadoElemento estadoElemento, String redaccion, boolean parametrizado) {
-//		super(clave, numero, nombre, proyecto, descripcion, estadoElemento);
-//		this.redaccion = redaccion;
-//		this.parametrizado = parametrizado;
-//	}
 
 	public String getRedaccion() {
 		return this.redaccion;

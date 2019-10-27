@@ -144,7 +144,7 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 			modulo = moduloBs.consultarModuloById(idModulo);
 			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
 			model.setIdCasoUso(casoUsoBase.getId());
-			listTrayectorias = new ArrayList<Trayectoria>();
+			listTrayectorias = new ArrayList<>();
 			for (Trayectoria t : casoUsoBase.getTrayectorias()) {
 				listTrayectorias.add(t);
 			}
@@ -329,12 +329,12 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 	
 	private void buscaCatalogos() {
 		// Se llena la lista del catálogo de quien realiza
-		listRealiza = new ArrayList<String>();
+		listRealiza = new ArrayList<>();
 		listRealiza.add(Constantes.SELECT_ACTOR);
 		listRealiza.add(Constantes.SELECT_SISTEMA);
 
 		// Se llena la lista par indicar si es alternativa o no
-		listAlternativa = new ArrayList<String>();
+		listAlternativa = new ArrayList<>();
 		listAlternativa.add(Constantes.SELECT_PRINCIPAL);
 		listAlternativa.add(Constantes.SELECT_ALTERNATIVA);
 
@@ -404,7 +404,6 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
 			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "entrarPasos", e);
-			e.printStackTrace();
 		}
 		return resultado;
 	}

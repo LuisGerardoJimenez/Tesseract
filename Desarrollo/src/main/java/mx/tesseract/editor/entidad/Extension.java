@@ -49,7 +49,7 @@ public class Extension implements Serializable, GenericInterface {
 	private CasoUso casoUsoDestino;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "extension", orphanRemoval = true)
-	private List<ReferenciaParametro> referencias = new ArrayList<ReferenciaParametro>();
+	private List<ReferenciaParametro> referencias = new ArrayList<>();
 
 
 	public Extension() {

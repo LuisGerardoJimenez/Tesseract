@@ -7,11 +7,8 @@ import java.util.ArrayList;
  * Luis Gerardo Jiménez
  */
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -26,7 +23,6 @@ import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.util.ElementoInterface;
 import mx.tesseract.util.GenericInterface;
 //import mx.tesseract.generadorPruebas.model.ValorPantallaTrayectoria;
@@ -49,7 +45,7 @@ public class Pantalla extends Elemento implements Serializable, GenericInterface
 	private Modulo modulo;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pantalla", orphanRemoval = true)
-	private List<Accion> acciones = new ArrayList<Accion>();
+	private List<Accion> acciones = new ArrayList<>();
 	
 	@Column(name = "patron")
 	private String patron;
@@ -57,6 +53,7 @@ public class Pantalla extends Elemento implements Serializable, GenericInterface
 //	private Set<ValorPantallaTrayectoria> valoresPantallaTrayectoria;
 
 	public Pantalla() {
+//		Constructor por default
 	}
 
 //	public Pantalla(String clave, String numero, String nombre,

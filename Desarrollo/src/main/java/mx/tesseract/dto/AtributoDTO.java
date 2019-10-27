@@ -27,6 +27,7 @@ public class AtributoDTO {
 	private Integer proyectoId;
 	
 	public AtributoDTO() {
+//		Constructor por default
 	}
 
 	public Integer getId() {

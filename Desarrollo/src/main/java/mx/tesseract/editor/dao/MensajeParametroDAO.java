@@ -9,12 +9,9 @@ import javax.persistence.Query;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.editor.entidad.MensajeParametro;
-import mx.tesseract.editor.entidad.Parametro;
 import mx.tesseract.util.Constantes;
 
 @Repository("mensajeParametroDAO")
@@ -28,7 +25,7 @@ public class MensajeParametroDAO {
 	@SuppressWarnings("unchecked")
 	public MensajeParametro consultarMensajeParametro(int idMensaje, int idParametro) {
 		MensajeParametro parametro = null;
-		List<MensajeParametro> lista = new ArrayList<MensajeParametro>();
+		List<MensajeParametro> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("MensajeParametro.findByIdParametroIdMensaje", MensajeParametro.class);
 			query.setParameter(Constantes.NUMERO_UNO, idMensaje);
@@ -46,7 +43,7 @@ public class MensajeParametroDAO {
 	@SuppressWarnings("unchecked")
 	public MensajeParametro consultarMensajeParametro(int idParametro) {
 		MensajeParametro parametro = null;
-		List<MensajeParametro> lista = new ArrayList<MensajeParametro>();
+		List<MensajeParametro> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("MensajeParametro.findByIdParametro", MensajeParametro.class);
 			query.setParameter(Constantes.NUMERO_UNO, idParametro);

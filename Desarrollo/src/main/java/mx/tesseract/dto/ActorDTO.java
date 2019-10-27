@@ -20,7 +20,7 @@ public class ActorDTO {
 	private String cardinalidadNombre;
 	
 	public ActorDTO() {
-		
+//		Constructor por default
 	}
 	
 	public Integer getId() {

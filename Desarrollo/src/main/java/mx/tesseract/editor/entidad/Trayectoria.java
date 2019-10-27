@@ -69,7 +69,7 @@ public class Trayectoria implements Serializable, Comparable<Trayectoria>, Gener
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "trayectoria", orphanRemoval = true)
 	@OrderBy("numero")
-	private List<Paso> pasos = new ArrayList<Paso>();
+	private List<Paso> pasos = new ArrayList<>();
 	
 	@Column(name = "Estado")
 	private String Estado;
