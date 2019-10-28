@@ -17,7 +17,7 @@
 			\item \cdtRef{casoUso:nombreCU}{Nombre} del caso de uso: Lo obtiene el sistema.
 			\item \cdtRef{entidadTray:nombreTray}{Nombre} de la trayectoria: Lo obtiene el sistema.
 			\item \cdtRef{entidadPaso}{Paso}: Tabla que muestra el \cdtRef{entidadPaso:numeroPaso}{Número} y \cdtRef{entidadPaso:numeroPaso}{redaccionPaso} de todos los pasos registrados en una trayectoria.
-			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU12A}{Pendiente} cuando no existen pasos registrados.
+			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU6.1.1.1.1.1}{Gestionar Pasos} cuando no existen pasos registrados.
 	\end{itemize}}
 	
 	\UCitem{Precondiciones}{Que exista al menos una trayectoria registrada.}
@@ -29,15 +29,15 @@
 \begin{UCtrayectoria}
 	\UCpaso[\UCactor] Solicita gestionar los pasos de una trayectoria seleccionando el icono (Pendiente) de la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias}.
 	\UCpaso[\UCsist] Obtiene la información de los pasos registrados de la trayectoria seleccionada. \hyperlink{CU12-1-1-1-1:TAA}{[Trayectoria A]}
-	\UCpaso[\UCsist] Ordena los pasos en base a los números de los mismos.
-	\UCpaso[\UCsist] Muestra la información de las pasos en la pantalla \IUref{IU12}{Pendiente} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}. \label{CU12-1-1-1-1-P4}
+	\UCpaso[\UCsist] Ordena los pasos en base en el orden en el que van siendo creados.
+	\UCpaso[\UCsist] Muestra la información de las pasos en la pantalla \IUref{IU6.1.1.1.1.1}{Gestionar Pasos} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}. \label{CU12-1-1-1-1-P4}
 	\UCpaso[\UCactor] Gestiona las pasos a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. 
 \end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU12-1-1-1-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} No existen registros de pasos.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU7A}{Pendiente} para indicar que no hay registros de pasos para mostrar.  \label{CU12-1-1-1-1-TA1}
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG2}{No existe información} en la pantalla \IUref{IU6.1.1.1.1.1}{Gestionar Pasos} para indicar que no hay registros de pasos para mostrar.  \label{CU12-1-1-1-1-TA1}
 	\UCpaso[\UCactor] Gestiona las pasos a través del botón: \IUbutton{Registrar}. 
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
