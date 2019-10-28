@@ -273,6 +273,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	}
 	
 	private void buscaElementos() {
+		idProyecto = (Integer) SessionManager.get("idProyecto");
 		List<ReglaNegocio> listReglasNegocio = reglaNegocioBs.consultarReglaNegocioProyecto(idProyecto);
 		List<Entidad> listEntidades = entidadBs.consultarEntidadesProyecto(idProyecto);
 		List<Pantalla> listPantallas = pantallaBs.consultarPantallas(idProyecto);
@@ -397,6 +398,8 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 			}finally {
 				model.setClave(Clave.CU.toString());
 			}
+		}else {
+			buscaElementos();
 		}
 	}
 	
@@ -476,6 +479,8 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 				ErrorManager.agregaMensajeError(this, e);
 				edit();
 			}
+		}else {
+			buscaElementos();
 		}
 	}
 	

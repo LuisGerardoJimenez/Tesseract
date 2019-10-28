@@ -85,7 +85,7 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 	private PasoDTO model;
 	private List<PasoDTO> listPasos;
 	private String jsonPasosTabla;
-	private List<SelectDTO> listRealiza;
+	private List<String> listRealiza;
 	private List<String> listVerbos;
 
 	private String jsonReglasNegocio;
@@ -254,7 +254,12 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 			} catch (Exception e) {
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
 				ErrorManager.agregaMensajeError(this, e);
+				e.printStackTrace();
+			}finally {
+				buscaElementos();
 			}
+		}else {
+			buscaElementos();
 		}
 	}
 
@@ -326,7 +331,12 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateUpdate", e);
 				ErrorManager.agregaMensajeError(this, e);
 				edit();
+			}finally {
+				buscaElementos();
 			}
+		}else {
+			buscaElementos();
+			buscaCatalogos();
 		}
 	}
 
@@ -364,15 +374,16 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 	
 	private void buscaCatalogos() {
 		// Se llena la lista del catálogo de quien realiza
-		listRealiza = new ArrayList<>();
-		listRealiza.add(new SelectDTO(Boolean.TRUE, Constantes.SELECT_ACTOR));
-		listRealiza.add(new SelectDTO(Boolean.FALSE, Constantes.SELECT_SISTEMA));
+		listRealiza = new ArrayList<String>();
+		listRealiza.add(Constantes.SELECT_ACTOR);
+		listRealiza.add(Constantes.SELECT_SISTEMA);
 
 		// Se extraen los verbos de la BD
 		listVerbos = trayectoriaBs.consultarVerbos();
 	}
 
 	private void buscaElementos() {
+		establecerEntidades();
 		List<ReglaNegocio> listReglasNegocio = reglaNegocioBs.consultarReglaNegocioProyecto(idProyecto);
 		List<Entidad> listEntidades = entidadBs.consultarEntidadesProyecto(idProyecto);
 		List<Pantalla> listPantallas = pantallaBs.consultarPantallas(idProyecto);
@@ -442,6 +453,15 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 			this.jsonAcciones = JsonUtil.mapListToJSON(listAcciones);
 		}
 
+	}
+
+	private void establecerEntidades() {
+		idProyecto = (Integer) SessionManager.get("idProyecto");
+		idCasoUso = (Integer) SessionManager.get("idCU");
+		casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+		idTrayectoria = (Integer) SessionManager.get("idTrayectoria");
+		idModulo = (Integer) SessionManager.get("idModulo");
+		model.setIdTrayectoria(idTrayectoria);
 	}
 
 	private void prepararVista() {
@@ -531,11 +551,11 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 		this.idCasoUso = idCasoUso;
 	}
 
-	public List<SelectDTO> getListRealiza() {
+	public List<String> getListRealiza() {
 		return listRealiza;
 	}
 
-	public void setListRealiza(List<SelectDTO> listRealiza) {
+	public void setListRealiza(List<String> listRealiza) {
 		this.listRealiza = listRealiza;
 	}
 

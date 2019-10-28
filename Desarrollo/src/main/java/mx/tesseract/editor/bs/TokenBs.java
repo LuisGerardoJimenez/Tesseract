@@ -898,21 +898,25 @@ public class TokenBs {
 						tokenRN + reglaNegocio.getId());
 				break;
 			case TRAYECTORIA:
-				if (segmentos.size() != 5) {
+				if (segmentos.size() < 4) {
 					errorEnToken("la", "trayectoria");
 				}
 				trayectoria = null;
 				casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
 						.replaceAll("_", " "), Clave.CU);
 				if (casoUso == null) {
-					String[] parametros = { "el", "caso de uso",
-							segmentos.get(1) + segmentos.get(2), "registrado" };
+					casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(3)
+							.replaceAll("_", " "), Clave.CU);
+					if(casoUso == null) {
+						String[] parametros = { "el", "caso de uso",
+								segmentos.get(1) + segmentos.get(2), "registrado" };
 
-					throw new TESSERACTValidacionException(
-							"TokenBs.convertirToken_Objeto: El caso de uso "
-									+ segmentos.get(1) + segmentos.get(2)
-									+ " no está registrado", "MSG15",
-							parametros);
+						throw new TESSERACTValidacionException(
+								"TokenBs.convertirToken_Objeto: El caso de uso "
+										+ segmentos.get(1) + segmentos.get(2)
+										+ " no está registrado", "MSG15",
+								parametros);	
+					}
 				}
 				for (Trayectoria t : casoUso.getTrayectorias()) {
 					if (t.getClave().equals(segmentos.get(4))) {
