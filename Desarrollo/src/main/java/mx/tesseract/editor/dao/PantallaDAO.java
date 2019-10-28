@@ -26,7 +26,7 @@ public class PantallaDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Pantalla> findAllByIdModulo(Integer idProyecto, Clave clave, Integer idModulo) {
-		List<Pantalla> pantallas = new ArrayList<Pantalla>();
+		List<Pantalla> pantallas = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Elemento.consultarPantallasByProyectoAndModulo", Elemento.class);
 			query.setParameter("idProyecto", idProyecto);
@@ -41,7 +41,7 @@ public class PantallaDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Pantalla> findByIdProyectoAndIdModulo(Integer idProyecto, Clave clave, Integer idModulo) {
-		List<Pantalla> pantallas = new ArrayList<Pantalla>();
+		List<Pantalla> pantallas = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Elemento.consultarPantallasByProyectoAndModulo", Elemento.class);
 			query.setParameter("idProyecto", idProyecto);

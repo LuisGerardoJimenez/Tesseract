@@ -47,8 +47,7 @@ public class AccionBs {
 	private RN018 rn018;
 	
 	public List<Accion> consultarAccionesByPantalla(Integer idPantalla) {
-		List<Accion> acciones = accionDAO.findAllByPantalla(idPantalla);
-		return acciones;
+		return accionDAO.findAllByPantalla(idPantalla);
 	}
 	
 	public AccionDTO consultarAccionDTO(Integer idAccion) {
@@ -71,7 +70,7 @@ public class AccionBs {
 	}
 	
 	public List<AccionDTO> consultarAccionesDTOByPantalla(Integer idPantalla) {
-		List<AccionDTO> accionesDTO = new ArrayList<AccionDTO>();
+		List<AccionDTO> accionesDTO = new ArrayList<>();
 		try {
 			List<Accion> acciones = accionDAO.findAllByPantalla(idPantalla);
 			for (Accion accion : acciones) {

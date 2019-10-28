@@ -42,8 +42,7 @@
 		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} cuando se registre un caso de uso con un nombre que ya se encuentre registrado en el sistema.
-		\item \cdtIdRef{MSG14}{Registro necesario}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} cuando el actor no registro ningún paso de la trayectoria.
-		\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias} cuando no exista información en el catálogo ''tipo''.
+		\item \cdtIdRef{MSG29}{Los catálogos nos contienen información}: Se muestra en la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias} cuando no exista información en el catálogo ''tipo''.
 		\end{itemize}.
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12.1.1}{Gestionar Trayectorias}.}
@@ -69,7 +68,7 @@
 \hypertarget{CU12-1-1-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} El catálogo ''tipo'' no tiene información.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Los catálogos nos contienen información} en la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------

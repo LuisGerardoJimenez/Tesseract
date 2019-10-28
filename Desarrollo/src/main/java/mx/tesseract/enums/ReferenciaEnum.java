@@ -2,6 +2,10 @@ package mx.tesseract.enums;
 
 import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.editor.entidad.Trayectoria;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import mx.tesseract.editor.entidad.Accion;
 import mx.tesseract.editor.entidad.Actor;
 import mx.tesseract.editor.entidad.Atributo;
@@ -35,6 +39,8 @@ import mx.tesseract.editor.entidad.ReglaNegocio;
 //import mx.tesseract.editor.entidad.Verbo;
 
 public class ReferenciaEnum {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	
 	private static String ACCION = "Accion";
 	private static String ACTOR = "Actor";
@@ -145,7 +151,6 @@ public class ReferenciaEnum {
 	}
 	
 	public static TipoReferencia getTipoReferencia(Object objeto){
-		System.out.println(objeto);
 		
 		if (objeto instanceof TerminoGlosario){
 			return TipoReferencia.TERMINOGLS;
@@ -181,7 +186,7 @@ public class ReferenciaEnum {
 		if (objeto instanceof Paso) {
 			return TipoReferencia.PASO;
 		}
-		System.out.println("No es instancia de ninguna clase");
+		TESSERACT_LOGGER.debug(ReferenciaEnum.class.getName() + ": " + "No es instancia de ninguna clase");
 
 		return null;
 	}

@@ -53,20 +53,44 @@
 				</tr>
 				<tr>
 					<td class="label obligatorio"><s:text name="labelTipo" /></td>
-					<td><s:select 
-						name="model.alternativa"
-						list="listAlternativa"
-						headerKey="-1" 
-						headerValue="Seleccione" 
-						listKey="valor"
-						listValue="nombre"
-						id="idAlternativaPrincipal"
-						value="model.alternativa"
-						cssErrorClass="select-error" onchange="cambiarElementosAlternativaPrincipal();" 
-						cssClass="inputFormulario ui-widget" />
-						<s:fielderror fieldName="alternativaPrincipal" cssClass="error"
+					<td>
+						<s:if test="existeTPrincipal">
+								<s:select 
+							list="listAlternativa"
+							headerKey="-1" 
+							headerValue="Seleccione"
+							value="model.alternativa"
+							disabled="true"
+							cssErrorClass="select-error" onchange="cambiarElementosAlternativaPrincipal();" 
+							cssClass="inputFormulario ui-widget" />
+							<s:select 
+								name="model.alternativa"
+								list="listAlternativa"
+								headerKey="-1" 
+								headerValue="Seleccione"
+								id="idAlternativaPrincipal"
+								value="model.alternativa"
+								style="display:none"
+								cssErrorClass="select-error" onchange="cambiarElementosAlternativaPrincipal();" 
+								cssClass="inputFormulario ui-widget" />
+							<s:fielderror fieldName="model.alternativa" cssClass="error"
 							theme="jquery" />
-						<p id="textoAyudaPA" class="textoAyuda" /></td>
+							<p id = "textoAyudaPA" class="textoAyuda">Solamente puede registrar Trayectorias alternativas, debido a que ya existe una Trayectoria principal.</p> 
+						</s:if>
+						<s:else>
+							<s:select 
+									name="model.alternativa"
+									list="listAlternativa"
+									headerKey="-1" 
+									headerValue="Seleccione"
+									id="idAlternativaPrincipal"
+									value="model.alternativa"
+									cssErrorClass="select-error" onchange="cambiarElementosAlternativaPrincipal();" 
+									cssClass="inputFormulario ui-widget" />
+								<s:fielderror fieldName="model.alternativa" cssClass="error"
+								theme="jquery" />
+						</s:else>
+					</td>
 				</tr>
 				<tr id="filaCondicion" style="display: none;">
 					<td class="label obligatorio"><s:text name="labelCondicion" /></td>

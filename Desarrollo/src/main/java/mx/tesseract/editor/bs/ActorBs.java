@@ -7,26 +7,11 @@ import mx.tesseract.br.RN006;
 import mx.tesseract.br.RN018;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.ActorDTO;
-import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
-//import mx.tesseract.bs.AnalisisEnum.CU_Actores;
-//import mx.tesseract.bs.ReferenciaEnum.TipoCatalogo;
-//import mx.tesseract.editor.bs.ElementoBs.Estado;
-//import mx.tesseract.editor.dao.ActorDAO;
-//import mx.tesseract.editor.dao.ActualizacionDAO;
-//import mx.tesseract.editor.dao.CardinalidadDAO;
-//import mx.tesseract.editor.dao.CasoUsoActorDAO;
-//import mx.tesseract.editor.dao.ReferenciaParametroDAO;
 import mx.tesseract.editor.entidad.Actor;
 import mx.tesseract.editor.entidad.Cardinalidad;
-import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
-//import mx.tesseract.editor.entidad.CasoUso;
-//import mx.tesseract.editor.entidad.CasoUsoActor;
-//import mx.tesseract.editor.entidad.Paso;
-//import mx.tesseract.editor.entidad.PostPrecondicion;
-//import mx.tesseract.editor.entidad.ReferenciaParametro;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
@@ -57,8 +42,7 @@ public class ActorBs {
 	private RN018 rn018;
 	
 	public List<Actor> consultarActoresProyecto(Integer idProyecto) {
-		List<Actor> listActores = elementoDAO.findAllByIdProyectoAndClave(Actor.class, idProyecto, Clave.ACT);
-		return listActores;
+		return elementoDAO.findAllByIdProyectoAndClave(Actor.class, idProyecto, Clave.ACT);
 	}
 	
 	public ActorDTO consultarActorById(Integer id) {

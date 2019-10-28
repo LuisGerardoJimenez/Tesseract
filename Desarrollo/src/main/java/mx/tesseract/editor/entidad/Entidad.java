@@ -30,7 +30,7 @@ public class Entidad extends Elemento implements Serializable, GenericInterface,
 	private static final long serialVersionUID = 1L;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "entidad",  orphanRemoval = true)
-	private List<Atributo> atributos = new ArrayList<Atributo>();
+	private List<Atributo> atributos = new ArrayList<>();
 	
 	public Entidad(){
 	}

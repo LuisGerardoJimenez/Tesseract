@@ -6,9 +6,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.util.StrutsTypeConverter;
 
 public class StrutsDateConverter extends StrutsTypeConverter {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 
 	@Override
 	public Object convertFromString(Map arg0, String[] arg1, Class arg2) {
@@ -21,7 +25,7 @@ public class StrutsDateConverter extends StrutsTypeConverter {
 		try {
 			fecha = formatter.parse(dia + "/" + mes + "/" + anio);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "convertFromString", e);
 		}
 
 		return fecha;

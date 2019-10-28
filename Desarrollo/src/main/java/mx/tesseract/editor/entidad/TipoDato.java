@@ -14,11 +14,6 @@ import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.ValidatorType;
-
-import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
 @Entity

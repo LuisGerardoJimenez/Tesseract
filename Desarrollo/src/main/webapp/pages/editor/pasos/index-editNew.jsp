@@ -38,19 +38,22 @@
 									name="model.realizaActor"
 									list="listRealiza"
 									headerKey="-1" 
-									headerValue="Seleccione" 
-									listKey="valor"
-									listValue="nombre"
-									id="idAlternativaPrincipal"
+									headerValue="Seleccione"
+									id="idRealizaActor"
 									value="model.realizaActor"
 									cssErrorClass="select-error" 
 									cssClass="inputFormulario ui-widget" />
+									<s:fielderror fieldName="model.realizaActor" cssClass="error"
+									theme="jquery" />
 						</td>
 						</tr>
 						<tr>
 							<td class="label obligatorio"><s:text name="labelVerbo"/></td>
 							<td><s:select list="listVerbos" cssClass="inputFormulario" name="model.verbo" id="model.verbo"
-       						cssErrorClass="input-error" headerKey="-1" headerValue="Seleccione" onchange="verificarOtro();"></s:select></td>
+       						cssErrorClass="input-error" headerKey="-1" headerValue="Seleccione" onchange="verificarOtro(this);"></s:select>
+       						<s:fielderror fieldName="model.verbo" cssClass="error"
+									theme="jquery" />
+       						</td>
 						</tr>
 						<tr style="display: none;" id = "otroVerbo">
 							<td class="label obligatorio"><s:text name="labelOtro" /></td>
@@ -61,7 +64,10 @@
 						<tr>
 							<td class="label obligatorio"><s:text name="labelRedaccion" /></td>
 							<td><s:textarea rows="5" name="model.redaccion" id="inputor" cssClass="inputFormularioExtraGrande ui-widget"
-									maxlength="999" cssErrorClass="input-error"></s:textarea></td>
+									maxlength="999" cssErrorClass="input-error"></s:textarea>
+									<s:fielderror fieldName="model.redaccion" cssClass="error"
+									theme="jquery" />
+							</td>
 						</tr>
 				</table>
 			</div>
@@ -121,24 +127,24 @@
 					value="Cancelar" />
 			</div>
 			
-			<!-- Json de elementos -->
-			<s:hidden name="jsonReglasNegocio" id="jsonReglasNegocio" value="%{jsonReglasNegocio}"/>
-			<s:hidden name="jsonEntidades" id="jsonEntidades" value="%{jsonEntidades}"/>
-			<s:hidden name="jsonCasosUsoProyecto" id="jsonCasosUsoProyecto" value="%{jsonCasosUsoProyecto}"/>
-			<s:hidden name="jsonPantallas" id="jsonPantallas" value="%{jsonPantallas}"/>
-			<s:hidden name="jsonMensajes" id="jsonMensajes" value="%{jsonMensajes}"/>
-			<s:hidden name="jsonActores" id="jsonActores" value="%{jsonActores}"/>
-			<s:hidden name="jsonTerminosGls" id="jsonTerminosGls" value="%{jsonTerminosGls}"/>
-			<s:hidden name="jsonAtributos" id="jsonAtributos" value="%{jsonAtributos}"/>
-			<s:hidden name="jsonPasos" id="jsonPasos" value="%{jsonPasos}"/>
-			<s:hidden name="jsonTrayectorias" id="jsonTrayectorias" value="%{jsonTrayectorias}"/>
-			<s:hidden name="jsonAcciones" id="jsonAcciones" value="%{jsonAcciones}"/>
-			<!-- Booleano que indica si existen trayectorias -->
-			<s:hidden id="existeTPrincipal" value="%{existeTPrincipal}"/>
+			
 		</s:form>
 	</sj:dialog>
 	
-	
+	<!-- Json de elementos -->
+	<s:hidden name="jsonReglasNegocio" id="jsonReglasNegocio" value="%{jsonReglasNegocio}"/>
+	<s:hidden name="jsonEntidades" id="jsonEntidades" value="%{jsonEntidades}"/>
+	<s:hidden name="jsonCasosUsoProyecto" id="jsonCasosUsoProyecto" value="%{jsonCasosUsoProyecto}"/>
+	<s:hidden name="jsonPantallas" id="jsonPantallas" value="%{jsonPantallas}"/>
+	<s:hidden name="jsonMensajes" id="jsonMensajes" value="%{jsonMensajes}"/>
+	<s:hidden name="jsonActores" id="jsonActores" value="%{jsonActores}"/>
+	<s:hidden name="jsonTerminosGls" id="jsonTerminosGls" value="%{jsonTerminosGls}"/>
+	<s:hidden name="jsonAtributos" id="jsonAtributos" value="%{jsonAtributos}"/>
+	<s:hidden name="jsonPasos" id="jsonPasos" value="%{jsonPasos}"/>
+	<s:hidden name="jsonTrayectorias" id="jsonTrayectorias" value="%{jsonTrayectorias}"/>
+	<s:hidden name="jsonAcciones" id="jsonAcciones" value="%{jsonAcciones}"/>
+	<!-- Booleano que indica si existen trayectorias -->
+	<s:hidden id="existeTPrincipal" value="%{existeTPrincipal}"/>
 	
 	
 	

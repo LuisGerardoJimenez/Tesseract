@@ -297,7 +297,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 						(Integer) SessionManager.get("idProyecto"));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "verificarParametros", e);
 		}
 		return "parametros";
 	}

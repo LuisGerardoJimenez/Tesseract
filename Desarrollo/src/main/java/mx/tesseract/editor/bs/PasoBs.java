@@ -43,7 +43,12 @@ public class PasoBs {
 		for(Paso paso : trayectoria.getPasos()) {
 			paso.setRedaccion(tokenBs.decodificarCadenasToken(paso
 					.getRedaccion()));
-			pasoDTO = new PasoDTO(paso.getId(), paso.getNumero(),paso.isRealizaActor(),paso.getRedaccion(),trayectoria.getId(),paso.getVerbo().getId(), paso.getVerbo().getNombre(), paso.getOtroVerbo());
+			String realizaActor = null;
+			if(paso.isRealizaActor())
+				realizaActor = Constantes.SELECT_ACTOR;
+			else
+				realizaActor = Constantes.SELECT_SISTEMA;
+			pasoDTO = new PasoDTO(paso.getId(), paso.getNumero(), realizaActor,paso.getRedaccion(),trayectoria.getId(),paso.getVerbo().getId(), paso.getVerbo().getNombre(), paso.getOtroVerbo());
 			pasosDTO.add(pasoDTO);
 		}
 		return pasosDTO;
@@ -57,7 +62,9 @@ public class PasoBs {
 		pasoDTO.setIdVerbo(paso.getVerbo().getId());
 		pasoDTO.setNumero(paso.getNumero());
 		pasoDTO.setOtroVerbo(paso.getOtroVerbo());
-		pasoDTO.setRealizaActor(paso.isRealizaActor());
+		
+		pasoDTO.setRealizaActor( (paso.isRealizaActor()) ? Constantes.SELECT_ACTOR : Constantes.SELECT_SISTEMA );
+		
 		pasoDTO.setRedaccion(paso.getRedaccion());
 		pasoDTO.setVerbo(paso.getVerbo().getNombre());
 		return pasoDTO;
@@ -71,7 +78,10 @@ public class PasoBs {
 			Paso entidad = new Paso();
 			entidad.setNumero(trayectoria.getPasos().size() + Constantes.NUMERO_UNO);
 			entidad.setOtroVerbo(model.getOtroVerbo());
-			entidad.setRealizaActor(model.getRealizaActor());
+			if(model.getRealizaActor().equals(Constantes.SELECT_ACTOR))
+				entidad.setRealizaActor(Boolean.TRUE);
+			else
+				entidad.setRealizaActor(Boolean.FALSE);
 			entidad.setRedaccion(model.getRedaccion());
 			entidad.setTrayectoria(trayectoria);
 			entidad.setVerbo(verbo);
@@ -111,7 +121,10 @@ public class PasoBs {
 			Verbo verbo = verboDAO.findByNombre(pasoDTO.getVerbo());
 			Paso paso = genericoDAO.findById(Paso.class, pasoDTO.getId());
 			paso.setOtroVerbo(pasoDTO.getOtroVerbo());
-			paso.setRealizaActor(pasoDTO.getRealizaActor());
+			if(pasoDTO.getRealizaActor().equals(Constantes.SELECT_ACTOR))
+				paso.setRealizaActor(Boolean.TRUE);
+			else
+				paso.setRealizaActor(Boolean.FALSE);
 			paso.setRedaccion(pasoDTO.getRedaccion());
 			paso.setVerbo(verbo);
 			genericoDAO.update(paso);
@@ -138,7 +151,7 @@ public class PasoBs {
 			anterior.setNumero(numero);
 			genericoDAO.update(actual);
 			genericoDAO.update(anterior);
-		}else {
+		} else {
 			throw new TESSERACTException("No puede realizar esta acción.", "MSG7");
 		}
 			

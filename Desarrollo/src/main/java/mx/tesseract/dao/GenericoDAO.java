@@ -25,7 +25,7 @@ public class GenericoDAO {
 	private EntityManager em;
 
 	public <T extends GenericInterface> List<T> findAll(Class<T> clase) {
-		List<T> resultados = new ArrayList<T>();
+		List<T> resultados = new ArrayList<>();
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(clase);
 		Root<T> root = criteriaQuery.from(clase);
