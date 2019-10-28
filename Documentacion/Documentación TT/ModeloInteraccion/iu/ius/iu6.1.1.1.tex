@@ -13,9 +13,6 @@
 \IUfig[1]{interfaces/IU6-1-1-1registrarTray}{IU6.1.1.1}{Registrar Trayectoria}
 \subsubsection{Comandos}
 \begin{itemize}
-	\item \IUbutton{Registrar}: Permite al actor solicitar el registro de un paso, dirige a la pantalla \IUref{IU6.1.1.1.1}{Registrar Paso}.
-	\item \editar [Modificar]: Permite al actor solicitar la modificación de un paso, dirige a la pantalla \IUref{IU6.1.1.1.2}{Modificar Paso}.
-	\item \eliminar [Eliminar]: Permite al actor solicitar la eliminación de un paso, dirige a una pantalla emergente.
 	\item \IUbutton{Aceptar}: Permite al actor confirmar la modificación de la trayectoria, dirige a la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias}.
 	\item \IUbutton{Cancelar}: Permite al actor cancelar la modificación de la trayectoria, dirige a la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias}.
 \end{itemize}
@@ -25,7 +22,8 @@
 \begin{Citemize}
 	\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias} para indicar que el registro fue exitoso.
 	\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} cuando no se ha ingresado un dato marcado como obligatorio.
-	\item \cdtIdRef{MSG5}{Dato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+	\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 	\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} cuando se ha excedido la longitud de alguno de los campos.
 	\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Registrar Trayectoria} se haya ingresado una clave que ya esté registrada.
+	\item \cdtIdRef{MSG29}{Los catálogos nos contienen información}: Se muestra en la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias} cuando no exista información en el catálogo ''Tipo''
 \end{Citemize}

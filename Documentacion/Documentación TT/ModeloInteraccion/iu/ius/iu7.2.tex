@@ -13,9 +13,6 @@
 \IUfig[.7]{interfaces/IU7-2modificarPantalla}{IU7.2}{Modificar Pantalla}
 \subsubsection{Comandos}
 \begin{itemize}
-	\item \IUbutton{Registrar}: Permite al actor solicitar el registro de una acción, dirige a la pantalla \IUref{IU7.1.1}{Registrar Acción}.
-	\item \editar [Modificar]: Permite al actor solicitar la modificación de una acción, dirige a la pantalla \IUref{IU7.1.2}{Modificar Acción}.
-	\item \eliminar [Eliminar]: Permite al actor solicitar la eliminación de una acción, dirige a una pantalla emergente.
 	\item \IUbutton{Aceptar}: Permite al actor guardar la modificación de la pantalla, dirige a la pantalla \IUref{IU7}{Gestionar Pantallas}.
 	\item \IUbutton{Cancelar}: Permite al actor cancelar la modificación de la pantalla, dirige a la pantalla \IUref{IU7}{Gestionar Pantallas}
 \end{itemize}
@@ -25,9 +22,11 @@
 \begin{Citemize}
 	\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU7}{Gestionar Pantallas} para indicar que la edición fue exitosa.
 	\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando no se ha ingresado un dato marcado como obligatorio.
-	\item \cdtIdRef{MSG5}{Dato incorrecto}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
+	\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
 	\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando se ha excedido la longitud de alguno de los campos.
 	\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando se registre una pantalla con un nombre o número que ya se encuentre registrado.
 	\item \cdtIdRef{MSG16}{Formato de archivo incorrecto}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando la imagen de la pantalla no cumpla con el formato especificado.
-	\item \cdtIdRef{MSG18}{Modificación no permitida}: Se muestra en la pantalla \IUref{IU7}{Gestionar Pantalla} cuando la pantalla que se desea modificar se encuentra asociada a casos de uso liberados.
+	\item \cdtIdRef{MSG17}{Se ha excedido el tamaño del archivo}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando la imagen de la pantalla exceda el tamaño especificado.
+	\item \cdtIdRef{MSG30}{Imagen obligatorio}: Se muestra en la pantalla \IUref{IU7.2}{Modificar Pantalla} cuando no se ha ingresado un campo de tipo archivo como obligatorio.
+	%\item \cdtIdRef{MSG18}{Modificación no permitida}: Se muestra en la pantalla \IUref{IU7}{Gestionar Pantalla} cuando la pantalla que se desea modificar se encuentra asociada a casos de uso liberados.
 \end{Citemize}
