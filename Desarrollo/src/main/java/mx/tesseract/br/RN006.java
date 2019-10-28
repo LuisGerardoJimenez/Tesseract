@@ -240,7 +240,7 @@ public class RN006 {
 			}
 		}else {
 			for(Paso paso : trayectoria.getPasos()) {
-				if(paso.getRedaccion().equals(model.getRedaccion()) && paso.getId().equals(model.getId()))
+				if(paso.getRedaccion().equals(model.getRedaccion()) && !paso.getId().equals(model.getId()) )
 					return false;
 			}
 		}

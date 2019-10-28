@@ -41,19 +41,19 @@
 									name="model.realizaActor"
 									list="listRealiza"
 									headerKey="-1" 
-									headerValue="Seleccione" 
-									listKey="valor"
-									listValue="nombre"
+									headerValue="Seleccione"
 									id="idAlternativaPrincipal"
 									value="model.realizaActor"
 									cssErrorClass="select-error" 
 									cssClass="inputFormulario ui-widget" />
+									<s:fielderror fieldName="model.realizaActor" cssClass="error"
+									theme="jquery" />
 						</td>
 						</tr>
 						<tr>
 							<td class="label obligatorio"><s:text name="labelVerbo"/></td>
 							<td><s:select list="listVerbos" cssClass="inputFormulario" name="model.verbo" id="model.verbo"
-       						cssErrorClass="input-error" headerKey="-1" headerValue="Seleccione" onchange="verificarOtro();"></s:select></td>
+       						cssErrorClass="input-error" headerKey="-1" headerValue="Seleccione" onchange="verificarOtro(this);"></s:select></td>
 						</tr>
 						<tr style="display: none;" id = "otroVerbo">
 							<td class="label obligatorio"><s:text name="labelOtro" /></td>
@@ -64,7 +64,10 @@
 						<tr>
 							<td class="label obligatorio"><s:text name="labelRedaccion" /></td>
 							<td><s:textarea rows="5" name="model.redaccion" id="inputor" cssClass="inputFormularioExtraGrande ui-widget"
-									maxlength="999" cssErrorClass="input-error"></s:textarea></td>
+									maxlength="999" cssErrorClass="input-error"></s:textarea>
+								<s:fielderror fieldName="model.redaccion" cssClass="error"
+									theme="jquery" />
+							</td>
 						</tr>
 				</table>
 			</div>
