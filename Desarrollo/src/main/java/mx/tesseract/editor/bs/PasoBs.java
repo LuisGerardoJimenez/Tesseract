@@ -138,7 +138,7 @@ public class PasoBs {
 			anterior.setNumero(numero);
 			genericoDAO.update(actual);
 			genericoDAO.update(anterior);
-		}else {
+		} else {
 			throw new TESSERACTException("No puede realizar esta acción.", "MSG7");
 		}
 			

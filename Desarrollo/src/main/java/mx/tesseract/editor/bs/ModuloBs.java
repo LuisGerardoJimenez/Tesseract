@@ -17,11 +17,6 @@ import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.util.TESSERACTException;
-//import mx.tesseract.editor.dao.CasoUsoActorDAO;
-//import mx.tesseract.editor.model.Pantalla;
-//import mx.tesseract.editor.model.Paso;
-//import mx.tesseract.editor.model.PostPrecondicion;
-//import mx.tesseract.editor.model.ReferenciaParametro;
 import mx.tesseract.util.TESSERACTValidacionException;
 
 @Service("moduloBS")
@@ -47,8 +42,7 @@ public class ModuloBs {
 	private ProyectoBs proyectoBs;
 
 	public List<Modulo> consultarModulosProyecto(Integer idProyecto) {
-		List<Modulo> modulos = moduloDAO.findByIdProyecto(idProyecto);
-		return modulos;
+		return moduloDAO.findByIdProyecto(idProyecto);
 	}
 
 	public Modulo consultarModuloById(Integer id) {

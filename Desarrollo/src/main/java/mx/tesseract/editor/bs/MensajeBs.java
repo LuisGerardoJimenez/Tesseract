@@ -178,13 +178,13 @@ public class MensajeBs {
 	}
 	
 	/* FUNCIONES ADICIONALES */
-	public boolean esParametrizado(String redaccion) {
+	public Boolean esParametrizado(String redaccion) {
+		Boolean valido = true;
 		ArrayList<String> tokens = tokenBs.procesarTokenIpunt(redaccion);
-		if(tokens.size() == 0) {
-			return false;
-		} else {
-			return true;
+		if(tokens.isEmpty()) {
+			valido = false;
 		}
+		return valido;
 	}
 	
 	public List<Parametro> obtenerParametros(String redaccion, int idProyecto) {
@@ -215,8 +215,7 @@ public class MensajeBs {
 	}
 	
 	public Parametro consultarParametro(String nombre, int idProyecto) {
-		Parametro parametro = parametroDAO.consultarParametro(nombre, idProyecto);
-		return parametro;
+		return parametroDAO.consultarParametro(nombre, idProyecto);
 	}
 	
 	private static boolean pertecene(Parametro parametro,
@@ -229,8 +228,7 @@ public class MensajeBs {
 		return false;
 	}
 	
-	public List<Parametro> consultarParametros(int idProyecto) {
-		List<Parametro> listParametros = parametroDAO.consultarParametros(idProyecto);
-		return listParametros;
+	public List<Parametro> consultarParametros(Integer idProyecto) {
+		return parametroDAO.consultarParametros(idProyecto);
 	}
 }

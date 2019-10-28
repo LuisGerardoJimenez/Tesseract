@@ -43,13 +43,13 @@ public final class Constantes {
 	public static final Integer ROL_ANALISTA = 2;
 	
 	//ESTADOS ELEMENTO
-	public final static Integer ESTADO_ELEMENTO_EDICION = Constantes.NUMERO_UNO;
-	public final static Integer ESTADO_ELEMENTO_REVISION = Constantes.NUMERO_DOS;
-	public final static Integer ESTADO_ELEMENTO_PENDIENTECORRECCION = Constantes.NUMERO_TRES;
-	public final static Integer ESTADO_ELEMENTO_PORLIBERAR = Constantes.NUMERO_CUATRO;
-	public final static Integer ESTADO_ELEMENTO_LIBERADO = Constantes.NUMERO_CINCO;
-	public final static Integer ESTADO_ELEMENTO_PRECONFIGURADO = Constantes.NUMERO_SEIS;
-	public final static Integer ESTADO_ELEMENTO_CONFIGURADO = Constantes.NUMERO_SIETE;
+	public static final Integer ESTADO_ELEMENTO_EDICION = Constantes.NUMERO_UNO;
+	public static final Integer ESTADO_ELEMENTO_REVISION = Constantes.NUMERO_DOS;
+	public static final Integer ESTADO_ELEMENTO_PENDIENTECORRECCION = Constantes.NUMERO_TRES;
+	public static final Integer ESTADO_ELEMENTO_PORLIBERAR = Constantes.NUMERO_CUATRO;
+	public static final Integer ESTADO_ELEMENTO_LIBERADO = Constantes.NUMERO_CINCO;
+	public static final Integer ESTADO_ELEMENTO_PRECONFIGURADO = Constantes.NUMERO_SEIS;
+	public static final Integer ESTADO_ELEMENTO_CONFIGURADO = Constantes.NUMERO_SIETE;
 	
 	//TIPOS DE DATO
 	public static final Integer TIPO_DATO_CADENA = 1;

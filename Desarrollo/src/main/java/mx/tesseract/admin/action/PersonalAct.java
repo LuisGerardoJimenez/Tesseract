@@ -47,9 +47,10 @@ public class PersonalAct extends ActionSupportTESSERACT implements ModelDriven<C
 			this.setActionMessages(msjs);
 			SessionManager.delete(Constantes.MENSAJES_ACCION);
 		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "index", e);
 		}
 		return INDEX;
 	}

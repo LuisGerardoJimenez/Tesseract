@@ -14,7 +14,7 @@ public class TESSERACTLogger {
     public static void error(String source, String message, Throwable t) {
     	TESSERACT_LOGGER.error(source + ":" + message, t);
         if (debug) {
-            t.printStackTrace();
+        	TESSERACT_LOGGER.error(TESSERACTLogger.class.getName() + ": " + "index", t);
         }
     }
 

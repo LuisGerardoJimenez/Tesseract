@@ -107,7 +107,7 @@ public class TokenBs {
 	public static String tokenPARAM = "PARAM" + tokenSeparator1;
 
 	public ArrayList<String> procesarTokenIpunt(String cadena) {
-		ArrayList<String> tokens = new ArrayList<String>();
+		ArrayList<String> tokens = new ArrayList<>();
 		String pila = "";
 		String token = "";
 		char caracter;
@@ -274,7 +274,7 @@ public class TokenBs {
 			Proyecto proyecto, Integer idModulo) {
 
 		ArrayList<String> tokens = procesarTokenIpunt(redaccion);
-		ArrayList<Object> objetos = new ArrayList<Object>();
+		ArrayList<Object> objetos = new ArrayList<>();
 		ArrayList<String> segmentos;
 
 		Atributo atributo;

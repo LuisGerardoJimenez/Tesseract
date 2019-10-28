@@ -10,7 +10,6 @@ import javax.persistence.Query;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.CasoUsoActor;
-//import mx.tesseract.editor.entidad.Actualizacion;
 import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
