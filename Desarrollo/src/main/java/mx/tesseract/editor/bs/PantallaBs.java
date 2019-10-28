@@ -57,13 +57,11 @@ public class PantallaBs {
 	private ElementoDAO elementoDAO;
 
 	public  List<Pantalla> consultarPantallasByModulo(Integer idProyecto, Integer idModulo) {
-		List<Pantalla> listPantallas = pantallaDAO.findAllByIdModulo(idProyecto, Clave.IU, idModulo);
-		return listPantallas;
+		return pantallaDAO.findAllByIdModulo(idProyecto, Clave.IU, idModulo);
 	}
 	
 	public List<Pantalla> consultarPantallas(Integer idProyecto) {
-		List<Pantalla> listPantallas = elementoDAO.findAllByIdProyectoAndClave(Pantalla.class, idProyecto, Clave.IU);
-		return listPantallas;
+		return elementoDAO.findAllByIdProyectoAndClave(Pantalla.class, idProyecto, Clave.IU);
 	}
 	
 	public Pantalla consultarPantalla(Integer idPantalla) {

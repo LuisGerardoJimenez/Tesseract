@@ -40,8 +40,7 @@ public class EntidadBs {
 	private RN018 rn018;
 	
 	public List<Entidad> consultarEntidadesProyecto(Integer idProyecto) {
-		List<Entidad> listEntidades = elementoDAO.findAllByIdProyectoAndClave(Entidad.class, idProyecto, Clave.ENT);
-		return listEntidades;
+		return elementoDAO.findAllByIdProyectoAndClave(Entidad.class, idProyecto, Clave.ENT);
 	}
 	
 	public EntidadDTO consultarEntidadDTOById(Integer id) {

@@ -1,18 +1,14 @@
 package mx.tesseract.editor.bs;
 
-import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.br.RN006;
 import mx.tesseract.br.RN018;
 import mx.tesseract.enums.ReferenciaEnum;
-import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.enums.ReferenciaEnum.TipoCatalogo;
 import mx.tesseract.enums.ReferenciaEnum.TipoSeccion;
 import mx.tesseract.dao.GenericoDAO;
-import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.dto.TrayectoriaDTO;
 import mx.tesseract.editor.dao.ElementoDAO;
-import mx.tesseract.editor.dao.MensajeParametroDAO;
 import mx.tesseract.editor.dao.ParametroDAO;
 import mx.tesseract.editor.entidad.Accion;
 import mx.tesseract.editor.entidad.Actor;
@@ -21,7 +17,6 @@ import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.editor.entidad.Entidad;
 import mx.tesseract.editor.entidad.Mensaje;
-import mx.tesseract.editor.entidad.MensajeParametro;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
 import mx.tesseract.editor.entidad.Parametro;
@@ -59,15 +54,9 @@ public class TrayectoriaBs {
 
 	@Autowired
 	private GenericoDAO genericoDAO;
-
-	@Autowired
-	private ElementoBs elementoBs;
 	
 	@Autowired
 	private ParametroDAO parametroDAO;
-	
-	@Autowired
-	private MensajeParametroDAO mensajeParametroDAO;
 
 	/*LO NUEVO*/
 	@Autowired
@@ -107,19 +96,19 @@ public class TrayectoriaBs {
 
 	
 	/* FUNCIONES ADICIONALES */
-	public boolean esParametrizado(String redaccion) {
+	public Boolean esParametrizado(String redaccion) {
+		Boolean valido = true;
 		ArrayList<String> tokens = tokenBs.procesarTokenIpunt(redaccion);
-		if(tokens.size() == 0) {
-			return false;
-		} else {
-			return true;
+		if(tokens.isEmpty()) {
+			valido = false;
 		}
+		return valido;
 	}
 	
 	public List<Parametro> obtenerParametros(String redaccion, int idProyecto) {
 		//Se convierte la lista de parametros en json para enviarlos a la vista
 		ArrayList<String> tokens = tokenBs.procesarTokenIpunt(redaccion);
-		ArrayList<Parametro> listParametros = new ArrayList<Parametro>();
+		ArrayList<Parametro> listParametros = new ArrayList<>();
 		Parametro parametroAux = null;
 		if(listParametros.size() > 10) {
 			throw new TESSERACTValidacionException("El usuario no ingresó la descripcion de algun parametros del mensaje.", "MSG6", new String[]{"10", "parámetros"}, 
@@ -144,8 +133,7 @@ public class TrayectoriaBs {
 	}
 	
 	public Parametro consultarParametro(String nombre, int idProyecto) {
-		Parametro parametro = parametroDAO.consultarParametro(nombre, idProyecto);
-		return parametro;
+		return parametroDAO.consultarParametro(nombre, idProyecto);
 	}
 	
 	private static boolean pertecene(Parametro parametro,
@@ -159,25 +147,24 @@ public class TrayectoriaBs {
 	}
 	
 	public List<Parametro> consultarParametros(int idProyecto) {
-		List<Parametro> listParametros = parametroDAO.consultarParametros(idProyecto);
-		return listParametros;
+		return parametroDAO.consultarParametros(idProyecto);
 	}
 
 	public TrayectoriaDTO buscaElementos(Integer idProyecto, Integer idCU) {
 		TrayectoriaDTO trayectoriaDTO = new TrayectoriaDTO();
 		// Lists de los elementos disponibles
 		List<Elemento> listElementos;
-		List<ReglaNegocio> listReglasNegocio = new ArrayList<ReglaNegocio>();
-		List<Entidad> listEntidades = new ArrayList<Entidad>();
-		List<CasoUso> listCasosUso = new ArrayList<CasoUso>();
-		List<Pantalla> listPantallas = new ArrayList<Pantalla>();
-		List<Mensaje> listMensajes = new ArrayList<Mensaje>();
-		List<Actor> listActores = new ArrayList<Actor>();
-		List<TerminoGlosario> listTerminosGls = new ArrayList<TerminoGlosario>();
-		List<Atributo> listAtributos = new ArrayList<Atributo>();
-		List<Paso> listPasos = new ArrayList<Paso>();
-		List<Trayectoria> listTrayectorias = new ArrayList<Trayectoria>();
-		List<Accion> listAcciones = new ArrayList<Accion>();
+		List<ReglaNegocio> listReglasNegocio = new ArrayList<>();
+		List<Entidad> listEntidades = new ArrayList<>();
+		List<CasoUso> listCasosUso = new ArrayList<>();
+		List<Pantalla> listPantallas = new ArrayList<>();
+		List<Mensaje> listMensajes = new ArrayList<>();
+		List<Actor> listActores = new ArrayList<>();
+		List<TerminoGlosario> listTerminosGls = new ArrayList<>();
+		List<Atributo> listAtributos = new ArrayList<>();
+		List<Paso> listPasos = new ArrayList<>();
+		List<Trayectoria> listTrayectorias = new ArrayList<>();
+		List<Accion> listAcciones = new ArrayList<>();
 
 		// Se consultan los elementos de todo el proyecto
 		listElementos = elementoDAO.findAllByIdProyecto(idProyecto);
@@ -354,7 +341,7 @@ public class TrayectoriaBs {
 		}
 		catalogoBs.opcionOtro(lv, TipoCatalogo.VERBO);
 
-		List<String> verbos = new ArrayList<String>();
+		List<String> verbos = new ArrayList<>();
 		for (Verbo v : lv) {
 			verbos.add(v.getNombre());
 		}
@@ -444,7 +431,6 @@ public class TrayectoriaBs {
 	}
 
 	public CasoUso buscarCasoUsoByTrayectoria(TrayectoriaDTO model) {
-		CasoUso casoUso = genericoDAO.findById(CasoUso.class, model.getIdCasoUso());
-		return casoUso;
+		return genericoDAO.findById(CasoUso.class, model.getIdCasoUso());
 	}
 }

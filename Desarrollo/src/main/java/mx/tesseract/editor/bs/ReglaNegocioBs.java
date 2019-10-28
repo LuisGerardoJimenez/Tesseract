@@ -44,8 +44,7 @@ public class ReglaNegocioBs {
 	private RN018 rn018;
 	
 	public List<ReglaNegocio> consultarReglaNegocioProyecto(Integer idProyecto) {
-		List<ReglaNegocio> listReglaNegocio = elementoDAO.findAllByIdProyectoAndClave(ReglaNegocio.class, idProyecto, Clave.RN);
-		return listReglaNegocio;
+		return elementoDAO.findAllByIdProyectoAndClave(ReglaNegocio.class, idProyecto, Clave.RN);
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
