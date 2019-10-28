@@ -3,7 +3,6 @@ package mx.tesseract.editor.action;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Proyecto;
@@ -316,9 +315,6 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setModel(PantallaDTO model) {
 		this.model = model;
-	}
-
-	public void setSession(Map<String, Object> arg0) {
 	}
 
 	public Proyecto getProyecto() {

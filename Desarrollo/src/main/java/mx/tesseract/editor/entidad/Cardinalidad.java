@@ -31,6 +31,7 @@ public class Cardinalidad implements Serializable, GenericInterface {
 	private String nombre;
 
 	public Cardinalidad() {
+//		Constructor por default
 	}
 
 	public Integer getId() {

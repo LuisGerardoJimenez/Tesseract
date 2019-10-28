@@ -9,7 +9,6 @@ import javax.persistence.Query;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -42,7 +41,7 @@ public class PasoDAO{
 	@SuppressWarnings("unchecked")
 	public Parametro consultarParametro(String nombre, int idProyecto) {
 		Parametro parametro = null;
-		List<Parametro> lista = new ArrayList<Parametro>();
+		List<Parametro> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Parametro.findByNombreAndProyectoId", Parametro.class);
 			query.setParameter(Constantes.NUMERO_UNO, nombre);
@@ -59,7 +58,7 @@ public class PasoDAO{
 
 	@SuppressWarnings("unchecked")
 	public List<Parametro> consultarParametros(int idProyecto) {
-		List<Parametro> lista = new ArrayList<Parametro>();
+		List<Parametro> lista = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Parametro.findByIdProyecto", Parametro.class);
 			query.setParameter(Constantes.NUMERO_UNO, idProyecto);

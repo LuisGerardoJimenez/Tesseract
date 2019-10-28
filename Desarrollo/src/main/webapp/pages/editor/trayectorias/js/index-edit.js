@@ -239,11 +239,6 @@ function ocultarColumnas(tabla) {
 function verificarAlternativaPrincipal() {
 	var existeTPrincipal = document.getElementById("existeTPrincipal").value;
 	var select = document.getElementById("idAlternativaPrincipal");
-	if(existeTPrincipal == "true") {
-		select.selectedIndex = 2;
-		select.disabled = true;
-		document.getElementById("textoAyudaPA").innerHTML = "Solamente puede registrar Trayectorias alternativas, debido a que ya existe una Trayectoria principal.";
-	} 
 }
 
 function verificarOtro() {

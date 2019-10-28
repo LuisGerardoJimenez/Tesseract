@@ -1,7 +1,5 @@
 package mx.tesseract.editor.entidad;
 
-import javax.persistence.CascadeType;
-
 /*
  * Diego Efrain López Orozco
  */
@@ -55,7 +53,7 @@ public class Parametro implements Serializable, GenericInterface {
 	private Proyecto proyecto;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parametro", orphanRemoval = true)	
-	private Set<MensajeParametro> parametros = new HashSet<MensajeParametro>(0);
+	private Set<MensajeParametro> parametros = new HashSet<>(0);
 	
 	
 	public Parametro() {

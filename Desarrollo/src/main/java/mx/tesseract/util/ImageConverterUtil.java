@@ -5,8 +5,12 @@ import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ImageConverterUtil {
+	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	
 	public static byte[] parsePNGB64StringToBytes(String string) {
 		if(string != null && !string.equals("")) {
@@ -42,7 +46,7 @@ public class ImageConverterUtil {
 			byte[] fileContent = FileUtils.readFileToByteArray(new File(file.getAbsolutePath()));
 			cadenaB64 = Base64.getEncoder().encodeToString(fileContent);
 		} catch (Exception e) {
-			 e.printStackTrace();
+			TESSERACT_LOGGER.error(ImageConverterUtil.class + ": " + "parseFileToBASE64String", e);
 		}
 		return cadenaB64;
 	}
@@ -59,7 +63,7 @@ public class ImageConverterUtil {
 			String cadenaB64 = Base64.getEncoder().encodeToString(fileContent);
 			byteB64 = cadenaB64.getBytes();
 		} catch (Exception e) {
-			 e.printStackTrace();
+			TESSERACT_LOGGER.error(ImageConverterUtil.class + ": " + "parseFileToBASE64ByteArray", e);
 		}
 		return byteB64;
 	}
@@ -72,7 +76,7 @@ public class ImageConverterUtil {
 				string = new String(bytes);
 			} 
 		} catch (Exception e) {
-			e.printStackTrace();
+			TESSERACT_LOGGER.error(ImageConverterUtil.class + ": " + "parseBytesToB64String", e);
 		}
 		return string;
 	}

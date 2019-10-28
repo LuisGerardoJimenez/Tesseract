@@ -40,8 +40,7 @@ public class TerminoGlosarioBs {
 	private ElementoBs elementoBs;
 
 	public List<TerminoGlosario> consultarGlosarioProyecto(Integer idProyecto) {
-		List<TerminoGlosario> listGlosario = elementoDAO.findAllByIdProyectoAndClave(TerminoGlosario.class, idProyecto, Clave.GLS);
-		return listGlosario;
+		return elementoDAO.findAllByIdProyectoAndClave(TerminoGlosario.class, idProyecto, Clave.GLS);
 	}
 
 	public TerminoGlosarioDTO consultarTerminoGlosarioById(Integer id) {

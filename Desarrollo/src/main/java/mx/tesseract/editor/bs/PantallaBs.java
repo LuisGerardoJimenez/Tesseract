@@ -57,13 +57,11 @@ public class PantallaBs {
 	private ElementoDAO elementoDAO;
 
 	public  List<Pantalla> consultarPantallasByModulo(Integer idProyecto, Integer idModulo) {
-		List<Pantalla> listPantallas = pantallaDAO.findAllByIdModulo(idProyecto, Clave.IU, idModulo);
-		return listPantallas;
+		return pantallaDAO.findAllByIdModulo(idProyecto, Clave.IU, idModulo);
 	}
 	
 	public List<Pantalla> consultarPantallas(Integer idProyecto) {
-		List<Pantalla> listPantallas = elementoDAO.findAllByIdProyectoAndClave(Pantalla.class, idProyecto, Clave.IU);
-		return listPantallas;
+		return elementoDAO.findAllByIdProyectoAndClave(Pantalla.class, idProyecto, Clave.IU);
 	}
 	
 	public Pantalla consultarPantalla(Integer idPantalla) {
@@ -180,80 +178,4 @@ public class PantallaBs {
 		}
 	}
 
-//	public static List<TipoAccion> consultarTiposAccion() {
-//		List<TipoAccion> listTiposAccion = new TipoAccionDAO()
-//				.consultarTiposAccion();
-//		if (listTiposAccion == null) {
-//			throw new TESSERACTException(
-//					"No se pueden consultar los tipos de acción.", "MSG13");
-//		}
-//		return listTiposAccion;
-//	}
-
-//	public static List<Pantalla> consultarPantallasProyecto(Proyecto proyecto) {
-//		List<Elemento> listPantallasAux = new PantallaDAO().consultarElementos(
-//				ReferenciaEnum.TipoReferencia.PANTALLA, proyecto.getId());
-//		List<Pantalla> listPantallas = new ArrayList<Pantalla>();
-//		if (listPantallasAux == null) {
-//			throw new TESSERACTException(
-//					"No se pueden consultar las pantallas por proyecto.",
-//					"MSG13");
-//		}
-//		for (Elemento elem : listPantallasAux) {
-//			listPantallas.add((Pantalla) elem);
-//		}
-//
-//		return listPantallas;
-//	}
-
-//	public static TipoAccion consultarTipoAccion(Integer id) {
-//		TipoAccion ta = new TipoAccionDAO().consultarTipoAccion(id);
-//		if (ta == null) {
-//			throw new TESSERACTException(
-//					"No se puede consultar el tipo de accion por el id.",
-//					"MSG13");
-//		}
-//		return ta;
-//	}
-//
-
-
-//	public static void modificarPantalla(Pantalla model) throws Exception {
-//		try {
-//			validar(model);
-//			ElementoBs
-//					.verificarEstado(model, CU_Pantallas.MODIFICARPANTALLA6_2);
-//			model.setClave(CLAVE + model.getModulo().getClave());
-//			model.setEstadoElemento(ElementoBs
-//					.consultarEstadoElemento(Estado.EDICION));
-//			model.setNombre(model.getNombre().trim());
-//
-//			new PantallaDAO().modificarPantalla(model);
-//
-//		} catch (JDBCException je) {
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//
-//	}
-//
-//	public static void modificarPatronPantalla(Pantalla pantalla, boolean validarObligatorios) {
-//		String patron = pantalla.getPatron();
-//		if (validarObligatorios && Validador.esNuloOVacio(patron)) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario no ingresó algún patrón de pantalla.", "MSG38", null,
-//					"campos");
-//		}
-//		if (Validador.validaLongitudMaxima(patron, 999)) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario ingreso un patrón de pantalla muy largo.", "MSG39",
-//					new String[] { "999", "caracteres", "el patrón de la pantalla " + pantalla.getClave() + pantalla.getNumero() + " " + pantalla.getNombre() }, "campos");
-//		}
-//		
-//		new PantallaDAO().modificarPantalla(pantalla);
-//	}
 }

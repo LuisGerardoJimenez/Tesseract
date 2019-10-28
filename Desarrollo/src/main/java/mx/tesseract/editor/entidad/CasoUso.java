@@ -66,39 +66,39 @@ public class CasoUso extends Elemento implements Serializable, GenericInterface,
 	private Boolean reporte;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casouso", orphanRemoval = true)
-	private List<CasoUsoActor> actores = new ArrayList<CasoUsoActor>();
+	private List<CasoUsoActor> actores = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUso", orphanRemoval = true)
-	private List<CasoUsoReglaNegocio> reglas = new ArrayList<CasoUsoReglaNegocio>();
+	private List<CasoUsoReglaNegocio> reglas = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUso", orphanRemoval = true)
-	private List<PostPrecondicion> postprecondiciones = new ArrayList<PostPrecondicion>();
+	private List<PostPrecondicion> postprecondiciones = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUso", orphanRemoval = true)
-	private List<Salida> salidas = new ArrayList<Salida>();
+	private List<Salida> salidas = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUso", orphanRemoval = true)
 	@OrderBy("id")
-	private List<Entrada> entradas = new ArrayList<Entrada>();
+	private List<Entrada> entradas = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUso", orphanRemoval = true)
 	@OrderBy("clave")
-	private List<Trayectoria> trayectorias = new ArrayList<Trayectoria>();
+	private List<Trayectoria> trayectorias = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUsoDestino")
-	private List<Inclusion> incluidoEn = new ArrayList<Inclusion>();
+	private List<Inclusion> incluidoEn = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUsoOrigen")
-	private List<Inclusion> incluye = new ArrayList<Inclusion>();
+	private List<Inclusion> incluye = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUsoOrigen", orphanRemoval = true)
-	private List<Extension> Extiende = new ArrayList<Extension>();
+	private List<Extension> Extiende = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUsoDestino", orphanRemoval = true)
-	private List<Extension> ExtendidoDe = new ArrayList<Extension>();
+	private List<Extension> ExtendidoDe = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUso", orphanRemoval = true)
-	private List<Revision> revisiones = new ArrayList<Revision>();
+	private List<Revision> revisiones = new ArrayList<>();
 	
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'1000', 'caracteres'})}", trim = true, maxLength = "999", shortCircuit= true)
 	public String getRedaccionActores() {

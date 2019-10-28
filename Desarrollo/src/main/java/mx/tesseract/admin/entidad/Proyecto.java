@@ -36,7 +36,6 @@ import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
-import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
