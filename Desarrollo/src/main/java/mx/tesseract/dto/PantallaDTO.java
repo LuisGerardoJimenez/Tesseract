@@ -39,14 +39,14 @@ public class PantallaDTO {
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'19', 'caracteres'})}", trim = true, maxLength = "50", shortCircuit= true)
+	@StringLengthFieldValidator(message = "%{getText('MSG6',{'19', 'caracteres'})}", trim = true, maxLength = "19", shortCircuit= true)
 	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex= Constantes.REGEX_NUMERO_PANTALLAS, shortCircuit = true)
 	public String getNumero() {
 		return numero;
 	}
 
 	public void setNumero(String numero) {
-		this.numero = numero;
+		this.numero = numero == null ? numero : numero.trim();
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
@@ -57,7 +57,7 @@ public class PantallaDTO {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre == null ? nombre : nombre.trim();
 	}
 
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
@@ -68,7 +68,7 @@ public class PantallaDTO {
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.descripcion = descripcion == null ? descripcion : descripcion.trim();;
 	}
 
 	public Integer getIdProyecto() {

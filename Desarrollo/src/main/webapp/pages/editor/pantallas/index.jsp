@@ -77,6 +77,13 @@
 				onclick="location.href='${pageContext.request.contextPath}/pantallas/new'">
 				<s:text name="Registrar"></s:text>
 			</button>
+			${blanks}
+			<s:url var="urlModulos"
+					value="%{#pageContext.request.contextPath}/modulos">
+			</s:url>
+			<input class="boton" type="button"
+					onclick="location.href='${urlModulos}'"
+					value="Regresar" />
 		</div>
 	</s:form>
 	<!-- EMERGENTE CONFIRMAR ELIMINACIÓN -->
