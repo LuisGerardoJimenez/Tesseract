@@ -13,22 +13,48 @@ El primer paso para alcanzar este objetivo -o hito del proyecto- es la reunión 
 \section{Sprint 0: Configuración del ambiente de trabajo}
 \subsection{Selección de herramientas}
 
+A continuación se detallan las herramientas consideradas para el desarrollo del proyecto, las alternativas y la justificación de la elección de elementos.\\
+
+En primer lugar se describe en el cuadro \ref{tbl:compotex} las herramientas seleccionadas que pueden coadyuvarnos en la edición de los documentos entregables como sistema de composición de textos.
+
 \begin{table}[H]
 	\centering
-	\begin{tabular}{|p{3cm}|p{3cm}|p{6cm}|}
+	\begin{tabular}{|p{3cm}|p{10cm}|}
+		\hline
+		 \rowcolor{black} \textcolor{white}{\textbf{Herramienta}} & \textcolor{white}{\textbf{Características}}  \\ \hline
+		Latex & Es un sistema de software libre y de composición tipográfica de alta calidad, esta herramienta incluye características diseñadas para la producción de la documentación técnica en donde se establecen las características del proyecto.\hyperlink{b54}{[54]}\\
+		\hline
+		Word & Es un programa informático orientado al procesamiento de textos. Fue creado por la empresa Microsoft, y viene integrado de manera predeterminada en el paquete ofimático denominado Microsoft Office. \hyperlink{b53}{[53]}\\
+		\hline
+		Google Docs & Procesador de texto es una aplicación informática que permite crear y editar documentos de texto en una computadora. Se trata de un software de múltiples funcionalidades para la redacción, con diferentes tipografías, tamaños de letra, colores, tipos de párrafos, efectos artísticos y otras opciones. \hyperlink{b55}{[55]}\\
+		\hline
+	\end{tabular}
+\caption{Cuadro de información correspondiente con las características de las alternativas para el sistema de composición de textos.}
+\label{tbl:compotex}
+\end{table}
+
+\textbf {HERRAMIENTA SELECCIONADA: LATEX}\\
+
+\textbf {JUSTIFICACIÓN:} Latex nos facilita la generación de todo tipo de índices, listados de bibliografía citada, permite centrarnos en el contenido, no en la forma. En las cuestiones prácticas hay incompatibilidades, pero latex tiene un tiempo de generación más rápido, limpio y seguro, sin olvidar que al realizar todos los cambios de formato no se altera el estilo a comparación de Word.
+
+En el cuadro \ref{tbl:compotex}  se justifica el porqué de las herramientas seleccionadas para la implementación del desarrollo del sistema.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|p{3cm}|p{2.5cm}|p{10cm}|}
 		\hline
 		\rowcolor{black} \textcolor{white} {\textbf{Elemento}} & \textcolor{white}{\textbf{Herramienta}} & \textcolor{white}{\textbf{Justificación}}  \\ \hline
-		Sistema de composición de textos & Latex & Es un sistema de software libre y de composición tipográfica de alta calidad, esta herramienta incluye características diseñadas para la producción de la documentación técnica en donde se establecen las características del proyecto. \\
-		\hline
 		Lenguaje de programación & Java & La idea principal de TESSERACT es que opere como un sistema web, java al ser un lenguaje multiplataforma nos permite construir un producto con las características deseadas. Otras de las ventajas que tiene java son sus librerias estandar, la facilidad de programación y su paradigma orientado a objetos. \\
 		\hline
-		Framework & Struts & Struts permite reducir el tiempo de desarrollo. Su carácter de "software libre" y su compatibilidad con todas las plataformas en las que Java Entreprise esté disponible lo convierten en una herramienta altamente disponible. \\
+		Framework & Struts 2 & Al usar un framework ya estamos haciendo las cosas de una forma aprobada, ya que esta es la idea que constituye la base de los patrones de diseño software. Struts no es el único framework MVC existente en J2EE. Sin embargo Struts es el más extendido y por lo tanto, usando Struts dispondremos de una gran cantidad de recursos: documentación (tutoriales, artículos, libros).
+		Además de Struts existen otros frameworks como Spring o JSF. No obstante, la aportación principal de JSF no es MVC sino los componentes gráficos de usuario (GUI) de ``alto nivel" para la web.\\
 		\hline
-		SGBD & Mysql & MySQL es un sistema gestor de base de datos muy popular, es usado por su simplicidad y rendimiento. Es la opción para algunas aplicaciones comerciales gracias a su facilidad de uso y el poco tiempo que requiere para ponerse en marcha.  \\
+		Sistemas de gestión de bases de datos (SGBD) & Mysql & Es una herramienta que  al realizar las operaciones emplea un tiempo óptmo, lo que le hace uno de los gestores con mejor rendimiento. Los requerimientos para la elaboración de bases de datos son bajos, debido a su bajo consumo sin olvidar que soporta gran variedad de Sistemas Operativos \\
 		\hline
 	\end{tabular}
 \end{table}
-\newpage
+
+
 %Inicio de sesión
 %Proyectos
 %Personal
@@ -431,7 +457,6 @@ Para registrar la información de los puntos de extensión se le solicita al col
 	\item \textbf{Causa:} Texto que describe la razón por la que se extiende a otro Caso de Uso.
 	\item \textbf{Región de la trayectoria:} Texto que describe la región de la rtayectoria dónde se hace el punto de extensión.
 	\item \textbf{Caso de uso al que extiende:} Se selecciona de los casos de uso previamente registrados.
-	
 \end{itemize}
 
 \textbf {Modificar Punto de extensión:}
