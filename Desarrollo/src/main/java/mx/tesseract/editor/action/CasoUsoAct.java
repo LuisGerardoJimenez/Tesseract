@@ -72,11 +72,13 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 				"actionName", Constantes.ACTION_NAME_POSTPRECONDICION }),
 		@Result(name = "trayectorias", type = "redirectAction", params = {
 				"actionName", Constantes.ACTION_NAME_TRAYECTORIAS }),
+		@Result(name = "extensiones", type = "redirectAction", params = {
+				"actionName", Constantes.ACTION_NAME_EXTENSIONES }),
 		@Result(name = "restricciones", type = "json", params = { "root",
 				"restriccionesTermino" }),
 		@Result(name = "revision", type = "dispatcher", location = "caso-uso/revision.jsp"),
 		@Result(name = "liberacion", type = "dispatcher", location = "caso-uso/liberacion.jsp")})
-@AllowedMethods({"entrarPostprecondiciones", "entrarTrayectorias"})
+@AllowedMethods({"entrarPostprecondiciones", "entrarTrayectorias", "entrarExtensiones"})
 public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<CasoUsoDTO> {
 
 	private static final long serialVersionUID = 1L;
@@ -87,6 +89,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	private static final String LIBERACION = "liberacion";
 	private static final String POSTPRECONDICION = "postprecondicion";
 	private static final String TRAYECTORIAS = "trayectorias";
+	private static final String EXTENSIONES = "extensiones";
 
 	// Proyecto y módulo
 	private Proyecto proyecto;
@@ -522,6 +525,24 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 			ErrorManager.agregaMensajeError(this, te);
 		} catch (Exception e) {
 			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "entrarTrayectorias", e);
+		}
+		return resultado;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String entrarExtensiones() {
+		String resultado = INDEX;
+		try {
+			resultado = EXTENSIONES;
+			SessionManager.set(idSel, "idCU");
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+			this.setActionMessages(msjs);
+			SessionManager.delete("mensajesAccion");
+		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
+			ErrorManager.agregaMensajeError(this, te);
+		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "entrarExtensiones", e);
 		}
 		return resultado;
 	}

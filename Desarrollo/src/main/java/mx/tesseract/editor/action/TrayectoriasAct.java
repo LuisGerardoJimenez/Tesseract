@@ -208,8 +208,6 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 
 	public void validateCreate() {
 		buscaCatalogos();
-		System.out.println(getFieldErrors());
-		System.out.println(getActionErrors());
 		if (!hasErrors()) {
 			try {
 				idCasoUso = (Integer) SessionManager.get("idCU");

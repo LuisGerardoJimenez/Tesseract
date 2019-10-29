@@ -573,14 +573,19 @@ public class TokenBs {
 				casodeuso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
 						.replaceAll("_", " "), Clave.CU);
 				if (casodeuso == null) {
-					String[] parametros = { "el", "caso de uso",
-							segmentos.get(1) + segmentos.get(2), "registrado" };
+					casodeuso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(3)
+							.replaceAll("_", " "), Clave.CU);
+					if (casodeuso == null) {
+						String[] parametros = { "el", "caso de uso",
+								segmentos.get(1) + segmentos.get(2), "registrado" };
 
-					throw new TESSERACTException(
-							"TokenBs.convertirToken_Objeto: El caso de uso "
-									+ segmentos.get(1) + segmentos.get(2)
-									+ " no está registrado", "MSG15",
-							parametros);
+						throw new TESSERACTException(
+								"TokenBs.convertirToken_Objeto: El caso de uso "
+										+ segmentos.get(1) + segmentos.get(2)
+										+ " no está registrado", "MSG15",
+								parametros);
+					}
+					
 				}
 
 				trayectoria = null;
@@ -948,14 +953,18 @@ public class TokenBs {
 				casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(2)
 						.replaceAll("_", " "), Clave.CU);
 				if (casoUso == null) {
-					String[] parametros = { "el", "caso de uso",
-							segmentos.get(1) + segmentos.get(2), "registrado" };
-
-					throw new TESSERACTValidacionException(
-							"TokenBs.convertirToken_Objeto: El caso de uso "
-									+ segmentos.get(1) + segmentos.get(2)
-									+ " no está registrado", "MSG15",
-							parametros);
+					casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, proyecto.getId(),segmentos.get(3)
+							.replaceAll("_", " "), Clave.CU);
+					if (casoUso == null) {
+						String[] parametros = { "el", "caso de uso",
+								segmentos.get(1) + segmentos.get(2), "registrado" };
+	
+						throw new TESSERACTValidacionException(
+								"TokenBs.convertirToken_Objeto: El caso de uso "
+										+ segmentos.get(1) + segmentos.get(2)
+										+ " no está registrado", "MSG15",
+								parametros);
+					}
 				}
 
 				trayectoria = null;

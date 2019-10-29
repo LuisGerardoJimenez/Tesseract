@@ -10,6 +10,7 @@ import mx.tesseract.dto.ActorDTO;
 import mx.tesseract.dto.AtributoDTO;
 import mx.tesseract.dto.CasoUsoDTO;
 import mx.tesseract.dto.EntidadDTO;
+import mx.tesseract.dto.ExtensionDTO;
 import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.dto.PantallaDTO;
 import mx.tesseract.dto.ReglaNegocioDTO;
@@ -145,6 +146,18 @@ public class RN018 {
 		if (casoUso != null) {
 			valido = false;
 		}
+		return valido;
+	}
+
+	public boolean isValidRN018(ExtensionDTO model) {
+		Boolean valido = true;
+		/*CasoUso casoUso = null;
+		if (model.getId() == null) {
+			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.CU.toString()+"·"+model.getId());
+		}
+		if (casoUso != null) {
+			valido = false;
+		}*/
 		return valido;
 	}
 
