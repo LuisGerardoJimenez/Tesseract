@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Proyecto;
-import mx.tesseract.dto.SelectDTO;
 import mx.tesseract.dto.TrayectoriaDTO;
 import mx.tesseract.editor.bs.CasoUsoBs;
 import mx.tesseract.editor.bs.ElementoBs;
@@ -63,7 +62,6 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 	private Integer idProyecto;
 	private Integer idModulo;
 	private Integer idCasoUso;
-	private Integer idTrayectoria;
 
 	private CasoUso casoUsoBase;
 	private TrayectoriaDTO model;

@@ -187,51 +187,6 @@ public class CasoUsoBs {
 					"MSG13");
 		}
 	}
-	
-/*	public static void modificarCasoUso(CasoUso cu, Actualizacion actualizacion)
-			throws Exception {
-		try {
-			validar(cu);
-			ElementoBs.verificarEstado(cu, CU_CasosUso.MODIFICARCASOUSO5_2);
-			cu.setEstadoElemento(ElementoBs
-					.consultarEstadoElemento(Estado.EDICION));
-			// Se quitan los espacios iniciales y finales del nombre
-			cu.setNombre(cu.getNombre().trim());
-
-			new CasoUsoDAO().modificarCasoUso(cu, actualizacion);
-
-		} catch (JDBCException je) {
-			System.out.println("ERROR CODE " + je.getErrorCode());
-			je.printStackTrace();
-			throw new Exception();
-		} catch (HibernateException he) {
-			he.printStackTrace();
-			throw new Exception();
-		}
-	}*/
-//	public static void modificarCasoUso(CasoUso cu)
-//			throws Exception {
-//		try {
-//			validar(cu);
-//			ElementoBs.verificarEstado(cu, CU_CasosUso.MODIFICARCASOUSO5_2);
-//			cu.setClave(calcularClave(cu.getModulo().getClave()));
-//			cu.setEstadoElemento(ElementoBs
-//					.consultarEstadoElemento(Estado.EDICION));
-//			// Se quitan los espacios iniciales y finales del nombre
-//			cu.setNombre(cu.getNombre().trim());
-//			
-//			new CasoUsoDAO().modificarCasoUso(cu, true);
-//
-//		} catch (JDBCException je) {
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//	}
-//
 //
 //	public static void terminar(CasoUso model) throws Exception {
 //		try {
@@ -250,130 +205,6 @@ public class CasoUsoBs {
 //			he.printStackTrace();
 //			throw new Exception();
 //		}
-//	}
-
-//	private static void validar(CasoUso cu) throws TESSERACTValidacionException {
-//		// Validaciones del número
-//		if (Validador.esNuloOVacio(cu.getNumero())) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario no ingresó el número del cu.", "MSG4", null,
-//					"model.numero");
-//		}
-//		if (!Pattern.matches("[0-9]+(\\.[0-9]+)*", cu.getNumero())) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario no ingresó el número del cu.", "MSG5",
-//					new String[] { "un", "número" }, "model.numero");
-//		}
-//
-//		// Se asegura la unicidad del nombre y del numero
-//		List<CasoUso> casosUso = consultarCasosUsoModulo(cu.getModulo());
-//		for (CasoUso c : casosUso) {
-//			if (c.getId() != cu.getId()) {
-//				if (c.getNombre().equals(cu.getNombre())) {
-//					throw new TESSERACTValidacionException(
-//							"El nombre del caso de uso ya existe.",
-//							"MSG7",
-//							new String[] { "El", "Caso de uso", cu.getNombre() },
-//							"model.nombre");
-//				}
-//				if (c.getNumero().equals(cu.getNumero())) {
-//					throw new TESSERACTValidacionException(
-//							"El número del caso de uso ya existe.",
-//							"MSG7",
-//							new String[] { "El", "Caso de uso", cu.getNumero() },
-//							"model.numero");
-//				}
-//			}
-//		}
-//
-//		// Validaciones del nombre
-//		if (Validador.esNuloOVacio(cu.getNombre())) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario no ingresó el nombre del cu.", "MSG4", null,
-//					"model.nombre");
-//		}
-//		if (Validador.validaLongitudMaxima(cu.getNombre(), 200)) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario ingreso un nombre muy largo.", "MSG6",
-//					new String[] { "200", "caracteres" }, "model.nombre");
-//		}
-//		if (Validador.contieneCaracterInvalido(cu.getNombre())) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario ingreso un nombre con caracter inválido.",
-//					"MSG23", new String[] { "El", "nombre" }, "model.nombre");
-//		}
-//		// Validaciones de la Descripción
-//		if (cu.getDescripcion() != null
-//				&& Validador.validaLongitudMaxima(cu.getDescripcion(), 999)) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario ingreso una descripcion muy larga.", "MSG6",
-//					new String[] { "999", "caracteres" }, "model.descripcion");
-//		}
-//		// Validaciones de los actores
-//		if (cu.getRedaccionActores() != null
-//				&& Validador
-//						.validaLongitudMaxima(cu.getRedaccionActores(), 999)) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario ingreso muchos caracteres en actores.", "MSG6",
-//					new String[] { "999", "caracteres" },
-//					"model.redaccionActores");
-//		}
-//		// Validaciones de las entradas
-//		if (cu.getRedaccionEntradas() != null
-//				&& Validador.validaLongitudMaxima(cu.getRedaccionEntradas(),
-//						999)) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario ingreso muchos caracteres en entradas.",
-//					"MSG6", new String[] { "999", "caracteres" },
-//					"model.redaccionEntradas");
-//		}
-//		// Validaciones de las entradas
-//		if (cu.getRedaccionSalidas() != null
-//				&& Validador
-//						.validaLongitudMaxima(cu.getRedaccionSalidas(), 999)) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario ingreso muchos caracteres en salidas.", "MSG6",
-//					new String[] { "999", "caracteres" },
-//					"model.redaccionSalidas");
-//		}
-//		// Validaciones de las reglas de negocio
-//		if (cu.getRedaccionReglasNegocio() != null
-//				&& Validador.validaLongitudMaxima(
-//						cu.getRedaccionReglasNegocio(), 999)) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario ingreso muchos caracteres en rn.", "MSG6",
-//					new String[] { "999", "caracteres" },
-//					"model.redaccionReglasNegocio");
-//		}
-//		// Validaciones de las precondiciones
-//		if (cu.getPostprecondiciones() != null
-//				|| cu.getPostprecondiciones().size() != 0) {
-//			// Si existen pre o postoncidiones
-//			for (PostPrecondicion pp : cu.getPostprecondiciones()) {
-//				if (Validador.esNuloOVacio(pp.getRedaccion())) {
-//					throw new TESSERACTValidacionException(
-//							"El usuario no ingresó la redacción de una precondicion o postcondicion.",
-//							"MSG4");
-//				}
-//				if (Validador.validaLongitudMaxima(pp.getRedaccion(), 999)) {
-//					if (pp.isPrecondicion()) {
-//						throw new TESSERACTValidacionException(
-//								"El usuario rebaso la longitud de alguna de las precondiciones.",
-//								"MSG17", new String[] { "las",
-//										"precondiciones", "a" }, "model.pasos");
-//					} else {
-//						throw new TESSERACTValidacionException(
-//								"El usuario rebaso la longitud de alguna de las postcondiciones.",
-//								"MSG17", new String[] { "las",
-//										"postcondiciones", "a" }, "model.pasos");
-//					}
-//				}
-//			}
-//		}
-//	}
-//
-//	public static String calcularClave(String cModulo) {
-//		return CLAVE + cModulo;
 //	}
 	
 	/*public static CasoUso consultarCasoUsoTrayLAZY(int id) {
@@ -399,22 +230,6 @@ public class CasoUsoBs {
 //		List<Elemento> listElemento = new ElementoDAO()
 //				.consultarElementos(proyecto);
 //		return listElemento;
-//	}
-//
-//	public static List<CasoUso> consultarCasosUso(Proyecto proyecto) {
-//		List<CasoUso> listCasoUso = new CasoUsoDAO().consultarCasosUso(proyecto
-//				.getId());
-//		return listCasoUso;
-//	}
-//
-//	public static CasoUso decodificarAtributos(CasoUso model) {
-//		String redaccionActores = model.getRedaccionActores();
-//		if (!Validador.esNuloOVacio(redaccionActores)) {
-//			model.setRedaccionActores(TokenBs
-//					.decodificarCadenasToken(redaccionActores));
-//		}
-//		return model;
-//
 //	}
 //
 //	public static List<List<Paso>> agregarReferencias(String actionContext, CasoUso model, String target) {
@@ -554,25 +369,6 @@ public class CasoUsoBs {
 //					postPrecondicion.getRedaccion(), casoUso.getProyecto()));
 //		}
 	}
-//
-//	public static void eliminarCasoUso(CasoUso model) throws Exception {
-//		try {
-//			ElementoBs.verificarEstado(model, CU_CasosUso.ELIMINARCASOUSO5_3);
-//			new CasoUsoDAO().eliminarElemento(model);
-//		} catch (JDBCException je) {
-//			if (je.getErrorCode() == 1451) {
-//				throw new TESSERACTException(
-//						"No se puede eliminar el caso de uso", "MSG14");
-//			}
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//
-//	}
 //
 //	public static List<String> verificarReferencias(CasoUso model, Modulo modulo) {
 //

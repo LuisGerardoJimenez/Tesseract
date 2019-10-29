@@ -39,8 +39,7 @@ public class AtributoBs {
 	private RN018 rn018;
 	
 	public List<Atributo> consultarAtributosByEntidad(Integer idEntidad) {
-		List<Atributo> atributos = atributoDAO.findByIdEntidad(idEntidad);
-		return atributos;
+		return atributoDAO.findByIdEntidad(idEntidad);
 	}
 	
 	public AtributoDTO consultarAtributoById(Integer id) {

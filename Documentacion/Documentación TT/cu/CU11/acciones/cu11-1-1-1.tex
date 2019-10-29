@@ -18,7 +18,7 @@
 	\UCitem{Salidas}{\cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} para indicar que el registro fue exitoso.}
 	\UCitem{Precondiciones}{\begin{itemize}
 			\item Que exista al menos una pantalla registrada.
-			\item Que el catálogo ''Tipo de acción''contenga información. 
+			\item Que el catálogo ''Tipo de acción'' contenga información. 
 	\end{itemize}}
 	\UCitem{Postcondiciones}{
 		\begin{itemize}
@@ -34,8 +34,7 @@
 			\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU7.1.1}{Registrar Acción} cuando se registre un actor con un nombre que ya se encuentre registrado en el sistema.
 			\item \cdtIdRef{MSG16}{Formato de archivo incorrecto}: Se muestra en la pantalla \IUref{IU7.1.1}{Registrar Acción} cuando la imagen de la acción no cumpla con el formato especificado.
 			\item \cdtIdRef{MSG17}{Se ha excedido el tamaño del archivo}: Se muestra en la pantalla \IUref{IU7.1.1}{Registrar Acción} cuando la imagen de la acción exceda el tamaño especificado.
-			\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} cuando no exista información en el catálogo ''Tipo de acción''.
-			
+			\item \cdtIdRef{MSG29}{Los catálogos nos contienen información}: Se muestra en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} cuando no exista información en el catálogo ''Tipo de acción''.
 		\end{itemize}.
 	}
 	\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU11.1.1}{Gestionar Acciones}.}
@@ -60,7 +59,7 @@
 \hypertarget{CU11-1-1-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} El catálogo de ''Tipo de acción'' no tiene información.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Los catálogos nos contienen información} en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------

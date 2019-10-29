@@ -34,7 +34,7 @@
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU6.1.1.1.1}{Registrar Paso} cuando no se ha ingresado un dato marcado como obligatorio.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.1.1.1.1}{Registrar Paso} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.1.1.1}{Registrar Paso} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
-		\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Pendiente} cuando no exista información en los catálogos  ''Realiza'' y ''Verbo''.
+		\item \cdtIdRef{MSG29}{Los catálogos nos contienen información}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Pendiente} cuando no exista información en los catálogos  ''Realiza'' y ''Verbo''.
 		\end{itemize}}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12.1.1.1.1}{Gestionar Pasos}.}
 	\end{UseCase}
@@ -55,7 +55,7 @@
 \hypertarget{CU12-1-1-1-1-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} Los catálogos no contienen información.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU6.1.1.1}{Pendiente} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Los catálogos nos contienen información} en la pantalla \IUref{IU6.1.1.1}{Pendiente} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------

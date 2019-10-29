@@ -283,7 +283,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		List<Mensaje> listMensajes = mensajeBs.consultarMensajeProyecto(idProyecto);
 		List<Actor> listActores = actorBs.consultarActoresProyecto(idProyecto);
 		List<TerminoGlosario> listTerminosGls = terminoGlosarioBs.consultarGlosarioProyecto(idProyecto);
-		List<Atributo> listAtributos = new ArrayList<Atributo>();
+		List<Atributo> listAtributos = new ArrayList<>();
 		
 		for (Entidad entidad : listEntidades) {
 			for (Atributo atributo : entidad.getAtributos()) {

@@ -31,8 +31,7 @@ public class PostprecondicionBs {
 	}
 	
 	public List<PostPrecondicion> consultarPostPrecondicionesByCasoUso(Integer idCasoUso) {
-		List<PostPrecondicion> PostPrecondiciones = postprecondicionDAO.findAllByCasoUso(idCasoUso);
-		return PostPrecondiciones;
+		return postprecondicionDAO.findAllByCasoUso(idCasoUso);
 	}
 
 	@Transactional(rollbackFor = Exception.class)

@@ -1,42 +1,54 @@
 \chapter{Marco teórico} \label{cap:dos}
 
-Todo proyecto de software se desencadena por alguna necesidad de negocios: la de corregir un defecto en una aplicación existente, la de adaptar un “sistema heredado” a un ambiente de negocios cambiante, la de ampliar las funciones y características de una aplicación ya existente o la necesidad de crear un producto, servicio o sistema nuevo.
+En el presente capítulo se ve reflejado el trabajo de investigación teórica que sustenta el proyecto de trabajo terminal con base en el planteamiento del problema y el desarrollo de su solución.\\
+
+El marco teórico se desenvuelve en diferentes secciones, empezando con el proceso de desarrollo de software, continuando con la definición del tipo de herramienta que caracteriza el generador de documentos de casos de uso y finalmente los conceptos de la implementación de la solución.
 
 \section{Ingeniería de software}
 
-Una de las primeras definiciones de ingeniería de software fue dada por Fritz Bauer en el año de 1969, quien define que la ingeniería de software es..\\
+Antes de adentrarnos en las raíces de la ingeniería de software es fundamental conocer de donde parte la necesidad de llegar a esta área de la informática. Roger Pressman, nos presenta en su obra ''Ingenieria de software, un enfoque práctico" , un amplio panorama de lo que implica hacer ingenieria de software en todas las etapas del desarrollo y afirma que:\\ 
 
-	\textit {“el establecimiento y uso de principios robustos, orientados a obtener software económico que sea fiable y que funcione de manera eficiente sobre máquinas reales” }. \hyperlink{b09}{[9]}\\
+"Todo proyecto de software se desencadena por alguna necesidad de negocios como la de corregir un defecto en una aplicación existente; la de adaptar un sistema heredado a un ambiente de negocios cambiante; la de ampliar las funciones y características de una aplicación ya existente o la necesidad de crear un producto, servicio o sistema nuevo. Al comenzar un proyecto de software, es frecuente que las necesidades del negocio se expresen de manera informal como parte de una simple conversación, sin embargo el esfuerzo de ingeniería tendrá éxito sólo si también lo tiene el producto final. El mercado aceptará el producto sólo si el software incrustado en éste satisface las necesidades del cliente." \hyperlink{b09}{[9]}\\
+
+Para que Pressman elaborará un concepto sólido de lo que es la ingenieria de software, se apoyó en dos definiciones formales y anteriormente especificadas. La primera, aportación de Fritz Bauer (un importante informático alemán y profesor emérito en la Universidad Técnica de Munich. \hyperlink{b40}{[40]}) y la otra por parte del Instituto de Ingeniería Eléctrica y Electrónica (Institute of Electrical and Electronics Engineers,  IEEE por sus siglas en inglés), la mayor asociación internacional sin ánimo de lucro formada por profesionales de las nuevas tecnologías. \hyperlink{b41}{[41]} \\
+
+Fritz Bauer estableció una de las primeras definiciones de ingeniería de software en una conferencia de la Organización del Tratado del Atlántico Norte (North Atlantic Treaty Organization, OTAN por sus siglas en inglés) en el año de 1969: \textit {“Ingeniería de Software es el establecimiento y uso de principios robustos de ingeniería, orientados a obtener software económico que sea fiable y funcione de manera eficiente sobre máquinas reales”}. \hyperlink{b38}{[38]}\\
 	
-  Aunque esta definición omite algunos términos referentes a tiempos de entrega, procesos eficaces, y calidad de software, nos da un panorama de sus principios fundamentales y es también la base de la definición que la IEEE ha desarrollado de una manera más completa: \\
+Al ser esta la primer definición formal y al ser establecida en una conferencia, es breve y concisa, no da mayor detalle de las características de su proceso y nos habla de ella a grandes rasgos, sin embargo constituye las bases de una definición más elaborada por la Instituto de Ingeniería Eléctrica y Electrónica (Institute of Electrical and Electronics Engineers,  IEEE por sus siglas en inglés), la cual nos da un panorama más profundo de sus principios fundamentales. \\
 
- \textit {"La ingeniería de software es: La aplicación de un enfoque sistemático, disciplinado y cuantificable al desarrollo, operación y mantenimiento de software; es decir, la aplicación de la ingeniería al software.”}  \hyperlink{b09}{[9]}\\
+\textit {"La ingeniería de software es: La aplicación de un enfoque sistemático, disciplinado y cuantificable al desarrollo, operación y mantenimiento de software; es decir, la aplicación de la ingeniería al software.”}  \hyperlink{b39}{[39]}\\
 
-La ingeniería de software está formada por un proceso, un conjunto de métodos (prácticas) y un arreglo de herramientas que permite a los profesionales elaborar software de cómputo de alta calidad. 
+Con estas bases teóricas, Roger Pressman establece la siguiente definición: "La ingeniería de software está formada por un proceso, un conjunto de métodos (prácticas) y un arreglo de herramientas que permite a los profesionales elaborar software de cómputo de alta calidad".  \hyperlink{b09}{[9]}. \\
 
-Un aspecto muy importante de Ingeniería de Software es que proporciona parámetros formales para lo que se conoce como Gestión (o Administración) de Proyectos de Software. Esto se refiere a que Ingeniería de Software proporciona diversas métricas y metodologías que pueden usarse como especificaciones para todo lo referente a la administración del personal involucrado en proyectos de software, ciclos de vida de un proyecto de software, costos de un proyecto, y en si todo el aspecto administrativo que
-implica el desarrollar software.\\
+Dentro de la misma definición, Pressman puntualiza cuales son los elementos que se obtienen resultado de hacer ingeniería de software, las fases que se ven involucradas en este ámbito y los cuestionamientos que se tienen que hacer para comenzar un proceso de ingenieria de software, asegurando que:\\
+
+``Un aspecto muy importante de Ingeniería de Software es que proporciona parámetros formales para lo que se conoce como Administración de Proyectos de Software. Esto se refiere a que Ingeniería de Software proporciona diversas métricas y metodologías que pueden usarse como especificaciones para todo lo referente a la administración del personal involucrado en proyectos de software, ciclos de vida de un proyecto de software, costos de un proyecto, y en si todo el aspecto administrativo que implica el desarrollar software.
 
 La ingeniería en general es el análisis, diseño, construcción, verificación y gestión de entidades técnicas. En general, todo proceso de ingeniería debe comenzar por contestar las siguientes preguntas: ¿Cuál es el problema a
-resolver?, ¿Cuáles son las características de la entidad que se utiliza para resolver el problema?, ¿Cómo se realizará la entidad (y la solución)?, ¿Cómo se construirá la entidad?, ¿Cómo va a probarse la entidad?, y ¿Cómo se apoyará la entidad cuando los
-usuarios finales soliciten correcciones y adaptaciones a la entidad?.  \hyperlink{b09}{[9]}  \\
+resolver?, ¿Cuáles son las características de la entidad que se utiliza para resolver el problema?, ¿Cómo se realizará la entidad (y la solución)?, ¿Cómo se construirá la entidad?, ¿Cómo va a probarse la entidad?, y ¿Cómo se apoyará la entidad cuando los usuarios finales soliciten correcciones y adaptaciones a la entidad?.''  \hyperlink{b09}{[9]} \\
+
+Como podemos observar, para Pressman la Ingenieria de Software no solo se refiere a un término, involucra todo un comjunto de procesos, es un camino a recorrer a través de una serie de etapas con la ayuda de herramientas y elementos, cada etapa con un objetivo en particular y con el propósito general de obtener un producto de software de alta calidad. Pero no solo eso, Pressman también manifiesta que dentro de la Ingenieria de Software podemos encontrar varias capas.\\ 
+
+``La ingeniería de software es una tecnología con varias capas, como se muestra en la figura \ref{fig:capas_is}   \hyperlink{b09}{[9]}, existen 4 capas: herramientas, métodos, procesos y compromiso con la calidad. Cada una de ellas es importante, sin embargo, la capa de proceso es fundamental para el desarrollo de software, ya que es donde se define la estructura básica del producto hasta la culminación del mismo.''  \hyperlink{b09}{[9]} \\
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=.95\textwidth]{images/CapasIS}
-		\caption{Capas de la ingeniería de software}
+		\caption{Pressman, R. (2010) Capas de la ingeniería de software.}
 		\label{fig:capas_is}
 	\end{center}
 \end{figure}
-
-La ingeniería de software es una tecnología con varias capas, como se muestra en la figura 2.1, existen 4 capas: herramientas, métodos, procesos y compromiso con la calidad. Cada una de ellas es importante, sin embargo, la capa de proceso es fundamental para el desarrollo de software, ya que es donde se define la estructura básica del producto hasta la culminación del mismo.
 
 El proceso de software forma la base para el control de la administración de proyectos de software, y establece el contexto en el que se aplican métodos técnicos, se generan productos del trabajo (modelos, documentos, datos, reportes, formatos, etc.), se establecen puntos de referencia, se asegura la calidad y se administra el cambio de manera apropiada.\hyperlink{b09}{[9]} 
 
 \section{Proceso de desarrollo de software}
 
-Se define proceso del software como una estructura para las actividades, acciones y tareas que se requieren a fin de construir software de alta calidad. La ingeniería de software es llevada a cabo por personas creativas y preparadas que deben adaptar un proceso maduro de software a fin de que resulte apropiado para los productos que construyen y para las demandas de su mercado.
-Cuando se trabaja en la construcción de un producto o sistema, es importante ejecutar una serie de pasos predecibles, una estructura general para la ingeniería de software se define en cinco actividades elementales: \hyperlink{b09}{[9]} 
+Hacer ingeniería de software implica realizar tareas para resolver problemas con base en un conjunto de principios fundamentales, para Pressman, la capa más importante y fundamental es la de Proceso, aquá se define el ``cascarón" del producto que se desea desarrollar.\\
+
+Pressman define el proceso del software como: \\
+
+``Una estructura para las actividades, acciones y tareas que se requieren a fin de construir software de alta calidad. La ingeniería de software es llevada a cabo por personas creativas y preparadas que deben adaptar un proceso maduro de software a fin de que resulte apropiado para los productos que construyen y para las demandas de su mercado.
+Cuando se trabaja en la construcción de un producto o sistema, es importante ejecutar una serie de pasos predecibles, una estructura general para la ingeniería de software se define en cinco actividades elementales: " \hyperlink{b09}{[9]} 
 
 \begin{enumerate}
 	\item Comunicación
@@ -52,15 +64,13 @@ Durante el desarrollo, se realizan tareas específicas para cada etapa, por ejem
 
 \subsection{Análisis}
 
-El proceso de análisis dentro del desarrollo de software consiste en obtener los requerimientos del sistema para crear una solución, identificar los problemas a resolver o necesidad a ser atendida, evaluar las restricciones que presenta, así como los insumos se requieren para su debida construcción.
-Al ser la primera etapa dentro del proceso de desarrollo es las más crítica y sensible, ya que cualquier error de gran impacto que surja dentro de esta perjudicará las etapas consecuentes ocasionando retrasos en el proceso.\hyperlink{b09}{[9]} 
+"El proceso de análisis dentro del desarrollo de software consiste en obtener los requerimientos del sistema para crear una solución, identificar los problemas a resolver o necesidad a ser atendida, evaluar las restricciones que presenta, así como los insumos se requieren para su debida construcción.
+Al ser la primera etapa dentro del proceso de desarrollo es las más crítica y sensible, ya que cualquier error de gran impacto que surja dentro de esta perjudicará las etapas consecuentes ocasionando retrasos en el proceso. " \hyperlink{b09}{[9]} 
 
 \bigskip
 
-En esta etapa se construye el documento de análisis, en donde se describen todos los requerimientos que el cliente ha solicitado mediante diferentes componentes
-Con base en los requisitos, el analista sigue el proceso de análisis identificando en alto nivel que funcionalidades deberá poseer el sistema para cumplir los requerimientos. Una solución común para mapear cada funcionalidad es a través de CASOS DE USO.
+Durante esta etapa se construye el documento de análisis, en donde se obtienen y describen todas las necesidades y peticiones del cliente en forma de requerimientos. Con base en estos, el analista continua el proceso identificando en alto nivel que funcionalidades deberá poseer el sistema para cumplir los requerimientos. Una solución común para mapear cada funcionalidad es a través de CASOS DE USO. Este documento proporciona la descripción de la manera en la que se utilizará el sistema y emplea un lenguaje técnico especializado ya que busca ser comprendido por los diseñadores y programadores para su correcta construcción. \hyperlink{b42}{[42]} .
 
-Este documento emplea un lenguaje técnico especializado ya que busca ser comprendido por los diseñadores y programadores para su correcta construcción. \hyperlink{b09}{[9]} 
 
 \subsubsection{Documento de análisis}
 
@@ -86,7 +96,6 @@ Parte 3. Interacción con el usuario, que muestra las interfaces y mensajes a pa
 \end{itemize}
 
 
-
 \subsubsection{Caso de Uso}
 
 Un caso de uso es una actividad que puede realizar un usuario dentro del software. Estas actividades sirven para describir el comportamiento del producto en distintas condiciones en las que el sistema responde a alguna de las peticiones realizadas por el usuario, es decir, describe el funcionamiento de los componentes acorde a las acciones que los usuarios realizan dentro del software.
@@ -94,6 +103,19 @@ Un caso de uso es una actividad que puede realizar un usuario dentro del softwar
 En un libro que analiza cómo escribir casos de uso eficaces, Alistair Cockburn [Coc01b] afirma que “un caso de uso capta un contrato […] [que] describe el comportamiento del sistema en distintas condiciones en las que el sistema responde a una petición de alguno de sus participantes[…]”.
 
 En esencia, un caso de uso narra una historia estilizada sobre cómo interactúa un usuario final (que tiene cierto número de roles posibles) con el sistema en circunstancias específicas. La historia puede ser un texto narrativo, un lineamiento de tareas o interacciones, una descripción basada en un formato o una representación diagramática. Sin importar su forma, un caso de uso ilustra el software o sistema desde el punto de vista del usuario final.
+
+
+El caso de uso básico presenta una historia de alto nivel que describe la interacción entre el actor y el sistema.
+En muchas circunstancias, los casos de uso son más elaborados a fin de que brinden muchos más detalles sobre la interacción. Por ejemplo, Cockburn [Coc01b] sugiere el formato siguiente para hacer descripciones detalladas de casos de uso:
+Caso de uso: IniciarVigilancia
+Actor principal: Propietario.
+Objetivo en contexto: Preparar el sistema para que vigile los sensores cuando el propietario salga
+de la casa o permanezca dentro.
+Precondiciones: El sistema se ha programado para recibir una clave y reconocer distintos
+sensores.
+Disparador: El propietario decide “preparar” el sistema, por ejemplo, para que encienda
+las funciones de alarma.
+Escenario:
 
 Un caso de uso está compuesto por distintos elementos, los cuales se describen a continuación:
 \begin{itemize}

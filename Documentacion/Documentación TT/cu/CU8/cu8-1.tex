@@ -53,10 +53,9 @@
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU9.1}{Registrar Regla de negocio} cuando no se ha ingresado un dato marcado como obligatorio.
 		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU9.1}{Registrar Regla de negocio} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
-		\item \cdtIdRef{MSG5}{Formato de campo incorrecto}: Se muestra en la pantalla \IUref{IU9.1}{Registrar Regla de negocio} cuando el número de la regla de negocio contiene un carácter no válido.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU9.1}{Registrar Regla de negocio} cuando se ha excedido la longitud de alguno de los campos.
-		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU9.1}{Registrar Regla de negocio} cuando se registre un regla de negocio con un nombre o número que ya se encuentre registrado en el sistema.
-		\item \cdtIdRef{MSG29}{No existe información necesaria en el sistema}: Se muestra en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} cuando no exista información en el catálogo ''tipo de regla de negocio''.
+		\item \cdtIdRef{MSG7}{Registro repetido}: Se muestra en la pantalla \IUref{IU9.1}{Registrar Regla de negocio} cuando se registre un regla de negocio con un nombre que ya se encuentre registrado en el sistema.
+		\item \cdtIdRef{MSG29}{Los catálogos nos contienen información}: Se muestra en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} cuando no exista información en el catálogo ''tipo de regla de negocio''.
 		\end{itemize}
 		}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU8}{Gestionar Reglas de negocio}.}
@@ -85,7 +84,7 @@
 \hypertarget{CU8-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} El catálogo tipo de regla de negocio no tiene información.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{No existe información necesaria en el sistema} en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Los catálogos nos contienen información} en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------

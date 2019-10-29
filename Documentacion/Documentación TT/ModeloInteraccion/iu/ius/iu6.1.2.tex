@@ -1,21 +1,28 @@
 %--------------------------------------
-\subsection{IU 6.1.2 Registrar Precondición}
+\subsection{IU 6.1.2 Gestionar Pre/Postcondiciones}
 
 \subsubsection{Objetivo}
-	Esta pantalla permite al actor registrar una precondición.
+	En esta pantalla el actor puede visualizar las precondiciones y postcondiciones de un caso de uso asi como las operaciones disponibles.
 \subsubsection{Diseño}
-	En la figura \IUref{IU6.1.2}{Registrar Precondición} se muestra la pantalla ''Registrar Precondición'' que permite registrar una precondición. Una vez ingresada la redacción solicitada en la pantalla, el actor deberá oprimir el botón \IUbutton{Aceptar} . El sistema validará y agregará la precondición a la tabla de ''Precondiciones'' solo si se han cumplido todas las reglas de negocio establecidas.
+	En la figura \IUref{IU6.1.2}{Gestionar Pre/Postconciones} se muestra la pantalla ''Gestionar Pre/Postconciones'', por medio de la cual se podrán gestionar las condiciones de un caso de uso a través de una tabla. El actor podrá solicitar el registro, la modificación y la eliminación de un actor mediante los botones \IUbutton{Registrar}, \editar y \eliminar respectivamente.
+	
+	En la parte superior derecha, el sistema muestra el proyecto en el que se encuentra trabajando.
 
-\IUfig[1]{interfaces/IU6-1-2registrarPrecondicion}{IU6.1.2}{Registrar Precondición}
+\IUfig[1]{interfaces/IU12gestionarEntidades}{IU12}{Gestionar Entidades}
 \subsubsection{Comandos}
 \begin{itemize}
-	\item \IUbutton{Aceptar}: Permite al actor guardar el registro de la precondición, dirige a la pantalla \IUref{IU6.1}{Registrar Caso de uso} o a la pantalla \IUref{IU6.2}{Modificar Caso de uso}, según corresponda.
-	\item \IUbutton{Cancelar}: Permite al actor cancelar el registro de la precondición, dirige a la pantalla \IUref{IU6.1}{Registrar Caso de uso} o a la pantalla \IUref{IU6.2}{Modificar Caso de uso}, según corresponda
+	\item \IUbutton{Registrar}: Permite al actor solicitar el registro de una condición, dirige a la pantalla \IUref{IU6.1.2.1}{Registrar Pre/Postcondición}.
+	\item \editar [Modificar]: Permite al actor solicitar la edición de una condición, dirige a la pantalla \IUref{IU6.1.2.2}{Modificar Pre/Postcondición}.
+	\item \eliminar [Eliminar]: Permite al actor solicitar la eliminación de una condición, dirige a una pantalla emergente.
 \end{itemize}
-
 \subsubsection{Mensajes}
 
 \begin{Citemize}
-	\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU6.1.2}{Registrar precondición} cuando no se ha ingresado un dato marcado como obligatorio.
-	\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.1.2}{Registrar precondición} cuando se ha excedido la longitud de alguno de los campos.
+	\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU6.1.2}{Gestionar Pre/Postcondiciones} cuando no existen condiciones registradas.
 \end{Citemize}
+
+\IUfig[1]{interfaces/IU12AgestionarEntidades}{IU6.1.2A}{Gestionar Pre/Postcondiciones: Sin registros}\label{IU12A}
+\subsubsection{Comandos}
+\begin{itemize}
+	\item \IUbutton{Registrar}: Permite al actor solicitar el registro de una condición, dirige a la pantalla \IUref{IU6.1.2.1}{Registrar Pre/Postcondición}
+\end{itemize}
