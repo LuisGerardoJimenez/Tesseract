@@ -120,7 +120,7 @@ public class AccionBs {
 						new String[] { "2", "MB" }, null);
 			}
 		} else {
-			throw new TESSERACTValidacionException("Seleccione una imagen.", "MSG30", null, "imagenPantalla");
+			throw new TESSERACTValidacionException("Seleccione una imagen.", "MSG30", null, "imagenAccion");
 		}
 	}
 	
