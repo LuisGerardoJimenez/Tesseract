@@ -4,19 +4,23 @@
 
 \section{Puntos de función}
 
-Es una técnica de estimación de software desarrollada originalmente por Allan Albrecht en 1979 mientras trabajaba para IBM, quien definió conceptos para medir el software a partir de valoraciones de funcionalidades entregadas al usuario y no a partir de aspectos técnicos, con la intención de producir valoraciones independientes de la tecnología y fases del ciclo de vida utilizado.
+\textit{``Es una técnica de estimación de software desarrollada originalmente por Allan Albrecht en 1979 mientras trabajaba para IBM, quien definió conceptos para medir el software a partir de valoraciones de funcionalidades entregadas al usuario y no a partir de aspectos técnicos, con la intención de producir valoraciones independientes de la tecnología y fases del ciclo de vida utilizado."} \hyperlink{b14}{[14]}\\
 
-El trabajo de Albrecht fue continuado por el grupo internacional de usuarios de puntos de función, quienes plasmaron sus conceptos en el método IFPUG-FPA (International Function Points Users Groups), el cual realiza las valoraciones a partir de la funcionalidad del sistema, primero clasificándolas, luego asignando una complejidad y ponderación a cada una según unas tablas predefinidas, determinando así el valor de puntos de función.
+A través de esta técnica se realizan valoraciones a partir de la funcionalidad del sistema en este orden \hyperlink{b14}{[14]}:
 
-Sumando los puntos de todas las funcionalidades se obtiene la valoración de todo el proyecto y finalmente se puede aplicar un factor de ajuste, que puede depender de características generales del sistema como por ejemplo requerimientos no funcionales como el rendimiento, reusabilidad, facilidad de instalación y operación entre otros aspectos.
-
-Los puntos de función permiten traducir el tamaño de funcionalidades de software a un número, a través de la suma ponderadas de las características que este tiene. Una vez que tenemos los puntos de función, podemos traducirlos en horas hombre o días de trabajo, según factor de conversión que dependería de mediciones históricas de nuestra productividad. Con las horas hombre, podemos determinar el costo y presupuesto de los proyectos. \hyperlink{b12}{[12]}.
-
-\newpage
+\begin{enumerate}
+	\item ``Clasificándolas"
+	\item ``Asignando una complejidad y ponderación según datos predefinidos para terminar el valor de los puntos de función"
+	\item ``Sumando los puntos de todas las funcionalidades se obtiene la valoración de todo el proyecto"
+	\item ``Aplicando un factor de ajuste, que puede depender de características generales del sistema como requerimientos no funcionales (rendimiento, reusabilidad, facilidad de instalación y operación entre otros aspectos)."
+	\item ``Traducir el tamaño de funcionalidades de software a un número, a través de la suma ponderadas de las características que este tiene."
+	\item ``Traducirlos en horas hombre o días de trabajo, según factor de conversión que dependería de mediciones históricas de nuestra productividad."
+	\item ``Determinar el costo y presupuesto de los proyectos."
+\end{enumerate}
 
 Desarrollaremos la medición en dos pasos, primero determinaremos los componentes funcionales del presupuesto de desarrollo de software, a partir del análisis de requerimientos realizado anteriormente. Seguidamente, realizaremos el cálculo de los puntos de función, con lo cual obtendremos una medida del tamaño del proyecto.\\
 
-Para determinar los componentes funcionales, debemos determinar tanto las transacciones de negocio como los componentes de datos, siguiendo el método de análisis de puntos de función.  Las transacciones de negocio que podemos desglosar a partir de los requerimientos de software son las siguientes.
+Para determinar los componentes funcionales, debemos determinar tanto las transacciones de negocio como los componentes de datos, siguiendo el método de análisis de puntos de función.  Las transacciones de negocio que podemos desglosar a partir de los requerimientos de software se desglosan en el cuadro \ref{tbl:componentesf} que se muestra a continuación.
 
 \begin{table}[H]
 	\centering
@@ -33,10 +37,9 @@ Para determinar los componentes funcionales, debemos determinar tanto las transa
 		\hline
 		Buscar & 9  \\
 		\hline
-	
 	\end{tabular}
-	 \caption{Tabla de tipos de Casos de uso}
-	 \label{tbl:costos}
+	 \caption{Cuadro de relación de tipos de Casos de uso con ponderación de componentes funcionales.}
+	 \label{tbl:componentesf}
 \end{table}
 
 Seguidamente, clasificamos las transacciones de negocio, que pueden ser de 3 tipos: Entradas, salidas y consultas. 
@@ -49,7 +52,7 @@ Seguidamente, clasificamos las transacciones de negocio, que pueden ser de 3 tip
 
 \end{itemize}
 
-Adicionalmente, debemos asignar un nivel de complejidad alto, medio o bajo a cada uno con base en la siguiente tabla.
+Adicionalmente, debemos asignar un nivel de complejidad alto, medio o bajo a cada uno con base en el cuadro \ref{tbl:clasif}.
 
 	\begin{table}[H]
 	\centering
@@ -67,13 +70,15 @@ Adicionalmente, debemos asignar un nivel de complejidad alto, medio o bajo a cad
 		Archivo de interfaz externo (ILF) & 5PF & 7PF & 10PF  \\
 		\hline
 	\end{tabular}
+	\caption{Cuadro de clasificación de las transacciones de negocio y su ponderación.}
+	\label{tbl:clasif}
 \end{table}
 
-Los niveles de complejidad dependen de factores como por ejemplo el número de campos no repetidos, número de archivos a ser leídos, creados o actualizados, número de sub grupos de datos o formatos de registros, entre otros.
+Los niveles de complejidad dependen de factores como por ejemplo el número de campos no repetidos, número de archivos a ser leídos, creados o actualizados, número de sub grupos de datos o formatos de registros, entre otros.\\
 
-Al clasificar las transacciones de negocio y asignar los niveles de complejidad se llegó a la conclusión que para el desarrollo de TESSERACT, la complejidad en todos sus niveles es \textbf {MEDIA}
+Al clasificar las transacciones de negocio y asignar los niveles de complejidad se llegó a la conclusión que para el desarrollo de TESSERACT, la complejidad en todos sus niveles es \textbf {MEDIA}.\\
 
-Al determinar los puntos de función tenemos una medida de la magnitud del tamaño del software y del esfuerzo que se requiere para desarrollarlo.
+Al determinar los puntos de función tenemos una medida de la magnitud del tamaño del software y del esfuerzo que se requiere para desarrollarlo. Tal como se desglosa en el cuadro \ref{tbl:complejidad}
 
 \begin{table}[H]
 	\centering
@@ -94,9 +99,13 @@ Al determinar los puntos de función tenemos una medida de la magnitud del tama�
 		Tablas en BD & 65 &  10 &  650 \\
 		\hline
 	\end{tabular}
+\caption{Cuadro del cálculo de las transacciones de negocio por complejidad.}
+\label{tbl:complejidad}
 \end{table}
 
 \textbf {MAGNITUD ESTIMADA:} 951 PF\\
+
+Con la información del cuadro \ref{tbl:leng} se determina cuáles son las horas PF Promedio y las lineas de cófigo por PF correspondientes con un lenjuaje de programación de 4ta generación.\\
 
 \begin{table}[H]
 	\centering
@@ -106,12 +115,14 @@ Al determinar los puntos de función tenemos una medida de la magnitud del tama�
 		Lenguajes de 4ta generación & 8  & 20 \\
 		\hline
 	\end{tabular}
+\caption{Cuadro de información correspondiente con el lenguaje de 4ta generación.}
+\label{tbl:leng}
 \end{table}
 
 \textbf {HORAS HOMBRE:} 7608 hrs para que una persona termine el sistema.\\
 
 
-Ahora bien para estimar el tiempo se tienen los siguientes datos:
+Ahora bien para estimar el tiempo se tienen los siguientes datos en el cuadro \ref{tbl:colab}:
 
 \begin{table}[H]
 	\centering
@@ -131,6 +142,8 @@ Ahora bien para estimar el tiempo se tienen los siguientes datos:
 		Meses de trabajo  & 10  \\
 		\hline
 	\end{tabular}
+\caption{Cuadro de colaboradores del sistema y tiempo estimado de trabajo.}
+\label{tbl:colab}
 \end{table}
 
 \textbf {TIEMPO ESTIMADO:} 10 meses para desarrollar el software, con un trabajo de lunes a sábado, 8 hrs diarias con 4 desarrolladores.\\
@@ -139,6 +152,8 @@ Para estimar el costo del proyecto se tiene la siguiente información:
 
 \textbf {TIEMPO ESTIMADO:} 10 MESES \\
 \textbf {DESARROLLADORES:} 4 DESARROLLADORES\\
+
+De acuerdo al tiempo estimado se hace un calculo de los egresos durante el tiempo de desarrollo por el uso de recursos y la retribución de los desarrolladores,  este cálculo se refleja en el cuadro \ref{tbl:egresos}
 
 \begin{table}[H]
 	\centering
@@ -154,6 +169,8 @@ Para estimar el costo del proyecto se tiene la siguiente información:
 		Otros costos del proyectopor mes & \$850  & \$8500  \\
 		\hline
 	\end{tabular}
+\caption{Cuadro de costos de producción durante el tiempo de desarrollo del sistema.}
+\label{tbl:egresos}
 \end{table}
 
 Datos salariales promedios obtenidos de https://www.indeed.com.mx/salaries/Desarrollador/a-java-Salaries

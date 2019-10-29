@@ -1,6 +1,6 @@
 \chapter{Arquitectura} \label{cap:seis}
 
-La arquitectura implementada tiene como finalidad que el sistema web que se desarrolle sea estable, modular y escalable; En la figura 6.1 se ilustra el diagrama detalladamente junto con sus componentes.
+La arquitectura implementada tiene como finalidad que el sistema web que se desarrolle sea estable, modular y escalable; En la figura \ref{fig:arqui} se ilustra el diagrama  detalladamente junto con sus componentes.
 
 \begin{figure}[H]
 	\begin{center}
@@ -16,9 +16,13 @@ El servidor implementa el patrón de diseño MVC a través del Framework Struts 
 \begin{itemize}
 	\item Modelo: La capa Modelo es la encargada de realizar el procesamiento de los datos obtenidos del cliente, el modelo debe aplicar las reglas de negocio y realizar las operaciones correspondientes en la base de datos.\\
 	
-	Dentro de la capa de modelo se implementó una arquitectura de N capas, donde: la capa de presentación contiene los Actions; la capa de negocio contiene las clases de negocio y las clases de reglas de negocio; la capa de persistencia contiene las clases de acceso a datos (DAO’s).\\
+	\begin{itemize}
 	
-	La transferencia de datos entre las capas se realizó mediante clases de transferencia de datos (DTO’s).
+	\item Dentro de la capa de modelo se implementó una arquitectura de N capas, donde: la capa de presentación contiene los Actions; la capa de negocio contiene las clases de negocio y las clases de reglas de negocio; la capa de persistencia contiene las clases de acceso a datos (DAO’s).\\
+	
+	\item La transferencia de datos entre las capas se realizó mediante clases de transferencia de datos (DTO’s).
+	
+	\end{itemize}
 	
 	\item Controlador: La capa controlador es la encargada de recibir la petición del cliente, aplica los interceptores declarados y mediante el archivo de configuración (struts.xml) redirige al action correspondiente, cuando el modelo regresa una respuesta, el archivo de configuración sabe que JSP debe renderizar comunicándose con la capa de vista.
 	
