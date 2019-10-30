@@ -1,5 +1,7 @@
 package mx.tesseract.editor.action;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,8 +18,10 @@ import mx.tesseract.bs.RolBs.Rol_Enum;*/
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
+import mx.tesseract.util.FileUtil;
 //import mx.tesseract.util.FileUtil;
 import mx.tesseract.util.JsonUtil;
+import mx.tesseract.util.ReportUtil;
 import mx.tesseract.util.TESSERACTException;
 //import mx.tesseract.util.ReportUtil;
 import mx.tesseract.util.SessionManager;
@@ -40,7 +44,7 @@ import com.opensymphony.xwork2.ModelDriven;
 		@Result(name = "documento", type = "stream", params = { "contentType", "${type}", "inputName",
 				"fileInputStream", "bufferSize", "1024", "contentDisposition",
 				"attachment;filename=\"${filename}\"" }) })
-@AllowedMethods({ "entrar", "elegirColaboradores", "guardarColaboradores" })
+@AllowedMethods({ "entrar", "elegirColaboradores", "guardarColaboradores", "descargarDocumento" })
 public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<Proyecto> {
 	private static final long serialVersionUID = 1L;
 	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
@@ -66,6 +70,9 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	@Autowired
 	private ColaboradorBs colaboradorBs;
+	
+	@Autowired
+	private ReportUtil reportUtil;
 
 	@SuppressWarnings("unchecked")
 	public String index() {
@@ -166,37 +173,37 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 		}
 		return resultado;
 	}
-//	
-//	public String descargarDocumento() {
-//		//String extension = "docx";
-//		@SuppressWarnings("deprecation")
-//		String rutaSrc = request.getRealPath("/") + "/resources/JasperReport/";
-//		@SuppressWarnings("deprecation")
-//		String rutaTarget = request.getRealPath("/") + "/resources/JasperReport/";
-//		
-//		if(extension.equals("pdf")) {
-//			filename = this.model.getNombre().replace(' ', '_') + "." + extension;
-//			type = "application/pdf";
-//		} else if(extension.equals("docx")) {
-//			filename = this.model.getNombre().replace(' ', '_') + "." + extension;
-//			type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-//		} else {
-//			filename = this.model.getNombre().replace(' ', '_') + ".pdf";
-//			type = "application/pdf";
-//		}
-//				
-//		try {
-//				ReportUtil.crearReporte(extension, filename, model.getId(), rutaSrc, rutaTarget);
-//		        File doc = new File(rutaTarget + filename);
-//		        this.fileInputStream = new FileInputStream(doc);
-//		        FileUtil.delete(doc);
-//	        } catch (Exception e) {
-//	        	ErrorManager.agregaMensajeError(this, e);
-//	        	return index();
-//	        }
-//			
-//	    return "documento";
-//	}
+	
+	public String descargarDocumento() {
+		//String extension = "docx";
+		@SuppressWarnings("deprecation")
+		String rutaSrc = request.getRealPath("/") + "/resources/JasperReport/";
+		@SuppressWarnings("deprecation")
+		String rutaTarget = request.getRealPath("/") + "/resources/JasperReport/";
+		
+		if(extension.equals("pdf")) {
+			filename = this.model.getNombre().replace(' ', '_') + "." + extension;
+			type = "application/pdf";
+		} else if(extension.equals("docx")) {
+			filename = this.model.getNombre().replace(' ', '_') + "." + extension;
+			type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+		} else {
+			filename = this.model.getNombre().replace(' ', '_') + ".pdf";
+			type = "application/pdf";
+		}
+				
+		try {
+				reportUtil.crearReporte(extension, filename, model.getId(), rutaSrc, rutaTarget);
+		        File doc = new File(rutaTarget + filename);
+		        this.fileInputStream = new FileInputStream(doc);
+		        FileUtil.delete(doc);
+	        } catch (Exception e) {
+	        	ErrorManager.agregaMensajeError(this, e);
+	        	return index();
+	        }
+			
+	    return "documento";
+	}
 
 	public Proyecto getModel() {
 		return (model == null) ? model = loginBs.consultarProyectoActivo() : model;

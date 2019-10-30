@@ -242,7 +242,6 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 					if (idCasoUso != null) {
 						casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
 						model.setIdCasoUso(casoUsoBase.getId());
-						elementoBs.verificarEstado(casoUsoBase, CU_CasosUso.MODIFICARTRAYECTORIA5_1_1_2);
 						buscaElementos();
 						buscaCatalogos();
 						existeTPrincipal = trayectoriaBs.existeTrayectoriaPrincipal(casoUsoBase.getId(), model.getId());

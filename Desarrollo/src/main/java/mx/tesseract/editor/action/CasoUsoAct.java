@@ -11,11 +11,6 @@ import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dto.CasoUsoDTO;
 import mx.tesseract.editor.bs.ActorBs;
 import mx.tesseract.editor.bs.CasoUsoBs;
-//import mx.tesseract.bs.ReferenciaEnum;
-//import mx.tesseract.bs.TipoSeccionEnum;
-//import mx.tesseract.bs.AnalisisEnum.CU_CasosUso;
-//import mx.tesseract.bs.TipoSeccionEnum.TipoSeccionENUM;
-//import mx.tesseract.editor.bs.CasoUsoBs;
 import mx.tesseract.editor.bs.ElementoBs;
 import mx.tesseract.editor.bs.EntidadBs;
 import mx.tesseract.editor.bs.MensajeBs;
@@ -24,8 +19,6 @@ import mx.tesseract.editor.bs.PantallaBs;
 import mx.tesseract.editor.bs.ReglaNegocioBs;
 import mx.tesseract.editor.bs.TerminoGlosarioBs;
 import mx.tesseract.editor.bs.TokenBs;
-//import mx.tesseract.editor.bs.TrayectoriaBs;
-//import mx.tesseract.editor.bs.ElementoBs.Estado;
 import mx.tesseract.editor.entidad.Actor;
 import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.editor.entidad.CasoUso;
@@ -37,6 +30,7 @@ import mx.tesseract.editor.entidad.Paso;
 import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.editor.entidad.Revision;
 import mx.tesseract.editor.entidad.TerminoGlosario;
+import mx.tesseract.enums.AnalisisEnum.CU_CasosUso;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.enums.TipoSeccionEnum;
@@ -78,7 +72,7 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 				"restriccionesTermino" }),
 		@Result(name = "revision", type = "dispatcher", location = "caso-uso/revision.jsp"),
 		@Result(name = "liberacion", type = "dispatcher", location = "caso-uso/liberacion.jsp")})
-@AllowedMethods({"entrarPostprecondiciones", "entrarTrayectorias", "entrarExtensiones"})
+@AllowedMethods({"entrarPostprecondiciones", "entrarTrayectorias", "entrarExtensiones", "terminar"})
 public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<CasoUsoDTO> {
 
 	private static final long serialVersionUID = 1L;
@@ -657,38 +651,24 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 //		return "restricciones";
 //	}
 //
-//	public String terminar() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			model = CasoUsoBs.consultarCasoUso(idSel);
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//			ElementoBs.verificarEstado(model, CU_CasosUso.TERMINARCASOUSO5_6);
-//			resultado = SUCCESS;
-//			CasoUsoBs.terminar(model);
-//			addActionMessage(getText("MSG1", new String[] { "El",
-//					"Caso de uso", "terminado" }));
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			SessionManager.set(this.getActionErrors(), "mensajesError");
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			SessionManager.set(this.getActionErrors(), "mensajesError");
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
+	public String terminar() {
+		String resultado = INDEX;
+		try {
+			//casoUsoBs.terminar(model);
+			resultado = SUCCESS;
+			addActionMessage(getText("MSG1", new String[] { "El", "Caso de Uso", "terminado" }));
+			SessionManager.set(this.getActionMessages(), "mensajesAccion");
+		} catch (TESSERACTException pe) {
+			ErrorManager.agregaMensajeError(this, pe);
+			SessionManager.set(this.getActionErrors(), "mensajesError");
+			resultado = index();
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+			SessionManager.set(this.getActionErrors(), "mensajesError");
+			resultado = index();
+		}
+		return resultado;
+	}
 
 //	public String prepararRevision() {
 //		String resultado = null;

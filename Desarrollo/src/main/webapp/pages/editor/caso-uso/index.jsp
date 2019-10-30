@@ -74,7 +74,7 @@
 								${blanks}
 															
 								<!-- Terminar caso de uso -->			
-								<s:a onclick="return verificarTerminarCasoUso(%{#cu.id});">
+								<s:a href="#" onclick="return mostrarMensajeTerminacion('%{#cu.id}');">
 									<img id="" class="button" title="Terminar Caso de uso"
 										src="${pageContext.request.contextPath}/resources/images/icons/Terminar.svg" alt="Terminar Caso de uso"/>
 								</s:a>	
@@ -128,17 +128,10 @@
 	<br />
 	<div align="center">
 		<button class="boton" 
-			onclick="mostrarMensajeCargando();location.href='${pageContext.request.contextPath}/configuracion-casos-uso!generarReporteGeneral'">
-			<s:text name="Visualizar reporte general"></s:text>
-		</button>
-		<button class="boton" 
 			onclick="location.href='${pageContext.request.contextPath}/caso-uso/new'">
 			<s:text name="Registrar"></s:text>
 		</button>
 	</div>
-	
-	<s:hidden name="pruebaGenerada" id="pruebaGenerada" value="%{pruebaGenerada}"/>
-	<s:hidden name="pruebaGenerada2" id="pruebaGenerada2" value="%{pruebaGenerada2}"/>
 	
 	</s:form>
 	<div class = "invisible">
@@ -174,16 +167,15 @@
 	<!-- EMERGENTE TERMINAR -->
 	<sj:dialog id="mensajeTerminarDialog" title="Confirmación" autoOpen="false"
 		minHeight="100" minWidth="550" modal="true" draggable="true">
-		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
+		<s:form autocomplete="off" id="frmConfirmarTermino" name="frmConfirmarTerminoName" theme="simple">
 				
 				<div class="seccion">
-					<div id = "mensajeRestricciones"><!--  --></div>
-					<div id="restriccionesTermino"><!--  --></div>
+				<s:text name="MSG8"></s:text>
+				</div>
 				<br />
-			</div>
 			<div align="center">
 				<input id="btnConfirmarTermino" type="button" value="Aceptar"/> 
-				 <input type="button" onclick="cancelarConfirmarTermino();" value="Cancelar" />
+				<input type="button" onclick="cancelarConfirmarTermino();" value="Cancelar" />
 			</div>
 		</s:form>
 	</sj:dialog>

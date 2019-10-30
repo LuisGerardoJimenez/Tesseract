@@ -239,7 +239,6 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 						proyecto = proyectoBs.consultarProyecto(idProyecto);
 						modulo = moduloBs.consultarModuloById(idModulo);
 						casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
-						elementoBs.verificarEstado(model.getCasoUsoOrigen(), CU_CasosUso.MODIFICARCASOUSO5_2);
 						buscaElementos();
 						buscaCatalogos();
 						prepararVista();

@@ -73,7 +73,9 @@ public class AccessAct extends ActionSupportTESSERACT {
 			SessionManager.set(true, "login");
 			SessionManager.set(colaborador.getCurp(), "colaboradorCURP");
 			rol = loginBs.rolColaboradorActivo();
-			SessionManager.set(rol.getId(), "rol");
+			if(rol != null) {
+				SessionManager.set(rol.getId(), "rol");
+			}
 			if (colaborador.isAdministrador()) {
 				SessionManager.set(true, "admin");
 				resultado = ADMINISTRADOR;
