@@ -146,7 +146,6 @@ public class ExtensionBs {
 
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarExtension(ExtensionDTO model) {
-		elementoBs.verificarEstado(model.getCasoUsoOrigen(), CU_CasosUso.MODIFICARCASOUSO5_2);
 		if (rn018.isValidRN018(model)) {
 			Extension entidad = genericoDAO.findById(Extension.class, model.getId());
 			entidad.setCasoUsoDestino(model.getCasoUsoDestino());
