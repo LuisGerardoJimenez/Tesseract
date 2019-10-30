@@ -16,6 +16,7 @@ import mx.tesseract.dto.PantallaDTO;
 import mx.tesseract.dto.PasoDTO;
 import mx.tesseract.dto.AtributoDTO;
 import mx.tesseract.dto.EntidadDTO;
+import mx.tesseract.dto.ExtensionDTO;
 import mx.tesseract.dto.ReglaNegocioDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.dto.TrayectoriaDTO;
@@ -244,6 +245,11 @@ public class RN006 {
 					return false;
 			}
 		}
+		return valido;
+	}
+	
+	public boolean isValidRN006(ExtensionDTO model, Integer idCasoUso) {
+		Boolean valido = true;
 		return valido;
 	}
 	

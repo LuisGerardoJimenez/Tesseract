@@ -66,15 +66,12 @@
 								</s:a>	
 								${blanks}		
 								<!-- Gestionar puntos de extensión -->				
-								<s:url var="urlGestionarPuntosExtension" value="%{#pageContext.request.contextPath}/extensiones">
-									<s:param name="idCU" value="%{#cu.id}"/>
-								</s:url>
-								<s:a href="%{urlGestionarPuntosExtension}"><img
-											id="" class="button"
-											title="Gestionar Puntos de extensión" 
-											src="${pageContext.request.contextPath}/resources/images/icons/P.svg" alt="Gestionar Puntos de extensión"/>
+								<s:url var="urlGestionarPuntosExtension" value="%{#pageContext.request.contextPath}/caso-uso!entrarExtensiones?idSel=%{#cu.id}"/>
+								<s:a href="%{urlGestionarPuntosExtension}">
+									<img id="" class="button" title="Gestionar Puntos de Extension"
+											src="${pageContext.request.contextPath}/resources/images/icons/P.svg" alt="Gestionar Extensiones"/>
 								</s:a>	
-								${blanks}	
+								${blanks}
 															
 								<!-- Terminar caso de uso -->			
 								<s:a onclick="return verificarTerminarCasoUso(%{#cu.id});">

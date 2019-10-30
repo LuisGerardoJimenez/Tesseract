@@ -44,7 +44,7 @@ public class CasoUsoBs {
 	private RN018 rn018;
 	
 	public List<CasoUso> consultarCasosDeUso(Integer idProyecto, Integer idModulo) {
-		List<CasoUso> lista = casoUsoDAO.findAllByProyectoAndModulo(idProyecto, idModulo, Clave.CU);
+		List<CasoUso> lista = casoUsoDAO.findAllByProyecto(idProyecto, Clave.CU);
 		Iterator<CasoUso> it = lista.iterator();
 		while (it.hasNext()) {
 			CasoUso value = it.next();
@@ -52,6 +52,10 @@ public class CasoUsoBs {
 				it.remove();
 		}
 		return lista;
+	}
+	
+	public List<CasoUso> consultarCasosDeUsoByProyecto(Integer idProyecto) {
+		return casoUsoDAO.findAllByProyecto(idProyecto, Clave.CU);
 	}
 	
 	public CasoUsoDTO consultarCasoUsoDTO(Integer idCasoUso) {
