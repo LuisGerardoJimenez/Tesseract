@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import mx.tesseract.admin.dao.ColaboradorDAO;
 import mx.tesseract.admin.entidad.Colaborador;
+import mx.tesseract.admin.entidad.ColaboradorProyecto;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.admin.entidad.Rol;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.util.SessionManager;
 
@@ -49,6 +51,21 @@ public class LoginBs {
 			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "consultarColaboradorActivo", e);
 		}
 		return colaborador;
+	}
+	
+	public Rol rolColaboradorActivo() {
+		Rol rol = null;
+		try {
+			Colaborador colaborador = consultarColaboradorActivo();
+			for (ColaboradorProyecto colaboradorProyecto : colaborador.getColaborador_proyectos()) {
+				if (colaboradorProyecto.getColaborador().getCurp().equals(colaborador.getCurp())) {
+					rol = colaboradorProyecto.getRol();
+				}
+			}
+		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "rolColaboradorActivo", e);
+		}
+		return rol;
 	}
 
 }

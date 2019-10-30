@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Colaborador;
+import mx.tesseract.admin.entidad.Rol;
 import mx.tesseract.bs.AccessBs;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
@@ -63,6 +64,7 @@ public class AccessAct extends ActionSupportTESSERACT {
 	public String create() {
 		String resultado = INDEX;
 		Colaborador colaborador;
+		Rol rol;
 		try {
 			if (!SessionManager.isEmpty()) {
 				SessionManager.clear();
@@ -70,6 +72,8 @@ public class AccessAct extends ActionSupportTESSERACT {
 			colaborador = accessBs.verificarLogin(userName, password);
 			SessionManager.set(true, "login");
 			SessionManager.set(colaborador.getCurp(), "colaboradorCURP");
+			rol = loginBs.rolColaboradorActivo();
+			SessionManager.set(rol.getId(), "rol");
 			if (colaborador.isAdministrador()) {
 				SessionManager.set(true, "admin");
 				resultado = ADMINISTRADOR;
