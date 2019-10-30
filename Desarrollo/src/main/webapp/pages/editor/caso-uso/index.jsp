@@ -101,8 +101,7 @@
 								${blanks}	
 							</s:if>
 							
-							<s:set var="rol"><s:property value="@mx.tesseract.controller.AccessCtrl@getRol()" /></s:set>
-							<s:if test="%{#cu.estadoElemento.id == 4 and #rol == 1}">	
+							<s:if test="%{#cu.estadoElemento.id == 4 and #session.rol == 1}">	
 							<!-- Liberar caso de uso -->			
 								<s:url var="urlLiberar" value="%{#pageContext.request.contextPath}/cu!prepararLiberacion?idSel=%{#cu.id}" method="post"/>
 								<s:a href="%{urlLiberar}">
@@ -111,7 +110,7 @@
 								</s:a>	
 								${blanks}		
 							</s:if>
-							<s:if test="%{(#cu.estadoElemento.id == 5 or #cu.estadoElemento.id == 6 or #cu.estadoElemento.id == 7) and #rol == 1}">
+							<s:if test="%{(#cu.estadoElemento.id == 5 or #cu.estadoElemento.id == 6 or #cu.estadoElemento.id == 7) and #session.rol == 1}">
 							<!-- Desbloquear caso de uso -->			
 								<s:url var="urlDesbloquear" value="%{#pageContext.request.contextPath}/cu!prepararLiberacion?idSel=%{#cu.id}" method="post"/>
 								<s:a href="%{urlDesbloquear}">
