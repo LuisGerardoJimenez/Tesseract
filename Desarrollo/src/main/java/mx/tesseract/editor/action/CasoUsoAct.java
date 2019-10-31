@@ -274,6 +274,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		return resultado;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public String show() {
 		String resultado = null;
 		try {
@@ -629,18 +630,16 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	public String terminar() {
 		String resultado = INDEX;
 		try {
-			//casoUsoBs.terminar(model);
+			casoUsoBs.terminar(model);
 			resultado = SUCCESS;
 			addActionMessage(getText("MSG1", new String[] { "El", "Caso de Uso", "terminado" }));
 			SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		} catch (TESSERACTException pe) {
 			ErrorManager.agregaMensajeError(this, pe);
 			SessionManager.set(this.getActionErrors(), "mensajesError");
-			resultado = index();
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 			SessionManager.set(this.getActionErrors(), "mensajesError");
-			resultado = index();
 		}
 		return resultado;
 	}
