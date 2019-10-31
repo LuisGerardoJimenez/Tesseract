@@ -6,12 +6,15 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import mx.tesseract.dao.GenericoDAO;
+import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.editor.entidad.EstadoElemento;
 import mx.tesseract.enums.AnalisisEnum.CU_CasosUso;
 import mx.tesseract.enums.AnalisisEnum.CU_Mensajes;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
+import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.util.Constantes;
+import mx.tesseract.util.ElementoInterface;
 import mx.tesseract.util.TESSERACTException;
 
 @Service("elementoBs")
@@ -31,6 +34,9 @@ public class ElementoBs {
 	
 	@Autowired
 	private ElementoBs elementoBs;
+	
+	@Autowired
+	private ElementoDAO elementoDAO;
 	
 	public EstadoElemento consultarEstadoElemento(Estado estado) {
 		Integer idEstado;
@@ -140,6 +146,10 @@ public class ElementoBs {
 		default:
 			return 0;
 		}
+	}
+	
+	public <T extends ElementoInterface> T findAllByIdProyectoAndIdAndNombreAndClave(Class<T> clase, Integer idProyecto, Integer id, String nombre, Clave clave) {
+		return elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(clase, idProyecto, id, nombre, clave);
 	}
 }
 

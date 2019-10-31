@@ -37,7 +37,7 @@
 					<td><s:property value="%{#cu.estadoElemento.nombre}"/></td>
 					<td align="center">
 							<!-- Consultar caso de uso -->		
-							<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/cu/%{#cu.id}"/>
+							<s:url var="urlConsultar" value="%{#pageContext.request.contextPath}/caso-uso/%{#cu.id}"/>
 							<s:a href="%{urlConsultar}">
 								<img id="" class="button" title="Consultar Caso de uso"
 										src="${pageContext.request.contextPath}/resources/images/icons/Ver.svg" alt="Consultar Caso de uso"/>
@@ -131,6 +131,13 @@
 			onclick="location.href='${pageContext.request.contextPath}/caso-uso/new'">
 			<s:text name="Registrar"></s:text>
 		</button>
+		${blanks}
+		<s:url var="urlModulos"
+				value="%{#pageContext.request.contextPath}/modulos">
+		</s:url>
+		<input class="boton" type="button"
+				onclick="location.href='${urlModulos}'"
+				value="Regresar" />
 	</div>
 	
 	</s:form>

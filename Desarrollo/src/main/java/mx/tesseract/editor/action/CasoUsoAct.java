@@ -2,8 +2,8 @@ package mx.tesseract.editor.action;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Colaborador;
@@ -27,6 +27,7 @@ import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
 import mx.tesseract.editor.entidad.Paso;
+import mx.tesseract.editor.entidad.PostPrecondicion;
 import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.editor.entidad.Revision;
 import mx.tesseract.editor.entidad.TerminoGlosario;
@@ -51,6 +52,7 @@ import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
@@ -89,6 +91,9 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	private Proyecto proyecto;
 	private Modulo modulo;
 	private Colaborador colaborador;
+	
+	private List<PostPrecondicion> postprecondiciones;
+	private CasoUso casoUso;
 	
 	private Integer idProyecto;
 	private Integer idModulo;
@@ -180,8 +185,8 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 					proyecto = loginBs.consultarProyectoActivo();
 					modulo = moduloBs.consultarModuloById(idModulo);
 					listCU = casoUsoBs.consultarCasosDeUso(idProyecto, idModulo);
-					model.setProyecto(proyecto);
-					model.setModulo(modulo);
+					model.setIdProyecto(proyecto.getId());
+					model.setIdModulo(modulo.getId());
 					SessionManager.delete("idCU");
 					resultado = INDEX;
 					Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
@@ -213,8 +218,8 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 				if (idModulo != null) {
 					proyecto = loginBs.consultarProyectoActivo();
 					modulo = moduloBs.consultarModuloById(idModulo);
-					model.setProyecto(proyecto);
-					model.setModulo(modulo);
+					model.setIdProyecto(proyecto.getId());
+					model.setIdModulo(modulo.getId());
 					buscaElementos();
 					resultado = EDITNEW;
 				} else {
@@ -245,8 +250,8 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 				if (idModulo != null) {
 					proyecto = loginBs.consultarProyectoActivo();
 					modulo = moduloBs.consultarModuloById(idModulo);
-					model.setProyecto(proyecto);
-					model.setModulo(modulo);
+					model.setIdProyecto(proyecto.getId());
+					model.setIdModulo(modulo.getId());
 					buscaElementos();
 					prepararVista();
 					resultado = EDIT;
@@ -265,6 +270,50 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 			ErrorManager.agregaMensajeError(this, e);
 		}finally{
 			model.setClave(Clave.CU.toString());
+		}
+		return resultado;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String show() throws Exception {
+		String resultado = null;
+		try {
+
+			CasoUso casoUso = casoUsoBs.consultarCasoUso(model.getId());
+			this.casoUso = casoUso;
+			postprecondiciones = casoUso.getPostprecondiciones();
+			this.existenPrecondiciones = casoUsoBs.existenPrecondiciones(casoUso.getPostprecondiciones());
+			this.existenPostcondiciones = casoUsoBs.existenPostcondiciones(casoUso.getPostprecondiciones());
+
+			listPasos = casoUsoBs.agregarReferencias(request.getContextPath(), model, "_self");
+			Iterator<List<Paso>> iterator = listPasos.iterator();
+			while (iterator.hasNext()) {
+				List<Paso> pasitos = (List<Paso>)iterator.next();
+				if(pasitos.size() > 0) {
+					System.out.println("------------------------------------");
+					System.out.println(pasitos.size());
+					System.out.println(pasitos);
+					System.out.println(pasitos.get(0).getTrayectoria().getClave());
+					System.out.println("------------------------------------");
+					for(Paso paso:pasitos){
+						System.out.println(paso.getNumero());
+						System.out.println(paso.getRedaccion());
+						System.out.println(paso.getTrayectoria());
+					}
+				}else {
+					iterator.remove();
+				}
+				
+			}
+			
+			resultado = SHOW;
+		} catch (TESSERACTException pe) {
+			pe.setIdMensaje("MSG26");
+			ErrorManager.agregaMensajeError(this, pe);
+			return index();
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+			return index();
 		}
 		return resultado;
 	}
@@ -345,14 +394,14 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		model.setRedaccionReglasNegocio((tokenBs.decodificarCadenasToken(model
 				.getRedaccionReglasNegocio())));
 
-		for (Revision rev : model.getRevisiones()) {
+		/*for (Revision rev : model.getRevisiones()) {
 			if (!rev.isRevisado()
 					&& rev.getSeccion()
 							.getNombre()
 							.equals(TipoSeccionEnum.getNombre(TipoSeccionENUM.RESUMEN))) {
 				this.observaciones = rev.getObservaciones();
 			}
-		}
+		}*/
 	}
 	
 	public void validateCreate() {
@@ -363,26 +412,9 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 				idModulo = (Integer) SessionManager.get("idModulo");
 				proyecto = loginBs.consultarProyectoActivo();
 				modulo = moduloBs.consultarModuloById(idModulo);
-				model.setProyecto(proyecto);
-				model.setModulo(modulo);
-				model.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
-				CasoUso casoUso = new CasoUso();
-				casoUso.setClave(model.getClave());
-				casoUso.setId(model.getId());
-				casoUso.setNumero(model.getNumero());
-				casoUso.setNombre(model.getNombre());
-				casoUso.setDescripcion(model.getDescripcion());
-				casoUso.setEstadoElemento(model.getEstadoElemento());
-				casoUso.setRedaccionActores(model.getRedaccionActores());
-				casoUso.setRedaccionEntradas(model.getRedaccionEntradas());
-				casoUso.setRedaccionSalidas(model.getRedaccionSalidas());
-				casoUso.setRedaccionReglasNegocio(model.getRedaccionReglasNegocio());
-				casoUso.setProyecto(model.getProyecto());
-				casoUso.setModulo(model.getModulo());
-				// Se agregan las postcondiciones y precondiciones
-				//agregarPostPrecondiciones(model);
-				casoUsoBs.preAlmacenarObjetosToken(casoUso);
-				casoUsoBs.registrarCasoUso(casoUso);
+				model.setIdProyecto(proyecto.getId());
+				model.setIdModulo(modulo.getId());
+				casoUsoBs.registrarCasoUso(model);
 			} catch (TESSERACTValidacionException tve) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
@@ -442,26 +474,9 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 				idModulo = (Integer) SessionManager.get("idModulo");
 				proyecto = loginBs.consultarProyectoActivo();
 				modulo = moduloBs.consultarModuloById(idModulo);
-				model.setProyecto(proyecto);
-				model.setModulo(modulo);
-				model.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
-				CasoUso casoUso = new CasoUso();
-				casoUso.setClave(model.getClave());
-				casoUso.setId(model.getId());
-				casoUso.setNumero(model.getNumero());
-				casoUso.setNombre(model.getNombre());
-				casoUso.setDescripcion(model.getDescripcion());
-				casoUso.setEstadoElemento(model.getEstadoElemento());
-				casoUso.setRedaccionActores(model.getRedaccionActores());
-				casoUso.setRedaccionEntradas(model.getRedaccionEntradas());
-				casoUso.setRedaccionSalidas(model.getRedaccionSalidas());
-				casoUso.setRedaccionReglasNegocio(model.getRedaccionReglasNegocio());
-				casoUso.setProyecto(model.getProyecto());
-				casoUso.setModulo(model.getModulo());
-				// Se agregan las postcondiciones y precondiciones
-				//agregarPostPrecondiciones(model);
-				casoUsoBs.preAlmacenarObjetosToken(casoUso);
-				casoUsoBs.modificarCasoUso(casoUso);
+				model.setIdProyecto(proyecto.getId());
+				model.setIdModulo(modulo.getId());
+				casoUsoBs.modificarCasoUso(model);
 				
 			} catch (TESSERACTValidacionException tve) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
@@ -541,49 +556,8 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		return resultado;
 	}
 
-//
-//	public String show() throws Exception {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(model.getProyecto(), colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//
-//			this.existenPrecondiciones = CasoUsoBs.existenPrecondiciones(model
-//					.getPostprecondiciones());
-//			this.existenPostcondiciones = CasoUsoBs.existenPostcondiciones(model
-//					.getPostprecondiciones());
-//
-//			listPasos = CasoUsoBs.agregarReferencias(request.getContextPath(), this.model, "_self");
-//			for(List<Paso> pasitos:listPasos){
-//				System.out.println(pasitos.get(0).getTrayectoria().getClave());
-//				for(Paso paso:pasitos){
-//					System.out.println(paso.getNumero());
-//					System.out.println(paso.getRedaccion());
-//					System.out.println(paso.getTrayectoria());
-//				}
-//			}
-//			resultado = SHOW;
-//		} catch (TESSERACTException pe) {
-//			pe.setIdMensaje("MSG26");
-//			ErrorManager.agregaMensajeError(this, pe);
-//			return index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			return index();
-//		}
-//		System.out.println("Resultado: "+resultado);
-//		return resultado;
-//	}
-//
+	
+
 //	private void prepararVista() {
 //		Set<PostPrecondicion> postPrecondiciones = model
 //				.getPostprecondiciones();
@@ -1160,5 +1134,21 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	
 	public List<List<Paso>> getListPasos(){
 		return listPasos;
+	}
+
+	public List<PostPrecondicion> getPostprecondiciones() {
+		return postprecondiciones;
+	}
+
+	public void setPostprecondiciones(List<PostPrecondicion> postprecondiciones) {
+		this.postprecondiciones = postprecondiciones;
+	}
+
+	public CasoUso getCasoUso() {
+		return casoUso;
+	}
+
+	public void setCasoUso(CasoUso casoUso) {
+		this.casoUso = casoUso;
 	}
 }

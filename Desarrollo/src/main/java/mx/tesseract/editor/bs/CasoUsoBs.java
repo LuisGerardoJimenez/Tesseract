@@ -1,8 +1,10 @@
 package mx.tesseract.editor.bs;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.br.RN006;
 import mx.tesseract.br.RN018;
 import mx.tesseract.dao.GenericoDAO;
@@ -12,7 +14,13 @@ import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.CasoUsoActor;
 import mx.tesseract.editor.entidad.CasoUsoReglaNegocio;
 import mx.tesseract.editor.entidad.Entrada;
+import mx.tesseract.editor.entidad.Extension;
+import mx.tesseract.editor.entidad.Modulo;
+import mx.tesseract.editor.entidad.Paso;
+import mx.tesseract.editor.entidad.PostPrecondicion;
 import mx.tesseract.editor.entidad.Salida;
+import mx.tesseract.editor.entidad.Trayectoria;
+import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.enums.ReferenciaEnum.TipoSeccion;
 import mx.tesseract.util.TESSERACTException;
@@ -43,6 +51,9 @@ public class CasoUsoBs {
 	@Autowired
 	private RN018 rn018;
 	
+	@Autowired
+	private ElementoBs elementoBs;
+	
 	public List<CasoUso> consultarCasosDeUso(Integer idProyecto, Integer idModulo) {
 		List<CasoUso> lista = casoUsoDAO.findAllByProyecto(idProyecto, Clave.CU);
 		Iterator<CasoUso> it = lista.iterator();
@@ -69,14 +80,14 @@ public class CasoUsoBs {
 		cuDTO.setNumero(cu.getNumero());
 		cuDTO.setNombre(cu.getNombre());
 		cuDTO.setDescripcion(cu.getDescripcion());
-		cuDTO.setEstadoElemento(cu.getEstadoElemento());
+		cuDTO.setIdEstadoElemento(cu.getEstadoElemento().getId());
 		cuDTO.setRedaccionActores(cu.getRedaccionActores());
 		cuDTO.setRedaccionEntradas(cu.getRedaccionEntradas());
 		cuDTO.setRedaccionSalidas(cu.getRedaccionSalidas());
 		cuDTO.setRedaccionReglasNegocio(cu.getRedaccionReglasNegocio());
-		cuDTO.setProyecto(cu.getProyecto());
-		cuDTO.setModulo(cu.getModulo());
-		cuDTO.setRevisiones(cu.getRevisiones());
+		cuDTO.setIdProyecto(cu.getProyecto().getId());
+		cuDTO.setIdModulo(cu.getModulo().getId());
+		cuDTO.setDescripcion(cu.getDescripcion());
 		return cuDTO;
 	}
 	
@@ -99,7 +110,21 @@ public class CasoUsoBs {
 //	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void registrarCasoUso(CasoUso casoUso) {
+	public void registrarCasoUso(CasoUsoDTO model) {
+		CasoUso casoUso = new CasoUso();
+		casoUso.setClave(model.getClave());
+		casoUso.setId(model.getId());
+		casoUso.setNumero(model.getNumero());
+		casoUso.setNombre(model.getNombre());
+		casoUso.setDescripcion(model.getDescripcion());
+		casoUso.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
+		casoUso.setRedaccionActores(model.getRedaccionActores());
+		casoUso.setRedaccionEntradas(model.getRedaccionEntradas());
+		casoUso.setRedaccionSalidas(model.getRedaccionSalidas());
+		casoUso.setRedaccionReglasNegocio(model.getRedaccionReglasNegocio());
+		casoUso.setProyecto(genericoDAO.findById(Proyecto.class, model.getIdProyecto()));
+		casoUso.setModulo(genericoDAO.findById(Modulo.class, model.getIdModulo()));
+		preAlmacenarObjetosToken(casoUso);
 		if (rn006.isValidRN006(casoUso)) {
 			genericoDAO.save(casoUso);
 			registrarElementosAsociados(casoUso);
@@ -165,7 +190,21 @@ public class CasoUsoBs {
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
-	public void modificarCasoUso(CasoUso casoUso) {
+	public void modificarCasoUso(CasoUsoDTO model) {
+		CasoUso casoUso = new CasoUso();
+		casoUso.setClave(model.getClave());
+		casoUso.setId(model.getId());
+		casoUso.setNumero(model.getNumero());
+		casoUso.setNombre(model.getNombre());
+		casoUso.setDescripcion(model.getDescripcion());
+		casoUso.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
+		casoUso.setRedaccionActores(model.getRedaccionActores());
+		casoUso.setRedaccionEntradas(model.getRedaccionEntradas());
+		casoUso.setRedaccionSalidas(model.getRedaccionSalidas());
+		casoUso.setRedaccionReglasNegocio(model.getRedaccionReglasNegocio());
+		casoUso.setProyecto(genericoDAO.findById(Proyecto.class, model.getIdProyecto()));
+		casoUso.setModulo(genericoDAO.findById(Modulo.class, model.getIdModulo()));
+		preAlmacenarObjetosToken(casoUso);
 		if (rn006.isValidRN006(casoUso)) {
 			eliminarElementosAsociados(casoUso);
 			modificarElementosAsociados(casoUso);
@@ -232,102 +271,98 @@ public class CasoUsoBs {
 //		return listElemento;
 //	}
 //
-//	public static List<List<Paso>> agregarReferencias(String actionContext, CasoUso model, String target) {
-//		String redaccion = null;
-//		List<Paso> pasos = null;
-//		// Información general del caso de uso
-//		redaccion = model.getRedaccionActores();
-//
-//		redaccion = TokenBs.agregarReferencias(actionContext, redaccion, target);
-//		model.setRedaccionActores(redaccion);
-//
-//		redaccion = model.getRedaccionEntradas();
-//
-//		redaccion = TokenBs.agregarReferencias(actionContext, redaccion, target);
-//		model.setRedaccionEntradas(redaccion);
-//
-//		redaccion = model.getRedaccionSalidas();
-//
-//		redaccion = TokenBs.agregarReferencias(actionContext, redaccion, target);
-//		model.setRedaccionSalidas(redaccion);
-//
-//		redaccion = model.getRedaccionReglasNegocio();
-//
-//		redaccion = TokenBs.agregarReferencias(actionContext, redaccion, target);
-//		model.setRedaccionReglasNegocio(redaccion);
-//
-//		// Precondiciones y postcondiciones
-//		Set<PostPrecondicion> postprecondiciones = model
-//				.getPostprecondiciones();
-//		List<PostPrecondicion> postprecondicionesAux = new ArrayList<PostPrecondicion>(
-//				postprecondiciones);
-//		if (!Validador.esNuloOVacio(postprecondiciones)) {
-//			for (PostPrecondicion pp : postprecondicionesAux) {
-//				redaccion = pp.getRedaccion();
-//				postprecondiciones.remove(pp);
-//				redaccion = TokenBs.agregarReferencias(actionContext, redaccion, target);
-//				pp.setRedaccion(redaccion);
-//				postprecondiciones.add(pp);
-//			}
-//		}
-//
-//		// Trayectorias
-//		Set<Trayectoria> trayectorias = model.getTrayectorias();
-//		List<Trayectoria> trayectoriasAux = new ArrayList<Trayectoria>(
-//				trayectorias);
-//		List<List<Paso>> lpt = new ArrayList<List<Paso>>();
-//		for (Trayectoria trayectoria : trayectoriasAux) {
-//			pasos = TrayectoriaBs.obtenerPasos_(trayectoria.getId());//HOLI
-//			List<Paso> pasosAux = new ArrayList<Paso>(pasos);
-//			//System.out.println("List<Paso>: "+pasosAux);
-//			trayectorias.remove(trayectoria);
-//			for (Paso paso : pasosAux) {
-//				pasos.remove(paso);
-//				redaccion = paso.getRedaccion();
-//				redaccion = TokenBs.agregarReferencias(actionContext, redaccion, target);
-//				paso.setRedaccion(redaccion);
-//				paso.setTrayectoria(trayectoria);
-//				pasos.add(paso);
-//			}
-//			lpt.add(pasos);
-//			trayectorias.add(trayectoria);
-//		}
-//
-//		// Puntos de extensión
-//		String region;
-//		Set<Extension> extensiones = model.getExtiende();
-//		List<Extension> extensionesAux = new ArrayList<Extension>(extensiones);
-//		for (Extension extension : extensionesAux) {
-//			extensiones.remove(extension);
-//			region = extension.getRegion();
-//			region = TokenBs.agregarReferencias(actionContext, region, target);
-//			extension.setRegion(region);
-//			extensiones.add(extension);
-//		}
-//		return lpt;
-//	}
-//
-//	
-//
-//	public static boolean existenPrecondiciones(
-//			Set<PostPrecondicion> postprecondiciones) {
-//		for (PostPrecondicion pp : postprecondiciones) {
-//			if (pp.isPrecondicion()) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-//
-//	public static boolean existenPostcondiciones(
-//			Set<PostPrecondicion> postprecondiciones) {
-//		for (PostPrecondicion pp : postprecondiciones) {
-//			if (!pp.isPrecondicion()) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+	public List<List<Paso>> agregarReferencias(String actionContext, CasoUsoDTO model, String target) {
+		CasoUso casoUso = consultarCasoUso(model.getId());
+		String redaccion = null;
+		List<Paso> pasos = null;
+		// Información general del caso de uso
+		redaccion = model.getRedaccionActores();
+
+		redaccion = tokenBs.agregarReferencias(actionContext, redaccion, target);
+		model.setRedaccionActores(redaccion);
+
+		redaccion = model.getRedaccionEntradas();
+
+		redaccion = tokenBs.agregarReferencias(actionContext, redaccion, target);
+		model.setRedaccionEntradas(redaccion);
+
+		redaccion = model.getRedaccionSalidas();
+
+		redaccion = tokenBs.agregarReferencias(actionContext, redaccion, target);
+		model.setRedaccionSalidas(redaccion);
+
+		redaccion = model.getRedaccionReglasNegocio();
+
+		redaccion = tokenBs.agregarReferencias(actionContext, redaccion, target);
+		model.setRedaccionReglasNegocio(redaccion);
+		// Precondiciones y postcondiciones
+		List<PostPrecondicion> postprecondiciones = casoUso
+				.getPostprecondiciones();
+		List<PostPrecondicion> postprecondicionesAux = new ArrayList<PostPrecondicion>(
+				postprecondiciones);
+		if (postprecondiciones.size() > 0) {
+			for (PostPrecondicion pp : postprecondicionesAux) {
+				redaccion = pp.getRedaccion();
+				postprecondiciones.remove(pp);
+				redaccion = tokenBs.agregarReferencias(actionContext, redaccion, target);
+				pp.setRedaccion(redaccion);
+				postprecondiciones.add(pp);
+			}
+		}
+
+		// Trayectorias
+		List<Trayectoria> trayectorias = casoUso.getTrayectorias();
+		List<Trayectoria> trayectoriasAux = new ArrayList<Trayectoria>(
+				trayectorias);
+		List<List<Paso>> lpt = new ArrayList<List<Paso>>();
+		for (Trayectoria trayectoria : trayectoriasAux) {
+			pasos = trayectoria.getPasos();//HOLI
+			List<Paso> pasosAux = new ArrayList<Paso>(pasos);
+			//System.out.println("List<Paso>: "+pasosAux);
+			trayectorias.remove(trayectoria);
+			for (Paso paso : pasosAux) {
+				pasos.remove(paso);
+				redaccion = paso.getRedaccion();
+				redaccion = tokenBs.agregarReferencias(actionContext, redaccion, target);
+				paso.setRedaccion(redaccion);
+				paso.setTrayectoria(trayectoria);
+				pasos.add(paso);
+			}
+			lpt.add(pasos);
+			trayectorias.add(trayectoria);
+		}
+
+		// Puntos de extensión
+		String region;
+		List<Extension> extensiones = casoUso.getExtiende();
+		List<Extension> extensionesAux = new ArrayList<Extension>(extensiones);
+		for (Extension extension : extensionesAux) {
+			extensiones.remove(extension);
+			region = extension.getRegion();
+			region = tokenBs.agregarReferencias(actionContext, region, target);
+			extension.setRegion(region);
+			extensiones.add(extension);
+		}
+		return lpt;
+	}
+	
+	public boolean existenPrecondiciones(List<PostPrecondicion> postprecondiciones) {
+		for (PostPrecondicion pp : postprecondiciones) {
+			if (pp.isPrecondicion()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean existenPostcondiciones(List<PostPrecondicion> postprecondiciones) {
+		for (PostPrecondicion pp : postprecondiciones) {
+			if (!pp.isPrecondicion()) {
+				return true;
+			}
+		}
+		return false;
+	}
 //
 	public void preAlmacenarObjetosToken(CasoUso casoUso) {
 		
