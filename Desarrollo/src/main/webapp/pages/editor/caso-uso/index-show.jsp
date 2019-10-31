@@ -23,13 +23,12 @@
 				<s:text name="labelResumen"></s:text>
 			</h5>
 			<p class="instrucciones">
-				<s:text name="model.descripcion"></s:text>
+				${model.descripcion}
 			</p>
 			<br />
 			<table class="tablaDescripcion">
 				<tr>
-					<td colspan="2" class="encabezadoTabla">Información general
-						del Caso de uso</td>
+					<td colspan="2" class="encabezadoTabla">Información general del Caso de uso</td>
 				</tr>
 				<tr>
 					<td class="label consulta"><s:text name="labelEstado" /></td>
@@ -57,10 +56,10 @@
 					<s:if test="existenPrecondiciones">
 						<td class="ui-widget">
 							<ul>
-								<s:iterator value="model.postprecondiciones"
-									var="postprecondicion">
-									<s:if test="%{#postprecondicion.precondicion}">
-										<li>${postprecondicion.redaccion}</li>
+								<s:iterator value="postprecondiciones"
+									var="postprecondicionItem">
+									<s:if test="%{#postprecondicionItem.precondicion}">
+										<li>${postprecondicionItem.redaccion}</li>
 									</s:if>
 								</s:iterator>
 							</ul>
@@ -76,7 +75,7 @@
 					<s:if test="existenPostcondiciones">
 						<td class="ui-widget">
 							<ul>
-								<s:iterator value="model.postprecondiciones"
+								<s:iterator value="postprecondiciones"
 									var="postprecondicion">
 									<s:if test="!#postprecondicion.precondicion">
 										<li>${postprecondicion.redaccion}</li>
@@ -93,10 +92,10 @@
 					<td class="label consulta"><s:text name="labelTipo"></s:text>
 					</td>
 					<td>
-						<s:if test="model.extendidoDe.size > 0">
+						<s:if test="casoUso.extendidoDe.size > 0">
 							<s:text name="labelSecundario"/>
 							<ul>
-								<s:iterator value="model.extendidoDe" var="extension">
+								<s:iterator value="casoUso.extendidoDe" var="extension">
 									<li><s:property value="%{#extension.casoUsoOrigen.clave + #extension.casoUsoOrigen.numero + ' ' + #extension.casoUsoOrigen.nombre}"/></li>
 								</s:iterator>
 							</ul>
@@ -117,13 +116,13 @@
 			<h5>
 				<s:text name="labelTrayectorias"></s:text>
 			</h5>
-			<s:if test="model.trayectorias.size == 0">
+			<s:if test="casoUso.trayectorias.size == 0">
 				<p class="instrucciones">
 					<s:text name="labelSinTrayectorias" />
 				</p>
 			</s:if>
 			<s:else>
-				<s:iterator value="model.trayectorias" var="tray">
+				<s:iterator value="casoUso.trayectorias" var="tray">
 					<s:iterator value="ListPasos" var="lpt">
 						<s:iterator value="lpt" var="lptito">
 							<s:if test="#lptito.trayectoria.id == #tray.id">
@@ -140,17 +139,21 @@
 								<!-- AQUÍ -->
 								<ol>
 									<s:iterator value="ListPasosActual" var="paso">
-										<a name="paso-${#paso.id}"></a>
+										<a name="paso-${paso.id}"></a>
 										<li class="ui-widget">
-										<s:if test="#paso.realizaActor">
-												<img src="${pageContext.request.contextPath}/resources/images/icons/actor.png" alt="actor"/>
-											</s:if> <s:else>
-												<img src="${pageContext.request.contextPath}/resources/images/icons/uc.png" alt="casoUso"/>
-											</s:else> <s:if test="#paso.verbo.nombre == 'Otro'">
-									${blanks} ${paso.otroVerbo} ${blanks} ${paso.redaccion}
-								</s:if> <s:else>
-									${blanks} ${paso.verbo.nombre} ${blanks} ${paso.redaccion}
-								</s:else></li>
+											<s:if test="#paso.realizaActor">
+												<img src="${pageContext.request.contextPath}/resources/images/icons/actor.png" />
+											</s:if>
+											<s:else>
+												<img src="${pageContext.request.contextPath}/resources/images/icons/uc.png" />
+											</s:else>
+											<s:if test="#paso.verbo.nombre == 'Otro'">
+												${blanks} ${paso.otroVerbo} ${blanks} ${paso.redaccion}
+											</s:if>
+											<s:else>
+												${blanks} ${paso.verbo.nombre} ${blanks} ${paso.redaccion}
+											</s:else>
+										</li>
 									</s:iterator>
 									<s:if test="#tray.finCasoUso">
 										<li class="ui-widget" style="list-style-type: square"><s:text
@@ -162,7 +165,7 @@
 							</s:if>
 				</s:iterator>
 				
-				<s:iterator value="model.trayectorias" var="tray">
+				<s:iterator value="casoUso.trayectorias" var="tray">
 				<s:iterator value="ListPasos" var="lpt">
 						<s:iterator value="lpt" var="lptito">
 							<s:if test="#lptito.trayectoria.id == #tray.id">
@@ -189,9 +192,11 @@
 						<ol>
 							<s:iterator value="ListPasosActual" var="paso">
 								<li class="ui-widget"><s:if test="#paso.realizaActor">
-										<img src="${pageContext.request.contextPath}/resources/images/icons/actor.png" alt="actor"/>
+										<img
+											src="${pageContext.request.contextPath}/resources/images/icons/actor.png" />
 									</s:if> <s:else>
-										<img src="${pageContext.request.contextPath}/resources/images/icons/uc.png" alt="casoUso"/>
+										<img
+											src="${pageContext.request.contextPath}/resources/images/icons/uc.png" />
 									</s:else> <s:if test="#paso.verbo.nombre == 'Otro'">
 							${blanks} ${paso.otroVerbo} ${blanks} ${paso.redaccion}
 						</s:if> <s:else>
@@ -209,7 +214,7 @@
 			</s:else>
 		</div>
 	</div>
-	<s:if test="model.extiende.size > 0">
+	<s:if test="casoUso.extiende.size > 0">
 		<div class="formulario">
 			<div class="tituloFormulario">
 				${blanks}
@@ -218,7 +223,7 @@
 				<h5>
 					<s:text name="labelExtensiones"></s:text>
 				</h5>
-				<s:iterator value="model.extiende" var="extension">
+				<s:iterator value="casoUso.extiende" var="extension">
 					<table>
 						<tr>
 							<td><span class="labelIzq consulta"><s:text

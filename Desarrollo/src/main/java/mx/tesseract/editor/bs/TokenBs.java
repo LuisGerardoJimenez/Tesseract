@@ -47,6 +47,9 @@ import mx.tesseract.util.TESSERACTValidacionException;
 @Service("tokenBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class TokenBs {
+	
+	@Autowired
+	private TokenBs tokenBs;
 
 	@Autowired
 	private PantallaDAO pantallaDAO;
@@ -1892,5 +1895,188 @@ public class TokenBs {
 		return redaccion;
 
 	}
+
+	public String agregarReferencias(String actionContext, String redaccion, String target) {
+			if (redaccion == null || redaccion.isEmpty()) {
+				return "Sin información";
+			}
+			if (redaccion.charAt(0) == '$') {
+				redaccion = redaccion.substring(1);
+			}
+			ArrayList<String> tokens = tokenBs.procesarTokenIpunt(redaccion);
+			for (String token : tokens) {
+				ArrayList<String> segmentos = tokenBs.segmentarToken(token);
+				String tokenReferencia = segmentos.get(0);
+				int id = Integer.parseInt(segmentos.get(1));
+				switch (ReferenciaEnum.getTipoReferencia(tokenReferencia)) {
+				case ACCION:
+					Accion accion = genericoDAO.findById(Accion.class, Integer
+							.parseInt(segmentos.get(1)));
+					if (accion == null) {
+						redaccion = "";
+						break;
+					} else {
+						Pantalla pantalla = accion.getPantalla();
+						redaccion = remplazoToken(
+								redaccion,
+								token,
+								"<a target='" + target + "'" +  "class='referencia' href='" + actionContext
+										+ "/pantallas/" + pantalla.getId() 
+										+ "#accion-" + id
+										+ "'>"
+										+ accion.getNombre() + "</a>");
+					}
+					break;
+				case ACTOR:
+					Actor actor = genericoDAO.findById(Actor.class, Integer.parseInt(segmentos.get(1)));
+					if (actor == null) {
+						redaccion = "";
+						break;
+					}
+					redaccion = remplazoToken(redaccion, token,
+							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext
+									+ "/actores/" + id + "'>" + actor.getNombre()
+									+ "</a>");
+					break;
+				case ATRIBUTO:
+					Atributo atributo = genericoDAO.findById(Atributo.class, Integer.parseInt(segmentos.get(1)));
+					if (atributo == null) {
+						redaccion = "";
+						break;
+					} else {
+						Entidad entidad = atributo.getEntidad();
+						redaccion = remplazoToken(
+								redaccion,
+								token,
+								"<a target='" + target + "'" +  "class='referencia' href='" + actionContext
+										+ "/entidades/" + entidad.getId()
+										+ "#atributo-" + id + "'>"
+										+ atributo.getNombre() + "</a>");
+					}
+					break;
+				case CASOUSO:
+					CasoUso casoUso = genericoDAO.findById(CasoUso.class, Integer.parseInt(segmentos.get(1)));
+					if (casoUso == null) {
+						redaccion = "";
+						break;
+					}
+					redaccion = remplazoToken(
+							redaccion,
+							token,
+							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext + "/cu/"
+									+ id + "'>" + casoUso.getClave() + " "
+									+ casoUso.getNumero() + " "
+									+ casoUso.getNombre() + "</a>");
+
+					break;
+				case ENTIDAD: // ENT.ID -> ENT.NOMBRE_ENT
+					Entidad entidad = genericoDAO.findById(Entidad.class, Integer.parseInt(segmentos.get(1)));
+					if (entidad == null) {
+						redaccion = "";
+						break;
+					}
+					redaccion = remplazoToken(
+							redaccion,
+							token,
+							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext
+									+ "/entidades/" + id + "'>"
+									+ entidad.getNombre() + "</a>");
+
+					break;
+				case TERMINOGLS: // GLS.ID -> GLS.NOMBRE_GLS
+					TerminoGlosario terminoGlosario = genericoDAO.findById(TerminoGlosario.class, Integer.parseInt(segmentos.get(1)));
+					if (terminoGlosario == null) {
+						redaccion = "";
+						break;
+					} else {
+						redaccion = remplazoToken(redaccion, token,
+								"<a target='" + target + "'" +  "class='referencia' href='" + actionContext
+										+ "/glosario/" + id + "'>"
+										+ terminoGlosario.getNombre() + "</a>");
+					}
+					break;
+				case PANTALLA: // IU.ID -> // IU.MODULO.NUMERO:NOMBRE_IU
+					Pantalla pantalla = genericoDAO.findById(Pantalla.class, Integer.parseInt(segmentos.get(1)));
+					if (pantalla == null) {
+						redaccion = "";
+						break;
+					}
+					redaccion = remplazoToken(
+							redaccion,
+							token,
+							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext + "/pantallas/" + id +"'>" + pantalla.getClave()
+									+ " " + pantalla.getNumero() + " "
+									+ pantalla.getNombre() + "</a>");
+					break;
+
+				case MENSAJE: // GLS.ID -> MSG.NUMERO:NOMBRE_MSG
+					Mensaje mensaje = genericoDAO.findById(Mensaje.class, Integer.parseInt(segmentos.get(1)));
+					if (mensaje == null) {
+						redaccion = "";
+						break;
+					}
+					redaccion = remplazoToken(
+							redaccion,
+							token,
+							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext
+									+ "/mensajes/" + id + "'>" + mensaje.getClave()
+									+ " " + mensaje.getNumero() + " "
+									+ mensaje.getNombre() + "</a>");
+					break;
+				case REGLANEGOCIO: // RN.ID -> RN.NUMERO:NOMBRE_RN
+					ReglaNegocio reglaNegocio = genericoDAO.findById(ReglaNegocio.class, Integer.parseInt(segmentos.get(1)));
+					if (reglaNegocio == null) {
+						redaccion = "";
+						break;
+					}
+					redaccion = remplazoToken(
+							redaccion,
+							token,
+							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext
+									+ "/reglas-negocio/" + id + "'>"
+									+ reglaNegocio.getClave() + " "
+									+ reglaNegocio.getNumero() + " "
+									+ reglaNegocio.getNombre() + "</a>");
+					break;
+				case TRAYECTORIA: // TRAY.ID -> TRAY.CUMODULO.NUM:NOMBRECU:CLAVETRAY
+					Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, Integer.parseInt(segmentos.get(1)));
+					if (trayectoria == null) {
+						redaccion = "";
+						break;
+					}
+					CasoUso cu = trayectoria.getCasoUso();
+					redaccion = remplazoToken(redaccion, token,
+							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext + "/cu/"
+									+ cu.getId() + "#trayectoria-" + id + "'>"
+									+ trayectoria.getClave() + "</a>");
+					break;
+
+				case PASO: // P.CUMODULO.NUM:NOMBRECU:CLAVETRAY.NUMERO
+					Paso paso = genericoDAO.findById(Paso.class, Integer.parseInt(segmentos.get(1)));
+					if (paso == null) {
+						redaccion = "";
+						break;
+					}
+					CasoUso cup = paso.getTrayectoria().getCasoUso();
+					redaccion = remplazoToken(
+							redaccion,
+							token,
+							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext + "/cu/"
+									+ cup.getId() + "#paso-" + id + "'>"
+									+ paso.getNumero() + "</a>");
+					break;
+
+				default:
+					break;
+				}
+			}
+
+			redaccion = redaccion.replace("\r\n", "<br/>");
+			redaccion = redaccion.replace("\n", "<br/>");
+			redaccion = redaccion.replace("\r", "<br/>");
+
+			return redaccion;
+
+		}
 	
 }

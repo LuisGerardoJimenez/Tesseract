@@ -23,7 +23,7 @@ public class CasoUsoDTO {
 	private String nombre;
 	private String descripcion;
 	
-	private EstadoElemento estadoElemento;
+	private Integer idEstadoElemento;
 	
 	@Column(name = "redaccionActores", length = 999)
 	private String redaccionActores;
@@ -34,9 +34,8 @@ public class CasoUsoDTO {
 	@Column(name = "redaccionReglasNegocio", length = 999)
 	private String redaccionReglasNegocio;
 	
-	private Proyecto proyecto;
-	private Modulo modulo;
-	private List<Revision> revisiones;
+	private Integer idProyecto;
+	private Integer idModulo;
 	
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'200', 'caracteres'})}", trim = true, maxLength = "200", shortCircuit= true)
@@ -110,30 +109,6 @@ public class CasoUsoDTO {
 		this.redaccionReglasNegocio = redaccionReglasNegocio;
 	}
 
-	public Proyecto getProyecto() {
-		return proyecto;
-	}
-
-	public void setProyecto(Proyecto proyecto) {
-		this.proyecto = proyecto;
-	}
-
-	public Modulo getModulo() {
-		return modulo;
-	}
-
-	public void setModulo(Modulo modulo) {
-		this.modulo = modulo;
-	}
-
-	public EstadoElemento getEstadoElemento() {
-		return estadoElemento;
-	}
-
-	public void setEstadoElemento(EstadoElemento estadoElemento) {
-		this.estadoElemento = estadoElemento;
-	}
-
 	public String getClave() {
 		return clave;
 	}
@@ -142,14 +117,29 @@ public class CasoUsoDTO {
 		this.clave = clave;
 	}
 
-	public List<Revision> getRevisiones() {
-		return revisiones;
+	public Integer getIdEstadoElemento() {
+		return idEstadoElemento;
 	}
 
-	public void setRevisiones(List<Revision> revisiones) {
-		this.revisiones = revisiones;
+	public void setIdEstadoElemento(Integer idEstadoElemento) {
+		this.idEstadoElemento = idEstadoElemento;
 	}
-	
+
+	public Integer getIdProyecto() {
+		return idProyecto;
+	}
+
+	public void setIdProyecto(Integer idProyecto) {
+		this.idProyecto = idProyecto;
+	}
+
+	public Integer getIdModulo() {
+		return idModulo;
+	}
+
+	public void setIdModulo(Integer idModulo) {
+		this.idModulo = idModulo;
+	}
 	
 	
 }
