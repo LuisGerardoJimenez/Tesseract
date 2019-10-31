@@ -1151,4 +1151,20 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	public void setCasoUso(CasoUso casoUso) {
 		this.casoUso = casoUso;
 	}
+
+	public Proyecto getProyecto() {
+		return proyecto;
+	}
+
+	public void setProyecto(Proyecto proyecto) {
+		this.proyecto = proyecto;
+	}
+
+	public Modulo getModulo() {
+		return modulo;
+	}
+
+	public void setModulo(Modulo modulo) {
+		this.modulo = modulo;
+	}
 }
