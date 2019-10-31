@@ -1749,9 +1749,11 @@ public class TokenBs {
 	 * el nombre del atributo cuyo id es 1.
 	 */
 	public String decodificarCadenaSinToken(String redaccion) {
+//		System.out.println("-----------------------> Entré <------------------------");
 		if (redaccion == null || redaccion.isEmpty()) {
 			return "Sin información";
 		}
+//		System.out.println(":o");
 		redaccion = redaccion.substring(1);
 		ArrayList<String> tokens = procesarTokenIpunt(redaccion);
 		for (String token : tokens) {
@@ -1892,6 +1894,7 @@ public class TokenBs {
 
 		redaccion = redaccion.replace("\n", "<br/>");
 		redaccion = redaccion.replace("\r", "<br/>");
+//		System.out.println("--------------------------\n\n"+redaccion+"\n\n---------------------------\n");
 		return redaccion;
 
 	}

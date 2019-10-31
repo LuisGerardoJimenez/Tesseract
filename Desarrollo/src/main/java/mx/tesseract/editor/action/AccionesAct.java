@@ -164,7 +164,6 @@ public class AccionesAct extends ActionSupportTESSERACT implements ModelDriven<A
 	}
 	
 	public void validateCreate() {
-		System.out.println("-------------> Errors: \n"+getFieldErrors()+"\n"+getActionErrors());
 		if (!hasErrors()) {
 			try {
 				Integer idPantala = (Integer) SessionManager.get("idPantalla");

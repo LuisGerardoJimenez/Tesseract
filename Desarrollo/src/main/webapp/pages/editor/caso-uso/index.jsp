@@ -74,7 +74,7 @@
 								${blanks}
 															
 								<!-- Terminar caso de uso -->			
-								<s:a onclick="return verificarTerminarCasoUso(%{#cu.id});">
+								<s:a href="#" onclick="return mostrarMensajeTerminacion('%{#cu.id}');">
 									<img id="" class="button" title="Terminar Caso de uso"
 										src="${pageContext.request.contextPath}/resources/images/icons/Terminar.svg" alt="Terminar Caso de uso"/>
 								</s:a>	
@@ -98,8 +98,7 @@
 								${blanks}	
 							</s:if>
 							
-							<s:set var="rol"><s:property value="@mx.tesseract.controller.AccessCtrl@getRol()" /></s:set>
-							<s:if test="%{#cu.estadoElemento.id == 4 and #rol == 1}">	
+							<s:if test="%{#cu.estadoElemento.id == 4 and #session.rol == 1}">	
 							<!-- Liberar caso de uso -->			
 								<s:url var="urlLiberar" value="%{#pageContext.request.contextPath}/cu!prepararLiberacion?idSel=%{#cu.id}" method="post"/>
 								<s:a href="%{urlLiberar}">
@@ -108,7 +107,7 @@
 								</s:a>	
 								${blanks}		
 							</s:if>
-							<s:if test="%{(#cu.estadoElemento.id == 5 or #cu.estadoElemento.id == 6 or #cu.estadoElemento.id == 7) and #rol == 1}">
+							<s:if test="%{(#cu.estadoElemento.id == 5 or #cu.estadoElemento.id == 6 or #cu.estadoElemento.id == 7) and #session.rol == 1}">
 							<!-- Desbloquear caso de uso -->			
 								<s:url var="urlDesbloquear" value="%{#pageContext.request.contextPath}/cu!prepararLiberacion?idSel=%{#cu.id}" method="post"/>
 								<s:a href="%{urlDesbloquear}">
@@ -140,9 +139,6 @@
 				onclick="location.href='${urlModulos}'"
 				value="Regresar" />
 	</div>
-	
-	<s:hidden name="pruebaGenerada" id="pruebaGenerada" value="%{pruebaGenerada}"/>
-	<s:hidden name="pruebaGenerada2" id="pruebaGenerada2" value="%{pruebaGenerada2}"/>
 	
 	</s:form>
 	<div class = "invisible">
@@ -178,16 +174,15 @@
 	<!-- EMERGENTE TERMINAR -->
 	<sj:dialog id="mensajeTerminarDialog" title="Confirmación" autoOpen="false"
 		minHeight="100" minWidth="550" modal="true" draggable="true">
-		<s:form autocomplete="off" id="frmConfirmarEliminacion" name="frmConfirmarEliminacionName" theme="simple">
+		<s:form autocomplete="off" id="frmConfirmarTermino" name="frmConfirmarTerminoName" theme="simple">
 				
 				<div class="seccion">
-					<div id = "mensajeRestricciones"><!--  --></div>
-					<div id="restriccionesTermino"><!--  --></div>
+				<s:text name="MSG8"></s:text>
+				</div>
 				<br />
-			</div>
 			<div align="center">
 				<input id="btnConfirmarTermino" type="button" value="Aceptar"/> 
-				 <input type="button" onclick="cancelarConfirmarTermino();" value="Cancelar" />
+				<input type="button" onclick="cancelarConfirmarTermino();" value="Cancelar" />
 			</div>
 		</s:form>
 	</sj:dialog>

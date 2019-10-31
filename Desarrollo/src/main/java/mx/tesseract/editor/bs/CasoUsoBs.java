@@ -487,74 +487,6 @@ public class CasoUsoBs {
 //		return listReferenciasVista;
 //	}
 //
-//	public static List<String> verificarRestriccionesTermino(CasoUso model) {
-//		Set<String> restriccionesSet = new HashSet<String>(0);
-//		List<String> restricciones = new ArrayList<String>();
-//		List<String> listRestricciones = new ArrayList<String>();
-//		String restriccion;
-//		Atributo atributo;
-//		TerminoGlosario termino;
-//		Mensaje mensaje;
-//		ReglaNegocio reglaNegocio;
-//
-//		for (Entrada entrada : model.getEntradas()) {
-//			termino = entrada.getTerminoGlosario();
-//			atributo = entrada.getAtributo();
-//
-//			if (agregarRestriccion(termino, model)) {
-//				restricciones.add("Término " + termino.getNombre());
-//			}
-//			if (agregarRestriccion(atributo, model)) {
-//				restricciones.add("Atributo " + atributo.getNombre());
-//			}
-//
-//		}
-//
-//		for (Salida salida : model.getSalidas()) {
-//			termino = salida.getTerminoGlosario();
-//			atributo = salida.getAtributo();
-//			mensaje = salida.getMensaje();
-//			if (agregarRestriccion(termino, model)) {
-//				restricciones.add("Término " + termino.getNombre());
-//			}
-//			if (agregarRestriccion(atributo, model)) {
-//				restricciones.add("Atributo " + atributo.getNombre());
-//			}
-//			if (agregarRestriccion(mensaje, model)) {
-//				restricciones.add("Mensaje " + mensaje.getClave()
-//						+ mensaje.getNumero() + " " + mensaje.getNombre());
-//			}
-//
-//		}
-//
-//		for (CasoUsoReglaNegocio casoUsoReglaNegocio : model.getReglas()) {
-//			reglaNegocio = casoUsoReglaNegocio.getReglaNegocio();
-//			if (agregarRestriccion(reglaNegocio, model)) {
-//				restricciones.add("Regla de negocio " + reglaNegocio.getClave()
-//						+ reglaNegocio.getNumero() + " "
-//						+ reglaNegocio.getNombre());
-//			}
-//		}
-//
-//		for (Trayectoria trayectoria : model.getTrayectorias()) {
-//			for (Paso paso : trayectoria.getPasos()) {
-//				for (ReferenciaParametro referenciaParametro : new PasoDAO()
-//						.consultarPaso(paso.getId()).getReferencias()) {
-//					if (agregarRestriccion(referenciaParametro, model)) {
-//						restriccion = construirRestriccion(referenciaParametro);
-//						if (restriccion != null) {
-//							restricciones.add(restriccion);
-//						}
-//					}
-//				}
-//			}
-//		}
-//
-//		restriccionesSet.addAll(restricciones);
-//		listRestricciones.addAll(restriccionesSet);
-//		return listRestricciones;
-//	}
-//
 //	private static String construirRestriccion( 
 //			ReferenciaParametro referenciaParametro) {
 //		switch (ReferenciaEnum.getTipoReferenciaParametro(referenciaParametro)) {
@@ -909,15 +841,15 @@ public class CasoUsoBs {
 //		return false;
 //	}
 //	
-//	public static boolean esPrimario(Integer id) {
-//		//int id = Integer.parseInt(idCadena);
-//		CasoUso casoUso = consultarCasoUso(id);
-//		
-//		if(casoUso.getExtendidoDe() == null || casoUso.getExtendidoDe().isEmpty()) {
-//			return true;
-//		}
-//		return false;
-//	}
+	public boolean esPrimario(Integer id) {
+		//int id = Integer.parseInt(idCadena);
+		CasoUso casoUso = consultarCasoUso(id);
+		
+		if(casoUso.getExtendidoDe() == null || casoUso.getExtendidoDe().isEmpty()) {
+			return true;
+		}
+		return false;
+	}
 //
 //	public static Trayectoria obtenerTrayectoriaPrincipal(CasoUso casoUso) {
 //		for (Trayectoria t : casoUso.getTrayectorias()) {

@@ -195,7 +195,6 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 			}
 			Mensaje mensaje = new Mensaje();
 			mensaje.setEstadoElemento(model.getEstadoElemento());
-			elementoBs.verificarEstado(mensaje, CU_Mensajes.MODIFICARMENSAJE9_2);
 			buscarParametrosDisponibles(proyecto.getId());
 			prepararVista();
 		} catch (TESSERACTException te) {
