@@ -12,9 +12,9 @@
 		\UCitem{Propósito}{Registrar los puntos de extensión de un caso de uso.}
 		\UCitem{Entradas}{
 		\begin{itemize}
-			\item \cdtRef{entidadExtension:observacionRevision}{Causa}: Se escribe desde el teclado.
-			\item Regiónde la trayectoria: Se escribe desde el teclado.
-			\item Caso de uso al que extiende: Se escribe desde el teclado.
+			\item \cdtRef{entidadExtension:causaPE}{Causa}: Se escribe desde el teclado.
+			\item \cdtRef{entidadExtension:regionPE}{Región de la trayectoria}: Se escribe desde el teclado.
+			\item \cdtRef{entidadExtension:ExtiendePE}{Caso de uso que extiende}: Se escribe desde el teclado.
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
@@ -22,6 +22,9 @@
 				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto}: Lo obtiene el sistema.
 				\item \cdtRef{moduloEntidad:claveModulo}{Clave del Módulo}: Lo obtiene el sistema.
 				\item \cdtRef{moduloEntidad:nombreModulo}{Nombre del Módulo}: Lo obtiene el sistema.
+				\item \cdtRef{casoUso:claveCU}{Clave} del caso de uso: Lo obtiene el sistema. 
+				\item \cdtRef{casoUso:numeroCU}{Número} del caso de uso: Lo obtiene el sistema. 
+				\item \cdtRef{casoUso:nombreCU}{Nombre} del caso de uso: Lo obtiene el sistema.
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU6.1.3}{Gestionar Puntos de extensión} para indicar que el registro fue exitoso.
 		\end{itemize}}
 		\UCitem{Precondiciones}{

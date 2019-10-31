@@ -25,7 +25,6 @@
 %--------------------------------------
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Da clic en el icono \eliminar del registro que desea eliminar de la pantalla \IUref{IU6}{Gestionar Casos de uso}.
-		\UCpaso[\UCsist] Verifica que el caso de uso se encuentre en estado ''Edición'' o ''Pendiente de corrección''. \hyperlink{CU12-3:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Muestra el mensaje emergente \cdtIdRef{MSG10}{Confirmar eliminación} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar} en la pantalla \IUref{IU6}{Gestionar Casos de uso}.
 		\UCpaso[\UCactor] Confirma la eliminación del caso de uso oprimiendo el botón \IUbutton{Aceptar}. \hyperlink{CU12-3:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que ningún caso de uso se encuentre referenciando a algún elemento perteneciente caso de uso que desea eliminar. \hyperlink{CU12-3:TAB}{[Trayectoria B]}
@@ -45,12 +44,5 @@
 \noindent \textbf{Condición:} El caso de uso o uno de sus \hyperlink{tElemento}{elementos} se encuentra referenciado en otro caso de uso.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG13}{Eliminación no permitida} en la pantalla \IUref{IU6}{Gestionar Casos de uso}.
-	\item[- -] - - {\em {Fin del caso de uso}}.
-\end{enumerate}
-%-------------------------------------	
-\hypertarget{CU12-3:TAC}{\textbf{Trayectoria alternativa C}}\\
-\noindent \textbf{Condición:} El caso de uso no se encuentra en estado ''Edición'' o ''Pendiente de corrección''.
-\begin{enumerate}
-	\UCpaso[\UCsist] Oculta el botón \eliminar del caso que no se encuentra en estado de ''Edición'' o ''Pendiente de corrección''.
 	\item[- -] - - {\em {Fin del caso de uso}}.
 \end{enumerate}
