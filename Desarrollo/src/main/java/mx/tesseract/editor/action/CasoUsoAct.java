@@ -274,8 +274,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		return resultado;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public String show() throws Exception {
+	public String show() {
 		String resultado = null;
 		try {
 
@@ -307,11 +306,13 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 			}
 			
 			resultado = SHOW;
-		} catch (TESSERACTException pe) {
-			pe.setIdMensaje("MSG26");
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			te.setIdMensaje("MSG26");
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
+			ErrorManager.agregaMensajeError(this, te);
 			return index();
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "edit", e);
 			ErrorManager.agregaMensajeError(this, e);
 			return index();
 		}
