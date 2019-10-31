@@ -275,7 +275,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	}
 	
 	@SuppressWarnings("unchecked")
-	public String show() throws Exception {
+	public String show() {
 		String resultado = null;
 		try {
 
@@ -307,11 +307,13 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 			}
 			
 			resultado = SHOW;
-		} catch (TESSERACTException pe) {
-			pe.setIdMensaje("MSG26");
-			ErrorManager.agregaMensajeError(this, pe);
+		} catch (TESSERACTException te) {
+			te.setIdMensaje("MSG26");
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
+			ErrorManager.agregaMensajeError(this, te);
 			return index();
 		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "edit", e);
 			ErrorManager.agregaMensajeError(this, e);
 			return index();
 		}
@@ -628,18 +630,16 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	public String terminar() {
 		String resultado = INDEX;
 		try {
-			//casoUsoBs.terminar(model);
+			casoUsoBs.terminar(model);
 			resultado = SUCCESS;
 			addActionMessage(getText("MSG1", new String[] { "El", "Caso de Uso", "terminado" }));
 			SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		} catch (TESSERACTException pe) {
 			ErrorManager.agregaMensajeError(this, pe);
 			SessionManager.set(this.getActionErrors(), "mensajesError");
-			resultado = index();
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 			SessionManager.set(this.getActionErrors(), "mensajesError");
-			resultado = index();
 		}
 		return resultado;
 	}
@@ -1150,5 +1150,21 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 
 	public void setCasoUso(CasoUso casoUso) {
 		this.casoUso = casoUso;
+	}
+
+	public Proyecto getProyecto() {
+		return proyecto;
+	}
+
+	public void setProyecto(Proyecto proyecto) {
+		this.proyecto = proyecto;
+	}
+
+	public Modulo getModulo() {
+		return modulo;
+	}
+
+	public void setModulo(Modulo modulo) {
+		this.modulo = modulo;
 	}
 }

@@ -138,6 +138,7 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 		if (idCasoUso != null) {
 			proyecto = loginBs.consultarProyectoActivo();
 			modulo = moduloBs.consultarModuloById(idModulo);
+			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
 			listPtosExtension = extensionBs.consultarExtensionesByIdCasoUso(idCasoUso);
 			resultado = INDEX;
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
@@ -557,6 +558,14 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 
 	public void setIdCasoUsoDestino(Integer idCasoUsoDestino) {
 		this.idCasoUsoDestino = idCasoUsoDestino;
+	}
+
+	public CasoUso getCasoUsoBase() {
+		return casoUsoBase;
+	}
+
+	public void setCasoUsoBase(CasoUso casoUsoBase) {
+		this.casoUsoBase = casoUsoBase;
 	}
 
 }
