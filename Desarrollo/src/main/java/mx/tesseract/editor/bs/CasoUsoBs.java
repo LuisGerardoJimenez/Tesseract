@@ -14,6 +14,7 @@ import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.CasoUsoActor;
 import mx.tesseract.editor.entidad.CasoUsoReglaNegocio;
 import mx.tesseract.editor.entidad.Entrada;
+import mx.tesseract.editor.entidad.EstadoElemento;
 import mx.tesseract.editor.entidad.Extension;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Paso;
@@ -23,6 +24,7 @@ import mx.tesseract.editor.entidad.Trayectoria;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.enums.ReferenciaEnum.TipoSeccion;
+import mx.tesseract.util.Constantes;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
 
@@ -226,25 +228,14 @@ public class CasoUsoBs {
 					"MSG13");
 		}
 	}
-//
-//	public static void terminar(CasoUso model) throws Exception {
-//		try {
-//			validar(model);
-//			ElementoBs.verificarEstado(model, CU_CasosUso.MODIFICARCASOUSO5_2);
-//			model.setEstadoElemento(ElementoBs
-//					.consultarEstadoElemento(Estado.REVISION));
-//
-//			new CasoUsoDAO().modificarCasoUso(model, false);
-//
-//		} catch (JDBCException je) {
-//			System.out.println("ERROR CODE " + je.getErrorCode());
-//			je.printStackTrace();
-//			throw new Exception();
-//		} catch (HibernateException he) {
-//			he.printStackTrace();
-//			throw new Exception();
-//		}
-//	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void terminar(CasoUsoDTO model){
+		CasoUso casoUso = genericoDAO.findById(CasoUso.class, model.getId());
+		EstadoElemento estadoElemento = genericoDAO.findById(EstadoElemento.class, Constantes.ESTADO_ELEMENTO_REVISION);
+		casoUso.setEstadoElemento(estadoElemento);
+		genericoDAO.update(casoUso);
+	}
 	
 	/*public static CasoUso consultarCasoUsoTrayLAZY(int id) {
 		CasoUso cu = null;
