@@ -688,16 +688,19 @@ public class TokenBs {
 				}
 				pantalla = pantallaDAO.findByIdProyectoAndIdModuloAndNumero(proyecto.getId(), Clave.IU, idModulo,segmentos.get(2));
 				//new PantallaDAO().consultarPantalla(segmentos.get(1).replaceAll("_", " "), segmentos.get(2), proyecto);
-				if (pantalla == null) {
-					// Construcción del mensaje de error;
-					String[] parametros = { "la", "pantalla",
-							segmentos.get(1) + segmentos.get(2), "registrada" };
+				if (pantalla == null) {	
+					pantalla = pantallaDAO.findByIdProyectoAndNumero(proyecto.getId(), Clave.IU,segmentos.get(2));
+					if(pantalla == null) {
+						// Construcción del mensaje de error;
+						String[] parametros = { "la", "pantalla",
+								segmentos.get(1) + segmentos.get(2), "registrada" };
 
-					throw new TESSERACTValidacionException(
-							"TokenBs.convertirToken_Objeto: La pantalla "
-									+ segmentos.get(1) + segmentos.get(2)
-									+ " no está registrada", "MSG15",
-							parametros);
+						throw new TESSERACTValidacionException(
+								"TokenBs.convertirToken_Objeto: La pantalla "
+										+ segmentos.get(1) + segmentos.get(2)
+										+ " no está registrada", "MSG15",
+								parametros);	
+					}
 				}
 
 				accion = accionDAO.findByNombreAndIdPantalla(segmentos.get(4)

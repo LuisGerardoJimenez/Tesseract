@@ -240,6 +240,8 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 				if (idModulo != null) {
 					idCasoUso = (Integer) SessionManager.get("idCU");
 					if (idCasoUso != null) {
+						proyecto = loginBs.consultarProyectoActivo();
+						modulo = moduloBs.consultarModuloById(idModulo);
 						casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
 						model.setIdCasoUso(casoUsoBase.getId());
 						buscaElementos();
