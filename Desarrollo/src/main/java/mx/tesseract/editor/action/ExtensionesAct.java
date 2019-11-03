@@ -140,6 +140,15 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 			modulo = moduloBs.consultarModuloById(idModulo);
 			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
 			listPtosExtension = extensionBs.consultarExtensionesByIdCasoUso(idCasoUso);
+			for (Revision rev : casoUsoBase.getRevisiones()) {
+				if (!rev.isRevisado()
+						&& rev.getSeccion()
+								.getNombre()
+								.equals(TipoSeccionEnum
+										.getNombre(TipoSeccionENUM.PUNTOSEXTENSION))) {
+					this.observaciones = rev.getObservaciones();
+				}
+			}
 			resultado = INDEX;
 			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
 			this.setActionMessages(msjs);

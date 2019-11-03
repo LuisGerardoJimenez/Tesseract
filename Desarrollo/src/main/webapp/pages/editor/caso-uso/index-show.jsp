@@ -32,7 +32,7 @@
 				</tr>
 				<tr>
 					<td class="label consulta"><s:text name="labelEstado" /></td>
-					<td class="ui-widget inputFormulario">${model.estadoElemento.nombre}</td>
+					<td class="ui-widget inputFormulario">${casoUso.estadoElemento.nombre}</td>
 				</tr>
 				<tr>
 					<td class="label consulta"><s:text name="labelActores" /></td>

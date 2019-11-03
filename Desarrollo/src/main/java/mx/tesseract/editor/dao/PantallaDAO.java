@@ -74,6 +74,24 @@ public class PantallaDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public Pantalla findByIdProyectoAndNumero(Integer idProyecto, Clave clave, String numero) {
+		Pantalla pantalla = null;
+		try {
+			Query query = entityManager.createNamedQuery("Elemento.consultarPantallasByProyectoAndNumero", Elemento.class);
+			query.setParameter("idProyecto", idProyecto);
+			query.setParameter("clave", clave.toString());
+			query.setParameter("numero", numero);
+			List<Pantalla> lista = (List<Pantalla>) query.getResultList();
+			if (!lista.isEmpty()) {
+				pantalla = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findByIdProyectoAndIdModuloAndNumero", e);
+		}
+		return pantalla;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public Pantalla findByIdProyectoAndIdModuloAndIdAndNumero(Integer idProyecto, Clave clave, Integer idModulo, Integer id, String numero) {
 		Pantalla pantalla = null;
 		try {

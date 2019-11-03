@@ -4,13 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.editor.dao.ElementoDAO;
+import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.Elemento;
 import mx.tesseract.editor.entidad.EstadoElemento;
 import mx.tesseract.enums.AnalisisEnum.CU_CasosUso;
-import mx.tesseract.enums.AnalisisEnum.CU_Mensajes;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.util.Constantes;
@@ -89,43 +90,43 @@ public class ElementoBs {
 //		
 //	}
 	
-//	public void verificarEstado(Elemento elemento, CU_CasosUso casoUsoAnalisis) {
-//		switch(casoUsoAnalisis) {
-//		case MODIFICARCASOUSO5_2:
-//			if (elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.EDICION) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.PENDIENTECORRECCION)) {
-//					throw new TESSERACTException("El estado del caso de uso es inválido.", "MSG13");
-//			}
-//			
-//		case ELIMINARCASOUSO5_3:
-//			if (elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.EDICION) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.PENDIENTECORRECCION)) {
-//				throw new TESSERACTException("El estado del caso de uso es inválido.", "MSG13");
-//		}			break;
-//		case REVISARCASOUSO5_5:
-//			if (elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.REVISION)) {
-//				throw new TESSERACTException("El estado del caso de uso es inválido.", "MSG13");
-//		}
-//			break;
-//		case TERMINARCASOUSO5_6:
-//			if (elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.EDICION) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.PENDIENTECORRECCION)) {
-//				throw new TESSERACTException("El estado del caso de uso es inválido.", "MSG13");
-//		}
-//			break;
-//		case LIBERARCASOUSO4_3:
-//			if (elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.EDICION) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.PORLIBERAR) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.LIBERADO)
-//					&& elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.CONFIGURADO) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.PRECONFIGURADO)) {
-//				throw new TESSERACTException("El estado del caso de uso es inválido.", "MSG13");
-//		}
-//			break;
-//		case CONFIGURARPRUEBA5_7:
-//			if (elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.LIBERADO) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.PRECONFIGURADO) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.CONFIGURADO)) {
-//				throw new TESSERACTException("El estado del caso de uso es inválido.", "MSG13");
-//			}
-//			break;
-//		default:
-//			break;
-//		
-//		}
-//	}
+	public void verificarEstado(CasoUso elemento, CU_CasosUso casoUsoAnalisis) throws TESSERACTException {
+		switch(casoUsoAnalisis) {
+		case MODIFICARCASOUSO5_2:
+			if (elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.EDICION) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.PENDIENTECORRECCION)) {
+					throw new TESSERACTException("El estado del caso de uso es inválido.", "MSG13");
+			}
+			
+		case ELIMINARCASOUSO5_3:
+			if (elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.EDICION) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.PENDIENTECORRECCION)) {
+				throw new TESSERACTException("El estado del caso de uso es inválido.", "MSG13");
+		}			break;
+		case REVISARCASOUSO5_5:
+			if (elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.REVISION)) {
+				throw new TESSERACTException("El estado del caso de uso es inválido.", "MSG13");
+		}
+			break;
+		case TERMINARCASOUSO5_6:
+			if (elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.EDICION) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.PENDIENTECORRECCION)) {
+				throw new TESSERACTException("El estado del caso de uso es inválido.", "MSG13");
+		}
+			break;
+		case LIBERARCASOUSO4_3:
+			if (elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.EDICION) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.PORLIBERAR) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.LIBERADO)
+					&& elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.CONFIGURADO) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.PRECONFIGURADO)) {
+				throw new TESSERACTException("El estado del caso de uso es inválido.", "MSG13");
+		}
+			break;
+		case CONFIGURARPRUEBA5_7:
+			if (elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.LIBERADO) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.PRECONFIGURADO) && elemento.getEstadoElemento().getId() != elementoBs.getIdEstado(Estado.CONFIGURADO)) {
+				throw new TESSERACTException("El estado del caso de uso es inválido.", "MSG13");
+			}
+			break;
+		default:
+			break;
+		
+		}
+	}
 	
 	public int getIdEstado(Estado estado) {
 		switch(estado) {
@@ -150,6 +151,12 @@ public class ElementoBs {
 	
 	public <T extends ElementoInterface> T findAllByIdProyectoAndIdAndNombreAndClave(Class<T> clase, Integer idProyecto, Integer id, String nombre, Clave clave) {
 		return elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(clase, idProyecto, id, nombre, clave);
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void modificarEstadoElemento(Elemento elemento, Estado estado) throws Exception {
+		elemento.setEstadoElemento(consultarEstadoElemento(estado));
+		genericoDAO.update(elemento);
 	}
 }
 

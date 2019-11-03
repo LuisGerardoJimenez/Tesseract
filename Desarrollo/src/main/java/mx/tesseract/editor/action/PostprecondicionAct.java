@@ -268,7 +268,13 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 	}
 	
 	private void prepararVista() {
-		model.setRedaccion(tokenBs.decodificarCadenasToken(model.getRedaccion()));
+		idCasoUso = (Integer) SessionManager.get("idCU");
+		if (idCasoUso != null) {
+			proyecto = loginBs.consultarProyectoActivo();
+			modulo = moduloBs.consultarModuloById(idModulo);
+			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+			model.setRedaccion(tokenBs.decodificarCadenasToken(model.getRedaccion()));
+		}
 	}
 	
 	public void validateCreate() {
@@ -308,7 +314,7 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 	}
 
 	public String create() {
-		addActionMessage((model.isPrecondicion()) ? getText("MSG1", new String[] { "La", "PreCondición", "registrada" }) : getText("MSG1", new String[] { "La", "PostCondición", "registrada" }));
+		addActionMessage((model.isPrecondicion()) ? getText("MSG1", new String[] { "La", "Condición", "registrada" }) : getText("MSG1", new String[] { "La", "Condición	", "registrada" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -360,7 +366,7 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 	}
 	
 	public String destroy() {
-		addActionMessage(getText("MSG1", new String[] { "La", "Postprecondicion", "eliminada" }));
+		addActionMessage(getText("MSG1", new String[] { "La", "Condición", "eliminada" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -378,7 +384,7 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 	}
 
 	public String update() {
-		addActionMessage((model.isPrecondicion()) ? getText("MSG1", new String[] { "La", "PreCondición", "modificada" }) : getText("MSG1", new String[] { "La", "PostCondición", "modificada" }));
+		addActionMessage((model.isPrecondicion()) ? getText("MSG1", new String[] { "La", "Condición", "modificada" }) : getText("MSG1", new String[] { "La", "Condición", "modificada" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}

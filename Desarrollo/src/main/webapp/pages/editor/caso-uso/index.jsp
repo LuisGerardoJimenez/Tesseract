@@ -90,7 +90,7 @@
 							</s:if>				
 							<s:if test="%{#cu.estadoElemento.id == 2}">	
 								<!-- Revisar caso de uso -->			
-								<s:url var="urlRevisar" value="%{#pageContext.request.contextPath}/cu!prepararRevision?idSel=%{#cu.id}" method="post"/>
+								<s:url var="urlRevisar" value="%{#pageContext.request.contextPath}/caso-uso!prepararRevision?idSel=%{#cu.id}" method="post"/>
 								<s:a href="%{urlRevisar}">
 									<img id="" class="button" title="Revisar Caso de uso"
 										src="${pageContext.request.contextPath}/resources/images/icons/Revisar.svg" alt="Revisar Caso de uso"/>
@@ -100,7 +100,7 @@
 							
 							<s:if test="%{#cu.estadoElemento.id == 4 and #session.rol == 1}">	
 							<!-- Liberar caso de uso -->			
-								<s:url var="urlLiberar" value="%{#pageContext.request.contextPath}/cu!prepararLiberacion?idSel=%{#cu.id}" method="post"/>
+								<s:url var="urlLiberar" value="%{#pageContext.request.contextPath}/caso-uso!prepararLiberacion?idSel=%{#cu.id}" method="post"/>
 								<s:a href="%{urlLiberar}">
 									<img id="" class="button" title="Liberar Caso de uso"
 										src="${pageContext.request.contextPath}/resources/images/icons/Liberar.svg" alt="Liberar Caso de uso"/>
@@ -109,7 +109,7 @@
 							</s:if>
 							<s:if test="%{(#cu.estadoElemento.id == 5 or #cu.estadoElemento.id == 6 or #cu.estadoElemento.id == 7) and #session.rol == 1}">
 							<!-- Desbloquear caso de uso -->			
-								<s:url var="urlDesbloquear" value="%{#pageContext.request.contextPath}/cu!prepararLiberacion?idSel=%{#cu.id}" method="post"/>
+								<s:url var="urlDesbloquear" value="%{#pageContext.request.contextPath}/caso-uso!prepararLiberacion?idSel=%{#cu.id}" method="post"/>
 								<s:a href="%{urlDesbloquear}">
 									<img id="" class="button" title="Solicitar correcciones del Caso de uso"
 										src="${pageContext.request.contextPath}/resources/images/icons/SolicitarCorrecciones.svg" alt="Solicitar correcciones del Caso de uso"/>

@@ -5,7 +5,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import mx.tesseract.admin.bs.ColaboradorBs;
 import mx.tesseract.admin.bs.LoginBs;
+import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dto.CasoUsoDTO;
@@ -74,7 +76,7 @@ import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 				"restriccionesTermino" }),
 		@Result(name = "revision", type = "dispatcher", location = "caso-uso/revision.jsp"),
 		@Result(name = "liberacion", type = "dispatcher", location = "caso-uso/liberacion.jsp")})
-@AllowedMethods({"entrarPostprecondiciones", "entrarTrayectorias", "entrarExtensiones", "terminar"})
+@AllowedMethods({"entrarPostprecondiciones", "entrarTrayectorias", "entrarExtensiones", "terminar", "prepararRevision", "revisar", "prepararLiberacion", "liberar"})
 public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<CasoUsoDTO> {
 
 	private static final long serialVersionUID = 1L;
@@ -173,6 +175,9 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	
 	@Autowired
 	private TokenBs tokenBs;
+	
+	@Autowired
+	private ColaboradorBs colaboradorBs;
 	
 	@SuppressWarnings("unchecked")
 	public String index() {
@@ -278,35 +283,32 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 	public String show() {
 		String resultado = null;
 		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					proyecto = loginBs.consultarProyectoActivo();
+					modulo = moduloBs.consultarModuloById(idModulo);
+					CasoUso casoUso = casoUsoBs.consultarCasoUso(model.getId());
+					this.casoUso = casoUso;
+					postprecondiciones = casoUso.getPostprecondiciones();
+					this.existenPrecondiciones = casoUsoBs.existenPrecondiciones(casoUso.getPostprecondiciones());
+					this.existenPostcondiciones = casoUsoBs.existenPostcondiciones(casoUso.getPostprecondiciones());
 
-			CasoUso casoUso = casoUsoBs.consultarCasoUso(model.getId());
-			this.casoUso = casoUso;
-			postprecondiciones = casoUso.getPostprecondiciones();
-			this.existenPrecondiciones = casoUsoBs.existenPrecondiciones(casoUso.getPostprecondiciones());
-			this.existenPostcondiciones = casoUsoBs.existenPostcondiciones(casoUso.getPostprecondiciones());
-
-			listPasos = casoUsoBs.agregarReferencias(request.getContextPath(), model, "_self");
-			Iterator<List<Paso>> iterator = listPasos.iterator();
-			while (iterator.hasNext()) {
-				List<Paso> pasitos = (List<Paso>)iterator.next();
-				if(pasitos.size() > 0) {
-					System.out.println("------------------------------------");
-					System.out.println(pasitos.size());
-					System.out.println(pasitos);
-					System.out.println(pasitos.get(0).getTrayectoria().getClave());
-					System.out.println("------------------------------------");
-					for(Paso paso:pasitos){
-						System.out.println(paso.getNumero());
-						System.out.println(paso.getRedaccion());
-						System.out.println(paso.getTrayectoria());
+					listPasos = casoUsoBs.agregarReferencias(request.getContextPath(), model, "_self");
+					Iterator<List<Paso>> iterator = listPasos.iterator();
+					while (iterator.hasNext()) {
+						List<Paso> pasitos = (List<Paso>)iterator.next();
+						if(pasitos.size() > 0) {
+						}else {
+							iterator.remove();
+						}
+						resultado = SHOW;
 					}
-				}else {
-					iterator.remove();
+				} else {
+					resultado = MODULOS;
 				}
-				
 			}
-			
-			resultado = SHOW;
 		} catch (TESSERACTException te) {
 			te.setIdMensaje("MSG26");
 			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
@@ -395,15 +397,15 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		
 		model.setRedaccionReglasNegocio((tokenBs.decodificarCadenasToken(model
 				.getRedaccionReglasNegocio())));
-
-		/*for (Revision rev : model.getRevisiones()) {
+		CasoUso casoUso = casoUsoBs.consultarCasoUso(model.getId());
+		for (Revision rev : casoUso.getRevisiones()) {
 			if (!rev.isRevisado()
 					&& rev.getSeccion()
 							.getNombre()
 							.equals(TipoSeccionEnum.getNombre(TipoSeccionENUM.RESUMEN))) {
 				this.observaciones = rev.getObservaciones();
 			}
-		}*/
+		}
 	}
 	
 	public void validateCreate() {
@@ -644,194 +646,195 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		return resultado;
 	}
 
-//	public String prepararRevision() {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			model = CasoUsoBs.consultarCasoUso(idSel);
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//
-//			ElementoBs.verificarEstado(model, CU_CasosUso.REVISARCASOUSO5_5);
-//
-//			this.existenPrecondiciones = CasoUsoBs.existenPrecondiciones(model
-//					.getPostprecondiciones());
-//			this.existenPostcondiciones = CasoUsoBs.existenPostcondiciones(model
-//					.getPostprecondiciones());
-//
-//			listPasos = CasoUsoBs.agregarReferencias(request.getContextPath(), model, "_blank");
-//			resultado = "revision";
-//		} catch (TESSERACTValidacionException pve) {
-//			ErrorManager.agregaMensajeError(this, pve);
-//			SessionManager.set(this.getActionErrors(), "mensajesError");
-//			resultado = edit();
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			SessionManager.set(this.getActionErrors(), "mensajesError");
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			SessionManager.set(this.getActionErrors(), "mensajesError");
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
+	public String prepararRevision() {
+		String resultado = null;
+		try {
+			
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					proyecto = loginBs.consultarProyectoActivo();
+					modulo = moduloBs.consultarModuloById(idModulo);
+					CasoUso casoUso = casoUsoBs.consultarCasoUso(model.getId());
+					elementoBs.verificarEstado(casoUso, CU_CasosUso.REVISARCASOUSO5_5);
+					this.casoUso = casoUso;
+					postprecondiciones = casoUso.getPostprecondiciones();
+					this.existenPrecondiciones = casoUsoBs.existenPrecondiciones(casoUso.getPostprecondiciones());
+					this.existenPostcondiciones = casoUsoBs.existenPostcondiciones(casoUso.getPostprecondiciones());
+
+					listPasos = casoUsoBs.agregarReferencias(request.getContextPath(), model, "_self");
+					Iterator<List<Paso>> iterator = listPasos.iterator();
+					while (iterator.hasNext()) {
+						List<Paso> pasitos = (List<Paso>)iterator.next();
+						if(pasitos.size() > 0) {
+						}else {
+							iterator.remove();
+						}
+						
+					}
+					resultado = REVISION;
+				} else {
+					resultado = MODULOS;
+				}
+			}
+		} catch (TESSERACTValidacionException pve) {
+			ErrorManager.agregaMensajeError(this, pve);
+			SessionManager.set(this.getActionErrors(), "mensajesError");
+			resultado = edit();
+		} catch (TESSERACTException pe) {
+			ErrorManager.agregaMensajeError(this, pe);
+			SessionManager.set(this.getActionErrors(), "mensajesError");
+			resultado = index();
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+			SessionManager.set(this.getActionErrors(), "mensajesError");
+			resultado = index();
+		}
+		return resultado;
+	}
 	
-//	public String revisar() throws Exception{
-//		String resultado = null;
-//
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			model = CasoUsoBs.consultarCasoUso(idSel);
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//
-//			ElementoBs.verificarEstado(model, CU_CasosUso.REVISARCASOUSO5_5);
-//
-//
-//			if(CasoUsoBs.guardarRevisiones(esCorrectoResumen, observacionesResumen,
-//					esCorrectoTrayectoria, observacionesTrayectoria,
-//					esCorrectoPuntosExt, observacionesPuntosExt, model)) {
-//				ElementoBs.modificarEstadoElemento(model, Estado.PENDIENTECORRECCION);
-//				addActionMessage(getText("MSG1", new String[] { "El",
-//						"Caso de uso", "revisado" }));
-//			} else {
-//				if(ProyectoBs.consultarColaboradorProyectoLider(proyecto).getColaborador().getCurp().equals(colaborador.getCurp())) {
-//					ElementoBs.modificarEstadoElemento(model, Estado.LIBERADO);
-//					CasoUsoBs.liberarElementosRelacionados(model);
-//					addActionMessage(getText("MSG1", new String[] { "El",
-//							"Caso de uso", "liberado" }));
-//				} else {
-//					ElementoBs.modificarEstadoElemento(model, Estado.PORLIBERAR);
-//					addActionMessage(getText("MSG1", new String[] { "El",
-//							"Caso de uso", "revisado" }));
-//				}
-//			}
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//			resultado = SUCCESS;
-//		} catch (TESSERACTValidacionException pve) {
-//			ErrorManager.agregaMensajeError(this, pve);
-//			resultado = prepararRevision();
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
+	public String revisar(){
+		String resultado = null;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					proyecto = loginBs.consultarProyectoActivo();
+					modulo = moduloBs.consultarModuloById(idModulo);
+					colaborador = loginBs.consultarColaboradorActivo();
+					CasoUso casoUso = casoUsoBs.consultarCasoUso(model.getId());
+					elementoBs.verificarEstado(casoUso, CU_CasosUso.REVISARCASOUSO5_5);
+					this.casoUso = casoUso;
+					if(casoUsoBs.guardarRevisiones(esCorrectoResumen, observacionesResumen,
+							esCorrectoTrayectoria, observacionesTrayectoria,
+							esCorrectoPuntosExt, observacionesPuntosExt, casoUso)) {
+						elementoBs.modificarEstadoElemento(casoUso, Estado.PENDIENTECORRECCION);
+						addActionMessage(getText("MSG1", new String[] { "El",
+								"Caso de uso", "revisado" }));
+					} else {
+						if(colaboradorBs.isLider(colaborador.getCurp(), idProyecto)) {
+							elementoBs.modificarEstadoElemento(casoUso, Estado.LIBERADO);
+							//	casoUsoBs.liberarElementosRelacionados(model);
+							addActionMessage(getText("MSG1", new String[] { "El",
+									"Caso de uso", "liberado" }));
+						} else {
+							elementoBs.modificarEstadoElemento(casoUso, Estado.PORLIBERAR);
+							addActionMessage(getText("MSG1", new String[] { "El",
+									"Caso de uso", "revisado" }));
+						}
+					}
+					SessionManager.set(this.getActionMessages(), "mensajesAccion");
+					resultado = SUCCESS;
+				} else {
+					resultado = MODULOS;
+				}
+			}
+		} catch (TESSERACTValidacionException pve) {
+			ErrorManager.agregaMensajeError(this, pve);
+			resultado = prepararRevision();
+		} catch (TESSERACTException pe) {
+			ErrorManager.agregaMensajeError(this, pe);
+			resultado = index();
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+			resultado = index();
+		}
+		return resultado;
+	}
 	
-//	public String prepararLiberacion() {
-//		String resultado = null;
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			model = CasoUsoBs.consultarCasoUso(idSel);
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//
-//			ElementoBs.verificarEstado(model, CU_CasosUso.LIBERARCASOUSO4_3);
-//
-//			this.existenPrecondiciones = CasoUsoBs.existenPrecondiciones(model
-//					.getPostprecondiciones());
-//			this.existenPostcondiciones = CasoUsoBs.existenPostcondiciones(model
-//					.getPostprecondiciones());
-//
-//			listPasos = CasoUsoBs.agregarReferencias(request.getContextPath(), model, "_blank");
-//			for(List<Paso> pasitos:listPasos){
-//				System.out.println(pasitos.get(0).getTrayectoria().getClave());
-//				for(Paso paso:pasitos){
-//					System.out.println(paso.getNumero());
-//					System.out.println(paso.getRedaccion());
-//					System.out.println(paso.getTrayectoria());
-//				}
-//			}
-//			resultado = "liberacion";
-//		} catch (TESSERACTValidacionException pve) {
-//			ErrorManager.agregaMensajeError(this, pve);
-//			SessionManager.set(this.getActionErrors(), "mensajesError");
-//			resultado = edit();
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			SessionManager.set(this.getActionErrors(), "mensajesError");
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			SessionManager.set(this.getActionErrors(), "mensajesError");
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
+	public String prepararLiberacion() {
+		String resultado = null;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					proyecto = loginBs.consultarProyectoActivo();
+					modulo = moduloBs.consultarModuloById(idModulo);
+					CasoUso casoUso = casoUsoBs.consultarCasoUso(model.getId());
+					elementoBs.verificarEstado(casoUso, CU_CasosUso.LIBERARCASOUSO4_3);
+					this.casoUso = casoUso;
+					postprecondiciones = casoUso.getPostprecondiciones();
+					this.existenPrecondiciones = casoUsoBs.existenPrecondiciones(casoUso.getPostprecondiciones());
+					this.existenPostcondiciones = casoUsoBs.existenPostcondiciones(casoUso.getPostprecondiciones());
+
+					listPasos = casoUsoBs.agregarReferencias(request.getContextPath(), model, "_self");
+					Iterator<List<Paso>> iterator = listPasos.iterator();
+					while (iterator.hasNext()) {
+						List<Paso> pasitos = (List<Paso>)iterator.next();
+						if(pasitos.size() > 0) {
+						}else {
+							iterator.remove();
+						}
+						
+					}
+					SessionManager.set(this.getActionMessages(), "mensajesAccion");
+					resultado = LIBERACION;
+				} else {
+					resultado = MODULOS;
+				}
+			}
+		} catch (TESSERACTValidacionException pve) {
+			ErrorManager.agregaMensajeError(this, pve);
+			SessionManager.set(this.getActionErrors(), "mensajesError");
+			resultado = edit();
+		} catch (TESSERACTException pe) {
+			ErrorManager.agregaMensajeError(this, pe);
+			SessionManager.set(this.getActionErrors(), "mensajesError");
+			resultado = index();
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+			SessionManager.set(this.getActionErrors(), "mensajesError");
+			resultado = index();
+		}
+		return resultado;
+	}
 	
-//	public String liberar() throws Exception{
-//		String resultado = null;
-//
-//		try {
-//			colaborador = SessionManager.consultarColaboradorActivo();
-//			proyecto = SessionManager.consultarProyectoActivo();
-//			modulo = SessionManager.consultarModuloActivo();
-//			model = CasoUsoBs.consultarCasoUso(idSel);
-//			if (modulo == null) {
-//				resultado = "modulos";
-//				return resultado;
-//			}
-//			if (!AccessBs.verificarPermisos(proyecto, colaborador)) {
-//				resultado = Action.LOGIN;
-//				return resultado;
-//			}
-//
-//			ElementoBs.verificarEstado(model, CU_CasosUso.LIBERARCASOUSO4_3);
-//
-//			if(CasoUsoBs.guardarRevisiones(esCorrectoResumen, observacionesResumen,
-//					esCorrectoTrayectoria, observacionesTrayectoria,
-//					esCorrectoPuntosExt, observacionesPuntosExt, model)) {
-//				ElementoBs.modificarEstadoElemento(model, Estado.PENDIENTECORRECCION);
-//				CasoUsoBs.habilitarElementosRelacionados(model);
-//			} else {
-//				ElementoBs.modificarEstadoElemento(model, Estado.LIBERADO);
-//				CasoUsoBs.liberarElementosRelacionados(model);
-//			}
-//			
-//			addActionMessage(getText("MSG1", new String[] { "El",
-//					"Caso de uso", "liberado" }));
-//			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-//			resultado = SUCCESS;
-//		} catch (TESSERACTValidacionException pve) {
-//			ErrorManager.agregaMensajeError(this, pve);
-//			resultado = prepararLiberacion();
-//		} catch (TESSERACTException pe) {
-//			ErrorManager.agregaMensajeError(this, pe);
-//			resultado = index();
-//		} catch (Exception e) {
-//			ErrorManager.agregaMensajeError(this, e);
-//			resultado = index();
-//		}
-//		return resultado;
-//	}
+	public String liberar(){
+		String resultado = null;
+		try {
+			idProyecto = (Integer) SessionManager.get("idProyecto");
+			if (idProyecto != null) {
+				idModulo = (Integer) SessionManager.get("idModulo");
+				if (idModulo != null) {
+					proyecto = loginBs.consultarProyectoActivo();
+					modulo = moduloBs.consultarModuloById(idModulo);
+					CasoUso casoUso = casoUsoBs.consultarCasoUso(model.getId());
+					elementoBs.verificarEstado(casoUso, CU_CasosUso.LIBERARCASOUSO4_3);
+					this.casoUso = casoUso;
+					postprecondiciones = casoUso.getPostprecondiciones();
+					SessionManager.set(this.getActionMessages(), "mensajesAccion");
+					if(casoUsoBs.guardarRevisiones(esCorrectoResumen, observacionesResumen,
+							esCorrectoTrayectoria, observacionesTrayectoria,
+							esCorrectoPuntosExt, observacionesPuntosExt, casoUso)) {
+						elementoBs.modificarEstadoElemento(casoUso, Estado.PENDIENTECORRECCION);
+						//casoUsoBs.habilitarElementosRelacionados(model);
+					} else {
+						elementoBs.modificarEstadoElemento(casoUso, Estado.LIBERADO);
+						//casoUsoBs.liberarElementosRelacionados(model);
+					}
+					addActionMessage(getText("MSG1", new String[] { "El",
+							"Caso de uso", "liberado" }));
+					SessionManager.set(this.getActionMessages(), "mensajesAccion");
+					resultado = SUCCESS;
+				} else {
+					resultado = MODULOS;
+				}
+			}
+		} catch (TESSERACTValidacionException pve) {
+			ErrorManager.agregaMensajeError(this, pve);
+			resultado = prepararLiberacion();
+		} catch (TESSERACTException pe) {
+			ErrorManager.agregaMensajeError(this, pe);
+			resultado = index();
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+			resultado = index();
+		}
+		return resultado;
+	}
 	
 	/*public String revisar() throws Exception {
 	String resultado = null;

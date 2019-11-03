@@ -117,4 +117,20 @@ public class ProyectoDAO {
 		}
 		return proyecto;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Proyecto findByIdProyecto(Integer idProyecto) {
+		Proyecto proyecto = null;
+		try {
+			Query query = entityManager.createNamedQuery("Proyecto.findById", Proyecto.class);
+			query.setParameter(Constantes.NUMERO_UNO, idProyecto);
+			List<Proyecto> lista = (List<Proyecto>) query.getResultList();
+			if (!lista.isEmpty()) {
+				proyecto = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "findElementosByIdProyecto", e);
+		}
+		return proyecto;
+	}
 }

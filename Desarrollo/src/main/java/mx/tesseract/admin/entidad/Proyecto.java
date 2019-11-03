@@ -41,6 +41,7 @@ import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
 @NamedNativeQueries({
+	@NamedNativeQuery(name = "Proyecto.findById", query = "SELECT p.* FROM proyecto p WHERE p.id = ?", resultClass = Proyecto.class),
 	@NamedNativeQuery(name = "Proyecto.findByClave", query = "SELECT p.* FROM proyecto p WHERE p.clave = ?", resultClass = Proyecto.class),
 	@NamedNativeQuery(name = "Proyecto.findByClaveAndId", query = "SELECT p.* FROM proyecto p WHERE p.clave = ? AND p.id != ?", resultClass = Proyecto.class),
 	@NamedNativeQuery(name = "Proyecto.findByNombre", query = "SELECT p.* FROM proyecto p WHERE p.nombre = ?", resultClass = Proyecto.class),

@@ -18,7 +18,7 @@
 	<s:actionerror theme="jquery" />
 	<br />
 	<s:form autocomplete="off" theme="simple"
-		action="%{pageContext.request.contextPath}/cu!liberar">
+		action="%{pageContext.request.contextPath}/caso-uso!liberar">
 		<s:hidden value="%{model.id}" name="idSel"/>
 		<div class="formulario">
 			<div class="tituloFormulario">${blanks}</div>
@@ -28,7 +28,7 @@
 					<s:text name="labelResumen"></s:text>
 				</h5>
 				<p class="instrucciones">
-					<s:text name="model.descripcion"></s:text>
+					${model.descripcion}
 				</p>
 				<br />
 				<table class="tablaDescripcion">
@@ -38,7 +38,7 @@
 					</tr>
 					<tr>
 						<td class="label consulta"><s:text name="labelEstado" /></td>
-						<td class="ui-widget inputFormulario">${model.estadoElemento.nombre}</td>
+						<td class="ui-widget inputFormulario">${casoUso.estadoElemento.nombre}</td>
 					</tr>
 					<tr>
 						<td class="label consulta"><s:text name="labelActores" /></td>
@@ -62,10 +62,10 @@
 						<s:if test="existenPrecondiciones">
 							<td class="ui-widget">
 								<ul>
-									<s:iterator value="model.postprecondiciones"
-										var="postprecondicion">
-										<s:if test="%{#postprecondicion.precondicion}">
-											<li>${postprecondicion.redaccion}</li>
+									<s:iterator value="postprecondiciones"
+										var="postprecondicionItem">
+										<s:if test="%{#postprecondicionItem.precondicion}">
+											<li>${postprecondicionItem.redaccion}</li>
 										</s:if>
 									</s:iterator>
 								</ul>
@@ -81,7 +81,7 @@
 						<s:if test="existenPostcondiciones">
 							<td class="ui-widget">
 								<ul>
-									<s:iterator value="model.postprecondiciones"
+									<s:iterator value="postprecondiciones"
 										var="postprecondicion">
 										<s:if test="!#postprecondicion.precondicion">
 											<li>${postprecondicion.redaccion}</li>
@@ -145,7 +145,7 @@
 					</p>
 				</s:if>
 				<s:else>
-					<s:iterator value="model.trayectorias" var="tray">
+				<s:iterator value="casoUso.trayectorias" var="tray">
 					<s:iterator value="ListPasos" var="lpt">
 						<s:iterator value="lpt" var="lptito">
 							<s:if test="#lptito.trayectoria.id == #tray.id">
@@ -153,76 +153,88 @@
 							</s:if>
 						</s:iterator>
 					</s:iterator>
-						<s:if test="!#tray.alternativa">
-							<h6>
-								<a name="trayectoria-${tray.id}"><!--  --></a>
-								<s:text name="labelTrayectoriaPrincipal"/><s:property value="' ' + #tray.clave"/>
-							</h6>
-							<ol>
-								<s:iterator value="ListPasosActual" var="paso">
-									<a name="paso-${#paso.id}"></a>
-									<li class="ui-widget">
-									<s:if test="#paso.realizaActor">
-											<img src="${pageContext.request.contextPath}/resources/images/icons/actor.png" alt="actor"/>
-										</s:if> <s:else>
-											<img src="${pageContext.request.contextPath}/resources/images/icons/uc.png" alt="casoUso"/>
-										</s:else> <s:if test="#paso.verbo.nombre == 'Otro'">
-								${blanks} ${paso.otroVerbo} ${blanks} ${paso.redaccion}
-							</s:if> <s:else>
-								${blanks} ${paso.verbo.nombre} ${blanks} ${paso.redaccion}
-							</s:else></li>
-								</s:iterator>
-								<s:if test="#tray.finCasoUso">
-									<li class="ui-widget" style="list-style-type: square"><s:text
-											name="labelfinCasoUso" /></li>
-								</s:if>
-							</ol>
-	
-							<s:set var="breakLoop" value="%{true}" />
-						</s:if>
-					</s:iterator>
-					
-					<s:iterator value="model.trayectorias" var="tray">
-					<s:iterator value="ListPasos" var="lpt">
+					<!--<s:property value="'IMPRIME' + ListPasosActual"/>-->
+							<s:if test="!#tray.alternativa">
+								<h6>
+									<a name="trayectoria-${tray.id}"><!--  --></a>
+									<s:text name="labelTrayectoriaPrincipal"/><s:property value="' ' + #tray.clave"/>
+								</h6>
+								<!-- AQUÍ -->
+								<ol>
+									<s:iterator value="ListPasosActual" var="paso">
+										<a name="paso-${paso.id}"></a>
+										<li class="ui-widget">
+											<s:if test="#paso.realizaActor">
+												<img src="${pageContext.request.contextPath}/resources/images/icons/actor.png" />
+											</s:if>
+											<s:else>
+												<img src="${pageContext.request.contextPath}/resources/images/icons/uc.png" />
+											</s:else>
+											<s:if test="#paso.verbo.nombre == 'Otro'">
+												${blanks} ${paso.otroVerbo} ${blanks} ${paso.redaccion}
+											</s:if>
+											<s:else>
+												${blanks} ${paso.verbo.nombre} ${blanks} ${paso.redaccion}
+											</s:else>
+										</li>
+									</s:iterator>
+									<s:if test="#tray.finCasoUso">
+										<li class="ui-widget" style="list-style-type: square"><s:text
+												name="labelfinCasoUso" /></li>
+									</s:if>
+								</ol>
+		
+								<s:set var="breakLoop" value="%{true}" />
+							</s:if>
+				</s:iterator>
+				
+				<s:iterator value="casoUso.trayectorias" var="tray">
+				<s:iterator value="ListPasos" var="lpt">
 						<s:iterator value="lpt" var="lptito">
 							<s:if test="#lptito.trayectoria.id == #tray.id">
 								<s:set var="ListPasosActual" value="%{#lpt}" />
+								<!--<s:property value="'IMPRIME: ' + ListPasosActual"/>-->
+								<!--<s:text name="idAtributo" value="#lpt" />-->
 							</s:if>
 						</s:iterator>
 					</s:iterator>
-						<s:if test="#tray.alternativa">
-							<h6>
-								<a name="trayectoria-${tray.id}"><!--  --></a>
-								<s:text name="labelTrayectoriaAlternativa" />
-								<s:property value="' ' + #tray.clave" />
-							</h6>
-							<div>
-							<span class="ui-widget " >
-							<span class="labelIzq consulta"><s:text name="labelCondicion"/></span>
-							${blanks}<s:property value="#tray.condicion"/>
-							</span>
-							</div>
-							<ol>
-								<s:iterator value="ListPasosActual" var="paso">
-									<li class="ui-widget"><s:if test="#paso.realizaActor">
-											<img src="${pageContext.request.contextPath}/resources/images/icons/actor.png" alt="actor"/>
-										</s:if> <s:else>
-											<img src="${pageContext.request.contextPath}/resources/images/icons/uc.png" alt="casoUso"/>
-										</s:else> <s:if test="#paso.verbo.nombre == 'Otro'">
-								${blanks} ${paso.otroVerbo} ${blanks} ${paso.redaccion}
-							</s:if> <s:else>
-								${blanks} ${paso.verbo.nombre} ${blanks} ${paso.redaccion}
-							</s:else></li>
-								</s:iterator>
-								<s:if test="#tray.finCasoUso">
-									<li class="ui-widget" style="list-style-type: square"><s:text
-											name="labelfinCasoUso" /></li>
-								</s:if>
-							</ol>
-							<s:set var="breakLoop" value="%{true}" />
-						</s:if>
-					</s:iterator>
-				</s:else>
+					<s:if test="#tray.alternativa">
+						<h6>
+							<a name="trayectoria-${tray.id}"><!--  --></a>
+							<s:text name="labelTrayectoriaAlternativa" />
+							<s:property value="' ' + #tray.clave" />
+						</h6>
+						<div>
+						<span class="ui-widget " >
+						<span class="labelIzq consulta"><s:text name="labelCondicion"/></span>
+						${blanks}<s:property value="#tray.condicion"/>
+						</span>
+						
+						</div>
+						<!-- AQUÍ -->
+						<ol>
+							<s:iterator value="ListPasosActual" var="paso">
+								<li class="ui-widget"><s:if test="#paso.realizaActor">
+										<img
+											src="${pageContext.request.contextPath}/resources/images/icons/actor.png" />
+									</s:if> <s:else>
+										<img
+											src="${pageContext.request.contextPath}/resources/images/icons/uc.png" />
+									</s:else> <s:if test="#paso.verbo.nombre == 'Otro'">
+							${blanks} ${paso.otroVerbo} ${blanks} ${paso.redaccion}
+						</s:if> <s:else>
+							${blanks} ${paso.verbo.nombre} ${blanks} ${paso.redaccion}
+						</s:else></li>
+							</s:iterator>
+							<s:if test="#tray.finCasoUso">
+								<li class="ui-widget" style="list-style-type: square"><s:text
+										name="labelfinCasoUso" /></li>
+							</s:if>
+						</ol>
+						<s:set var="breakLoop" value="%{true}" />
+					</s:if>
+				</s:iterator>
+			</s:else>
 			</div>
 			<div class="pregunta">
 				<div class="genericFont seccion">
@@ -258,7 +270,7 @@
 			</div>
 			<br/>
 		</div>
-		<s:if test="model.extiende.size > 0">
+		<s:if test="casoUso.extiende.size > 0">
 			<div class="formulario">
 				<div class="tituloFormulario">
 					${blanks}
@@ -267,7 +279,7 @@
 					<h5>
 						<s:text name="labelExtensiones"></s:text>
 					</h5>
-					<s:iterator value="model.extiende" var="extension">
+					<s:iterator value="casoUso.extiende" var="extension">
 						<table>
 							<tr>
 								<td><span class="labelIzq consulta"><s:text
@@ -324,7 +336,7 @@
 		<div align="center">
 			<s:submit class="boton" value="Aceptar" />
 			<s:url var="urlCU"
-				value="%{#pageContext.request.contextPath}/cu">
+				value="%{#pageContext.request.contextPath}/caso-uso">
 			</s:url>
 			<input class="boton" type="button"
 				onclick="location.href='${urlCU}'" value="Cancelar" />
