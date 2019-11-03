@@ -122,4 +122,13 @@ public class ColaboradorBs {
 		}
 	}
 
+	public boolean isLider(String curp, Integer idProyecto) {
+		Boolean resultado = Boolean.TRUE;
+		Colaborador colaborador = colaboradorDAO.isLider(curp, idProyecto);
+		if (colaborador == null) {
+			resultado = Boolean.FALSE;
+		}
+		return resultado;
+	}
+
 }

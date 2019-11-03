@@ -10,6 +10,7 @@ import mx.tesseract.br.RN018;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.CasoUsoDTO;
 import mx.tesseract.editor.dao.CasoUsoDAO;
+import mx.tesseract.editor.dao.SeccionDAO;
 import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.CasoUsoActor;
 import mx.tesseract.editor.entidad.CasoUsoReglaNegocio;
@@ -19,11 +20,16 @@ import mx.tesseract.editor.entidad.Extension;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Paso;
 import mx.tesseract.editor.entidad.PostPrecondicion;
+import mx.tesseract.editor.entidad.ReferenciaParametro;
+import mx.tesseract.editor.entidad.Revision;
 import mx.tesseract.editor.entidad.Salida;
 import mx.tesseract.editor.entidad.Trayectoria;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
+import mx.tesseract.enums.ReferenciaEnum;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.enums.ReferenciaEnum.TipoSeccion;
+import mx.tesseract.enums.TipoSeccionEnum;
+import mx.tesseract.enums.TipoSeccionEnum.TipoSeccionENUM;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.TESSERACTException;
 import mx.tesseract.util.TESSERACTValidacionException;
@@ -55,6 +61,9 @@ public class CasoUsoBs {
 	
 	@Autowired
 	private ElementoBs elementoBs;
+	
+	@Autowired
+	private SeccionDAO seccionDAO;
 	
 	public List<CasoUso> consultarCasosDeUso(Integer idProyecto, Integer idModulo) {
 		List<CasoUso> lista = casoUsoDAO.findAllByProyecto(idProyecto, Clave.CU);
@@ -650,135 +659,136 @@ public class CasoUsoBs {
 //		return false;
 //	}
 //
-//	public static boolean guardarRevisiones(Integer esCorrectoResumen,
-//			String observacionesResumen, Integer esCorrectoTrayectoria,
-//			String observacionesTrayectoria, Integer esCorrectoPuntosExt,
-//			String observacionesPuntosExt, CasoUso model) throws Exception {
-//
-//		Revision revisionResumen = null;
-//		Revision revisionTrayectoria = null;
-//		Revision revisionPuntosExt = null;
-//		
-//		boolean observacionesCambio = false;
-//
-//		for (Revision revision : model.getRevisiones()) {
-//			if (revision.getSeccion().getNombre()
-//					.equals(TipoSeccionEnum.getNombre(TipoSeccionENUM.RESUMEN))) {
-//				revisionResumen = revision;
-//			} else if (revision
-//					.getSeccion()
-//					.getNombre()
-//					.equals(TipoSeccionEnum
-//							.getNombre(TipoSeccionENUM.TRAYECTORIA))) {
-//				revisionTrayectoria = revision;
-//			} else if (revision
-//					.getSeccion()
-//					.getNombre()
-//					.equals(TipoSeccionEnum
-//							.getNombre(TipoSeccionENUM.PUNTOSEXTENSION))) {
-//				revisionPuntosExt = revision;
-//			}
-//		}
-//
-//		if (esCorrectoResumen != null) {
-//			if (esCorrectoResumen == 2) { 
-//				observacionesCambio = true;
-//				validarObservacionRevision(observacionesResumen, "observacionesResumen");
-//
-//				if (revisionResumen != null) {
-//					revisionResumen.setObservaciones(observacionesResumen);
-//					revisionResumen.setRevisado(false);
-//				} else {
-//					revisionResumen = new Revision(observacionesResumen, model,
-//							new SeccionDAO().consultarSeccion(TipoSeccionEnum
-//									.getNombre(TipoSeccionENUM.RESUMEN)));
-//					revisionResumen.setRevisado(false);
-//				}		
-//				new RevisionDAO().update(revisionResumen);
-//			} else {
-//				if (revisionResumen != null) {
-//					new RevisionDAO().delete(revisionResumen);
-//				}
-//			}
-//		} else {
-//			throw new TESSERACTValidacionException(
-//					"El usuario no ingresó la respuesta", "MSG4", null,
-//					"esCorrectoResumen");
-//		}
-//		
-//		if (esCorrectoTrayectoria != null) {
-//			if (esCorrectoTrayectoria == 2) { 
-//				observacionesCambio = true;
-//				validarObservacionRevision(observacionesTrayectoria, "observacionesTrayectoria");
-//
-//				if (revisionTrayectoria != null) {
-//					revisionTrayectoria.setObservaciones(observacionesTrayectoria);
-//					revisionTrayectoria.setRevisado(false);
-//				} else {
-//					revisionTrayectoria = new Revision(observacionesTrayectoria, model,
-//							new SeccionDAO().consultarSeccion(TipoSeccionEnum
-//									.getNombre(TipoSeccionENUM.TRAYECTORIA)));
-//					revisionTrayectoria.setRevisado(false);
-//				}		
-//				new RevisionDAO().update(revisionTrayectoria);
-//			} else {
-//				if (revisionTrayectoria != null) {
-//					new RevisionDAO().delete(revisionTrayectoria);
-//				}
-//			}
-//		} else {
-//			throw new TESSERACTValidacionException(
-//					"El usuario no ingresó la respuesta", "MSG4", null,
-//					"esCorrectoTrayectoria");
-//		}
-//		
-//		if(model.getExtiende() != null && !model.getExtiende().isEmpty()) {
-//			if (esCorrectoPuntosExt != null) {
-//				if (esCorrectoPuntosExt == 2) { 
-//					observacionesCambio = true;
-//					validarObservacionRevision(observacionesPuntosExt, "observacionesPuntosExt");
-//	
-//					if (revisionPuntosExt != null) {
-//						revisionPuntosExt.setObservaciones(observacionesPuntosExt);
-//						revisionPuntosExt.setRevisado(false);
-//					} else {
-//						revisionPuntosExt = new Revision(observacionesPuntosExt, model,
-//								new SeccionDAO().consultarSeccion(TipoSeccionEnum
-//										.getNombre(TipoSeccionENUM.PUNTOSEXTENSION)));
-//						revisionPuntosExt.setRevisado(false);
-//					}		
-//					new RevisionDAO().update(revisionPuntosExt);
-//				} else {
-//					if (revisionPuntosExt != null) {
-//						new RevisionDAO().delete(revisionPuntosExt);
-//					}
-//				}
-//			} else {
-//				throw new TESSERACTValidacionException(
-//						"El usuario no ingresó la respuesta", "MSG4", null,
-//						"esCorrectoPuntosExt");
-//			}
-//		}
-//		
-//		return observacionesCambio;
-//
-//	}
-//	
-//	private static void validarObservacionRevision(String observacionesResumen, String campo) throws Exception{
-//		if (Validador.esNuloOVacio(observacionesResumen)) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario no ingresó las observaciones", "MSG4",
-//					null, campo);
-//		}
-//		if (Validador.validaLongitudMaxima(observacionesResumen, 999)) {
-//			throw new TESSERACTValidacionException(
-//					"El usuario ingreso observaciones muy largas", "MSG6",
-//					new String[] { "999", "caracteres" },
-//					campo);
-//		}
-//		
-//	}
-//
+	@Transactional(rollbackFor = Exception.class)
+	public boolean guardarRevisiones(Integer esCorrectoResumen,
+			String observacionesResumen, Integer esCorrectoTrayectoria,
+			String observacionesTrayectoria, Integer esCorrectoPuntosExt,
+			String observacionesPuntosExt, CasoUso model) throws Exception {
+
+		Revision revisionResumen = null;
+		Revision revisionTrayectoria = null;
+		Revision revisionPuntosExt = null;
+		
+		boolean observacionesCambio = false;
+
+		for (Revision revision : model.getRevisiones()) {
+			if (revision.getSeccion().getNombre()
+					.equals(TipoSeccionEnum.getNombre(TipoSeccionENUM.RESUMEN))) {
+				revisionResumen = revision;
+			} else if (revision
+					.getSeccion()
+					.getNombre()
+					.equals(TipoSeccionEnum
+							.getNombre(TipoSeccionENUM.TRAYECTORIA))) {
+				revisionTrayectoria = revision;
+			} else if (revision
+					.getSeccion()
+					.getNombre()
+					.equals(TipoSeccionEnum
+							.getNombre(TipoSeccionENUM.PUNTOSEXTENSION))) {
+				revisionPuntosExt = revision;
+			}
+		}
+
+		if (esCorrectoResumen != null) {
+			if (esCorrectoResumen == Constantes.NUMERO_DOS) { 
+				observacionesCambio = true;
+				validarObservacionRevision(observacionesResumen, "observacionesResumen");
+
+				if (revisionResumen != null) {
+					revisionResumen.setObservaciones(observacionesResumen);
+					revisionResumen.setRevisado(false);
+				} else {
+					revisionResumen = new Revision(observacionesResumen, model,
+							seccionDAO.consultarSeccion(TipoSeccionEnum
+									.getNombre(TipoSeccionENUM.RESUMEN)));
+					revisionResumen.setRevisado(false);
+				}		
+				genericoDAO.update(revisionResumen);
+			} else {
+				if (revisionResumen != null) {
+					genericoDAO.delete(revisionResumen);
+				}
+			}
+		} else {
+			throw new TESSERACTValidacionException(
+					"El usuario no ingresó la respuesta", "MSG4", null,
+					"esCorrectoResumen");
+		}
+		
+		if (esCorrectoTrayectoria != null) {
+			if (esCorrectoTrayectoria == Constantes.NUMERO_DOS) { 
+				observacionesCambio = true;
+				validarObservacionRevision(observacionesTrayectoria, "observacionesTrayectoria");
+
+				if (revisionTrayectoria != null) {
+					revisionTrayectoria.setObservaciones(observacionesTrayectoria);
+					revisionTrayectoria.setRevisado(false);
+				} else {
+					revisionTrayectoria = new Revision(observacionesTrayectoria, model,
+							seccionDAO.consultarSeccion(TipoSeccionEnum
+									.getNombre(TipoSeccionENUM.TRAYECTORIA)));
+					revisionTrayectoria.setRevisado(false);
+				}		
+				genericoDAO.update(revisionTrayectoria);
+			} else {
+				if (revisionTrayectoria != null) {
+					genericoDAO.delete(revisionTrayectoria);
+				}
+			}
+		} else {
+			throw new TESSERACTValidacionException(
+					"El usuario no ingresó la respuesta", "MSG4", null,
+					"esCorrectoTrayectoria");
+		}
+		
+		if(model.getExtiende() != null && !model.getExtiende().isEmpty()) {
+			if (esCorrectoPuntosExt != null) {
+				if (esCorrectoPuntosExt == 2) { 
+					observacionesCambio = true;
+					validarObservacionRevision(observacionesPuntosExt, "observacionesPuntosExt");
+	
+					if (revisionPuntosExt != null) {
+						revisionPuntosExt.setObservaciones(observacionesPuntosExt);
+						revisionPuntosExt.setRevisado(false);
+					} else {
+						revisionPuntosExt = new Revision(observacionesPuntosExt, model,
+								seccionDAO.consultarSeccion(TipoSeccionEnum
+										.getNombre(TipoSeccionENUM.PUNTOSEXTENSION)));
+						revisionPuntosExt.setRevisado(false);
+					}		
+					genericoDAO.update(revisionPuntosExt);
+				} else {
+					if (revisionPuntosExt != null) {
+						genericoDAO.delete(revisionPuntosExt);
+					}
+				}
+			} else {
+				throw new TESSERACTValidacionException(
+						"El usuario no ingresó la respuesta", "MSG4", null,
+						"esCorrectoPuntosExt");
+			}
+		}
+		
+		return observacionesCambio;
+
+	}
+	
+	private static void validarObservacionRevision(String observacionesResumen, String campo) throws Exception{
+		if (esNuloOVacio(observacionesResumen)) {
+			throw new TESSERACTValidacionException(
+					"El usuario no ingresó las observaciones", "MSG4",
+					null, campo);
+		}
+		if (validaLongitudMaxima(observacionesResumen, 999)) {
+			throw new TESSERACTValidacionException(
+					"El usuario ingreso observaciones muy largas", "MSG6",
+					new String[] { "999", "caracteres" },
+					campo);
+		}
+		
+	}
+
 //	public static List<CasoUso> obtenerCaminoPrevioMasCorto(CasoUso casoUso) {
 //		List<List<CasoUso>> caminosPrevios = obtenerCasosUsoPrevios(casoUso);
 //		if(caminosPrevios == null) {
@@ -851,108 +861,107 @@ public class CasoUsoBs {
 //		return null;
 //	}
 //
-//	public static void liberarElementosRelacionados(CasoUso model) throws Exception {
-//		for(CasoUsoActor cu_actor : model.getActores()) {
-//			ElementoBs.modificarEstadoElemento(cu_actor.getActor(), Estado.LIBERADO);
-//		}
-//		for(Entrada entrada : model.getEntradas()) {
-//			if(entrada.getAtributo() != null) {
-//				ElementoBs.modificarEstadoElemento(entrada.getAtributo().getEntidad(), Estado.LIBERADO);
-//			} else if(entrada.getTerminoGlosario() != null) {
-//				ElementoBs.modificarEstadoElemento(entrada.getTerminoGlosario(), Estado.LIBERADO);
-//			}
-//		}
-//		for(Salida salida : model.getSalidas()) {
-//			if(salida.getMensaje() != null) {
-//				ElementoBs.modificarEstadoElemento(salida.getMensaje(), Estado.LIBERADO);
-//			} else if(salida.getAtributo() != null) {
-//				ElementoBs.modificarEstadoElemento(salida.getAtributo().getEntidad(), Estado.LIBERADO);
-//			} else if(salida.getTerminoGlosario() != null) {
-//				ElementoBs.modificarEstadoElemento(salida.getTerminoGlosario(), Estado.LIBERADO);
-//			}
-//		}
-//		for(CasoUsoReglaNegocio cu_regla : model.getReglas()) {
-//			ElementoBs.modificarEstadoElemento(cu_regla.getReglaNegocio(), Estado.LIBERADO);
-//		}
-//		
-//		List<PostPrecondicion> postprecondiciones = new PostPrecondicionDAO().consultarPostPrecondiciones(model, true);
-//		postprecondiciones.addAll(new PostPrecondicionDAO().consultarPostPrecondiciones(model, false));
-//		
-//		for(PostPrecondicion pp : postprecondiciones) {
-//			List<ReferenciaParametro> referencias = new ReferenciaParametroDAO().consultarReferenciasParametro(pp);
-//			if(referencias != null) {
-//				for(ReferenciaParametro referencia : referencias) {
-//					switch(ReferenciaEnum.getTipoReferenciaParametro(referencia)) {
-//					case ACCION:
-//						ElementoBs.modificarEstadoElemento(referencia.getAccionDestino().getPantalla(), Estado.LIBERADO);
-//						break;
-//					case ACTOR:
-//						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-//						break;
-//					case ATRIBUTO:
-//						ElementoBs.modificarEstadoElemento(referencia.getAtributo().getEntidad(), Estado.LIBERADO);
-//						break;
-//					case ENTIDAD:
-//						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-//						break;
-//					case MENSAJE:
-//						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-//						break;
-//					case PANTALLA:
-//						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-//						break;
-//					case REGLANEGOCIO:
-//						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-//						break;
-//					case TERMINOGLS:
-//						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-//						break;
-//					default:
-//						break;
-//					}
-//				}
-//			}
-//		}
-//		
-//		for(Trayectoria trayectoria : model.getTrayectorias()) {
-//			for(Paso paso : trayectoria.getPasos()) {
-//				List<ReferenciaParametro> referencias = new ReferenciaParametroDAO().consultarReferenciasParametro(paso);
-//				if(referencias != null) {
-//					for(ReferenciaParametro referencia : referencias) {
-//						switch(ReferenciaEnum.getTipoReferenciaParametro(referencia)) {
-//						case ACCION:
-//							ElementoBs.modificarEstadoElemento(referencia.getAccionDestino().getPantalla(), Estado.LIBERADO);
-//							break;
-//						case ACTOR:
-//							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-//							break;
-//						case ATRIBUTO:
-//							ElementoBs.modificarEstadoElemento(referencia.getAtributo().getEntidad(), Estado.LIBERADO);
-//							break;
-//						case ENTIDAD:
-//							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-//							break;
-//						case MENSAJE:
-//							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-//							break;
-//						case PANTALLA:
-//							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-//							break;
-//						case REGLANEGOCIO:
-//							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-//							break;
-//						case TERMINOGLS:
-//							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-//							break;
-//						default:
-//							break;
-//						}
-//					}
-//				}
-//			}
-//		}
-//		
-//	}
+	/*public void liberarElementosRelacionados(CasoUso model) throws Exception {
+		for(CasoUsoActor cu_actor : model.getActores()) {
+			elementoBs.modificarEstadoElemento(cu_actor.getActor(), Estado.LIBERADO);
+		}
+		for(Entrada entrada : model.getEntradas()) {
+			if(entrada.getAtributo() != null) {
+				elementoBs.modificarEstadoElemento(entrada.getAtributo().getEntidad(), Estado.LIBERADO);
+			} else if(entrada.getTerminoGlosario() != null) {
+				elementoBs.modificarEstadoElemento(entrada.getTerminoGlosario(), Estado.LIBERADO);
+			}
+		}
+		for(Salida salida : model.getSalidas()) {
+			if(salida.getMensaje() != null) {
+				elementoBs.modificarEstadoElemento(salida.getMensaje(), Estado.LIBERADO);
+			} else if(salida.getAtributo() != null) {
+				elementoBs.modificarEstadoElemento(salida.getAtributo().getEntidad(), Estado.LIBERADO);
+			} else if(salida.getTerminoGlosario() != null) {
+				elementoBs.modificarEstadoElemento(salida.getTerminoGlosario(), Estado.LIBERADO);
+			}
+		}
+		for(CasoUsoReglaNegocio cu_regla : model.getReglas()) {
+			elementoBs.modificarEstadoElemento(cu_regla.getReglaNegocio(), Estado.LIBERADO);
+		}
+		
+		List<PostPrecondicion> postprecondiciones = model.getPostprecondiciones();
+		
+		for(PostPrecondicion pp : postprecondiciones) {
+			List<ReferenciaParametro> referencias = referenciaParametroDAO.consultarReferenciasParametro(pp);
+			if(referencias != null) {
+				for(ReferenciaParametro referencia : referencias) {
+					switch(ReferenciaEnum.getTipoReferenciaParametro(referencia)) {
+					case ACCION:
+						ElementoBs.modificarEstadoElemento(referencia.getAccionDestino().getPantalla(), Estado.LIBERADO);
+						break;
+					case ACTOR:
+						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
+						break;
+					case ATRIBUTO:
+						ElementoBs.modificarEstadoElemento(referencia.getAtributo().getEntidad(), Estado.LIBERADO);
+						break;
+					case ENTIDAD:
+						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
+						break;
+					case MENSAJE:
+						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
+						break;
+					case PANTALLA:
+						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
+						break;
+					case REGLANEGOCIO:
+						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
+						break;
+					case TERMINOGLS:
+						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
+						break;
+					default:
+						break;
+					}
+				}
+			}
+		}
+		
+		for(Trayectoria trayectoria : model.getTrayectorias()) {
+			for(Paso paso : trayectoria.getPasos()) {
+				List<ReferenciaParametro> referencias = new ReferenciaParametroDAO().consultarReferenciasParametro(paso);
+				if(referencias != null) {
+					for(ReferenciaParametro referencia : referencias) {
+						switch(ReferenciaEnum.getTipoReferenciaParametro(referencia)) {
+						case ACCION:
+							ElementoBs.modificarEstadoElemento(referencia.getAccionDestino().getPantalla(), Estado.LIBERADO);
+							break;
+						case ACTOR:
+							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
+							break;
+						case ATRIBUTO:
+							ElementoBs.modificarEstadoElemento(referencia.getAtributo().getEntidad(), Estado.LIBERADO);
+							break;
+						case ENTIDAD:
+							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
+							break;
+						case MENSAJE:
+							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
+							break;
+						case PANTALLA:
+							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
+							break;
+						case REGLANEGOCIO:
+							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
+							break;
+						case TERMINOGLS:
+							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
+							break;
+						default:
+							break;
+						}
+					}
+				}
+			}
+		}
+		
+	}*/
 //
 //	public static void habilitarElementosRelacionados(CasoUso model) throws Exception {
 //		for(CasoUsoActor cu_actor : model.getActores()) {
@@ -1089,4 +1098,14 @@ public class CasoUsoBs {
 //		return false;
 //	}
 
+	public static boolean esNuloOVacio(String cadena) {
+		return cadena == null || cadena.equals("");
+	}
+
+	public static boolean validaLongitudMaxima(String cadena, int longitud) {
+		if(cadena == null) {
+			return false;
+		}
+		return cadena.length() > longitud;
+	}
 }

@@ -100,4 +100,20 @@ public class ColaboradorDAO {
 		return colaborador;
 	}
 
+	public Colaborador isLider(String curp, Integer idProyecto) {
+		Colaborador colaborador = null;
+		try {
+			Query query = entityManager.createNamedQuery("Colaborador.isLider", Colaborador.class);
+			query.setParameter(Constantes.NUMERO_UNO, curp);
+			query.setParameter(Constantes.NUMERO_DOS, idProyecto);
+			List<Colaborador> lista = (List<Colaborador>) query.getResultList();
+			if (!lista.isEmpty()) {
+				colaborador = lista.get(Constantes.NUMERO_CERO);
+			}
+		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "isLider", e);
+		}
+		return colaborador;
+	}
+
 }
