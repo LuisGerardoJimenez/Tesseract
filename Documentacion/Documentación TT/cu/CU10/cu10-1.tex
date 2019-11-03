@@ -40,8 +40,8 @@
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita registrar una actor oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU8}{Gestionar Actores}.
-		\UCpaso[\UCactor] Verifica que exista información referente a la Cardinalidad con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU10-1:TAA}{[Trayectoria A]}
+		\UCpaso[\UCactor] Solicita registrar un actor oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU8}{Gestionar Actores}.
+		\UCpaso[\UCsist] Verifica que exista información referente a la Cardinalidad con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU10-1:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU8.1}{Registrar Actor}.
 		\UCpaso[\UCactor] Ingresa la información solicitada. \label{CU10.1-P4}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU10-1:TAB}{[Trayectoria B]}
@@ -56,7 +56,7 @@
 \hypertarget{CU10-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} No existe información en el catálogo de ''cardinalidad''.
 \begin{enumerate}
-	\UCpaso[\UCactor] Muestra el mensaje \cdtIdRef{MSG29}{Los catálogos nos contienen información} en la pantalla \IUref{IU8}{Gestionar Actores}.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Los catálogos nos contienen información} en la pantalla \IUref{IU8}{Gestionar Actores}.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 
