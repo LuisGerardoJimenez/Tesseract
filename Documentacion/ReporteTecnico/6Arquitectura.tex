@@ -1,6 +1,6 @@
-\chapter{Arquitectura} \label{cap:seis}
+\chapter{Arquitectura Implementada} \label{cap:seis}
 
-La arquitectura implementada tiene como finalidad que el sistema web que se desarrolle sea estable, modular y escalable; En la figura \ref{fig:arqui} se ilustra el diagrama  detalladamente junto con sus componentes.
+La arquitectura implementada tiene como finalidad que el sistema web que se desarrolle sea estable, modular y escalable; En la Figura \ref{fig:arqui} se ilustra el diagrama  detalladamente junto con sus componentes.
 
 \begin{figure}[H]
 	\begin{center}
@@ -10,21 +10,21 @@ La arquitectura implementada tiene como finalidad que el sistema web que se desa
 	\end{center}
 \end{figure}
 
-La arquitectura utilizada es compuesta debido a la estructura definida, la arquitectura principal es Cliente-Servidor donde el cliente se comunica con el servidor por medio de internet a través de peticiones HTTP Servlet Request recibiendo una respuesta HTTP Servlet Response.\\
+La arquitectura esta compuesta de esta manera ya que se acopla perfectamente a la estructura definida, la arquitectura principal es Cliente-Servidor donde el cliente se comunica con el servidor por medio de internet a través de peticiones con el Protocolo de Transferencia de Hipertexto (Hypertext Transfer Protocol, HTTP por sus siglas en ingles) Servlet Request recibiendo una respuesta HTTP Servlet Response.\\
 
 El servidor implementa el patrón de diseño MVC a través del Framework Struts 2 teniendo la siguiente estructura:
 \begin{itemize}
-	\item Modelo: La capa Modelo es la encargada de realizar el procesamiento de los datos obtenidos del cliente, el modelo debe aplicar las reglas de negocio y realizar las operaciones correspondientes en la base de datos.\\
+	\item Modelo: La capa Modelo es la encargada de realizar el procesamiento de los datos obtenidos del cliente, el modelo debe aplicar las reglas de negocio y realizar las operaciones correspondientes en la base de datos.
 	
 	\begin{itemize}
 	
-	\item Dentro de la capa de modelo se implementó una arquitectura de N capas, donde: la capa de presentación contiene los Actions; la capa de negocio contiene las clases de negocio y las clases de reglas de negocio; la capa de persistencia contiene las clases de acceso a datos (DAO’s).\\
+	\item Dentro de la capa de modelo se implementó una arquitectura de N capas, donde: la capa de presentación contiene los Actions; la capa de negocio contiene las clases de negocio y las clases de reglas de negocio; la capa de persistencia contiene las clases de acceso a datos (Data Access Objects, DAO’s por sus siglas en inglés).\\
 	
-	\item La transferencia de datos entre las capas se realizó mediante clases de transferencia de datos (DTO’s).
+	\item La transferencia de datos entre las capas se realizó mediante clases de transferencia de datos (Data Transfer Object,  DTO’s por sus siglas en inglés).
 	
 	\end{itemize}
 	
-	\item Controlador: La capa controlador es la encargada de recibir la petición del cliente, aplica los interceptores declarados y mediante el archivo de configuración (struts.xml) redirige al action correspondiente, cuando el modelo regresa una respuesta, el archivo de configuración sabe que JSP debe renderizar comunicándose con la capa de vista.
+	\item Controlador: La capa controlador es la encargada de recibir la petición del cliente, aplica los interceptores declarados y mediante el archivo de configuración (struts.xml) redirige al action correspondiente, cuando el modelo regresa una respuesta, el archivo de configuración sabe que las Páginas de Servidor Java (JavaServer Pages, JSP por sus siglas en inglés) deben renderizar comunicándose con la capa de vista.
 	
 	\item Vista: La capa vista es la encargada de renderizar el JSP correspondiente y enviar la respuesta al cliente que la solicitó.
 \end{itemize}
