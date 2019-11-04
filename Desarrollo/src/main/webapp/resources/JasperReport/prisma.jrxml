@@ -54,7 +54,7 @@ where proy.id = $P{idProyecto};]]>
 	<columnHeader>
 		<band height="65">
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="0" width="500" height="50" forecolor="#909090" uuid="1ab7cbd1-2d57-47cd-97cf-edcd45b66f50"/>
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="0" width="500" height="40" forecolor="#B81714" uuid="1ab7cbd1-2d57-47cd-97cf-edcd45b66f50"/>
 				<textElement>
 					<font size="20" isBold="false"/>
 				</textElement>
@@ -64,40 +64,43 @@ where proy.id = $P{idProyecto};]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="170" splitType="Stretch">
+		<band height="70" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="-20" width="500" height="50" uuid="e90f1938-3277-4495-a670-195f1268a7f5"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="120" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="0" y="34" width="500" height="20" uuid="bf02f574-70fe-452c-9a08-e65000ef2f27"/>
+				<reportElement x="0" y="0" width="500" height="20" uuid="bf02f574-70fe-452c-9a08-e65000ef2f27"/>
 				<textElement markup="html"/>
 				<textFieldExpression><![CDATA["<b>Fecha de inicio programada: </b> " + new SimpleDateFormat("dd/MM/yyyy").format($F{fechaInicioProgramada})]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="0" y="54" width="500" height="20" uuid="af61a1a9-2082-4ee9-be19-ff03d118d9d4"/>
+				<reportElement x="0" y="20" width="500" height="20" uuid="af61a1a9-2082-4ee9-be19-ff03d118d9d4"/>
 				<textElement markup="html"/>
 				<textFieldExpression><![CDATA["<b>Fecha de término programada: </b>" + new SimpleDateFormat("dd/MM/yyyy").format($F{fechaTerminoProgramada})]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="0" y="74" width="500" height="20" uuid="de742ff3-2389-4796-ba87-d4021b3fa967"/>
+				<reportElement x="0" y="40" width="500" height="20" uuid="de742ff3-2389-4796-ba87-d4021b3fa967"/>
 				<textElement markup="html"/>
 				<textFieldExpression><![CDATA["<b>Fecha de inicio: </b>" + new SimpleDateFormat("dd/MM/yyyy").format($F{fechaInicio})]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="0" y="94" width="500" height="20" uuid="e873e709-5d1d-450f-a8b8-8271249d3679"/>
+				<reportElement x="0" y="60" width="500" height="20" uuid="e873e709-5d1d-450f-a8b8-8271249d3679"/>
 				<textElement markup="html"/>
 				<textFieldExpression><![CDATA["<b>Fecha de término: </b>" + new SimpleDateFormat("dd/MM/yyyy").format($F{fechaTermino})]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="500" height="21" uuid="e90f1938-3277-4495-a670-195f1268a7f5"/>
-				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
-			</textField>
 			<textField>
-				<reportElement x="722" y="134" width="500" height="20" uuid="428a6a13-ac5f-400a-a6ff-8e4635d9c526"/>
-				<textElement markup="html"/>
-				<textFieldExpression><![CDATA["<b>Presupuesto: </b>" + $F{presupuesto}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="114" width="500" height="20" uuid="64ab329b-c2d1-45c5-8c58-1eb501994236"/>
+				<reportElement x="0" y="80" width="500" height="20" uuid="64ab329b-c2d1-45c5-8c58-1eb501994236"/>
 				<textElement markup="html"/>
 				<textFieldExpression><![CDATA["<b>Contraparte: </b>" + $F{contraparte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="722" y="100" width="500" height="20" uuid="428a6a13-ac5f-400a-a6ff-8e4635d9c526"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA["<b>Presupuesto: </b>" + $F{presupuesto}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="100">
@@ -183,7 +186,7 @@ where proy.id = $P{idProyecto};]]>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="22" splitType="Stretch">
+		<band height="70" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="1" width="500" height="20" uuid="333eef06-a803-4e80-b24c-0081051df8fa"/>
 				<textElement textAlignment="Center"/>

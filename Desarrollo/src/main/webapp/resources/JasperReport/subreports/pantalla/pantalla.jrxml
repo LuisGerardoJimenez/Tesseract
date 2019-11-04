@@ -35,7 +35,7 @@ ORDER BY REPLACE(ele.numero,'.','') * 1 ASC;]]>
 	<title>
 		<band height="50">
 			<staticText>
-				<reportElement x="18" y="0" width="141" height="30" forecolor="#5F5F5F" uuid="cc4d92ed-c545-4fef-a258-f1a8f214637a"/>
+				<reportElement x="18" y="0" width="141" height="30" forecolor="#B81714" uuid="cc4d92ed-c545-4fef-a258-f1a8f214637a"/>
 				<textElement>
 					<font fontName="SansSerif" size="20" isBold="false"/>
 				</textElement>
@@ -59,7 +59,7 @@ ORDER BY REPLACE(ele.numero,'.','') * 1 ASC;]]>
 				</textField>
 			</frame>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="18" y="11" width="464" height="20" uuid="30dbc923-50a4-40af-9e11-20035382712c"/>
+				<reportElement x="18" y="11" width="464" height="20" forecolor="#B81714" uuid="30dbc923-50a4-40af-9e11-20035382712c"/>
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif" size="14" isBold="false"/>
 				</textElement>

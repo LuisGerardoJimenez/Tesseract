@@ -28,7 +28,7 @@ where ele.clave = 'MSG' AND ele.Proyectoid = $P{p_proyectoId};]]>
 	<title>
 		<band height="50">
 			<staticText>
-				<reportElement x="18" y="0" width="150" height="25" forecolor="#5F5F5F" uuid="cc4d92ed-c545-4fef-a258-f1a8f214637a"/>
+				<reportElement x="18" y="0" width="128" height="30" forecolor="#B81714" uuid="163fbaed-7058-4b79-8c5d-d8a6008b5773"/>
 				<textElement>
 					<font size="20" isBold="false"/>
 				</textElement>
@@ -42,9 +42,9 @@ where ele.clave = 'MSG' AND ele.Proyectoid = $P{p_proyectoId};]]>
 	<detail>
 		<band height="73" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="18" y="11" width="469" height="19" uuid="30dbc923-50a4-40af-9e11-20035382712c"/>
+				<reportElement x="18" y="11" width="469" height="19" forecolor="#B81714" uuid="30dbc923-50a4-40af-9e11-20035382712c"/>
 				<textElement textAlignment="Left">
-					<font size="14" isBold="false"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{clave} + $F{numero} + " " + $F{nombre}]]></textFieldExpression>
 			</textField>

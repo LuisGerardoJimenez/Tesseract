@@ -32,7 +32,7 @@ WHERE acc.PantallaElementoid = $P{p_pantallaElementoId};]]>
 	<title>
 		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="5" width="100" height="20" uuid="6644b008-944a-43af-8981-0660fba03c81"/>
+				<reportElement x="0" y="5" width="100" height="20" forecolor="#B81714" uuid="6644b008-944a-43af-8981-0660fba03c81"/>
 				<textElement>
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
