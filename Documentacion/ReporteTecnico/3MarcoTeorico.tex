@@ -22,14 +22,14 @@ Con estas bases teóricas, Roger Pressman establece la siguiente definición: "L
 
 Dentro de la misma definición, Pressman puntualiza cuales son los elementos que se obtienen resultado de hacer ingeniería de software, las fases que se ven involucradas en este ámbito y los cuestionamientos que se tienen que hacer para comenzar un proceso de ingenieria de software, asegurando que:\\
 
-``Un aspecto muy importante de Ingeniería de Software es que proporciona parámetros formales para lo que se conoce como Administración de Proyectos de Software. Esto se refiere a que Ingeniería de Software proporciona diversas métricas y metodologías que pueden usarse como especificaciones para todo lo referente a la administración del personal involucrado en proyectos de software, ciclos de vida de un proyecto de software, costos de un proyecto, y en si todo el aspecto administrativo que implica el desarrollar software.
+``Un aspecto muy importante de Ingeniería de Software es que proporciona parámetros formales para lo que se conoce como Administración de Proyectos de Software. Esto se refiere a que Ingeniería de Software proporciona diversas métricas y metodologías que pueden usarse como especificaciones para todo lo referente a la administración del personal involucrado en proyectos de software, ciclos de vida de un proyecto de software, costos de un proyecto, y en si todo el aspecto administrativo que implica el desarrollar software."  \hyperlink{b09}{[9]} \\
 
-La ingeniería en general es el análisis, diseño, construcción, verificación y gestión de entidades técnicas. En general, todo proceso de ingeniería debe comenzar por contestar las siguientes preguntas: ¿Cuál es el problema a
-resolver?, ¿Cuáles son las características de la entidad que se utiliza para resolver el problema?, ¿Cómo se realizará la entidad (y la solución)?, ¿Cómo se construirá la entidad?, ¿Cómo va a probarse la entidad?, y ¿Cómo se apoyará la entidad cuando los usuarios finales soliciten correcciones y adaptaciones a la entidad?.''  \hyperlink{b09}{[9]} \\
+``La ingeniería en general es el análisis, diseño, construcción, verificación y gestión de entidades técnicas. En general, todo proceso de ingeniería debe comenzar por contestar las siguientes preguntas: ¿Cuál es el problema a
+resolver?, ¿Cuáles son las características de la entidad que se utiliza para resolver el problema?, ¿Cómo se realizará la entidad (y la solución)?, ¿Cómo se construirá la entidad?, ¿Cómo va a probarse la entidad?, y ¿Cómo se apoyará la entidad cuando los usuarios finales soliciten correcciones y adaptaciones a la entidad?.'' \hyperlink{b09}{[9]} \\
 
 Como podemos observar, para Pressman la Ingenieria de Software no solo se refiere a un término, involucra todo un comjunto de procesos, es un camino a recorrer a través de una serie de etapas con la ayuda de herramientas y elementos, cada etapa con un objetivo en particular y con el propósito general de obtener un producto de software de alta calidad. Pero no solo eso, Pressman también manifiesta que dentro de la Ingenieria de Software podemos encontrar varias capas.\\ 
 
-``La ingeniería de software es una tecnología con varias capas, como se muestra en la figura \ref{fig:capas_is}, existen 4 capas: herramientas, métodos, procesos y compromiso con la calidad. Cada una de ellas es importante, sin embargo, la capa de proceso es fundamental para el desarrollo de software, ya que es donde se define la estructura básica del producto hasta la culminación del mismo.''  \hyperlink{b09}{[9]} \\
+``La ingeniería de software es una tecnología con varias capas, como se muestra en la Figura \ref{fig:capas_is}, existen 4 capas: herramientas, métodos, procesos y compromiso con la calidad. Cada una de ellas es importante, sin embargo, la capa de proceso es fundamental para el desarrollo de software, ya que es donde se define la estructura básica del producto hasta la culminación del mismo.''  \hyperlink{b09}{[9]} \\
 
 \begin{figure}[H]
 	\begin{center}
@@ -119,7 +119,7 @@ Por ejemplo si se requiere hacer una descripción detallada del caso de uso sugi
 \item \textbf{Escenario} 
 \end{itemize}
 
-Con base en los enunciados de Alistair Cockburn en su libro "Escribiendo Casos de Uso efectivos" (2001) y en la experiencia en el análisis y desarrollo de sistemas de la Coordinación de Desarrollo Técnologico CDT, se propone la siguiente estructura para la presentación de un Caso de Uso, así como los elementos que lo componen y forman parte del caso de uso.
+Con base en los enunciados de Alistair Cockburn en su libro ``Escribiendo Casos de Uso efectivos" (2001) y en la experiencia en el análisis y desarrollo de sistemas de la Coordinación de Desarrollo Técnologico CDT, se propone la siguiente estructura para la presentación de un Caso de Uso, así como los elementos que lo componen y forman parte del caso de uso.
 
 \begin{itemize}
 \item \textbf{Actor}: Es la idealización de un rol que puede jugar una persona, otro sistema, proceso, un dispositivo o de alguna cosa que interactúa con el sistema. Los actores son objetos que residen fuera del sistema, en tanto que los casos de uso están compuestos por objetos y acciones que residen dentro del sistema. Todo actor tiene uno o más objetivos cuando utiliza el sistema.  \hyperlink{b12}{[12]}. 
@@ -205,7 +205,7 @@ MVC consta de tres tipos de objetos \hyperlink{b18}{[18]}:
 \item ``Por último, el controlador que  define la forma en que la interfaz de usuario reacciona a la entrada del usuario(por ejemplo, la información de control) está entre la vista y el modelo. Escucha los sucesos desencadenados por la vista (u otro origen externo) y ejecuta la reacción apropiada a estos sucesos. En la mayoría de los casos, la reacción es llamar a un método del modelo. Puesto que la vista y el modelo están conectados a través de un mecanismo de notificación, el resultado de esta acción se reflejará automáticamente en la vista."
 \end{enumerate}
 
-El comportamiento y comunicación de este modelo se ilustra en la figura \ref{fig:mvc}
+El comportamiento y comunicación de este modelo se ilustra en la Figura \ref{fig:mvc}
 
 \begin{figure}[H]
 	\begin{center}
@@ -218,7 +218,7 @@ El comportamiento y comunicación de este modelo se ilustra en la figura \ref{fi
 
 MVC desacopla las vistas y los modelos al establecer un protocolo de suscripción / notificación entre ellos. Una vista debe garantizar que su apariencia refleje el estado del modelo. Cada vez que los datos del modelo cambian, el modelo notifica las vistas que dependen de él. En respuesta, cada vista tiene la oportunidad de actualizarse. Este enfoque le permite adjuntar múltiples vistas a un modelo para proporcionar diferentes presentaciones. También puede crear nuevas vistas para un modelo sin reescribirlo.\\
 
-En la figura \ref{fig:mvc2} se muestra un modelo y tres vistas. (Se omitieron los controladores por simplicidad). El modelo contiene algunos valores de datos, y las vistas que definen una hoja de cálculo, un histograma y un gráfico circular muestran estos datos de varias maneras. El modelo se comunica con sus vistas cuando cambian sus valores, y las vistas se comunican con el modelo para acceder a estos valores. \hyperlink{b20}{[20]} 
+En la Figura \ref{fig:mvc2} se muestra un modelo y tres vistas. (Se omitieron los controladores por simplicidad). El modelo contiene algunos valores de datos, y las vistas que definen una hoja de cálculo, un histograma y un gráfico circular muestran estos datos de varias maneras. El modelo se comunica con sus vistas cuando cambian sus valores, y las vistas se comunican con el modelo para acceder a estos valores. \hyperlink{b20}{[20]} 
 
 \begin{figure}[H]
 	\begin{center}
@@ -233,7 +233,7 @@ En la figura \ref{fig:mvc2} se muestra un modelo y tres vistas. (Se omitieron lo
 
 \subsubsection{Definición}
 
-Erich Gamma en su libro "Patrones de diseño" define un framework como:\\
+Erich Gamma en su libro "Patrones de diseño: Elementos de software orientado a objetos reutilizables" define un framework como:\\ 
 
 \textit {``Un conjunto de clases cooperativas que construyen un diseño reutilizable para un tipo específico de software. Un Framework proporciona la arquitectura partiendo el diseño en clases abstractas y definiendo sus responsabilidades y colaboraciones. Un desarrollador realiza una aplicación haciendo subclases y componiendo instancias a partir de las clases definidas por el Framework."} \hyperlink{b17}{[17]}. \\
 
@@ -254,7 +254,7 @@ Como ventajas en la utilización de un framework tenemos las siguientes \hyperli
 	\end{itemize}
 	\item ``Reduce los riesgos del desarrollo."
 	\begin{itemize}
-		\item Con un modelo de programación complejo como el de J2EE, el riesgo de fallos en los proyectos iniciales es alto.
+		\item Con un modelo de programación complejo como el de la Plataforma de Java Edición Empresarial (Java Platform Enterprise Edition, Java EE por sus siglas en inglés), el riesgo de fallos en los proyectos iniciales es alto.
 	\end{itemize}
 	\item ``Proporciona una arquitectura consistente entre aplicaciones."
 	\begin{itemize}
@@ -267,7 +267,7 @@ Como ventajas en la utilización de un framework tenemos las siguientes \hyperli
 
 \section{Pruebas}
 
-Con base en los enunciados del Comité Internacional de Certificaciones de Pruebas de Softwarela (International Software Testing Qualifications Board, ISTQB por sus siglas en ingles). Las pruebas de software muestran la presencia de defectos:\\
+Con base en los enunciados del Comité Internacional de Certificaciones de Pruebas de Softwarela (International Software Testing Qualifications Board, ISTQB por sus siglas en inglés). Las pruebas de software muestran la presencia de defectos:\\
 
  \textit {``Todo tipo de software que se desarrolle es susceptible a la presencia de «Bug`s» o defectos y con las pruebas de software se busca reducir al máximo la presencia de estos".} \hyperlink{b34}{[34]} \\
 
@@ -301,7 +301,7 @@ A continuación se explica su utilidad \hyperlink{b34}{[34]}:
 			\item \textbf {Pruebas No Funcionales}: ``Se refieren a examinar qué tan bien el sistema hace algo, en lugar de lo que hace. Los aspectos no funcionales (también conocidos como características de calidad o atributos de calidad) incluyen rendimiento, usabilidad, portabilidad, mantenibilidad, etc."
 		\end{itemize}
 	
-		Existen cinco técnicas basadas en especificaciones las cuales son: \hyperlink{b34}{[34]} 
+		Existen cinco técnicas basadas en especificaciones las cuales son \hyperlink{b34}{[34]}: 
 		\begin{itemize}
 			\item \textbf {Clases de equivalencia}: ``La idea detrás de la técnica es dividir un conjunto de condiciones de prueba en grupos o conjuntos que se pueden considerar iguales. La técnica requiere que solo necesitemos probar una condición de cada partición. Si una condición en una partición funciona o no, asumimos que todas las condiciones en esa partición tendrán el mismo comportamiento."
 			\item \textbf {Análisis del valor límite}: ``Se basa en pruebas en los límites entre particiones. Opera realizado la 'verificación de rango', se tiene que tener en cuenta que tenemos límites válidos (en las particiones válidas) y límites inválidos (en las particiones inválidas)".
@@ -343,7 +343,7 @@ El ISTQB centra las pruebas de sistema en el funcionamiento y capacidades del so
 
  	\textit {``Para este nivel se consideran las tareas de extremo a extremo que el sistema puede realizar y los comportamientos no funcionales que exhibe mientras realiza esas tareas. Este nivel de pruebas tiene como objetivo: la reducción de riesgos, verificar si los comportamientos funcionales y no funcionales del sistema son los diseñados y especificados, alidar que el sistema está completo y funcionará como se esperaba, generar confianza en la calidad del sistema en su conjunto, encontrar defectos y Evitar que los defectos escapen a niveles de prueba o producción más altos."}\hyperlink{b35}{[35]} \\
  	
- 	En el cuadro \ref{tbl:basesyobjetos},  se describe cuales son las bases de prueba y los objetos de prueba para el nivel de sistema.
+ 	En el Cuadro \ref{tbl:basesyobjetos},  se describe cuales son las bases de prueba y los objetos de prueba para el nivel de sistema.
  
 
 \begin{table}[H]
