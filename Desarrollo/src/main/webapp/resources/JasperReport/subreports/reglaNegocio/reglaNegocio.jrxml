@@ -58,7 +58,7 @@ ORDER BY ele.numero * 1 ASC;]]>
 	<title>
 		<band height="50">
 			<staticText>
-				<reportElement x="18" y="0" width="248" height="25" forecolor="#5F5F5F" uuid="cc4d92ed-c545-4fef-a258-f1a8f214637a"/>
+				<reportElement x="18" y="0" width="248" height="25" forecolor="#B81714" uuid="cc4d92ed-c545-4fef-a258-f1a8f214637a"/>
 				<textElement>
 					<font size="20" isBold="false"/>
 				</textElement>
@@ -72,7 +72,7 @@ ORDER BY ele.numero * 1 ASC;]]>
 	<detail>
 		<band height="174" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement isPrintRepeatedValues="false" x="18" y="11" width="469" height="19" uuid="30dbc923-50a4-40af-9e11-20035382712c"/>
+				<reportElement isPrintRepeatedValues="false" x="18" y="11" width="469" height="19" forecolor="#B81714" uuid="30dbc923-50a4-40af-9e11-20035382712c"/>
 				<textElement textAlignment="Left">
 					<font size="14" isBold="false"/>
 				</textElement>

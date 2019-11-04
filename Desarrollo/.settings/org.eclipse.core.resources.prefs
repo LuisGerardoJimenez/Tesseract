@@ -1,7 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java/mx/tesseract/admin/entidad/Colaborador.java=UTF-8
 encoding//src/main/java/mx/tesseract/util/Constantes.java=UTF-8
-encoding//src/main/webapp/resources/JasperReport/prisma.jrxml=UTF-8
 encoding//src/main/webapp/resources/JasperReport/subreports/actor/actor.jrxml=UTF-8
 encoding//src/main/webapp/resources/JasperReport/subreports/casoUso/casoUso.jrxml=UTF-8
 encoding//src/main/webapp/resources/JasperReport/subreports/casoUso/extension.jrxml=UTF-8
@@ -18,4 +17,5 @@ encoding//src/main/webapp/resources/JasperReport/subreports/pantalla/accion.jrxm
 encoding//src/main/webapp/resources/JasperReport/subreports/pantalla/pantalla.jrxml=UTF-8
 encoding//src/main/webapp/resources/JasperReport/subreports/reglaNegocio/reglaNegocio.jrxml=UTF-8
 encoding//src/main/webapp/resources/JasperReport/subreports/terminoGlosario/terminoGlosario.jrxml=UTF-8
+encoding//src/main/webapp/resources/JasperReport/tesseract.jrxml=UTF-8
 encoding/<project>=UTF-8

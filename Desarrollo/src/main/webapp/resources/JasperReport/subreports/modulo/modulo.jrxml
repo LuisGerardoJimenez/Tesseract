@@ -32,7 +32,7 @@
 	<title>
 		<band height="42" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="18" y="0" width="481" height="30" forecolor="#5F5F5F" uuid="db6ec6c0-984d-485b-a7e6-4e647323b295"/>
+				<reportElement x="18" y="0" width="481" height="30" forecolor="#B81714" uuid="db6ec6c0-984d-485b-a7e6-4e647323b295"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="20" isBold="true"/>
 				</textElement>

@@ -43,7 +43,7 @@
 	<title>
 		<band height="50">
 			<staticText>
-				<reportElement x="18" y="0" width="331" height="30" forecolor="#5F5F5F" uuid="cc4d92ed-c545-4fef-a258-f1a8f214637a"/>
+				<reportElement x="18" y="0" width="331" height="30" forecolor="#B81714" uuid="cc4d92ed-c545-4fef-a258-f1a8f214637a"/>
 				<textElement>
 					<font size="20" isBold="false"/>
 				</textElement>
