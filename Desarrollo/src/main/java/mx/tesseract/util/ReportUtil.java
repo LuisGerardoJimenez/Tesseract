@@ -33,7 +33,7 @@ public class ReportUtil {
 		String extension = "";
 		
 		@SuppressWarnings("deprecation")
-		JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(rutaTarget + "prisma.jasper");
+		JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(rutaTarget + "tesseract.jasper");
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("idProyecto", idProyecto);

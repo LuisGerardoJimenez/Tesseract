@@ -12,6 +12,7 @@
 </head>
 
 <body>
+	
 	<h1>Gestionar Proyectos</h1>
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
@@ -71,6 +72,14 @@
 										<img id="" class="button" title="PDF"
 											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg" />										
 								</s:a>
+								<s:a href="#" onclick="return descargarPDF(%{#proyecto.id},'pdf');" >
+										<img id="" class="button" title="PDF Con Ajax"
+											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg2" />
+								</s:a>
+								<s:a href="%{urlDescargar}" method="post" onclick="mostrarMensajeCargando();">
+										<img id="" class="button" title="PDF Tipo"
+											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg2" />										
+								</s:a>
 								${blanks}
 								<s:url var="urlDescargarDocx"
 										value="%{#pageContext.request.contextPath}/proyectos!descargarDocumento?idSel=%{#proyecto.id}">
@@ -86,6 +95,7 @@
 				</tbody>
 			</table>
 		</div>
+		<div class="modal" id="modal"></div>
 		<br />
 		<br />
 	</s:form>

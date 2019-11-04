@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$('#gestion').DataTable();
 	contextPath = $("#rutaContexto").val();
-
+	ocultarMensajeCargando();
 } );
 
 function confirmarEliminacion(urlEliminar) {
@@ -61,4 +61,37 @@ function mostrarMensajeEliminacion(json, id) {
 }
 function cerrarMensajeReferencias() {
 	$('#mensajeReferenciasDialog').dialog('close');
+}
+
+
+function descargarPDF(idElemento, tipoExtension) {
+	mostrarMensajeCargando();
+	var rutadescargarPDF = contextPath + '/proyectos!descargarDocumento';
+	$.ajax({
+		dataType : 'json',
+		url : rutadescargarPDF,
+		type : "POST",
+		data : {
+			idSel : idElemento,
+			extension: tipoExtension
+		},
+		success : function(data) {
+			ocultarMensajeCargando();
+			return data;
+		},
+		error : function(err) {
+			ocultarMensajeCargando();
+			alert("Ha ocurrido un error.");
+			console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
+			return false;
+		}
+	});
+}
+
+function mostrarMensajeCargando() {
+	$("#modal").css("display", "block");
+}
+
+function ocultarMensajeCargando() {
+	$("#modal").css("display", "");
 }
