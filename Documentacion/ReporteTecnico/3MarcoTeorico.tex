@@ -1,4 +1,4 @@
-\chapter{Marco teórico} \label{cap:dos}
+\chapter{Marco teórico} \label{cap:tres}
 
 En el presente capítulo se ve reflejado el trabajo de investigación teórica que sustenta el proyecto de trabajo terminal con base en el planteamiento del problema y el desarrollo de su solución.\\
 
@@ -70,7 +70,7 @@ Al ser la primera etapa dentro del proceso de desarrollo es las más crítica y 
 
 \bigskip
 
-Durante esta etapa se construye el documento de análisis, en donde se obtienen y describen todas las necesidades y peticiones del cliente en forma de requerimientos. Con base en estos, el analista continua el proceso identificando en alto nivel que funcionalidades deberá poseer el sistema para cumplir los requerimientos. Una solución común para mapear cada funcionalidad es a través de CASOS DE USO. Este documento proporciona la descripción de la manera en la que se utilizará el sistema y emplea un lenguaje técnico especializado ya que busca ser comprendido por los diseñadores y programadores para su correcta construcción. \hyperlink{b42}{[42]}
+``Durante esta etapa se construye el documento de análisis, en donde se obtienen y describen todas las necesidades y peticiones del cliente en forma de requerimientos. Con base en estos, el analista continua el proceso identificando en alto nivel que funcionalidades deberá poseer el sistema para cumplir los requerimientos. Una solución común para mapear cada funcionalidad es a través de CASOS DE USO. Este documento proporciona la descripción de la manera en la que se utilizará el sistema y emplea un lenguaje técnico especializado ya que busca ser comprendido por los diseñadores y programadores para su correcta construcción." \hyperlink{b42}{[42]}
 
 
 \subsubsection{Documento de análisis}
@@ -229,6 +229,34 @@ En la Figura \ref{fig:mvc2} se muestra un modelo y tres vistas. (Se omitieron lo
 	\end{center}
 \end{figure}
 
+\subsubsection{Singleton}
+Es un patrón diseñado para limitar la creación de objetos pertenecientes a una clase. El objetivo de este patrón es el de garantizar que una clase solo tenga una instancia (o ejemplar) y proporcionar un punto de acceso global a ella. Esta patrón; por ejemplo, suele ser utilizado para las conexiones a bases de datos.
+
+Este patrón se implementa haciendo privado el constructor de la clase y creando (en la propia clase) un método que crea una instancia del objeto si este no existe. \hyperlink{b70}{[70]} 
+
+\subsubsection{Factory}
+Factory Method permite la creación de objetos de un subtipo determinado a través de una clase Factory. Esto es especialmente útil cuando no sabemos, en tiempo de diseño, el subtipo que vamos a utilizar o cuando queremos delegar la lógica de creación de los objetos a una clase Factory. Utilizando este patrón podemos crear instancias dinámicamente mediante la configuración, estableciendo cual será la implementación a utilizar en un archivo de texto, XML, properties o mediante cualquier otra estrategia. \hyperlink{b70}{[70]}
+
+\subsubsection{Facade (Fachada)}
+El patrón Facade (fachada) tiene la característica de ocultar la complejidad de interactuar con un conjunto de subsistemas proporcionando una interface de alto nivel, la cual se encarga de realizar la comunicación con todos los subsistemas necesarios. La fachada es una buena estrategia cuando requerimos interactuar con varios subsistemas para realizar una operación concreta ya que se necesita tener el conocimiento técnico y funcional para saber qué operaciones de cada subsistema tenemos que ejecutar y en qué orden, lo que puede resultar muy complicado cuando los sistemas empiezan a crecer demasiado. \hyperlink{b70}{[70]}
+
+\subsubsection{Adapter (Adaptador)}
+El patrón adaptador se utiliza para transformar una interfaz en otra, de tal modo que una clase que no pueda utilizar la primera haga uso de ella a través de la segunda. Convierte la interfaz de una clase en otra interfaz que el cliente espera. El adaptador permite a las clases trabajar juntas, lo que de otra manera no podría hacerse debido a sus interfaces incompatibles. \hyperlink{b70}{[70]}
+
+\subsubsection{Data Access Object (DAO)}
+La capa DAO contiene todos los métodos CRUD (create, read, update, delete), por lo general se tiene un DAO para cada tabla en la base de datos. \hyperlink{b71}{[71]}
+
+\subsubsection{Data Transfer Object (DTO)}
+Se utiliza para transferir varios atributos entre el cliente y el servidor o viceversa, básicamente consta de 2 clases:
+
+La primera es una clase java conocida como Value Object que únicamente contiene sus atributos, constructor, getters y setters, esta clase no tiene comportamiento.
+La segunda es una clase del lado del servidor conocida como clase de negocio (en la implementación también se conoce como Business Object) es la que se encarga de obtener datos desde la base de datos y llenar la clase Value Object y enviarla al cliente, o a su vez recibir la clase desde el cliente y enviar los datos al servidor, por lo general tiene todos los métodos CRUD (create, read, update y delete). \hyperlink{b71}{[71]}
+
+\subsection{Decorator}
+El patrón Decorator en Java permite agregar nuevas funcionalidades a las clases sin modificar su estructura.
+El concepto de este patrón es agregar de forma dinámica nuevo comportamiento o funcionalidades a la clase principal.
+La definición oficial dice que “permite el ajuste dinámico de objetos para modificar sus responsabilidades y comportamientos existentes.”  \hyperlink{b71}{[71]}
+
 \subsection{Framework}
 
 \subsubsection{Definición}
@@ -263,7 +291,20 @@ Como ventajas en la utilización de un framework tenemos las siguientes \hyperli
 	\end{itemize}
 \end{enumerate}
 
-\newpage
+\subsection {Spring}
+Spring nos brinda ventajas como: la administración de objetos, garantizando que los recursos se creen, reutilicen y limpien correctamente (Managed Objects) \hyperlink{b25}{[25]}; El Manejo de transacciones declarativas, por ejemplo Rollback de una transacción \hyperlink{b26}{[26]} y un modelo de programación consistente en diferentes interfaces de programación de aplicaciones (Application Programming Interface, API por sus siglas en inglés) de transacciones, tal como Java Persistence API.
+
+\subsection {Struts}
+Se implementó Struts2 porque es un framework de código abierto, extensible mediante plugins ( Transferencia de estado representacional (representational state transfer, REST por sus siglas en inglés), Asíncrono de Javascript y XML (Asynchronous JavaScript And XML, AJAX por sus siglas en inglés), etc) y utiliza el patrón de diseño MVC. \hyperlink{b27}{[27]} \\ 
+
+Las ventajas ofrecidas por este framework son: 
+
+\begin{itemize}
+	\item Patron Observador (Observer pattern), las vistas se actualizan por sí mismas del modelo. \hyperlink{b28}{[28]}
+	\item Provee un bajo acoplamiento entre la vista y el modelo haciendo aplicaciones significativamente más fáciles de crear y mantener. \hyperlink{b28}{[28]}
+	\item Uso de Interceptores, ejecutan código antes y después de que un Action es invocado, por ejemplo al subir un archivo .\hyperlink{b29}{[29]}
+\end{itemize}
+
 
 \section{Pruebas}
 
