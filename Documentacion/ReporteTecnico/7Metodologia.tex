@@ -426,8 +426,31 @@ El sistema debe permitir al colaborador eliminar el registro de un caso de uso e
 \textbf {Consultar Caso de Uso:} 
 El sistema debe permitir al colaborador consultar y visualizar la información de un caso de uso existente.\\
 
-\section{Sprint 14: Gestión de Trayectorias del Caso de Uso}
+\section{Sprint 13: Gestión de Acciones}
 
+\subsection{Gestionar Acciones}
+\subsubsection {Análisis}
+Al considerar las pantallas como catálogos también se tiene que tomar en cuenta que hay elementos presentes en ellas como las acciones. En este catálogo se tendrá una relación de aquellos componentes como botones, hipervínculos y opciones del menú que cumplen una funcionalidad específica dentro de la pantalla.
+
+\textbf {Registrar Acción:}
+Para registrar la información de las acciones se le solicita al colaborador ingresar la siguiente información (atributos).
+\begin{itemize}
+	
+	\item \textbf{Nombre:} Que identificará a la acción en una frase o enunciado.
+	\item \textbf{Descripción:} Descripción de la acción explicando su propósito.
+	\item \textbf{Tipo:} A que categoria corresponde la acción
+	\item \textbf{Pantalla Destino: Con cuál de las pantallas previamente registradas tendrá comunicación}
+	\item \textbf{Imágen: El icono o imagen que la representa visualmente.}
+\end{itemize}
+
+\textbf {Modificar Acción:}
+Dentro del sistema existe la posibilidad de modificar los datos de una acción previamente registrada.\\
+
+\textbf {Eliminar Acción:} 
+El sistema debe permitir al colaborador eliminar el registro de una acción existente.\\
+
+
+\section{Sprint 14: Gestión de Trayectorias del Caso de Uso}
 \subsection{Gestionar Trayectorias}
 \subsubsection {Análisis}
 
@@ -472,28 +495,17 @@ Dentro del sistema existe la posibilidad de modificar los datos de un paso previ
 \textbf {Eliminar Paso:} 
 El sistema debe permitir al colaborador eliminar el registro de un paso existente.\\
 
-\section{Sprint 13: Gestión de Acciones}
-
-\subsection{Gestionar Acciones}
+\section{Sprint 16 y Sprint 17: Gestión de Precondiciones y Postcondiciones del caso de uso}
+\subsection{Gestionar Precondiciones/Postcondiciones}
 \subsubsection {Análisis}
-Al considerar las pantallas como catálogos también se tiene que tomar en cuenta que hay elementos presentes en ellas como las acciones. En este catálogo se tendrá una relación de aquellos componentes como botones, hipervínculos y opciones del menú que cumplen una funcionalidad específica dentro de la pantalla.
+Las precondiciones son aquellas que disparan la ejecución del Caso de Uso, detro del caso de uso se requiere tener el registro de las condiciones que se tienen que cumplir para el caso de uso antes de inciarse.
 
-\textbf {Registrar Acción:}
-Para registrar la información de las acciones se le solicita al colaborador ingresar la siguiente información (atributos).
+\textbf {Registrar Precondiciones/Postcondiciones:}
+Para registrar la información de las precondiciones se le solicita al colaborador ingresar la siguiente información (atributos).
 \begin{itemize}
-	
-	\item \textbf{Nombre:} Que identificará a la acción en una frase o enunciado.
-	\item \textbf{Descripción:} Descripción de la acción explicando su propósito.
-	\item \textbf{Tipo:} A que categoria corresponde la acción
-	\item \textbf{Pantalla Destino: Con cuál de las pantallas previamente registradas tendrá comunicación}
-	\item \textbf{Imágen: El icono o imagen que la representa visualmente.}
+	\item \textbf{Tipo de condición:} Se selecciona de una lista si es una precondición o una postcondición.
+	\item \textbf{Redacción de la precondición/postcondición:} Texto que describe desde el teclado la redacción.
 \end{itemize}
-
-\textbf {Modificar Acción:}
-Dentro del sistema existe la posibilidad de modificar los datos de una acción previamente registrada.\\
-
-\textbf {Eliminar Acción:} 
-El sistema debe permitir al colaborador eliminar el registro de una acción existente.\\
 
 \section{Sprint 18: Gestión de Puntos de Extensión del Caso de Uso}
 \subsection{Gestionar Puntos de Extensión}
