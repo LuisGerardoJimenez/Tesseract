@@ -1,143 +1,41 @@
-	\begin{UseCase}{CU12.5}{Revisar Caso de uso}{
+	\begin{UseCase}{CU12.5}{Terminar Caso de uso}{
+			
+			Cuando el colaborador (\hyperlink{jefe}{Líder} o \hyperlink{analista}{Analista}) considere que ha terminado por completo el registro de un \hyperlink{casoUso}{Caso de Uso}, podrá concluir la edición del mismo en el sistema para que pueda ser revisado y finalmente liberado.
+			Una vez que el colaborador termine el caso de uso ya no se encontrarán disponibles las acciones que involucren su edición ni la de sus \hyperlink{tElemento}{elementos}, tampoco podrá eliminarlo, únicamente estarán disponibles las acciones para consultarlo y revisarlo \\
 		
-		Una vez que el colaborador (\hyperlink{jefe}{Líder} o \hyperlink{analista}{Analista}) ha terminado un caso de uso, el sistema le habilitará diferentes acciones, una de estas acciones es la de revisar el \hyperlink{casoUso}{Caso de Uso} para su posterior liberación o corrección.
-		
-		Este caso de uso le permitirá al colaborador examinar y verificar mediante botones de opciones que el contenido del caso de uso terminado sea correcto, del mismo modo le dará la posibilidad de registrar la observación de las correcciones necesarias en caso de que exista algún error por parte del colaborador que lo registró y editó. 
-		
-		
+			Un Caso de uso podrá ser terminado siempre y cuando su estado sea Edición o Pendiente de corrección con base en el \hyperlink{edoCU}{Modelo de estados del Caso de Uso}. 
+			
 	}
-		\UCitem{Versión}{\color{Gray}0.1}
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
-		\UCitem{Propósito}{Revisar que la información del caso de uso sea correcta.}
-		\UCitem{Entradas}{
-			\begin{itemize}
-				\item ¿El resumen del caso de uso es correcto?
-				\item \cdtRef{entidadRevision:observacionRevision}{Observaciones del resumen}: Se escribe desde el teclado.
-				\item ¿Las trayectorias del caso de uso son correctas?
-				\item \cdtRef{entidadRevision:observacionRevision}{Observaciones de las trayectorias}: Se escribe desde el teclado.
-				\item ¿Los puntos de extensión son correctos?
-				\item \cdtRef{entidadRevision:observacionRevision}{Observaciones de los puntos de extensión}: Se escribe desde el teclado.
-			\end{itemize}
-		}
+		\UCitem{Propósito}{Terminar la edición de un caso de uso para solicitar su revisión.}
+		\UCitem{Entradas}{Ninguna}
 		\UCitem{Salidas}{
 			\begin{itemize}
-				\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto}: Lo obtiene el sistema.
-				\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto}: Lo obtiene el sistema.
-				\item \cdtRef{moduloEntidad:claveModulo}{Clave del Módulo}: Lo obtiene el sistema.
-				\item \cdtRef{moduloEntidad:nombreModulo}{Nombre del Módulo}: Lo obtiene el sistema.
-				\item \cdtRef{casoUso:numeroCU}{Número del caso de uso}: Lo obtiene el sistema.
-				\item \cdtRef{casoUso:nombreCU}{Nombre del caso de uso}: Lo obtiene el sistema.
-				\item \cdtRef{casoUso:resumenCU}{Resumen del caso de uso}: Lo obtiene el sistema.
-				\item Estado: Lo obtiene el sistema.
-				\item De la sección \textbf{Información general del Caso de uso}: 
-					\begin{itemize}
-						\item \cdtRef{actorEntidad}{Actores}: Lo obtiene el sistema.
-						\item Entradas: Lo obtiene el sistema.
-						\item Salidas: Lo obtiene el sistema.
-						\item \cdtRef{BREntidad}{Reglas de Negocio}: Lo obtiene el sistema.
-						\item \cdtRef{entidadPrecondicion:redaccionPrecondicion}{Redacción de cada Precondición}: Lo obtiene el sistema.
-						\item \cdtRef{entidadPostcondicion:redaccionPostcondicion}{Redacción de cada Postcondición}: Lo obtiene el sistema.
-					\end{itemize}
-				\item De la sección \textbf{Trayectorias}:
-					\begin{itemize}
-						\item Se muestra la siguiente información para cada \cdtRef{entidadTray}{Trayectoria}:
-							\begin{itemize}
-								\item \cdtRef{entidadTray:nombreTray}{Clave}: Lo obtiene el sistema.
-								\item \cdtRef{entidadTray:alternativaTray}{Tipo:} Lo obtiene el sistema.
-								\item \cdtRef{entidadTray:condicionTray}{Condición:} Lo obtiene el sistema.
-								\item Se muestra la siguiente información para cada \cdtRef{entidadPaso}{Paso}:
-									\begin{itemize}
-										\item \cdtRef{entidadPaso:numeroPaso}{Número del paso}: Lo obtiene el sistema.
-										\item \cdtRef{entidadPaso:realizaPaso}{Quien realiza el paso}: Lo obtiene el sistema.
-										\item \cdtRef{entidadPaso:redaccionPaso}{Redacción del paso:} Lo obtiene el sistema.
-									\end{itemize}
-								\item \cdtRef{entidadTray:finTray}{Fin del caso de uso:} Lo obtiene el sistema.
-							\end{itemize}
-						\item De la sección \textbf{Puntos de extensión}:
-							\begin{itemize}
-								\item Se muestra la siguiente información para cada \cdtRef{entidadExtension}{Punto de extensión}:
-									\begin{itemize}
-										\item \cdtRef{entidadExtension:causaPE}{Causa}: Lo obtiene el sistema.
-										\item \cdtRef{entidadExtension:regionPE}{Región de la trayectoria}: Lo obtiene el sistema.
-										\item \cdtRef{entidadExtension:ExtiendePE}{Caso de uso que extiende}: Lo obtiene el sistema.
-									\end{itemize}
-							\end{itemize}
-					\end{itemize}
-				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} para indicar que la revisión se ha realizado exitosamente.
+				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} para indicar que la operación fue exitosa.
+				\item \cdtIdRef{MSG8}{Confirmación de termino}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} para que el actor confirme el término del caso de uso.
 		\end{itemize}}
 		\UCitem{Precondiciones}{
-			\begin{itemize}
-				\item Que el caso de uso se encuentre en estado ''Revisión".
-				\item Que el actor haya iniciado sesión como analista.
-			\end{itemize}
+				Que el caso de uso se encuentre en estado ''Edición'' o ''Pendiente de corrección''.
 		}
 		\UCitem{Postcondiciones}{
-				El caso de uso pasará a estado ''Pendiente de corrección'', ''Liberado'' o ''Por liberar''.
+				El caso de uso pasará a estado ''Revisión''.
 		}
-		\UCitem{Errores}{\begin{itemize}
-				\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU6.4}{Revisar Caso de uso} cuando no se ha ingresado un dato marcado como obligatorio.
-				\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.4}{Revisar Caso de uso} cuando se ha excedido la longitud de alguno de los campos.
-				\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.4}{Revisar Caso de uso} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
-				\item \cdtIdRef{MSG12}{Ha ocurrido un error}: Se muestra en la pantalla \IUref{IU6}{Gestionar Casos de uso} cuando el actor que se desea consultar no existe.
-		\end{itemize}
-		}
+		\UCitem{Errores}{Ninguno}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12}{Gestionar Casos de uso}.}
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Da clic en el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/revisar}} del registro que desea revisar de la pantalla \IUref{IU6}{Gestionar Casos de uso}.
-		\UCpaso[\UCsist] Obtiene la información del caso de uso seleccionado. 
-		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.4}{Revisar Caso de uso}.
-		\UCpaso[\UCactor] Selecciona la opción ''Sí'' para cada una de las secciones. \hyperlink{CU12-5:TAA}{[Trayectoria A]} \label{CU12.5-P5}
-		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \label{CU12.5-P6}
-		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-5:TAB}{[Trayectoria B]}
-		\UCpaso[\UCsist] Verifica que el actor en sesión sea ''Analista''. \hyperlink{CU12-5:TAE}{[Trayectoria E]}
-		\UCpaso[\UCsist] Cambia el estado del caso de uso a ''Por liberar''.
-		\UCpaso[\UCsist] Se muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU6}{Gestionar Casos de uso}. \label{CU12.5-P12}
+		\UCpaso[\UCactor] Da clic en el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/terminar}} del registro que desea realizar la operación de la pantalla \IUref{IU6}{Gestionar Casos de uso}.
+		\UCpaso[\UCsist] Muestra el mensaje emergente \cdtIdRef{MSG8}{Confirmación de termino} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar} en la pantalla \IUref{IU6}{Gestionar Casos de uso}.
+		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-5:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Cambia el estado del caso de uso a ''Revisión''.
+		\UCpaso[\UCactor] Se muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU6}{Gestionar Casos de uso}.
 	\end{UCtrayectoria}		
-%--------------------------------------
+
 \hypertarget{CU12-5:TAA}{\textbf{Trayectoria alternativa A}}\\
-\noindent \textbf{Condición:} El actor marcó como incorrecta alguna de las secciones del caso de uso.
+\noindent \textbf{Condición:} El actor desea cancelar la operación.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el campo correspondiente a las observaciones de aquellas secciones en las que se hayan marcado como incorrecta.
-	\UCpaso[\UCactor] Ingresa las observaciones en los campos. \label{CU12.5-TAP2}
-	\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-5:TAC}{[Trayectoria C]}
-	\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU12-5:TAC}{[Trayectoria C]}
-	\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-5:TAD}{[Trayectoria D]}
-	\UCpaso[\UCsist] Almacena las observaciones realizadas a cada sección marcada como incorrecta.
-	\UCpaso[\UCsist] Cambia el estado del caso de uso a ''Pendiente de corrección''.
-	\UCpaso  Continúa en el paso \ref{CU12.5-P12} de la Trayectoria principal.
-	\item[- -] - - {\em {Fin de la trayectoria}}.%
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU12-5:TAB}{\textbf{Trayectoria alternativa B}}\\
-\noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
-\begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU6.4}{Revisar Caso de uso}.
-	\UCpaso Regresa al paso \ref{CU12.5-P5} de la Trayectoria principal o al paso \ref{CU12.5-TAP2} de la Trayectoria alternativa B.
-	\item[- -] - - {\em {Fin de la trayectoria}}.%
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU12-5:TAC}{\textbf{Trayectoria alternativa C}}\\
-\noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
-\begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU6.4}{Revisar Caso de uso}.
-	\UCpaso Regresa al paso \ref{CU12.5-P5} de la Trayectoria principal o al paso \ref{CU12.5-TAP2} de la Trayectoria alternativa B.
-	\item[- -] - - {\em {Fin de la trayectoria}}.%
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU12-5:TAD}{\textbf{Trayectoria alternativa D}}\\
-\noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
-\begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.4}{Revisar Caso de uso}.
-	\UCpaso Regresa al paso \ref{CU12.5-P5} de la Trayectoria principal o al paso \ref{CU12.5-TAP2} de la Trayectoria alternativa B.
-	\item[- -] - - {\em {Fin de la trayectoria}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU12-5:TAE}{\textbf{Trayectoria alternativa E}}\\
-\noindent \textbf{Condición:} El actor en sesión es un ''Líder de Proyecto''.
-\begin{enumerate}
-	\UCpaso[\UCsist] Cambia el estado del caso de uso a ''Liberado''.
-	\UCpaso Continúa en el paso \ref{CU12.5-P12} de la Trayectoria principal.
-	\item[- -] - - {\em {Fin de la trayectoria}}.
+	\UCpaso[\UCactor] Oprime el botón \IUbutton{Cancelar} de la pantalla emergente.
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6}{Gestionar Casos de Uso}.
+	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
