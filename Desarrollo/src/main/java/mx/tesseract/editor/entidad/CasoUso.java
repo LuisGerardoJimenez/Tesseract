@@ -91,10 +91,10 @@ public class CasoUso extends Elemento implements Serializable, GenericInterface,
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUsoOrigen")
 	private List<Inclusion> incluye = new ArrayList<>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUsoOrigen", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "casoUsoOrigen", orphanRemoval = true)
 	private List<Extension> Extiende = new ArrayList<>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUsoDestino", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "casoUsoDestino", orphanRemoval = true)
 	private List<Extension> ExtendidoDe = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUso", orphanRemoval = true)
