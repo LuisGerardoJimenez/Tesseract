@@ -4,9 +4,6 @@
 	<property name="ireport.zoom" value="1.9487171000000014"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/lorena/git/AplicacionTTB064/src/main/webapp/resources/ireport/elementos/"]]></defaultValueExpression>
-	</parameter>
 	<parameter name="p_proyectoId" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>

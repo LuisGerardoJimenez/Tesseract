@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Service;
 
+import mx.tesseract.editor.bs.CasoUsoBs;
+import mx.tesseract.editor.bs.TokenBs;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -29,7 +31,7 @@ public class ReportUtil {
 	@Autowired
     private DataSource dataSource;
 	
-	public void crearReporte(String formato, String nombre, Integer idProyecto, String rutaJasper, String rutaTarget) throws JRException, SQLException {
+	public void crearReporte(String formato, String nombre, Integer idProyecto, String rutaJasper, String rutaTarget, TokenBs tokenBs, CasoUsoBs casoUsoBs) throws JRException, SQLException {
 		String extension = "";
 		
 		@SuppressWarnings("deprecation")
@@ -39,6 +41,8 @@ public class ReportUtil {
 		param.put("idProyecto", idProyecto);
 		param.put("p_contextPath", rutaTarget);
 		param.put("SUBREPORT_DIR", rutaTarget + "subreports/");
+		param.put("tokenBs", tokenBs);
+		param.put("casoUsoBs", casoUsoBs);
 		
 		JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, param, DataSourceUtils.getConnection(dataSource));
 		

@@ -7,9 +7,15 @@
 	<parameter name="p_proyectoId" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="tokenBs" class="mx.tesseract.editor.bs.TokenBs">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="casoUsoBs" class="mx.tesseract.editor.bs.CasoUsoBs">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<parameter name="p_contextPath" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/lorena/git/AplicacionTTB064/src/main/webapp/resources/JasperReport/subreports/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/home/gerardo/Documentos/Tesseract/Desarrollo/src/main/webapp/resources/JasperReport/subreports/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT * FROM modulo WHERE Proyectoid = $P{p_proyectoId} ORDER BY clave ASC;]]>
@@ -61,6 +67,12 @@
 				</subreportParameter>
 				<subreportParameter name="p_moduloId">
 					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tokenBs">
+					<subreportParameterExpression><![CDATA[$P{tokenBs}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="casoUsoBs">
+					<subreportParameterExpression><![CDATA[$P{casoUsoBs}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "casoUso/casoUso.jasper"]]></subreportExpression>
