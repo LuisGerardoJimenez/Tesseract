@@ -13,6 +13,8 @@ import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.ColaboradorProyecto;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.editor.bs.CasoUsoBs;
+import mx.tesseract.editor.bs.TokenBs;
 /*import mx.tesseract.bs.RolBs;
 import mx.tesseract.bs.RolBs.Rol_Enum;*/
 import mx.tesseract.util.ActionSupportTESSERACT;
@@ -73,6 +75,12 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	
 	@Autowired
 	private ReportUtil reportUtil;
+	
+	@Autowired
+	private TokenBs tokenBs;
+	
+	@Autowired
+	private CasoUsoBs casoUsoBs;
 
 	@SuppressWarnings("unchecked")
 	public String index() {
@@ -193,7 +201,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 		}
 				
 		try {
-				reportUtil.crearReporte(extension, filename, model.getId(), rutaSrc, rutaTarget);
+				reportUtil.crearReporte(extension, filename, model.getId(), rutaSrc, rutaTarget, tokenBs, casoUsoBs);
 		        File doc = new File(rutaTarget + filename);
 		        this.fileInputStream = new FileInputStream(doc);
 		        FileUtil.delete(doc);

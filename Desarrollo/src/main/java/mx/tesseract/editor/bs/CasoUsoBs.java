@@ -842,14 +842,14 @@ public class CasoUsoBs {
 //		return false;
 //	}
 //	
-	public boolean esPrimario(Integer id) {
+	public String esPrimario(Integer id) {
 		//int id = Integer.parseInt(idCadena);
 		CasoUso casoUso = consultarCasoUso(id);
 		
 		if(casoUso.getExtendidoDe() == null || casoUso.getExtendidoDe().isEmpty()) {
-			return true;
+			return "Primario";
 		}
-		return false;
+		return "Secundario, extiende de:";
 	}
 //
 //	public static Trayectoria obtenerTrayectoriaPrincipal(CasoUso casoUso) {
