@@ -11,6 +11,9 @@
 		<defaultValueExpression><![CDATA["/home/gerardo/Documentos/Tesseract/Desarrollo/src/main/webapp/resources/JasperReport/subreports/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_contextPath" class="java.lang.String"/>
+	<parameter name="tokenBs" class="mx.tesseract.editor.bs.TokenBs">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT * FROM trayectoria tray WHERE tray.CasoUsoElementoid = $P{p_casoUsoElementoId}
 ORDER BY alternativa ASC, clave ASC;]]>
@@ -66,6 +69,9 @@ ORDER BY alternativa ASC, clave ASC;]]>
 				</subreportParameter>
 				<subreportParameter name="p_trayectoriaId">
 					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tokenBs">
+					<subreportParameterExpression><![CDATA[$P{tokenBs}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "casoUso/paso.jasper"]]></subreportExpression>

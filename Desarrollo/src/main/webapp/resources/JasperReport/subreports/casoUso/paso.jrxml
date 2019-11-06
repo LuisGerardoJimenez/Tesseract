@@ -11,6 +11,9 @@
 		<defaultValueExpression><![CDATA["/home/gerardo/Documentos/Tesseract/Desarrollo/src/main/webapp/resources/JasperReport/subreports/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_contextPath" class="java.lang.String"/>
+	<parameter name="tokenBs" class="mx.tesseract.editor.bs.TokenBs">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT paso.numero, paso.realizaActor, paso.redaccion, paso.otroVerbo, ver.nombre, paso.Verboid
 FROM paso paso
@@ -25,7 +28,7 @@ ORDER BY numero ASC;]]>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="Verboid" class="java.lang.Integer"/>
 	<variable name="v_redaccionPaso" class="java.lang.String">
-		<variableExpression><![CDATA[new mx.tesseract.editor.bs.TokenBs().decodificarCadenaSinToken($F{redaccion})]]></variableExpression>
+		<variableExpression><![CDATA[$P{tokenBs}.decodificarCadenaSinToken($F{redaccion})]]></variableExpression>
 	</variable>
 	<variable name="v_actor" class="java.lang.String"/>
 	<variable name="v_verbo" class="java.lang.String">
