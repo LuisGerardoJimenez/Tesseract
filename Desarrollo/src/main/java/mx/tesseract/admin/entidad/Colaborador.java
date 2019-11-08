@@ -33,7 +33,7 @@ import mx.tesseract.util.GenericInterface;
 		@NamedNativeQuery(name = "Colaborador.isLider", query = "SELECT c.* FROM colaborador c INNER JOIN colaborador_proyecto cp ON cp.colaboradorcurp=c.curp WHERE c.curp = ? AND cp.proyectoid = ? AND cp.rolid = 1", resultClass = Colaborador.class),
 		@NamedNativeQuery(name = "Colaborador.findAllWithoutAdmin", query = "SELECT c.* FROM colaborador c WHERE c.administrador != ?", resultClass = Colaborador.class),
 		@NamedNativeQuery(name = "Colaborador.findColaboradorByCorreo", query = "SELECT c.* FROM colaborador c WHERE c.correoelectronico = ?", resultClass = Colaborador.class),
-		@NamedNativeQuery(name = "Colaborador.findColaboradorByCorreoAndCurp", query = "SELECT c.* FROM colaborador c WHERE c.colaboradorCurp = ? AND c.curp != ?", resultClass = Colaborador.class),
+		@NamedNativeQuery(name = "Colaborador.findColaboradorByCorreoAndCurp", query = "SELECT c.* FROM colaborador c WHERE c.correoelectronico = ? AND c.curp != ?", resultClass = Colaborador.class),
 		@NamedNativeQuery(name = "Colaborador.findColaboradorByCURP", query = "SELECT c.* FROM colaborador c WHERE c.curp = ?", resultClass = Colaborador.class),
 		@NamedNativeQuery(name = "Colaborador.hasProyectos", query = "SELECT * FROM colaborador c INNER JOIN colaborador_proyecto cp ON cp.colaboradorcurp=c.curp WHERE curp = ?", resultClass = Colaborador.class)
 		})
