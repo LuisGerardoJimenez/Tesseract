@@ -14,6 +14,12 @@
 	<parameter name="p_contextPath" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="tokenBs" class="mx.tesseract.editor.bs.TokenBs">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="casoUsoBs" class="mx.tesseract.editor.bs.CasoUsoBs">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT proy.id, proy.clave, proy.nombre as proyectoNombre, proy.fechaInicioProgramada, proy.fechaInicio, proy.fechaTerminoProgramada, proy.fechaTermino, proy.descripcion, proy.presupuesto, proy.contraparte, est.nombre as estadNombre
 FROM proyecto proy
@@ -179,6 +185,12 @@ where proy.id = $P{idProyecto};]]>
 				</subreportParameter>
 				<subreportParameter name="p_proyectoId">
 					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tokenBs">
+					<subreportParameterExpression><![CDATA[$P{tokenBs}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="casoUsoBs">
+					<subreportParameterExpression><![CDATA[$P{casoUsoBs}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "modulo/modulo.jasper"]]></subreportExpression>

@@ -8,7 +8,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/lorena/git/AplicacionTTB064/src/main/webapp/resources/ireport/subreports/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/home/gerardo/Documentos/Tesseract/Desarrollo/src/main/webapp/resources/JasperReport/subreports/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT atr.nombre as atributoNombre, atr.descripcion, atr.obligatorio, atr.longitud, atr.formatoArchivo, atr.tamanioArchivo, atr.otroTipoDato, atr.TipoDatoid, atr.UnidadTamanioid, unitam.abreviatura FROM atributo atr
