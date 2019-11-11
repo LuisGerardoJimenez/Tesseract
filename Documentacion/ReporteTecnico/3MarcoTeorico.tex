@@ -151,6 +151,60 @@ Con base en los enunciados de Alistair Cockburn en su libro ``Escribiendo Casos 
 \item \textbf{Puntos de extensión}: Es la incorporación implícita del comportamiento de otro caso de uso, el cuál no es parte del flujo principal. Modela la parte opcional del sistema, un subflujo que sólo se ejecuta bajo ciertas condiciones o varios flujos que se pueden insertar en un punto determinado. \hyperlink{b49}{[49]}
 \end{itemize}
 
+A continuación se ilustra la estructura de la descripción de un caso de uso con todos sus elementos.
+
+En primera instancia se identifica el caso de uso con una clave y un nombre. Posteriormente, se redacta el resumen del caso de uso en un texto breve y conciso, tal como se muestra en el ejemplo de la Figura \ref{fig:resu}.
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=1\textwidth]{images/marcoteorico/resumen}
+		\caption{Ejemplo de identificador y resúmen de un caso de uso}
+		\label{fig:resu}
+	\end{center}
+\end{figure}
+
+Una vez redactado el resúmen del caso de uso se enlistan los atributos participes en esta descripción. Se especifica el rol del actor que interactua con el sistema, el propósito del caso de uso, entradas, salidas, precondiciones, postcondiciones, errores y tipo de caso de uso.
+
+En la Figura \ref{fig:atri} se muestra un ejemplo.
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=1\textwidth]{images/marcoteorico/atributos}
+		\caption{Ejemplo de la descripción de atributos del caso de uso}
+		\label{fig:atri}
+	\end{center}
+\end{figure}
+
+Posteriormente se realiza la descripción de trayectorias con sus pasos, la primera es la trayectoria principal y es aquella que se sigue el flujo normal del caso de uso. También están las alternativas que como su nombre lo dice flujos alternativos que están contemplados pero no forman parte del proceso principal.\\
+
+En la redacción de los pasos se hace referencia a las pantallas, mensajes, reglas de negocio y otras trayectorias que se ven involucrados en la interacción del actor con el sistema.
+Un ejemplo se muestra en la Figura \ref{fig:trayectoriap}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=1\textwidth]{images/marcoteorico/trayectorias}
+	\end{center}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=1\textwidth]{images/marcoteorico/alternativa}
+		\caption{Ejemplo de la descripción de trayectorias del caso de uso}
+		\label{fig:trayectoriap}
+	\end{center}
+\end{figure}
+
+Finalmente, en la especificación se describen los puntos de extensión del caso de uso tal como se muestra en la Figura \ref{fig:puntos}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=1\textwidth]{images/marcoteorico/puntosdeextension}
+		\caption{Ejemplo de la descripción de trayectorias del caso de uso}
+		\label{fig:puntos}
+	\end{center}
+\end{figure}
+
+
 \section{Herramienta CASE}
 
 \subsection{Definición}
@@ -235,7 +289,7 @@ Es un patrón diseñado para limitar la creación de objetos pertenecientes a un
 Este patrón se implementa haciendo privado el constructor de la clase y creando (en la propia clase) un método que crea una instancia del objeto si este no existe. \hyperlink{b70}{[70]} 
 
 \subsubsection{Factory}
-Factory Method permite la creación de objetos de un subtipo determinado a través de una clase Factory. Esto es especialmente útil cuando no sabemos, en tiempo de diseño, el subtipo que vamos a utilizar o cuando queremos delegar la lógica de creación de los objetos a una clase Factory. Utilizando este patrón podemos crear instancias dinámicamente mediante la configuración, estableciendo cual será la implementación a utilizar en un archivo de texto, XML, properties o mediante cualquier otra estrategia. \hyperlink{b70}{[70]}
+Factory Method permite la creación de objetos de un subtipo determinado a través de una clase Factory. Esto es especialmente útil cuando no sabemos, en tiempo de diseño, el subtipo que vamos a utilizar o cuando queremos delegar la lógica de creación de los objetos a una clase Factory. Utilizando este patrón podemos crear instancias dinámicamente mediante la configuración, estableciendo cual será la implementación a utilizar en un archivo de texto de Lenguaje de Marcado Extensible (Extensible Markup Language, XML por sus siglas en inglés) properties o mediante cualquier otra estrategia. \hyperlink{b70}{[70]}
 
 \subsubsection{Facade (Fachada)}
 El patrón Facade (fachada) tiene la característica de ocultar la complejidad de interactuar con un conjunto de subsistemas proporcionando una interface de alto nivel, la cual se encarga de realizar la comunicación con todos los subsistemas necesarios. La fachada es una buena estrategia cuando requerimos interactuar con varios subsistemas para realizar una operación concreta ya que se necesita tener el conocimiento técnico y funcional para saber qué operaciones de cada subsistema tenemos que ejecutar y en qué orden, lo que puede resultar muy complicado cuando los sistemas empiezan a crecer demasiado. \hyperlink{b70}{[70]}
