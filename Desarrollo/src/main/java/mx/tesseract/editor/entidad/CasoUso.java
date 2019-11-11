@@ -22,6 +22,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 
@@ -98,6 +100,7 @@ public class CasoUso extends Elemento implements Serializable, GenericInterface,
 	private List<Extension> ExtendidoDe = new ArrayList<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "casoUso", orphanRemoval = true)
+	@NotFound(action = NotFoundAction.IGNORE)
 	private List<Revision> revisiones = new ArrayList<>();
 	
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'1000', 'caracteres'})}", trim = true, maxLength = "999", shortCircuit= true)
