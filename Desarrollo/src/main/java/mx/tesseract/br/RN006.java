@@ -20,6 +20,7 @@ import mx.tesseract.dto.ExtensionDTO;
 import mx.tesseract.dto.ReglaNegocioDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.dto.TrayectoriaDTO;
+import mx.tesseract.editor.bs.CasoUsoBs;
 import mx.tesseract.editor.dao.AccionDAO;
 import mx.tesseract.editor.dao.AtributoDAO;
 import mx.tesseract.editor.dao.ElementoDAO;
@@ -31,6 +32,7 @@ import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.Atributo;
 import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.Entidad;
+import mx.tesseract.editor.entidad.Extension;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
 import mx.tesseract.editor.entidad.Paso;
@@ -62,6 +64,9 @@ public class RN006 {
 	
 	@Autowired
 	private GenericoDAO genericoDAO;
+	
+	@Autowired
+	private CasoUsoBs casoUsoBs;
 	
 	public Boolean isValidRN006(Proyecto entidad) {
 		Boolean valido = true;
@@ -137,7 +142,11 @@ public class RN006 {
 	public Boolean isValidRN006(MensajeDTO entidad) {
 		Boolean valido = true;
 		Mensaje mensaje;
-		mensaje = elementoDAO.findAllByIdProyectoAndNombreAndClave(Mensaje.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.MSG);
+		if (entidad.getId() == null) {
+			mensaje = elementoDAO.findAllByIdProyectoAndNombreAndClave(Mensaje.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.ENT);
+		} else {
+			mensaje = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(Mensaje.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.ENT);
+		}
 		if (mensaje != null) {
 		valido = false;
 		}
@@ -250,6 +259,11 @@ public class RN006 {
 	
 	public boolean isValidRN006(ExtensionDTO model, Integer idCasoUso) {
 		Boolean valido = true;
+		CasoUso casoUso = casoUsoBs.consultarCasoUso(idCasoUso);
+		for (Extension extension : casoUso.getExtiende()) {
+			if(extension.getCasoUsoDestino() == model.getCasoUsoDestino() && extension.getCasoUsoOrigen() == model.getCasoUsoOrigen())
+				valido = false;
+		}
 		return valido;
 	}
 	

@@ -206,15 +206,21 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 				if (idModulo != null) {
 					idCasoUso = (Integer) SessionManager.get("idCU");
 					if (idCasoUso != null) {
-						proyecto = proyectoBs.consultarProyecto(idProyecto);
-						modulo = moduloBs.consultarModuloById(idModulo);
-						casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
-						buscaElementos();
-						buscaCatalogos();
-						resultado = EDITNEW;
-						Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
-						this.setActionMessages(msjs);
-						SessionManager.delete("mensajesAccion");
+						idTrayectoria = (Integer) SessionManager.get("idTrayectoria");
+						if(idTrayectoria != null) {
+							proyecto = proyectoBs.consultarProyecto(idProyecto);
+							modulo = moduloBs.consultarModuloById(idModulo);
+							casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+							trayectoria = trayectoriaBs.consultarTrayectoria(idTrayectoria);
+							buscaElementos();
+							buscaCatalogos();
+							resultado = EDITNEW;
+							Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+							this.setActionMessages(msjs);
+							SessionManager.delete("mensajesAccion");
+						} else {
+							resultado = TRAYECTORIAS;
+						}
 					} else {
 						resultado = CASO_USO;
 					}
@@ -248,18 +254,19 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 			} catch (TESSERACTValidacionException tve) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
+				editNew();
 			} catch (TESSERACTException te) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
+				editNew();
 			} catch (Exception e) {
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
 				ErrorManager.agregaMensajeError(this, e);
 				e.printStackTrace();
-			}finally {
-				buscaElementos();
+				editNew();
 			}
 		}else {
-			buscaElementos();
+			editNew();
 		}
 	}
 
@@ -279,16 +286,22 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 				if (idModulo != null) {
 					idCasoUso = (Integer) SessionManager.get("idCU");
 					if (idCasoUso != null) {
-						proyecto = proyectoBs.consultarProyecto(idProyecto);
-						modulo = moduloBs.consultarModuloById(idModulo);
-						casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
-						buscaElementos();
-						buscaCatalogos();
-						prepararVista();
-						resultado = EDIT;
-						Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
-						this.setActionMessages(msjs);
-						SessionManager.delete("mensajesAccion");
+						idTrayectoria = (Integer) SessionManager.get("idTrayectoria");
+						if(idTrayectoria != null) {
+							proyecto = proyectoBs.consultarProyecto(idProyecto);
+							modulo = moduloBs.consultarModuloById(idModulo);
+							casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
+							trayectoria = trayectoriaBs.consultarTrayectoria(idTrayectoria);
+							buscaElementos();
+							buscaCatalogos();
+							prepararVista();
+							resultado = EDIT;
+							Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+							this.setActionMessages(msjs);
+							SessionManager.delete("mensajesAccion");
+						} else {
+							resultado = TRAYECTORIAS;
+						}
 					} else {
 						resultado = CASO_USO;
 					}
@@ -497,15 +510,12 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 		} catch (TESSERACTValidacionException tve) {
 			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 			ErrorManager.agregaMensajeError(this, tve);
-			index();
 		} catch (TESSERACTException te) {
 			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
-			index();
 		} catch (Exception e) {
 			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "subirPaso", e);
 			ErrorManager.agregaMensajeError(this, e);
-			index();
 		}
 		return index();
 	}
@@ -520,15 +530,12 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 		} catch (TESSERACTValidacionException tve) {
 			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 			ErrorManager.agregaMensajeError(this, tve);
-			index();
 		} catch (TESSERACTException te) {
 			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
-			index();
 		} catch (Exception e) {
 			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "bajarPaso", e);
 			ErrorManager.agregaMensajeError(this, e);
-			index();
 		}
 		return index();
 	}
