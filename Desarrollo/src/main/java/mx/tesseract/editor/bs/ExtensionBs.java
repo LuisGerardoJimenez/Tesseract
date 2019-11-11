@@ -55,8 +55,9 @@ public class ExtensionBs {
 			extension.setRegion(extensionDTO.getRegion());
 			genericoDAO.save(extension);
 		} else {
-			throw new TESSERACTValidacionException("La Extension ya existe.", "MSG7",
-					new String[] { "La", "Extension", extensionDTO.getCasoUsoDestino().getNombre() }, "model.claveCasoUsoDestino");
+			throw new TESSERACTException(
+					"La Extension ya existe.", "MSG7",
+					new String[] { "El", "Punto de extensión", "que intenta registrar" });
 		}
 	}
 

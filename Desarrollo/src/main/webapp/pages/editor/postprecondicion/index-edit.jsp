@@ -19,7 +19,7 @@
 
 </head>
 <body>
-	<h1>Modificar PostPreCondición</h1>
+	<h1>Modificar Pre/Postcondición</h1>
 	
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
@@ -29,8 +29,9 @@
 
 
 	<s:form autocomplete="off" id="frmCU" theme="simple"
-		action="%{#pageContext.request.contextPath}/postprecondicion" 
+		action="%{#pageContext.request.contextPath}/postprecondicion/%{idSel}" 
 		method="post" onsubmit="return preparaEnvio();">
+		<s:hidden name="_method" value="put" />
 		<div align="center">
 		
 			<div class="formulario">

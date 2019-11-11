@@ -134,7 +134,7 @@ public class TokenBs {
 					}
 
 				} else {
-					if (caracter == ' ') {
+					if (caracter == ' ' || caracter == '\n' || caracter == '\t' || caracter == '\r') {
 						pila = "";
 					} else if (!ignorarEscape(cadena, i, caracter)) {
 						pila += cadena.charAt(i);
@@ -162,8 +162,7 @@ public class TokenBs {
 	
 	public static boolean ignorarEscape(String cadena, int i, char caracter) {
 		if (puntoSeguido(cadena, i, caracter) || espacio(cadena, i, caracter)
-				|| coma(cadena, i, caracter) || puntoComa(cadena, i, caracter)
-				|| caracter == '\n' || caracter == '\t' || caracter == '\r') {
+				|| coma(cadena, i, caracter) || puntoComa(cadena, i, caracter)) {
 			return true;
 		}
 
@@ -1969,7 +1968,7 @@ public class TokenBs {
 					redaccion = remplazoToken(
 							redaccion,
 							token,
-							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext + "/cu/"
+							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext + "/caso-uso/"
 									+ id + "'>" + casoUso.getClave() + " "
 									+ casoUso.getNumero() + " "
 									+ casoUso.getNombre() + "</a>");
@@ -2052,7 +2051,7 @@ public class TokenBs {
 					}
 					CasoUso cu = trayectoria.getCasoUso();
 					redaccion = remplazoToken(redaccion, token,
-							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext + "/cu/"
+							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext + "/caso-uso/"
 									+ cu.getId() + "#trayectoria-" + id + "'>"
 									+ trayectoria.getClave() + "</a>");
 					break;
@@ -2067,7 +2066,7 @@ public class TokenBs {
 					redaccion = remplazoToken(
 							redaccion,
 							token,
-							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext + "/cu/"
+							"<a target='" + target + "'" +  "class='referencia' href='" + actionContext + "/caso-uso/"
 									+ cup.getId() + "#paso-" + id + "'>"
 									+ paso.getNumero() + "</a>");
 					break;
