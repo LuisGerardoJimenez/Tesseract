@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<h1>Gestionar Precondiciones y Postcondiciones</h1>
+	<h1>Gestionar Pre/Postcondiciones</h1>
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
 

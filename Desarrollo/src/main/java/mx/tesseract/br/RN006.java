@@ -137,7 +137,11 @@ public class RN006 {
 	public Boolean isValidRN006(MensajeDTO entidad) {
 		Boolean valido = true;
 		Mensaje mensaje;
-		mensaje = elementoDAO.findAllByIdProyectoAndNombreAndClave(Mensaje.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.MSG);
+		if (entidad.getId() == null) {
+			mensaje = elementoDAO.findAllByIdProyectoAndNombreAndClave(Mensaje.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.ENT);
+		} else {
+			mensaje = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(Mensaje.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.ENT);
+		}
 		if (mensaje != null) {
 		valido = false;
 		}

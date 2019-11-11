@@ -232,7 +232,7 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 	}
 
 	public String create() {
-		addActionMessage(getText("MSG1", new String[] { "La", "Trayectoria", "registrada" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Punto de Extensión", "registrado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -322,7 +322,7 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 	}
 
 	public String update() {
-		addActionMessage(getText("MSG1", new String[] { "La", "Trayectoria", "modificada" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Punto de Extensión", "modificado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -399,7 +399,7 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 	}
 	
 	public String destroy() {
-		addActionMessage(getText("MSG1", new String[] { "La", "Trayectoria", "eliminada" }));
+		addActionMessage(getText("MSG1", new String[] { "El", "Punto de Extensión", "eliminado" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
@@ -466,7 +466,7 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 		if (catalogoCasoUso.isEmpty()) {
 			throw new TESSERACTException(
 					"No hay casos de uso para seleccionar como punto de extensión.",
-					"MSG22", new String[] { "Casos de uso para extender."});
+					"MSG15", new String[] { "Casos de uso para extender."});
 		}
 	}
 
