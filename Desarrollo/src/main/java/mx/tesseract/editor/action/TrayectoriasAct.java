@@ -17,14 +17,12 @@ import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dto.TrayectoriaDTO;
 import mx.tesseract.editor.bs.CasoUsoBs;
-import mx.tesseract.editor.bs.ElementoBs;
 import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.bs.TrayectoriaBs;
 import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Revision;
 import mx.tesseract.editor.entidad.Trayectoria;
-import mx.tesseract.enums.AnalisisEnum.CU_CasosUso;
 import mx.tesseract.enums.TipoSeccionEnum;
 import mx.tesseract.enums.TipoSeccionEnum.TipoSeccionENUM;
 import mx.tesseract.util.ActionSupportTESSERACT;
@@ -100,9 +98,6 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 
 	@Autowired
 	private ModuloBs moduloBs;
-
-	@Autowired
-	private ElementoBs elementoBs;
 	
 	@Autowired
 	private ProyectoBs proyectoBs;
@@ -215,13 +210,18 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 			} catch (TESSERACTValidacionException tve) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
+				model.setClave("");
 			} catch (TESSERACTException te) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
+				model.setClave("");
 			} catch (Exception e) {
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
 				ErrorManager.agregaMensajeError(this, e);
+				model.setClave("");
 			}
+		} else {
+			model.setClave("");
 		}
 	}
 

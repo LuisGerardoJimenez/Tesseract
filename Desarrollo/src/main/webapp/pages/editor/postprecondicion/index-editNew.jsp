@@ -19,7 +19,7 @@
 
 </head>
 <body>
-	<h1>Registrar PostPreCondición</h1>
+	<h1>Registrar Pre/Postcondición</h1>
 	
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />

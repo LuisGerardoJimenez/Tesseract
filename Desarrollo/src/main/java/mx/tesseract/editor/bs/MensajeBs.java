@@ -82,7 +82,7 @@ public class MensajeBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void registrarMensaje(MensajeDTO mensajeDTO) {
+	public void registrarMensaje(MensajeDTO mensajeDTO) throws TESSERACTException {
 		if (rn006.isValidRN006(mensajeDTO)) {
 			Mensaje mensaje = new Mensaje();
 			Proyecto proyecto = genericoDAO.findById(Proyecto.class, mensajeDTO.getIdProyecto());
@@ -97,6 +97,9 @@ public class MensajeBs {
 			mensaje.setParametrizado(Boolean.TRUE);
 			genericoDAO.save(mensaje);
 			for(MensajeParametro mensajeParametro : mensajeDTO.getParametros()) {
+				if(mensajeParametro.getParametro().getDescripcion().isEmpty())
+					throw new TESSERACTException("La redacción de un parametro no puede ser vacía.",
+							"MSG31");
 				if(mensajeParametro.getParametro().getId()== null) {
 					mensajeParametro.getParametro().setProyecto(proyecto);
 					mensajeParametro.setParametro(genericoDAO.save(mensajeParametro.getParametro()));
@@ -106,63 +109,71 @@ public class MensajeBs {
 			}
 			
 		} else {
-			throw new TESSERACTValidacionException("EL nombre del mensaje ya existe.", "MSG7",
+			throw new TESSERACTValidacionException("El nombre del mensaje ya existe.", "MSG7",
 					new String[] { "El", "Mensaje", mensajeDTO.getNombre() }, "model.nombre");
 		}
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void modificarMensaje(MensajeDTO mensajeDTO) {
-		Mensaje mensaje = genericoDAO.findById(Mensaje.class, mensajeDTO.getId());
-		Proyecto proyecto = genericoDAO.findById(Proyecto.class, mensajeDTO.getIdProyecto());
-		mensaje.setClave(Clave.MSG.toString());
-		mensaje.setNombre(mensajeDTO.getNombre());
-		mensaje.setDescripcion(mensajeDTO.getDescripcion());
-		mensaje.setProyecto(proyecto);
-		mensaje.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
-		ArrayList<String> listParametrosDTO = new ArrayList<>(); 
-		for(Parametro parametro : obtenerParametros(mensajeDTO.getRedaccion(), proyecto.getId())) {
-			listParametrosDTO.add(parametro.getNombre());
-		}
-		ArrayList<String> listParametros = new ArrayList<>(); 
-		for(Parametro parametro : obtenerParametros(mensaje.getRedaccion(), proyecto.getId())) {
-			listParametros.add(parametro.getNombre());
-		}
-		mensaje.setRedaccion(mensajeDTO.getRedaccion());
-		mensaje.setParametrizado(mensajeDTO.getParametrizado());
-		
-		for(MensajeParametro mensajeParametro : mensajeDTO.getParametros()) {
-			for(MensajeParametro mensajeParametroItem : mensaje.getParametros()) {
-				
-				if(mensajeParametro.getParametro().getNombre().equals(mensajeParametroItem.getParametro().getNombre())) {
-					mensajeParametro.getParametro().setNombre(mensajeParametroItem.getParametro().getNombre());
-					mensajeParametro.getParametro().setDescripcion(mensajeParametroItem.getParametro().getDescripcion());
+	public void modificarMensaje(MensajeDTO mensajeDTO) throws TESSERACTException{
+		if (rn006.isValidRN006(mensajeDTO)) {
+			Mensaje mensaje = genericoDAO.findById(Mensaje.class, mensajeDTO.getId());
+			Proyecto proyecto = genericoDAO.findById(Proyecto.class, mensajeDTO.getIdProyecto());
+			mensaje.setClave(Clave.MSG.toString());
+			mensaje.setNombre(mensajeDTO.getNombre());
+			mensaje.setDescripcion(mensajeDTO.getDescripcion());
+			mensaje.setProyecto(proyecto);
+			mensaje.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
+			ArrayList<String> listParametrosDTO = new ArrayList<>(); 
+			for(Parametro parametro : obtenerParametros(mensajeDTO.getRedaccion(), proyecto.getId())) {
+				listParametrosDTO.add(parametro.getNombre());
+			}
+			ArrayList<String> listParametros = new ArrayList<>(); 
+			for(Parametro parametro : obtenerParametros(mensaje.getRedaccion(), proyecto.getId())) {
+				listParametros.add(parametro.getNombre());
+			}
+			mensaje.setRedaccion(mensajeDTO.getRedaccion());
+			mensaje.setParametrizado(mensajeDTO.getParametrizado());
+			
+			for(MensajeParametro mensajeParametro : mensajeDTO.getParametros()) {
+				if(mensajeParametro.getParametro().getDescripcion().isEmpty())
+					throw new TESSERACTException("La redacción de un parametro no puede ser vacía.",
+							"MSG31");
+				for(MensajeParametro mensajeParametroItem : mensaje.getParametros()) {
+					
+					if(mensajeParametro.getParametro().getNombre().equals(mensajeParametroItem.getParametro().getNombre())) {
+						mensajeParametro.getParametro().setNombre(mensajeParametroItem.getParametro().getNombre());
+						mensajeParametro.getParametro().setDescripcion(mensajeParametroItem.getParametro().getDescripcion());
+					}
+					
+				}
+				if(mensajeParametro.getParametro().getId() == null) {
+					mensajeParametro.getParametro().setProyecto(proyecto);
+					genericoDAO.save(mensajeParametro.getParametro());
+					mensajeParametro.setMensaje(mensaje);
+					genericoDAO.save(mensajeParametro);
+				}
+				if(!listParametros.contains(mensajeParametro.getParametro().getNombre()) && listParametrosDTO.contains(mensajeParametro.getParametro().getNombre())) {
+					mensajeParametro.setMensaje(mensaje);
+					genericoDAO.save(mensajeParametro);
 				}
 				
+				
 			}
-			if(mensajeParametro.getParametro().getId() == null) {
-				mensajeParametro.getParametro().setProyecto(proyecto);
-				genericoDAO.save(mensajeParametro.getParametro());
-				mensajeParametro.setMensaje(mensaje);
-				genericoDAO.save(mensajeParametro);
-			}
-			if(!listParametros.contains(mensajeParametro.getParametro().getNombre()) && listParametrosDTO.contains(mensajeParametro.getParametro().getNombre())) {
-				mensajeParametro.setMensaje(mensaje);
-				genericoDAO.save(mensajeParametro);
-			}
-			
-			
-		}
-		genericoDAO.update(mensaje);
-		for(String parametroItem : listParametros) {
-			if(!listParametrosDTO.contains(parametroItem)) {
-				Parametro parametro = parametroDAO.consultarParametro(parametroItem, proyecto.getId());
-				MensajeParametro  mensajeParametro = mensajeParametroDAO.consultarMensajeParametro(mensaje.getId(), parametro.getId());
-				genericoDAO.delete(mensajeParametro);
-				if(mensajeParametroDAO.consultarMensajeParametro(parametro.getId()) == null) {
-					genericoDAO.delete(parametro);
+			genericoDAO.update(mensaje);
+			for(String parametroItem : listParametros) {
+				if(!listParametrosDTO.contains(parametroItem)) {
+					Parametro parametro = parametroDAO.consultarParametro(parametroItem, proyecto.getId());
+					MensajeParametro  mensajeParametro = mensajeParametroDAO.consultarMensajeParametro(mensaje.getId(), parametro.getId());
+					genericoDAO.delete(mensajeParametro);
+					if(mensajeParametroDAO.consultarMensajeParametro(parametro.getId()) == null) {
+						genericoDAO.delete(parametro);
+					}
 				}
-			}
+			}	
+		} else {
+			throw new TESSERACTValidacionException("El nombre del mensaje ya existe.", "MSG7",
+					new String[] { "El", "Mensaje", mensajeDTO.getNombre() }, "model.nombre");
 		}
 	}
 

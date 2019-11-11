@@ -152,13 +152,13 @@ public class PasoBs {
 			genericoDAO.update(actual);
 			genericoDAO.update(anterior);
 		} else {
-			throw new TESSERACTException("No puede realizar esta acción.", "MSG7");
+			throw new TESSERACTException("No puede realizar esta acción.", "MSG32");
 		}
 			
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void bajarPaso(PasoDTO model) {
+	public void bajarPaso(PasoDTO model) throws TESSERACTException{
 		Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, model.getIdTrayectoria());
 		if(model.getNumero() > Constantes.NUMERO_UNO && trayectoria.getPasos().size() > 1) {
 			Paso actual = genericoDAO.findById(Paso.class, model.getId());
@@ -175,7 +175,7 @@ public class PasoBs {
 			genericoDAO.update(actual);
 			genericoDAO.update(siguiente);
 		}else {
-			throw new TESSERACTException("No puede realizar esta acción.", "MSG7");
+			throw new TESSERACTException("No puede realizar esta acción.", "MSG32");
 		}
 	}
 	
