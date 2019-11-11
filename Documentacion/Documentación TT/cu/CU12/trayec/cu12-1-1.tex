@@ -33,9 +33,8 @@
 	\UCpaso[\UCactor] Solicita gestionar las trayectorias de un caso de uso presionando el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/tray}} del caso de uso que desee de la pantalla \IUref{IU6}{Gestionar Casos de uso}
 	\UCpaso[\UCsist] Obtiene la información de las trayectorias del caso de uso. \hyperlink{CU12-1-1:TAA}{[Trayectoria A]}
 	\UCpaso[\UCsist] Ordena las trayectorias alfabéticamente con base en la clave de las mismas.
-	\UCpaso[\UCsist] Verifica que el caso de uso se encuentre en estado ''Edición'' o en estado ''Pendiente de corrección''.\hyperlink{CU12-1-1:TAB}{[Trayectoria B]}
 	\UCpaso[\UCsist] Muestra la información de las trayectorias en la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias}. 
-	\UCpaso[\UCactor] Gestiona las trayectorias a través de los botones: \IUbutton{Registrar}, \editar, y \eliminar. \label{CU12.1.1-P5}
+	\UCpaso[\UCactor] Gestiona las trayectorias a través de los botones: \IUbutton{Registrar}, \editar, \eliminar y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/pasos}}. \label{CU12.1.1-P5}
 \end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU12-1-1:TAA}{\textbf{Trayectoria alternativa A}}\\
@@ -46,16 +45,10 @@
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
-\hypertarget{CU12-1-1:TAB}{\textbf{Trayectoria alternativa B}}\\
-\noindent \textbf{Condición:} El caso de uso no se encuentra en estado ''Edición'' o ''Pendiente de corrección''.
-\begin{enumerate}
-	\UCpaso[\UCsist]  Oculta el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/tray}} del caso que no se encuentra en estado de ''Edición'' o ''Pendiente de corrección''.
-	\item[- -] - - {\em {Fin del caso de uso}}.
-\end{enumerate}
-%--------------------------------------
 
 \subsubsection{Puntos de extensión}
 
 \UCExtenssionPoint{El actor requiere registrar una trayectoria.}{Presionando el botón \IUbutton{Registrar} del paso \ref{CU12.1.1-P5} de la trayectoria principal o del paso \ref{CU12-1-1-TA1} de la Trayectoria alternativa A.}{\UCref{CU12.1.1.1}{Registrar Trayectoria}}
 \UCExtenssionPoint{El actor requiere modificar una trayectoria.}{Presionando el icono \editar del paso \ref{CU12.1.1-P5} de la trayectoria principal.}{\UCref{CU12.1.1.2}{Modificar Trayectoria}}
 \UCExtenssionPoint{El actor requiere eliminar una trayectoria.}{Presionando el icono \eliminar del paso \ref{CU12.1.1-P5} de la trayectoria principal.}{\UCref{CU12.1.1.3}{Eliminar Trayectoria}}
+\UCExtenssionPoint{El actor requiere gestionar los pasos de la trayectoria.}{Presionando el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/pasos}} del paso \ref{CU12.1.1-P5} de la trayectoria principal.}{\UCref{CU12.1.1.1.1}{Gestionar Pasos}}
