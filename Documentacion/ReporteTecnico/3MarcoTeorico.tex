@@ -10,6 +10,8 @@ Antes de adentrarnos en las raíces de la ingeniería de software es fundamental
 
 "Todo proyecto de software se desencadena por alguna necesidad de negocios como la de corregir un defecto en una aplicación existente; la de adaptar un sistema heredado a un ambiente de negocios cambiante; la de ampliar las funciones y características de una aplicación ya existente o la necesidad de crear un producto, servicio o sistema nuevo. Al comenzar un proyecto de software, es frecuente que las necesidades del negocio se expresen de manera informal como parte de una simple conversación, sin embargo el esfuerzo de ingeniería tendrá éxito sólo si también lo tiene el producto final. El mercado aceptará el producto sólo si el software incrustado en éste satisface las necesidades del cliente." \hyperlink{b09}{[9]}\\
 
+\newpage
+
 Para que Pressman elaborará un concepto sólido de lo que es la ingenieria de software, se apoyó en dos definiciones formales y anteriormente especificadas. La primera, aportación de Fritz Bauer (un importante informático alemán y profesor emérito en la Universidad Técnica de Munich. \hyperlink{b40}{[40]}) y la otra por parte del Instituto de Ingeniería Eléctrica y Electrónica (Institute of Electrical and Electronics Engineers,  IEEE por sus siglas en inglés), la mayor asociación internacional sin ánimo de lucro formada por profesionales de las nuevas tecnologías. \hyperlink{b41}{[41]} \\
 
 Fritz Bauer estableció una de las primeras definiciones de ingeniería de software en una conferencia de la Organización del Tratado del Atlántico Norte (North Atlantic Treaty Organization, OTAN por sus siglas en inglés) en el año de 1969: \textit {“Ingeniería de Software es el establecimiento y uso de principios robustos de ingeniería, orientados a obtener software económico que sea fiable y funcione de manera eficiente sobre máquinas reales”}. \hyperlink{b38}{[38]}\\
@@ -41,6 +43,8 @@ Como podemos observar, para Pressman la Ingenieria de Software no solo se refier
 \end{figure}
 
 El proceso de software forma la base para el control de la administración de proyectos de software, y establece el contexto en el que se aplican métodos técnicos, se generan productos del trabajo (modelos, documentos, datos, reportes, formatos, etc.), se establecen puntos de referencia, se asegura la calidad y se administra el cambio de manera apropiada.\hyperlink{b09}{[9]} 
+
+\newpage
 
 \section{Proceso de desarrollo de software}
 
@@ -151,9 +155,7 @@ Con base en los enunciados de Alistair Cockburn en su libro ``Escribiendo Casos 
 \item \textbf{Puntos de extensión}: Es la incorporación implícita del comportamiento de otro caso de uso, el cuál no es parte del flujo principal. Modela la parte opcional del sistema, un subflujo que sólo se ejecuta bajo ciertas condiciones o varios flujos que se pueden insertar en un punto determinado. \hyperlink{b49}{[49]}
 \end{itemize}
 
-A continuación se ilustra la estructura de la descripción de un caso de uso con todos sus elementos.
-
-En primera instancia se identifica el caso de uso con una clave y un nombre. Posteriormente, se redacta el resumen del caso de uso en un texto breve y conciso, tal como se muestra en el ejemplo de la Figura \ref{fig:resu}.
+A continuación se ilustra la estructura de la descripción de un caso de uso con todos sus elementos. En primera instancia se identifica el caso de uso con una clave y un nombre. Posteriormente, se redacta el resumen del caso de uso en un texto breve y conciso, tal como se muestra en el ejemplo de la Figura \ref{fig:resu}.
 
 \begin{figure}[H]
 	\begin{center}
@@ -163,9 +165,7 @@ En primera instancia se identifica el caso de uso con una clave y un nombre. Pos
 	\end{center}
 \end{figure}
 
-Una vez redactado el resúmen del caso de uso se enlistan los atributos participes en esta descripción. Se especifica el rol del actor que interactua con el sistema, el propósito del caso de uso, entradas, salidas, precondiciones, postcondiciones, errores y tipo de caso de uso.
-
-En la Figura \ref{fig:atri} se muestra un ejemplo.
+Una vez redactado el resúmen del caso de uso se enlistan los atributos participes en esta descripción. Se especifica el rol del actor que interactua con el sistema, el propósito del caso de uso, entradas, salidas, precondiciones, postcondiciones, errores y tipo de caso de uso. En la Figura \ref{fig:atri} se muestra un ejemplo.
 
 \begin{figure}[H]
 	\begin{center}
@@ -194,6 +194,8 @@ Un ejemplo se muestra en la Figura \ref{fig:trayectoriap}
 	\end{center}
 \end{figure}
 
+\newpage
+
 Finalmente, en la especificación se describen los puntos de extensión del caso de uso tal como se muestra en la Figura \ref{fig:puntos}
 
 \begin{figure}[H]
@@ -204,6 +206,7 @@ Finalmente, en la especificación se describen los puntos de extensión del caso
 	\end{center}
 \end{figure}
 
+\newpage
 
 \section{Herramienta CASE}
 
@@ -228,6 +231,8 @@ Una herramienta CASE se puede clasificar en tres categorías: \hyperlink{b50}{[5
 \end{itemize}
 
 Debido a sus similitudes, a veces Upper CASE y Middle CASE simplemente se conocen como Upper CASE. En general, Upper CASE es una herramienta para una vista de alto nivel del desarrollo de software, mientras que lower CASE se utiliza principalmente como herramienta en la fase de programación y prueba. \hyperlink{b16}{[16]}
+
+\newpage
 
 \section {Implementación del desarrollo}
 
@@ -270,32 +275,78 @@ El comportamiento y comunicación de este modelo se ilustra en la Figura \ref{fi
 	\end{center}
 \end{figure}
 
+\newpage
+
 MVC desacopla las vistas y los modelos al establecer un protocolo de suscripción / notificación entre ellos. Una vista debe garantizar que su apariencia refleje el estado del modelo. Cada vez que los datos del modelo cambian, el modelo notifica las vistas que dependen de él. En respuesta, cada vista tiene la oportunidad de actualizarse. Este enfoque le permite adjuntar múltiples vistas a un modelo para proporcionar diferentes presentaciones. También puede crear nuevas vistas para un modelo sin reescribirlo.\\
 
 En la Figura \ref{fig:mvc2} se muestra un modelo y tres vistas. (Se omitieron los controladores por simplicidad). El modelo contiene algunos valores de datos, y las vistas que definen una hoja de cálculo, un histograma y un gráfico circular muestran estos datos de varias maneras. El modelo se comunica con sus vistas cuando cambian sus valores, y las vistas se comunican con el modelo para acceder a estos valores. \hyperlink{b20}{[20]} 
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=.65\textwidth]{images/marcoteorico/mvc2}
+		\includegraphics[width=.85\textwidth]{images/marcoteorico/mvc2}
 		\caption{Glenn E. Krasner (1988) Ejemplo práctico de cómo opera el MVC}
 		\hyperlink{b20}{[20]} 
 		\label{fig:mvc2}
 	\end{center}
 \end{figure}
 
-\subsubsection{Singleton}
-Es un patrón diseñado para limitar la creación de objetos pertenecientes a una clase. El objetivo de este patrón es el de garantizar que una clase solo tenga una instancia (o ejemplar) y proporcionar un punto de acceso global a ella. Esta patrón; por ejemplo, suele ser utilizado para las conexiones a bases de datos.
+\newpage
 
-Este patrón se implementa haciendo privado el constructor de la clase y creando (en la propia clase) un método que crea una instancia del objeto si este no existe. \hyperlink{b70}{[70]} 
+\subsubsection{Singleton}
+Es un patrón diseñado para limitar la creación de objetos pertenecientes a una clase. El objetivo de este patrón es el de garantizar que una clase solo tenga una instancia (o ejemplar) y proporcionar un punto de acceso global a ella. Suele ser utilizado para las conexiones a bases de datos, se implementa haciendo privado el constructor de la clase y creando (en la propia clase) un método que crea una instancia del objeto si este no existe. \hyperlink{b70}{[70]}\\
+
+El patrón utiliza variables y métodos de clase estáticos para la implementación global y la unicidad de la instanciación de la clase. La Figura \ref{fig:single} muestra esta estructura simple pero poderosa.\\
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=1\textwidth]{images/marcoteorico/patrones/singleton}
+		\caption{ Sanders, W. B. Y Cumaranatunge, C. (2007) Estructura Singleton}
+		\hyperlink{b72}{[72]} 
+		\label{fig:single}
+	\end{center}
+\end{figure}
 
 \subsubsection{Factory}
-Factory Method permite la creación de objetos de un subtipo determinado a través de una clase Factory. Esto es especialmente útil cuando no sabemos, en tiempo de diseño, el subtipo que vamos a utilizar o cuando queremos delegar la lógica de creación de los objetos a una clase Factory. Utilizando este patrón podemos crear instancias dinámicamente mediante la configuración, estableciendo cual será la implementación a utilizar en un archivo de texto de Lenguaje de Marcado Extensible (Extensible Markup Language, XML por sus siglas en inglés) properties o mediante cualquier otra estrategia. \hyperlink{b70}{[70]}
+Factory Method permite la creación de objetos de un subtipo determinado a través de una clase Factory. Esto es especialmente útil cuando no sabemos, en tiempo de diseño, el subtipo que vamos a utilizar o cuando queremos delegar la lógica de creación de los objetos a una clase Factory. Utilizando este patrón podemos crear instancias dinámicamente mediante la configuración, estableciendo cual será la implementación a utilizar en un archivo de texto de Lenguaje de Marcado Extensible (Extensible Markup Language, XML por sus siglas en inglés) properties o mediante cualquier otra estrategia. \hyperlink{b70}{[70]}\\
+
+La Figura \ref{fig:factory} muestra el modelo de alto nivel del patrón. Varios clientes pueden usar el método factory en un creator para acceder y usar múltiples products. La naturaleza intermediaria del creator es clara en este modelo, ya que obliga a la creación de múltiples tipos de objetos (diferentes productos) a través de un punto común. \hyperlink{b72}{[72]} 
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=1\textwidth]{images/marcoteorico/patrones/factory}
+		\caption{ Sanders, W. B. Y Cumaranatunge, C. (2007) Modelo Lógico del Patrón Factory}
+		\hyperlink{b72}{[72]} 
+		\label{fig:factory}
+	\end{center}
+\end{figure}
+
+Una de las principales ventajas del patrón de método factory es la extensibilidad que ofrece para adaptarse al cambio \hyperlink{b72}{[72]}. Veamos el diagrama de clases del patrón en la Figura \ref{fig:factory2} .
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=1\textwidth]{images/marcoteorico/patrones/factory2}
+		\caption{ Sanders, W. B. Y Cumaranatunge, C. (2007) Diagrama de Clases del Patrón Factory}
+		\hyperlink{b72}{[72]} 
+		\label{fig:factory2}
+	\end{center}
+\end{figure}
 
 \subsubsection{Facade (Fachada)}
 El patrón Facade (fachada) tiene la característica de ocultar la complejidad de interactuar con un conjunto de subsistemas proporcionando una interface de alto nivel, la cual se encarga de realizar la comunicación con todos los subsistemas necesarios. La fachada es una buena estrategia cuando requerimos interactuar con varios subsistemas para realizar una operación concreta ya que se necesita tener el conocimiento técnico y funcional para saber qué operaciones de cada subsistema tenemos que ejecutar y en qué orden, lo que puede resultar muy complicado cuando los sistemas empiezan a crecer demasiado. \hyperlink{b70}{[70]}
 
 \subsubsection{Adapter (Adaptador)}
-El patrón adaptador se utiliza para transformar una interfaz en otra, de tal modo que una clase que no pueda utilizar la primera haga uso de ella a través de la segunda. Convierte la interfaz de una clase en otra interfaz que el cliente espera. El adaptador permite a las clases trabajar juntas, lo que de otra manera no podría hacerse debido a sus interfaces incompatibles. \hyperlink{b70}{[70]}
+El patrón adaptador se utiliza para transformar una interfaz en otra, de tal modo que una clase que no pueda utilizar la primera haga uso de ella a través de la segunda. Convierte la interfaz de una clase en otra interfaz que el cliente espera. El adaptador permite a las clases trabajar juntas, lo que de otra manera no podría hacerse debido a sus interfaces incompatibles. \hyperlink{b70}{[70]}\\
+
+Todas las clases de adaptadores implementan una interfaz. En el diagrama de clases que se muestra en la Figura \ref{fig:adapter} , la interfaz llamada ITarget declara un método único llamado request (). El diagrama de clase muestra que una referencia a una instancia de la clase Adaptee se almacena en la variable adaptee. Al implementar el método request (), el adaptador hace referencia a esta instancia. \hyperlink{b72}{[72]}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=1\textwidth]{images/marcoteorico/patrones/adapter}
+		\caption{ Sanders, W. B. Y Cumaranatunge, C. (2007) Diagrama de Clases de un Objeto Adapter}
+		\hyperlink{b72}{[72]} 
+		\label{fig:adapter}
+	\end{center}
+\end{figure}
 
 \subsubsection{Data Access Object (DAO)}
 La capa DAO contiene todos los métodos CRUD (create, read, update, delete), por lo general se tiene un DAO para cada tabla en la base de datos. \hyperlink{b71}{[71]}
@@ -306,10 +357,22 @@ Se utiliza para transferir varios atributos entre el cliente y el servidor o vic
 La primera es una clase java conocida como Value Object que únicamente contiene sus atributos, constructor, getters y setters, esta clase no tiene comportamiento.
 La segunda es una clase del lado del servidor conocida como clase de negocio (en la implementación también se conoce como Business Object) es la que se encarga de obtener datos desde la base de datos y llenar la clase Value Object y enviarla al cliente, o a su vez recibir la clase desde el cliente y enviar los datos al servidor, por lo general tiene todos los métodos CRUD (create, read, update y delete). \hyperlink{b71}{[71]}
 
-\subsection{Decorator}
+\subsubsection{Decorator}
 El patrón Decorator en Java permite agregar nuevas funcionalidades a las clases sin modificar su estructura.
 El concepto de este patrón es agregar de forma dinámica nuevo comportamiento o funcionalidades a la clase principal.
 La definición oficial dice que “permite el ajuste dinámico de objetos para modificar sus responsabilidades y comportamientos existentes.”  \hyperlink{b71}{[71]}
+
+En la Figura \ref{fig:decorator} de ilustra el diagrama de clase del Patrón Decorator.
+
+ \begin{figure}[H]
+ 	\begin{center}
+ 		\includegraphics[width=1\textwidth]{images/marcoteorico/patrones/decorator}
+ 		\caption{ Sanders, W. B. Y Cumaranatunge, C. (2007) Patrón de Diseño Decorator}
+ 		\hyperlink{b72}{[72]} 
+ 		\label{fig:decorator}
+ 	\end{center}
+ \end{figure}
+
 
 \subsection{Framework}
 
