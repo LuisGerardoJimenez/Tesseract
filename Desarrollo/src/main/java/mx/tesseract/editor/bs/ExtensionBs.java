@@ -1,6 +1,5 @@
 package mx.tesseract.editor.bs;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,14 +13,10 @@ import mx.tesseract.br.RN006;
 import mx.tesseract.br.RN018;
 import mx.tesseract.dao.GenericoDAO;
 import mx.tesseract.dto.ExtensionDTO;
-import mx.tesseract.dto.TrayectoriaDTO;
 import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.Extension;
-import mx.tesseract.editor.entidad.Trayectoria;
-import mx.tesseract.enums.AnalisisEnum.CU_CasosUso;
 import mx.tesseract.enums.ReferenciaEnum.TipoSeccion;
 import mx.tesseract.util.TESSERACTException;
-import mx.tesseract.util.TESSERACTValidacionException;
 
 @Service("extensionBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
@@ -95,9 +90,9 @@ public class ExtensionBs {
 	}
 
 	public List<ExtensionDTO> consultarExtensionesByIdCasoUso(Integer idCasoUso) {
-		List<ExtensionDTO> lista = new ArrayList<ExtensionDTO>();
+		List<ExtensionDTO> lista = new ArrayList<>();
 		CasoUso casoUso = casoUsoBs.consultarCasoUso(idCasoUso);
-		List<Extension> listPtosExtension = new ArrayList<Extension>();
+		List<Extension> listPtosExtension = new ArrayList<>();
 		String regionDecodificada = "";
 		for (Extension extension : casoUso.getExtiende()) {
 			regionDecodificada = tokenBs.decodificarCadenasToken(extension.getRegion());

@@ -8,7 +8,6 @@ import java.util.Set;
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Proyecto;
-import mx.tesseract.enums.AnalisisEnum.CU_Mensajes;
 import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.editor.bs.ElementoBs;
 import mx.tesseract.editor.bs.MensajeBs;

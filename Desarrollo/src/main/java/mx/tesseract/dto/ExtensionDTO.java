@@ -2,14 +2,11 @@ package mx.tesseract.dto;
 
 import java.io.Serializable;
 
-import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import mx.tesseract.editor.entidad.CasoUso;
-import mx.tesseract.util.Constantes;
 import mx.tesseract.util.GenericInterface;
 
 public class ExtensionDTO implements Serializable, GenericInterface {

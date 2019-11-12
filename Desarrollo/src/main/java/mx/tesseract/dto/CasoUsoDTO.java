@@ -1,7 +1,5 @@
 package mx.tesseract.dto;
 
-import java.util.List;
-
 import javax.persistence.Column;
 
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
@@ -9,10 +7,6 @@ import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
-import mx.tesseract.admin.entidad.Proyecto;
-import mx.tesseract.editor.entidad.EstadoElemento;
-import mx.tesseract.editor.entidad.Modulo;
-import mx.tesseract.editor.entidad.Revision;
 import mx.tesseract.util.Constantes;
 
 public class CasoUsoDTO {

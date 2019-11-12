@@ -387,7 +387,7 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 	
 	private void buscaCatalogos() {
 		// Se llena la lista del catálogo de quien realiza
-		listRealiza = new ArrayList<String>();
+		listRealiza = new ArrayList<>();
 		listRealiza.add(Constantes.SELECT_ACTOR);
 		listRealiza.add(Constantes.SELECT_SISTEMA);
 
