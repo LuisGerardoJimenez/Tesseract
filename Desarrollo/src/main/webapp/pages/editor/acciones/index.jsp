@@ -35,7 +35,7 @@
 								<s:property value="%{#accion.nombre}" /></td>
 							<td align="center">
 								<s:url var="pantallaAccion" value="%{#accion.imagenB64}"/>
-								<img id="pantalla" src="${pantallaAccion}" class="imagen" height="80" width="80" alt="pantalla"/>
+								<img id="pantalla" src="${pantallaAccion}" class="imagen" alt="pantalla"/>
 							</td>
 							<td align="center">
 								${blanks}
