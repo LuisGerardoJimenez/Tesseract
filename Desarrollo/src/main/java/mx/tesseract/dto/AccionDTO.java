@@ -43,7 +43,7 @@ public class AccionDTO {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre == null ? nombre : nombre.trim();
 	}
 	
 	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
@@ -54,7 +54,7 @@ public class AccionDTO {
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.descripcion = descripcion == null ? descripcion : descripcion.trim();
 	}
 
 	@RequiredFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG27')}", shortCircuit= true)

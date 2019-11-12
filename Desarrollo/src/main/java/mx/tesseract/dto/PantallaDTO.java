@@ -68,7 +68,7 @@ public class PantallaDTO {
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion == null ? descripcion : descripcion.trim();;
+		this.descripcion = descripcion == null ? descripcion : descripcion.trim();
 	}
 
 	public Integer getIdProyecto() {
