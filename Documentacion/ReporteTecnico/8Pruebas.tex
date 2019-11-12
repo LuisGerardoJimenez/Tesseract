@@ -9,48 +9,102 @@ El diseño de pruebas dinámicas está basado en la espeficicación técnica del
 
 \subsection{Diseño de Pruebas Dinámicas}
 
-A continuación se detalla el diseño de las pruebas dinámicas basadas en la especificación técnica, así como de las herramientas creadas con base en el análisis de:
+A continuación se detalla el diseño de las pruebas dinámicas basadas en la especificación técnica, así como de las herramientas creadas con base en el análisis de: Clases de equivalencia, Valores frontera, Reglas de negocio, Máquinas de estado y Casos de uso.\\
 
-\begin{itemize}
-	\item \textbf {Clases de equivalencia}
-	\item \textbf {Valores frontera}
-	\item \textbf {Reglas de negocio}
-	\item \textbf {Máquinas de estado}
-	\item \textbf {Casos de uso}
-\end{itemize}
+Las matrices son una herramienta que detalla el resultado de la ejecución de pruebas en comparación con cada una de las características y funcionalidades de los módulos del sistema. Están basadas en el documento de análisis, especifícamente en el documento de casos de uso.\\
 
-\subsubsection{Clases de equivalencia:}
+El objetivo del diseño de estas matrices de prueba es validar y verificar a través de ciclos de pruebas que el producto cumpla con lo espeficicado en las etapas precedentes, en caso de que no se cumpla con las funcionalidades estipuladas o existan mejoras en su implementación se reporta una serie de defectos y sugerencias para que desarrollo se encargue de corregirlos; una vez que se solucionaron los problemas se ejecuta un ciclo de confirmación para comprobar que efectivamente se han corregido los defectos y que no se ha alterado ningúna otra parte del sistema.\\
 
+En la Figura \ref{fig:estructurap} se ilustra la estructura de las matrices de prueba que se diseñaron para registrar el resultado de su ejecución en los ciclos correspondientes.
 
-\subsubsection{MATRICES DE PRUEBA}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=1.1\textwidth]{images/pruebas/diseno/estructurap}
+		\caption{Ejemplo del diseño implementado para la ejecución de pruebas}
+		\label{fig:estructurap}
+	\end{center}
+\end{figure}
 
-Las matrices de pruebas son una herramienta que detalla el resultado de la ejecución de pruebas en comparación con cada una de las características y funcionalidades de los módulos del sistema. Están basadas en el documento de análisis, especifícamente en el documento de casos de uso.\\
+\newpage
 
-Se implementaron las 5 técnicas 
-
-La ejecución de pruebas se lleva a cabo una vez terminado el desarrollo de cada uno de los sprints estructurados en la metodología.\\
-
-El objetivo de las matrices de prueba es validar y verificar a través de ciclos de pruebas que el producto cumpla con lo espeficicado en las etapas precedentes, en caso de que no se cumpla con las funcionalidades estipuladas o existan mejoras en su implementación se reporta una serie de defectos y sugerencias para que desarrollo se encargue de corregirlos; una vez que se solucionaron los problemas se ejecuta un ciclo de confirmación para comprobar que efectivamente se han corregido los defectos y que no se ha alterado ningúna otra parte del sistema.\\
-
-En la Figura \ref{fig:encabezado} se ilustra la estructura de las matrices de prueba que se diseñaron para registrar el resultado de su ejecución en los ciclos correspondientes.
+En el encabezado de la matriz se registran los datos con las propiedades de la prueba, es decir, se especifica que módulo o gestión del sistema se involucra, que tipo y nivel de prueba se define, cuantos casos a probar hay para esa gestión, los actores, mensajes y pantallas con los que se interactuan en la ejecución. En la Figura \ref{fig:encabezado} se ilustra el encabezado de las matrices de prueba que se diseñaron para registrar el resultado de su ejecución en los ciclos correspondientes.
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=.95\textwidth]{images/pruebas/diseno/encabezado}
-		\caption{Ejemplo del encabezado de la matriz de pruebas}
+		\caption{Ejemplo de encabezado de la matriz}
 		\label{fig:encabezado}
 	\end{center}
 \end{figure}
 
-En la Figura \ref{fig:estructura} se ilustra el contenido y características de las matrices de prueba que se diseñaron.
+En la matriz se concentra la información obtenida de la especificación como base de la ejecución de pruebas.\\
 
-\begin{figure}[H]
-	\begin{center}
-		\includegraphics[width=.95\textwidth]{images/pruebas/diseno/tabla}
-		\caption{Ejemplo de la estructura de la matriz de pruebas}
-		\label{fig:estructura}
-	\end{center}
-\end{figure}
+\newpage
+
+Se implementaron las 5 técnicas para pruebas basadas en espicificación tal y como se enuncia en el ISTQB:
+
+\begin{itemize}
+	\item \textbf {Clases de equivalencia}:
+	Las clases de equivalencia son particiones que se aplican principalmente en las entradas de datos a través de formulario. Para cada campo se hace una partición con las posibles condiciones que se deberían o no de cumplir de tal manera que para cada prueba solo se ejecute una de las condiciones de dicha partición, como se muestra en el ejemplo de la Figura \ref{fig:cee}.
+	
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=1\textwidth]{images/pruebas/diseno/claseequivalencia}
+			\caption{Ejemplo de la descripción de clases de equivalencia para la ejecución de pruebas}
+			\label{fig:cee}
+		\end{center}
+	\end{figure}
+	
+	\item \textbf {Valores frontera}:
+	Se utilizó como parte de una condición en la clase de equivalencia para verificar que se están cumpliendo los rangos especificados en el diccionario de datos, como se muestra en el ejemplo de la Figura \ref{fig:vf}.
+	
+	
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=.35\textwidth]{images/pruebas/diseno/valoresfrontera1}\\
+			\includegraphics[width=.35\textwidth]{images/pruebas/diseno/valoresfrontera2}
+			\caption{Ejemplo de la descripción de valores frontera para la ejecución de pruebas}
+			\label{fig:vf}
+		\end{center}
+	\end{figure}
+
+	\item \textbf {Reglas de negocio}:
+	Al igual que los valores frontera, las reglas de negocio son condiciones que forman parte de las clases de equivalencia, en este caso nos ayudan a definir cuales condiciones se deben cumplir con respecto al negocio, como se muestra en el ejemplo de la Figura \ref{fig:rn}.
+	
+		\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=.35\textwidth]{images/pruebas/diseno/reglasnegocio}
+			\caption{Ejemplo de la descripción de reglas de negocio para la ejecución de pruebas}
+			\label{fig:rn}
+		\end{center}
+	\end{figure}
+	
+	
+	\item \textbf {Máquinas de estado}:
+	Describimos el comportamiento requerido por la máquina de estados presente en el sistema indicando las acciones habilitadas al encontrarse en un estado en específico, como se muestra en el ejemplo de la Figura \ref{fig:estados}.
+	
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=.65\textwidth]{images/pruebas/diseno/estados}
+			\caption{Ejemplo de la descripción de máquinas de estado para la ejecución de pruebas}
+			\label{fig:estados}
+		\end{center}
+	\end{figure}
+	
+	\item \textbf {Casos de uso}:
+	Los casos de uso son la base de prueba más importante que se consideró en el diseño de las matrices, gracias a las trayectorias ya definidas por análisis es posible ejecutar las pruebas de funcionalidad con base en su especificación. Gracias a esta técnica es posible verificar el funcionamiento de un caso de uso, tanto su trayectoria principal como sus trayectorias alternativas mediante una serie de pasos, los cuales deben cumplir con los resultados esperados, como se muestra en el ejemplo de la Figura \ref{fig:casodeuso}
+	
+		\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=.45\textwidth]{images/pruebas/diseno/casodeuso}
+			\caption{Ejemplo de la descripción de casos de uso para la ejecución de pruebas}
+			\label{fig:casodeuso}
+		\end{center}
+	\end{figure}
+	
+\end{itemize}
+
+La ejecución de pruebas se lleva a cabo una vez terminado el desarrollo de cada uno de los sprints estructurados en la metodología.\\
 
 \subsubsection{REPORTE DE PRUEBAS SPRINT 1, 2 y 3 - CICLO 1}
 

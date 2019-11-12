@@ -14,17 +14,22 @@
 			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU6.1.2}{Gestionar Pre/Postcondiciones} cuando no existen precondiciones o postcondiciones registradas.
 	\end{itemize}}
 	
-	\UCitem{Precondiciones}{Que exista al menos un caso de uso registrado.}
+	\UCitem{Precondiciones}{
+		\begin{itemize}
+			\item Que el caso de uso se encuentre en estado ''Edición'' o ''Pendiente de corrección''.
+			\item Que exista al menos un condición registrada.
+		\end{itemize}
+	}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{Ninguno}
 	\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12}{Gestionar Casos de uso}.}
 \end{UseCase}
 %--------------------------------------
 \begin{UCtrayectoria}
-	\UCpaso[\UCactor] Solicita gestionar las precondiciones de un caso de uso seleccionando el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/condiciones}} de la pantalla \IUref{IU6}{Gestionar Casos de uso}.
+	\UCpaso[\UCactor] Solicita gestionar las precondiciones y postcondiciones de un caso de uso seleccionando el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/condiciones}} de la pantalla \IUref{IU6}{Gestionar Casos de uso}.
 	\UCpaso[\UCsist] Obtiene la información de las precondiciones y postcondiciones registradas de caso de uso seleccionado. \hyperlink{CU12-1-2:TAA}{[Trayectoria A]}
-	\UCpaso[\UCsist] Ordena las precondiciones y postcondiciones alfabéticamente basándose en la redacción de las mismas.
-	\UCpaso[\UCsist] Muestra la información encontrada en la pantalla \IUref{IU6.1.2}{Gestionar Pre/Postcondiciones} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}. \label{CU12-1-2-P4}
+	\UCpaso[\UCsist] Ordena las precondiciones y postcondiciones alfabéticamente basándose en el tipo de las mismas.
+	\UCpaso[\UCsist] Muestra la información encontrada en la pantalla \IUref{IU6.1.2}{Gestionar Pre/Postcondiciones}. \label{CU12-1-2-P4}
 	\UCpaso[\UCactor] Gestiona las precondiciones y postcondiciones a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. 
 \end{UCtrayectoria}		
 %--------------------------------------

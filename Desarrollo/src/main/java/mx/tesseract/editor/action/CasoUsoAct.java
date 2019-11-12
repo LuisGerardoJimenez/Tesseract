@@ -7,7 +7,6 @@ import java.util.List;
 
 import mx.tesseract.admin.bs.ColaboradorBs;
 import mx.tesseract.admin.bs.LoginBs;
-import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dto.CasoUsoDTO;
@@ -54,7 +53,6 @@ import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
@@ -279,7 +277,6 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 		return resultado;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public String show() {
 		String resultado = null;
 		try {

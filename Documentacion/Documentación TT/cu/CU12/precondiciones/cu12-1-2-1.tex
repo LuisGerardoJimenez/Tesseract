@@ -1,6 +1,6 @@
 	\begin{UseCase}{CU12.1.2.1}{Registrar Pre/Postcondicón}{
 			
-				Cuando el colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) ha registrado la información de un \hyperlink{casoUso}{Caso de Uso} correspondiente a algún \hyperlink{moduloEntidad}{Módulo} del proyecto, el sistema le permitirá registrar las precondiciones y/o postcondiciones correspondientes al caso de uso para que pueda ser utilizado en sus Trayectorias. Una \hyperlink{entidadPrecondicion}{Precondición} describe un conjunto de condiciones que deben cumplirse para poder ejecutar el caso de uso satisfactoriamente y  una \hyperlink{entidadPostcondicion}{Postcondición}describen un conjunto de condiciones que deberán cumplirse después de ejecutar el caso de uso. A través de un campo el sistema solicita la redacción de la precondición o postcondición que se desea registrar.\\
+				Cuando el colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) ha registrado la información de un \hyperlink{casoUso}{Caso de Uso} correspondiente a algún \hyperlink{moduloEntidad}{Módulo} del proyecto, el sistema le permitirá registrar las precondiciones y/o postcondiciones correspondientes al caso de uso para que pueda ser utilizado en sus Trayectorias. Una \hyperlink{entidadPrecondicion}{Precondición} describe un conjunto de condiciones que deben cumplirse para poder ejecutar el caso de uso satisfactoriamente y  una \hyperlink{entidadPostcondicion}{Postcondición} describen un conjunto de condiciones que deberán cumplirse después de ejecutar el caso de uso. A través de un campo el sistema solicita la redacción de la precondición o postcondición que se desea registrar.\\
 			
 }
 		\UCitem{Actor}{\hyperlink{jefe}{Líder de Análisis}, \hyperlink{analista}{Analista}}
@@ -19,8 +19,13 @@
 				\item \cdtRef{casoUso:nombreCU}{Nombre} del caso de uso: Lo obtiene el sistema.
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU6.1.2}{Gestionar Pre/Postcondiciones} para indicar que el registro fue exitoso.
 		\end{itemize}}
-		\UCitem{Precondiciones}{Que exista al menos un caso de uso registrado.}
-		\UCitem{Postcondiciones}{Ninguna}
+		\UCitem{Precondiciones}{
+			\begin{itemize}
+				\item Que exista al menos un caso de uso registrado.
+				\item Que el caso de uso se encuentre en estado ''Edición'' o ''Pendiente de corrección''.
+			\end{itemize}
+		}
+		\UCitem{Postcondiciones}{Se registrará una condición perteneciente a un caso de uso en el sistema.}
 		\UCitem{Errores}{\begin{itemize}
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU6.1.2.1}{Registrar Pre/Postcondición} cuando no se ha ingresado un dato marcado como obligatorio.
 		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.2.1}{Registrar Pre/Postcondición} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
@@ -36,7 +41,7 @@
 		\UCpaso[\UCactor] Ingresa la redacción. \hyperlink{CU12-1-2-1:TAA}{[Trayectoria A]} \label{CU12.1.2-P3}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-1-2-1:TAB}{[Trayectoria B]} 
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-1-2-1:TAC}{[Trayectoria C]}
-		\UCpaso[\UCsist] Verifica que los datos requeridos sean proporcionados correctamente con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-1-2-1:TAD}{[Trayectoria D]}
+		\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos} \hyperlink{CU12-1-2-1:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-1-2-1:TAE}{[Trayectoria E]}
 		\UCpaso[\UCsist] Persiste la información de la condición en el sistema.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU6.1.2}{Gestionar Pre/Postcondiciones} para indicar al actor que el registro se ha realizado exitosamente.
@@ -92,6 +97,6 @@
 \noindent \textbf{Condición:} El texto contiene espacios.
 \begin{enumerate}
 	\UCpaso[\UCsist] Sustituye los espacios por guiones bajos.
-	\UCpaso Continua en el \ref{CU12.1.2-TA1} de la trayectoria alternativa A.
+	\UCpaso Continua en el paso \ref{CU12.1.2-TA1} de la trayectoria alternativa A.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}

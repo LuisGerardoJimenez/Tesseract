@@ -23,9 +23,13 @@
 				\item \cdtRef{casoUso:numeroCU}{Número} del caso de uso: Lo obtiene el sistema. 
 				\item \cdtRef{casoUso:nombreCU}{Nombre} del caso de uso: Lo obtiene el sistema.
 				\item \cdtRef{entidadTray:nombreTray}{Nombre} de la trayectoria: Lo obtiene el sistema.
-				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU6.1.1}{Pendiente} para indicar que el registro fue exitoso.
+				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU6.1.1.1.1.1}{Gestionar Pasos} para indicar que el registro fue exitoso.
 		\end{itemize}}
-		\UCitem{Precondiciones}{Que los catálogos ''Realiza'' y ''Verbo'' contengan información.}
+		\UCitem{Precondiciones}{\begin{itemize}
+				\item Que el caso de uso se encuentre en estado ''Edición'' o ''Pendiente de corrección''.
+				\item Que los catálogos ''Realiza'' y ''Verbo'' contengan información.
+				\item Que exista al menos una trayectoria registrada.
+		\end{itemize}}
 		\UCitem{Postcondiciones}{\begin{itemize}
 				\item Se registrará un paso perteneciente a una trayectoria.
 				\item El paso podrá ser referenciado en otros paso y/o casos de uso.
@@ -34,13 +38,13 @@
 		\item \cdtIdRef{MSG4}{Dato obligatorio}: Se muestra en la pantalla \IUref{IU6.1.1.1.1}{Registrar Paso} cuando no se ha ingresado un dato marcado como obligatorio.
 		\item \cdtIdRef{MSG6}{Longitud inválida}: Se muestra en la pantalla \IUref{IU6.1.1.1.1}{Registrar Paso} cuando se ha excedido la longitud de alguno de los campos.
 		\item \cdtIdRef{MSG5}{Formato incorrecto}: Se muestra en la pantalla \IUref{IU6.1.1.1.1}{Registrar Paso} cuando el tipo de dato ingresado no cumple con el tipo de dato solicitado en el campo.
-		\item \cdtIdRef{MSG29}{Los catálogos nos contienen información}: Se muestra en la pantalla \IUref{IU6.1.1.1}{Pendiente} cuando no exista información en los catálogos  ''Realiza'' y ''Verbo''.
+		\item \cdtIdRef{MSG29}{Los catálogos nos contienen información}: Se muestra en la pantalla \IUref{IU6.1.1.1.1.1}{Gestionar Pasos} cuando no exista información en los catálogos  ''Realiza'' y ''Verbo''.
 		\end{itemize}}
 		\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12.1.1.1.1}{Gestionar Pasos}.}
 	\end{UseCase}
 %--------------------------------------
 	\begin{UCtrayectoria}
-		\UCpaso[\UCactor] Solicita registrar un paso oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU6.1.1.1}{Pendiente}.
+		\UCpaso[\UCactor] Solicita registrar un paso oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU6.1.1.1.1.1}{Gestionar Pasos}.
 		\UCpaso[\UCsist] Verifica que los catálogos ''Realiza'' y ''Verbo'' cuente con información, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU12-1-1-1-1-1:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1.1.1.1}{Registrar Paso}.
 		\UCpaso[\UCactor] Ingresa la información solicitada. \hyperlink{CU12-1-1-1-1-1:TAB}{[Trayectoria B]} \label{CU12.1.1.1.1.1-P5}
@@ -49,13 +53,13 @@
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU12-1-1-1-1-1:TAE}{[Trayectoria E]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-1-1-1-1-1:TAF}{[Trayectoria F]}
 		\UCpaso[\UCsist] Persiste la información del paso.
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU6.1.1}{Pendiente} para indicar al actor que el registro se ha realizado exitosamente.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU6.1.1.1.1.1}{Gestionar Pasos} para indicar al actor que el registro se ha realizado exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU12-1-1-1-1-1:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} Los catálogos no contienen información.
 \begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Los catálogos nos contienen información} en la pantalla \IUref{IU6.1.1.1}{Pendiente} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
+	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG29}{Los catálogos nos contienen información} en la pantalla \IUref{IU6.1.1.1.1.1}{Gestionar Pasos} para indicar que no es posible realizar la operación debido a la falta de información necesaria para el sistema.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
@@ -77,7 +81,7 @@
 \noindent \textbf{Condición:} El actor desea cancelar la operación.
 \begin{enumerate}
 	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} de la pantalla \IUref{IU6.1.1.1.1}{Registrar Paso}.
-	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1.1.1}{Pendiente}.
+	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1.1.1.1.1}{Gestionar Pasos}.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}
 %--------------------------------------
@@ -109,6 +113,6 @@
 \noindent \textbf{Condición:} El texto contiene espacios.
 \begin{enumerate}
 	\UCpaso[\UCsist] Sustituye los espacios por guiones bajos.
-	\UCpaso Continua en el \ref{CU12.1.1.1.1.1-TA1} de la trayectoria alternativa A.
+	\UCpaso Continua en el \ref{CU12.1.1.1.1.1-TA1} de la trayectoria alternativa B.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}

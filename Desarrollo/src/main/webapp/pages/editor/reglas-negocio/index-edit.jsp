@@ -197,7 +197,7 @@
 				value="Cancelar" />
 		</div>
 
-<!--  		<s:hidden name="jsonAtributos" id="jsonAtributos"
+  		<s:hidden name="jsonAtributos" id="jsonAtributos"
 			value="%{jsonAtributos}" />
 		<s:hidden name="jsonEntidades" id="jsonEntidades"
 			value="%{jsonEntidades}" />
@@ -228,7 +228,7 @@
 			value="%{idAtributo2}" />
 			
 		<s:hidden id="idOperador"
-			value="%{idOperador}" />   -->
+			value="%{idOperador}" />  
 			
 			
 	</s:form>

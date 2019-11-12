@@ -298,7 +298,7 @@ public class CasoUsoBs {
 		// Precondiciones y postcondiciones
 		List<PostPrecondicion> postprecondiciones = casoUso
 				.getPostprecondiciones();
-		List<PostPrecondicion> postprecondicionesAux = new ArrayList<PostPrecondicion>(
+		List<PostPrecondicion> postprecondicionesAux = new ArrayList<>(
 				postprecondiciones);
 		if (postprecondiciones.size() > 0) {
 			for (PostPrecondicion pp : postprecondicionesAux) {
@@ -312,13 +312,12 @@ public class CasoUsoBs {
 
 		// Trayectorias
 		List<Trayectoria> trayectorias = casoUso.getTrayectorias();
-		List<Trayectoria> trayectoriasAux = new ArrayList<Trayectoria>(
+		List<Trayectoria> trayectoriasAux = new ArrayList<>(
 				trayectorias);
 		List<List<Paso>> lpt = new ArrayList<List<Paso>>();
 		for (Trayectoria trayectoria : trayectoriasAux) {
 			pasos = trayectoria.getPasos();//HOLI
-			List<Paso> pasosAux = new ArrayList<Paso>(pasos);
-			//System.out.println("List<Paso>: "+pasosAux);
+			List<Paso> pasosAux = new ArrayList<>(pasos);
 			trayectorias.remove(trayectoria);
 			for (Paso paso : pasosAux) {
 				pasos.remove(paso);
@@ -335,7 +334,7 @@ public class CasoUsoBs {
 		// Puntos de extensión
 		String region;
 		List<Extension> extensiones = casoUso.getExtiende();
-		List<Extension> extensionesAux = new ArrayList<Extension>(extensiones);
+		List<Extension> extensionesAux = new ArrayList<>(extensiones);
 		for (Extension extension : extensionesAux) {
 			extensiones.remove(extension);
 			region = extension.getRegion();
@@ -843,7 +842,6 @@ public class CasoUsoBs {
 //	}
 //	
 	public String esPrimario(Integer id) {
-		//int id = Integer.parseInt(idCadena);
 		CasoUso casoUso = consultarCasoUso(id);
 		
 		if(casoUso.getExtendidoDe() == null || casoUso.getExtendidoDe().isEmpty()) {

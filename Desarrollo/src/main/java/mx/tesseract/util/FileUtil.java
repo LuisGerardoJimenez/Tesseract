@@ -26,7 +26,7 @@ public class FileUtil {
      * @param zipFile output ZIP file location
      */
     public static void zipIt(String source, String zipFile){
-    	fileList = new ArrayList<String>();
+    	fileList = new ArrayList<>();
     	generateFileList(source, new File(source));
     	
      byte[] buffer = new byte[1024];

@@ -16,21 +16,26 @@
 			\item \cdtRef{casoUso:numeroCU}{Número} del caso de uso: Lo obtiene el sistema. 
 			\item \cdtRef{casoUso:nombreCU}{Nombre} del caso de uso: Lo obtiene el sistema.
 			\item \cdtRef{entidadTray:nombreTray}{Nombre} de la trayectoria: Lo obtiene el sistema.
-			\item \cdtRef{entidadPaso}{Paso}: Tabla que muestra el \cdtRef{entidadPaso:numeroPaso}{Número} y \cdtRef{entidadPaso:numeroPaso}{redaccionPaso} de todos los pasos registrados en una trayectoria.
+			\item \cdtRef{entidadPaso}{Paso}: Tabla que muestra el \cdtRef{entidadPaso:numeroPaso}{Número} y \cdtRef{entidadPaso:radaccionPaso}{redacción} de todos los pasos registrados en una trayectoria.
 			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU6.1.1.1.1.1}{Gestionar Pasos} cuando no existen pasos registrados.
 	\end{itemize}}
 	
-	\UCitem{Precondiciones}{Que exista al menos una trayectoria registrada.}
+	\UCitem{Precondiciones}{
+		\begin{itemize}
+			\item Que el caso de uso se encuentre en estado ''Edición'' o ''Pendiente de corrección''.
+			\item Que exista al menos una trayectoria registrada.
+		\end{itemize}
+	}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{Ninguno}
 	\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU12.1.1}{Gestionar Trayectorias}.}
 \end{UseCase}
 %--------------------------------------
 \begin{UCtrayectoria}
-	\UCpaso[\UCactor] Solicita gestionar los pasos de una trayectoria seleccionando el icono (Pendiente) de la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias}.
+	\UCpaso[\UCactor] Solicita gestionar los pasos de una trayectoria seleccionando el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/pasos}} de la pantalla \IUref{IU6.1.1}{Gestionar Trayectorias}.
 	\UCpaso[\UCsist] Obtiene la información de los pasos registrados de la trayectoria seleccionada. \hyperlink{CU12-1-1-1-1:TAA}{[Trayectoria A]}
 	\UCpaso[\UCsist] Ordena los pasos en base en el orden en el que van siendo creados.
-	\UCpaso[\UCsist] Muestra la información de las pasos en la pantalla \IUref{IU6.1.1.1.1.1}{Gestionar Pasos} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}. \label{CU12-1-1-1-1-P4}
+	\UCpaso[\UCsist] Muestra la información de los pasos en la pantalla \IUref{IU6.1.1.1.1.1}{Gestionar Pasos}. \label{CU12-1-1-1-1-P4}
 	\UCpaso[\UCactor] Gestiona las pasos a través de los botones: \IUbutton{Registrar}, \editar y \eliminar. 
 \end{UCtrayectoria}		
 %--------------------------------------

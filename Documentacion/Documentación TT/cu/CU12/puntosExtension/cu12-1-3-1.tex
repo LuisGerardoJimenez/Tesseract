@@ -14,7 +14,7 @@
 		\begin{itemize}
 			\item \cdtRef{entidadExtension:causaPE}{Causa}: Se escribe desde el teclado.
 			\item \cdtRef{entidadExtension:regionPE}{Región de la trayectoria}: Se escribe desde el teclado.
-			\item \cdtRef{entidadExtension:ExtiendePE}{Caso de uso que extiende}: Se escribe desde el teclado.
+			\item \cdtRef{entidadExtension:ExtiendePE}{Caso de uso que extiende}: Se selecciona de una lista.
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
@@ -50,11 +50,10 @@
 %--------------------------------------
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Solicita registrar un punto de extensión oprimiendo el botón \IUbutton{Registrar} de la pantalla \IUref{IU6.1.3}{Gestionar Puntos de extensión}.
-		\UCpaso[\UCactor] Verifica que el caso de uso se encuentre en estado ''Edición'' o en estado ''Pendiente de corrección''. \hyperlink{CU12-1-6-1:TAH}{[Trayectoria H]}
 		\UCpaso[\UCsist] Verifica que exista al menos un caso de uso, con base en la regla de negocio \BRref{RN20}{Verificación de catálogos}. \hyperlink{CU12-1-6-1:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Muestra la pantalla \IUref{IU6.1.3.1}{Registrar Punto de extensión}.
 		\UCpaso[\UCactor] Selecciona el caso de uso que extiende. 
-		\UCpaso[\UCsist] Ingresa la información solicitada. \hyperlink{CU12-1-6-1:TAB}{[Trayectoria B]} \label{CU12.1.6.1-P4}
+		\UCpaso[\UCactor] Ingresa la información solicitada. \hyperlink{CU12-1-6-1:TAB}{[Trayectoria B]} \label{CU12.1.6.1-P4}
 		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU12-1-6-1:TAC}{[Trayectoria C]}\label{CU12.1.6.1-P6}
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-1-6-1:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU12-1-6-1:TAE}{[Trayectoria E]}
@@ -76,9 +75,9 @@
 \begin{enumerate}
 	\UCpaso[\UCactor] Ingresa el token {\em P·}. 
 	\UCpaso[\UCsist] Obtiene los pasos del caso de uso.
-	\UCpaso[\UCsist] Muestra una lista con los pasos encontradas.
+	\UCpaso[\UCsist] Muestra una lista con los pasos encontrados.
 	\UCpaso[\UCactor] Selecciona un paso de la lista.
-	\UCpaso[\UCsist] Verifica que el nombre del caso de uso al que pertenece el paso no contenga espacios. \hyperlink{CU12-1-6-1:TAI}{[Trayectoria I]}
+	\UCpaso[\UCsist] Verifica que el nombre del caso de uso al que pertenece el paso no contenga espacios. \hyperlink{CU12-1-6-1:TAH}{[Trayectoria H]}
 	\UCpaso[\UCsist] Agrega la clave del caso de uso al que pertenece el paso al texto, seguido del signo ''·''. \label{CU12.1.6.1-TA6}
 	\UCpaso[\UCsist] Agrega el número del caso de uso al texto, seguido del signo '':''.
 	\UCpaso[\UCsist] Agrega el nombre del caso de uso al texto, seguido del signo '':''.
@@ -129,16 +128,9 @@
 \end{enumerate}
 %--------------------------------------
 \hypertarget{CU12-1-6-1:TAH}{\textbf{Trayectoria alternativa H}}\\
-\noindent \textbf{Condición:} El caso de uso no se encuentra en estado ''Edición'' o ''Pendiente de corrección''.
-\begin{enumerate}
-	\UCpaso[\UCsist]  Oculta el botón \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/talt}} del caso que no se encuentra en estado de ''Edición'' o ''Pendiente de corrección''.
-	\item[- -] - - {\em {Fin del caso de uso}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU12-1-6-1:TAI}{\textbf{Trayectoria alternativa I}}\\
 \noindent \textbf{Condición:} El texto contiene espacios.
 \begin{enumerate}
 	\UCpaso[\UCsist] Sustituye los espacios por guiones bajos.
-	\UCpaso Continua en el paso \ref{CU12.1.6.1-TA6} de la trayectoria alternativa A.
+	\UCpaso Continua en el paso \ref{CU12.1.6.1-TA6} de la trayectoria alternativa B.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}

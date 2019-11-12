@@ -183,7 +183,6 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	}
 	
 	public String descargarDocumento() {
-		//String extension = "docx";
 		@SuppressWarnings("deprecation")
 		String rutaSrc = request.getRealPath("/") + "/resources/JasperReport/";
 		@SuppressWarnings("deprecation")
