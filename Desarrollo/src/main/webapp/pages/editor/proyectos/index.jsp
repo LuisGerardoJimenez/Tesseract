@@ -70,15 +70,15 @@
 								</s:url>
 								<s:a href="%{urlDescargar}" method="post">
 										<img id="" class="button" title="PDF"
-											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg" />										
+											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg" alt="pdf"/>										
 								</s:a>
 								<s:a href="#" onclick="return descargarPDF(%{#proyecto.id},'pdf');" >
 										<img id="" class="button" title=""
-											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg2" />
+											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg2" alt="pdf"/>
 								</s:a>
 								<s:a href="%{urlDescargar}" method="post" onclick="mostrarMensajeCargando();">
 										<img id="" class="button" title=""
-											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg2" />										
+											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg2" alt="pdf"/>										
 								</s:a>
 								${blanks}
 								<s:url var="urlDescargarDocx"
@@ -87,7 +87,7 @@
 								</s:url>
 								<s:a href="%{urlDescargarDocx}" method="post">
 										<img id="" class="button" title="DOCX"
-											src="${pageContext.request.contextPath}/resources/images/icons/docx.svg" />									
+											src="${pageContext.request.contextPath}/resources/images/icons/docx.svg" alt="docx"/>									
 								</s:a>
 							</td>
 						</tr>

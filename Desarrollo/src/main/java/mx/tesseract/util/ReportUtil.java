@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -28,40 +30,45 @@ import net.sf.jasperreports.engine.util.JRLoader;
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
 public class ReportUtil {
 	
+	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
+	
 	@Autowired
     private DataSource dataSource;
 	
 	public void crearReporte(String formato, String nombre, Integer idProyecto, String rutaJasper, String rutaTarget, TokenBs tokenBs, CasoUsoBs casoUsoBs) throws JRException, SQLException {
-		String extension = "";
-		
-		@SuppressWarnings("deprecation")
-		JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(rutaTarget + "tesseract.jasper");
-		
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("idProyecto", idProyecto);
-		param.put("p_contextPath", rutaTarget);
-		param.put("SUBREPORT_DIR", rutaTarget + "subreports/");
-		param.put("tokenBs", tokenBs);
-		param.put("casoUsoBs", casoUsoBs);
-		
-		JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, param, DataSourceUtils.getConnection(dataSource));
-		
-		JRExporter exporter = null;
-		
-		if(formato.equals("pdf")) {
-			extension = "pdf";
-			exporter = new JRPdfExporter();
-		} else if(formato.equals("docx")) {
-			extension = "docx";
-			exporter = new JRDocxExporter();
+		try {
+			String extension = "";
+			
+			@SuppressWarnings("deprecation")
+			JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(rutaTarget + "tesseract.jasper");
+			
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("idProyecto", idProyecto);
+			param.put("p_contextPath", rutaTarget);
+			param.put("SUBREPORT_DIR", rutaTarget + "subreports/");
+			param.put("tokenBs", tokenBs);
+			param.put("casoUsoBs", casoUsoBs);
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, param, DataSourceUtils.getConnection(dataSource));
+			
+			JRExporter exporter = null;
+			
+			if(formato.equals("pdf")) {
+				extension = "pdf";
+				exporter = new JRPdfExporter();
+			} else if(formato.equals("docx")) {
+				extension = "docx";
+				exporter = new JRDocxExporter();
+			}
+			
+			
+			//Configuración genérica (no importa del formato)
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT,jasperPrint); 
+			exporter.setParameter(JRExporterParameter.OUTPUT_FILE,new java.io.File(rutaTarget + nombre));
+			exporter.exportReport();
+		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "crearReporte", e);
 		}
-		
-		
-		//Configuración genérica (no importa del formato)
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT,jasperPrint); 
-		exporter.setParameter(JRExporterParameter.OUTPUT_FILE,new java.io.File(rutaTarget + nombre));
-		exporter.exportReport();
-
 	}
 	
 }

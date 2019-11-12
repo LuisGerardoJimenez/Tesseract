@@ -4,24 +4,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.bs.ProyectoBs;
-import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dto.ExtensionDTO;
 import mx.tesseract.editor.bs.CasoUsoBs;
@@ -35,7 +30,6 @@ import mx.tesseract.editor.entidad.Paso;
 import mx.tesseract.editor.entidad.Revision;
 import mx.tesseract.editor.entidad.Trayectoria;
 import mx.tesseract.enums.TipoSeccionEnum;
-import mx.tesseract.enums.AnalisisEnum.CU_CasosUso;
 import mx.tesseract.enums.TipoSeccionEnum.TipoSeccionENUM;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
@@ -61,12 +55,10 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
-	private static final String PANTALLAS = "pantallas";
 	private static final String PROYECTOS = "proyectos";
 	private static final String MODULOS = "modulos";
 	private static final String CASO_USO = "caso-uso";
 	
-	private Map<String, Object> userSession;
 	private Integer idProyecto;
 	private Integer idModulo;
 	private Integer idColaborador;
@@ -160,6 +152,7 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 		return resultado;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String editNew() {
 		String resultado = null;
 		try {
@@ -215,9 +208,6 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 				model.setCasoUsoOrigen(casoUsoBase);
 				extensionBs.preAlmacenarObjetosToken(model);
 				extensionBs.registrarExtension(model);
-			}else {
-				System.out.println(getActionErrors());
-				System.out.println(getFieldErrors());
 			}
 		} catch (TESSERACTValidacionException tve) {
 			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
@@ -305,9 +295,6 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 				
 				extensionBs.preAlmacenarObjetosToken(model);
 				extensionBs.modificarExtension(model);
-			}else {
-				System.out.println(getActionErrors());
-				System.out.println(getFieldErrors());
 			}
 		} catch (TESSERACTValidacionException tve) {
 			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
@@ -326,57 +313,6 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-	
-	/*
-	public String update() throws Exception {
-		String resultado = null;
-		try {
-			colaborador = SessionManager.consultarColaboradorActivo();
-			proyecto = SessionManager.consultarProyectoActivo();
-			modulo = SessionManager.consultarModuloActivo();
-			casoUso = SessionManager.consultarCasoUsoActivo();
-
-			if (casoUso == null) {
-				resultado = "cu";
-				return resultado;
-			}
-			if (!AccessBs.verificarPermisos(casoUso.getProyecto(), colaborador)) {
-				resultado = Action.LOGIN;
-				return resultado;
-			}
-
-			if (idCasoUsoDestino == -1) {
-				throw new TESSERACTValidacionException(
-						"El usuario no seleccionó el caso de uso destino.",
-						"MSG4", null, "claveCasoUsoDestino");
-			} else {
-				model.setCasoUsoDestino(new CasoUsoDAO()
-						.consultarCasoUso(idCasoUsoDestino));
-			}
-
-			model.setCasoUsoOrigen(casoUso);
-			
-			ExtensionBs.preAlmacenarObjetosToken(model);
-			ExtensionBs.modificarExtension(model);
-			resultado = SUCCESS;
-			addActionMessage(getText("MSG1", new String[] { "El",
-					"Punto de extensión", "modificado" }));
-			SessionManager.set(this.getActionMessages(), "mensajesAccion");
-
-		} catch (TESSERACTValidacionException pve) {
-			ErrorManager.agregaMensajeError(this, pve);
-			resultado = edit();
-		} catch (TESSERACTException pe) {
-			ErrorManager.agregaMensajeError(this, pe);
-			resultado = index();
-		} catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			resultado = index();
-		}
-		return resultado;
-	}
-
-	*/
 	
 	public void validateDestroy() {
 		if (!hasErrors()) {
@@ -405,7 +341,7 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 	}
 	
 	private void buscaElementos() {
-		List<Paso> listPasos = new ArrayList<Paso>();
+		List<Paso> listPasos = new ArrayList<>();
 		listCasoUso = casoUsoBs.consultarCasosDeUsoByProyecto(idProyecto);
 		Modulo moduloAux = new Modulo();
 		moduloAux.setId(modulo.getId());
@@ -424,7 +360,6 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 						Trayectoria trayectoriaAux = new Trayectoria();
 						trayectoriaAux.setClave(trayectoria.getClave());
 						trayectoriaAux.setCasoUso(casoUsoAux);
-						//Set<Paso> pasos = trayectoria.getPasos();
 						List<Paso> pasos = trayectoria.getPasos();
 						for (Paso paso : pasos) {
 							Paso pasoAuxiliar = new Paso();
@@ -451,10 +386,10 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 	}
 
 	
-	private void buscaCatalogos() throws Exception {
+	private void buscaCatalogos() {
 		idProyecto = (Integer) SessionManager.get("idProyecto");
 		listCasoUso = casoUsoBs.consultarCasosDeUsoByProyecto(idProyecto);
-		catalogoCasoUso = new ArrayList<CasoUso>();
+		catalogoCasoUso = new ArrayList<>();
 		idCasoUso = (Integer) SessionManager.get("idCU");
 		casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
 		for (CasoUso casoUsoi : listCasoUso) {
@@ -514,31 +449,17 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 	public void setSession(Map<String, Object> arg0) {
 	}
 
-	
-	public Map<String, Object> getUserSession() {
-		return userSession;
-	}
-
-	
-	public void setUserSession(Map<String, Object> userSession) {
-		this.userSession = userSession;
-	}
-
-	
 	public Proyecto getProyecto() {
 		return proyecto;
 	}
-
 	
 	public void setProyecto(Proyecto proyecto) {
 		this.proyecto = proyecto;
 	}
-
 	
 	public Modulo getModulo() {
 		return modulo;
 	}
-
 	
 	public void setModulo(Modulo modulo) {
 		this.modulo = modulo;
