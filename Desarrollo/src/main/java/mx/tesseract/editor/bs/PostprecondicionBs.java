@@ -9,9 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mx.tesseract.dao.GenericoDAO;
+import mx.tesseract.dto.PostPrecondicionDTO;
 import mx.tesseract.editor.dao.PostprecondicionDAO;
+import mx.tesseract.editor.entidad.CasoUso;
 import mx.tesseract.editor.entidad.PostPrecondicion;
 import mx.tesseract.enums.ReferenciaEnum.TipoSeccion;
+import mx.tesseract.util.Constantes;
 
 @Service("postprecondicionBs")
 @Scope(value = BeanDefinition.SCOPE_SINGLETON)
@@ -26,8 +29,14 @@ public class PostprecondicionBs {
 	@Autowired
 	private TokenBs tokenBs;
 	
-	public PostPrecondicion consultarPostPrecondicionById(Integer idPostPrecondicion) {
-		return genericoDAO.findById(PostPrecondicion.class, idPostPrecondicion);
+	public PostPrecondicionDTO consultarPostPrecondicionById(Integer idPostPrecondicion) {
+		PostPrecondicionDTO model = new PostPrecondicionDTO();
+		PostPrecondicion entidad = genericoDAO.findById(PostPrecondicion.class, idPostPrecondicion);
+		model.setId(entidad.getId());
+		model.setIdCasoUso(entidad.getCasoUso().getId());
+		model.setPrecondicion(entidad.isPrecondicion() ? Constantes.SELECT_PRECONDICION : Constantes.SELECT_POSTCONDICION);
+		model.setRedaccion(entidad.getRedaccion());
+		return model;
 	}
 	
 	public List<PostPrecondicion> consultarPostPrecondicionesByCasoUso(Integer idCasoUso) {
@@ -35,28 +44,35 @@ public class PostprecondicionBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void registrarPostprecondicion(PostPrecondicion model) {
-		genericoDAO.save(model);
+	public void registrarPostprecondicion(PostPrecondicionDTO model) {
+		PostPrecondicion entidad = new PostPrecondicion();
+		CasoUso casoUso = genericoDAO.findById(CasoUso.class, model.getIdCasoUso());
+		entidad.setCasoUso(casoUso);
+		entidad.setPrecondicion(model.getPrecondicion().equals(Constantes.SELECT_PRECONDICION));
+		entidad.setRedaccion(model.getRedaccion());
+		genericoDAO.save(entidad);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void modificarPostprecondicion(PostPrecondicion model) {
-		genericoDAO.update(model);
+	public void modificarPostprecondicion(PostPrecondicionDTO model) {
+		PostPrecondicion entidad = genericoDAO.findById(PostPrecondicion.class, model.getId());
+		CasoUso casoUso = genericoDAO.findById(CasoUso.class, model.getIdCasoUso());
+		entidad.setCasoUso(casoUso);
+		entidad.setPrecondicion(model.getPrecondicion().equals(Constantes.SELECT_PRECONDICION));
+		entidad.setRedaccion(model.getRedaccion());
+		genericoDAO.update(entidad);
 	}
 	
-	public void preAlmacenarObjetosToken(PostPrecondicion model, Integer idModulo) {
-		tokenBs.almacenarObjetosToken(
-				tokenBs.convertirToken_Objeto(
-							model.getRedaccion(),
-							model.getCasoUso().getProyecto(), idModulo), model.getCasoUso(),
-					TipoSeccion.POSTPRECONDICIONES, model);
+	public void preAlmacenarObjetosToken(PostPrecondicionDTO model, Integer idModulo) {
+		CasoUso casoUso = genericoDAO.findById(CasoUso.class, model.getIdCasoUso());
 		model.setRedaccion(tokenBs.codificarCadenaToken(
-			model.getRedaccion(), model.getCasoUso().getProyecto(), idModulo));
+			model.getRedaccion(), casoUso.getProyecto(), idModulo));
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarPostprecondicion(PostPrecondicion model) {
-		genericoDAO.delete(model);
+	public void eliminarPostprecondicion(PostPrecondicionDTO model) {
+		PostPrecondicion entidad = genericoDAO.findById(PostPrecondicion.class, model.getId());
+		genericoDAO.delete(entidad);
 	}
 	
 }

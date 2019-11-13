@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dao.GenericoDAO;
+import mx.tesseract.dto.PostPrecondicionDTO;
 import mx.tesseract.editor.dao.AccionDAO;
 import mx.tesseract.editor.dao.AtributoDAO;
 import mx.tesseract.editor.dao.ElementoDAO;
@@ -1132,113 +1133,6 @@ public class TokenBs {
 
 			}
 		}
-	}
-
-	public void almacenarObjetosToken(ArrayList<Object> objetos,
-			CasoUso casouso, TipoSeccion tipoSeccion,
-			PostPrecondicion postPrecondicion) {
-
-
-		// Elementos
-		ReferenciaParametro referenciaParametro = null;
-		Accion accion;
-		Atributo atributo;
-		Actor actor;
-		TipoParametro tipoParametro;
-		CasoUso casoUso;
-		Entidad entidad;
-		Mensaje mensaje;
-		Pantalla pantalla;
-		ReglaNegocio reglaNegocio;
-		Paso paso;
-		TerminoGlosario terminoGlosario;
-		Trayectoria trayectoria;
-
-		for (Object objeto : objetos) {
-			switch (ReferenciaEnum.getTipoRelacion(
-					ReferenciaEnum.getTipoReferencia(objeto), tipoSeccion)) {
-
-			case ACCION_POSTPRECONDICIONES:
-				accion = (Accion) objeto;
-				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Acción");
-				referenciaParametro = new ReferenciaParametro(tipoParametro);
-				referenciaParametro.setAccionDestino(accion);
-
-				break;
-			case ACTOR_POSTPRECONDICIONES:
-				actor = (Actor) objeto;
-				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Actor");
-				referenciaParametro = new ReferenciaParametro(tipoParametro);
-				referenciaParametro.setElementoDestino(actor);
-				break;
-			case ATRIBUTO_POSTPRECONDICIONES:
-				atributo = (Atributo) objeto;
-				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Atributo");
-				referenciaParametro = new ReferenciaParametro(tipoParametro);
-				referenciaParametro.setAtributo(atributo);
-
-				break;
-			case CASOUSO_POSTPRECONDICIONES:
-				casoUso = (CasoUso) objeto;
-				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Caso de uso");
-				referenciaParametro = new ReferenciaParametro(tipoParametro);
-				referenciaParametro.setElementoDestino(casoUso);
-				break;
-			case ENTIDAD_POSTPRECONDICIONES:
-				entidad = (Entidad) objeto;
-				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Entidad");
-				referenciaParametro = new ReferenciaParametro(tipoParametro);
-				referenciaParametro.setElementoDestino(entidad);
-				break;
-			case MENSAJE_POSTPRECONDICIONES:
-				mensaje = (Mensaje) objeto;
-				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Mensaje");
-				referenciaParametro = new ReferenciaParametro(tipoParametro);
-				referenciaParametro.setElementoDestino(mensaje);
-				break;
-			case PANTALLA_POSTPRECONDICIONES:
-				pantalla = (Pantalla) objeto;
-				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Pantalla");
-				referenciaParametro = new ReferenciaParametro(tipoParametro);
-				referenciaParametro.setElementoDestino(pantalla);
-
-				break;
-			case PASO_POSTPRECONDICIONES:
-				paso = (Paso) objeto;
-				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Paso");
-				referenciaParametro = new ReferenciaParametro(tipoParametro);
-				referenciaParametro.setPasoDestino(paso);
-				break;
-			case REGLANEGOCIO_POSTPRECONDICIONES:
-				reglaNegocio = (ReglaNegocio) objeto;
-				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Regla de negocio");
-				referenciaParametro = new ReferenciaParametro(tipoParametro);
-				referenciaParametro.setElementoDestino(reglaNegocio);
-				break;
-
-			case TERMINOGLS_POSTPRECONDICIONES:
-				terminoGlosario = (TerminoGlosario) objeto;
-				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Término del glosario");
-				referenciaParametro = new ReferenciaParametro(tipoParametro);
-				referenciaParametro.setElementoDestino(terminoGlosario);
-				break;
-			case TRAYECTORIA_POSTPRECONDICIONES:
-				trayectoria = (Trayectoria) objeto;
-				tipoParametro = tipoParametroDAO.consultarTipoParametroByNombre("Trayectoria");
-				referenciaParametro = new ReferenciaParametro(tipoParametro);
-				referenciaParametro.setTrayectoria(trayectoria);
-				break;
-			default:
-				break;
-
-			}
-			if (referenciaParametro != null) {
-				postPrecondicion.getReferencias().add(referenciaParametro);
-				referenciaParametro.setPostPrecondicion(postPrecondicion);
-			}
-
-		}
-
 	}
 
 	public void almacenarObjetosToken(ArrayList<Object> objetos,

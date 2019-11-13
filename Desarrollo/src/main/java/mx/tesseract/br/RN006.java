@@ -143,9 +143,9 @@ public class RN006 {
 		Boolean valido = true;
 		Mensaje mensaje;
 		if (entidad.getId() == null) {
-			mensaje = elementoDAO.findAllByIdProyectoAndNombreAndClave(Mensaje.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.ENT);
+			mensaje = elementoDAO.findAllByIdProyectoAndNombreAndClave(Mensaje.class, entidad.getIdProyecto(), entidad.getNombre(), Clave.MSG);
 		} else {
-			mensaje = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(Mensaje.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.ENT);
+			mensaje = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(Mensaje.class, entidad.getIdProyecto(), entidad.getId(), entidad.getNombre(), Clave.MSG);
 		}
 		if (mensaje != null) {
 		valido = false;
@@ -234,23 +234,6 @@ public class RN006 {
 		}else {
 			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
 				if(trayectoria.getClave().equals(model.getClave()) && !trayectoria.getId().equals(model.getId()))
-					return false;
-			}
-		}
-		return valido;
-	}
-
-	public boolean isValidRN006(PasoDTO model) {
-		Boolean valido = true;
-		Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, model.getIdTrayectoria());
-		if(model.getId() == null) {
-			for(Paso paso : trayectoria.getPasos()) {
-				if(paso.getRedaccion().equals(model.getRedaccion()))
-					return false;
-			}
-		}else {
-			for(Paso paso : trayectoria.getPasos()) {
-				if(paso.getRedaccion().equals(model.getRedaccion()) && !paso.getId().equals(model.getId()) )
 					return false;
 			}
 		}

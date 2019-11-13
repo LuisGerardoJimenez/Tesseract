@@ -6,6 +6,7 @@ import java.util.List;
 
 import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.dto.PostPrecondicionDTO;
 import mx.tesseract.dto.SelectDTO;
 import mx.tesseract.editor.bs.ActorBs;
 import mx.tesseract.editor.bs.CasoUsoBs;
@@ -46,6 +47,7 @@ import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 
 @ResultPath("/pages/editor/")
 @Results({
@@ -53,13 +55,13 @@ import com.opensymphony.xwork2.ModelDriven;
 		@Result(name = "proyectos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_PROYECTOS }),
 		@Result(name = "modulos", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_MODULOS }),
 		@Result(name = "caso-uso", type = "redirectAction", params = { "actionName", Constantes.ACTION_NAME_CASO_USO })})
-public class PostprecondicionAct extends ActionSupportTESSERACT implements ModelDriven<PostPrecondicion> {
+public class PostprecondicionAct extends ActionSupportTESSERACT implements ModelDriven<PostPrecondicionDTO> {
 	private static final long serialVersionUID = 1L;
 	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	private static final String PROYECTOS = "proyectos";
 	private static final String MODULOS = "modulos";
 	private static final String CASO_USO = "caso-uso";
-	private PostPrecondicion model;
+	private PostPrecondicionDTO model;
 	private Proyecto proyecto;
 	private CasoUso casoUsoBase;
 	private Modulo modulo;
@@ -68,7 +70,7 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 	private Integer idProyecto;
 	private Integer idModulo;
 	private Integer idCasoUso;
-	private List<SelectDTO> listAlternativa;
+	private List<String> listAlternativa;
 	private String alternativaPrincipal;
 
 	// Elementos disponibles
@@ -278,7 +280,7 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 	}
 	
 	public void validateCreate() {
-		clearErrors();
+		buscaCatalogos();
 		if (!hasErrors()) {
 			try {
 				idProyecto = (Integer) SessionManager.get("idProyecto");
@@ -291,13 +293,18 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 			} catch (TESSERACTValidacionException tve) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
+				editNew();
 			} catch (TESSERACTException te) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
+				editNew();
 			} catch (Exception e) {
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
 				ErrorManager.agregaMensajeError(this, e);
+				editNew();
 			}
+		}else {
+			editNew();
 		}
 	}
 
@@ -307,19 +314,20 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 			proyecto = loginBs.consultarProyectoActivo();
 			modulo = moduloBs.consultarModuloById(idModulo);
 			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
-			model.setCasoUso(casoUsoBase);
+			model.setIdCasoUso(casoUsoBase.getId());
 			postprecondicionBs.preAlmacenarObjetosToken(model, idModulo);
 			postprecondicionBs.registrarPostprecondicion(model);
 		}
 	}
 
 	public String create() {
-		addActionMessage((model.isPrecondicion()) ? getText("MSG1", new String[] { "La", "Condición", "registrada" }) : getText("MSG1", new String[] { "La", "Condición	", "registrada" }));
+		addActionMessage( getText("MSG1", new String[] { "La", "Condición", "registrada" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
 	
 	public void validateUpdate() {
+		buscaCatalogos();
 		if (!hasErrors()) {
 			try {
 				idProyecto = (Integer) SessionManager.get("idProyecto");
@@ -342,26 +350,31 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 				ErrorManager.agregaMensajeError(this, e);
 				edit();
 			}
+		}else {
+			edit();
 		}
 	}
 	
 	public void validateDestroy() {
+		clearErrors();
 		if (!hasErrors()) {
 			try {
 				postprecondicionBs.eliminarPostprecondicion(model);
 			} catch (TESSERACTValidacionException tve) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				edit();
+				index();
 			} catch (TESSERACTException te) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				edit();
+				index();
 			} catch (Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateDestroy", e);
-				edit();
+				index();
 			}
+		}else {
+			index();
 		}
 	}
 	
@@ -377,23 +390,23 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 			proyecto = loginBs.consultarProyectoActivo();
 			modulo = moduloBs.consultarModuloById(idModulo);
 			casoUsoBase = casoUsoBs.consultarCasoUso(idCasoUso);
-			model.setCasoUso(casoUsoBase);
+			model.setIdCasoUso(casoUsoBase.getId());
 			postprecondicionBs.preAlmacenarObjetosToken(model, idModulo);
 			postprecondicionBs.modificarPostprecondicion(model);
 		}
 	}
 
 	public String update() {
-		addActionMessage((model.isPrecondicion()) ? getText("MSG1", new String[] { "La", "Condición", "modificada" }) : getText("MSG1", new String[] { "La", "Condición", "modificada" }));
+		addActionMessage( getText("MSG1", new String[] { "La", "Condición", "modificada" }) );
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
 		return SUCCESS;
 	}
-	
+		
 	private void buscaCatalogos() {
 		// Se llena la lista par indicar si es post o pre condición
 		listAlternativa = new ArrayList<>();
-		listAlternativa.add(new SelectDTO(Boolean.FALSE, Constantes.SELECT_POSTCONDICION));
-		listAlternativa.add(new SelectDTO(Boolean.TRUE, Constantes.SELECT_PRECONDICION));
+		listAlternativa.add(Constantes.SELECT_POSTCONDICION);
+		listAlternativa.add(Constantes.SELECT_PRECONDICION);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -418,11 +431,12 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 		return resultado;
 	}
 
-	public PostPrecondicion getModel() {
-		return (model == null) ? model = new PostPrecondicion() : model;
+	@VisitorFieldValidator
+	public PostPrecondicionDTO getModel() {
+		return (model == null) ? model = new PostPrecondicionDTO() : model;
 	}
 
-	public void setModel(PostPrecondicion model) {
+	public void setModel(PostPrecondicionDTO model) {
 		this.model = model;
 	}
 	
@@ -467,11 +481,11 @@ public class PostprecondicionAct extends ActionSupportTESSERACT implements Model
 		this.modulo = modulo;
 	}
 
-	public List<SelectDTO> getListAlternativa() {
+	public List<String> getListAlternativa() {
 		return listAlternativa;
 	}
 
-	public void setListAlternativa(List<SelectDTO> listAlternativa) {
+	public void setListAlternativa(List<String> listAlternativa) {
 		this.listAlternativa = listAlternativa;
 	}
 

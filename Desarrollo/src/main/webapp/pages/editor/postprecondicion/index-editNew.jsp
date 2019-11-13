@@ -41,8 +41,6 @@
 						<td>
 						<s:select name="model.precondicion"
 								list="listAlternativa" headerValue="Seleccione" headerKey="-1"
-								listKey="valor"
-								listValue="nombre"
 								value="model.precondicion" cssErrorClass="select-error"
 								cssClass="inputFormulario ui-widget" /> <s:fielderror
 								fieldName="model.precondicion" cssClass="error"
@@ -52,7 +50,10 @@
 					<tr>
 						<td class="label obligatorio"><s:text name="labelRedaccion" /></td>
 						<td><s:textarea rows="5" name="model.redaccion" id="precondicionInput" cssClass="inputFormularioExtraGrande ui-widget"
-								maxlength="999" cssErrorClass="input-error"></s:textarea></td>
+								maxlength="999" cssErrorClass="input-error"></s:textarea>
+								<s:fielderror
+								fieldName="model.redaccion" cssClass="error"
+								theme="jquery" /></td>
 					</tr>
 				</table>
 			</div>
