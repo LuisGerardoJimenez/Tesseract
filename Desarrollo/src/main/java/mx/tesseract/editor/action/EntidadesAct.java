@@ -45,8 +45,6 @@ public class EntidadesAct extends ActionSupportTESSERACT implements ModelDriven<
 	private static final long serialVersionUID = 1L;
 	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	private static final String PROYECTOS = "proyectos";
-	private static final String REFERENCIAS = "referencias";
-	private static final String ENTIDADES = "entidades";
 	private static final String ATRIBUTOS = "atributos";
 	private EntidadDTO model;
 	private Proyecto proyecto;

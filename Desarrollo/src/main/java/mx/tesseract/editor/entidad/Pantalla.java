@@ -25,7 +25,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import mx.tesseract.util.ElementoInterface;
 import mx.tesseract.util.GenericInterface;
-//import mx.tesseract.generadorPruebas.model.ValorPantallaTrayectoria;
 
 @Entity
 @Table(name = "pantalla")
@@ -55,19 +54,6 @@ public class Pantalla extends Elemento implements Serializable, GenericInterface
 	public Pantalla() {
 //		Constructor por default
 	}
-
-//	public Pantalla(String clave, String numero, String nombre,
-//			Proyecto proyecto, String descripcion, EstadoElemento estadoElemento, Modulo modulo) {
-//		super(clave, numero, nombre, proyecto, descripcion, estadoElemento);
-//		this.modulo = modulo;
-//	}
-//
-//	public Pantalla(String clave, String numero, String nombre,
-//			Proyecto proyecto, String descripcion, EstadoElemento estadoElemento,byte[] imagen, Modulo modulo) {
-//		super(clave, numero, nombre, proyecto, descripcion, estadoElemento);
-//		this.imagen = imagen;
-//		this.modulo = modulo;
-//	}
 
 	public byte[] getImagen() {
 		return this.imagen;
