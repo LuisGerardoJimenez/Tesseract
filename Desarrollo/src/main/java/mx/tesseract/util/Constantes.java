@@ -123,6 +123,7 @@ public final class Constantes {
 	public static final String REGEX_COMBO_BOX = "^[0-9]+$";
 	public static final String REGEX_COMBO_BOX_STRING = "^[0-9A-Z]+$";
 	public static final String REGEX_COMBO_BOX_SOLO_STRING = "^[A-Za-z]+$";
+	public static final String REGEX_COMBO_BOX_BOOLEAN = "^[true|false]+$";
 	public static final String REGEX_NUMERO_PANTALLAS = "^[0-9]{1,3}([\\.][0-9]{1,3})*$";
 	/* ^ # start of string (?: (?: [^?+*{}()[\]\\|]+ # literals and ^, $ | \\. # escaped characters | \[ (?: \^?\\. | \^[^\\] | [^\\^] ) # character classes (?: [^\]\\]+ | \\. )* \] | \( (?:\?[:=!] | \?<[=!] | \?> | \?<[^\W\d]\w*> | \?'[^\W\d]\w*' )? # opening of group (?<N>) # increment counter | \) # closing of group (?<-N>) # decrement counter ) (?: (?:[?+*]|\{\d+(?:,\d*)?\}) [?+]? )? # quantifiers | \| # alternative )* # repeat content $ # end of string (?(N)(?!)) # fail if counter is non-zero.*/
 	public static final String REGEX_EXPRESION_REGULAR = "^(?:(?:[^?+*{}()[\\]\\\\|]+|\\\\.|\\[(?:\\^?\\\\.|\\^[^\\\\]|[^\\\\^])(?:[^\\]\\\\]+|\\\\.)*\\]|\\((?:\\?[:=!]|\\?<[=!]|\\?>|\\?<[^\\W\\d]\\w*>|\\?'[^\\W\\d]\\w*')?(?<N>)|\\)(?<-N>))(?:(?:[?+*]|\\{\\d+(?:,\\d*)?\\})[?+]?)?|\\|)*$(?(N)(?!)) \r\n";

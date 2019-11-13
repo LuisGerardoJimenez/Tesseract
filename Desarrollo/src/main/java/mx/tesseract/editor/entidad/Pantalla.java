@@ -32,7 +32,7 @@ import mx.tesseract.util.GenericInterface;
 @Inheritance(strategy=InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "Elementoid", referencedColumnName = "id")
 @DiscriminatorValue("IU")
-@JsonIgnoreProperties(value = { "acciones" })
+@JsonIgnoreProperties(value = { "acciones", "imagen" })
 public class Pantalla extends Elemento implements Serializable, GenericInterface, ElementoInterface {
 
 	private static final long serialVersionUID = 1L;
