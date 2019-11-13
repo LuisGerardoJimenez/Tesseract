@@ -72,24 +72,19 @@ public class PasoBs {
 
 	@Transactional(rollbackFor = Exception.class)
 	public void registrarPaso(PasoDTO model) {
-		if (rn006.isValidRN006(model)) {
-			Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, model.getIdTrayectoria());
-			Verbo verbo = verboDAO.findByNombre(model.getVerbo());
-			Paso entidad = new Paso();
-			entidad.setNumero(trayectoria.getPasos().size() + Constantes.NUMERO_UNO);
-			entidad.setOtroVerbo(model.getOtroVerbo());
-			if(model.getRealizaActor().equals(Constantes.SELECT_ACTOR))
-				entidad.setRealizaActor(Boolean.TRUE);
-			else
-				entidad.setRealizaActor(Boolean.FALSE);
-			entidad.setRedaccion(model.getRedaccion());
-			entidad.setTrayectoria(trayectoria);
-			entidad.setVerbo(verbo);
-			genericoDAO.save(entidad);
-		} else {
-			throw new TESSERACTValidacionException("La redacción del paso ya existe.", "MSG7",
-					new String[] { "El", "paso", model.getRedaccion() }, "model.redaccion");
-		}
+		Trayectoria trayectoria = genericoDAO.findById(Trayectoria.class, model.getIdTrayectoria());
+		Verbo verbo = verboDAO.findByNombre(model.getVerbo());
+		Paso entidad = new Paso();
+		entidad.setNumero(trayectoria.getPasos().size() + Constantes.NUMERO_UNO);
+		entidad.setOtroVerbo(model.getOtroVerbo());
+		if(model.getRealizaActor().equals(Constantes.SELECT_ACTOR))
+			entidad.setRealizaActor(Boolean.TRUE);
+		else
+			entidad.setRealizaActor(Boolean.FALSE);
+		entidad.setRedaccion(model.getRedaccion());
+		entidad.setTrayectoria(trayectoria);
+		entidad.setVerbo(verbo);
+		genericoDAO.save(entidad);
 	}
 	
 	public void preAlmacenarObjetosToken(PasoDTO model, CasoUso casoUso, Integer idModulo) {
@@ -117,21 +112,16 @@ public class PasoBs {
 
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarPaso(PasoDTO pasoDTO) throws TESSERACTValidacionException {
-		if (rn006.isValidRN006(pasoDTO)) {
-			Verbo verbo = verboDAO.findByNombre(pasoDTO.getVerbo());
-			Paso paso = genericoDAO.findById(Paso.class, pasoDTO.getId());
-			paso.setOtroVerbo(pasoDTO.getOtroVerbo());
-			if(pasoDTO.getRealizaActor().equals(Constantes.SELECT_ACTOR))
-				paso.setRealizaActor(Boolean.TRUE);
-			else
-				paso.setRealizaActor(Boolean.FALSE);
-			paso.setRedaccion(pasoDTO.getRedaccion());
-			paso.setVerbo(verbo);
-			genericoDAO.update(paso);
-		} else {
-			throw new TESSERACTValidacionException("La redacción del paso ya existe.", "MSG7",
-					new String[] { "El", "paso", pasoDTO.getRedaccion() }, "model.redaccion");
-		}
+		Verbo verbo = verboDAO.findByNombre(pasoDTO.getVerbo());
+		Paso paso = genericoDAO.findById(Paso.class, pasoDTO.getId());
+		paso.setOtroVerbo(pasoDTO.getOtroVerbo());
+		if(pasoDTO.getRealizaActor().equals(Constantes.SELECT_ACTOR))
+			paso.setRealizaActor(Boolean.TRUE);
+		else
+			paso.setRealizaActor(Boolean.FALSE);
+		paso.setRedaccion(pasoDTO.getRedaccion());
+		paso.setVerbo(verbo);
+		genericoDAO.update(paso);
 	}
 
 	@Transactional(rollbackFor = Exception.class)

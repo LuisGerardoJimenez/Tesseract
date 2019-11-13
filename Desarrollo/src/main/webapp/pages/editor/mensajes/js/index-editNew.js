@@ -29,8 +29,7 @@ function habilitarEdicionRedaccion() {
 
 function prepararEnvio() {
 	try {
-		tablaToJson("parametros");
-		return true;
+		return tablaToJson("parametros");;
 	} catch (err) {
 		alert("Ocurrió un error: " + err);
 		return false;
@@ -39,6 +38,7 @@ function prepararEnvio() {
 
 function tablaToJson(idTable) {
 	var tabla;
+	var error = false;
 	try {
 		tabla = document.getElementById("parametros");
 		if(tabla) {
@@ -47,9 +47,18 @@ function tablaToJson(idTable) {
 			for (var i = 0; i < tam; i++) {
 				var nombre = tabla.rows[i].cells[0].innerHTML;
 				var descripcion = document.getElementById("idDescripcionParametro" + i).value;
+				if(descripcion == null || descripcion == ""){
+					document.getElementById("idDescripcionParametroE" + i).style.display = "block";
+					document.getElementById("idDescripcionParametro" + i).classList.add("input-error");
+					error = true;
+				}else{
+					document.getElementById("idDescripcionParametroE" + i).style.display = "none";
+					document.getElementById("idDescripcionParametro" + i).classList.remove("input-error");
+				}
 				arregloParametros.push(new Parametro(nombre, descripcion));
 			}
-
+			if(error)
+				return false;
 			var jsonParametros = JSON.stringify(arregloParametros);
 			document.getElementById("jsonParametros").value = jsonParametros;
 		}
@@ -131,10 +140,18 @@ function mostrarCamposParametros(json) {
 									item.nombre,
 									"<textarea rows='2' class='inputFormularioExtraGrande ui-widget' id='idDescripcionParametro"
 											+ i
+											+ "' name='idDescripcionParametro"
+											+ i
 											+ "'"
 											+ "maxlength='500'>"
 											+ item.descripcion
-											+ "</textarea> " ];
+											+ "</textarea> "
+											+ '<div class="ui-widget error" id="idDescripcionParametroE'+i+'" style="display:none"> '
+											+ '<div class="ui-state-error ui-corner-all" style="padding: 0.3em 0.7em; margin-top: 20px;"> ' 
+											+ '<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span> '
+											+ '<span>Dato obligatorio.</span></p> '
+											+ '</div> '
+											+ '</div> '];
 							agregarFila(parametro);
 						});
 		
@@ -161,10 +178,18 @@ function cargarParametros() {
 									item.nombre,
 									"<textarea rows='2' class='inputFormularioExtraGrande ui-widget' id='idDescripcionParametro"
 											+ i
+											+ "' name='idDescripcionParametro"
+											+ i
 											+ "'"
 											+ "maxlength='500'>"
 											+ item.descripcion
-											+ "</textarea> " ];
+											+ "</textarea> "
+											+ '<div class="ui-widget error" id="idDescripcionParametroE'+i+'" style="display:none"> '
+											+ '<div class="ui-state-error ui-corner-all" style="padding: 0.3em 0.7em; margin-top: 20px;"> ' 
+											+ '<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span> '
+											+ '<span>Dato obligatorio.</span></p> '
+											+ '</div> '
+											+ '</div> '];
 							agregarFila(parametro);
 						});
 		// Se hace visible la sección de parámetros

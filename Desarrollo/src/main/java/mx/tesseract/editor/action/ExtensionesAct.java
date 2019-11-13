@@ -208,16 +208,21 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 				model.setCasoUsoOrigen(casoUsoBase);
 				extensionBs.preAlmacenarObjetosToken(model);
 				extensionBs.registrarExtension(model);
+			}else {
+				editNew();
 			}
 		} catch (TESSERACTValidacionException tve) {
 			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 			ErrorManager.agregaMensajeError(this, tve);
+			editNew();
 		} catch (TESSERACTException te) {
 			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
+			editNew();
 		} catch (Exception e) {
 			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
 			ErrorManager.agregaMensajeError(this, e);
+			editNew();
 		}
 	}
 
@@ -295,16 +300,21 @@ public class ExtensionesAct extends ActionSupportTESSERACT implements ModelDrive
 				
 				extensionBs.preAlmacenarObjetosToken(model);
 				extensionBs.modificarExtension(model);
+			}else {
+				edit();
 			}
 		} catch (TESSERACTValidacionException tve) {
 			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 			ErrorManager.agregaMensajeError(this, tve);
+			edit();
 		} catch (TESSERACTException te) {
 			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 			ErrorManager.agregaMensajeError(this, te);
+			edit();
 		} catch (Exception e) {
 			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
 			ErrorManager.agregaMensajeError(this, e);
+			edit();
 		}
 	}
 
