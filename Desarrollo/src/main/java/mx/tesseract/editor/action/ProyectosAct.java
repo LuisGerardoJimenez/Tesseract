@@ -15,17 +15,13 @@ import mx.tesseract.admin.entidad.ColaboradorProyecto;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.editor.bs.CasoUsoBs;
 import mx.tesseract.editor.bs.TokenBs;
-/*import mx.tesseract.bs.RolBs;
-import mx.tesseract.bs.RolBs.Rol_Enum;*/
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
 import mx.tesseract.util.FileUtil;
-//import mx.tesseract.util.FileUtil;
 import mx.tesseract.util.JsonUtil;
 import mx.tesseract.util.ReportUtil;
 import mx.tesseract.util.TESSERACTException;
-//import mx.tesseract.util.ReportUtil;
 import mx.tesseract.util.SessionManager;
 
 import org.apache.logging.log4j.LogManager;

@@ -20,12 +20,10 @@ import mx.tesseract.editor.entidad.Extension;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Paso;
 import mx.tesseract.editor.entidad.PostPrecondicion;
-import mx.tesseract.editor.entidad.ReferenciaParametro;
 import mx.tesseract.editor.entidad.Revision;
 import mx.tesseract.editor.entidad.Salida;
 import mx.tesseract.editor.entidad.Trayectoria;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
-import mx.tesseract.enums.ReferenciaEnum;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.enums.ReferenciaEnum.TipoSeccion;
 import mx.tesseract.enums.TipoSeccionEnum;
@@ -362,7 +360,7 @@ public class CasoUsoBs {
 		}
 		return false;
 	}
-//
+
 	public void preAlmacenarObjetosToken(CasoUso casoUso) {
 		
 		tokenBs.almacenarObjetosToken(tokenBs.convertirToken_Objeto(
@@ -657,7 +655,7 @@ public class CasoUsoBs {
 //		}
 //		return false;
 //	}
-//
+
 	@Transactional(rollbackFor = Exception.class)
 	public boolean guardarRevisiones(Integer esCorrectoResumen,
 			String observacionesResumen, Integer esCorrectoTrayectoria,
