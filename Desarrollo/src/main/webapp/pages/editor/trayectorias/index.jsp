@@ -41,7 +41,7 @@
 					<s:iterator value="listTrayectorias" var="tray">
 						<s:if test="%{#tray.alternativa}">
 							<tr>
-								<td>2</td>
+								<td>Alternatia</td>
 								<td><s:property value="%{#tray.clave}" /></td>
 								<td><s:property value="%{#tray.condicion}" /></td>
 								<td align="center">
@@ -67,7 +67,7 @@
 							</tr>
 						</s:if>
 						<s:else>
-							<td>1</td>
+							<td>Principal</td>
 							<td class="trayectoriaPrincipal"><s:property
 									value="%{#tray.clave}" /></td>
 							<td class="trayectoriaPrincipal">Trayectoria principal</td>
