@@ -20,7 +20,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import mx.tesseract.util.GenericInterface;
 
-//import mx.tesseract.generadorPruebas.model.ValorAccionTrayectoria;
 
 @NamedNativeQueries({
 	@NamedNativeQuery(name = "Accion.findByPantalla", query = "SELECT a.* FROM accion a WHERE a.PantallaElementoid = ?", resultClass = Accion.class),

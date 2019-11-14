@@ -98,8 +98,7 @@ public class MensajeBs {
 			genericoDAO.save(mensaje);
 			for(MensajeParametro mensajeParametro : mensajeDTO.getParametros()) {
 				if(mensajeParametro.getParametro().getDescripcion().isEmpty())
-					throw new TESSERACTException("La redacción de un parametro no puede ser vacía.",
-							"MSG31");
+					throw new TESSERACTValidacionException("Dato obligatorio.", "MSG4", null, "idDescripcionParametro0");
 				if(mensajeParametro.getParametro().getId()== null) {
 					mensajeParametro.getParametro().setProyecto(proyecto);
 					mensajeParametro.setParametro(genericoDAO.save(mensajeParametro.getParametro()));
