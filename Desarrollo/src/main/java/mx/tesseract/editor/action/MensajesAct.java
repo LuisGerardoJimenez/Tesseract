@@ -11,6 +11,7 @@ import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.editor.bs.ElementoBs;
 import mx.tesseract.editor.bs.MensajeBs;
+import mx.tesseract.editor.bs.TokenBs;
 import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.MensajeParametro;
 import mx.tesseract.editor.entidad.Parametro;
@@ -80,7 +81,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 	private ProyectoBs proyectoBs;
 	
 	@Autowired
-	private ElementoBs elementoBs;
+	private TokenBs tokenBs;
 
 	@SuppressWarnings("unchecked")
 	public String index(){
@@ -170,6 +171,7 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 				proyecto = loginBs.consultarProyectoActivo();
 				this.existenParametros = model.getParametros().size() > 0 ? true
 						: false;
+				model.setRedaccion(tokenBs.decodificarRedaccionMensaje(model.getRedaccion()));
 				resultado = SHOW;
 			}
 		} catch (TESSERACTException te) {

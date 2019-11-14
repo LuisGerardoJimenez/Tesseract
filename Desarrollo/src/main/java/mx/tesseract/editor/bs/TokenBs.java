@@ -1978,4 +1978,7 @@ public class TokenBs {
 
 		}
 	
+	public String decodificarRedaccionMensaje(String redaccion) {
+		return redaccion.replaceAll("PARAM·", "");
+	}
 }
