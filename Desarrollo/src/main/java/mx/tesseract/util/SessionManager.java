@@ -73,40 +73,6 @@ public class SessionManager {
 	public static boolean isEmpty() {
 		return ActionContext.getContext().getSession().isEmpty();
 	}
-
-	/*public static Modulo consultarModuloActivo() throws Exception{
-		HttpSession session = ServletActionContext.getRequest().getSession(false); 
-		Modulo modulo = null;
-		Integer idModulo = null;
-		if (session != null && session.getAttribute("idModulo") != null) {
-			idModulo = (Integer)  session.getAttribute("idModulo");	
-			modulo = new ModuloDAO().consultarModulo(idModulo);
-		}
-
-		return modulo;
-	}
-	
-	public static ColaboradorProyecto consultarColaboradorProyectoActivo() throws Exception{
-		Integer idColaboradorProyecto = 1; //Se debe obtener de sesión
-		ColaboradorProyecto colaboradorProyecto;
-
-		colaboradorProyecto = new ColaboradorProyectoDAO().consultarColaboradorProyecto(idColaboradorProyecto);
-		if(colaboradorProyecto == null) {
-			throw new TESSERACTException("No se puede consultar el colaborador", "MSG12");
-		}
-		return colaboradorProyecto;
-	}
-
-	public static CasoUso consultarCasoUsoActivo() {
-		HttpSession session = ServletActionContext.getRequest().getSession(false); 
-		CasoUso casoUso = null;
-		Integer idCU = null;
-		if (session != null && session.getAttribute("idCU") != null) {
-			idCU = (Integer)  session.getAttribute("idCU");
-			casoUso = new CasoUsoDAO().consultarCasoUso(idCU);
-		}
-		return casoUso;
-	}*/
 	
 	public static boolean isLogged() {
 		HttpSession session = ServletActionContext.getRequest().getSession(false); 
@@ -152,27 +118,4 @@ public class SessionManager {
 		return urlPrev;
 	}
 
-	/*public static CasoUso consultarCasoUsoPrevio() {
-		HttpSession session = ServletActionContext.getRequest().getSession(false); 
-		CasoUso casoUso = null;
-		Integer idCU = null;
-		if (session != null && session.getAttribute("idPrevio") != null) {
-			idCU = (Integer)  session.getAttribute("idPrevio");
-			casoUso = new CasoUsoDAO().consultarCasoUso(idCU);
-		}
-		return casoUso;
-	}
-	public static Trayectoria consultarTrayectoriaActual() {
-		HttpSession session = ServletActionContext.getRequest().getSession(false);
-		Trayectoria trayectoria = null;
-		Integer idTray = null;
-		if (session != null && session.getAttribute("idTrayectoria") != null){
-			System.out.println("Imprimo esta wea");
-			idTray = (Integer) session.getAttribute("idTrayectoria");
-			System.out.println("IdTray es igual a :" + idTray);
-			trayectoria = new TrayectoriaDAO().consultarTrayectoria(idTray);
-		}
-	
-		return trayectoria;
-	}*/
 }

@@ -15,7 +15,6 @@ import mx.tesseract.editor.bs.TokenBs;
 import mx.tesseract.editor.entidad.Mensaje;
 import mx.tesseract.editor.entidad.MensajeParametro;
 import mx.tesseract.editor.entidad.Parametro;
-//import mx.tesseract.editor.bs.ActorBs;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
