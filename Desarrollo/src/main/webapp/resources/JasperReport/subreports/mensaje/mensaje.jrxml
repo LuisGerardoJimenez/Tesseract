@@ -11,7 +11,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT ele.id, ele.clave, ele.numero, ele.nombre, ele.descripcion, men.redaccion, men.parametrizado FROM elemento ele
+		<![CDATA[SELECT ele.id, ele.clave, ele.numero, ele.nombre, ele.descripcion, REPLACE(men.redaccion, 'PARAM·', '') redaccion, men.parametrizado FROM elemento ele
 INNER JOIN mensaje men ON ele.id = men.Elementoid
 where ele.clave = 'MSG' AND ele.Proyectoid = $P{p_proyectoId};]]>
 	</queryString>
