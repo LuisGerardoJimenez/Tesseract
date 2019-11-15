@@ -1,3 +1,4 @@
+
 package mx.tesseract.dto;
 
 import javax.persistence.Column;
@@ -76,7 +77,7 @@ public class CasoUsoDTO {
 		this.redaccionActores = redaccionActores;
 	}
 
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'1000', 'caracteres'})}", trim = true, maxLength = "999", shortCircuit= true)
+	@StringLengthFieldValidator(message = "%{getText('MSG6',{'1999', 'caracteres'})}", trim = true, maxLength = "1999", shortCircuit= true)
 	public String getRedaccionEntradas() {
 		return redaccionEntradas;
 	}
@@ -85,7 +86,7 @@ public class CasoUsoDTO {
 		this.redaccionEntradas = redaccionEntradas;
 	}
 
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'1000', 'caracteres'})}", trim = true, maxLength = "999", shortCircuit= true)
+	@StringLengthFieldValidator(message = "%{getText('MSG6',{'1999', 'caracteres'})}", trim = true, maxLength = "1999", shortCircuit= true)
 	public String getRedaccionSalidas() {
 		return redaccionSalidas;
 	}
