@@ -93,7 +93,7 @@
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-5:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Verifica que el actor en sesión sea ''Analista''. \hyperlink{CU12-5:TAE}{[Trayectoria E]}
 		\UCpaso[\UCsist] Cambia el estado del caso de uso a ''Por liberar''.
-		\UCpaso[\UCsist] Se muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU6}{Gestionar Casos de uso}. \label{CU12.5-P12}
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU6}{Gestionar Casos de uso}. \label{CU12.5-P12}
 	\end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU12-5:TAA}{\textbf{Trayectoria alternativa A}}\\
@@ -101,12 +101,12 @@
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el campo correspondiente a las observaciones de aquellas secciones en las que se hayan marcado como incorrecta.
 	\UCpaso[\UCactor] Ingresa las observaciones en los campos. \label{CU12.5-TAP2}
-	\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-5:TAC}{[Trayectoria C]}
+	\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU12-5:TAB}{[Trayectoria B]}
 	\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU12-5:TAC}{[Trayectoria C]}
 	\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU12-5:TAD}{[Trayectoria D]}
-	\UCpaso[\UCsist] Almacena las observaciones realizadas a cada sección marcada como incorrecta.
+	\UCpaso[\UCsist] Persiste las observaciones realizadas a cada sección marcada como incorrecta.
 	\UCpaso[\UCsist] Cambia el estado del caso de uso a ''Pendiente de corrección''.
-	\UCpaso  Continúa en el paso \ref{CU12.5-P12} de la Trayectoria principal.
+	\UCpaso  Continúa en el paso \ref{CU12.5-P12} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
@@ -114,7 +114,7 @@
 \noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU6.4}{Revisar Caso de uso}.
-	\UCpaso Regresa al paso \ref{CU12.5-P5} de la Trayectoria principal o al paso \ref{CU12.5-TAP2} de la Trayectoria alternativa B.
+	\UCpaso Regresa al paso \ref{CU12.5-P5} de la trayectoria principal o al paso \ref{CU12.5-TAP2} de la trayectoria alternativa A.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
@@ -122,7 +122,7 @@
 \noindent \textbf{Condición:} El actor ingresó un dato con un número de caracteres fuera del rango permitido.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG6}{Longitud inválida} señalando el campo que presenta el error en la pantalla \IUref{IU6.4}{Revisar Caso de uso}.
-	\UCpaso Regresa al paso \ref{CU12.5-P5} de la Trayectoria principal o al paso \ref{CU12.5-TAP2} de la Trayectoria alternativa B.
+	\UCpaso Regresa al paso \ref{CU12.5-P5} de la trayectoria principal o al paso \ref{CU12.5-TAP2} de la trayectoria alternativa A.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
@@ -130,7 +130,7 @@
 \noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU6.4}{Revisar Caso de uso}.
-	\UCpaso Regresa al paso \ref{CU12.5-P5} de la Trayectoria principal o al paso \ref{CU12.5-TAP2} de la Trayectoria alternativa B.
+	\UCpaso Regresa al paso \ref{CU12.5-P5} de la trayectoria principal o al paso \ref{CU12.5-TAP2} de la trayectoria alternativa A.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
 %--------------------------------------
@@ -138,6 +138,6 @@
 \noindent \textbf{Condición:} El actor en sesión es un ''Líder de Proyecto''.
 \begin{enumerate}
 	\UCpaso[\UCsist] Cambia el estado del caso de uso a ''Liberado''.
-	\UCpaso Continúa en el paso \ref{CU12.5-P12} de la Trayectoria principal.
+	\UCpaso Continúa en el paso \ref{CU12.5-P12} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.
 \end{enumerate}
