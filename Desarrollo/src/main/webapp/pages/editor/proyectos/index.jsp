@@ -74,11 +74,11 @@
 								</s:a>
 								<s:a href="#" onclick="return descargarPDF(%{#proyecto.id},'pdf');" >
 										<img id="" class="button" title=""
-											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg2" alt="pdf"/>
+											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg2" />
 								</s:a>
 								<s:a href="%{urlDescargar}" method="post" onclick="mostrarMensajeCargando();">
 										<img id="" class="button" title=""
-											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg2" alt="pdf"/>										
+											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg2" />										
 								</s:a>
 								${blanks}
 								<s:url var="urlDescargarDocx"

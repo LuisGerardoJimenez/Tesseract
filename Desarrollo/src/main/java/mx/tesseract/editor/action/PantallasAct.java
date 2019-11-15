@@ -162,6 +162,7 @@ public class PantallasAct extends ActionSupportTESSERACT implements ModelDriven<
 			if (!getFieldErrors().containsKey("imagenPantalla") && imagenPantalla == null) {
 				addFieldError("imagenPantalla", this.getText("MSG30"));
 			}
+			editNew();
 		}
 	}
 	
