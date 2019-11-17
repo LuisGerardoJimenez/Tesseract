@@ -14,19 +14,23 @@
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
+			\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto}: Lo obtiene el sistema.
+			\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto}: Lo obtiene el sistema.
+			\item \cdtRef{entidadEntidad:nombreEntidad}{Nombre de la entidad:} Lo obtiene el sistema.
 			\item \cdtRef{atributoEntidad:nombreATR}{Nombre del atributo:} Lo obtiene el sistema.
 			\item \cdtRef{atributoEntidad:descripcionATR}{Descripción del atributo:} Lo obtiene el sistema.
 			\item \cdtRef{atributoEntidad:obligatorioATR}{Obligatorio:} Lo obtiene el sistema.
 			\item \hyperlink{tTipoDatoP}{Tipo de Dato:} Lo obtiene el sistema.
-			\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} para indicar que el registro fue exitoso.
+			\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} para indicar que la modificación fue exitosa.
 		\end{itemize}
 		}
 		
 		\UCitem{Precondiciones}{\begin{itemize}
 				\item Que exista al menos una entidad registrada.
 				\item Que exista al menos un atributo registrado.
-				\item Que el catálogo ''Tipo de dato''contenga información.
-				\item Que el catálogo ''unidad de tamaño''contenga información.
+				\item Que el catálogo ''Tipo de dato'' contenga información.
+				\item Que el catálogo ''Unidad de Tamaño'' contenga información.
+				\item Que el atributo no se encuentre referenciado en un algún caso de uso Liberado.
 		\end{itemize}}
 		\UCitem{Postcondiciones}{Se actualizará la información de un atributo perteneciente a un entidad.}
 		\UCitem{Errores}{\begin{itemize}
@@ -52,7 +56,7 @@
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU7-1-1-2:TAE}{[Trayectoria E]}
 		\UCpaso[\UCsist] Verifica que el nombre del atributo no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU7-1-1-2:TAF}{[Trayectoria F]}
 		\UCpaso[\UCsist] Actualiza la información del atributo en el sistema.
-		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} para indicar al actor que el registro se ha realizado exitosamente.
+		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU12.1.1.1}{Gestionar Atributos} para indicar al actor que la modificación se ha realizado exitosamente.
 	\end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU7-1-1-2:TAA}{\textbf{Trayectoria alternativa A}}\\
