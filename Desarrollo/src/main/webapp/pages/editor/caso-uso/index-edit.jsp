@@ -99,7 +99,7 @@
 						<td class="label"><s:text name="labelSalidas" /></td>
 						<td><s:textarea rows="5" name="model.redaccionSalidas"
 								id="salidaInput" cssClass="inputFormularioExtraGrande ui-widget"
-								maxlength="999" cssErrorClass="input-error"></s:textarea> <s:fielderror
+								maxlength="1999" cssErrorClass="input-error"></s:textarea> <s:fielderror
 								fieldName="model.redaccionSalidas" cssClass="error"
 								theme="jquery" /></td>
 					</tr>

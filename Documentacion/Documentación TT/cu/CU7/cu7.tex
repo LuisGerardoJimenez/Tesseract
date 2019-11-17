@@ -13,7 +13,12 @@
 			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU12A}{Gestionar Entidades} cuando no existen entidades registradas.
 	\end{itemize}}
 	
-	\UCitem{Precondiciones}{Que exista al menos un proyecto registrado.}
+	\UCitem{Precondiciones}{
+		\begin{itemize}
+			\item Que exista al menos un proyecto registrado.
+			\item Que exista al menos una entidad registrada.
+		\end{itemize}
+		}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{Ninguno}
 	\UCitem{Tipo}{Primario}
@@ -24,7 +29,7 @@
 	\UCpaso[\UCsist] Obtiene la información de las entidades registradas del proyecto seleccionado. \hyperlink{CU7:TAA}{[Trayectoria A]}
 	\UCpaso[\UCsist] Ordena las entidades alfabéticamente basándose en el nombres de los mismos.
 	\UCpaso[\UCsist] Muestra la información de las entidades en la pantalla \IUref{IU12}{Gestionar Entidades} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}. \label{CU7-P4}
-	\UCpaso[\UCactor] Gestiona las entidades a través de los botones: \IUbutton{Registrar}, \editar , \eliminar, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} y (Atributo). 
+	\UCpaso[\UCactor] Gestiona las entidades a través de los botones: \IUbutton{Registrar}, \editar , \eliminar, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/Atributo}}. 
 \end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU7:TAA}{\textbf{Trayectoria alternativa A}}\\
