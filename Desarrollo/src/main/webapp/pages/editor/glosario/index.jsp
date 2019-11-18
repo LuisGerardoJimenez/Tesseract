@@ -60,6 +60,13 @@
 	<br />
 	<br />
 	<div align="center">
+		<s:url var="urlProyectos"
+				value="%{#pageContext.request.contextPath}/proyectos">
+		</s:url>
+		<input class="boton" type="button"
+				onclick="location.href='${urlProyectos}'"
+				value="Regresar" />
+		${blanks}
 		<button class="boton" 
 			onclick="location.href='${pageContext.request.contextPath}/glosario/new'">
 			<s:text name="Registrar"></s:text>
