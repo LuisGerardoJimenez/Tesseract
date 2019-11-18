@@ -1,5 +1,7 @@
 package mx.tesseract.br;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -13,7 +15,6 @@ import mx.tesseract.dto.AccionDTO;
 import mx.tesseract.dto.ActorDTO;
 import mx.tesseract.dto.MensajeDTO;
 import mx.tesseract.dto.PantallaDTO;
-import mx.tesseract.dto.PasoDTO;
 import mx.tesseract.dto.AtributoDTO;
 import mx.tesseract.dto.EntidadDTO;
 import mx.tesseract.dto.ExtensionDTO;
@@ -23,6 +24,7 @@ import mx.tesseract.dto.TrayectoriaDTO;
 import mx.tesseract.editor.bs.CasoUsoBs;
 import mx.tesseract.editor.dao.AccionDAO;
 import mx.tesseract.editor.dao.AtributoDAO;
+import mx.tesseract.editor.dao.CasoUsoDAO;
 import mx.tesseract.editor.dao.ElementoDAO;
 import mx.tesseract.editor.dao.ModuloDAO;
 import mx.tesseract.editor.dao.PantallaDAO;
@@ -35,7 +37,6 @@ import mx.tesseract.editor.entidad.Entidad;
 import mx.tesseract.editor.entidad.Extension;
 import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
-import mx.tesseract.editor.entidad.Paso;
 import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.editor.entidad.Trayectoria;
@@ -68,6 +69,9 @@ public class RN006 {
 	@Autowired
 	private CasoUsoBs casoUsoBs;
 	
+	@Autowired
+	private CasoUsoDAO casoUsoDAO;
+	
 	public Boolean isValidRN006(Proyecto entidad) {
 		Boolean valido = true;
 		Proyecto proyecto;
@@ -96,16 +100,26 @@ public class RN006 {
 		return valido;
 	}
 	
-	public Boolean isValidRN006(CasoUso entidad) {
+	public Boolean isValidRN006(CasoUso entidad, boolean clave) {
 		Boolean valido = true;
 		CasoUso casoUso;
-		if (entidad.getId() == null) {
-			casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, entidad.getProyecto().getId(), entidad.getNombre(), Clave.CU); 
-		} else {
-			casoUso = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(CasoUso.class,  entidad.getProyecto().getId(), entidad.getId(), entidad.getNombre(), Clave.CU);
-		}
-		if (casoUso != null) {
-			valido = false;
+		if(!clave) {
+			if (entidad.getId() == null) {
+				casoUso = elementoDAO.findAllByIdProyectoAndNombreAndClave(CasoUso.class, entidad.getProyecto().getId(), entidad.getNombre(), Clave.CU); 
+			} else {
+				casoUso = elementoDAO.findAllByIdProyectoAndIdAndNombreAndClave(CasoUso.class,  entidad.getProyecto().getId(), entidad.getId(), entidad.getNombre(), Clave.CU);
+			}
+			if (casoUso != null) {
+				valido = false;
+			}	
+		}else {
+			List<CasoUso> casosUso = casoUsoDAO.findAllByProyecto(entidad.getProyecto().getId(), Clave.CU);
+			for(CasoUso casoUsoItem : casosUso) {
+				if(casoUsoItem.getModulo().getId().equals(entidad.getModulo().getId()) && casoUsoItem.getClave().equals(entidad.getClave())) {
+					valido = false;
+					break;
+				}
+			}
 		}
 		return valido;
 	}

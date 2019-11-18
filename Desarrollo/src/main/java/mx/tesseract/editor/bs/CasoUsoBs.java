@@ -134,9 +134,14 @@ public class CasoUsoBs {
 		casoUso.setProyecto(genericoDAO.findById(Proyecto.class, model.getIdProyecto()));
 		casoUso.setModulo(genericoDAO.findById(Modulo.class, model.getIdModulo()));
 		preAlmacenarObjetosToken(casoUso);
-		if (rn006.isValidRN006(casoUso)) {
-			genericoDAO.save(casoUso);
-			registrarElementosAsociados(casoUso);
+		if (rn006.isValidRN006(casoUso, false)) {
+			if (rn006.isValidRN006(casoUso, true)) {
+				genericoDAO.save(casoUso);
+				registrarElementosAsociados(casoUso);
+			} else {
+				throw new TESSERACTValidacionException("El número del Caso de Uso ya existe.", "MSG7",
+						new String[] { "El", "Número", casoUso.getNumero() }, "model.numero");
+			}
 		} else {
 			throw new TESSERACTValidacionException("El nombre del Caso de Uso ya existe.", "MSG7",
 					new String[] { "El", "Caso de Uso", casoUso.getNombre() }, "model.nombre");
@@ -214,10 +219,15 @@ public class CasoUsoBs {
 		casoUso.setProyecto(genericoDAO.findById(Proyecto.class, model.getIdProyecto()));
 		casoUso.setModulo(genericoDAO.findById(Modulo.class, model.getIdModulo()));
 		preAlmacenarObjetosToken(casoUso);
-		if (rn006.isValidRN006(casoUso)) {
-			eliminarElementosAsociados(casoUso);
-			modificarElementosAsociados(casoUso);
-			genericoDAO.update(casoUso);
+		if (rn006.isValidRN006(casoUso, false)) {
+			if (rn006.isValidRN006(casoUso, true)) {
+				eliminarElementosAsociados(casoUso);
+				modificarElementosAsociados(casoUso);
+				genericoDAO.update(casoUso);
+			} else {
+				throw new TESSERACTValidacionException("La clave del Caso de Uso ya existe.", "MSG7",
+						new String[] { "La", "Clave", casoUso.getClave() }, "model.clave");
+			}
 		} else {
 			throw new TESSERACTValidacionException("El nombre del Caso de Uso ya existe.", "MSG7",
 					new String[] { "El", "Caso de Uso", casoUso.getNombre() }, "model.nombre");

@@ -419,12 +419,15 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 			} catch (TESSERACTValidacionException tve) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
+				buscaElementos();
 			} catch (TESSERACTException te) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
+				buscaElementos();
 			} catch (Exception e) {
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
 				ErrorManager.agregaMensajeError(this, e);
+				buscaElementos();
 			}finally {
 				model.setClave(Clave.CU.toString());
 			}
@@ -493,7 +496,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 				edit();
 			}
 		}else {
-			buscaElementos();
+			edit();
 		}
 	}
 	
