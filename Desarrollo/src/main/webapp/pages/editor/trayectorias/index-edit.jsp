@@ -97,7 +97,9 @@
 					<td><s:textarea rows="5" name="model.condicion"
 							cssClass="inputFormularioExtraGrande ui-widget" id="model.idCondicion"
 							maxlength="999" cssErrorClass="input-error"></s:textarea> <s:fielderror
-							fieldName="model.condicion" cssClass="error" theme="jquery" /></td>
+							fieldName="model.condicion" cssClass="error" theme="jquery" />
+							<div id="errorCondicion"></div>
+							</td>
 				</tr>
 				<tr>
 					<td class="label"><s:text name="labelFinCasoUso" /></td>

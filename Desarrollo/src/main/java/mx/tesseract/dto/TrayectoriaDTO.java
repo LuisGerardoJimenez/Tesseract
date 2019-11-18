@@ -1,5 +1,6 @@
 package mx.tesseract.dto;
 
+import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
 import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -119,8 +120,6 @@ public class TrayectoriaDTO {
 		this.alternativa = alternativa;
 	}
 	
-	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit= true)
-	@StringLengthFieldValidator(message = "%{getText('MSG6',{'500', 'caracteres'})}", trim = true, maxLength = "500", shortCircuit= true)
 	public String getCondicion() {
 		return condicion;
 	}
