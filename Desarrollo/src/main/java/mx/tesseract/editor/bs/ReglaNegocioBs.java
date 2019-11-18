@@ -56,10 +56,10 @@ public class ReglaNegocioBs {
 			reglanegocio.setClave(Clave.RN.toString());
 			reglanegocio.setNumero(numero);
 			reglanegocio.setNombre(reglaNegocioDTO.getNombre());
-			reglanegocio.setDescripcion(reglaNegocioDTO.getDescripcion());
+			reglanegocio.setDescripcion(reglaNegocioDTO.getDescripcion().trim());
 			reglanegocio.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
 			reglanegocio.setProyecto(proyecto);
-			reglanegocio.setRedaccion(reglaNegocioDTO.getRedaccion());
+			reglanegocio.setRedaccion(reglaNegocioDTO.getRedaccion().trim());
 			reglanegocio.setTiporeglanegocio(genericoDAO.findById(TipoReglaNegocio.class, reglaNegocioDTO.getIdTipoRN()));
 			Integer idTipoRN = reglaNegocioDTO.getIdTipoRN();
 
@@ -144,8 +144,8 @@ public class ReglaNegocioBs {
 		if (rn006.isValidRN006(reglaNegocioDTO)) {
 			ReglaNegocio reglanegocio = genericoDAO.findById(ReglaNegocio.class, reglaNegocioDTO.getId());
 			reglanegocio.setNombre(reglaNegocioDTO.getNombre());
-			reglanegocio.setDescripcion(reglaNegocioDTO.getDescripcion());
-			reglanegocio.setRedaccion(reglaNegocioDTO.getRedaccion());
+			reglanegocio.setDescripcion(reglaNegocioDTO.getDescripcion().trim());
+			reglanegocio.setRedaccion(reglaNegocioDTO.getRedaccion().trim());
 			reglanegocio.setTiporeglanegocio(genericoDAO.findById(TipoReglaNegocio.class, reglaNegocioDTO.getIdTipoRN()));
 
 			Integer idTipoRN = reglaNegocioDTO.getIdTipoRN();

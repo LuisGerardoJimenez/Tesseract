@@ -210,21 +210,37 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 			} catch (TESSERACTValidacionException tve) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
+				cargarDatos();
 				model.setClave("");
 			} catch (TESSERACTException te) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
+				cargarDatos();
 				model.setClave("");
 			} catch (Exception e) {
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateCreate", e);
 				ErrorManager.agregaMensajeError(this, e);
+				cargarDatos();
 				model.setClave("");
 			}
 		} else {
 			model.setClave("");
+			cargarDatos();
 		}
 	}
 
+	private void cargarDatos() {
+		proyecto = proyectoBs.consultarProyecto((Integer) SessionManager.get("idProyecto"));
+		modulo = moduloBs.consultarModuloById((Integer) SessionManager.get("idModulo"));
+		casoUsoBase = casoUsoBs.consultarCasoUso((Integer) SessionManager.get("idCU"));
+		existeTPrincipal = trayectoriaBs.existeTrayectoriaPrincipal((Integer) SessionManager.get("idCU"));
+		if(existeTPrincipal) {
+			model.setAlternativa(Constantes.SELECT_ALTERNATIVA);
+		}
+		buscaElementos();
+		buscaCatalogos();
+	}
+	
 	public String create() {
 		addActionMessage(getText("MSG1", new String[] { "La", "Trayectoria", "registrada" }));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
@@ -289,6 +305,8 @@ public class TrayectoriasAct extends ActionSupportTESSERACT implements ModelDriv
 				ErrorManager.agregaMensajeError(this, e);
 				edit();
 			}
+		}else {
+			edit();
 		}
 	}
 

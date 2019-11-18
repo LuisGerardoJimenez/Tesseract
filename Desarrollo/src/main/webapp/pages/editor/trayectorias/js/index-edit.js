@@ -203,6 +203,25 @@ function prepararEnvio() {
 	try {
 		//tablaToJson("tablaPaso");
 		//$('#mensajeConfirmacion').dialog('open');
+		var select = document.getElementById("idAlternativaPrincipal");
+		var varAlternativaPrincipal = select.options[select.selectedIndex].text;
+		if(document.getElementById("model.idCondicion").value == "" && varAlternativaPrincipal == "Alternativa"){
+			$("#errorCondicion").html(
+'<div class="ui-widget error">' +
+			'<div class="ui-state-error ui-corner-all" style="padding: 0.3em 0.7em; margin-top: 20px;">' + 
+			'<p>' +
+				'<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>' +
+				'<span>Dato obligatorio.</span>' +
+			'</p>' +
+	'</div>' +
+'</div>');
+			document.getElementById("model.idCondicion").classList.add("input-error");
+			return false;
+		}else{
+			document.getElementById("model.idCondicion").classList.remove("input-error");
+			$("#errorCondicion").html("");
+		}
+		return true;
 		return true;
 	} catch(err) {
 		alert("Ha ocurrido un error.");
