@@ -17,7 +17,15 @@
 			\item \cdtRef{EntidadAccion:imagenACC}{Imagen de la acción}: Se selecciona de los archivos locales.
 		\end{itemize}	
 	}
-	\UCitem{Salidas}{\cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} para indicar que el registro fue exitoso.}
+	\UCitem{Salidas}{
+		\begin{itemize}
+			\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto}: Lo obtiene el sistema.
+			\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto}: Lo obtiene el sistema.
+			\item \cdtRef{EntidadPantalla:claveIU}{Clave de la pantalla:} Lo obtiene el sistema.
+			\item \cdtRef{EntidadPantalla:nombreIU}{Nombre de la pantalla:} Lo obtiene el sistema.
+			\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} para indicar que el registro fue exitoso.
+		\end{itemize}
+		}
 	\UCitem{Precondiciones}{\begin{itemize}
 			\item Que exista al menos una pantalla registrada.
 			\item Que el catálogo ''Tipo de acción'' contenga información. 

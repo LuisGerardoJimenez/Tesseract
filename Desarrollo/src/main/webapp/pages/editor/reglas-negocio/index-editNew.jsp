@@ -38,14 +38,14 @@
 					<td class="labelDerecho"><s:property value="model.clave" /> <s:fielderror
 							fieldName="model.clave" cssClass="error" theme="jquery" /></td>
 					<s:hidden value="%{model.clave}" name="model.clave" />
-				</tr>
+				</tr>-->
 				<tr>
 					<td class="label obligatorio"><s:text name="labelNumero" /></td>
 					<td><s:textfield name="model.numero" maxlength="20"
 							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
 						<s:fielderror fieldName="model.numero" cssClass="error"
 							theme="jquery" /></td>
-				</tr>  -->
+				</tr>
 				<tr>
 					<td class="label obligatorio"><s:text name="labelNombre" /></td>
 					<td><s:textfield name="model.nombre" maxlength="200"

@@ -18,7 +18,12 @@
 			\item \cdtRef{EntidadPantalla}{Pantalla}: Tabla que muestra \cdtRef{EntidadPantalla:claveIU}{Clave}, \cdtRef{EntidadPantalla:numeroIU}{Número} y el \cdtRef{EntidadPantalla:nombreIU}{Nombre} de todas las pantallas registradas en un módulo de un proyecto.
 			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU7}{Gestionar Pantallas} cuando no existen pantallas registradas.
 	\end{itemize}}
-	\UCitem{Precondiciones}{Que exista al menos un módulo registrado.}
+	\UCitem{Precondiciones}{
+		\begin{itemize}
+			\item Que exista al menos un módulo registrado.
+			\item Que exista al menos una pantalla registrada.
+		\end{itemize}
+			}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{Ninguno}
 	\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU5}{Gestionar Módulos}.}
@@ -29,7 +34,7 @@
 	\UCpaso[\UCsist] Obtiene la información de las pantallas registradas en el módulo seleccionado. \hyperlink{CU11:TAA}{[Trayectoria A]}
 	\UCpaso[\UCsist] Ordena las pantallas alfabéticamente basándose en la clave de los mismos.
 	\UCpaso[\UCsist] Muestra la información de las pantallas en la pantalla \IUref{IU7}{Gestionar Pantallas} y las operaciones disponibles de acuerdo a la regla de negocio \BRref{RN15}{Operaciones disponibles}.\label{CU11-P4}
-	\UCpaso[\UCactor] Gestiona los proyectos a través de los botones: \IUbutton{Registrar}, \editar, \eliminar, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/acciones}}. 
+	\UCpaso[\UCactor] Gestiona las pantallas a través de los botones: \IUbutton{Registrar}, \editar, \eliminar, \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/consultar}} y \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/acciones}}. 
 \end{UCtrayectoria}		
 %--------------------------------------
 \hypertarget{CU11:TAA}{\textbf{Trayectoria alternativa A}}\\

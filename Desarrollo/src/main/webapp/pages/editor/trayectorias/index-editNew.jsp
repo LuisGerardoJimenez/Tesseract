@@ -84,7 +84,9 @@
 							value="" maxlength="999" cssErrorClass="input-error"></s:textarea> 
 							<s:fielderror
 							fieldName="model.condicion" cssClass="error"
-							theme="jquery" /></td>
+							theme="jquery" />
+							<div id="errorCondicion"></div>
+					</td>
 				</tr>
 				<tr>
 					<td class="label"><s:text name="labelFinCasoUso" /></td>

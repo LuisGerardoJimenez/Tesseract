@@ -348,8 +348,7 @@ public class PasosAct extends ActionSupportTESSERACT implements ModelDriven<Paso
 				buscaElementos();
 			}
 		}else {
-			buscaElementos();
-			buscaCatalogos();
+			edit();
 		}
 	}
 

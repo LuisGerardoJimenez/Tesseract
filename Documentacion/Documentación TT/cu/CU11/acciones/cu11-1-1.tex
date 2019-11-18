@@ -1,6 +1,6 @@
 	\begin{UseCase}{CU11.1.1}{Gestionar Acciones}{
 		
-		El colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) podrá gestionar las \hyperlink{EntidadAccion}{acciones} propias de cada {pantalla}{Pantalla}.\\
+		El colaborador (\hyperlink{jefe}{Líder de Análisis} o \hyperlink{analista}{Analista}) podrá gestionar las \hyperlink{EntidadAccion}{acciones} propias de cada \cdtRef{EntidadPantalla}{Pantalla}.\\
 		
 		Las acciones son componentes como botones, hipervínculos y opciones del menú que cumplen una funcionalidad dentro de la pantalla. Este caso de uso permite al colaborador visualizar en una tabla, el registro de las acciones que hay en la pantalla sobre la cual se está operando, así como solicitar el registro de una acción nueva, modificar alguna existente (teniendo la posibilidad de actualizar algún dato de registro), o eliminarla (en caso de que la acción por algún motivo ya no forme parte de la pantalla)\\
 			
@@ -14,11 +14,16 @@
 			\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto}: Lo obtiene el sistema.
 			\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto}: Lo obtiene el sistema.
 			\item \cdtRef{EntidadPantalla:nombreIU}{Nombre de la pantalla:} Lo obtiene el sistema.
-			\item \cdtRef{EntidadAccion}{Acción}: Tabla que muestra \cdtRef{EntidadAccion:imagenACC}{Imagen} y \cdtRef{EntidadAccion:nombreACC}{Número} de todas las acciones registradas en un pantalla.
+			\item \cdtRef{EntidadAccion}{Acción}: Tabla que muestra el \cdtRef{EntidadAccion:nombreACC}{Nombre} y la \cdtRef{EntidadAccion:imagenACC}{Imagen} de todas las acciones registradas en un pantalla.
 			\item \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} cuando no existen acciones registradas.
 	\end{itemize}}
 	
-	\UCitem{Precondiciones}{Que exista al menos una pantalla registrada.}
+	\UCitem{Precondiciones}{
+		\begin{itemize}
+			\item Que exista al menos una pantalla registrada.
+			\item Que exista al menos una acción registrada.
+		\end{itemize}
+		}
 	\UCitem{Postcondiciones}{Ninguna}
 	\UCitem{Errores}{Ninguno}
 	\UCitem{Tipo}{Secundario, extiende del caso de uso \UCref{CU11}{Gestionar Pantallas}.}

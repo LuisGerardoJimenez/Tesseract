@@ -38,9 +38,9 @@
 	\end{UCtrayectoria}		
 %--------------------------------------
 		\hypertarget{CU1:TAA}{\textbf{Trayectoria alternativa A}}\\
-		\noindent \textbf{Condición:} El actor no ingresó uno o más campos obligatorios.
+		\noindent \textbf{Condición:} El actor no ingresó algún dato marcado como obligatorio.
 		\begin{enumerate}
-			\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato Obligatorio} y señala el campo que presenta el error en la pantalla \IUref{IU1}{Iniciar Sesión}.
+			\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG4}{Dato Obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU1}{Iniciar Sesión}.
 			\UCpaso[\UCactor] Regresa al paso \ref{P3} de la Trayectoria Principal.
 			\item[- -] - - {\em {Fin de la trayectoria}}.%
 		\end{enumerate}
@@ -56,7 +56,7 @@
 \end{enumerate}
 %--------------------------------------
 		\hypertarget{CU1:TAC}{\textbf{Trayectoria alternativa C}}\\
-		\noindent \textbf{Condición:} El actor ingresó un dato con un formato o tipo de dato incorrecto.
+		\noindent \textbf{Condición:} El actor ingresó un dato con un formato incorrecto.
 	\begin{enumerate}
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG5}{Formato incorrecto} señalando el campo que presenta el error en la pantalla \IUref{IU1}{Iniciar sesión}.
 		\UCpaso Regresa al paso \ref{P3} de la trayectoria principal.
