@@ -52,9 +52,8 @@ public class ReglaNegocioBs {
 		if (rn006.isValidRN006(reglaNegocioDTO)) {
 			Proyecto proyecto = genericoDAO.findById(Proyecto.class, reglaNegocioDTO.getIdProyecto());
 			ReglaNegocio reglanegocio = new ReglaNegocio();
-			String numero = elementoDAO.siguienteNumero(proyecto.getId(), Clave.RN);
 			reglanegocio.setClave(Clave.RN.toString());
-			reglanegocio.setNumero(numero);
+			reglanegocio.setNumero(reglaNegocioDTO.getNumero());
 			reglanegocio.setNombre(reglaNegocioDTO.getNombre());
 			reglanegocio.setDescripcion(reglaNegocioDTO.getDescripcion().trim());
 			reglanegocio.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
@@ -143,6 +142,7 @@ public class ReglaNegocioBs {
 	public void modificarRN(ReglaNegocioDTO reglaNegocioDTO) {
 		if (rn006.isValidRN006(reglaNegocioDTO)) {
 			ReglaNegocio reglanegocio = genericoDAO.findById(ReglaNegocio.class, reglaNegocioDTO.getId());
+			reglanegocio.setNumero(reglaNegocioDTO.getNumero());
 			reglanegocio.setNombre(reglaNegocioDTO.getNombre());
 			reglanegocio.setDescripcion(reglaNegocioDTO.getDescripcion().trim());
 			reglanegocio.setRedaccion(reglaNegocioDTO.getRedaccion().trim());
