@@ -12,3 +12,17 @@ La documentación de los casos de uso suele ser elaborada y redactada por más d
 
 Durante los sprints desarrollados en este trabajo, se demostró que es posible gestionar y controlar todos y cada uno de los elementos de un caso de uso, para posteriormente construir el documento de análisis referenciando en el la información de cada elemento en un editor basado en tokens. Dicha información debe estar organizada y centralizada dentro de un repositorio de datos.\\
 
+Gracias a los cambios realizados en arquitectura y en análisis fue posible reducir considerablemente el tiempo en el que se generaba el documento de análisis final.
+
+La arquitectura utilizada en este sistema se puede dividir en dos, una Macro-arquitectura que es Cliente-Servidor y una arquitectura interna (en la capa de Modelo del patrón MVC) de tipo N capas; la utilización de esta arquitectura, nos ofrece muchas ventajas entre las cuales se pueden destacar las siguientes:\\
+
+En la arquitectura Cliente-Servidor los recursos y la integridad de los datos son controladas por el servidor, lo que permite que personas sin autorización realicen modificaciones a la funcionalidad.\\
+
+La arquitectura cliente servidor y N capas nos ofrecen escalabilidad en el sistema, permitiendo agregar nuevas funcionalidades sin afectar a las demás capas.\\
+
+Ambas arquitecturas nos ofrecen mantenibilidad, de esta manera el tiempo de vida del sistema se puede extender ya que el mantenimiento es menos complicado si éste se encuentra dividido.\\
+
+La arquitectura N capas nos ofrece un bajo acoplamiento, permitiendo cambiar de tecnologías en las capas sin afectar el funcionamiento de la aplicación, además mediante el patrón de diseño Facade solo se manda a llamar un método sin saber la complejidad que éste oculta.\\
+
+En la arquitectura N capas el flujo de los datos es secuencial, las capas superiores conocen a las capas inferiores, pero las inferiores no conocen las superiores.\\
+

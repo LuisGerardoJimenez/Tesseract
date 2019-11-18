@@ -225,8 +225,8 @@ public class CasoUsoBs {
 				modificarElementosAsociados(casoUso);
 				genericoDAO.update(casoUso);
 			} else {
-				throw new TESSERACTValidacionException("La clave del Caso de Uso ya existe.", "MSG7",
-						new String[] { "La", "Clave", casoUso.getClave() }, "model.clave");
+				throw new TESSERACTValidacionException("El número del Caso de Uso ya existe.", "MSG7",
+						new String[] { "El", "Número", casoUso.getNumero() }, "model.numero");
 			}
 		} else {
 			throw new TESSERACTValidacionException("El nombre del Caso de Uso ya existe.", "MSG7",
