@@ -81,7 +81,7 @@ public class PasoBs {
 			entidad.setRealizaActor(Boolean.TRUE);
 		else
 			entidad.setRealizaActor(Boolean.FALSE);
-		entidad.setRedaccion(model.getRedaccion());
+		entidad.setRedaccion(model.getRedaccion().trim());
 		entidad.setTrayectoria(trayectoria);
 		entidad.setVerbo(verbo);
 		genericoDAO.save(entidad);
@@ -119,7 +119,7 @@ public class PasoBs {
 			paso.setRealizaActor(Boolean.TRUE);
 		else
 			paso.setRealizaActor(Boolean.FALSE);
-		paso.setRedaccion(pasoDTO.getRedaccion());
+		paso.setRedaccion(pasoDTO.getRedaccion().trim());
 		paso.setVerbo(verbo);
 		genericoDAO.update(paso);
 	}

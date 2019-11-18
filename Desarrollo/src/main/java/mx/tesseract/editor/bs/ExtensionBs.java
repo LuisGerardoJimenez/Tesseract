@@ -46,7 +46,7 @@ public class ExtensionBs {
 			Extension extension = new Extension();
 			extension.setCasoUsoDestino(extensionDTO.getCasoUsoDestino());
 			extension.setCasoUsoOrigen(extensionDTO.getCasoUsoOrigen());
-			extension.setCausa(extensionDTO.getCausa());
+			extension.setCausa(extensionDTO.getCausa().trim());
 			extension.setRegion(extensionDTO.getRegion());
 			genericoDAO.save(extension);
 		} else {
@@ -146,7 +146,7 @@ public class ExtensionBs {
 			Extension entidad = genericoDAO.findById(Extension.class, model.getId());
 			entidad.setCasoUsoDestino(model.getCasoUsoDestino());
 			entidad.setCasoUsoOrigen(model.getCasoUsoOrigen());
-			entidad.setCausa(model.getCausa());
+			entidad.setCausa(model.getCausa().trim());
 			entidad.setRegion(model.getRegion());
 			genericoDAO.update(entidad);
 		} else {

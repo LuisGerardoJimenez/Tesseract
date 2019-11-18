@@ -90,10 +90,10 @@ public class MensajeBs {
 			mensaje.setClave(Clave.MSG.toString());
 			mensaje.setNumero(numero);
 			mensaje.setNombre(mensajeDTO.getNombre());
-			mensaje.setDescripcion(mensajeDTO.getDescripcion());
+			mensaje.setDescripcion(mensajeDTO.getDescripcion().trim());
 			mensaje.setProyecto(proyecto);
 			mensaje.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
-			mensaje.setRedaccion(mensajeDTO.getRedaccion());
+			mensaje.setRedaccion(mensajeDTO.getRedaccion().trim());
 			mensaje.setParametrizado(Boolean.TRUE);
 			genericoDAO.save(mensaje);
 			for(MensajeParametro mensajeParametro : mensajeDTO.getParametros()) {
@@ -120,7 +120,7 @@ public class MensajeBs {
 			Proyecto proyecto = genericoDAO.findById(Proyecto.class, mensajeDTO.getIdProyecto());
 			mensaje.setClave(Clave.MSG.toString());
 			mensaje.setNombre(mensajeDTO.getNombre());
-			mensaje.setDescripcion(mensajeDTO.getDescripcion());
+			mensaje.setDescripcion(mensajeDTO.getDescripcion().trim());
 			mensaje.setProyecto(proyecto);
 			mensaje.setEstadoElemento(elementoBs.consultarEstadoElemento(Estado.EDICION));
 			ArrayList<String> listParametrosDTO = new ArrayList<>(); 
@@ -131,7 +131,7 @@ public class MensajeBs {
 			for(Parametro parametro : obtenerParametros(mensaje.getRedaccion(), proyecto.getId())) {
 				listParametros.add(parametro.getNombre());
 			}
-			mensaje.setRedaccion(mensajeDTO.getRedaccion());
+			mensaje.setRedaccion(mensajeDTO.getRedaccion().trim());
 			mensaje.setParametrizado(mensajeDTO.getParametrizado());
 			
 			for(MensajeParametro mensajeParametro : mensajeDTO.getParametros()) {
