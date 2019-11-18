@@ -49,6 +49,9 @@ public class ReglaNegocioDTO {
 		this.clave = clave;
 	}
 	
+	@RequiredStringValidator(type = ValidatorType.FIELD, message = "%{getText('MSG4')}", shortCircuit = true)
+	@StringLengthFieldValidator(message = "%{getText('MSG6',{'19', 'caracteres'})}", trim = true, maxLength = "19", shortCircuit= true)
+	@RegexFieldValidator(type = ValidatorType.FIELD, message = "%{getText('MSG5')}", regex= Constantes.REGEX_NUMERO_PANTALLAS, shortCircuit = true)
 	public String getNumero() {
 		return numero;
 	}
