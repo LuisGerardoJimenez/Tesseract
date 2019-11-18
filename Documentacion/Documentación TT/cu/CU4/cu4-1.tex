@@ -11,7 +11,7 @@
 		\end{itemize}	
 		}
 		\UCitem{Salidas}{\begin{itemize}
-				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU5}{Gestionar Proyectos de colaborador} para indicar que se la asociación se realizó exitosamente.
+				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU5}{Gestionar Proyectos de colaborador} para indicar que la asociación se realizó exitosamente.
 				\item  \cdtIdRef{MSG2}{No existe información}: Se muestra en la pantalla \IUref{IU5.1A}{Elegir Colaboradores} cuando no hay personal registrado.
 		\end{itemize}}
 		\UCitem{Precondiciones}{\begin{itemize}
@@ -29,7 +29,7 @@
 %--------------------------------------
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Da clic en el icono \raisebox{-1mm}{\includegraphics[height=11pt]{images/Iconos/colaboradores}} del proyecto que desee de la pantalla \IUref{IU5}{Gestionar Proyectos de Colaborador}.
-		\UCpaso[\UCsist] Obtiene la información del personal de la organización con base en la regla de negocio \BRref{RN39}{Roles del sistema}. \hyperlink{CU4-1:TAA}{[Trayectoria A]}
+		\UCpaso[\UCsist] Obtiene la información del personal de la organización. \hyperlink{CU4-1:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Discrimina al \hyperlink{admin}{Administrador} de la lista de colaboradores con base en la regla de negocio \BRref{RN38}{Funciones de administrador}.
 		\UCpaso[\UCsist] Muestra los colaboradores encontrados en la pantalla \IUref{IU5.1}{Elegir Colaboradores}
 		\UCpaso[\UCactor] Selecciona los colaboradores que participarán en el proyecto, marcando o desmarcando las casillas de la columna ''Elegir''.

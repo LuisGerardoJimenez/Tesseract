@@ -16,6 +16,10 @@
 	}
 	\UCitem{Salidas}{
 		\begin{itemize}
+			\item \cdtRef{proyectoEntidad:claveProyecto}{Clave del proyecto}: Lo obtiene el sistema.
+			\item \cdtRef{proyectoEntidad:nombreProyecto}{Nombre del proyecto}: Lo obtiene el sistema.
+			\item \cdtRef{EntidadPantalla:claveIU}{Clave de la pantalla:} Lo obtiene el sistema.
+			\item \cdtRef{EntidadPantalla:nombreIU}{Nombre de la pantalla:} Lo obtiene el sistema.
 			\item \cdtRef{EntidadAccion:nombreACC}{Nombre de la acción}: Lo obtiene el sistema.
 			\item \cdtRef{EntidadAccion:descripcionACC}{Descripción de la acción}: Lo obtiene el sistema.
 			\item \cdtRef{EntidadAccion:tipoACC}{Tipo de acción}: Lo obtiene el sistema.
@@ -52,11 +56,11 @@
 	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU7.1.2}{Modificar Acción}.
 	\UCpaso[\UCactor] Modifica la información de la acción. \label{CU11.1.2-P4}
 	\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU11-1-1-2:TAB}{[Trayectoria B]} 
-	\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU11-1-1-2:TAC}{[Trayectoria C]}
-	\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU11-1-1-2:TAD}{[Trayectoria D]}
-	\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU11-1-1-2:TAE}{[Trayectoria E]}\hyperlink{CU11-1-1-2:TAF}{[Trayectoria F]}
-	\UCpaso[\UCsist] Verifica que el archivo ingresado cumpla con el peso correcto, con base en la regla de negocio \BRref{RN40}{Peso de archivos de imagen}. \hyperlink{CU11-1-1-2:TAG}{[Trayectoria G]}
-	\UCpaso[\UCsist] Verifica que el nombre de la acción no se encuentre asociado a la pantalla con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU11-1-1-2:TAH}{[Trayectoria H]} 
+	\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU11-1-1-2:TAC}{[Trayectoria C]} \hyperlink{CU11-1-1-2:TAD}{[Trayectoria D]}
+	\UCpaso[\UCsist] Verificar que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU11-1-1-2:TAE}{[Trayectoria E]}
+	\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}.\hyperlink{CU11-1-1-2:TAF}{[Trayectoria F]} \hyperlink{CU11-1-1-2:TAG}{[Trayectoria G]}
+	\UCpaso[\UCsist] Verifica que el archivo ingresado cumpla con el peso correcto, con base en la regla de negocio \BRref{RN40}{Peso de archivos de imagen}. \hyperlink{CU11-1-1-2:TAH}{[Trayectoria H]}
+	\UCpaso[\UCsist] Verifica que el nombre de la acción no se encuentre asociado a la pantalla con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU11-1-1-2:TAI}{[Trayectoria I]} 
 	\UCpaso[\UCsist] Actualiza la información de la acción en el sistema.
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU7.1.1.1}{Gestionar Acciones} para indicar al actor que la modificación se ha realizado exitosamente.
 \end{UCtrayectoria}		
@@ -88,7 +92,7 @@
 \noindent \textbf{Condición:} El actor no ingresó un dato de tipo imagen marcado como obligatorio.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG30}{Imagen obligatorio} señalando el campo que presenta el error en la pantalla \IUref{IU7.1.2}{Modificar Acción}.
-	\UCpaso Regresa al paso \ref{CU11.1-P3} de la trayectoria principal.
+	\UCpaso Regresa al paso \ref{CU11.1.2-P4} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
 \end{enumerate}
 %--------------------------------------
