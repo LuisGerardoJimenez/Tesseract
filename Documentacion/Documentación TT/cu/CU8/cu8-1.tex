@@ -42,7 +42,12 @@
 				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} para indicar que el registro fue exitoso.
 		\end{itemize}}
 		
-		\UCitem{Precondiciones}{Ninguna}
+			\UCitem{Precondiciones}{
+				\begin{itemize}
+					\item Que el catálogo ''tipo de regla de negocio'' contenga información.
+					\item Que los catálogos de entidades y atributos contengan información.
+				\end{itemize}
+				}
 		\UCitem{Postcondiciones}{
 		\begin{itemize}
 			\item Se registrará una regla de negocio de un proyecto en el sistema.

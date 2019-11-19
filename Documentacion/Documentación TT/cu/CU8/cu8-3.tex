@@ -8,8 +8,8 @@
 		\UCitem{Propósito}{Eliminar la información de una regla de negocio.}
 		\UCitem{Entradas}{Ninguna}
 		\UCitem{Salidas}{\begin{itemize}
-				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU8}{Gestionar Reglas de negocio} para indicar que la regla de negocio fue eliminada correctamente.
-				\item \cdtIdRef{MSG10}{Confirmar eliminación}: Se muestra en la pantalla \IUref{IU8}{Gestionar Reglas de negocio} preguntando al actor si desea continuar con la eliminación de la regla de negocio.
+				\item \cdtIdRef{MSG1}{Operación exitosa}: Se muestra en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} para indicar que la regla de negocio fue eliminada correctamente.
+				\item \cdtIdRef{MSG10}{Confirmar eliminación}: Se muestra en la pantalla \IUref{IU9}{Gestionar Reglas de negocio} preguntando al actor si desea continuar con la eliminación de la regla de negocio.
 		\end{itemize}}
 		
 		\UCitem{Precondiciones}{\begin{itemize}
@@ -29,7 +29,7 @@
 	\begin{UCtrayectoria}
 		\UCpaso[\UCactor] Da clic en el icono \eliminar del registro que desea eliminar de la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
 		\UCpaso[\UCsist] Muestra el mensaje emergente \cdtIdRef{MSG10}{Confirmar eliminación} con los botones \IUbutton{Aceptar} y \IUbutton{Cancelar} en la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
-		\UCpaso[\UCactor] Oprime el botón \IUbutton{Aceptar}. \hyperlink{CU8-3:TAA}{[Trayectoria A]}
+		\UCpaso[\UCactor] Confirma la eliminación de la regla de negocio oprimiendo el botón \IUbutton{Aceptar}. \hyperlink{CU8-3:TAA}{[Trayectoria A]}
 		\UCpaso[\UCsist] Verifica que ningún caso de uso se encuentre asociado a la regla de negocio. \hyperlink{CU8-3:TAB}{[Trayectoria B]}
 		\UCpaso[\UCsist] Elimina la información referente a la regla de negocio.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU9}{Gestionar Regla de negocio} para indicar al actor que el registro se ha eliminado exitosamente.
@@ -39,7 +39,7 @@
 \hypertarget{CU8-3:TAA}{\textbf{Trayectoria alternativa A}}\\
 \noindent \textbf{Condición:} El actor desea cancelar la operación.
 \begin{enumerate}
-	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} del mensaje emergente \cdtIdRef{MSG10}{Confirmar eliminación}.
+	\UCpaso[\UCactor] Solicita cancelar la operación oprimiendo el botón \IUbutton{Cancelar} del mensaje emergente.
 	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU9}{Gestionar Reglas de negocio}.
 	\item[- -] - - {\em {Fin del caso de uso}}.%
 \end{enumerate}	
