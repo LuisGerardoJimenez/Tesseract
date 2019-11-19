@@ -72,11 +72,7 @@ public class ProyectoBs {
 		if (rn022.isValidRN022(model)) {
 			if (rn006.isValidRN006(model)) {
 				if (rn035.isValidRN035(model.getFechaInicioProgramada(), model.getFechaTerminoProgramada())) {
-					agregarLiderProyecto(model);
-					EstadoProyecto estadoProyecto = genericoDAO.findById(EstadoProyecto.class, model.getIdEstadoProyecto());
-					model.setEstadoProyecto(estadoProyecto);
-					genericoDAO.save(model);
-					genericoDAO.saveList(model.getProyecto_colaboradores());
+					registrar(model);
 				} else {
 					throw new TESSERACTValidacionException("El usuario ingresó en desorden las fechas.", "MSG22",
 							new String[] { "fecha de término programada", "fecha de inicio programada" },
@@ -91,18 +87,41 @@ public class ProyectoBs {
 					new String[] { "El", "Proyecto", model.getClave() }, "model.clave");
 		}
 	}
+	
+	public void registrar(Proyecto model) {
+		if (model.getFechaInicio() != null && model.getFechaTermino() != null) {
+			if (rn035.isValidRN035(model.getFechaInicio(), model.getFechaTermino())) {
+				agregarLiderProyecto(model);
+				EstadoProyecto estadoProyecto = genericoDAO.findById(EstadoProyecto.class, model.getIdEstadoProyecto());
+				model.setEstadoProyecto(estadoProyecto);
+				genericoDAO.save(model);
+				genericoDAO.saveList(model.getProyecto_colaboradores());
+			} else {
+				throw new TESSERACTValidacionException("El usuario ingresó en desorden las fechas.", "MSG22",
+						new String[] { "fecha de término", "fecha de inicio" },
+						"model.fechaTermino");
+			}
+		} else {
+			if (model.getFechaInicio() != null && model.getFechaTermino() == null) {
+				throw new TESSERACTValidacionException("El usuario ingresó en desorden las fechas.", "MSG22",
+						new String[] { "fecha de término", "fecha de inicio" },
+						"model.fechaTermino");
+			} else {
+				agregarLiderProyecto(model);
+				EstadoProyecto estadoProyecto = genericoDAO.findById(EstadoProyecto.class, model.getIdEstadoProyecto());
+				model.setEstadoProyecto(estadoProyecto);
+				genericoDAO.save(model);
+				genericoDAO.saveList(model.getProyecto_colaboradores());
+			}
+		}
+	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarProyecto(Proyecto model) {
 		if (rn022.isValidRN022(model)) {
 			if (rn006.isValidRN006(model)) {
 				if (rn035.isValidRN035(model.getFechaInicioProgramada(), model.getFechaTerminoProgramada())) {
-					if (model.getEstadoProyecto().getId() != model.getIdEstadoProyecto()) {
-						EstadoProyecto estadoProyecto = genericoDAO.findById(EstadoProyecto.class, model.getIdEstadoProyecto());
-						model.setEstadoProyecto(estadoProyecto);
-					}
-					genericoDAO.update(model);
-					editarLiderProyecto(model);
+					editar(model);
 				} else {
 					throw new TESSERACTValidacionException("El usuario ingresó en desorden las fechas.", "MSG22",
 							new String[] { "fecha de término programada", "fecha de inicio programada" },
@@ -115,6 +134,36 @@ public class ProyectoBs {
 		} else {
 			throw new TESSERACTValidacionException("La clave del proyecto ya existe.", "MSG7",
 					new String[] { "El", "Proyecto", model.getClave() }, "model.clave");
+		}
+	}
+	
+	public void editar(Proyecto model) {
+		if (model.getFechaInicio() != null && model.getFechaTermino() != null) {
+			if (rn035.isValidRN035(model.getFechaInicio(), model.getFechaTermino())) {
+				if (model.getEstadoProyecto().getId() != model.getIdEstadoProyecto()) {
+					EstadoProyecto estadoProyecto = genericoDAO.findById(EstadoProyecto.class, model.getIdEstadoProyecto());
+					model.setEstadoProyecto(estadoProyecto);
+				}
+				genericoDAO.update(model);
+				editarLiderProyecto(model);
+			} else {
+				throw new TESSERACTValidacionException("El usuario ingresó en desorden las fechas.", "MSG22",
+						new String[] { "fecha de término", "fecha de inicio" },
+						"model.fechaTermino");
+			}
+		} else {
+			if (model.getFechaInicio() != null && model.getFechaTermino() == null) {
+				throw new TESSERACTValidacionException("El usuario ingresó en desorden las fechas.", "MSG22",
+						new String[] { "fecha de término", "fecha de inicio" },
+						"model.fechaTermino");
+			} else {
+				if (model.getEstadoProyecto().getId() != model.getIdEstadoProyecto()) {
+					EstadoProyecto estadoProyecto = genericoDAO.findById(EstadoProyecto.class, model.getIdEstadoProyecto());
+					model.setEstadoProyecto(estadoProyecto);
+				}
+				genericoDAO.update(model);
+				editarLiderProyecto(model);
+			}
 		}
 	}
 
