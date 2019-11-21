@@ -24,7 +24,6 @@ import mx.tesseract.editor.entidad.Revision;
 import mx.tesseract.editor.entidad.Salida;
 import mx.tesseract.editor.entidad.Trayectoria;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
-import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.enums.ReferenciaEnum.TipoSeccion;
 import mx.tesseract.enums.TipoSeccionEnum;
 import mx.tesseract.enums.TipoSeccionEnum.TipoSeccionENUM;
@@ -64,7 +63,7 @@ public class CasoUsoBs {
 	private SeccionDAO seccionDAO;
 	
 	public List<CasoUso> consultarCasosDeUso(Integer idProyecto, Integer idModulo) {
-		List<CasoUso> lista = casoUsoDAO.findAllByProyecto(idProyecto, Clave.CU);
+		List<CasoUso> lista = casoUsoDAO.findAllByProyecto(idProyecto);
 		Iterator<CasoUso> it = lista.iterator();
 		while (it.hasNext()) {
 			CasoUso value = it.next();
@@ -75,7 +74,7 @@ public class CasoUsoBs {
 	}
 	
 	public List<CasoUso> consultarCasosDeUsoByProyecto(Integer idProyecto) {
-		return casoUsoDAO.findAllByProyecto(idProyecto, Clave.CU);
+		return casoUsoDAO.findAllByProyecto(idProyecto);
 	}
 	
 	public CasoUsoDTO consultarCasoUsoDTO(Integer idCasoUso) {
@@ -235,7 +234,7 @@ public class CasoUsoBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarCasoUso(CasoUsoDTO casoUsoDTO) {
+	public void eliminarCasoUso(CasoUsoDTO casoUsoDTO) throws TESSERACTException{
 		if (rn018.isValidRN018(casoUsoDTO)) {
 			CasoUso casoUso = genericoDAO.findById(CasoUso.class, casoUsoDTO.getId());
 			genericoDAO.delete(casoUso);
@@ -857,28 +856,21 @@ public class CasoUsoBs {
 		}
 		return "Secundario, extiende de:";
 	}
-//
-//	public static Trayectoria obtenerTrayectoriaPrincipal(CasoUso casoUso) {
-//		for (Trayectoria t : casoUso.getTrayectorias()) {
-//			if (!t.isAlternativa()) {
-//				return t;
-//			}
-//		}
-//		return null;
-//	}
-//
-	/*public void liberarElementosRelacionados(CasoUso model) throws Exception {
-		for(CasoUsoActor cu_actor : model.getActores()) {
+	
+	public void liberarElementosRelacionados(CasoUsoDTO model) throws Exception {
+		
+		CasoUso casoUso = genericoDAO.findById(CasoUso.class, model.getId());
+		for(CasoUsoActor cu_actor : casoUso.getActores()) {
 			elementoBs.modificarEstadoElemento(cu_actor.getActor(), Estado.LIBERADO);
 		}
-		for(Entrada entrada : model.getEntradas()) {
+		for(Entrada entrada : casoUso.getEntradas()) {
 			if(entrada.getAtributo() != null) {
 				elementoBs.modificarEstadoElemento(entrada.getAtributo().getEntidad(), Estado.LIBERADO);
 			} else if(entrada.getTerminoGlosario() != null) {
 				elementoBs.modificarEstadoElemento(entrada.getTerminoGlosario(), Estado.LIBERADO);
 			}
 		}
-		for(Salida salida : model.getSalidas()) {
+		for(Salida salida : casoUso.getSalidas()) {
 			if(salida.getMensaje() != null) {
 				elementoBs.modificarEstadoElemento(salida.getMensaje(), Estado.LIBERADO);
 			} else if(salida.getAtributo() != null) {
@@ -887,189 +879,62 @@ public class CasoUsoBs {
 				elementoBs.modificarEstadoElemento(salida.getTerminoGlosario(), Estado.LIBERADO);
 			}
 		}
-		for(CasoUsoReglaNegocio cu_regla : model.getReglas()) {
+		for(CasoUsoReglaNegocio cu_regla : casoUso.getReglas()) {
 			elementoBs.modificarEstadoElemento(cu_regla.getReglaNegocio(), Estado.LIBERADO);
 		}
 		
-		List<PostPrecondicion> postprecondiciones = model.getPostprecondiciones();
+		List<PostPrecondicion> postprecondiciones = casoUso.getPostprecondiciones();
 		
 		for(PostPrecondicion pp : postprecondiciones) {
-			List<ReferenciaParametro> referencias = referenciaParametroDAO.consultarReferenciasParametro(pp);
-			if(referencias != null) {
-				for(ReferenciaParametro referencia : referencias) {
-					switch(ReferenciaEnum.getTipoReferenciaParametro(referencia)) {
-					case ACCION:
-						ElementoBs.modificarEstadoElemento(referencia.getAccionDestino().getPantalla(), Estado.LIBERADO);
-						break;
-					case ACTOR:
-						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-						break;
-					case ATRIBUTO:
-						ElementoBs.modificarEstadoElemento(referencia.getAtributo().getEntidad(), Estado.LIBERADO);
-						break;
-					case ENTIDAD:
-						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-						break;
-					case MENSAJE:
-						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-						break;
-					case PANTALLA:
-						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-						break;
-					case REGLANEGOCIO:
-						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-						break;
-					case TERMINOGLS:
-						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-						break;
-					default:
-						break;
-					}
-				}
-			}
+			tokenBs.liberarTokensDeRedaccion(pp.getRedaccion());
 		}
 		
-		for(Trayectoria trayectoria : model.getTrayectorias()) {
+		for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
 			for(Paso paso : trayectoria.getPasos()) {
-				List<ReferenciaParametro> referencias = new ReferenciaParametroDAO().consultarReferenciasParametro(paso);
-				if(referencias != null) {
-					for(ReferenciaParametro referencia : referencias) {
-						switch(ReferenciaEnum.getTipoReferenciaParametro(referencia)) {
-						case ACCION:
-							ElementoBs.modificarEstadoElemento(referencia.getAccionDestino().getPantalla(), Estado.LIBERADO);
-							break;
-						case ACTOR:
-							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-							break;
-						case ATRIBUTO:
-							ElementoBs.modificarEstadoElemento(referencia.getAtributo().getEntidad(), Estado.LIBERADO);
-							break;
-						case ENTIDAD:
-							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-							break;
-						case MENSAJE:
-							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-							break;
-						case PANTALLA:
-							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-							break;
-						case REGLANEGOCIO:
-							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-							break;
-						case TERMINOGLS:
-							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.LIBERADO);
-							break;
-						default:
-							break;
-						}
-					}
-				}
+				tokenBs.liberarTokensDeRedaccion(paso.getRedaccion());
 			}
 		}
 		
-	}*/
-//
-//	public static void habilitarElementosRelacionados(CasoUso model) throws Exception {
-//		for(CasoUsoActor cu_actor : model.getActores()) {
-//			if(!estaRelacionadoConCasoUsoLiberado(cu_actor.getActor())) { 
-//				ElementoBs.modificarEstadoElemento(cu_actor.getActor(), Estado.EDICION);
-//			}
-//		}
-//		for(Entrada entrada : model.getEntradas()) {
-//			if(entrada.getAtributo() != null) {
-//				ElementoBs.modificarEstadoElemento(entrada.getAtributo().getEntidad(), Estado.EDICION);
-//			} else if(entrada.getTerminoGlosario() != null) {
-//				ElementoBs.modificarEstadoElemento(entrada.getTerminoGlosario(), Estado.EDICION);
-//			}
-//		}
-//		for(Salida salida : model.getSalidas()) {
-//			if(salida.getMensaje() != null) {
-//				ElementoBs.modificarEstadoElemento(salida.getMensaje(), Estado.EDICION);
-//			} else if(salida.getAtributo() != null) {
-//				ElementoBs.modificarEstadoElemento(salida.getAtributo().getEntidad(), Estado.EDICION);
-//			} else if(salida.getTerminoGlosario() != null) {
-//				ElementoBs.modificarEstadoElemento(salida.getTerminoGlosario(), Estado.EDICION);
-//			}
-//		}
-//		for(CasoUsoReglaNegocio cu_regla : model.getReglas()) {
-//			ElementoBs.modificarEstadoElemento(cu_regla.getReglaNegocio(), Estado.EDICION);
-//		}
-//		for(PostPrecondicion pp : model.getPostprecondiciones()) {
-//			List<ReferenciaParametro> referencias = new ReferenciaParametroDAO().consultarReferenciasParametro(pp);
-//			if(referencias != null) {
-//				for(ReferenciaParametro referencia : referencias) {
-//					switch(ReferenciaEnum.getTipoReferenciaParametro(referencia)) {
-//					case ACCION:
-//						ElementoBs.modificarEstadoElemento(referencia.getAccionDestino().getPantalla(), Estado.EDICION);
-//						break;
-//					case ACTOR:
-//						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.EDICION);
-//						break;
-//					case ATRIBUTO:
-//						ElementoBs.modificarEstadoElemento(referencia.getAtributo().getEntidad(), Estado.EDICION);
-//						break;
-//					case ENTIDAD:
-//						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.EDICION);
-//						break;
-//					case MENSAJE:
-//						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.EDICION);
-//						break;
-//					case PANTALLA:
-//						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.EDICION);
-//						break;
-//					case REGLANEGOCIO:
-//						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.EDICION);
-//						break;
-//					case TERMINOGLS:
-//						ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.EDICION);
-//						break;
-//					default:
-//						break;
-//					}
-//				}
-//			}
-//		}
-//		
-//		for(Trayectoria trayectoria : model.getTrayectorias()) {
-//			List<Paso>pasos = TrayectoriaBs.obtenerPasos_(trayectoria.getId());//HOLI
-//			for(Paso paso : pasos) {
-//				List<ReferenciaParametro> referenciasparametro = new ReferenciaParametroDAO().consultarReferenciasParametro(paso);
-//				if(referenciasparametro != null) {
-//					for(ReferenciaParametro referencia : referenciasparametro) {
-//						switch(ReferenciaEnum.getTipoReferenciaParametro(referencia)) {
-//						case ACCION:
-//							ElementoBs.modificarEstadoElemento(referencia.getAccionDestino().getPantalla(), Estado.EDICION);
-//							break;
-//						case ACTOR:
-//							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.EDICION);
-//							break;
-//						case ATRIBUTO:
-//							ElementoBs.modificarEstadoElemento(referencia.getAtributo().getEntidad(), Estado.EDICION);
-//							break;
-//						case ENTIDAD:
-//							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.EDICION);
-//							break;
-//						case MENSAJE:
-//							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.EDICION);
-//							break;
-//						case PANTALLA:
-//							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.EDICION);
-//							break;
-//						case REGLANEGOCIO:
-//							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.EDICION);
-//							break;
-//						case TERMINOGLS:
-//							ElementoBs.modificarEstadoElemento(referencia.getElementoDestino(), Estado.EDICION);
-//							break;
-//						default:
-//							break;
-//						}
-//					}
-//				}
-//			}
-//		}
-//		
-//	}
+	}
+
+	public void habilitarElementosRelacionados(CasoUsoDTO model) throws Exception {
+		CasoUso casoUso = genericoDAO.findById(CasoUso.class, model.getId());
+		for(CasoUsoActor cu_actor : casoUso.getActores()) {
+				elementoBs.modificarEstadoElemento(cu_actor.getActor(), Estado.EDICION);
+		}
+		for(Entrada entrada : casoUso.getEntradas()) {
+			if(entrada.getAtributo() != null) {
+				elementoBs.modificarEstadoElemento(entrada.getAtributo().getEntidad(), Estado.EDICION);
+			} else if(entrada.getTerminoGlosario() != null) {
+				elementoBs.modificarEstadoElemento(entrada.getTerminoGlosario(), Estado.EDICION);
+			}
+		}
+		for(Salida salida : casoUso.getSalidas()) {
+			if(salida.getMensaje() != null) {
+				elementoBs.modificarEstadoElemento(salida.getMensaje(), Estado.EDICION);
+			} else if(salida.getAtributo() != null) {
+				elementoBs.modificarEstadoElemento(salida.getAtributo().getEntidad(), Estado.EDICION);
+			} else if(salida.getTerminoGlosario() != null) {
+				elementoBs.modificarEstadoElemento(salida.getTerminoGlosario(), Estado.EDICION);
+			}
+		}
+		for(CasoUsoReglaNegocio cu_regla : casoUso.getReglas()) {
+			elementoBs.modificarEstadoElemento(cu_regla.getReglaNegocio(), Estado.EDICION);
+		}
+		
+		List<PostPrecondicion> postprecondiciones = casoUso.getPostprecondiciones();
+		
+		for(PostPrecondicion pp : postprecondiciones) {
+			tokenBs.habilitarTokensDeRedaccion(pp.getRedaccion());
+		}
+		
+		for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+			for(Paso paso : trayectoria.getPasos()) {
+				tokenBs.habilitarTokensDeRedaccion(paso.getRedaccion());
+			}
+		}
+		
+	}
 
 //	private static boolean estaRelacionadoConCasoUsoLiberado(Elemento elemento) {
 //		List<CasoUso> casosUso = new ArrayList<CasoUso>();

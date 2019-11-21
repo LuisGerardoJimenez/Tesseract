@@ -99,7 +99,7 @@ public class ActorBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarActor(ActorDTO actorDTO) {
+	public void eliminarActor(ActorDTO actorDTO) throws TESSERACTException{
 		if (rn018.isValidRN018(actorDTO)) {
 			Actor actor = genericoDAO.findById(Actor.class, actorDTO.getId());
 			genericoDAO.delete(actor);

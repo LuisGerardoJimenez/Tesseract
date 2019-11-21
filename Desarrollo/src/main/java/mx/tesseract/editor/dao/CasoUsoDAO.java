@@ -27,7 +27,7 @@ public class CasoUsoDAO {
 	private EntityManager entityManager;
 	
 	@SuppressWarnings("unchecked")
-	public List<CasoUso> findAllByProyecto(Integer idProyecto, Clave clave) {
+	public List<CasoUso> findAllByProyecto(Integer idProyecto) {
 		List<CasoUso> casosUso = new ArrayList<>();
 		try {
 			Query query = entityManager.createNamedQuery("Elemento.consultarElementosByProyectoAndClave", Elemento.class);

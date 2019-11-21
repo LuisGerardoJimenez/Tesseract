@@ -95,12 +95,13 @@
 		<br />
 		<div align="center">
 			<button class="boton" 
-				onclick="location.href='${pageContext.request.contextPath}/trayectorias'">
-				<s:text name="Cancelar"></s:text>
-			</button>
-			<button class="boton" 
 				onclick="location.href='${pageContext.request.contextPath}/pasos/new'">
 				<s:text name="Registrar"></s:text>
+			</button>
+			${blanks}
+			<button class="boton" 
+				onclick="location.href='${pageContext.request.contextPath}/trayectorias'">
+				<s:text name="Regresar"></s:text>
 			</button>
 		</div>	
 	</s:form>

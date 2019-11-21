@@ -69,12 +69,13 @@
 	<br />
 	<div align="center">
 		<button class="boton" 
-			onclick="location.href='${pageContext.request.contextPath}/caso-uso'">
-			<s:text name="Regresar"></s:text>
-		</button>
-		<button class="boton" 
 			onclick="location.href='${pageContext.request.contextPath}/extensiones/new'">
 			<s:text name="Registrar"></s:text>
+		</button>
+		${blanks}
+		<button class="boton" 
+			onclick="location.href='${pageContext.request.contextPath}/caso-uso'">
+			<s:text name="Regresar"></s:text>
 		</button>
 	</div>
 	</s:form>

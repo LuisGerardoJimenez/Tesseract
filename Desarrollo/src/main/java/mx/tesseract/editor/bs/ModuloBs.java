@@ -83,7 +83,7 @@ public class ModuloBs {
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarModulo(Modulo model) {
+	public void eliminarModulo(Modulo model) throws TESSERACTException{
 		if (rn028.isValidRN028(model)) {
 			genericoDAO.delete(model);
 		} else {

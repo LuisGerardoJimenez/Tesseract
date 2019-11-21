@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dao.GenericoDAO;
-import mx.tesseract.dto.PostPrecondicionDTO;
 import mx.tesseract.editor.dao.AccionDAO;
 import mx.tesseract.editor.dao.AtributoDAO;
 import mx.tesseract.editor.dao.ElementoDAO;
@@ -31,7 +30,6 @@ import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.editor.entidad.Pantalla;
 import mx.tesseract.editor.entidad.Parametro;
 import mx.tesseract.editor.entidad.Paso;
-import mx.tesseract.editor.entidad.PostPrecondicion;
 import mx.tesseract.editor.entidad.ReferenciaParametro;
 import mx.tesseract.editor.entidad.ReglaNegocio;
 import mx.tesseract.editor.entidad.Salida;
@@ -39,6 +37,7 @@ import mx.tesseract.editor.entidad.TerminoGlosario;
 import mx.tesseract.editor.entidad.TipoParametro;
 import mx.tesseract.editor.entidad.Trayectoria;
 import mx.tesseract.enums.ReferenciaEnum;
+import mx.tesseract.enums.EstadoElementoEnum.Estado;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.enums.ReferenciaEnum.TipoSeccion;
 import mx.tesseract.util.TESSERACTException;
@@ -81,6 +80,9 @@ public class TokenBs {
 	
 	@Autowired
 	private GenericoDAO genericoDAO;
+	
+	@Autowired
+	private ElementoBs elementoBs;
 	
 	private static String tokenSeparator1 = "·";
 	private static String tokenSeparator2 = ":";
@@ -1367,6 +1369,209 @@ public class TokenBs {
 				}
 		}
 		return false;
+	}
+	
+	/*
+	 * El método String decodificarCadenasToken(String @cadenaCodificada) se
+	 * encarga de decodificar la cadena a su versión de edición.
+	 * 
+	 * Parámetros:
+	 * 
+	 * @cadenaCodificada: Cadena cuyo contenido incluye los tokens en su versión
+	 * base de datos (cruda), por ejemplo: ATR·1.
+	 * 
+	 * Ejemplo:
+	 * 
+	 * El resultado de decodificar la cadena "ATR·1" sería "ATR·Producto:Peso",
+	 * siendo "ATR·Producto:Peso" el token para referenciar al atributo "Peso"
+	 * de la entidad "Producto".
+	 */
+	public void liberarTokensDeRedaccion(String cadenaCodificada) throws Exception {
+		if (cadenaCodificada != null && !cadenaCodificada.equals("")) {
+			String cadenaCodificadaBruta = cadenaCodificada.substring(1);
+			ArrayList<String> tokens = procesarTokenIpunt(cadenaCodificadaBruta);
+			ArrayList<String> segmentos;
+
+			for (String token : tokens) {
+				segmentos = segmentarToken(token);
+				switch (ReferenciaEnum.getTipoReferencia(segmentos.get(0))) {
+				case ACCION:
+					Accion accion = genericoDAO.findById(Accion.class, Integer
+							.parseInt(segmentos.get(1)));
+					if (accion == null) {
+						break;
+					} else {
+						elementoBs.modificarEstadoElemento(accion.getPantalla(), Estado.LIBERADO);
+					}
+					break;
+				case ATRIBUTO:
+					Atributo atributo = genericoDAO.findById(Atributo.class, Integer
+							.parseInt(segmentos.get(1)));
+					if (atributo == null) {
+						break;
+					} else {
+						elementoBs.modificarEstadoElemento(atributo.getEntidad(), Estado.LIBERADO);
+					}
+					break;
+				case ACTOR:
+					Actor actor = elementoDAO.findById(Actor.class, Integer
+							.parseInt(segmentos.get(1)), Clave.ACT);
+					if (actor == null) {
+						break;
+					}else {
+						elementoBs.modificarEstadoElemento(actor, Estado.LIBERADO);
+					}
+
+					break;
+				case ENTIDAD:
+					Entidad entidad = elementoDAO.findById(Entidad.class, Integer
+							.parseInt(segmentos.get(1)), Clave.ENT);
+					if (entidad == null) {
+						break;
+					}else {
+						elementoBs.modificarEstadoElemento(entidad, Estado.LIBERADO);
+					}
+
+					break;
+				case TERMINOGLS:
+					TerminoGlosario terminoGlosario = elementoDAO.findById(TerminoGlosario.class, Integer
+							.parseInt(segmentos.get(1)), Clave.GLS);
+					if (terminoGlosario == null) {
+						break;
+					}else {
+						elementoBs.modificarEstadoElemento(terminoGlosario, Estado.LIBERADO);
+					}
+					break;
+				case PANTALLA:
+					Pantalla pantalla = elementoDAO.findById(Pantalla.class, Integer
+							.parseInt(segmentos.get(1)), Clave.IU);
+					if (pantalla == null) {
+						break;
+					}else {
+						elementoBs.modificarEstadoElemento(pantalla, Estado.LIBERADO);
+					}
+
+					break;
+
+				case MENSAJE:
+					Mensaje mensaje = elementoDAO.findById(Mensaje.class, Integer
+							.parseInt(segmentos.get(1)), Clave.MSG);
+					if (mensaje == null) {
+						break;
+					}else {
+						elementoBs.modificarEstadoElemento(mensaje, Estado.LIBERADO);
+					}
+					break;
+				case REGLANEGOCIO:
+					
+					ReglaNegocio reglaNegocio = elementoDAO.findById(ReglaNegocio.class, Integer
+							.parseInt(segmentos.get(1)), Clave.RN);
+					if (reglaNegocio == null) {
+						break;
+					}else {
+						elementoBs.modificarEstadoElemento(reglaNegocio, Estado.LIBERADO);
+					}
+					break;
+				default:
+					break;
+
+				}
+			}
+		}
+	}
+	
+	public void habilitarTokensDeRedaccion(String cadenaCodificada) throws Exception {
+		if (cadenaCodificada != null && !cadenaCodificada.equals("")) {
+			String cadenaCodificadaBruta = cadenaCodificada.substring(1);
+			ArrayList<String> tokens = procesarTokenIpunt(cadenaCodificadaBruta);
+			ArrayList<String> segmentos;
+
+			for (String token : tokens) {
+				segmentos = segmentarToken(token);
+				switch (ReferenciaEnum.getTipoReferencia(segmentos.get(0))) {
+				case ACCION:
+					Accion accion = genericoDAO.findById(Accion.class, Integer
+							.parseInt(segmentos.get(1)));
+					if (accion == null) {
+						break;
+					} else {
+						elementoBs.modificarEstadoElemento(accion.getPantalla(), Estado.EDICION);
+					}
+					break;
+				case ATRIBUTO:
+					Atributo atributo = genericoDAO.findById(Atributo.class, Integer
+							.parseInt(segmentos.get(1)));
+					if (atributo == null) {
+						break;
+					} else {
+						elementoBs.modificarEstadoElemento(atributo.getEntidad(), Estado.EDICION);
+					}
+					break;
+				case ACTOR:
+					Actor actor = elementoDAO.findById(Actor.class, Integer
+							.parseInt(segmentos.get(1)), Clave.ACT);
+					if (actor == null) {
+						break;
+					}else {
+						elementoBs.modificarEstadoElemento(actor, Estado.EDICION);
+					}
+
+					break;
+				case ENTIDAD:
+					Entidad entidad = elementoDAO.findById(Entidad.class, Integer
+							.parseInt(segmentos.get(1)), Clave.ENT);
+					if (entidad == null) {
+						break;
+					}else {
+						elementoBs.modificarEstadoElemento(entidad, Estado.EDICION);
+					}
+
+					break;
+				case TERMINOGLS:
+					TerminoGlosario terminoGlosario = elementoDAO.findById(TerminoGlosario.class, Integer
+							.parseInt(segmentos.get(1)), Clave.GLS);
+					if (terminoGlosario == null) {
+						break;
+					}else {
+						elementoBs.modificarEstadoElemento(terminoGlosario, Estado.EDICION);
+					}
+					break;
+				case PANTALLA:
+					Pantalla pantalla = elementoDAO.findById(Pantalla.class, Integer
+							.parseInt(segmentos.get(1)), Clave.IU);
+					if (pantalla == null) {
+						break;
+					}else {
+						elementoBs.modificarEstadoElemento(pantalla, Estado.EDICION);
+					}
+
+					break;
+
+				case MENSAJE:
+					Mensaje mensaje = elementoDAO.findById(Mensaje.class, Integer
+							.parseInt(segmentos.get(1)), Clave.MSG);
+					if (mensaje == null) {
+						break;
+					}else {
+						elementoBs.modificarEstadoElemento(mensaje, Estado.EDICION);
+					}
+					break;
+				case REGLANEGOCIO:
+					
+					ReglaNegocio reglaNegocio = elementoDAO.findById(ReglaNegocio.class, Integer
+							.parseInt(segmentos.get(1)), Clave.RN);
+					if (reglaNegocio == null) {
+						break;
+					}else {
+						elementoBs.modificarEstadoElemento(reglaNegocio, Estado.EDICION);
+					}
+					break;
+				default:
+					break;
+
+				}
+			}
+		}
 	}
 	
 	/*

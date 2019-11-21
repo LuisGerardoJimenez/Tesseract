@@ -282,15 +282,15 @@ public class ReglasNegocioAct extends ActionSupportTESSERACT implements ModelDri
 			} catch (TESSERACTValidacionException tve) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				edit();
+				index();
 			} catch (TESSERACTException te) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				edit();
+				index();
 			} catch (Exception e) {
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateDestroy", e);
 				ErrorManager.agregaMensajeError(this, e);
-				edit();
+				index();
 			}
 		}
 	}

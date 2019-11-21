@@ -449,15 +449,15 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 			} catch (TESSERACTValidacionException tve) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
-				edit();
+				index();
 			} catch (TESSERACTException te) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
-				edit();
+				index();
 			} catch (Exception e) {
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateDestroy", e);
 				ErrorManager.agregaMensajeError(this, e);
-				edit();
+				index();
 			}
 		}
 	}
@@ -716,7 +716,7 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 					} else {
 						if(colaboradorBs.isLider(colaborador.getCurp(), idProyecto)) {
 							elementoBs.modificarEstadoElemento(casoUso, Estado.LIBERADO);
-							//	casoUsoBs.liberarElementosRelacionados(model);
+							casoUsoBs.liberarElementosRelacionados(model);
 							addActionMessage(getText("MSG1", new String[] { "El",
 									"Caso de uso", "liberado" }));
 						} else {
@@ -810,10 +810,10 @@ public class CasoUsoAct extends ActionSupportTESSERACT implements ModelDriven<Ca
 							esCorrectoTrayectoria, observacionesTrayectoria,
 							esCorrectoPuntosExt, observacionesPuntosExt, casoUso)) {
 						elementoBs.modificarEstadoElemento(casoUso, Estado.PENDIENTECORRECCION);
-						//casoUsoBs.habilitarElementosRelacionados(model);
+						casoUsoBs.habilitarElementosRelacionados(model);
 					} else {
 						elementoBs.modificarEstadoElemento(casoUso, Estado.LIBERADO);
-						//casoUsoBs.liberarElementosRelacionados(model);
+						casoUsoBs.liberarElementosRelacionados(model);
 					}
 					addActionMessage(getText("MSG1", new String[] { "El",
 							"Caso de uso", "liberado" }));

@@ -106,35 +106,31 @@ public class ReglaNegocioBs {
 		ReglaNegocioDTO reglanegocioDTO = new ReglaNegocioDTO();
 		int idTipoRN = reglanegocio.getTiporeglanegocio().getId();
 
-		if (reglanegocio != null) {
-			reglanegocioDTO.setId(reglanegocio.getId());
-			reglanegocioDTO.setClave(reglanegocio.getClave());
-			reglanegocioDTO.setNumero(reglanegocio.getNumero());
-			reglanegocioDTO.setNombre(reglanegocio.getNombre());
-			reglanegocioDTO.setDescripcion(reglanegocio.getDescripcion());
-			reglanegocioDTO.setRedaccion(reglanegocio.getRedaccion());
-			reglanegocioDTO.setTiporeglanegocioNombre(reglanegocio.getTiporeglanegocio().getNombre());
-			reglanegocioDTO.setIdTipoRN(reglanegocio.getTiporeglanegocio().getId());				
-			reglanegocioDTO.setIdProyecto(reglanegocio.getProyecto().getId());
+		reglanegocioDTO.setId(reglanegocio.getId());
+		reglanegocioDTO.setClave(reglanegocio.getClave());
+		reglanegocioDTO.setNumero(reglanegocio.getNumero());
+		reglanegocioDTO.setNombre(reglanegocio.getNombre());
+		reglanegocioDTO.setDescripcion(reglanegocio.getDescripcion());
+		reglanegocioDTO.setRedaccion(reglanegocio.getRedaccion());
+		reglanegocioDTO.setTiporeglanegocioNombre(reglanegocio.getTiporeglanegocio().getNombre());
+		reglanegocioDTO.setIdTipoRN(reglanegocio.getTiporeglanegocio().getId());				
+		reglanegocioDTO.setIdProyecto(reglanegocio.getProyecto().getId());
 
-			if (idTipoRN == Constantes.TIPO_COMPARACION_ATRIBUTOS)
-			{ 
-				reglanegocioDTO.setAtributo1Nombre(reglanegocio.getAtributo_comp1().getNombre());
-				reglanegocioDTO.setIdAtributo1(reglanegocio.getAtributo_comp1().getId());
-				reglanegocioDTO.setIdEntidad1(reglanegocio.getAtributo_comp1().getEntidad().getId());
-				reglanegocioDTO.setAtributo2Nombre(reglanegocio.getAtributo_comp2().getNombre());
-				reglanegocioDTO.setIdAtributo2(reglanegocio.getAtributo_comp2().getId());
-				reglanegocioDTO.setIdEntidad2(reglanegocio.getAtributo_comp2().getEntidad().getId());
-				reglanegocioDTO.setOperadorSimbolo(reglanegocio.getOperador().getSimbolo());
-				reglanegocioDTO.setIdOperador(reglanegocio.getOperador().getId());
-			} else if (idTipoRN == Constantes.TIPO_FORMATO_CORRECTO) {
-				reglanegocioDTO.setExpresionRegular(reglanegocio.getExpresionRegular());
-				reglanegocioDTO.setAtributoExpRegNombre(reglanegocio.getAtributo_exp_reg().getNombre());
-			} else if (idTipoRN == Constantes.TIPO_UNICIDAD_PARAMETROS) {
-			reglanegocioDTO.setAtributoUnicidadNombre(reglanegocio.getAtributo_unicidad().getNombre());
-			} 
-		} else {
-			throw new TESSERACTException("No se puede consultar la Regla de Negocio.", "MSG12");
+		if (idTipoRN == Constantes.TIPO_COMPARACION_ATRIBUTOS)
+		{ 
+			reglanegocioDTO.setAtributo1Nombre(reglanegocio.getAtributo_comp1().getNombre());
+			reglanegocioDTO.setIdAtributo1(reglanegocio.getAtributo_comp1().getId());
+			reglanegocioDTO.setIdEntidad1(reglanegocio.getAtributo_comp1().getEntidad().getId());
+			reglanegocioDTO.setAtributo2Nombre(reglanegocio.getAtributo_comp2().getNombre());
+			reglanegocioDTO.setIdAtributo2(reglanegocio.getAtributo_comp2().getId());
+			reglanegocioDTO.setIdEntidad2(reglanegocio.getAtributo_comp2().getEntidad().getId());
+			reglanegocioDTO.setOperadorSimbolo(reglanegocio.getOperador().getSimbolo());
+			reglanegocioDTO.setIdOperador(reglanegocio.getOperador().getId());
+		} else if (idTipoRN == Constantes.TIPO_FORMATO_CORRECTO) {
+			reglanegocioDTO.setExpresionRegular(reglanegocio.getExpresionRegular());
+			reglanegocioDTO.setAtributoExpRegNombre(reglanegocio.getAtributo_exp_reg().getNombre());
+		} else if (idTipoRN == Constantes.TIPO_UNICIDAD_PARAMETROS) {
+		reglanegocioDTO.setAtributoUnicidadNombre(reglanegocio.getAtributo_unicidad().getNombre());
 		}
 		return reglanegocioDTO;
 	}
@@ -190,7 +186,7 @@ public class ReglaNegocioBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarRN(ReglaNegocioDTO modelDTO) {
+	public void eliminarRN(ReglaNegocioDTO modelDTO) throws TESSERACTException{
 		if (rn018.isValidRN018(modelDTO)) {
 			ReglaNegocio reglaNegocio = genericoDAO.findById(ReglaNegocio.class, modelDTO.getId());
 			genericoDAO.delete(reglaNegocio);
