@@ -177,7 +177,7 @@ public class MensajeBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarMensaje(MensajeDTO mensajeDTO) {
+	public void eliminarMensaje(MensajeDTO mensajeDTO) throws TESSERACTException{
 		if (rn018.isValidRN018(mensajeDTO)) {
 			Mensaje mensaje = genericoDAO.findById(Mensaje.class, mensajeDTO.getId());
 			genericoDAO.delete(mensaje);

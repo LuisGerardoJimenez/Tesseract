@@ -131,6 +131,7 @@ public final class Constantes {
 	/* Referencias */
 	public static final String TIPO_REFERENCIA_ACCION = "ACC";
 	public static final String TIPO_REFERENCIA_TRAYECTORIA = "TRAY";
+	public static final String TIPO_REFERENCIA_ATRIBUTO = "ATR";
 	
 	public static final String SELECT_ACTOR = "Actor";
 	public static final String SELECT_SISTEMA = "Sistema";

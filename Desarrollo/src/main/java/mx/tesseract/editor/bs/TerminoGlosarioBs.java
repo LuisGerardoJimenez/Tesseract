@@ -90,7 +90,7 @@ public class TerminoGlosarioBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarTerminoGlosario(TerminoGlosarioDTO terminoGlosarioDTO) {
+	public void eliminarTerminoGlosario(TerminoGlosarioDTO terminoGlosarioDTO) throws TESSERACTException{
 		if (rn018.isValidRN018(terminoGlosarioDTO)) {
 			TerminoGlosario terminoGlosario = genericoDAO.findById(TerminoGlosario.class, terminoGlosarioDTO.getId());
 			genericoDAO.delete(terminoGlosario);

@@ -113,7 +113,7 @@ public class ColaboradorBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarColaborador(Colaborador model) {
+	public void eliminarColaborador(Colaborador model) throws TESSERACTException{
 		if (rn027.isValidRN027(model)) {
 			genericoDAO.delete(model);
 		} else {

@@ -420,8 +420,8 @@ public class TrayectoriaBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarTrayectoria(TrayectoriaDTO model) {
-		if (rn018.isValidRN018(model)) {
+	public void eliminarTrayectoria(TrayectoriaDTO model, Integer idProyecto) throws TESSERACTException{
+		if (rn018.isValidRN018(model, idProyecto)) {
 			Trayectoria entidad = genericoDAO.findById(Trayectoria.class, model.getId());
 			genericoDAO.delete(entidad);
 		} else {

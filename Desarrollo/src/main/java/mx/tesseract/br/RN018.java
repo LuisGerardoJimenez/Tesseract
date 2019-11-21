@@ -1,5 +1,7 @@
 package mx.tesseract.br;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -16,9 +18,10 @@ import mx.tesseract.dto.PantallaDTO;
 import mx.tesseract.dto.ReglaNegocioDTO;
 import mx.tesseract.dto.TerminoGlosarioDTO;
 import mx.tesseract.dto.TrayectoriaDTO;
-import mx.tesseract.editor.dao.ElementoDAO;
+import mx.tesseract.editor.dao.CasoUsoDAO;
 import mx.tesseract.editor.entidad.CasoUso;
-import mx.tesseract.editor.entidad.ReglaNegocio;
+import mx.tesseract.editor.entidad.Paso;
+import mx.tesseract.editor.entidad.Trayectoria;
 import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.util.Constantes;
 
@@ -27,137 +30,251 @@ import mx.tesseract.util.Constantes;
 public class RN018 {	
 	
 	@Autowired
-	private ElementoDAO elementoDAO;
+	private CasoUsoDAO casoUsoDAO;
 	
-	public Boolean isValidRN018(TrayectoriaDTO entidad) {
+	public Boolean isValidRN018(TrayectoriaDTO entidad, Integer idProyecto) {
 		Boolean valido = true;
-		CasoUso casoUso = null;
-		if (entidad.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Constantes.TIPO_REFERENCIA_TRAYECTORIA+"·"+entidad.getId());
+		List<CasoUso> casosUso = casoUsoDAO.findAllByProyecto(idProyecto);
+		for(CasoUso casoUso : casosUso) {
+			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+				for(Paso paso : trayectoria.getPasos()) {
+					if(paso.getRedaccion().contains(Clave.RN+"·"+entidad.getId())) {
+						valido = false;
+						break;
+					}
+				}
+				if(!valido)
+					break;
+			}
+			if(!valido)
+				break;	
 		}
-		if (casoUso != null) {
-			valido = false;
-		}
+		
 		return valido;
 	}
 	
 	public Boolean isValidRN018(MensajeDTO entidad) {
 		Boolean valido = true;
-		CasoUso casoUso = null;
-		if (entidad.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.MSG+"·"+entidad.getId());
-		}
-		if (casoUso != null) {
-			valido = false;
+		List<CasoUso> casosUso = casoUsoDAO.findAllByProyecto(entidad.getIdProyecto());
+		for(CasoUso casoUso : casosUso) {
+			if(casoUso.getRedaccionEntradas().contains(Clave.MSG+"·"+entidad.getId())) {
+				valido = false;
+				break;
+			}else if(casoUso.getRedaccionSalidas().contains(Clave.MSG+"·"+entidad.getId())) {
+				valido = false;
+				break;
+			}
+			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+				for(Paso paso : trayectoria.getPasos()) {
+					if(paso.getRedaccion().contains(Clave.MSG+"·"+entidad.getId())) {
+						valido = false;
+						break;
+					}
+				}
+				if(!valido)
+					break;
+			}
+			if(!valido)
+				break;
 		}
 		return valido;
 	}
 	
 	public Boolean isValidRN018(TerminoGlosarioDTO entidad) {
 		Boolean valido = true;
-		CasoUso casoUso = null;
-		if (entidad.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.GLS+"·"+entidad.getId());
-		}
-		if (casoUso != null) {
-			valido = false;
+		List<CasoUso> casosUso = casoUsoDAO.findAllByProyecto(entidad.getIdProyecto());
+		for(CasoUso casoUso : casosUso) {
+			if(casoUso.getRedaccionEntradas().contains(Clave.GLS+"·"+entidad.getId())) {
+				valido = false;
+				break;
+			}else if(casoUso.getRedaccionSalidas().contains(Clave.GLS+"·"+entidad.getId())) {
+				valido = false;
+				break;
+			}
+			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+				for(Paso paso : trayectoria.getPasos()) {
+					if(paso.getRedaccion().contains(Clave.GLS+"·"+entidad.getId())) {
+						valido = false;
+						break;
+					}
+				}
+				if(!valido)
+					break;
+			}
+			if(!valido)
+				break;
 		}
 		return valido;
 	}
 	
 	public Boolean isValidRN018(AtributoDTO entidad) {
 		Boolean valido = true;
-		ReglaNegocio reglaNegocio = null;
-		if (entidad.getId() == null) {
-			reglaNegocio = elementoDAO.findElementoHasAtributo(entidad.getId(),entidad.getProyectoId());
-		}
-		if (reglaNegocio != null) {
-			valido = false;
+		List<CasoUso> casosUso = casoUsoDAO.findAllByProyecto(entidad.getProyectoId());
+		for(CasoUso casoUso : casosUso) {
+			if(casoUso.getRedaccionEntradas().contains(Constantes.TIPO_REFERENCIA_ATRIBUTO+"·"+entidad.getId())) {
+				valido = false;
+				break;
+			}else if(casoUso.getRedaccionSalidas().contains(Constantes.TIPO_REFERENCIA_ATRIBUTO+"·"+entidad.getId())) {
+				valido = false;
+				break;
+			}
+			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+				for(Paso paso : trayectoria.getPasos()) {
+					if(paso.getRedaccion().contains(Constantes.TIPO_REFERENCIA_ATRIBUTO+"·"+entidad.getId())) {
+						valido = false;
+						break;
+					}
+				}
+				if(!valido)
+					break;
+			}
+			if(!valido)
+				break;
 		}
 		return valido;
 	}
 	
 	public Boolean isValidRN018(EntidadDTO entidadDTO) {
 		Boolean valido = true;
-		CasoUso casoUso = null;
-		if (entidadDTO.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.ENT.toString()+"·"+entidadDTO.getId());
-		}
-		if (casoUso != null) {
-			valido = false;
+		List<CasoUso> casosUso = casoUsoDAO.findAllByProyecto(entidadDTO.getIdProyecto());
+		for(CasoUso casoUso : casosUso) {
+			if(casoUso.getRedaccionEntradas().contains(Clave.ENT+"·"+entidadDTO.getId())) {
+				valido = false;
+				break;
+			}else if(casoUso.getRedaccionSalidas().contains(Clave.ENT+"·"+entidadDTO.getId())) {
+				valido = false;
+				break;
+			}
+			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+				for(Paso paso : trayectoria.getPasos()) {
+					if(paso.getRedaccion().contains(Clave.ENT+"·"+entidadDTO.getId())) {
+						valido = false;
+						break;
+					}
+				}
+				if(!valido)
+					break;
+			}
+			if(!valido)
+				break;
 		}
 		return valido;
 	}
 
 	public boolean isValidRN018(ReglaNegocioDTO modelDTO) {
 		Boolean valido = true;
-		CasoUso casoUso = null;
-		if (modelDTO.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.RN+"·"+modelDTO.getId());
-		}
-		if (casoUso != null) {
-			valido = false;
+		List<CasoUso> casosUso = casoUsoDAO.findAllByProyecto(modelDTO.getIdProyecto());
+		for(CasoUso casoUso : casosUso) {
+			if(casoUso.getRedaccionReglasNegocio().contains(Clave.RN+"·"+modelDTO.getId())) {
+				valido = false;
+				break;
+			}
+			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+				for(Paso paso : trayectoria.getPasos()) {
+					if(paso.getRedaccion().contains(Clave.RN+"·"+modelDTO.getId())) {
+						valido = false;
+						break;
+					}
+				}
+				if(!valido)
+					break;
+			}
+			if(!valido)
+				break;
 		}
 		return valido;
 	}
 
 	public boolean isValidRN018(ActorDTO actorDTO) {
 		Boolean valido = true;
-		CasoUso casoUso = null;
-		if (actorDTO.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.ACT.toString()+"·"+actorDTO.getId());
-		}
-		if (casoUso != null) {
-			valido = false;
+		List<CasoUso> casosUso = casoUsoDAO.findAllByProyecto(actorDTO.getIdProyecto());
+		for(CasoUso casoUso : casosUso) {
+			if(casoUso.getRedaccionActores().contains(Clave.ACT+"·"+actorDTO.getId())) {
+				valido = false;
+				break;
+			}
+			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+				for(Paso paso : trayectoria.getPasos()) {
+					if(paso.getRedaccion().contains(Clave.ACT+"·"+actorDTO.getId())) {
+						valido = false;
+						break;
+					}
+				}
+				if(!valido)
+					break;
+			}
+			if(!valido)
+				break;
 		}
 		return valido;
 	}
 
 	public boolean isValidRN018(PantallaDTO model) {
 		Boolean valido = true;
-		CasoUso casoUso = null;
-		if (model.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.IU.toString()+"·"+model.getId());
-		}
-		if (casoUso != null) {
-			valido = false;
+		List<CasoUso> casosUso = casoUsoDAO.findAllByProyecto(model.getIdProyecto());
+		for(CasoUso casoUso : casosUso) {
+			if(casoUso.getRedaccionSalidas().contains(Clave.IU+"·"+model.getId())) {
+				valido = false;
+				break;
+			}
+			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+				for(Paso paso : trayectoria.getPasos()) {
+					if(paso.getRedaccion().contains(Clave.IU+"·"+model.getId())) {
+						valido = false;
+						break;
+					}
+				}
+				if(!valido)
+					break;
+			}
+			if(!valido)
+				break;
 		}
 		return valido;
 	}
 	
-	public boolean isValidRN018(AccionDTO model) {
+	public boolean isValidRN018(AccionDTO model, Integer idProyecto) {
 		Boolean valido = true;
-		CasoUso casoUso = null;
-		if (model.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Constantes.TIPO_REFERENCIA_ACCION.toString()+"·"+model.getId());
-		}
-		if (casoUso != null) {
-			valido = false;
+		List<CasoUso> casosUso = casoUsoDAO.findAllByProyecto(idProyecto);
+		for(CasoUso casoUso : casosUso) {
+			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+				for(Paso paso : trayectoria.getPasos()) {
+					if(paso.getRedaccion().contains(Clave.CU+"·"+model.getId())) {
+						valido = false;
+						break;
+					}
+				}
+				if(!valido)
+					break;
+			}
+			if(!valido)
+				break;	
 		}
 		return valido;
 	}
 	
 	public boolean isValidRN018(CasoUsoDTO model) {
 		Boolean valido = true;
-		CasoUso casoUso = null;
-		if (model.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.CU.toString()+"·"+model.getId());
-		}
-		if (casoUso != null) {
-			valido = false;
+		List<CasoUso> casosUso = casoUsoDAO.findAllByProyecto(model.getIdProyecto());
+		for(CasoUso casoUso : casosUso) {
+			for(Trayectoria trayectoria : casoUso.getTrayectorias()) {
+				for(Paso paso : trayectoria.getPasos()) {
+					if(paso.getRedaccion().contains(Clave.CU+"·"+model.getId())) {
+						valido = false;
+						break;
+					}
+				}
+				if(!valido)
+					break;
+			}
+			if(!valido)
+				break;	
 		}
 		return valido;
 	}
 
 	public boolean isValidRN018(ExtensionDTO model) {
 		Boolean valido = true;
-		/*CasoUso casoUso = null;
-		if (model.getId() == null) {
-			casoUso = elementoDAO.findElementoHasCasoUsoAsociado(Clave.CU.toString()+"·"+model.getId());
-		}
-		if (casoUso != null) {
-			valido = false;
-		}*/
 		return valido;
 	}
 

@@ -113,7 +113,7 @@ public class RN006 {
 				valido = false;
 			}	
 		}else {
-			List<CasoUso> casosUso = casoUsoDAO.findAllByProyecto(entidad.getProyecto().getId(), Clave.CU);
+			List<CasoUso> casosUso = casoUsoDAO.findAllByProyecto(entidad.getProyecto().getId());
 			for(CasoUso casoUsoItem : casosUso) {
 				if(casoUsoItem.getModulo().getId().equals(entidad.getModulo().getId()) && casoUsoItem.getNumero().equals(entidad.getNumero()) && !casoUsoItem.getId().equals(entidad.getId())) {
 					valido = false;

@@ -159,8 +159,8 @@ public class AccionBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarAccion(AccionDTO model) {
-		if (rn018.isValidRN018(model)) {
+	public void eliminarAccion(AccionDTO model, Integer idProyecto) throws TESSERACTException{
+		if (rn018.isValidRN018(model, idProyecto)) {
 			Accion accion = genericoDAO.findById(Accion.class, model.getId());
 			genericoDAO.delete(accion);
 		} else {

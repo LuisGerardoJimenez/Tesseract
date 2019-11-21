@@ -9,7 +9,6 @@ import mx.tesseract.admin.bs.LoginBs;
 import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Proyecto;
 import mx.tesseract.dto.MensajeDTO;
-import mx.tesseract.editor.bs.ElementoBs;
 import mx.tesseract.editor.bs.MensajeBs;
 import mx.tesseract.editor.bs.TokenBs;
 import mx.tesseract.editor.entidad.Mensaje;
@@ -264,12 +263,15 @@ public class MensajesAct extends ActionSupportTESSERACT implements ModelDriven<M
 			} catch (TESSERACTValidacionException tve) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + tve.getMessage());
 				ErrorManager.agregaMensajeError(this, tve);
+				index();
 			} catch (TESSERACTException te) {
 				TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
 				ErrorManager.agregaMensajeError(this, te);
+				index();
 			} catch (Exception e) {
 				TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "validateDestroy", e);
 				ErrorManager.agregaMensajeError(this, e);
+				index();
 			}
 		}
 	}

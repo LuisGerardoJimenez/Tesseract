@@ -98,7 +98,7 @@ public class EntidadBs {
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarEntidad(EntidadDTO model) {
+	public void eliminarEntidad(EntidadDTO model) throws TESSERACTException{
 		if (rn018.isValidRN018(model)) {
 			Entidad entidad = genericoDAO.findById(Entidad.class, model.getId());
 			genericoDAO.delete(entidad);

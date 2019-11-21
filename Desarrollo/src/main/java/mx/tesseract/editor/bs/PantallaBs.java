@@ -163,13 +163,13 @@ public class PantallaBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarPantalla(PantallaDTO model) {
+	public void eliminarPantalla(PantallaDTO model, Integer idProyecto) throws TESSERACTException{
 		if (rn018.isValidRN018(model)) {
 			Pantalla pantalla = genericoDAO.findById(Pantalla.class, model.getId());
 			for(Accion accion : pantalla.getAcciones()) {
 				AccionDTO accionDTO = new AccionDTO();
 				accionDTO.setId(accion.getId());
-				if(!rn018.isValidRN018(accionDTO)) throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.", "MSG13");
+				if(!rn018.isValidRN018(accionDTO, idProyecto)) throw new TESSERACTException("Este elemento no se puede eliminar debido a que esta siendo referenciado.", "MSG13");
 			}
 			genericoDAO.delete(pantalla);
 		} else {

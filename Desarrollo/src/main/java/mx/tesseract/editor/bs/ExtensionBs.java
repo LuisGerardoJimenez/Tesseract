@@ -130,7 +130,7 @@ public class ExtensionBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarExtension(ExtensionDTO model) {
+	public void eliminarExtension(ExtensionDTO model) throws TESSERACTException{
 		if (rn018.isValidRN018(model)) {
 			Extension entidad = genericoDAO.findById(Extension.class, model.getId());
 			genericoDAO.delete(entidad);
@@ -142,18 +142,12 @@ public class ExtensionBs {
 
 	@Transactional(rollbackFor = Exception.class)
 	public void modificarExtension(ExtensionDTO model) {
-		if (rn006.isValidRN006(model, model.getCasoUsoOrigen().getId())) {
-			Extension entidad = genericoDAO.findById(Extension.class, model.getId());
-			entidad.setCasoUsoDestino(model.getCasoUsoDestino());
-			entidad.setCasoUsoOrigen(model.getCasoUsoOrigen());
-			entidad.setCausa(model.getCausa().trim());
-			entidad.setRegion(model.getRegion());
-			genericoDAO.update(entidad);
-		} else {
-			throw new TESSERACTException(
-					"El punto de extensión ya existe", "MSG7",
-					new String[] { "El", "Punto de ", "extensión" });
-		}
+		Extension entidad = genericoDAO.findById(Extension.class, model.getId());
+		entidad.setCasoUsoDestino(model.getCasoUsoDestino());
+		entidad.setCasoUsoOrigen(model.getCasoUsoOrigen());
+		entidad.setCausa(model.getCausa().trim());
+		entidad.setRegion(model.getRegion());
+		genericoDAO.update(entidad);
 	}
 	
 }

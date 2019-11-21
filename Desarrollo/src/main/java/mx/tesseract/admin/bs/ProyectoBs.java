@@ -168,7 +168,7 @@ public class ProyectoBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarProyecto(Proyecto model) {
+	public void eliminarProyecto(Proyecto model) throws TESSERACTException{
 		if (rn034.isValidRN034(model)) {
 			genericoDAO.delete(model);
 		} else {

@@ -169,7 +169,7 @@ public class AtributoBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarAtributo(AtributoDTO model) {
+	public void eliminarAtributo(AtributoDTO model) throws TESSERACTException{
 		if (rn018.isValidRN018(model)) {
 			Atributo atributo = genericoDAO.findById(Atributo.class, model.getId());
 			genericoDAO.delete(atributo);

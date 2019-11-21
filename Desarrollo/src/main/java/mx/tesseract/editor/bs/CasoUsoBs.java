@@ -24,7 +24,6 @@ import mx.tesseract.editor.entidad.Revision;
 import mx.tesseract.editor.entidad.Salida;
 import mx.tesseract.editor.entidad.Trayectoria;
 import mx.tesseract.enums.EstadoElementoEnum.Estado;
-import mx.tesseract.enums.ReferenciaEnum.Clave;
 import mx.tesseract.enums.ReferenciaEnum.TipoSeccion;
 import mx.tesseract.enums.TipoSeccionEnum;
 import mx.tesseract.enums.TipoSeccionEnum.TipoSeccionENUM;
@@ -64,7 +63,7 @@ public class CasoUsoBs {
 	private SeccionDAO seccionDAO;
 	
 	public List<CasoUso> consultarCasosDeUso(Integer idProyecto, Integer idModulo) {
-		List<CasoUso> lista = casoUsoDAO.findAllByProyecto(idProyecto, Clave.CU);
+		List<CasoUso> lista = casoUsoDAO.findAllByProyecto(idProyecto);
 		Iterator<CasoUso> it = lista.iterator();
 		while (it.hasNext()) {
 			CasoUso value = it.next();
@@ -75,7 +74,7 @@ public class CasoUsoBs {
 	}
 	
 	public List<CasoUso> consultarCasosDeUsoByProyecto(Integer idProyecto) {
-		return casoUsoDAO.findAllByProyecto(idProyecto, Clave.CU);
+		return casoUsoDAO.findAllByProyecto(idProyecto);
 	}
 	
 	public CasoUsoDTO consultarCasoUsoDTO(Integer idCasoUso) {
@@ -235,7 +234,7 @@ public class CasoUsoBs {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminarCasoUso(CasoUsoDTO casoUsoDTO) {
+	public void eliminarCasoUso(CasoUsoDTO casoUsoDTO) throws TESSERACTException{
 		if (rn018.isValidRN018(casoUsoDTO)) {
 			CasoUso casoUso = genericoDAO.findById(CasoUso.class, casoUsoDTO.getId());
 			genericoDAO.delete(casoUso);
