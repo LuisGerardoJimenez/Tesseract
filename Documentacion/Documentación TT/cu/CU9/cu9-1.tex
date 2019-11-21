@@ -51,8 +51,7 @@
 		\UCpaso[\UCsist] Verifica que el actor ingrese todos los campos obligatorios con base en la regla de negocio \BRref{RN8}{Datos obligatorios}. \hyperlink{CU9-1:TAC}{[Trayectoria C]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumpla con la longitud correcta, con base en la regla de negocio \BRref{RN37}{Longitud de datos}. \hyperlink{CU9-1:TAD}{[Trayectoria D]}
 		\UCpaso[\UCsist] Verifica que los datos ingresados cumplan con el formato requerido, con base en la regla de negocio \BRref{RN7}{Información correcta}. \hyperlink{CU9-1:TAE}{[Trayectoria E]}
-		\UCpaso[\UCsist] Verifica que el número del mensaje no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN1}{Unicidad de números}. \hyperlink{CU9-1:TAF}{[Trayectoria F]}
-		\UCpaso[\UCsist] Verifica que el nombre de la mensaje no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU9-1:TAG}{[Trayectoria G]} 
+		\UCpaso[\UCsist] Verifica que el nombre de la mensaje no se encuentre registrado en el sistema con base en la regla de negocio \BRref{RN6}{Unicidad de nombres}. \hyperlink{CU9-1:TAF}{[Trayectoria F]}
 		\UCpaso[\UCsist] Persiste la información del mensaje en el sistema.
 		\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG1}{Operación exitosa} en la pantalla \IUref{IU10}{Gestionar Mensajes} para indicar al actor que el registro se ha realizado exitosamente.
 	\end{UCtrayectoria}		
@@ -61,8 +60,7 @@
 \noindent \textbf{Condición:} El actor desea ingresar un parámetro.
 \begin{enumerate}
 	\UCpaso[\UCactor] Ingresa el token ''PARAM·''.
-	\UCpaso[\UCsist] Muestra la pantalla \IUref{IU10.1A}{Registrar Mensaje: Parametrizado}.
-	\UCpaso[\UCsist] Marca como etiqueta el campo ''Clave'' de acuerdo a la regla de negocio \BRref{RN13}{Modificación del identificador}.
+	\UCpaso[\UCsist] Muestra el campo del nuevo parámetro.
 	\UCpaso[\UCactor] Ingresa la descripción de cada parámetro. \label{CU9.1-TA2}
 	\UCpaso[\UCsist] Continúa en el paso \ref{CU9.1-P4} de la trayectoria principal.
 	\item[- -] - - {\em {Fin de la trayectoria}}.%
@@ -101,14 +99,6 @@
 \end{enumerate}
 %--------------------------------------
 \hypertarget{CU9-1:TAF}{\textbf{Trayectoria alternativa F}}\\
-\noindent \textbf{Condición:} El actor ingresó un número de mensaje repetido.
-\begin{enumerate}
-	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU10.1}{Registrar Mensaje}.
-	\UCpaso Regresa al paso \ref{CU9.1-P3} de la trayectoria principal.
-	\item[- -] - - {\em {Fin de la trayectoria}}.
-\end{enumerate}
-%--------------------------------------
-\hypertarget{CU9-1:TAG}{\textbf{Trayectoria alternativa G}}\\
 \noindent \textbf{Condición:} El actor ingresó un nombre de un mensaje repetido.
 \begin{enumerate}
 	\UCpaso[\UCsist] Muestra el mensaje \cdtIdRef{MSG7}{Registro repetido} señalando el campo que presenta la duplicidad en la pantalla \IUref{IU10.1}{Registrar Mensaje}.
