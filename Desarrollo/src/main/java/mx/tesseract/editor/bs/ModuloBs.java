@@ -48,7 +48,7 @@ public class ModuloBs {
 	public Modulo consultarModuloById(Integer id) {
 		Modulo modulo = genericoDAO.findById(Modulo.class, id);
 		if (modulo == null) {
-			throw new TESSERACTException("No se puede consultar el proyecto.", "MSG12");
+			throw new TESSERACTException("No se puede consultar el modulo.", "MSG12");
 		}
 		return modulo;
 	}

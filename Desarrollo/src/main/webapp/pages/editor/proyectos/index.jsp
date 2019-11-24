@@ -20,6 +20,7 @@
 	<br />
 
 	<s:form autocomplete="off" theme="simple" onsubmit="return false;">
+		<s:hidden name="loadStatus" id="loadStatus" value="%{loadStatus}"/>
 		<div class="form">
 			<table id="gestion" class="tablaGestion" cellspacing="0" width="100%">
 				<thead>
@@ -69,7 +70,7 @@
 										<s:param name="extension">pdf</s:param>
 								</s:url>
 								<s:a href="%{urlDescargar}" method="post">
-										<img id="" class="button" title="PDF"
+										<img id="" class="button" title="PDF" onclick="mostrarMensajeCargando();"
 											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg" alt="pdf"/>										
 								</s:a>
 								<s:a href="#" onclick="return descargarPDF(%{#proyecto.id},'pdf');" >
@@ -81,14 +82,22 @@
 											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg2" />										
 								</s:a>
 								${blanks}
-								<s:url var="urlDescargarDocx"
+								<s:url var="urlDescargarDocx" 
 										value="%{#pageContext.request.contextPath}/proyectos!descargarDocumento?idSel=%{#proyecto.id}">
 										<s:param name="extension">docx</s:param>
 								</s:url>
-								<s:a href="%{urlDescargarDocx}" method="post">
+								<s:a href="%{urlDescargarDocx}" method="post" onclick="mostrarMensajeCargando();">
 										<img id="" class="button" title="DOCX"
 											src="${pageContext.request.contextPath}/resources/images/icons/docx.svg" alt="docx"/>									
 								</s:a>
+								<!-- Descargar pdf selectivo -->
+								${blanks}
+								<s:url var="urlEntrar"
+										value="%{#pageContext.request.contextPath}/proyectos!descargarPDFSegmento?idSel=%{#proyecto.id}" />
+								<s:a href="%{urlEntrar}">
+										<img id="" class="button" title="Descargar documento por casos de uso"
+											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg" alt="Entrar al Proyecto"/>										
+								</s:a> 
 							</td>
 						</tr>
 					</s:iterator>

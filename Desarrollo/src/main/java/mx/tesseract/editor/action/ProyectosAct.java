@@ -13,8 +13,12 @@ import mx.tesseract.admin.bs.ProyectoBs;
 import mx.tesseract.admin.entidad.Colaborador;
 import mx.tesseract.admin.entidad.ColaboradorProyecto;
 import mx.tesseract.admin.entidad.Proyecto;
+import mx.tesseract.admin.entidad.Rol;
 import mx.tesseract.editor.bs.CasoUsoBs;
+import mx.tesseract.editor.bs.ModuloBs;
 import mx.tesseract.editor.bs.TokenBs;
+import mx.tesseract.editor.entidad.CasoUso;
+import mx.tesseract.editor.entidad.Modulo;
 import mx.tesseract.util.ActionSupportTESSERACT;
 import mx.tesseract.util.Constantes;
 import mx.tesseract.util.ErrorManager;
@@ -41,25 +45,34 @@ import com.opensymphony.xwork2.ModelDriven;
 		@Result(name = "colaboradores", type = "dispatcher", location = "proyectos/colaboradores.jsp"),
 		@Result(name = "documento", type = "stream", params = { "contentType", "${type}", "inputName",
 				"fileInputStream", "bufferSize", "1024", "contentDisposition",
-				"attachment;filename=\"${filename}\"" }) })
-@AllowedMethods({ "entrar", "elegirColaboradores", "guardarColaboradores", "descargarDocumento" })
+				"attachment;filename=\"${filename}\"" }),
+		@Result(name = "loadStatus", type = "json", params = { "root",
+		"loadStatus" }),
+		@Result(name = "descargarPDFSegmento", type = "dispatcher", location = "proyectos/descargarPDFSegmento.jsp")})
+@AllowedMethods({ "entrar", "elegirColaboradores", "guardarColaboradores", "descargarDocumento", "descargarPDFSegmento", "descargarPDFCU", "verificarLoadStatus", "descargarWORDCU"})
 public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<Proyecto> {
 	private static final long serialVersionUID = 1L;
 	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
 	private static final String MODULOS = "modulos";
 	private static final String COLABORADORES = "colaboradores";
+	private static final String DESCARGAR = "descargarPDFSegmento";
 	private Colaborador colaborador;
 	private Proyecto model;
 	private Proyecto proyecto;
+	private Modulo modulo;
 	private List<Proyecto> listProyectos;
 	private List<Colaborador> listColaboradores;
+	private List<CasoUso> listCU;
 	private String jsonColaboradoresTabla;
+	private String jsonCasoUsoTabla;
+	private String jsonCasoUsoTablaW;
 	private Integer idSel;
 	private InputStream fileInputStream;
 	private String type;
 	private String filename;
 	private String extension;
-
+	private static String loadStatus;
+	
 	@Autowired
 	private LoginBs loginBs;
 
@@ -77,6 +90,9 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	
 	@Autowired
 	private CasoUsoBs casoUsoBs;
+	
+	@Autowired
+	private ModuloBs moduloBs;
 
 	@SuppressWarnings("unchecked")
 	public String index() {
@@ -178,7 +194,94 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 		return resultado;
 	}
 	
+	public void validateVerificarLoadStatus(){
+		clearErrors();
+		clearActionErrors();
+		clearFieldErrors();
+	}
+	
+	public String verificarLoadStatus() {
+		System.out.println("Entrando");
+		//setLoadStatus("mostrar");
+		return "loadStatus";
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public String descargarPDFSegmento() {
+		String resultado = null;
+		try {
+			SessionManager.set(idSel, "idProyecto");
+			proyecto = loginBs.consultarProyectoActivo();
+			listCU = casoUsoBs.consultarCasosDeUsoByProyecto(proyecto.getId());
+			SessionManager.set(idSel, "idProyecto");
+			Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
+			this.setActionMessages(msjs);
+			SessionManager.delete("mensajesAccion");
+			resultado = DESCARGAR;
+		} catch (TESSERACTException te) {
+			TESSERACT_LOGGER.debug(this.getClass().getName() + ": " + te.getMessage());
+			ErrorManager.agregaMensajeError(this, te);
+		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "entrar", e);
+		}
+		return resultado;
+	}
+	
+	public String descargarPDFCU() {
+		setLoadStatus("mostrar");
+		try {
+				@SuppressWarnings("deprecation")
+				String rutaSrc = request.getRealPath("/") + "/resources/JasperReport/";
+				@SuppressWarnings("deprecation")
+				String rutaTarget = request.getRealPath("/") + "/resources/JasperReport/";
+				
+				if(extension.equals("pdf")) {
+					filename = this.model.getNombre().replace(' ', '_') + "." + extension;
+					type = "application/pdf";
+				} else if(extension.equals("docx")) {
+					filename = this.model.getNombre().replace(' ', '_') + "." + extension;
+					type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+				} else {
+					filename = this.model.getNombre().replace(' ', '_') + ".pdf";
+					type = "application/pdf";
+				}
+				try {
+					String cadenaModulos = "";
+					if(!jsonCasoUsoTabla.equals("")) {
+						for(String casoUsoString : jsonCasoUsoTabla.split(",")) {
+							CasoUso casoUsoItem = casoUsoBs.consultarCasoUso(Integer.parseInt(casoUsoString));
+							if(!cadenaModulos.contains(casoUsoItem.getModulo().getId().toString())) {
+								cadenaModulos += casoUsoItem.getModulo().getId()+",";
+							}
+						}
+						if(cadenaModulos.length() > 0) {
+							cadenaModulos = cadenaModulos.substring(0,cadenaModulos.length() - 1);
+						}
+						reportUtil.crearReporteByCasosUso(extension, filename, model.getId(), rutaSrc, rutaTarget, tokenBs, casoUsoBs, jsonCasoUsoTabla, cadenaModulos);
+				        File doc = new File(rutaTarget + filename);
+				        this.fileInputStream = new FileInputStream(doc);
+				        FileUtil.delete(doc);
+					}else {
+						reportUtil.crearReporte(extension, filename, model.getId(), rutaSrc, rutaTarget, tokenBs, casoUsoBs);
+				        File doc = new File(rutaTarget + filename);
+				        this.fileInputStream = new FileInputStream(doc);
+				        FileUtil.delete(doc);
+					}
+		        } catch (Exception e) {
+		        	ErrorManager.agregaMensajeError(this, e);
+		        	return index();
+		        }
+		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "entrar", e);
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		setLoadStatus("ocultar");
+	    return "documento";
+	}
+	
 	public String descargarDocumento() {
+		setLoadStatus("mostrar");
 		@SuppressWarnings("deprecation")
 		String rutaSrc = request.getRealPath("/") + "/resources/JasperReport/";
 		@SuppressWarnings("deprecation")
@@ -204,7 +307,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	        	ErrorManager.agregaMensajeError(this, e);
 	        	return index();
 	        }
-			
+		setLoadStatus("ocultar");
 	    return "documento";
 	}
 
@@ -290,4 +393,35 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 		this.extension = extension;
 	}
 
+	public List<CasoUso> getListCU() {
+		return listCU;
+	}
+
+	public void setListCU(List<CasoUso> listCU) {
+		this.listCU = listCU;
+	}
+
+	public String getJsonCasoUsoTabla() {
+		return jsonCasoUsoTabla;
+	}
+
+	public void setJsonCasoUsoTabla(String jsonCasoUsoTabla) {
+		this.jsonCasoUsoTabla = jsonCasoUsoTabla;
+	}
+
+	public String getLoadStatus() {
+		return loadStatus;
+	}
+
+	public void setLoadStatus(String loadStatus) {
+		this.loadStatus = loadStatus;
+	}
+
+	public String getJsonCasoUsoTablaW() {
+		return jsonCasoUsoTablaW;
+	}
+
+	public void setJsonCasoUsoTablaW(String jsonCasoUsoTablaW) {
+		this.jsonCasoUsoTablaW = jsonCasoUsoTablaW;
+	}
 }
