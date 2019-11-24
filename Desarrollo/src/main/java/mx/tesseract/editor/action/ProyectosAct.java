@@ -46,8 +46,10 @@ import com.opensymphony.xwork2.ModelDriven;
 		@Result(name = "documento", type = "stream", params = { "contentType", "${type}", "inputName",
 				"fileInputStream", "bufferSize", "1024", "contentDisposition",
 				"attachment;filename=\"${filename}\"" }),
+		@Result(name = "loadStatus", type = "json", params = { "root",
+		"loadStatus" }),
 		@Result(name = "descargarPDFSegmento", type = "dispatcher", location = "proyectos/descargarPDFSegmento.jsp")})
-@AllowedMethods({ "entrar", "elegirColaboradores", "guardarColaboradores", "descargarDocumento", "descargarPDFSegmento", "descargarPDFCU"})
+@AllowedMethods({ "entrar", "elegirColaboradores", "guardarColaboradores", "descargarDocumento", "descargarPDFSegmento", "descargarPDFCU", "verificarLoadStatus", "descargarWORDCU"})
 public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<Proyecto> {
 	private static final long serialVersionUID = 1L;
 	private static final Logger TESSERACT_LOGGER = LogManager.getLogger();
@@ -63,12 +65,14 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	private List<CasoUso> listCU;
 	private String jsonColaboradoresTabla;
 	private String jsonCasoUsoTabla;
+	private String jsonCasoUsoTablaW;
 	private Integer idSel;
 	private InputStream fileInputStream;
 	private String type;
 	private String filename;
 	private String extension;
-
+	private static String loadStatus;
+	
 	@Autowired
 	private LoginBs loginBs;
 
@@ -190,6 +194,19 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 		return resultado;
 	}
 	
+	public void validateVerificarLoadStatus(){
+		clearErrors();
+		clearActionErrors();
+		clearFieldErrors();
+	}
+	
+	public String verificarLoadStatus() {
+		System.out.println("Entrando");
+		//setLoadStatus("mostrar");
+		return "loadStatus";
+	}
+	
+	
 	@SuppressWarnings("unchecked")
 	public String descargarPDFSegmento() {
 		String resultado = null;
@@ -212,41 +229,59 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	}
 	
 	public String descargarPDFCU() {
-		@SuppressWarnings("deprecation")
-		String rutaSrc = request.getRealPath("/") + "/resources/JasperReport/";
-		@SuppressWarnings("deprecation")
-		String rutaTarget = request.getRealPath("/") + "/resources/JasperReport/";
-		
-		filename = this.model.getNombre().replace(' ', '_') + ".pdf";
-		type = "application/pdf";
-		
-		String cadenaModulos = "";
-		for(String casoUsoString : jsonCasoUsoTabla.split(",")) {
-			CasoUso casoUsoItem = casoUsoBs.consultarCasoUso(Integer.parseInt(casoUsoString));
-			if(!cadenaModulos.contains(casoUsoItem.getModulo().getId().toString())) {
-				cadenaModulos += casoUsoItem.getModulo().getId()+",";
-			}
-		}
-		if(cadenaModulos.length() > 0) {
-			cadenaModulos = cadenaModulos.substring(0,cadenaModulos.length() - 1);
-		}
-		System.out.println("Los casos de uso son: "+jsonCasoUsoTabla);
-		System.out.println("Los modulos son: "+cadenaModulos);
-		extension = "pdf";
+		setLoadStatus("mostrar");
 		try {
-			reportUtil.crearReporteByCasosUso(extension, filename, model.getId(), rutaSrc, rutaTarget, tokenBs, casoUsoBs, jsonCasoUsoTabla, cadenaModulos);
-	        File doc = new File(rutaTarget + filename);
-	        this.fileInputStream = new FileInputStream(doc);
-	        FileUtil.delete(doc);
-        } catch (Exception e) {
-        	ErrorManager.agregaMensajeError(this, e);
-        	return index();
-        }
-			
+				@SuppressWarnings("deprecation")
+				String rutaSrc = request.getRealPath("/") + "/resources/JasperReport/";
+				@SuppressWarnings("deprecation")
+				String rutaTarget = request.getRealPath("/") + "/resources/JasperReport/";
+				
+				if(extension.equals("pdf")) {
+					filename = this.model.getNombre().replace(' ', '_') + "." + extension;
+					type = "application/pdf";
+				} else if(extension.equals("docx")) {
+					filename = this.model.getNombre().replace(' ', '_') + "." + extension;
+					type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+				} else {
+					filename = this.model.getNombre().replace(' ', '_') + ".pdf";
+					type = "application/pdf";
+				}
+				try {
+					String cadenaModulos = "";
+					if(!jsonCasoUsoTabla.equals("")) {
+						for(String casoUsoString : jsonCasoUsoTabla.split(",")) {
+							CasoUso casoUsoItem = casoUsoBs.consultarCasoUso(Integer.parseInt(casoUsoString));
+							if(!cadenaModulos.contains(casoUsoItem.getModulo().getId().toString())) {
+								cadenaModulos += casoUsoItem.getModulo().getId()+",";
+							}
+						}
+						if(cadenaModulos.length() > 0) {
+							cadenaModulos = cadenaModulos.substring(0,cadenaModulos.length() - 1);
+						}
+						reportUtil.crearReporteByCasosUso(extension, filename, model.getId(), rutaSrc, rutaTarget, tokenBs, casoUsoBs, jsonCasoUsoTabla, cadenaModulos);
+				        File doc = new File(rutaTarget + filename);
+				        this.fileInputStream = new FileInputStream(doc);
+				        FileUtil.delete(doc);
+					}else {
+						reportUtil.crearReporte(extension, filename, model.getId(), rutaSrc, rutaTarget, tokenBs, casoUsoBs);
+				        File doc = new File(rutaTarget + filename);
+				        this.fileInputStream = new FileInputStream(doc);
+				        FileUtil.delete(doc);
+					}
+		        } catch (Exception e) {
+		        	ErrorManager.agregaMensajeError(this, e);
+		        	return index();
+		        }
+		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "entrar", e);
+			ErrorManager.agregaMensajeError(this, e);
+		}
+		setLoadStatus("ocultar");
 	    return "documento";
 	}
 	
 	public String descargarDocumento() {
+		setLoadStatus("mostrar");
 		@SuppressWarnings("deprecation")
 		String rutaSrc = request.getRealPath("/") + "/resources/JasperReport/";
 		@SuppressWarnings("deprecation")
@@ -272,7 +307,7 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 	        	ErrorManager.agregaMensajeError(this, e);
 	        	return index();
 	        }
-			
+		setLoadStatus("ocultar");
 	    return "documento";
 	}
 
@@ -372,5 +407,21 @@ public class ProyectosAct extends ActionSupportTESSERACT implements ModelDriven<
 
 	public void setJsonCasoUsoTabla(String jsonCasoUsoTabla) {
 		this.jsonCasoUsoTabla = jsonCasoUsoTabla;
+	}
+
+	public String getLoadStatus() {
+		return loadStatus;
+	}
+
+	public void setLoadStatus(String loadStatus) {
+		this.loadStatus = loadStatus;
+	}
+
+	public String getJsonCasoUsoTablaW() {
+		return jsonCasoUsoTablaW;
+	}
+
+	public void setJsonCasoUsoTablaW(String jsonCasoUsoTablaW) {
+		this.jsonCasoUsoTablaW = jsonCasoUsoTablaW;
 	}
 }

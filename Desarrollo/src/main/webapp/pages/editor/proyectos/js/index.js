@@ -1,7 +1,8 @@
+var intervalStatus;
+
 $(document).ready(function() {
 	$('#gestion').DataTable();
 	contextPath = $("#rutaContexto").val();
-	ocultarMensajeCargando();
 } );
 
 function confirmarEliminacion(urlEliminar) {
@@ -67,6 +68,7 @@ function cerrarMensajeReferencias() {
 function descargarPDF(idElemento, tipoExtension) {
 	mostrarMensajeCargando();
 	var rutadescargarPDF = contextPath + '/proyectos!descargarDocumento';
+	
 	$.ajax({
 		dataType : 'json',
 		url : rutadescargarPDF,
@@ -77,6 +79,7 @@ function descargarPDF(idElemento, tipoExtension) {
 		},
 		success : function(data) {
 			ocultarMensajeCargando();
+			clearInterval(intervalStatus);
 			return data;
 		},
 		error : function(err) {
@@ -90,8 +93,28 @@ function descargarPDF(idElemento, tipoExtension) {
 
 function mostrarMensajeCargando() {
 	$("#modal").css("display", "block");
+	intervalStatus = setInterval(function() {verificarLoadStatus(); }, 1000);
 }
 
 function ocultarMensajeCargando() {
 	$("#modal").css("display", "");
+}
+
+function verificarLoadStatus(){
+	var rutadescargarPDF = contextPath + '/proyectos!verificarLoadStatus';
+	$.ajax({
+		url : rutadescargarPDF,
+		type: "POST",
+		data : {
+		},
+		success: function(data){
+			if(data == "ocultar"){
+				ocultarMensajeCargando();
+				clearInterval(intervalStatus);
+			}
+	    },
+		error : function(err) {
+			console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
+		}
+	});
 }
