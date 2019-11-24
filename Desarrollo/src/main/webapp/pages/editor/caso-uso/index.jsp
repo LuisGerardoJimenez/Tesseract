@@ -88,7 +88,7 @@
 								</s:a>
 								${blanks}
 							</s:if>				
-							<s:if test="%{#cu.estadoElemento.id == 2}">	
+							<s:if test="%{#cu.estadoElemento.id == 2 and #session.rol == 1}">	
 								<!-- Revisar caso de uso -->			
 								<s:url var="urlRevisar" value="%{#pageContext.request.contextPath}/caso-uso!prepararRevision?idSel=%{#cu.id}" method="post"/>
 								<s:a href="%{urlRevisar}">
