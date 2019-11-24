@@ -71,4 +71,42 @@ public class ReportUtil {
 		}
 	}
 	
+	public void crearReporteByCasosUso(String formato, String nombre, Integer idProyecto, String rutaJasper, String rutaTarget, TokenBs tokenBs, CasoUsoBs casoUsoBs, String casosUso, String cadenaModulos) throws JRException, SQLException {
+		try {
+			String extension = "";
+			
+			@SuppressWarnings("deprecation")
+			JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(rutaTarget + "tesseractCasosUso.jasper");
+			
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("idProyecto", idProyecto);
+			param.put("p_contextPath", rutaTarget);
+			param.put("SUBREPORT_DIR", rutaTarget + "subreports/");
+			param.put("tokenBs", tokenBs);
+			param.put("casoUsoBs", casoUsoBs);
+			param.put("casosUsoSel", casosUso);
+			param.put("cadenaModulos", cadenaModulos);
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, param, DataSourceUtils.getConnection(dataSource));
+			
+			JRExporter exporter = null;
+			
+			if(formato.equals("pdf")) {
+				extension = "pdf";
+				exporter = new JRPdfExporter();
+			} else if(formato.equals("docx")) {
+				extension = "docx";
+				exporter = new JRDocxExporter();
+			}
+			
+			
+			//Configuración genérica (no importa del formato)
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT,jasperPrint); 
+			exporter.setParameter(JRExporterParameter.OUTPUT_FILE,new java.io.File(rutaTarget + nombre));
+			exporter.exportReport();
+		} catch (Exception e) {
+			TESSERACT_LOGGER.error(this.getClass().getName() + ": " + "crearReporte", e);
+		}
+	}
+	
 }

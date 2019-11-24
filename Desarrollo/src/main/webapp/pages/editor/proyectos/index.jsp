@@ -89,6 +89,14 @@
 										<img id="" class="button" title="DOCX"
 											src="${pageContext.request.contextPath}/resources/images/icons/docx.svg" alt="docx"/>									
 								</s:a>
+								<!-- Descargar pdf selectivo -->
+								${blanks}
+								<s:url var="urlEntrar"
+										value="%{#pageContext.request.contextPath}/proyectos!descargarPDFSegmento?idSel=%{#proyecto.id}" />
+								<s:a href="%{urlEntrar}">
+										<img id="" class="button" title="Descargar documento por casos de uso"
+											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg" alt="Entrar al Proyecto"/>										
+								</s:a> 
 							</td>
 						</tr>
 					</s:iterator>
