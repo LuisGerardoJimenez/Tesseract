@@ -44,9 +44,12 @@
 	<br />
 	<br />
 	<div align="center">
+		<s:label value="Descargar Documento" />
+		<br /><br />
 		<s:submit type="image" src="/Tesseract/resources/images/icons/pdf.svg" value="Generar Documento (PDF)" onclick="selTipo('pdf')" style="width: 50px;"/>
 		<s:submit type="image" src="/Tesseract/resources/images/icons/docx.svg" value="Generar Documento (WORD)" onclick="selTipo('docx')" style="width: 50px;"/>
 		${blanks}
+		<br /><br />
 		<s:url var="urlProyectos"
 				value="%{#pageContext.request.contextPath}/proyectos">
 		</s:url>

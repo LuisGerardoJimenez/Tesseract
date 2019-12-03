@@ -96,7 +96,7 @@
 										value="%{#pageContext.request.contextPath}/proyectos!descargarPDFSegmento?idSel=%{#proyecto.id}" />
 								<s:a href="%{urlEntrar}">
 										<img id="" class="button" title="Descargar documento por casos de uso"
-											src="${pageContext.request.contextPath}/resources/images/icons/pdf.svg" alt="Entrar al Proyecto"/>										
+											src="${pageContext.request.contextPath}/resources/images/icons/UC3.svg" alt="Entrar al Proyecto"/>										
 								</s:a> 
 							</td>
 						</tr>
